@@ -1,0 +1,586 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Formation à l’utilisation de TEI pour l’édition critique de manuscrits (École
+               nationale des chartes, mars 2011)</title>
+            <title type="sub">Introduction à XSLT</title>
+            <author>Florence Clavaud (École nationale des chartes)</author>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+               <date when="2011-03">mars 2011</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+            <publisher>
+               <orgName>École nationale des chartes</orgName>
+               <address>
+                        <addrLine>19 rue de la Sorbonne</addrLine>
+                        <addrLine>75005 Paris</addrLine>
+                    </address>
+            </publisher>
+            <availability>
+               <p>Ce texte est mis à disposition de tous selon les termes de la licence Creative
+                  Commons « Paternité - Pas d’Utilisation Commerciale - Pas de Modification ; 2.0
+                  France ». Cette licence est disponible <ref
+                     target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en ligne</ref> ou
+                  par courrier postal à Creative Commons, 171 Second Street, Suite 300, San
+                  Francisco, California 94105, USA.</p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>La source est un support de cours donné aux étudiants du Master 2 de l'Ecole des
+               chartes, converti en TEI et adapté.</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Support de cours préparé pour le stage de formation continue à TEI, organisé par
+               l’Ecole des chartes les 9-11 et 17-18 mars 2011.</p>
+         </projectDesc>
+      </encodingDesc>
+      <profileDesc>
+         <creation>Conversion du fichier OOffice initial grâce à OXGarage.</creation>
+      </profileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div rend="P38">
+            <head>Qu’est-ce que XSLT ?</head>
+            <p>On écrit « XSLT ». Cet acronyme signifie : <hi>Extensible Stylesheet Language
+                  Transformations.</hi>
+            </p>
+            <p>C’est un langage informatique dont les spécifications ont été publiées par le W3C en
+               novembre 1999, en même temps que celles du langage XPath (XML Path).</p>
+            <p>Voir &lt;<ref target="http://www.w3.org/TR/xslt">http://www.w3.org/TR/xslt</ref>&gt;,
+               et une traduction française sans valeur normative ici : &lt;<ref
+                  target="http://xmlfr.org/w3c/TR/xslt/"
+               >http://xmlfr.org/w3c/TR/xslt/</ref>&gt;.</p>
+            <p>Cahier des charges de ce langage : cf. les spécifications, et les documents de travail préalables
+               tels que &lt;<ref target="http://www.w3.org/TR/WD-XSLReq"
+                  >http://www.w3.org/TR/WD-XSLReq</ref>&gt; (<emph>XSL Requirements Summary : W3C
+                  Working Draft 11-May-1998</emph> (écrit par Norman Walsh)).</p>
+            <p>Il fallait un langage pour transformer des documents XML, ayant les qualités suivantes :<list>
+                  <item>écrit en XML ;</item>
+                  <item>capable de générer autre chose à partir d’un document source ;</item>
+                  <item>permettant de réutiliser certaines instructions (comme des macros) ;</item>
+                  <item>pas de sens dans l’écriture ;</item>
+                  <item>extensible.</item>
+               </list></p>
+            <p>Cela donne un langage déclaratif basé sur des instructions (on dit des règles) non
+               ordonnées, comme CSS, mais dont les fonctionnalités sont beaucoup plus puissantes. Il
+               y est spécifié une sortie à produire à partir d’un segment du fichier XML, si ce
+               segment existe dans le document fourni en entrée et répond à certains critères.</p><p> On
+               dit aussi de XSLT qu’il n’induit pas d’effets de bord (pas de modifications sur
+               l’environnement ou le document source).</p>
+            <p>Aujourd’hui il existe (depuis 2007) une version 2.0 de XSLT, et Xpath 2.0 a également
+               été publié.</p>
+         </div>
+         <div rend="P40">
+            <head>Utilisation de XSLT</head>
+            <p>Dès que du XML existe et doit être transformé, XSLT est la technologie majeure. Deux
+               situations dans lesquelles XSLT est utilisé :</p>
+            <list type="unordered">
+               <item>pour la conversion d’informations structurées en XML conformément à un modèle A
+                  en informations structurées en XML conformément à un modèle B (ex. EAD ou TEI vers
+                  Dublin Core, format propriétaire vers TEI). Le but est alors de permettre
+                  l’échange d’informations entre applications utilisant des modèles de données
+                  différents (assurer l’interopérabilité) ;</item>
+               <item>pour la publication de documents XML, i.e. production de divers formats de
+                  sortie. Cas d’utilisation principal : génération de pages Web, en (X)HTML ; peut
+                  aussi être génération de fichiers texte, etc. Cf. le langage XSL-FO, qui est de la
+                  même famille, et qui permet de générer du PDF à partir de documents XML.</item>
+            </list>
+            <p>En gros, on peut distinguer deux scénarios d’implémentation, deux manières de
+               faire :</p>
+            <list type="unordered">
+               <item>utiliser XSLT statiquement, c’est-à-dire une fois pour toutes, par ex. pour
+                  passer d’un modèle documentaire à un autre et laisser de côté les documents
+                  conformes au premier modèle, ou pour produire des pages HTML que l’on va
+                  simplement déposer sur un serveur pour les rendre consultables. Un exemple : ce
+                  site Web : <lb/>&lt;<ref
+                     target="http://www.enc.sorbonne.fr/tmp/pierre-christofle/index.html"
+                     >http://www.enc.sorbonne.fr/tmp/pierre-christofle/index.html</ref>&gt;, ou
+                  encore, les TP qu’on va faire pendant le cours ;</item>
+               <item>utiliser XSLT dans un environnement Web dynamique, pour faire dialoguer autant
+                  que nécessaire des applications, ou pour générer sur demande de l’utilisateur des
+                  pages Web. Exemples : échange d’informations entre un entrepôt et un moissonneur
+                  OAI-PMH ; ou encore, côté serveur, le site Web des lettres de Vincent Van Gogh
+                     (&lt;<ref target="http://vangoghletters.org/vg/"
+                     >http://vangoghletters.org/vg/</ref>&gt;), le site Web Theleme, le <ref target="http://saint-denis.enc.sorbonne.fr">site Web des
+                  chartes de Saint-Denis</ref>, etc. Ou, beaucoup plus simple, du côté client, un
+                  navigateur Web : s’il n’est pas trop ancien, il est capable de transformer du XML
+                  en une page HTML.</item>
+            </list>
+            <p>
+               <!--      <hi> Exercice</hi> : transformation par défaut appliquée par le processeur XSLT d’un navigateur Web : afficher un document XML directement dans un navigateur</p>--></p>
+            <p>Dans tous les cas, pour que ça marche, il faut donc : </p>
+            <list type="unordered">
+               <item>un (ou plusieurs) documents XML <hi>bien formés</hi> (et leur modèle associé
+                  s’il y en a un ; dans ce cas les documents XML doivent normalement être valides)
+                  ;</item>
+               <item>un programme XSLT ;</item>
+               <item>un processeur XSLT (un logiciel qui sait lire le programme XSLT et le document
+                  XML et qui opère la transformation demandée en suivant les instructions du
+                  programme)).</item>
+            </list>
+            <p>Il existe de nombreux processeurs, y compris libres, pour XSLT
+               1.0. Citons Xalan (&lt;<ref target="http://xml.apache.org/xalan-j/"
+                  >http://xml.apache.org/xalan-j/</ref>&gt;), Saxon (&lt;<ref
+                  target="http://saxon.sourceforge.net/">http://saxon.sourceforge.net/</ref>&gt;),
+               libxslt (&lt;<ref target="http://xmlsoft.org/XSLT/"
+               >http://xmlsoft.org/XSLT/</ref>&gt;). On y reviendra. Dans l’immédiat pour les TP on
+               va surtout utiliser le logiciel oXygen qui intègre divers processeurs XSLT (on peut y
+               configurer des scénarios de transformation).</p>
+         </div>
+         <div rend="Heading_20_2">
+            <head>Quelques éléments de bibliographie</head>
+            <list>
+               <head>Les spécifications W3C</head>
+               <item>pour XSLT 1.0 :<list>
+                     <item>&lt;<ref target="http://www.w3.org/TR/xslt"
+                           >http://www.w3.org/TR/xslt</ref>&gt;</item>
+                     <item>une traduction française (sans valeur normative) : &lt;<ref
+                           target="http://xmlfr.org/w3c/TR/xslt/"
+                           >http://xmlfr.org/w3c/TR/xslt/</ref>&gt;</item>
+                  </list>
+               </item>
+               <item>pour XPath 1.0 :<list>
+                     <item>&lt;<ref target="http://www.w3.org/TR/xpath"
+                           >http://www.w3.org/TR/xpath</ref>&gt; ;</item>
+                     <item>une traduction française (sans valeur normative) : &lt;<ref
+                           target="http://xmlfr.org/w3c/TR/xpath/"
+                           >http://xmlfr.org/w3c/TR/xpath/</ref>&gt;</item>
+                  </list></item>
+            </list>
+            <list>
+               <head>Pour comprendre l’histoire de XSLT et son « cahier des charges »</head>
+               <item><bibl><title>XSL Requirements Summary : W3C Working Draft 11-May-1998</title>,
+                     par <author>Norman Walsh</author> (&lt;<ref
+                        target="http://www.w3.org/TR/WD-XSLReq"
+                     >http://www.w3.org/TR/WD-XSLReq</ref>&gt;)</bibl>
+               </item>
+            </list>
+            <list>
+               <head>Manuels</head>
+               <item>Un manuel clair en français pour bien démarrer : <bibl xml:id="amannRigaud"
+                        ><title>Comprendre XSLT</title> [Texte imprimé] / <author>Bernd
+                        Amann</author> et <author>Philippe Rigaux</author>. - Cambridge ; Cologne ;
+                     Paris [etc] : O’Reilly, <date>2002</date> (05-Gap : Impr. Louis-Jean). - IX-517
+                     p. : ill., couv. ill. ; 24 cm. - Index. - ISBN 2-84177-148-2
+                  (br.).</bibl></item>
+               <item>La référence du développeur : <bibl xml:id="kay"><title>XSLT : la référence du
+                        programmeur</title> / <author>Michael Kay</author> ; trad. de l’anglais, 2e
+                     éd., par Dominique Poupon, Ingrid Pigueron, Henri-Daniel Mrozek... [et al.]. -
+                     Paris : Wrox press : Pearson education France : diff. CampusPress, <date>2001
+                     </date>(63-Marsat : Impr. la Source d’or). - XXVI-806 p. : ill., couv. ill. ;
+                     23 cm. - Trad. de : XSLT programmer’s reference. -Index. Résumés. - ISBN
+                     2-7440-9004-2 (br.)</bibl></item>
+            </list>
+            <list>
+               <head>Tutoriels</head>
+               <item>Un tutoriel parmi beaucoup d'autres : <bibl>&lt;<ref
+                        target="http://www.zvon.org/xxl/XSLTreference/Output/index.html"
+                        >http://www.zvon.org/xxl/XSLTreference/Output/index.html</ref>&gt;</bibl></item>
+            </list>
+         </div>
+         <div rend="P39">
+            <head>Concepts de base à connaître pour bien comprendre</head>
+            <div rend="Heading_20_2">
+               <head>Comment est opérée une transformation XSLT ?</head>
+               <p>En gros, le processus peut être décrit de la manière suivante : <list
+                     type="unordered">
+                     <item>parsing du document source (le document à transformer), et création en mémoire d’une représentation
+                        arborescente de celui-ci ;</item>
+                     <item>recherche, dans le programme XSLT, d’une règle s’appliquant à la racine
+                        du document XML, exécution de l’instruction et création d’un morceau de
+                        l’arbre résultat ;</item>
+                     <item>sauf si la règle retenue commande de sélectionner un autre nœud, retour à
+                        l’arbre source et parcours de cet arbre, du haut vers le bas, de gauche à
+                        droite, en cherchant à chaque fois une règle dédiée ; s’il y a plusieurs
+                        règles applicables pour un même nœud, certaines règles de priorité
+                        s’appliquent ; s’il n’y a pas de règle applicable pour un nœud à traiter,
+                        alors le processeur applique les instructions par défaut (voir plus bas)
+                        ;</item>
+                     <item>à la fin du processus, sérialisation de l’arbre résultat pour produire en
+                        sortie un flux textuel, selon les instructions spécifiées en tête de
+                        programme (en HTML, en XML, par ex.).</item>
+                  </list>
+               </p>
+               <p>Il est donc important de comprendre la notion d’arbre, qui se fonde sur un modèle
+                  abstrait, et qui s’applique donc à la fois au document XML à transformer et au
+                  produit de la transformation. L’avantage de l’arbre est qu’il permet de décrire de
+                  façon non ambigüe la structure et le contenu d’un document. Ce modèle abstrait est
+                  proche de celui utilisé dans le modèle DOM (Document Object Model) également
+                  utilisé en XHTML et Javascript.</p>
+            </div>
+            <div rend="Heading_20_2">
+               <head>Arbre XML</head>
+               <p>Un document XML est, dans sa représentation arborescente, un arbre constitué de
+                  nœuds de différents types. On distingue dans un arbre XML 7 types de nœuds
+                  différents : <list type="unordered">
+                     <item>le nœud racine (ou nœud Document) ; attention, ce n’est pas un élément !
+                        Donc ne pas le confondre avec l’élément racine !!</item>
+                     <item>les éléments (Element) (ils ont un nom)</item>
+                     <item>les attributs (Attribute) (ont un nom et une valeur)</item>
+                     <item>le texte ou les valeurs textuelles et sections littérales (Text) (ont une
+                        valeur)</item>
+                     <item>les commentaires (Comment) (ont pour valeur le texte du
+                        commentaire)</item>
+                     <item>les instructions de traitement (ProcessingInstruction) (ont pour nom le
+                        programme cible, pour valeur des arguments)</item>
+                     <item>les espaces de noms (Namespace) (désignés par un préfixe, ont pour valeur
+                        une uri)</item>
+                  </list>
+               </p>
+               <p>Seuls les nœuds de type Document et Element peuvent avoir des nœuds fils. Les
+                  éléments, nœuds textuels, commentaires, instructions de traitement sont les
+                  enfants de leur nœud parent. Les attributs et espaces de noms ont un nœud parent
+                  (un élément) mais ne sont pas considérés comme les enfants de ce nœud.</p>
+               <!-- <p>
+                  <hi></hi>
+                  <hi> </hi>
+                  <hi>Exercice</hi> : dessiner sur le papier l’arbre du petit document XML relatif à JM Dupont, et y noter l’ordre de parcours des nœuds pour un processeur</p>-->
+            </div>
+            <div rend="Heading_20_2">
+               <head>Sélection des nœuds dans un arbre : le langage XPath</head>
+               <p>XSLT utilise beaucoup le langage XPath, en fait chaque fois qu’il s’agit de
+                  définir un motif (un nœud ou un ensemble de nœuds XML répondant à certains
+                  critères) auquel appliquer une règle de transformation, ou encore chaque fois
+                  qu’il s’agit de traiter un nœud/ensemble de nœuds.</p>
+               <p>On verra que, bien maîtrisé, <hi rend="bold">le langage XPath peut à lui seul
+                     aider à l’exploration, à l’analyse, à la vérification d’un document XML
+                     complexe</hi>. </p>
+               <div>
+                  <head>Axes, filtres, prédicats, opérations</head>
+                  <p>En quelques mots, une expression XPath décompose en étapes successives le
+                     processus de sélection d’un nœud ou d’un ensemble de nœuds, séparées les unes
+                     des autres par un slash. </p>
+                  <p>
+                     <graphic url="Etapes-XPath.jpg" width="300px"/></p>
+                  <p>Une étape de sélection combine un <hi rend="bold">axe</hi> (sens de parcours
+                     des nœuds), un <hi rend="bold">filtre</hi> (le type de nœuds retenu), et
+                     facultativement un <hi rend="bold">prédicat</hi> (propriété(s) que le nœud doit
+                     satisfaire). Une étape commence par la désignation de l’axe, puis on trouve la
+                     chaîne "::", puis les filtres (tests sur un nœud) et prédicats.</p>
+                  <p>Une étape est donc écrite conformément au formalisme suivant : <graphic
+                        url="Axes-filtres-predicats-XPath.jpg" width="300px"/>
+                  </p>
+                  <p>Des explications détaillées et illustrées, et un exercice complet, figurent
+                     dans <ref target="#amannRigaud">Amann et Rigaud</ref>, p. 87-124
+                     ; la liste des axes et leur emploi sont
+                     également explicités de façon précise dans <ref target="#kay">Kay</ref>, p.
+                     399-403.</p>
+               </div>
+               <div>
+                  <head>Les différents axes XPath</head>
+                  <p>Les <hi rend="bold">axes</hi> sont au nombre de 13.</p>
+                  <table rend="frame" xml:id="Tableau1">
+                     <row>
+                        <cell>
+                           <hi rend="bold">Axe</hi>
+                        </cell>
+                        <cell>
+                           <hi rend="bold">Définition</hi>
+                        </cell>
+                     </row>
+                     <row>
+                        <cell>self</cell>
+                        <cell>le nœud de départ lui-même</cell>
+                     </row>
+                     <row>
+                        <cell>child</cell>
+                        <cell>les nœuds enfants du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>parent</cell>
+                        <cell>Le nœud père du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>descendant</cell>
+                        <cell>Les nœuds descendants du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>descendant-or-self</cell>
+                        <cell>Les nœuds descendants du nœud de départ, et le nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>ancestor</cell>
+                        <cell>Les nœuds ancêtres du nœud de départ, nœud racine inclus</cell>
+                     </row>
+                     <row>
+                        <cell>ancestor-or-self</cell>
+                        <cell>Les nœuds ancêtres du nœud de départ, nœud racine inclus, et le nœud
+                           de départ</cell>
+                     </row>
+                     <row>
+                        <cell>following</cell>
+                        <cell>les nœuds suivant le nœud de départ dans l’ordre de parcours du
+                           document, à l’exception des nœuds descendant du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>following-sibling</cell>
+                        <cell>tous les frères droits du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>preceding</cell>
+                        <cell>les nœuds précédant le nœud de départ dans l’ordre de parcours du
+                           document, à l’exception des ancêtres du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>preceding-sibling</cell>
+                        <cell>tous les frères gauches du nœud de départ</cell>
+                     </row>
+                     <row>
+                        <cell>attribute</cell>
+                        <cell>tous les nœuds attributs (si le nœud de départ est un élément)</cell>
+                     </row>
+                     <row>
+                        <cell>namespace</cell>
+                        <cell>les espaces de noms (si le nœud de départ est un élément)</cell>
+                     </row>
+                  </table>
+                  <p>De manière générale la notation d’un axe peut être complète ou abrégée.</p>
+                  <p>L’axe enfant (nœud fils du nœud contextuel, axe désigné par la chaîne "child")
+                     est l’axe par défaut et sa désignation peut donc être omise (on peut ne pas
+                     écrire "child::").</p>
+                  <p>Donc :</p>
+                  <p><egXML xmlns="http://www.tei-c.org/ns/Examples"
+                        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <xsl:value-of select="persname"/>
+                  </egXML> est équivalent à : 
+                     <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"
+                        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:value-of select="child::persname"/>
+                     </egXML>
+                  </p>
+                  <p>Une notation à bien retenir : l’expression <code>/</code> seule désigne le nœud
+                     document.</p>
+                  
+                  <p>S’il n’y a pas de slash au début d’une expression XPath,
+                     cela signifie qu’on part du nœud préalablement sélectionné ; le chemin XPath
+                     est relatif à ce nœud, qui est appelé nœud courant. Le noeud courant est  désigné par le 
+                     caractère <code>.</code></p>
+                  <p>L’étape par défaut est <code>descendant-or-self::node()</code> ; donc l’expression <code>//</code>
+                     est équivalente à <code>/descendant-or-self::node()/</code>.</p>
+                  <p>L’expression <code>.</code> est équivalente à <code>self::node()</code> (le nœud sur lequel on se
+                     situe lui-même). L’expression <code>..</code> est équivalente à <code>parent::node()</code> (le nœud
+                     parent du nœud dont on part).</p>
+               </div>
+               <div>
+                  <head>Les filtres XPath</head>
+                  <p>Les <hi rend="bold">filtres</hi> ou points de localisation XPath permettent de sélectionner un
+                     type de nœud dans l’ensemble de nœuds défini par l’axe. Bien retenir les
+                     notations suivantes :
+                  <list type="unordered">
+                     <item><code>*</code> : tous les nœuds de type élément ;</item>
+                     <item><code>@*</code> : tous les nœuds de type attribut ;</item>
+                     <item><code>node(</code>) : tous les nœuds sauf les attributs ;</item>
+                     <item>pour les éléments et les attributs : le filtrage par nom.</item>
+                  </list>
+                     </p>
+                  <p>Exemples :</p>
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <!-- en partant du nœud document, on traite tous les nœuds de type élément qui sont fils  de eadheader-->
+                     <xsl:apply-templates select="/tei:TEI/tei:teiHeader/child::*"/>
+                     <!-- on traite tous les attributs de l’élément courant -->
+                        <xsl:apply-templates select="attribute::*"/>
+                        <!-- ou encore, équivalent : -->
+                     <xsl:apply-templates select="@*"/>
+                        <!-- on traite  tous les nœuds fils du nœud courant, sauf les attributs -->
+                        <xsl:apply-templates select="node()"/>
+                        <!-- filtrage par nom d’élément -->
+                        <xsl:apply-templates select="child::tei:fileDesc"/>
+                        <!-- filtrage par nom d’attribut -->
+                        <xsl:value-of select="child::tei:ref/@target"/>
+                  </egXML>
+               </div>
+               <div>
+                  <head>Les prédicats XPath</head>
+                  <p>Les <hi rend="bold">prédicats</hi> s’écrivent entre crochets, ce sont des expressions
+                     booléennes : si le prédicat est vrai pour un nœud donné, le nœud est
+                     sélectionné. Peuvent inclure des fonctions telles que le calcul de la position,
+                     un traitement de chaîne etc. </p>
+                  <p>XPath 1.0 permet en effet d’effectuer certaines opérations, des comparaisons de
+                     nombres et des manipulations de chaînes de caractères. XPath distingue dans le
+                     document XML ou comme type de sortie, pour ces opérations, les chaînes de
+                     caractères, les valeurs numériques, les booléens, les ensembles de nœuds.</p>
+                  <p>Voici qques-unes des fonctions parmi les plus utilisées dans le contexte d’un
+                     programme XSLT :
+                  <list type="unordered">
+                     <item>fonctions sur des ensembles de nœuds : position(), last(),
+                        document()</item>
+                     <item>booléennes : false(), true(), not(arg) </item>
+                     <item>numériques : number(arg), count(node-set), sum(node-set)...</item>
+                     <item>de manipulation de chaînes : starts-with(), string-length(), substring(),
+                        substring-before(), substring-after(), translate(), concat(),
+                        contains()</item>
+                  </list>
+                     </p>
+                  <p>Les opérateurs = , !=, &lt;, &gt;, &lt;= et &gt;= peuvent être utilisés pour
+                     les types numériques, chaînes et booléens. On dispose aussi des connecteurs
+                     logiques and et or.</p>
+                  <!-- <p>
+                     <hi></hi>
+                     <hi> </hi>
+                     <hi>Exercices</hi> : écrire des expressions XPath répondant aux besoins
+                     exprimés dans le fichier ExercicesXpath.txt, les tester avec oXygen.</p>-->
+                  
+               </div>
+               <div>
+                  <head>Petit exercice...</head>
+                  <p>On va faire un petit TP XPath, pour bien comprendre tout cela.</p>
+                  </div>
+            </div>
+         </div>
+         <div rend="Heading_20_1">
+           <head>Encore quelques généralités sur XSLT</head>
+           <!--  <head>3. C’est parti pour un peu de programmation XSLT !</head>
+            <p>Plusieurs XSLT seront fournies pour le cours. Elles sont toutes commentées et
+               permettront de voir successivement pas mal de choses. Elles sont toutes destinées à
+               être utilisées avec le document EAD relatif au fonds Dampierre. Le but sera de
+               produire, à partir de ce document EAD, une page HTML pertinente, et au passage, de
+               découvrir l’essentiel de la syntaxe et des fonctionnalités de XSLT 1.</p>
+            <p>A partir de maintenant, on va dire "une XSLT" pour "une feuille de style", ou mieux
+               un "programme XSLT".</p>-->
+            <div rend="Heading_20_2">
+               <head>Structure d’un programme XSLT</head>
+               <p>Un programme XSLT est un fichier XML.</p>
+               <p>L’élément racine est <gi>xsl:stylesheet</gi>, qui a deux attributs obligatoires, <att>version</att>
+                  (pour spécifier quelle version du langage XSLT on utilise) et <att>xmlns</att> (pour déclarer
+                  l’espace de noms XSL).</p>
+               <p>Un des éléments de haut niveau dans un programme XSLT est <gi>xsl:output</gi>, qui spécifie
+                  quel est le format de sortie.</p>
+               <p>Exemple :</p>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                     version="1.0"
+                     xmlns="http://www.w3.org/1999/xhtml"
+                     xmlns:tei="http://www.tei-c.org/ns/1.0"
+                     exclude-result-prefixes="tei">
+                     <!-- ci-dessus les 3 derniers attributs concernent
+                        l’espace de noms du document à produire
+                        et l’espace de noms du document XML à transformer -->
+                        <!-- xsl:output : ici, pour demander la sortie
+                           d’un fichier XML conforme à une des DTD HTML, soit un fichier XHTML -->
+                        <xsl:output
+                           indent="yes"
+                           method="xml"
+                           encoding="UTF-8"
+                           doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                           doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+                        <!-- Etc. [d’autres éléments XSLT]-->
+                  </xsl:stylesheet>
+               </egXML>
+               
+            </div>
+            <div rend="Heading_20_2">
+               <head>XSLT : une affaire de règles</head>
+               <p>Les instructions de transformation XSLT sont englobées dans des éléments
+                  <gi>xsl:template</gi> (des <hi rend="bold">règles</hi>). Chaque règle a obligatoirement, soit un attribut <att>match</att>
+                  (cas le plus fréquent : c’est la valeur de cet attribut qui définit le motif ou
+                  pattern auquel un nœud XML doit répondre pour que la transformation soit
+                  réalisée), soit un attribut <att>name</att> (cas de la règle nommée : elle peut être
+                  réutilisée, comme une macro, puisqu’on peut la désigner par ce nom).</p>
+               <p>De manière générale, l’ordre d’écriture des règles importe peu, puisque le
+                  processeur parcourt l’arbre XML du document à transformer et cherche à quel motif
+                  le nœud trouvé correspond.</p>
+               <p>Attention de ne pas écrire plusieurs règles s’appliquant au même nœud... Certains
+                  processeurs vont signaler une erreur, voire s’arrêter.</p>
+            </div>
+            <div rend="Heading_20_2">
+               <head>Corps des règles</head>
+               <p>Dans une règle <gi>xsl:template</gi>, on trouve les instructions à appliquer aux nœuds
+                  conformes au motif indiqué dans l’attribut match.</p>
+               <p>Ces instructions sont exprimées à l’aide d’éléments XML définis dans le langage
+                  XSLT. On a déjà eu l’occasion de voir deux des plus couramment utilisés,
+                  <gi>xsl:value-of</gi> et <gi>xsl:apply:templates</gi>.</p>
+               <p>Mentionnons : <list>
+                  <item><gi>xsl:element</gi> : génération d’un élément ;</item>
+                  <item><gi>xsl:attribute</gi> : génération d’un attribut ;</item>
+                  <item><gi>xsl:text</gi> : génération d’une chaîne de caractères ;</item>
+                  <item><gi>xsl:if</gi> : test sur une condition, et exécution des instructions si le test est
+                  vérifié</item>
+                  <item><gi>xsl:for-each</gi> : exécution d’instructions en bouclant sur chacun des
+                     nœuds désignés par l’attribut <att>select</att></item>
+                  <item><gi>xsl:choose</gi> : exécution d’une série de
+                     tests, pour le premier vérifié exécution de l’instruction qui lui est
+                     associée ;<lb/></item>
+                  <item><gi>xsl:copy</gi> : copie du nœud courant ;</item>
+                  <item><gi>xsl:sort</gi> : tri de
+                  l’ensemble de nœuds sélectionnés par xsl:for-each ou xsl:apply-templates ;</item>
+                  <item><gi>xsl:variable</gi> : déclaration d’une variable ;</item>
+                  <item><gi>xsl:param</gi> : déclaration de
+                  paramètre ;</item>
+                  <item>...</item>
+               </list></p>
+               
+            </div>
+            <div rend="Heading_20_2">
+               <head>Règles (modèles) internes (ou règles par défaut)</head>
+               <p>Si le processeur, en parcourant le document XML selon le chemin indiqué, trouve un
+                  nœud qui ne correspond à aucun motif ? eh bien il fait quand même quelque chose !
+                  il applique des instructions de transformation par défaut : <list><item>pour un nœud
+                     élément ou pour le nœud document : il passe aux nœuds enfants ;</item><item>pour un nœud
+                        texte : il sort la valeur textuelle ;</item><item>pour un nœud attribut : idem.</item></list></p>
+               <p>... et donc on a toujours besoin d’écrire ce genre de choses :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="famname"/>
+               </egXML>
+               parce que cela permet de ne pas traiter du tout le nœud désigné par le motif, ni
+                  son contenu quel qu’il soit.</p>
+              <!--  <list type="unordered">
+                  <head>
+                     <p>
+                        <hi></hi>
+                        <hi> </hi>
+                        <hi>Exercice</hi> : associer la XSLT Vide.xsl au document XML en utilisant
+                        oXygen pour écrire l’instruction de traitement suivante :</p>
+                     <p>&lt;?xml-stylesheet type="text/xsl" href="Vide.xsl"?&gt;</p>
+                     <p>Exécuter le programme et voir ce qui se passe.</p>
+                     <p>Tester la XSLT InstructionsParDefaut.xsl et comparer les 2 fichiers
+                        résultats. Changer le format de sortie.</p>
+                     <p>llustre trois aspects :</p>
+                  </head>
+               </list>
+               <list type="unordered">
+                  <item>comment on utilise oXygen pour faire une transformation XSLT ;</item>
+                  <item>ce qu’on trouve au minimum dans l’élément racine d’une XSLT (élément
+                     &lt;xsl:stylesheet&gt;)</item>
+                  <item>ce que fait un processeur quand il n’a pas d’instruction spécifique pour
+                     traiter un nœud dont il doit s’occuper</item>
+               </list>-->
+            </div>
+            <div rend="P40">
+               <head>Copie à l’identique</head>
+               <!-- <p>
+                  <hi></hi>
+                  <hi> </hi>
+                  <hi>Exercice</hi>
+                  <hi> : </hi>tester la XSLT Copie-identique.xsl</p>-->
+               <p>Il existe une règle magiques, qui permettent de copier tel quel un arbre XML. La voici : 
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <xsl:template match="node()  | @*">
+                        <xsl:copy>
+                           <xsl:apply-templates select="node() | @*"/>
+                        </xsl:copy>
+                     </xsl:template>
+                  </egXML>
+               </p>
+               <p>C'est très utile quand on démarre un travail d’écriture de
+                  programme et qu’on n’a pas écrit toutes les instructions, ou encore, dans le cas
+                  où on voudrait agir précisément sur certains nœuds, ou en ajouter, tout en gardant
+                  l’essentiel du document XML initial.</p>
+            </div>
+            
+         </div>
+         <div><head>Un premier exercice XSLT</head>
+         <p>Le TP va nous permettre d'apprendre à utiliser oXygen pour exécuter une XSLT et de voir XSLT en action.</p></div>
+      </body>
+   </text>
+</TEI>

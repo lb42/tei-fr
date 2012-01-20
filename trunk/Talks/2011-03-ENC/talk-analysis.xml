@@ -1,0 +1,966 @@
+<?xml version="1.0"?>
+<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>L'oral, et l'analyse linguistique</title>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>January 2010</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative
+            Commons Attribution license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: $.</date>
+        <name>$LastChangedBy: jamesc $</name>
+        <note>$LastChangedRevision: $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+<div>
+  <head>L'oral</head><p>
+Dans un texte oral on peut reconnaitre :
+  <list><item>des énoncés (utterances)</item>
+  <item>des pauses</item>
+  <item>des phénomenes vocalisés mais pas lexicalisés, par exemple des
+  tousses, des quasi-mots comme "hein", "uh" etc.  </item>
+  <item>des phénomenes <term>kinésique</term> (non-vocalisés,
+  non-lexicals, mais communicatifs) notamment les gestes</item>
+  <item>des évenements entièrement non-linguistiques, mais ayant un
+  effet sur le discours, par exemple un camion qui passe etc. </item>
+  <item>des évenements écrits, et donc transcribable, par exemples des
+  titres ou des diapos affichés pendant une communication</item>
+  <item>des changements en qualité de voix, par exemple de volume</item></list></p>
+<p>Un sous-ensemble des phénomenes de discours qui sont d' utilité lexical</p>
+</div>
+
+
+
+      <div rend="slide">
+        <head>En sommaire... </head>
+        <figure>
+          <graphic url="../Graphics/SpeechDiagram.png"/>
+        </figure>
+      </div>
+
+      <div>
+        <head>Propositions du module <ident>spoken</ident> </head>
+        <list type="gloss">
+          <label>Des éléments supplementaire dans l'entête </label>
+          <item><gi>broadcast</gi>, <gi>equipment</gi>,
+
+            <gi>recording</gi>, <gi>recordingStmt</gi>,
+            <gi>scriptStmt</gi></item>
+<label>Des éléments pour transcription de l'oral</label>
+<item>            <gi>incident</gi>, <gi>kinesic</gi>, <gi>pause</gi>,<gi>shift</gi>, <gi>u</gi>,
+            <gi>vocal</gi>, <gi>writing</gi></item>
+          <label>Des attributs supplémentaires</label>
+          <item><att>dur</att> <att>start</att> <att>end</att>
+	  <att>sync</att> etc. </item>
+        </list>
+      </div>
+
+
+<div><head>Par exemple...</head>
+
+          <egXML xmlns="http://www.tei-c.org/ns/Examples"><u
+							      who="#Jan">mmm deliceux</u>
+<incident><desc>telephone sonne</desc></incident>
+<u who="#Kim">jy vais</u> 
+<u who="#Tom">ya longtemps  <vocal><desc>tousse</desc></vocal> jne
+fume plus</u>
+<u who="#Bob"><vocal><desc>sniffs</desc></vocal>il se croit dur</u>
+<vocal who="#Ann"><desc>grognement</desc></vocal>
+<u who="#Tom">oueh 
+<kinesic><desc>fait un geste avec le doit</desc></kinesic></u>
+<u who="#Bob">donc jaurai du <vocal
+who="#Ann"><desc>faisant tss-tss</desc></vocal> faire quoi</u></egXML>
+</div>
+
+
+
+      <div>
+        <head>Le concept d' "énoncé" </head>
+        <list>
+          <item>un séquence de discours d'un seul locuteur </item>
+          <item>peut être regroupé dans des séquences <gi>div</gi></item>
+          <item>peut être fragmenté dans des segments  <gi>seg</gi> ou
+              <gi>s</gi></item>
+          <item>L'attribut <att>who</att> sert à indiquer le locuteur</item>
+        </list>
+      </div>
+
+
+
+      <div>
+        <head>Example using other TEI éléments</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mar">you never <pause/> take this cat for 
+              show and tell
+              <pause/> meow meow</u>
+            <u who="#ros">yeah well I dont want to</u>
+            <incident><desc>toy cat has bell in tail which continues 
+              to make a tinkling sound</desc></incident>
+            <u who="#ros">because it is so old</u>
+            <u who="#mar">how <choice><orig>bout</orig>
+              <reg>about</reg></choice>
+              <emph>your</emph> cat <pause/>yours is  <emph>new</emph>
+              <kinesic><desc>shows Father the cat</desc></kinesic> </u>
+            <u trans="pause" who="#fat">thats <pause/> darling</u>
+            <u who="#mar">no <emph>mine</emph> isnt old
+              mine is just um a little dirty</u></egXML>
+        </p>
+
+      </div>
+
+      <div rend="slide">
+        <head> Changements de voix </head>
+        <list>
+          <item>Probleme de chevauchement classique! <list>
+              <item>on peut se servir de la balise <gi>shift</gi>
+	      comme <gi>milestone</gi> pour indiquer les frontieres...</item>
+              <item>... ou des  <gi>seg</gi> typés</item>
+            </list></item>
+          <item>applicable également au "code shifting" </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#LB">
+            <shift feature="loud" new="f"/>Elizabeth</u>
+          <u who="#EB">Yes</u>
+          <u who="#LB"><shift feature="loud"/>Come and try this <pause/>
+            <shift feature="loud" new="ff"/>come on
+            <shift feature="code" new="fr-mru"/> 'tin va!
+          </u>
+      <listPerson type="speakers">
+        <person xml:id="LB"/>
+        <person xml:id="EB"/>
+      </listPerson>
+        </egXML>
+
+
+      </div>
+
+      <div>
+        <head>Sample prosodic feature list</head>
+
+        <p>(based on Boase, Survey of English Usage, 1990) <table>
+            <row>
+              <cell>tempo</cell>
+              <cell> (fast, slow, getting faster, slower, etc.)</cell>
+            </row>
+            <row>
+              <cell>loud</cell>
+              <cell>loud, soft, getting louder, slower</cell>
+            </row>
+            <row>
+              <cell>pitch range</cell>
+              <cell>high, low, wide, narrow, ascending...</cell>
+            </row>
+            <row>
+              <cell>tension</cell>
+              <cell>slurred, tense, staccato, legato...</cell>
+            </row>
+            <row>
+              <cell>rhythm</cell>
+              <cell>regular, irregular, spiky rising or falling...</cell>
+            </row>
+            <row>
+              <cell>voice quality</cell>
+              <cell>whisper, husky, falsetto, giggle, sobbing, yawning,
+                sighing...</cell>
+            </row>
+          </table>
+        </p>
+
+        <p rend="box">Researchers need to define their own terms</p>
+
+      </div>
+
+
+
+<div>
+  <head><gi>shift/</gi> exemple</head>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <u who="#a">écoutez <shift new="reading"/>Matignon se declare
+    confiannt que les problemes financiers actuels seront
+    entierement maitrisés fin juin<shift/> mon cul</u>
+  </egXML>
+<p>Ou bien : 
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#a">écoutez 
+            <incident>
+              <desc>lit à haute voix du journal</desc>
+            </incident>mon cul</u>
+        </egXML>
+</p>      </div>
+      
+    
+
+      <div>
+        <head><gi>writing</gi> exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#a">regardez ceci</u>
+          <writing who="#a" type="newspaper" gradual="false"> 
+            Matignon se déclare
+    <soCalled>confident de maitriser</soCalled> les problemes financieres actuelles          </writing>
+          <u who="#a">mon cul!</u>
+        </egXML>
+      </div>
+
+
+      <div>
+        <head>Questions du Timing</head>
+        <list>
+          <item>pour les pauses :  <gi>pause</gi> élément</item>
+          <item>pour la durée :  <att>dur</att> attribute</item>
+          <item>synchronization :  <att>synch</att> attribute</item>
+          <item>chevauchement : <att>trans</att> attribute</item>
+        </list>
+      </div>
+
+
+
+      <div>
+        <head><gi>pause</gi> example</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u>Okay <pause dur="PT2M"/>U-m<pause dur="PT75S"/>la scene ouvre
+            <pause dur="PT50S"/> avec <pause dur="PT20S"/> um <pause
+	    dur="PT145S"/> on voit un arbre okay?</u>
+        </egXML>
+      </div>
+      
+
+
+      <div>
+        <head>Chevauchement</head>
+        <p>
+          <eg><![CDATA[Mutt: vous avez entendu l - -
+Jeff: les résultats?
+Mutt: quel désastre !
+Jeff: (en même temps) quel miracle!]]></eg>
+        </p>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mutt">vous avez entendu l</u>
+            <u trans="latching" who="#jeff">les résultats</u>
+            <u who="#mutt">quel désastre</u>
+            <u who="#jeff" trans="overlap">quel miracle </u>
+          </egXML>
+        </p>
+      </div>
+
+
+      
+
+
+      <div>
+        <head>Synchronization</head>
+        <p>
+
+
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mutt">vous avez entendu <anchor synch="#t1"/>l</u>
+            <u who="#jeff" synch="#t1">les résultats</u>
+            <u who="#mutt" synch="#t2">quel désastre</u>
+            <u who="#jeff" synch="#t2">quel miracle</u>
+            
+<!-- Elsewhere in Document -->            
+            
+            <timeline origin="#t1">
+              <when xml:id="t1" since="00001728281"/>
+              <when xml:id="t2" since="00001728302"/>
+            </timeline>
+            
+          </egXML>
+
+        </p>
+      </div>
+
+
+<div>
+  <head><gi>timeline</gi> example</head>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <timeline unit="s" origin="#TS-P1">
+      <when xml:id="TS-P1" absolute="12:20:01"/>
+      <when xml:id="TS-P2" interval="4:05" since="#TS-P1"/>
+      <when xml:id="TS-P6"/>
+      <when xml:id="TS-P3" interval="1:05" since="#TS-P6"/>
+    </timeline>
+    </egXML>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <u xml:id="TS-U1" start="#TS-P2" end="#TS-P3">This is my <anchor synch="#TS-P6" xml:id="TS-P6A"/> turn</u>
+  </egXML>
+  <p>Le debut de l'énoncé TS-U1 s'aligne avec le point temporel TS-P2,
+  id est 4.5 unités apres TS-P1, id est a 12:24:06. Sa fin est
+  synchronise avec le point temporel TS-P3. La  transition entre les
+  mots <q>my</q> et <q> turn</q> arrive a un moment synchronise avec
+  le point temporerel TS-P6.</p>
+</div>
+
+
+
+<!--      
+      
+      <div>
+        <head>Using éléments seen elsewhere</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u>
+            <del type="truncation">s</del>see
+            <del type="repetition">you you</del> you know
+            <del type="falseStart">it's</del> he's crazy
+          </u></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <gap reason="passing truck" extent="5" unit="s"/>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#P1">I proposed that <foreign xml:lang="de"> wir können <pause dur="PT1S"/> vielleicht </foreign> go to warsaw and <emph>vienna</emph> </u>
+        </egXML>
+        </div>
+    -->  
+      
+      <div rend="slide">
+        <head>Participant Description</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <particDesc>
+            <listPerson>
+          <person xml:id="P-1234" sex="2" age="mid">
+            <p>informateur, sexe féminin, bonne éducation, née à Shropshire UK, 12 Jan 1950,
+                commerçante parle français couramment., Statut
+		socio-économique  (SSE) :
+              commerçant.</p>
+          </person>
+              <person xml:id="P-4332" sex="1">
+                <persName>
+                  <surname>Hancock</surname> <forename>Antony</forename> <forename>Aloysius</forename> <forename>St John</forename>
+                </persName>
+                <residence notAfter="1959">
+                  <address>
+                    <street>Railway Cuttings</street>
+                    <settlement>East Cheam</settlement>
+                  </address>
+                </residence>
+                <occupation>comedian</occupation>
+              </person>
+            </listPerson>
+          </particDesc>
+        </egXML>
+        
+      </div>
+      <!--
+      <div>
+        <head>Flexibility and standardization of metadata</head>
+        <list>
+          <item>Information can be supplied purely in documentary terms, as
+            plain text...</item>
+          <item>... or it can be organized in a structured way, using a
+            rich set of XML descriptors</item>
+          <item>The available descriptors can be constrained by means of a
+            customised schema</item>
+          <item>Additional descriptors can be added, and integrated by
+            means of the TEI class system</item>
+        </list>
+      </div>
+      
+      <div><head><gi>scriptStmt</gi> example</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <sourceDesc>
+            <scriptStmt xml:id="CNN12">
+              <bibl>
+                <author>CNN Network News</author>
+                <title>News headlines</title>
+                <date when="1991-06-12">12 Jun 91</date>
+              </bibl>
+            </scriptStmt>
+          </sourceDesc>
+        </egXML>
+      </div>
+      -->
+      
+      <div>
+        <head>Similarly for recordings...</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><recordingStmt>
+      <recording type="audio" dur="P10M">
+        <equipment>
+          <p>podcast</p>
+        </equipment>
+        <broadcast>
+          <bibl>
+            <title>Questions sur la souffrance et la santé au travail : pénibilité, stress,
+              dépression, harcèlement, maladies et accidents...</title>
+            <author>France Inter</author>
+            <respStmt>
+              <resp>Présentateur</resp>
+              <name>Alain Bédouet</name>
+            </respStmt>
+            <respStmt>
+              <resp>Personne interrogée</resp>
+              <name> Marie Pezé, Docteur en psychologie, psychanalyste, expert judiciaire ; dirige
+                la consultation « souffrance et travail » à l’Hôpital de Nanterre (92), auteure de
+                  <title>ils ne mourraient pas tous mais tous étaient frappés</title>, Editions
+                Pearson.</name>
+            </respStmt>
+            <series>
+              <title>Le Téléphone sonne</title>
+            </series>
+            <note>Première diffusion le <date when="2008-09-24">mercredi 24 septembre
+            2008</date>
+                  </note>
+          </bibl>
+        </broadcast>
+      </recording>
+        </recordingStmt></egXML>
+      </div>
+      
+      
+      
+      <div>
+        <head>Ou peut-être plus implement...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <recordingStmt>
+            <recording type="audio" dur="P15M" xml:id="rec-3001">
+              <date>14 Feb 2001</date>
+            </recording>
+            <recording type="audio" dur="P15M" xml:id="rec-3002">
+              <date>17 Feb 2001</date>
+            </recording>
+            <recording type="audio" dur="P15M" xml:id="rec-3003">
+              <date>22 Feb 2001</date>
+            </recording>
+          </recordingStmt>
+        </egXML>
+      </div>
+      
+      <div rend="slide">
+        <head>... and for settings</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <setting xml:id="KDFSE002" n="063505" who="#PS0M6">
+            <name type="place">Lancashire:  Morecambe </name>
+            <locale> at home </locale>
+            <activity> watching television </activity>
+          </setting>
+        </egXML>
+        
+      </div>
+      
+      
+
+<div><head>L'analysis, l' annotation</head>
+<list>
+<item>Tout balisage resort d'un  analyse; tout balisage s'exprime en annotation.</item>
+<item>Quand même, il y a un ressentiment  qu'il vaut distinguer
+des assertions telles  que
+<eg>ceci est un paragraphe
+</eg>
+des assertions telles que
+<eg>ceci est un nom verbal
+</eg>
+</item>
+<item>Standardisation des annotations linguistiques, en particulier à
+l'usage du commaunite TAL, fut un des enjeux originaux de la TEI
+</item>
+<item>(bien que l'historique subsequent demontre que cet enjeuz aurait
+pu être un peu ambitieux)</item>
+<item>La TEI propose une gamme des mecanismes generiques</item>
+</list>
+</div>
+
+
+<div><head>Principes d'annotation linguistique (G.Leech, 1998) </head>
+<list>
+<item>the annotation should be separable from the text</item>
+<item>multiple annotations may co-exist within the text</item>
+<item>annotation should be 
+<list>
+<item>self-documenting </item>
+<item>explicit</item>
+<item>reproducible</item>
+<item>formally verifiable</item></list></item>
+</list>
+</div>
+
+<div>
+<head>Des  varietes d' annotation</head>
+<list type="gloss">
+<label>Segmentation</label>
+<item>identification des segments, locations, et empans</item>
+<label>Alignement et correspondence</label>
+<item>identification d'associations entre segments
+(e.g.  equivalence, anaphore...)</item>
+<label>Categorization</label>
+<item>classification des  structures apercues, e.g. classement
+morpho-syntaxiqe, fonction syntactique, categorie analytique</item>
+</list>
+</div>
+
+
+<div><head>L'importance de la  segmentation</head>
+<list>
+<item>Segmentation permet l'identification et l'acces aux composants à
+n'importe quel niveau 
+<list>
+<item>pour les referencier  
+e.g. il y a un <hi>this</hi> à ....</item>
+<item>pour définir un scope 
+e.g. trouver un <hi>this</hi>  au sein d'un <hi>that</hi></item>
+<item>pour l' analyse
+e.g.  90% des  <hi>these</hi> de type <hi>that</hi> contiennent un <hi>the other</hi></item>
+</list></item></list>
+<p rend="box">(overlap happens)</p>
+</div>
+
+      <div>
+	<head>Éléments de segmentation</head>
+<list>
+<item>generique:
+<list type="gloss">
+<label><gi>s</gi></label><item> segmentation de bout en bout</item>
+<label><gi>seg</gi></label><item>segmentation
+arbitraire, eventuellement s'emboitant </item>
+</list></item>
+
+<item>de motivation linguistique :
+<list type="gloss">      
+      <label><gi>cl</gi></label>
+      <item> (clause) proposition syntaxique.</item>
+      
+      <label><gi>phr</gi></label>
+      <item> (phrase) syntagme</item>
+      
+      <label><gi>w</gi></label>
+      <item> (word) mot .</item>
+
+      <label><gi>m</gi></label>
+      <item> (morpheme)  morpheme.</item>
+      
+      <label><gi>c</gi></label>
+      <item> (character) caractere.</item>
+    </list>
+</item></list>
+<p>Tous ces  éléments portent des attributs
+<att>type</att>, <att>subtype</att> <att>function</att>
+</p>
+      </div>
+  <div>
+  <head>L'annotation au niveau des mots ou des phrases est facile...</head>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+         <p><s>The export of sardines in oil from
+Sweden is prohibited. </s>
+	 </p></egXML>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<s n="11">
+<w>The</w>
+<w>export</w>
+<w>of</w>
+<w>sardines</w>
+<w>in</w>
+<w>oil</w>
+<w>from</w>
+<w>Sweden</w>
+<w>is</w>
+<w>prohibited</w>
+<c>.</c>
+</s>
+</egXML>
+</div>
+
+
+<div><head>... les structures syntaxiques un peu moins evident</head>
+<eg>((The export of (sardines in 
+oil) (from Sweden)) is prohibited.)
+</eg>
+
+<eg>((The export of (sardines (in 
+oil from Sweden)) is prohibited.)
+</eg>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><s n="11">
+  <seg><w>The</w> <w>export</w> <w>of</w>
+       <seg><w>sardines</w> <w>in</w> <w>oil</w></seg>
+       <seg><w>from</w><w>Sweden</w></seg>
+  </seg>
+   <w>is</w> <w>prohibited</w><c>.</c>
+</s></egXML>
+</div>
+
+
+
+<div><head>Inherent complexity is made explicit</head>
+
+<p>Although  XML was <emph>designed</emph> to represent
+linearized tree structures, 
+<list>
+<item>there are problems with discontinuity and overlap</item>
+<item>typing of relationships can be problematic</item>
+</list></p>
+<p>Consider the next sentence...
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><s><cl>Some resentment
+is felt <phr>at the order</phr><phr>by the
+Germans</phr></cl>, <cl>who <phr>with their customary
+ingenuity</phr> have <phr>for some time</phr> been
+importing <phr>india-rubber sardines in
+petrol</phr> <phr>without detection</phr></cl></s>
+</egXML></p>
+</div>
+
+
+<div><head>Discontinuity: using pointers</head>
+
+<eg>... (Germans, who (with their customary ingenuity) have 
+(for some time) been importing)... 
+</eg>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<seg>
+<w xml:id="s1" next="#s2">who</w>
+<phr>with their customary ingenuity</phr>
+<w xml:id="s2" prev="#s1" next="#s3">have</w>
+<phr>for some time</phr>
+<w xml:id="s3" prev="#s2">been</w>
+<w>importing</w></seg></egXML>
+
+<p>can also use <att>part</att> attribute to indicate that segments
+are incomplete</p>
+</div>
+
+<div><head>Discontinuity: using &#8220;standoff&#8221;
+technique</head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<w xml:id="W1">who</w>
+<phr>with their customary ingenuity</phr>
+<w xml:id="W2">have</w>
+<phr>for some time</phr>
+<w xml:id="W3">been</w>
+<w>importing</w>
+<!--... -->
+<join targets="#W1 #W2 #W3" result="seg"/>
+</egXML>
+</div>
+
+
+<div><head>Traduction</head>
+<p>L'attribut <att>corresp</att> est propose pour la traduction :
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<s corresp="#ALRTP1" xml:lang="EN" xml:id="RTP1">
+For a long time I used to go to bed early</s>
+<!-- ... -->
+<s  xml:id="ALRTP1"  corresp="#RTP1" xml:lang="FR">
+Longtemps je me couchais de bonne heure</s>
+</egXML>
+</p><p>et/ou...
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<linkGrp type="trans">
+  <link targets="#s1 #s2"/>
+</linkGrp>
+</egXML>
+</p></div>
+
+<div><head> Reference anaphorique</head>
+<p>L'attribut <att>corresp</att> peut servir egalement à la
+resolution des anaphores :
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<title xml:id="shirl">Shirley</title>, which made its Friday night
+debut only a month ago, was not listed on <name
+xml:id="nbc">NBC</name>'s new schedule, although <seg
+corresp="#nbc">the network</seg> says <seg corresp="shirl">the
+show</seg> still is being considered. 
+</egXML>
+
+ou, d'une manière debordee:
+
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<title xml:id="SHIRL">Shirley</title>, qui debutait vendredi soir il
+n'y a qu'au mois dernier, ne figure pas dans le listing 
+actuel du schedule de <name
+xml:id="NBC">NBC</name>, bien que 
+<seg xml:id="NWK">le reseau</seg> pretend que 
+<seg xml:id="SHOW">le show</seg> soit toujours en consideration. 
+
+<linkGrp type="anaphor">
+<link targets="#SHIRL #SHOW"/>
+<link targets="#NWK #NBC"/>
+</linkGrp></egXML>
+</p>
+</div>
+
+<div><head>The <att>ana</att> attribute</head>
+<list>
+<item>fournit une manière generique d'associer un élément avec son analyse</item>
+<item>pointe sur un analyse, défini sans n'importe quelles des
+manières suivantes :
+<list>
+<item>description pure en  prose</item>
+<item>un élément <gi>interp</gi></item>
+<item>une définition formelle en  <term>structure de trait</term>
+(feature structure)
+</item>
+</list>
+</item>
+</list>
+
+<p rend="box">L'attribut <att>type</att> propose une manière
+alternative de categoriser les éléments</p>
+</div>
+
+<div><head>Analyse au niveau des mots</head>
+
+<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
+<s n="11">
+<w ana="#DT" >The</w>
+<w ana="#NN" >export</w>
+<w ana="#IN" >of</w>
+<w ana="#NNS">sardines</w>
+<w ana="#IN" >in</w>
+<w ana="#NN" >oil</w>
+<w ana="#IN" >from</w>
+<w ana="#NP" >Sweden</w>
+<w ana="#VBZ">is</w>
+<w ana="#VVN">prohibited</w>
+<c ana="#SENT">.</c>
+</s>
+</egXML>
+
+<p>Ceci requiert qu'il existe quelque part une définition de DT, NN,
+IN etc. par example:
+
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<interp xml:id="DT"><desc>determinant</desc></interp>
+<interp xml:id="NN"><desc>nom au singulier</desc></interp>
+<interp xml:id="NNS"><desc>nom au pluriel</desc></interp>
+<!-- ... etc -->
+</egXML>
+</p></div>
+
+<div><head>Ou bien...</head>
+<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
+<s n="11">
+<w type="DT" >The</w>
+<w type="NN" >export</w>
+<w type="IN" >of</w>
+<w type="NNS">sardines</w>
+<!-- ... -->
+</s></egXML>
+<p>Dans ce cas il faut définir un  ODD ou les valeurs disponible pour
+l'attribut <att>type</att> seront predéfinis, de cette manière
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<elementSpec ident="w" mode="change">
+<attList><attDef ident="type" mode="replace">
+<valList>
+<valItem ident="DT"><desc>determinant</desc></valItem>
+<valItem ident="NN"><desc>nom au singulier</desc></valItem>
+<valItem ident="NNS"><desc>nom au pluriel</desc></valItem>
+<!-- ... -->
+</valList></attDef></attList></elementSpec></egXML>
+</p></div>
+
+<div><head>La représentation en structures de trait</head>
+<list>
+<item>La <term>structure de trait</term> est un concept bien connue en
+linguistique theoretique.</item>
+<item>Tour analyse peut être represente par des paires de trait nommé +
+valeurs, structurés d'une manière spécifique </item>
+<item>La représentation TEI  a été standardisée au
+niveau de l' ISO; elle fournit une solution pragmatique et neutre aux
+problemes de communication machine-machine dans le domain du TAL industriel</item>
+</list>
+</div>
+
+<div><head>des exemples</head>
+
+<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
+
+<w ana="#NN2">corpora</w>
+
+<fs xml:id="NN2">
+ <f name="class"><symbol value="noun"/></f>
+ <f name="number"><symbol value="plural"/></f>
+ <f name="proper"><binary value="false"/></f>
+</fs>
+<fs xml:id="NN2">
+ <f name="class"><symbol value="noun"/></f>
+ <f name="number"><symbol value="singular"/></f>
+ <f name="proper"><binary value="false"/></f>
+</fs>
+</egXML>
+
+<!--
+feature définitions may be storeded in a library
+
+<fLib>
+ <f id=FCN name=class>
+   <sym value="noun"/></f>
+ <f id=FN1 name="number">
+   <sym value="singular"/></f> 
+ <f id=FN2 name="number">
+   <sym value="plural"/></f>
+ <f id=FPM name="proper">
+   <minus/></f>
+ ...
+</fLib>
+
+and invoked by reference
+
+<fs id=NN1 
+   feats=“FCN FPM FN1”/>
+<fs id=NN2 
+   feats=“FCN FPM FN2”/>
+
+Simplest kind of feature is just plus or minus
+
+<fs type='phonetic segment'>
+  <f name='segment'><plus/>   
+  <f name='consonantal'><plus/>  
+  <f name='vocalic'><minus/> 
+  <f name='nasal'><minus/>
+  <f name='low'><minus/>  
+  <f name='high'><minus/>
+  <f name='back'><minus/> 
+  <f name='round'><minus/>
+  <f name='anterior'><plus/> 
+  <f name='coronal'><plus/>
+  <f name='continuant'><plus/> 
+  <f name='delayedRelease'><plus/>
+  <f name='strident'><plus/>
+</fs>
+
+nest primitive values
+
+<fs type='word structure'>
+   <f name='lemma'><str>goose</str>
+   <f name='category'><sym value='noun"/>
+   <f name='barLevel'><nbr value='0"/>
+   <f name='number'><sym value='plural"/>
+</fs>
+
+values may be alternmated
+
+<fs id=VVD type="lexical">
+ <f name=“class”>
+ <vAlt mutExcl=“Y”>
+       <sym value="verb"/>
+       <sym value="adj"/> 
+ </vAlt>
+ </f>
+...
+</fs>
+
+or collected
+
+complex example
+-->
+</div>
+<div><head>Encore un exemple...</head>
+
+<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
+
+ <fs type='word structure'>
+  <f name='spelling'><string>pólesi</string></f>
+  <f name='lemma'><string>pólis</string></f>
+  <f name='gloss' xml:lang="en">city</f>
+  <f name='category'><symbol value="noun"/></f>
+  <f name='proper'><binary value="false"/></f>
+  <f name='gender'><symbol value="feminine"/></f>
+  <f name='inflection'>
+     <fs type='inflection structure'>
+        <f name="case"><symbol value="dative"/></f>
+        <f name='number'><symbol value="plural"/></f>
+        </fs></f>
+  </fs>
+</egXML>
+</div>
+      <div>
+        <head>Niveaux d'annotation (1) </head>
+
+        <p>Ces mecanismes tres generaux peuvent s'appliquer a
+	n'importe quel niveau de structuration</p>
+
+<p>Par exemple, on peut distinguer les syntagmes :
+
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          
+            <s>
+              <cl type="finite-declarative" function="independent">
+                <phr type="NP" function="subject">It</phr>
+                <phr type="VP" function="predicate">
+                  <phr type="V" function="verb-main">was</phr>
+                  also
+                  <phr type="NP" function="predicate-nom.">a crucial year for me</phr>
+                </phr>
+              </cl>
+            </s>  
+          </egXML>
+</p>
+        </div>
+
+        <div>
+          <head>Niveaux d' annotation (2)</head>
+
+<p>On peut decomposer les mots :
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <s xml:lang="la">
+              <w lemma="timeo">timeo</w>
+              <w lemma="danaii">Danaos</w>
+              <w lemma="et">et</w>
+              <w lemma="donum">dona</w>
+              <w lemma="fero">ferentes</w>
+            </s>
+            
+          </egXML>
+            ou
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <w type="adjective">
+                <m type="prefix" baseForm="con">com</m>
+                <m type="root">fort</m>
+                <m type="suffix">able</m>
+              </w></egXML>
+          </p>
+
+        </div>
+
+        <div>
+          <head>Niveaux d' annotation (3)</head>
+
+          <p>ou des unités de discours ... 
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u xml:id="u1">Can I have ten oranges and a kilo of bananas please?</u>
+            <u xml:id="u2">Yes, anything else?</u>
+            <u xml:id="u3">No thanks.</u>
+            <u xml:id="u4">That'll be dollar forty.</u>
+            <u xml:id="u5">Two dollars</u>
+            <u xml:id="u6">Sixty, eighty, two dollars. Thank you.</u>
+            <spanGrp type="transactions">
+              <span from="#u1">sale request</span>
+              <span from="#u2" to="#u3">sale compliance</span>
+              <span from="#u4">sale</span>
+              <span from="#u5">purchase</span>
+              <span from="#u6">purchase closure</span>
+            </spanGrp>
+          </egXML>
+</p>        </div>
+
+    </body>
+  </text>
+</TEI>
