@@ -1,0 +1,1215 @@
+default namespace = "http://www.tei-c.org/ns/1.0"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace ns1 = "http://purl.oclc.org/dsdl/schematron"
+namespace xlink = "http://www.w3.org/1999/xlink"
+
+# Schema generated from ODD source 2012-01-19T11:13:45Z. 
+# Edition: 2.0.0 Last updated on 16th December 2011.
+# Edition Location: http://www.tei-c.org/Vault/P5/2.0.0/
+#
+
+# This template file is freely available and you are hereby
+# authorised to copy, modify, and redistribute it in any way without
+# further reference or permissions.When making such modifications, you are strongly recommended to
+# change the present text to include an accurate statement of the
+# licencing conditions applicable to your modified text.
+macro.paraContent =
+  (text | model.gLike | model.phrase | model.inter | model.global)*
+macro.phraseSeq = (text | model.gLike | model.phrase | model.global)*
+macro.specialPara =
+  (text
+   | model.gLike
+   | model.phrase
+   | model.inter
+   | model.divPart
+   | model.global)*
+data.certainty = "high" | "medium" | "low" | "unknown"
+data.probability = xsd:double { minInclusive = "0" maxInclusive = "1" }
+data.numeric =
+  xsd:double
+  | xsd:token { pattern = "(\-?[\d]+/\-?[\d]+)" }
+  | xsd:decimal
+data.count = xsd:nonNegativeInteger
+data.temporal.w3c =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+data.truthValue = xsd:boolean
+data.xTruthValue = xsd:boolean | "unknown" | "inapplicable"
+data.language = xsd:language
+data.outputMeasurement =
+  xsd:token {
+    pattern =
+      "[\-+]?\d+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|gd|rem|vw|vh|vm)"
+  }
+data.point =
+  xsd:token { pattern = "(\-?[0-9]+\.?[0-9]*,\-?[0-9]+\.?[0-9]*)" }
+data.pointer = xsd:anyURI
+data.version = xsd:token { pattern = "[\d]+(\.[\d]+){0,2}" }
+data.key = xsd:string
+data.word = xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+data.name = xsd:Name
+data.enumerated = data.name
+data.temporal.iso =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+  | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+att.canonical.attributes =
+  att.canonical.attribute.key, att.canonical.attribute.ref
+att.canonical.attribute.key =
+  
+  ##  fournit un moyen, défini de façon externe,
+  ##         d'identifier l'entité (ou les entités) nommé(es), en utilisant une valeur codée
+  ##         d'un certain type.
+  attribute key { data.key }?
+att.canonical.attribute.ref =
+  
+  ##  (référence) fournit un moyen explicite de localiser une
+  ##         définition complète de l'entité nommée au moyen d'un ou plusieurs URIs.
+  attribute ref {
+    list { data.pointer, data.pointer* }
+  }?
+att.ranging.attributes =
+  att.ranging.attribute.atLeast,
+  att.ranging.attribute.atMost,
+  att.ranging.attribute.min,
+  att.ranging.attribute.max,
+  att.ranging.attribute.confidence
+att.ranging.attribute.atLeast =
+  
+  ## donne une estimation de la valeur minimum pour la
+  ##         mesure.
+  attribute atLeast { data.numeric }?
+att.ranging.attribute.atMost =
+  
+  ## donne une estimation de la valeur maximum pour la
+  ##         mesure.
+  attribute atMost { data.numeric }?
+att.ranging.attribute.min =
+  
+  ## lorsque la mesure résume plus d'une observation,
+  ##         fournit la valeur minimum observée.
+  attribute min { data.numeric }?
+att.ranging.attribute.max =
+  
+  ## lorsque la mesure résume plus d'une observation,
+  ##         fournit la valeur maximum observée.
+  attribute max { data.numeric }?
+att.ranging.attribute.confidence =
+  
+  ## The degree of statistical confidence (between zero and one) that a value falls within the range
+  ##         specified by min and max, or the proportion of observed values that fall within that range.
+  attribute confidence { data.probability }?
+att.dimensions.attributes =
+  att.ranging.attributes,
+  att.dimensions.attribute.unit,
+  att.dimensions.attribute.quantity,
+  att.dimensions.attribute.extent,
+  att.dimensions.attribute.precision,
+  att.dimensions.attribute.scope
+att.dimensions.attribute.unit =
+  
+  ## noms des unités utilisées pour la mesure.
+  ## Les valeurs suggérées comprennent: 1] cm (centimètres) ; 2] mm (millimètres) ; 3] in (pouces) ; 4] lines; 5] chars (characters) 
+  attribute unit {
+    
+    ##  (centimètres) 
+    "cm"
+    | 
+      ##  (millimètres) 
+      "mm"
+    | 
+      ##  (pouces) 
+      "in"
+    | 
+      ## lignes de texte
+      "lines"
+    | 
+      ##  (characters) caractères du texte
+      "chars"
+    | xsd:Name
+  }?
+att.dimensions.attribute.quantity =
+  
+  ## spécifie la longueur dans les unités indiquées
+  attribute quantity { data.numeric }?
+att.dimensions.attribute.extent =
+  
+  ## indique la dimension de l'objet concerné en utilisant
+  ##         un vocabulaire spécifique à un projet qui combine quantité et unités dans une chaîne de mots
+  ##         unique
+  attribute extent {
+    list { data.word, data.word* }
+  }?
+att.dimensions.attribute.precision =
+  
+  ## caractérise la précision des valeurs spécifiées par les autres attributs.
+  attribute precision { data.certainty }?
+att.dimensions.attribute.scope =
+  
+  ## spécifie l'applicabilité de cette mesure, là où plus
+  ##         d'un objet est mesuré.
+  ## Exemple de valeurs possibles: 1] all; 2] most; 3] range
+  attribute scope { data.enumerated }?
+att.datable.w3c.attributes =
+  att.datable.w3c.attribute.when,
+  att.datable.w3c.attribute.notBefore,
+  att.datable.w3c.attribute.notAfter,
+  att.datable.w3c.attribute.from,
+  att.datable.w3c.attribute.to
+att.datable.w3c.attribute.when =
+  
+  ## spécifie une date exacte pour un événement sous
+  ##           une forme normalisée, par ex. aaaa-mm-jj.
+  attribute when { data.temporal.w3c }?
+att.datable.w3c.attribute.notBefore =
+  
+  ## spécifie la date la plus ancienne pour
+  ##           l'événement sous une forme normalisée, par ex. aaaa-mm-jj
+  attribute notBefore { data.temporal.w3c }?
+att.datable.w3c.attribute.notAfter =
+  
+  ## spécifie la date la plus récente possible pour
+  ##           l'événement sous une forme normalisée, par ex. aaaa-mm-jj
+  attribute notAfter { data.temporal.w3c }?
+att.datable.w3c.attribute.from =
+  
+  ## indique le point de départ d'une période sous une
+  ##         forme normalisée, par ex. aaaa-mm-jj
+  attribute from { data.temporal.w3c }?
+att.datable.w3c.attribute.to =
+  
+  ## indique le terme de la période sous une forme
+  ##         normalisée, par ex. aaaa-mm-jj
+  attribute to { data.temporal.w3c }?
+att.datable.attributes =
+  att.datable.w3c.attributes,
+  att.datable.iso.attributes,
+  att.datable.custom.attributes,
+  att.datable.attribute.calendar,
+  att.datable.attribute.period
+att.datable.attribute.calendar =
+  
+  ## indique le système ou le calendrier auquel appartient
+  ##         la date exprimée dans le contenu de l'élément.
+  attribute calendar { data.pointer }?
+att.datable.attribute.period =
+  
+  ## fournit un pointeur vers un emplacement donné
+  ##         définissant une période de temps nommée pendant laquelle l'item datable
+  ##         s'inscrit.
+  attribute period { data.pointer }?
+att.declarable.attributes = att.declarable.attribute.default
+att.declarable.attribute.default =
+  
+  ## Indique si oui ou non cet élément est affecté par
+  ##           défaut quand son élément parent a été sélectionné.
+  [ a:defaultValue = "false" ]
+  attribute default {
+    
+    ## cet élément est choisi si son parent
+    ## est choisi
+    "true"
+    | 
+      ## cet élément ne peut être sélectionné
+      ## qu'explicitement, à moins qu'il ne soit le seul de ce type, auquel cas
+      ## il est selectionné si son parent a été choisi
+      "false"
+  }?
+att.divLike.attributes = empty
+att.responsibility.attributes =
+  att.responsibility.attribute.cert, att.responsibility.attribute.resp
+att.responsibility.attribute.cert =
+  
+  ##  (certitude) donne le degré de certitude associée à l'intervention
+  ##         ou à l'interprétation.
+  attribute cert { data.certainty }?
+att.responsibility.attribute.resp =
+  
+  ##  (responsable) indique l'agent responsable de l'intervention ou de
+  ##         l'interprétation, par exemple un éditeur ou un transcripteur.
+  attribute resp {
+    list { data.pointer, data.pointer* }
+  }?
+att.editLike.attributes =
+  att.dimensions.attributes,
+  att.responsibility.attributes,
+  att.editLike.attribute.evidence,
+  att.editLike.attribute.source,
+  att.editLike.attribute.instant
+att.editLike.attribute.evidence =
+  
+  ## indique la nature de la preuve attestant la fiabilité
+  ##         ou la justesse de l'intervention ou de l'interprétation.
+  ## Les valeurs suggérées comprennent: 1] internal; 2] external; 3] conjecture
+  attribute evidence {
+    list {
+      (
+       ## l'intervention est justifiée par une preuve
+       ##             interne
+       "internal"
+       | 
+         ## l'intervention est justifiée par une preuve
+         ##             externe
+         "external"
+       | 
+         ## l'intervention ou l'interprétation a été faite
+         ##             par le rédacteur, le catalogueur, ou le chercheur sur la base de leur expertise.
+         "conjecture"
+       | xsd:Name),
+      (
+       ## l'intervention est justifiée par une preuve
+       ##             interne
+       "internal"
+       | 
+         ## l'intervention est justifiée par une preuve
+         ##             externe
+         "external"
+       | 
+         ## l'intervention ou l'interprétation a été faite
+         ##             par le rédacteur, le catalogueur, ou le chercheur sur la base de leur expertise.
+         "conjecture"
+       | xsd:Name)*
+    }
+  }?
+att.editLike.attribute.source =
+  
+  ##  contient une liste d'un ou plusieurs pointeurs
+  ##         indiquant les sources qui appuient la lecture proposée
+  attribute source {
+    list { data.pointer, data.pointer* }
+  }?
+att.editLike.attribute.instant =
+  
+  ## Is this an instant revision?
+  [ a:defaultValue = "false" ] attribute instant { data.xTruthValue }?
+att.global.attributes =
+  att.global.facs.attributes,
+  att.global.change.attributes,
+  att.global.attribute.xmlid,
+  att.global.attribute.n,
+  att.global.attribute.xmllang,
+  att.global.attribute.rend
+att.global.attribute.xmlid =
+  
+  ##  (identifiant) fournit un identifiant unique pour l'élément qui
+  ##         porte l'attribut
+  attribute xml:id { xsd:ID }?
+att.global.attribute.n =
+  
+  ##  (nombre) donne un nombre (ou une autre étiquette) pour un
+  ##         élément, qui n'est pas nécessairement unique dans le document TEI.
+  attribute n {
+    list { data.word, data.word* }
+  }?
+att.global.attribute.xmllang =
+  
+  ##  (langue) indique la langue du contenu de l'élément en
+  ##         utilisant les codes du RFC 3066
+  ##          
+  attribute xml:lang { data.language }?
+att.global.attribute.rend =
+  
+  ##  (interprétation) indique comment l'élément en question a été rendu ou
+  ##         présenté dans le texte source
+  attribute rend {
+    list { data.word, data.word* }
+  }?
+att.internetMedia.attributes = att.internetMedia.attribute.mimeType
+att.internetMedia.attribute.mimeType =
+  
+  ##  (type de média MIME) spécifie le type MIME (multipurpose internet mail extension) applicable.
+  attribute mimeType {
+    list { data.word, data.word* }
+  }?
+att.naming.attributes =
+  att.canonical.attributes,
+  att.naming.attribute.role,
+  att.naming.attribute.nymRef
+att.naming.attribute.role =
+  
+  ## may be used to specify further information about the entity referenced by
+  ## this name, for example the occupation of a person, or the status of a place. 
+  attribute role { data.enumerated }?
+att.naming.attribute.nymRef =
+  
+  ##  (référence au nom canonique) indique comment localiser la forme canonique
+  ##             (nym) des noms qui sont associés à l'objet nommé par l'élément qui le contient.
+  attribute nymRef {
+    list { data.pointer, data.pointer* }
+  }?
+att.placement.attributes = att.placement.attribute.place
+att.placement.attribute.place =
+  
+  ## 
+  ## Les valeurs suggérées comprennent: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6] overleaf; 7] above; 8] end; 9] inline; 10] inspace
+  attribute place {
+    list {
+      (
+       ## au-dessous de la ligne
+       "below"
+       | 
+         ## dans la marge inférieure
+         "bottom"
+       | 
+         ## dans la marge (gauche, droite ou les deux en même temps)
+         "margin"
+       | 
+         ## dans la marge supérieure
+         "top"
+       | 
+         ## sur la page opposée, c'est-à-dire en regard
+         "opposite"
+       | 
+         ## de l'autre côté de la feuille
+         "overleaf"
+       | 
+         ## au-dessus de la ligne
+         "above"
+       | 
+         ## à la fin, par exemple d'un chapitre ou d'un volume
+         "end"
+       | 
+         ## dans le corps du texte
+         "inline"
+       | 
+         ## dans un espace prédéfini, par exemple à gauche d'un scripteur précédent
+         "inspace"
+       | xsd:Name),
+      (
+       ## au-dessous de la ligne
+       "below"
+       | 
+         ## dans la marge inférieure
+         "bottom"
+       | 
+         ## dans la marge (gauche, droite ou les deux en même temps)
+         "margin"
+       | 
+         ## dans la marge supérieure
+         "top"
+       | 
+         ## sur la page opposée, c'est-à-dire en regard
+         "opposite"
+       | 
+         ## de l'autre côté de la feuille
+         "overleaf"
+       | 
+         ## au-dessus de la ligne
+         "above"
+       | 
+         ## à la fin, par exemple d'un chapitre ou d'un volume
+         "end"
+       | 
+         ## dans le corps du texte
+         "inline"
+       | 
+         ## dans un espace prédéfini, par exemple à gauche d'un scripteur précédent
+         "inspace"
+       | xsd:Name)*
+    }
+  }?
+att.typed.attributes =
+  att.typed.attribute.type, att.typed.attribute.subtype
+att.typed.attribute.type =
+  
+  ## caractérise l'élément en utilisant n'importe quel système ou typologie de classification approprié.
+  attribute type { data.enumerated }?
+att.typed.attribute.subtype =
+  
+  ##  (sous-type) donne une sous-catégorisation de l'élément, si
+  ##           c'est nécessaire.
+  attribute subtype { data.enumerated }?
+att.sortable.attributes = att.sortable.attribute.sortKey
+att.sortable.attribute.sortKey =
+  
+  ## supplies the sort key for this element in an index, list or group which contains it.
+  attribute sortKey { data.word }?
+att.transcriptional.attributes =
+  att.editLike.attributes,
+  att.transcriptional.attribute.hand,
+  att.transcriptional.attribute.status,
+  att.transcriptional.attribute.cause,
+  att.transcriptional.attribute.seq
+att.transcriptional.attribute.hand =
+  
+  ## signale la main de celui qui est intervenu.
+  attribute hand { data.pointer }?
+att.transcriptional.attribute.status =
+  
+  ## indique la conséquence de l'intervention, par
+  ## exemple dans le cas d'un effacement, une biffure, qui inclut trop ou pas assez de
+  ## texte, ou dans le cas d'un ajout, une insertion, qui reproduit une portion du
+  ## texte déjà présent.
+  ## Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart; 4] excessEnd; 5] shortStart; 6] shortEnd; 7] partial; 8] unremarkable
+  [ a:defaultValue = "unremarkable" ]
+  attribute status { data.enumerated }?
+att.transcriptional.attribute.cause =
+  
+  ## documents the presumed cause for the intervention.
+  attribute cause {
+    
+    ## repeated for the purpose of fixation
+    "fix"
+    | 
+      ## repeated to clarify a previously illegible or badly written text
+      ##    or mark
+      "unclear"
+  }?
+att.transcriptional.attribute.seq =
+  
+  ##  (séquence) assigne un numéro séquentiel relatif à l'ordre
+  ## dans lequel les traits encodés portant cet attribut sont supposés être apparus.
+  attribute seq { data.count }?
+model.nameLike.agent = persName
+model.nameLike.agent_alternation = persName
+model.nameLike.agent_sequence = persName
+model.nameLike.agent_sequenceOptional = persName?
+model.nameLike.agent_sequenceOptionalRepeatable = persName*
+model.nameLike.agent_sequenceRepeatable = persName+
+model.hiLike = hi
+model.hiLike_alternation = hi
+model.hiLike_sequence = hi
+model.hiLike_sequenceOptional = hi?
+model.hiLike_sequenceOptionalRepeatable = hi*
+model.hiLike_sequenceRepeatable = hi+
+model.emphLike = title
+model.emphLike_alternation = title
+model.emphLike_sequence = title
+model.emphLike_sequenceOptional = title?
+model.emphLike_sequenceOptionalRepeatable = title*
+model.emphLike_sequenceRepeatable = title+
+model.highlighted = model.hiLike | model.emphLike
+model.highlighted_alternation =
+  model.hiLike_alternation | model.emphLike_alternation
+model.highlighted_sequence =
+  model.hiLike_sequence, model.emphLike_sequence
+model.highlighted_sequenceOptional =
+  model.hiLike_sequenceOptional?, model.emphLike_sequenceOptional?
+model.highlighted_sequenceOptionalRepeatable =
+  model.hiLike_sequenceOptionalRepeatable*,
+  model.emphLike_sequenceOptionalRepeatable*
+model.highlighted_sequenceRepeatable =
+  model.hiLike_sequenceRepeatable+, model.emphLike_sequenceRepeatable+
+model.dateLike = date
+model.dateLike_alternation = date
+model.dateLike_sequence = date
+model.dateLike_sequenceOptional = date?
+model.dateLike_sequenceOptionalRepeatable = date*
+model.dateLike_sequenceRepeatable = date+
+model.graphicLike = graphic
+model.graphicLike_alternation = graphic
+model.graphicLike_sequence = graphic
+model.graphicLike_sequenceOptional = graphic?
+model.graphicLike_sequenceOptionalRepeatable = graphic*
+model.graphicLike_sequenceRepeatable = graphic+
+model.pPart.transcriptional = reg | add | del
+model.pPart.transcriptional_alternation = reg | add | del
+model.pPart.transcriptional_sequence = reg, add, del
+model.pPart.transcriptional_sequenceOptional = reg?, add?, del?
+model.pPart.transcriptional_sequenceOptionalRepeatable =
+  reg*, add*, del*
+model.pPart.transcriptional_sequenceRepeatable = reg+, add+, del+
+model.pPart.edit = model.pPart.transcriptional
+model.pPart.edit_alternation = model.pPart.transcriptional_alternation
+model.pPart.edit_sequence = model.pPart.transcriptional_sequence
+model.pPart.edit_sequenceOptional =
+  model.pPart.transcriptional_sequenceOptional?
+model.pPart.edit_sequenceOptionalRepeatable =
+  model.pPart.transcriptional_sequenceOptionalRepeatable*
+model.pPart.edit_sequenceRepeatable =
+  model.pPart.transcriptional_sequenceRepeatable+
+model.linePart = model.hiLike | model.pPart.transcriptional | zone
+model.gLike = notAllowed
+model.biblLike = notAllowed
+model.biblLike_alternation = notAllowed
+model.biblLike_sequence = empty
+model.biblLike_sequenceOptional = empty
+model.biblLike_sequenceOptionalRepeatable = empty
+model.biblLike_sequenceRepeatable = notAllowed
+model.listLike = \list
+model.listLike_alternation = \list
+model.listLike_sequence = \list
+model.listLike_sequenceOptional = \list?
+model.listLike_sequenceOptionalRepeatable = \list*
+model.listLike_sequenceRepeatable = \list+
+model.pLike = p
+model.pLike_alternation = p
+model.pLike_sequence = p
+model.pLike_sequenceOptional = p?
+model.pLike_sequenceOptionalRepeatable = p*
+model.pLike_sequenceRepeatable = p+
+model.divPart = model.pLike
+model.divPart_alternation = model.pLike_alternation
+model.divPart_sequence = model.pLike_sequence
+model.divPart_sequenceOptional = model.pLike_sequenceOptional?
+model.divPart_sequenceOptionalRepeatable =
+  model.pLike_sequenceOptionalRepeatable*
+model.divPart_sequenceRepeatable = model.pLike_sequenceRepeatable+
+model.persStateLike = persName
+model.persStateLike_alternation = persName
+model.persStateLike_sequence = persName
+model.persStateLike_sequenceOptional = persName?
+model.persStateLike_sequenceOptionalRepeatable = persName*
+model.persStateLike_sequenceRepeatable = persName+
+model.placeNamePart = placeName
+model.placeNamePart_alternation = placeName
+model.placeNamePart_sequence = placeName
+model.placeNamePart_sequenceOptional = placeName?
+model.placeNamePart_sequenceOptionalRepeatable = placeName*
+model.placeNamePart_sequenceRepeatable = placeName+
+model.placeStateLike = model.placeNamePart
+model.placeStateLike_alternation = model.placeNamePart_alternation
+model.placeStateLike_sequence = model.placeNamePart_sequence
+model.placeStateLike_sequenceOptional =
+  model.placeNamePart_sequenceOptional?
+model.placeStateLike_sequenceOptionalRepeatable =
+  model.placeNamePart_sequenceOptionalRepeatable*
+model.placeStateLike_sequenceRepeatable =
+  model.placeNamePart_sequenceRepeatable+
+model.publicationStmtPart = address | date
+model.glossLike = notAllowed
+model.respLike = notAllowed
+model.respLike_alternation = notAllowed
+model.respLike_sequence = empty
+model.respLike_sequenceOptional = empty
+model.respLike_sequenceOptionalRepeatable = empty
+model.respLike_sequenceRepeatable = notAllowed
+model.divTop = notAllowed
+model.divBottom = notAllowed
+model.msQuoteLike = title
+model.msQuoteLike_alternation = title
+model.msQuoteLike_sequence = title
+model.msQuoteLike_sequenceOptional = title?
+model.msQuoteLike_sequenceOptionalRepeatable = title*
+model.msQuoteLike_sequenceRepeatable = title+
+model.addressLike = address
+model.addressLike_alternation = address
+model.addressLike_sequence = address
+model.addressLike_sequenceOptional = address?
+model.addressLike_sequenceOptionalRepeatable = address*
+model.addressLike_sequenceRepeatable = address+
+model.nameLike = model.nameLike.agent | model.placeStateLike
+model.nameLike_alternation =
+  model.nameLike.agent_alternation | model.placeStateLike_alternation
+model.nameLike_sequence =
+  model.nameLike.agent_sequence, model.placeStateLike_sequence
+model.nameLike_sequenceOptional =
+  model.nameLike.agent_sequenceOptional?,
+  model.placeStateLike_sequenceOptional?
+model.nameLike_sequenceOptionalRepeatable =
+  model.nameLike.agent_sequenceOptionalRepeatable*,
+  model.placeStateLike_sequenceOptionalRepeatable*
+model.nameLike_sequenceRepeatable =
+  model.nameLike.agent_sequenceRepeatable+,
+  model.placeStateLike_sequenceRepeatable+
+model.global = notAllowed
+model.addrPart = model.nameLike | addrLine
+model.pPart.data = model.dateLike | model.addressLike | model.nameLike
+model.pPart.data_alternation =
+  model.dateLike_alternation
+  | model.addressLike_alternation
+  | model.nameLike_alternation
+model.pPart.data_sequence =
+  model.dateLike_sequence,
+  model.addressLike_sequence,
+  model.nameLike_sequence
+model.pPart.data_sequenceOptional =
+  model.dateLike_sequenceOptional?,
+  model.addressLike_sequenceOptional?,
+  model.nameLike_sequenceOptional?
+model.pPart.data_sequenceOptionalRepeatable =
+  model.dateLike_sequenceOptionalRepeatable*,
+  model.addressLike_sequenceOptionalRepeatable*,
+  model.nameLike_sequenceOptionalRepeatable*
+model.pPart.data_sequenceRepeatable =
+  model.dateLike_sequenceRepeatable+,
+  model.addressLike_sequenceRepeatable+,
+  model.nameLike_sequenceRepeatable+
+model.inter = model.biblLike | model.listLike
+model.inter_alternation =
+  model.biblLike_alternation | model.listLike_alternation
+model.inter_sequence = model.biblLike_sequence, model.listLike_sequence
+model.inter_sequenceOptional =
+  model.biblLike_sequenceOptional?, model.listLike_sequenceOptional?
+model.inter_sequenceOptionalRepeatable =
+  model.biblLike_sequenceOptionalRepeatable*,
+  model.listLike_sequenceOptionalRepeatable*
+model.inter_sequenceRepeatable =
+  model.biblLike_sequenceRepeatable+, model.listLike_sequenceRepeatable+
+model.common = model.divPart | model.inter
+model.phrase =
+  model.highlighted
+  | model.graphicLike
+  | model.pPart.edit
+  | model.pPart.data
+model.divLike = \div
+model.divGenLike = notAllowed
+model.div1Like = notAllowed
+model.teiHeaderPart = notAllowed
+model.sourceDescPart = notAllowed
+model.resourceLike = facsimile
+att.personal.attributes =
+  att.naming.attributes,
+  att.personal.attribute.full,
+  att.personal.attribute.sort
+att.personal.attribute.full =
+  
+  ## indique si la composante du nom est donnée en intégralité, sous forme d'abréviation ou simplement d'initiale.
+  [ a:defaultValue = "yes" ]
+  attribute full {
+    
+    ##  (complet) la composante du nom est orthographiée en intégralité.
+    "yes"
+    | 
+      ##  (abrégé) la composante du nom est donnée sous forme abrégée.
+      "abb"
+    | 
+      ##  (initiale) la composante du nom n'est indiquée que par sa lettre initiale.
+      "init"
+  }?
+att.personal.attribute.sort =
+  
+  ##  (ordre) précise dans quel ordre est placé la composante par rapport aux autres dans le nom d'une personne.
+  attribute sort { data.count }?
+p =
+  
+  ##  (paragraphe) marque les paragraphes dans un texte en prose. [3.1.  7.2.5. ]
+  element p { macro.paraContent, att.global.attributes, empty }
+hi =
+  
+  ##  (mis en évidence) distingue un mot ou une expression comme
+  ##         graphiquement distincte du texte environnant, sans en donner la raison.  [3.3.2.2.  3.3.2. ]
+  element hi { macro.paraContent, att.global.attributes, empty }
+reg =
+  
+  ##  (régularisation) contient une leçon qui a été régularisée ou normalisée
+  ##         de façon quelconque [3.4.2.  12. ]
+  element reg {
+    macro.paraContent,
+    att.global.attributes,
+    att.editLike.attributes,
+    att.typed.attributes,
+    empty
+  }
+add =
+  
+  ##  ( ajout) contient des lettres, des mots ou des phrases
+  ##         insérées dans le texte par un auteur, un copiste, un annotateur ou un correcteur. [3.4.3. ]
+  element add {
+    macro.paraContent,
+    att.global.attributes,
+    att.transcriptional.attributes,
+    att.placement.attributes,
+    att.typed.attributes,
+    empty
+  }
+del =
+  
+  ##  (suppression) contient une lettre, un mot ou un passage supprimé,
+  ##     marqué comme supprimé, sinon indiqué comme superflu ou erroné dans le texte par un auteur, un
+  ##     copiste, un annotateur ou un correcteur. [3.4.3. ]
+  element del {
+    macro.paraContent,
+    att.global.attributes,
+    att.transcriptional.attributes,
+    att.typed.attributes,
+    empty
+  }
+address =
+  
+  ## contient une adresse postale ou d'un autre type, par
+  ##         exemple l'adresse d'un éditeur, d'un organisme ou d'une personne. [3.5.2.  2.2.4.  3.11.2.3. ]
+  element address {
+    (model.global*, (model.addrPart, model.global*)+),
+    att.global.attributes,
+    empty
+  }
+addrLine =
+  
+  ##  (ligne d'adresse) contient une ligne d'adresse postale.
+  ##      [3.5.2.  2.2.4.  3.11.2.3. ]
+  element addrLine { macro.phraseSeq, att.global.attributes, empty }
+date =
+  
+  ##  (date) contient une date exprimée dans n'importe quel format. [3.5.4.  2.2.4.  2.5.  3.11.2.3.  15.2.3.  13.3.6. ]
+  element date {
+    (text | model.gLike | model.phrase | model.global)*,
+    att.global.attributes,
+    att.datable.attributes,
+    att.editLike.attributes,
+    att.typed.attributes,
+    empty
+  }
+\list =
+  
+  ##  (liste) contient une suite d'items ordonnés dans une liste. [3.7. ]
+  element list {
+    ((model.divTop | model.global)*,
+     ((item, model.global*)+
+      | (empty?, empty?, (model.global*, item, model.global*)+)),
+     (model.divBottom, model.global*)*),
+    att.global.attributes,
+    att.sortable.attributes,
+    
+    ## décrit la forme de la liste.
+    ## Les valeurs suggérées comprennent: 1] ordered; 2] bulleted; 3] simple; 4] gloss
+    [ a:defaultValue = "simple" ]
+    attribute type {
+      
+      ## le classement des items de la liste est
+      ##             alphanumérique
+      "ordered"
+      | 
+        ## les items de la liste sont marqués par une puce
+        ##             ou avec un autre signe typographique.
+        "bulleted"
+      | 
+        ## les items de la liste ne sont pas numérotés ni
+        ##             précédés d'une puce.
+        "simple"
+      | 
+        ## chaque item de la liste commente un terme ou
+        ##             concept qui est donné par un élément labelprécédant l'item de la liste.
+        "gloss"
+      | xsd:Name
+    }?,
+    empty
+  }
+item =
+  
+  ## contient un composant d'une liste. [3.7.  2.5. ]
+  element item {
+    macro.specialPara,
+    att.global.attributes,
+    att.sortable.attributes,
+    empty
+  }
+graphic =
+  
+  ## indique l'emplacement d'une image, d'une illustration ou
+  ##     d'un schéma intégrés. [3.9. ]
+  element graphic {
+    model.glossLike*,
+    att.global.attributes,
+    att.internetMedia.attributes,
+    
+    ## la largeur d’affichage de l’image
+    attribute width { data.outputMeasurement }?,
+    
+    ## la hauteur d’affichage de l’image 
+    attribute height { data.outputMeasurement }?,
+    
+    ## facteur d'échelle à appliquer à l'image pour
+    ##         l'afficher à la taille désirée.
+    attribute scale { data.numeric }?,
+    
+    ##  (adresse URL) l'URL cible
+    attribute url { data.pointer },
+    empty
+  }
+title =
+  
+  ##  (titre) contient le titre complet d'une oeuvre quelconque [3.11.2.2.  2.2.1.  2.2.5. ]
+  element title {
+    macro.paraContent,
+    att.global.attributes,
+    att.canonical.attributes,
+    
+    ## indique le niveau
+    ##                                         bibliographique d'un titre, c'est-à-dire si ce titre
+    ##                                         identifie un article, un livre, une revue, une collection,
+    ##                                         ou un document non publié
+    attribute level {
+      
+      ##  (titre
+      ##                                                   analytique (article, poème ou autre item
+      ##                                                   publié en tant que partie d'un item plus
+      ##                                                   large)) titre
+      ##                                                   analytique (article, poème ou autre,
+      ##                                                   publié comme partie d'un ensemble plus
+      ##                                                   grand)
+      "a"
+      | 
+        ##  (titre de
+        ##                                                   monographie (livre, recueil ou autre
+        ##                                                   item publié séparément, y compris des
+        ##                                                   volumes isolés d'ouvrages en plusieurs
+        ##                                                   volumes)) titre de
+        ##                                                   monographie (livre, ensemble ou autre,
+        ##                                                   publié comme un document distinct, y
+        ##                                                   compris les volumes isolés d'ouvrages en
+        ##                                                   plusieurs volumes)
+        "m"
+      | 
+        ##  (titre de
+        ##                                                   revue) titre de
+        ##                                                   périodique
+        "j"
+      | 
+        ##  (titre de
+        ##                                                   collection) titre de
+        ##                                                   publication en série
+        "s"
+      | 
+        ##  (titre de
+        ##                                                   document non publié (incluant des thèses
+        ##                                                   et des mémoires s'il ne s'agit pas de
+        ##                                                   publications éditées par un éditeur
+        ##                                                   commercial)) titre de
+        ##                                                   matériau non publié (thèses et
+        ##                                                   dissertations comprises, à l'exception
+        ##                                                   de leurs éditions commerciales)
+        "u"
+    }?,
+    
+    ## caractérise le titre selon
+    ##                                         une typologie adaptée.
+    ## Exemple de valeurs possibles: 1] main; 2] sub (titre de
+    ## niveau inférieur, titre de partie) ; 3] alt (titre
+    ## alternatif, souvent dans une autre
+    ## langue, par lequel l'oeuvre est
+    ## également connu) ; 4] short; 5] desc (paraphrase descriptive de l'oeuvre
+    ## ayant les fonctions d'un titre) 
+    attribute type { data.enumerated }?,
+    empty
+  }
+TEI =
+  
+  ##  (document TEI) contient un seul document conforme à la TEI, qui
+  ##             comprend un en-tête TEI et un texte, soit de façon isolée soit comme  partie d’un
+  ##             élément teiCorpus. [4.  15.1. ]
+  element TEI {
+    (teiHeader,
+     ((model.resourceLike+, \text?) | \text))
+    >> ns1:ns [ prefix = "tei" uri = "http://www.tei-c.org/ns/1.0" ]
+    >> ns1:ns [
+         prefix = "rng"
+         uri = "http://relaxng.org/ns/structure/1.0"
+       ],
+    att.global.attributes,
+    
+    ## la version du schéma TEI
+    attribute version { data.version }?,
+    empty
+  }
+\text =
+  
+  ##  (texte) contient un seul texte quelconque, simple ou composite,
+  ##     par exemple un poème ou une pièce de théâtre, un recueil d’essais, un roman, un dictionnaire ou
+  ##     un échantillon de corpus. [4.  15.1. ]
+  element text {
+    (model.global*,
+     model.global*,
+     (body),
+     model.global*,
+     model.global*),
+    att.global.attributes,
+    att.typed.attributes,
+    empty
+  }
+body =
+  
+  ##  (corps du texte) contient la totalité du corps d’un seul texte simple, à
+  ##     l’exclusion de toute partie pré- ou post-liminaire. [4. ]
+  element body {
+    (model.global*,
+     (model.divTop, (model.global | model.divTop)*)?,
+     (model.divGenLike, (model.global | model.divGenLike)*)?,
+     ((model.divLike, (model.global | model.divGenLike)*)+
+      | (model.div1Like, (model.global | model.divGenLike)*)+
+      | ((model.common, model.global*)+,
+         ((model.divLike, (model.global | model.divGenLike)*)+
+          | (model.div1Like, (model.global | model.divGenLike)*)+)?)),
+     (model.divBottom, model.global*)*),
+    att.global.attributes,
+    empty
+  }
+\div =
+  
+  ##  (division du texte) contient une subdivision dans le texte préliminaire, dans le
+  ##     corps d’un texte ou dans le texte postliminaire. [4.1. ]
+  element div {
+    ((model.divTop | model.global)*,
+     ((((model.divLike | model.divGenLike), model.global*)+
+       | ((model.common, model.global*)+,
+          ((model.divLike | model.divGenLike), model.global*)*)),
+      (model.divBottom, model.global*)*)?),
+    att.global.attributes,
+    att.divLike.attributes,
+    att.typed.attributes,
+    empty
+  }
+att.global.facs.attributes = att.global.facs.attribute.facs
+att.global.facs.attribute.facs =
+  
+  ##  (fac-similé) pointe directement vers une image ou vers une partie
+  ##         d'une image correspondant au contenu de l'élément.
+  attribute facs {
+    list { data.pointer, data.pointer* }
+  }?
+att.global.change.attributes = att.global.change.attribute.change
+att.global.change.attribute.change =
+  
+  ## points to one or more change elements documenting
+  ##       a state or revision campaign to which the element bearing this
+  ##       attribute and its children have been assigned by the encoder.
+  attribute change {
+    list { data.pointer, data.pointer* }
+  }?
+att.coordinated.attributes =
+  att.coordinated.attribute.start,
+  att.coordinated.attribute.ulx,
+  att.coordinated.attribute.uly,
+  att.coordinated.attribute.lrx,
+  att.coordinated.attribute.lry
+att.coordinated.attribute.start =
+  
+  ## désigne l'élément qui, dans la transcription du texte, contient au moins le début de la section de texte représentée dans la zone ou surface.
+  attribute start { data.pointer }?
+att.coordinated.attribute.ulx =
+  
+  ## donne la valeur x de l'abscisse du
+  ##         coin supérieur gauche d'un rectangle.
+  attribute ulx { data.numeric }?
+att.coordinated.attribute.uly =
+  
+  ## donne la valeur y de l'ordonnée du coin supérieur gauche d'un rectangle.
+  attribute uly { data.numeric }?
+att.coordinated.attribute.lrx =
+  
+  ## donne la valeur x de l'abscisse du coin inférieur droit d'un rectangle.
+  attribute lrx { data.numeric }?
+att.coordinated.attribute.lry =
+  
+  ## donne la valeur y de l'ordonnée du coin inférieur droit d'un rectangle.
+  attribute lry { data.numeric }?
+facsimile =
+  
+  ## contient une représentation d'une source écrite
+  ## quelconque sous la forme d'un ensemble d'images plutôt que sous la forme d'un texte transcrit
+  ## ou encodé. [11.1. ]
+  element facsimile {
+    (empty?, (model.graphicLike | surface)+, empty?),
+    att.global.attributes,
+    empty
+  }
+surface =
+  
+  ## définit une surface écrite comme un rectangle décrit par ses coordonnées spatiales, en regroupant éventuellement une ou plusieurs représentations
+  ## graphiques de cet espace et des zones rectangulaires intéressantes à l'intérieur de
+  ## celui-ci.
+  element surface {
+    (model.glossLike*,
+     model.graphicLike*,
+     (model.global | zone | surface)*),
+    att.global.attributes,
+    att.coordinated.attributes,
+    att.typed.attributes,
+    
+    ## describes the method by which this surface is or was
+    ##          connected to the main surface
+    ## Exemple de valeurs possibles: 1] glued; 2] pinned; 3] sewn
+    attribute attachment { data.enumerated }?,
+    
+    ## indicates whether the
+    ##       surface is attached and folded in such a way as to provide two
+    ##       writing surfaces
+    attribute flipping { data.truthValue }?,
+    empty
+  }
+zone =
+  
+  ## définit une zone rectangulaire contenue dans un élément surface.
+  element zone {
+    (text
+     | model.graphicLike
+     | model.global
+     | surface
+     | model.linePart)*,
+    att.global.attributes,
+    att.coordinated.attributes,
+    att.typed.attributes,
+    
+    ## identifies a two dimensional area within the bounding box
+    ## specified by the other attributes by means of
+    ## a series of pairs of numbers, each of which gives the x,y coordinates
+    ## of a point on a line enclosing the area.
+    attribute points {
+      list { data.point, data.point, data.point, data.point* }
+    }?,
+    
+    ## indicates the amount by which this zone has been
+    ##          rotated clockwise, with respect to the normal orientation of
+    ##          the parent surface element as implied by the
+    ##          dimensions given in the msDesc element or by the
+    ##          coordinates of the surface itself. The orientation
+    ##          is expressed in arc degrees.
+    [ a:defaultValue = "0" ] attribute rotate { data.count }?,
+    empty
+  }
+att.datable.custom.attributes =
+  att.datable.custom.attribute.when-custom,
+  att.datable.custom.attribute.notBefore-custom,
+  att.datable.custom.attribute.notAfter-custom,
+  att.datable.custom.attribute.from-custom,
+  att.datable.custom.attribute.to-custom,
+  att.datable.custom.attribute.datingPoint,
+  att.datable.custom.attribute.datingMethod
+att.datable.custom.attribute.when-custom =
+  
+  ## supplies the value of a date or time in some standard form.
+  attribute when-custom {
+    list { data.word, data.word* }
+  }?
+att.datable.custom.attribute.notBefore-custom =
+  
+  ## specifies the earliest possible date for the event in some custom standard form.
+  attribute notBefore-custom {
+    list { data.word, data.word* }
+  }?
+att.datable.custom.attribute.notAfter-custom =
+  
+  ## specifies the latest possible date for the event in some custom standard form.
+  attribute notAfter-custom {
+    list { data.word, data.word* }
+  }?
+att.datable.custom.attribute.from-custom =
+  
+  ## indicates the starting point of the period in some standard form.
+  attribute from-custom {
+    list { data.word, data.word* }
+  }?
+att.datable.custom.attribute.to-custom =
+  
+  ## indicates the ending point of the period in some standard form.
+  attribute to-custom {
+    list { data.word, data.word* }
+  }?
+att.datable.custom.attribute.datingPoint =
+  
+  ## supplies a pointer to some location defining a named point in time with reference to which the datable item is understood to have occurred
+  attribute datingPoint { data.pointer }?
+att.datable.custom.attribute.datingMethod =
+  
+  ## supplies a pointer to a calendarDesc element or other means of interpreting the values of the custom dating attributes.
+  attribute datingMethod { data.pointer }?
+att.datable.iso.attributes =
+  att.datable.iso.attribute.when-iso,
+  att.datable.iso.attribute.notBefore-iso,
+  att.datable.iso.attribute.notAfter-iso,
+  att.datable.iso.attribute.from-iso,
+  att.datable.iso.attribute.to-iso
+att.datable.iso.attribute.when-iso =
+  
+  ## précise une date exacte pour l'évènement selon la forme normalisée ISO 8601, c'est-à-dire
+  ##                 aaaa-mm-jj.
+  attribute when-iso { data.temporal.iso }?
+att.datable.iso.attribute.notBefore-iso =
+  
+  ## précise la première date possible pour l'évènement selon la forme normalisée, c'est-à-dire
+  ##                 aaaa-mm-jj.
+  attribute notBefore-iso { data.temporal.iso }?
+att.datable.iso.attribute.notAfter-iso =
+  
+  ## précise la dernière date possible pour l'évènement selon la forme normalisée, c'est-à-dire
+  ##                 aaaa-mm-jj.
+  attribute notAfter-iso { data.temporal.iso }?
+att.datable.iso.attribute.from-iso =
+  
+  ## Indique le point de départ de la période sous une forme normalisée
+  attribute from-iso { data.temporal.iso }?
+att.datable.iso.attribute.to-iso =
+  
+  ## Indique le point final de la période sous une forme normalisée
+  attribute to-iso { data.temporal.iso }?
+persName =
+  
+  ##  (nom de personne) contient un nom propre ou une expression nominale se
+  ##     référant à une personne, pouvant inclure tout ou partie de ses prénoms, noms de famille, titres
+  ##     honorifiques, noms ajoutés, etc. [13.2.1. ]
+  element persName {
+    macro.phraseSeq,
+    att.global.attributes,
+    att.datable.attributes,
+    att.editLike.attributes,
+    att.personal.attributes,
+    att.typed.attributes,
+    empty
+  }
+placeName =
+  
+  ##  (nom de lieu) contient un nom de lieu absolu ou relatif. [13.2.3. ]
+  element placeName {
+    macro.phraseSeq,
+    att.datable.attributes,
+    att.editLike.attributes,
+    att.global.attributes,
+    att.naming.attributes,
+    att.typed.attributes,
+    empty
+  }
+teiHeader =
+  
+  ##  (en-tête TEI)  donne des informations descriptives et déclaratives qui
+  ##     constituent une page de titre électronique au début de tout texte conforme à la TEI. [2.1.1.  15.1. ]
+  element teiHeader {
+    (fileDesc, model.teiHeaderPart*, empty?),
+    att.global.attributes,
+    
+    ## spécifie le type de document auquel l'en-tête TEI se
+    ##         rapporte.
+    ## Exemple de valeurs possibles: 1] text; 2] corpus
+    [ a:defaultValue = "text" ] attribute type { data.enumerated }?,
+    empty
+  }
+fileDesc =
+  
+  ##  (description bibliographique du fichier.) contient une description bibliographique complète du
+  ##     fichier électronique. [2.2.  2.1.1. ]
+  element fileDesc {
+    ((titleStmt, empty?, empty?, publicationStmt, empty?, empty?),
+     sourceDesc+),
+    att.global.attributes,
+    empty
+  }
+titleStmt =
+  
+  ##  (mention de titre)  regroupe les informations sur le titre d’une œuvre et
+  ##     les personnes ou institutions responsables de son contenu intellectuel. [2.2.1.  2.2. ]
+  element titleStmt {
+    (title+, model.respLike*), att.global.attributes, empty
+  }
+publicationStmt =
+  
+  ##  (mention de publication)  regroupe des informations concernant la publication ou
+  ##     la diffusion d’un texte électronique ou d’un autre type de texte. [2.2.4.  2.2. ]
+  element publicationStmt {
+    (model.pLike+ | model.publicationStmtPart+),
+    att.global.attributes,
+    empty
+  }
+sourceDesc =
+  
+  ##  (description de la source) décrit la source à partir de laquelle un texte électronique a été
+  ##     dérivé ou produit, habituellement une description bibliographique pour un texte numérisé, ou une
+  ##     expression comme "document numérique natif " pour un texte qui n'a aucune existence précédente. [2.2.7. ]
+  element sourceDesc {
+    (model.pLike+
+     | (model.biblLike | model.sourceDescPart | model.listLike)+),
+    att.global.attributes,
+    att.declarable.attributes,
+    empty
+  }
+start = TEI

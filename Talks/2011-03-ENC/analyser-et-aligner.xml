@@ -1,0 +1,378 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Formation à l’utilisation de TEI pour l’édition critique de manuscrits (École
+               nationale des chartes, mars 2011)</title>
+            <title type="sub">Techniques d’analyse et d’alignement avec TEI : aperçu rapide</title>
+            <author>Florence Clavaud (École nationale des chartes)</author>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+               <date when="2011-03">mars 2011</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+            <publisher>
+               <orgName>École nationale des chartes</orgName>
+               <address>
+                        <addrLine>19 rue de la Sorbonne</addrLine>
+                        <addrLine>75005 Paris</addrLine>
+                    </address>
+            </publisher>
+            <availability>
+               <p>Ce texte est mis à disposition de tous selon les termes de la licence Creative
+                  Commons « Paternité - Pas d’Utilisation Commerciale - Pas de Modification ; 2.0
+                  France ». Cette licence est disponible <ref
+                     target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en ligne</ref> ou
+                  par courrier postal à Creative Commons, 171 Second Street, Suite 300, San
+                  Francisco, California 94105, USA.</p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Fichier produit pour les besoins de la formation, nativement numérique.</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Support de cours préparé pour le stage de formation continue à TEI, organisé par
+               l’Ecole des chartes les 9-11 et 17-18 mars 2011.</p>
+         </projectDesc>
+      </encodingDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div>
+            <head>Introduction</head>
+            <p>Ces quelques lignes ont uniquement pour objectif de donner un aperçu rapide des
+               dispositifs offerts par TEI pour parvenir à :<list>
+                  <item>poser sur le texte transcrit une grille d’interprétation</item>
+                  <item>aligner des segments de texte (autrement dit établir une correspondance
+                     entre plusieurs segments de texte) ou un segment de texte et une autre section
+                     du fichier TEI</item>
+               </list></p>
+            <p>On peut en effet avoir besoin de tels dispositifs pour aller plus loin dans l’analyse
+               d’un texte, par ex. pour isoler (pour les afficher spécifiquement, les indexer et
+               les rendre cherchables à part) des segments du discours narratif ou diplomatique, de
+               reconnaître des registres littéraires ou des thématiques. On peut aussi avoir besoin d’établir des correspondances entre un segment de la transcription d’un
+               manuscrit et une zone de l’image numérique qui le reproduit, ou entre un segment de
+               la transcription et le segment contenant la traduction de cette transcription.</p>
+            <p>A la base, ces problèmes sont traités avec TEI à l’aide des mêmes éléments ou types d’éléments. Nous allons en présenter quelques-uns par l’exemple. Ces
+               éléments font partie des modules ’analysis’ (simple analytic mechanisms) (c’est le
+               cas de <gi>interp</gi>, <gi>interpGrp</gi>, <gi>span</gi> et <gi>spanGrp</gi>) et
+               ’linking’ (c’est le cas de <gi>link</gi>, <gi>linkGrp</gi>, <gi>seg</gi>,
+                  <gi>anchor</gi>).</p>
+         </div>
+         <div>
+            <head>Création de grilles d’analyse ou d’interprétation du texte</head>
+            <p>Un peu comme dans d’autres situations, créer de telles grilles suppose de faire trois
+               choses différentes : <list>
+                  <item>définir (intellectuellement) puis déclarer (dans le fichier TEI) son
+                     vocabulaire d’interprétation</item>
+                  <item>segmenter le texte, ou encore y poser des ancres qui permettront de borner
+                     les segments de texte</item>
+                  <item>établir la correspondance entre le vocabulaire d’interprétation et les
+                     segments du texte</item>
+               </list>.</p>
+            <div>
+               <head>Créer son vocabulaire d’interprétation</head>
+               <p>L’élément <gi>interpGrp</gi> permet de déclarer un tel vocabulaire. Il sera
+                  normalement encodé au sein de l’en-tête TEI, dans l’élément <gi>encodingDesc</gi>.
+                  Bien sûr, on pourra créer autant de vocabulaires d’interprétation que nécessaire,
+                  si l’on a plusieurs points de vue différents sur le texte, si l’étude est
+                  transdisciplinaire, etc. Dans ce cas notamment, il sera important d’affecter un
+                  attribut <att>type</att> à <gi>interpGrp</gi>.</p>
+               <p><gi>interpGrp</gi> contient un ou plusieurs éléments <gi>interp</gi> ; chacun de
+                  ces éléments <gi>interp</gi> contiendra la dénomination, éventuellement la
+                  description, d’un des éléments du vocabulaire. Chacun d’eux recevra aussi un
+                  identifiant, au moyen d’un attribut <att>xml:id</att>.</p>
+               <p>Exemple (extrait de l’édition en cours d’un corpus de textes juridiques médiévaux)
+                  : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <interpGrp type="parties-du-discours">
+                        <interp xml:id="discours1">partie 1</interp>
+                        <interp xml:id="discours2">partie 2</interp>
+                        <interp xml:id="discours3">partie 3</interp>
+                        <interp xml:id="discours4">partie 4</interp>
+                        <interp xml:id="discours5">partie 5</interp>
+                        <!-- etc. -->
+                     </interpGrp>
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Segmenter le texte</head>
+               <p>Une fois son vocabulaire défini, il faut isoler dans le texte édité les segments
+                  relevant des termes du vocabulaire. Pour cela, on a le choix entre : <list>
+                     <item>utiliser des éléments contenant le texte, comme <gi>div</gi>, <gi>p</gi>,
+                           <gi>s</gi> ou encore <gi>seg</gi>, et leur attribuer un identifiant à
+                        l’aide de l’attribut <att>xml:id</att> ; c’est ce qu’on fait le plus
+                        souvent</item>
+                     <item>utiliser des éléments vides de type milestone, comme <gi>anchor</gi>, qui
+                        marque un point dans le texte, en leur affectant aussi des identifiants.
+                        C’est ce qu’on fait notamment lorsque les portions de texte à isoler se chevauchent - ce qui peut par ex. arriver lorsqu’un même segment intéressant du discours commence au milieu d’un paragraphe et se termine au milieu d’un autre paragraphe, ou lorsqu’on doit poser plusieurs grilles
+                        d’interprétation</item>
+                  </list></p>
+               <p>Exemple 1 (extrait simplifié de la même édition), avec <gi>seg</gi> : <egXML
+                     xmlns="http://www.tei-c.org/ns/Examples">
+                     <p>
+                        <seg xml:id="pd001">Constitutis in nostra parlamenti curia, Petro Piquelin,
+                           alias Herbelot, magistro alutanorum seu cordubannarum
+                           <lb n="2"/>et subulariorum civitatis seu ville suburbiorum
+                           et banleuce Aurelianense,
+                           appellante, ex una parte, et <lb n="3"/>procuratore carissimi fratris et
+                           consanguinei nostri ducis Aurelianensi appellati, ac [...]</seg>,
+                        <seg
+                           xml:id="pd002"> dictus Piquelin proponi fecit, quod in dicta villa
+                           Aurelianense quam plurimis honoribus, prerogativis
+                           <lb n="10"/>et statutis policiam rei publice
+                           ejusdem civitatis concernentibus decorata,
+                           unumquodque ministeriorum <lb n="11"/> dicte ville suum dinoscebatur
+                           habere magistrum dictorumque cordubannariorum et subulariorum dictus <lb
+                              n="12"/>Piquelin fuerat et erat magister, [...]</seg>
+                        <!-- etc. -->
+                     </p>
+                  </egXML>
+               </p>
+               <p>Exemple 2 (avec <gi>anchor</gi>) : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <p>
+                        <anchor xml:id="a001"/>Constitutis in nostra parlamenti curia, Petro
+                        Piquelin, alias Herbelot, magistro alutanorum seu cordubannarum 
+                        <lb n="2"/>et subulariorum civitatis seu ville suburbiorum
+                        et banleuce Aurelianense,
+                        appellante, ex una parte, et <lb n="3"/>procuratore carissimi fratris et
+                        consanguinei nostri ducis Aurelianensi appellati, ac [...]<anchor
+                           xml:id="a002"/>, <anchor xml:id="a003"/> dictus Piquelin proponi fecit,
+                        quod in dicta villa Aurelianense quam plurimis honoribus, prerogativis
+                        <lb n="10"/>et statutis policiam rei publice ejusdem civitatis
+                        concernentibus decorata, unumquodque ministeriorum <lb n="11"/>
+                        dicte ville suum
+                        dinoscebatur habere magistrum dictorumque cordubannariorum et subulariorum
+                        dictus <lb n="12"/>Piquelin fuerat et erat magister, [...]<anchor
+                           xml:id="a004"/>
+                        <!-- etc. -->
+                     </p>
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Etablir la relation entre les éléments d’un vocabulaire d’analyse et les
+                  segments du texte</head>
+               <p>On pourra utiliser pour ce faire, dans le cas où on a choisi de segmenter le texte
+                  avec <gi>seg</gi> ou un élément comparable : <list>
+                     <item>soit un attribut <att>ana</att>, que l’on ajoutera à l’élément
+                           <gi>seg</gi> préalablement posé, et qui renverra à l’élément
+                           <gi>interp</gi> concerné ;</item>
+                     <item>soit, hors du texte, dans un élément <gi>link</gi> lui-même contenu dans
+                           <gi>linkGrp</gi>, un attribut <att>targets</att> dans lequel on saisira
+                        des pointeurs désignant chacun des éléments du document TEI entre lesquels
+                        existe une relation.</item>
+                  </list></p>
+               <p>Exemple 1 (utilisation de <gi>linkGrp</gi> et <gi>link</gi> pour relier des
+                  segments <gi>seg</gi> de texte et des éléments du vocabulaire <gi>interpGrp</gi>)
+                  : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <p>
+                        <seg xml:id="pd001">Constitutis in nostra parlamenti curia, Petro Piquelin,
+                           alias Herbelot, magistro alutanorum seu cordubannarum <lb n="2"/>et
+                           subulariorum civitatis seu ville suburbiorum et banleuce Aurelianense,
+                           appellante, ex una parte, et <lb n="3"/>procuratore carissimi fratris et
+                           consanguinei nostri ducis Aurelianensi appellati, ac [...]</seg>, <seg
+                           xml:id="pd002"> dictus Piquelin proponi fecit, quod in dicta villa
+                           Aurelianense quam plurimis honoribus, prerogativis <lb n="10"/>et
+                           statutis policiam rei publice ejusdem civitatis concernentibus decorata,
+                           unumquodque ministeriorum <lb n="11"/> dicte ville suum dinoscebatur
+                           habere magistrum dictorumque cordubannariorum et subulariorum dictus <lb
+                              n="12"/>Piquelin fuerat et erat magister, [...]</seg>
+                        <!-- etc. -->
+                     </p>
+                     <!-- ailleurs dans le fichier TEI -->
+                     <linkGrp targFunc="texte parties-du-discours">
+                        <link targets="#pd001 #discours1"/>
+                        <link targets="#pd002 #discours4"/>
+                        <!-- etc. -->
+                     </linkGrp>
+                  </egXML> On aurait pu procéder autrement, en utilisant <att>ana</att>, comme suit
+                  : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <p>
+                        <seg xml:id="pd009" ana="#discours1">Constitutis in nostra parlamenti curia,
+                           Petro Piquelin, alias Herbelot, magistro alutanorum seu cordubannarum <lb
+                              n="2"/>et subulariorum civitatis seu ville suburbiorum et banleuce
+                           Aurelianense, appellante, ex una parte, et <lb n="3"/>procuratore
+                           carissimi fratris et consanguinei nostri ducis Aurelianensi appellati, ac
+                           [...]</seg>, <seg xml:id="pd010" ana="#discours4"> dictus Piquelin
+                           proponi fecit, quod in dicta villa Aurelianense quam plurimis honoribus,
+                           prerogativis <lb n="10"/>et statutis policiam rei publice ejusdem
+                           civitatis concernentibus decorata, unumquodque ministeriorum <lb n="11"/>
+                           dicte ville suum dinoscebatur habere magistrum dictorumque
+                           cordubannariorum et subulariorum dictus <lb n="12"/>Piquelin fuerat et
+                           erat magister, de quibus sui magistratus juribus nullus in ministeriis
+                           cordubannariatus <lb n="13"/>et subulariatus, nisi prius per eundem
+                           magistrum approbatus [...]</seg>
+                     </p>
+                  </egXML></p>
+               <p>Dans le cas où on a utilisé des éléments <gi>anchor</gi> pour délimiter des
+                  portions de texte (exemple 2), on pourra créer quelque part dans le fichier TEI un
+                  élément <gi>spanGrp</gi>, dans lequel on saisira autant d’éléments <gi>span</gi>
+                  que nécessaire pour définir (abstraitement) des segments de texte, à l’aide des
+                  attributs <att>from</att> et <att>to</att>. Puis on ajoutera à cet élément
+                     <gi>span</gi> un attribut <att>ana</att>.</p>
+               <p>Exemple 2 (utilistion de <gi>spanGrp</gi> pour construire virtuellement des
+                  segments de texte à partir d’éléments <gi>anchor</gi> et les relier avec le
+                  vocabulaire) : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <p>
+                        <anchor xml:id="a001"/>Constitutis in nostra parlamenti curia, Petro
+                        Piquelin, alias Herbelot, magistro alutanorum seu cordubannarum <lb n="2"
+                        />et subulariorum civitatis seu ville suburbiorum et banleuce Aurelianense,
+                        appellante, ex una parte, et <lb n="3"/>procuratore carissimi fratris et
+                        consanguinei nostri ducis Aurelianensi appellati, ac [...]<anchor
+                           xml:id="a002"/>, <anchor xml:id="a003"/> dictus Piquelin proponi fecit,
+                        quod in dicta villa Aurelianense quam plurimis honoribus, prerogativis <lb
+                           n="10"/>et statutis policiam rei publice ejusdem civitatis concernentibus
+                        decorata, unumquodque ministeriorum <lb n="11"/> dicte ville suum
+                        dinoscebatur habere magistrum dictorumque cordubannariorum et subulariorum
+                        dictus <lb n="12"/>Piquelin fuerat et erat magister, [...]<anchor
+                           xml:id="a004"/>
+                        <!-- etc. -->
+                     </p>
+                     <!-- ailleurs dans le fichier TEI -->
+                     <spanGrp>
+                        <span from="#a001" to="#a002" ana="#discours1"/>
+                        <span from="#a003" to="#a004" ana="#discours4"/>
+                     </spanGrp>
+                  </egXML>
+               </p>
+            </div>
+         </div>
+         <div>
+            <head>Etablissement d’une correspondance entre deux portions de texte</head>
+            <p>Nous nous contenterons ici de donner un exemple réel, pour montrer comment créer une
+               relation entre deux segments de texte. Un des cas auxquels on pense est celui de la
+               correspondance entre une portion de texte manuscrit écrite dans une langue A, et un
+               texte (dans le même manuscrit, ou plus souvent un texte de l’éditeur) traduisant ce
+               segment de texte dans une langue B.</p>
+            <p>Exemple adapté de l’édition d’une page de la Bible glosée d’Anselme de Laon (<ref
+                  target="http://theleme.enc.sorbonne.fr/dossiers/notice99.php"
+                  >http://theleme.enc.sorbonne.fr/dossiers/notice99.php</ref>) : <egXML
+                  xmlns="http://www.tei-c.org/ns/Examples">
+                  <div type="transcription" xml:lang="lat">
+                     <p>
+                        <seg xml:id="transcr-001">Colosenses</seg>
+                        <add place="margin-left" xml:id="add-001">
+                           <seg xml:id="transcr-add-001">Colosenses sunt Asiani quib<ex>us</ex>
+                                 n<ex>on</ex> ipse Ap<ex>osto</ex>l<ex>u</ex>s
+                              p<ex>re</ex>dica-</seg>
+                           <lb/>
+                           <seg xml:id="transcr-add-002">-vit, s<ex>ed</ex> ej<ex>us</ex>
+                                 discip<ex>u</ex>li Archipp<ex>us</ex>
+                              <ex>et</ex> Epafras. Archipp<ex>us</ex> v<ex>er</ex>o in eos</seg>
+                           <!-- etc. -->
+                        </add>
+                        <lb/>
+                        <seg xml:id="transcr-002"> et hi sicut Laodicenses sunt Asia-</seg>
+                        <!-- etc. -->
+                     </p>
+                  </div>
+                  <div type="traduction" xml:lang="fre" resp="#FC">
+                     <p>
+                        <seg xml:id="trad-001">Les Colossiens</seg>
+                        <add xml:id="add-003">
+                           <seg xml:id="trad-add-001">Les Colossiens sont des Asiatiques auxquels
+                              l’Apôtre lui-même n’a pas prêché,</seg>
+                           <seg xml:id="trad-add-002">mais ses disciples Archippe et Epafras.
+                              Archippe avait reçu sur eux</seg>
+                           <!-- etc. -->
+                        </add>
+                        <lb/>
+                        <seg xml:id="trad-002"> et ceux-ci comme les habitants de Laodicée sont des
+                           Asiatiques</seg>
+                        <!-- etc. -->
+                     </p>
+                  </div>
+                  <!-- plus loin dans le fichier TEI -->
+                  <linkGrp>
+                     <link targets="#transcr-001 #trad-001"/>
+                     <link targets="#transcr-002 #trad-002"/>
+                     <link targets="#transcr-add-001 #trad-add-001"/>
+                     <link targets="#transcr-add-002 #trad-add-002"/>
+                  </linkGrp>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head>Etablissement de la correspondance entre un segment de texte et une zone d’image
+               numérique</head>
+            <p>Encore une présentation par l’exemple (exemple adapté de l’édition d’une page du
+               Didascalicon d’Hugues de Saint-Victor (Paris, Bibliothèque Mazarine, 717, 93v° ; voir
+                  <ref target="http://theleme.enc.sorbonne.fr/dossiers/notice100.php"
+                  >http://theleme.enc.sorbonne.fr/dossiers/notice100.php</ref>) : <egXML
+                  xmlns="http://www.tei-c.org/ns/Examples">
+                  <TEI>
+                     <teiHeader><!-- autres éléments --></teiHeader>
+                     <facsimile>
+                        <surface>
+                           <graphic url="fax.jpg" width="693px" height="1100px" xml:id="fax"/>
+                           <zone xml:id="zone_1" ulx="213" uly="3" lrx="342" lry="67"/>
+                           <zone xml:id="zone_2" ulx="29" uly="31" lrx="214" lry="67"/>
+                           <zone xml:id="zone_3" ulx="81" uly="65" lrx="335" lry="91"/>
+                           <zone xml:id="zone_4" ulx="80" uly="89" lrx="342" lry="117"/>
+                        </surface>
+                     </facsimile>
+                     <text>
+                        <body>
+                           <div type="transcription" facs="#fax">
+                              <p>
+                                 <seg facs="#zone_1">De tribus generibus lectorum. </seg>
+                                 <seg facs="#zone_2">Satis ut puto aperte </seg>
+                                 <seg facs="#zone_3">demonstratum e<expan>st</expan> provectis et
+                                    aliquid </seg>
+                                 <seg facs="#zone_4">amplius de se
+                                       p<expan>ro</expan>mittentib<expan>us</expan>
+                                       n<expan>on</expan> idem e<expan>ss</expan>e </seg>
+                                 <!-- etc. -->
+                              </p>
+                           </div>
+                        </body>
+                     </text>
+                  </TEI>
+               </egXML></p>
+            <p>Noter qu’on aurait aussi pu écrire : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <TEI>
+                     <teiHeader><!-- autres éléments --></teiHeader>
+                     <facsimile>
+                        <surface>
+                           <graphic url="fax.jpg" width="693px" height="1100px" xml:id="fax"/>
+                           <zone xml:id="zone_1" ulx="213" uly="3" lrx="342" lry="67"/>
+                           <zone xml:id="zone_2" ulx="29" uly="31" lrx="214" lry="67"/>
+                           <zone xml:id="zone_3" ulx="81" uly="65" lrx="335" lry="91"/>
+                           <zone xml:id="zone_4" ulx="80" uly="89" lrx="342" lry="117"/>
+                        </surface>
+                     </facsimile>
+                     <text>
+                        <body>
+                           <div type="transcription" facs="#fax">
+                              <p>
+                                 <seg xml:id="seg_001">De tribus generibus lectorum. </seg>
+                                 <seg xml:id="seg_002">Satis ut puto aperte </seg>
+                                 <seg xml:id="seg_003">demonstratum e<expan>st</expan> provectis et
+                                    aliquid </seg>
+                                 <seg xml:id="seg_004"> amplius de se
+                                       p<expan>ro</expan>mittentib<expan>us</expan>
+                                       n<expan>on</expan> idem e<expan>ss</expan>e </seg>
+                                 <!-- etc. -->
+                              </p>
+                           </div>
+                           <!-- plus loin -->
+                           <linkGrp>
+                              <link targets="#zone_1 #seg_001"/>
+                              <link targets="#zone_2 #seg_002"/>
+                              <link targets="#zone_3 #seg_003"/>
+                              <link targets="#zone_4 #seg_004"/>
+                           </linkGrp>
+                        </body>
+                     </text>
+                  </TEI>
+               </egXML>
+            </p>
+         </div>
+      </body>
+   </text>
+</TEI>

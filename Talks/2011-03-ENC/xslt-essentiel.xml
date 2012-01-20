@@ -1,0 +1,600 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Formation à l’utilisation de TEI pour l’édition critique de manuscrits (École
+               nationale des chartes, mars 2011)</title>
+            <title type="sub">Principaux éléments et fonctions XSLT</title>
+            <author>Florence Clavaud (École nationale des chartes)</author>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+               <date when="2011-03">mars 2011</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+            <publisher>
+               <orgName>École nationale des chartes</orgName>
+               <address>
+                        <addrLine>19 rue de la Sorbonne</addrLine>
+                        <addrLine>75005 Paris</addrLine>
+                    </address>
+            </publisher>
+            <availability>
+               <p>Ce texte est mis à disposition de tous selon les termes de la licence Creative
+                  Commons « Paternité - Pas d’Utilisation Commerciale - Pas de Modification ; 2.0
+                  France ». Cette licence est disponible <ref
+                     target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en ligne</ref> ou
+                  par courrier postal à Creative Commons, 171 Second Street, Suite 300, San
+                  Francisco, California 94105, USA.</p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Texte nativement numérique, pas de source.</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Support de cours préparé pour le stage de formation continue à TEI, organisé par
+               l’Ecole des chartes les 9-11 et 17-18 mars 2011.</p>
+         </projectDesc>
+      </encodingDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div>
+            <head><gi>xsl:apply-templates</gi></head>
+            <p>Cet élément XSLT est un des plus employés, et comprendre à quoi il sert est assez
+               essentiel !</p>
+            <p><gi>xsl:apply-templates</gi> est toujours vide. Il indique au processeur de
+               sélectionner un ensemble de nœuds dans l’arbre XML d’entrée, et de chercher dans le
+               programme XSLT la règle qui s’applique à ces nœuds pour traiter chacun d’entre
+               eux.</p>
+            <p>L’ensemble de nœuds sélectionné est désigné par l’expression XPath donnée comme
+               valeur de l’attribut <att>select</att>. S’il n’y a pas d’attribut <att>select</att>,
+               l’ensemble de nœuds à traiter est constitué par les nœuds fils du nœud courant.</p><p> On
+               rappelle ici que dans le cas où le nœud courant est un élément, ses attributs et
+               espaces de nom ne sont pas considérés comme ses fils.</p>
+            <p>Exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <!-- la règle suivante, lorsque le processeur rencontre,
+                     dans l’arbre XML du fichier TEI à transformer,
+                     un élément msContents dans l’espace de nom TEI,
+                     lui commande de générer dans le fichier XHTML
+                     de sortie un élément p, puis, à l’intérieur
+                     de cet élément, d’exécuter les instructions
+                     (qu’il trouvera ailleurs dans le programme XSLT)
+                     relatives aux nœuds fils de l’élément msContents.
+                  -->
+                  <!-- Question : dans le fichier TEI,
+                     quels sont les nœuds fils de msContents ?-->
+                  <xsl:template match="tei:msContents">
+                     <p class="msContents">
+                        <xsl:apply-templates/>
+                     </p>
+                  </xsl:template>
+               </egXML>
+               Autre exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <!-- la règle suivante, lorsque le processeur rencontre,
+                     dans l’arbre XML du fichier TEI à transformer,
+                     un élément sourceDesc dans l’espace de nom TEI,
+                     lui commande de générer dans le fichier XHTML
+                     de sortie un élément div, puis, à l’intérieur
+                     de cet élément, d’exécuter les instructions
+                     (qu’il trouvera ailleurs dans le programme XSLT)
+                     relatives aux nœuds tei:msDesc/tei:msIdentifier,
+                     puis les instructions relatives aux nœuds
+                     tei:msDesc/tei:msContents. -->
+                  <!-- C’est donc une manière, primo d’obliger le processeur
+                     à suivre un certain chemin dans l’arbre,
+                     en ignorant éventuellement au passage
+                     certains nœuds, deuxio de le forcer
+                     le processeur à traiter des nœuds
+                     dans un ordre donné.
+                     Par ex., ici, quels éléments TEI ne seront jamais
+                     traités ? -->
+                  <xsl:template match="tei:sourceDesc">
+                     <div class="sourceDesc">
+                        <xsl:apply-templates select="tei:msDesc/tei:msIdentifier"/>
+                        <xsl:apply-templates select="tei:msDesc/tei:msContents"/>
+                     </div>
+                  </xsl:template>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head><gi>xsl:value-of</gi></head>
+            <p>Encore un des éléments les plus utilisés. Et pour cause : cette instruction commande
+               au processeur d’écrire dans l’arbre résultat une chaîne de caractères, constituée de la valeur
+               textuelle de l’ensemble de nœuds désigné par l’attribut <att>select</att>.</p>
+            <p>Attention :<list>
+                  <item>si l’attribut select désigne un ensemble de nœuds, seul le premier nœud de
+                     cet ensemble dans l’ordre du document XML sera traité ;</item>
+                  <item>la valeur textuelle dépend du type de nœud désigné.</item>
+               </list>
+               <table>
+                  <row>
+                     <cell>type de nœud</cell>
+                     <cell>valeur textuelle</cell>
+                  </row>
+                  <row>
+                     <cell>nœud texte</cell>
+                     <cell>contenu textuel</cell>
+                  </row>
+                  <row>
+                     <cell>nœud attribut</cell>
+                     <cell>valeur de l’attribut</cell>
+                  </row>
+                  <row>
+                     <cell>nœud élément ou nœud racine</cell>
+                     <cell>concaténation des valeurs des nœuds texte des descendants</cell>
+                  </row>
+                  <row>
+                     <cell>nœud commentaire</cell>
+                     <cell>le texte du commentaire</cell>
+                  </row>
+                  <row>
+                     <cell>nœud instruction de traitement</cell>
+                     <cell>le contenu de l’instruction, sauf la cible</cell>
+                  </row>
+               </table></p>
+            <p>Exemples:
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ <xsl:template match="/tei:TEI">
+    <!-- positionné sur le nœud élément TEI,
+        le processeur génère le squelette de la page HTML -->
+     <html>
+        <head>
+            <title>
+                  <!-- dans l’élément title de la page Web,
+                      il va écrire une chaîne de caractères qui
+                      est la forme normalisée de la valeur
+                             textuelle du nœud
+                             descendant::tei:teiHeader//tei:titleStmt/tei:title[1].
+                              Quelle est cette valeur textuelle ?-->
+                  <xsl:value-of select=
+                  "normalize-space(descendant::tei:teiHeader//tei:titleStmt/tei:title[1])"/>
+                  <!-- autres instructions -->
+             </title>
+             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        </head>
+        <!-- etc. -->
+     </html>
+ </xsl:template>
+ </egXML>
+               Autre exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="tei:principal | tei:author">
+                     <xsl:text>Par </xsl:text>
+                     <!-- Rappel : ici l’expression XPath "." 
+                        désigne le nœud courant, donc
+                        soit principal, soit author -->
+                     <xsl:value-of select="."/>
+                  </xsl:template>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head><gi>xsl:text</gi></head>
+            <p><gi>xsl:text</gi> est utilisé pour écrire dans l’arbre résultat la chaîne de
+               caractères tapée dans l’élément. Bien évidemment, c’est encore un élément XSLT très
+               utile. On s’en sert chaque fois qu’on a besoin d’ajouter de l’information à ce qu’on
+               trouve dans le fichier source, tout en contrôlant totalement la chaîne résultat, en
+               particulier les espaces.</p>
+            <p>Exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="tei:address">
+                     <xsl:text> (</xsl:text>
+                     <xsl:apply-templates select="tei:addrLine"/>
+                     <xsl:text>). </xsl:text>
+                  </xsl:template>
+               </egXML></p>
+         </div>
+         <div>
+            <head><gi>xsl:element</gi>, <gi>xsl:attribute</gi> et <gi>xsl:comment</gi></head>
+            <p>Ces éléments sont utilisés pour écrire un élément, un
+               attribut ou un commentaire XML dans le fichier résultat.</p>
+            <p>Le nom de l’élément ou de l’attribut est fourni par un attribut
+               <att>name</att>.</p>
+            <p>Le contenu de l’élément, de l’attribut et du commentaire est défini par le contenu
+               de <gi>xsl:element</gi>, <gi>xsl:comment</gi> ou <gi>xsl:attribute</gi>.</p>
+            <p>Il faut noter qu’à la place de <gi>xsl:element</gi> ou <gi>xsl:attribute</gi>, il est
+               tout à fait possible de déclarer directement et littéralement le résultat demandé.
+               Dans ce dernier cas, par contre, on ne pourra pas opérer de calcul pour donner un nom
+               à l’élément ou à l’attribut résultats.</p>
+            <p>Exemples :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+               xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <!-- le code ci-dessous :-->
+                  <xsl:template match="tei:div[@type=’transcription’]/tei:div">
+                     <div>
+                        <xsl:apply-templates/>
+                     </div>
+                  </xsl:template>
+                  <!-- est équivalent au code ci-dessous -->
+                  <xsl:template match="tei:div[@type=’transcription’]/tei:div">
+                 <!-- ici on utilise la fonction XPath local-name()
+                    qui renvoie le nom de l’élément courant
+                    sans son préfixe -->
+                     <xsl:element name="local-name()">
+                        <xsl:apply-templates/>
+                     </xsl:element>
+                  </xsl:template>
+               </egXML>
+               Autre exemple : 
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <!-- le code ci-dessous :-->
+                  <xsl:template match="tei:del">
+                     <span class="del">
+                        <xsl:apply-templates/>
+                     </span>
+                  </xsl:template>
+                  <!-- est équivalent au code ci-dessous -->
+                  <xsl:template match="tei:del">
+                     <xsl:element name="span">
+                        <xsl:attribute name="class">
+                           <!-- ici on utilise la fonction XPath local-name()
+                              qui renvoie le nom de l’élément courant
+                              sans son préfixe -->
+                           <xsl:value-of select="local-name()"/>
+                        </xsl:attribute>
+                        <xsl:apply-templates/>
+                     </xsl:element>
+                  </xsl:template>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head>Les instructions dites de contrôle (tests, boucles, utilisation de
+               variables)</head>
+            <div>
+               <head>Test avec <gi>xsl:if</gi></head>
+               <p>L’élément <gi>xsl:if</gi> définit, au moyen de son attribut <att>test</att> (dont
+                  la valeur est une expression XPath) un test à effectuer sur l’ensemble de nœuds
+                  courant ; si le test se vérifie, alors les instructions contenues dans l’élément
+                  sont exécutées.</p>
+               <p>Exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="tei:addrLine">
+                     <xsl:apply-templates/>
+                     <xsl:if test="position() != last()">
+                      <!-- ceci signifie que l’on teste si le nœud courant
+                         - c’est-à-dire un nœud élément de nom addrLine -
+                         n’est pas en dernière position dans l’ensemble de
+                         nœuds désigné par l’attribut <att>match</att> -
+                         donc dans la liste des nœuds addrLine ;
+                         si cette condition est vérifiée, alors le processeur
+                         écrira une chaîne de caractères composée
+                         d’une virgule et d’une espace-->
+                        <xsl:text>, </xsl:text>
+                     </xsl:if>
+                  </xsl:template>
+               </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Liste de choix avec <gi>xsl:choose</gi></head>
+               <p><gi>xsl:choose</gi> permet de spécifier plusieurs tests (en utilisant
+                     <gi>xsl:when</gi> et son attribut <att>test</att>). Dès que l’un de ces tests
+                  est vérifié, les instructions contenues dans le <gi>xsl:when</gi> correspondant
+                  sont exécutées et le processeur termine l’opération - les choix sont exclusifs. Si
+                  aucun des tests n’est vérifié, alors les instructions qui sont, optionnellement,
+                  contenues dans l’élément <gi>xsl:otherwise</gi> sont exécutées.</p>
+               <p>Exemple : que fait la règle ci-après ?
+                  <egXML
+                     xmlns="http://www.tei-c.org/ns/Examples"
+                     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="tei:hi">
+                      <xsl:choose>
+                         <xsl:when test="@rend=’super’">
+                            <sup>
+                               <xsl:apply-templates/>
+                            </sup>
+                           </xsl:when>
+                           <xsl:when test="@rend=’bigger’">
+                              <xsl:apply-templates/>
+                           </xsl:when>
+                        </xsl:choose>
+                     </xsl:template>
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Boucles avec <gi>xsl:for-each</gi></head>
+               <p>L’élément <gi>xsl:for-each</gi> :<list>
+                     <item>désigne, grâce à son attribut <att>select</att>, un ensemble de
+                        nœuds</item>
+                     <item>permet de déclarer (avec des sous-éléments) les instructions à appliquer successivement
+                        à chacun des nœuds inclus dans l’ensemble de nœuds désigné, dans l’ordre
+                        où le processeur les trouvera en parcourant le fichier XML.</item>
+                  </list></p>
+               <p>Exemple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <xsl:template match="*">
+                        <span>
+                           <code style="color:red">
+                              <xsl:text>&lt;</xsl:text>
+                              <xsl:value-of select="name()"/>
+                              <!-- pour chacun des attributs du nœud
+                                courant - donc d’un élément quel qu’il soit-,
+                                on va exécuter certaines instructions ;
+                                quand il n’y aura plus d’attributs à traiter,
+                                on passera à la suite des instructions -->
+                              <xsl:for-each select="@*">
+                                 <xsl:text> </xsl:text>
+                                 <xsl:value-of select="name()"/>
+                                 <xsl:text>="</xsl:text>
+                                 <xsl:value-of select="."/>
+                                 <xsl:text>"</xsl:text>
+                              </xsl:for-each>
+                              <xsl:text>&gt;</xsl:text>
+                           </code>
+                           <xsl:apply-templates/>
+                           <code style="color:red">&lt;/<xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text></code>
+                        </span>
+                     </xsl:template>
+                  </egXML>
+                  Autre exemple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <xsl:template match="tei:titleStmt">
+                        <!-- le nœud courant est titleStmt -->
+                        <xsl:if test="tei:respStmt">
+                           <p class="respStmt">
+                              <span class="libelle">Contributeurs : </span>
+                              <xsl:for-each select="tei:respStmt">
+                                 <!-- pour chacun des éléments respStmt
+                                    fils de titleStmt -  le nœud courant est
+                                    devenu l’élément respStmt  -->
+                                 <span class="respStmt">
+                                    <xsl:apply-templates select="tei:name"/>
+                                    <xsl:apply-templates select="tei:resp"/>
+                                 </span>
+                                 <xsl:if test="position() != last()">
+                                    <xsl:text> ; </xsl:text>
+                                 </xsl:if>
+                              </xsl:for-each>
+                           </p>
+                        </xsl:if>
+                     </xsl:template>
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Variables</head>
+               <p>On peut dans un programme XSLT, définir une ou plusieurs variables, chaque variable étant déclarée à l’aide de
+                  l’élément <gi>xsl:variable</gi>. Cet élément possède obligatoirement un attribut
+                     <att>name</att> (pour donner un nom, au sens XML, à la variable). Le contenu de
+                  la variable pourra être : <list>
+                     <item>soit un ensemble de nœuds (dans ce cas, utiliser l’attribut
+                           <att>select</att>)</item>
+                     <item>soit une chaîne de caractères (dans ce cas, on peut utiliser le contenu de
+                        l’élément <gi>xsl:variable</gi> pour spécifier de quelle chaîne il
+                        s’agit)</item>
+                  </list></p>
+               <p>Les variables définies comme filles de l’élément
+                     <gi>xsl:stylesheet</gi> sont dites globales (ou de portée globale) : elles sont utilisables n’importe
+                  où dans le programme XSLT. Les variables définies dans un corps de règle (dans un
+                  élément <gi>xsl:template</gi>) sont dites locales (ou de portée locale) : elles ne sont utilisables que
+                  par les frères droits de <gi>xsl:variable</gi>, dans le corps de la règle. Par ailleurs, on ne
+                  peut pas rédéfinir une variable dans sa portée.</p>
+               <p>Pour utiliser une variable préalablement déclarée, on se sert de son nom, préfixé
+                  du caractère "$".</p>
+               <p>Les variables sont très utilisées en XSLT, par exemple pour calculer une fois pour
+                  toutes une chaîne de caractères et l’utiliser à plusieurs reprises dans le
+                  programme, ou au tout début du contenu d’un élément <gi>xsl:for-each</gi>.</p>
+               <p>Exemple simple :
+      <egXML xmlns="http://www.tei-c.org/ns/Examples"
+             xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:template match="tei:add | tei:del | tei:sic | tei:corr | tei:orig | tei:reg">
+           <xsl:variable name="nom" select="local-name()"/>
+             <p>
+               <xsl:attribute name="class" select="$nom"/>
+               <xsl:apply-templates/>
+             </p>
+        </xsl:template>
+     </egXML>
+      </p>
+            </div>
+            <div>
+               <head>Tris avec <gi>xsl:sort</gi></head>
+               <p>L’élément <gi>xsl:sort</gi> permet de trier un ensemble de nœuds sélectionnés par
+                  un élément <gi>xsl:apply-templates</gi> ou par un élément <gi>xsl:for-each</gi>.
+                  Le principal attribut est <att>select</att> qui spécifie le critère de tri.
+                  Plusieurs tris successifs peuvent bien sûr être exécutés.</p>
+               <p>Exemple simple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                     <xsl:template match="tei:div[@type=’transcription’]">
+                        <ul>
+                           <xsl:for-each select="descendant::tei:persName">
+                              <xsl:sort select="normalize-space(.)"
+                                 data-type="text" order="ascending"/>
+                              <li>
+                                 <xsl:value-of select="."/>
+                              </li>
+                           </xsl:for-each>
+                        </ul>
+                     </xsl:template>
+                  </egXML>
+               </p>
+            </div>
+         </div>
+         <div>
+            <head>Petit TP de mise en œuvre...</head>
+            <p>On vous propose maintenant de revenir à la XSLT fournie (fichier <ident>TEIActeRoyal2HTML.xsl</ident>), pour y faire quelques modifications, en vous servant des éléments qu’on vient de vous expliquer.</p>
+            <p>Voici une  petite liste des choses qu’on pourrait facilement y faire : <list>
+               <item>(pour mémoire, normalement c’est déjà fait) au lieu d’avoir du code en rouge pour l’élément <gi>textLang</gi>, on veut un
+                  paragraphe, que faire ?</item>
+               <item>par contre on veut éviter que l’adresse du responsable de la publication (l’ENC)
+                  soit incluse dans la page Web</item>
+               <item>on veut que pour chacun des retours à la ligne dans le fichier TEI, il y ait aussi un retour à la ligne dans la page Web</item>
+               <item>on veut que, à chaque fois qu’un paraphe a été écrit par Noailles, la page Web restitue le caractère "#"</item>
+               <item>on veut ne lire que les formes développées des mots abrégés</item>
+               <item>on veut afficher en italique chacune des additions
+                  écrites par le gouverneur de Marly</item>
+               <item>etc...</item>
+            </list></p>
+            <p>La bonne méthode : <list><item>chercher les nœuds qui doivent être transformés dans le fichier TEI</item>
+            <item>chercher quel élément ou nœud on veut obtenir dans la page Web</item>
+            <item>chercher comment exprimer cela en XSLT</item></list>
+               On est prêts à répondre à vos questions !</p>
+         </div>
+         <div>
+            <head>Quelques points utiles pour aller un peu plus loin</head>
+            <p>Dans cette partie, on va présenter, sans chercher à être exhaustif, des possibilités un peu plus avancées offertes par XSLT.</p>
+               <div>
+                  <head>Traiter un même nœud (ou un même ensemble de nœuds) plusieurs fois</head>
+               <p>Il peut être nécessaire, par exemple lorsqu’on veut générer à la fois une table des matières, une édition HTML et un index, à partir d’un document XML, de traiter plusieurs fois de plusieurs manières différentes le même ensemble de nœuds. Pour cela on utilisera l’attribut <att>mode</att>, qui, employé sur l’élément <gi>xsl:apply-templates</gi> et sur <gi>xsl:template</gi>, permettra de désigner au processeur la série de règles à appliquer à un endroit donné sur un ensemble de nœuds.</p>
+               <p>Exemple :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="ead">
+                    <html>
+                        <head>
+                           <title>
+                             <xsl:value-of                                 select="concat(normalize-space(//titleproper), ’ : ’, normalize-space(//subtitle))"/>
+                           </title>
+                           <link rel="stylesheet" type="text/css" href="theme/dampierre.css"/>
+                           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                        </head>
+                        <body>
+                           <div id="tdm">
+                              <ul>
+                              <!--  utilisation de xsl:apply-templates
+                                 avec un attribut mode, pour désigner au processeur
+                                 certaines règles à exécuter ici -->
+                                 <xsl:apply-templates select="archdesc" mode="tdm"/>
+                                 <li>
+                                    <a href="#index">Index des noms de famille</a>
+                                 </li>
+                              </ul>
+                           </div>
+                           <div id="corps">
+                              <div id="eadheader">
+                                 <xsl:apply-templates select="eadheader"/>
+                              </div>
+                              <div id="archdesc">
+                                 <xsl:apply-templates select="archdesc"/>
+                              </div>
+                              <div id="index">
+                                 <h3>Index des noms de famille</h3>
+                                 <ul>
+                                    <xsl:apply-templates select="archdesc/dsc" mode="index"/>
+                                 </ul>
+                              </div>
+                           </div>
+                        </body>
+                     </html>
+                  </xsl:template>
+                  <!-- plus loin dans la XSLT, une règle applicable
+                     aux éléments c et archdesc, en mode tdm,
+                     pour "peupler" - comme on dit - la table des matières
+                  -->
+                  <xsl:template match="c | archdesc" mode="tdm">
+                     <li>
+                        <!-- instructions spécifiques-->
+                     </li>
+                  </xsl:template>
+                  <!-- ci-après une autre règle applicable aussi
+                     à l’élément c, c’est la règle principale qui
+                     servira à sortir le cœur de page -->
+                  <xsl:template match="c">
+                     <div class="c">
+                      <!-- instructions spécifiques -->
+                     </div>
+                  </xsl:template>                  
+               </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Réutiliser une règle : règles nommées (et paramètres)</head>
+               <p>Certaines règles peuvent contenir des instructions génériques, applicables sur plusieurs ensembles de nœuds. Dans ce cas, au lieu d’écrire plusieurs fois ces instructions au sein de plusieurs règles différentes (ce qui est fastidieux), on peut créer une règle nommée : on utilise <gi>xsl:template</gi>, auquel on affecte un attribut <att>name</att> (au lieu de lui donner un attribut <att>match</att>) et dans lequel on inscrit ces instructions génériques.</p>
+               <p>On peut ensuite faire appel à la règle nommée, dans le corps d’une autre règle, à l’aide de l’élément <gi>xsl:call-template</gi> (et de son attribut <att>name</att>).</p>
+               <p>Souvent, on aura besoin de passer à la règle nommée des variables dont le contenu sera calculé à partir de l’ensemble de nœuds traité dans la règle appelante. On se servira alors de variables XSLT particulières, les paramètres (à déclarer avec l’élément <gi>xsl:with-param</gi> dans l’élément <gi>xsl:call-template</gi>, et à utiliser dans la règle nommée).</p>
+               <p>Exemple simple:
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                  <xsl:template match="c">
+                     <div class="c">
+                        <xsl:attribute name="id">
+                           <!-- on fait appel à une règle nommée
+                              en la désignant par son nom -->
+                           <xsl:call-template name="produire-un-id"/>
+                        </xsl:attribute>
+                        <xsl:apply-templates select="did"/>
+                        <xsl:apply-templates select="*[preceding-sibling::did]"/>
+                     </div>
+                  </xsl:template>
+                  <!-- plus loin dans la XSLT, se trouve la règle nommée ;
+                     cette règle génère un identifiant unique
+                     pour le nœud courant auquel la règle appelante s’applique-->
+                  <xsl:template name="produire-un-id">
+                     <xsl:choose>
+                        <xsl:when test="@id">
+                           <xsl:value-of select="@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                           <xsl:value-of select="generate-id()"/>
+                        </xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:template>
+               </egXML></p>
+            </div>
+            <div>
+               <head>Traiter plusieurs documents XML en entrée</head>
+               <p>On peut se trouver dans des situations où l’on a plusieurs documents XML à traiter en même temps :
+               <list><item>soit ce sont des documents conformes au même modèle (par ex. un schéma TEI), auxquels on veut appliquer d’un seul coup la même XSLT, pour produire autant de documents en sortie  qu’il y a de documents en entrée. C’est souvent le cas quand on procède à la migration d’un jeu de documents XML conformes à un modèle A vers un jeu de documents XML conformes au modèle B. On a écrit une XSLT qui pourra servir à transformer chacun des fichiers source. Dans ce cas on utilisera sans problème un processeur XSLT qui fera d’un seul coup tout le travail, pourvu qu’on lui spécifie qu’on veut traiter un dossier de documents, et non pas un fichier unique (voir plus bas) ;</item>
+               <item>soit on a un document principal (par ex. un document TEI contenant l’édition critique d’un manuscrit) et un ou plusieurs autres documents conformes à un autre modèle XML (par ex. des notices d’autorité), et on veut produire en sortie un fichier agrégeant les informations contenues dans tous les documents source. Dans un tel cas, on prendra pour fichier source à transformer le document principal, et on utilisera, dans la XSLT, l’élément <gi>xsl:document</gi> pour accéder à chacun des autres fichiers secondaires. L’arbre XML de ces fichiers sera accessible et manipulable comme l’arbre du fichier principal.</item></list></p>
+               <p>Exemple à montrer</p>
+            </div>
+            <div>
+               <head>Produire plusieurs documents en sortie</head>
+               <p>Nous signalerons simplement ici qu’on peut produire plusieurs fichiers à partir d’un seul document XML, à l’aide d’un programme XSLT unique. Cela peut permettre, par ex., de produire d’un seul coup un site Web statique (composé de plusieurs pages Web) à partir d’un seul fichier TEI.</p>
+               <p>Il existe trois méthodes pour y parvenir :<list>
+                  <item>soit on utilisera une extension de XSLT 1.0 connue de certains processeurs. Par exemple l’élément <gi>redirect</gi> défini comme une extension à XSLT, connue du processeur Xalan (voir &lt;<ref target="http://xml.apache.org/xalan-j/extensionslib.html">http://xml.apache.org/xalan-j/extensionslib.html</ref>&gt;) (on dépend ici du processeur);</item>
+                  <item> soit on utilisera la version 1.1 de XSLT, pour laquelle a été défini l’élément <gi>xsl:document</gi>
+                  (il faudra un processeur qui comprenne XSLT 1.1);</item>
+                  <item>soit on utilisera XSLT 2.0 et l’élément <gi>xsl:result-document</gi> (il faudra un processeur qui comprenne XSLT 2.0)</item></list></p>
+            </div>
+            <div>
+               <head>Découper son programme XSLT en plusieurs fichiers</head>
+               <p>Un programme XSLT peut être composé de plusieurs fichiers. Dans un tel cas, il y aura un fichier XSLT pilote, qui incluera ou importera les autres.</p>
+               <p>L’élément <gi>xsl:include</gi> permet d’inclure dans la XSLT pilote le contenu (les règles) d’un autre fichier XSLT. Les règles incluses et les règles écrites dans le fichier pilote ont le même niveau de priorité.
+               </p>
+               <p>L’élément <gi>xsl:import</gi> permet d’importer dans la XSLT pilote le contenu (les règles) d’un autre fichier XSLT. Les règles importées ont une préséance inférieure aux règles écrites dans le fichier pilote.
+               </p>
+               <p>Ces méthodes sont utiles :
+               <list><item>lorsqu’on commence à avoir un programme XSLT complexe, pour le gérer plus facilement (on choisira alors de le découper selon les portions ou types de nœuds du document XML résultat, ou selon les sections du document XML source</item>
+               <item>pour partager et réutiliser des librairies de règles XSLT</item>
+               <item>lorsqu’on travaillera à partir de librairies ou d’une application existante, développées par d’autres personnes, et que l’on souhaitera adapter à ses propres besoins (dans ce cas, la recommandation est de ne pas toucher aux librairies en question, mais plutôt de les surcharger, c’est-à-dire d’écrire dans la XSLT pilote les règles se substituant aux règles des XSLT importées).</item></list></p>
+            </div>
+            
+         </div>
+         <div><head>Si on a le temps : produire des fichiers texte à l’aide d’un programme XSLT</head></div>
+         <div>
+            <head>Une dernière petite chose : utiliser directement un processeur XSLT</head>
+            <p>Oxygen c’est bien mais on peut ne pas avoir d’installation oXygen sous la main. Ces quelques lignes en disent un peu plus sur les processeurs XSLT et leur utilisation en ligne de commande.</p>
+            <p>Il existe de nombreux processeurs XSLT, nous citerons ici seulement les plus importants parmi les logiciels libres :
+               <list><item>Xalan : écrit en Java, en C et en Perl processeur XSLT 1.0 ; voir <ref target="http://xalan.apache.org/index.html">http://xalan.apache.org/index.html</ref></item>
+                  <item>Saxon, écrit en Java, existe en diverses versions, y compris non libres et payantes ; Saxon 9* est aujourd’hui le seul processeur XSLT 2.0 existant ; la dernière version du processeur Saxon XSLT 1.0 libre est la version 6.5.5. Voir <ref target="http://saxon.sourceforge.net/">http://saxon.sourceforge.net/</ref></item>
+                  <item>libxslt et son interface xsltproc : un processeur écrit en C, réputé le plus rapide, compatible avec PHP 5, uniquement pour XSLT 1.0. Voir <ref target="http://xmlsoft.org/XSLT/index.html">http://xmlsoft.org/XSLT/index.html</ref></item>
+            </list></p>
+            <p>Pour d’autres informations voir en particulier la page <ref target="http://fr.wikipedia.org/wiki/Extensible_Stylesheet_Language_Transformations#Impl.C3.A9mentations">http://fr.wikipedia.org/wiki/Extensible_Stylesheet_Language_Transformations#Impl.C3.A9mentations</ref>.</p>
+            <p>Certains des processeurs, pour fonctionner, ont besoin d’autres logiciels. Xalan et Saxon ont besoin d’une machine virtuelle Java. Voir, entre autres pages d’explication, <ref target="http://www.sagehill.net/docbookxsl/InstallingAProcessor.html">http://www.sagehill.net/docbookxsl/InstallingAProcessor.html</ref></p>
+            <p>Chacun de ces processeurs répond à des ordres écrits selon sa propre syntaxe ; il faut donc lire la documentation propre à chacun pour voir comment l’utiliser. Mais dans tous les cas, un processeur XSLT devra connaître, pour travailler, le nom et l’emplacement du fichier (ou du dossier) à traiter, le nom et l’emplacement de la XSLT (ou de la XSLT pilote), le nom et l’emplacement du fichier (ou des fichiers) à produire. Il pourra aussi recevoir des paramètres en entrée : on pourra lui dire que tel paramètre a telle valeur (si on veut que ça marche il faudra que la XSLT à exécuter reconnaisse les paramètres en question).</p>
+            <p>On va faire ici un tout petit exercice, en utilisant directement le processeur libxslt et xsltproc qui sont déjà installés sur les machines de la salle.</p>
+         </div>
+         
+      </body>
+   </text>
+</TEI>
