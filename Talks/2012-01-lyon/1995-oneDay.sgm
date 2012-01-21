@@ -1,0 +1,1080 @@
+<!DOCTYPE TEI.2 -- SYSTEM "slides.dtd" --
+  PUBLIC "-//TEI//DTD TEI Lite 1.0//EN" >
+<TEI.2><TEIHEADER><FILEDESC><TITLESTMT><TITLE>The Generic TEI One Day Workshop</TITLE>
+<RESPSTMT><RESP>by</RESP>
+<NAME>C. M. Sperberg-McQueen and Lou Burnard</NAME></RESPSTMT></TITLESTMT>
+<PUBLICATIONSTMT><P>Unpublished</P></PUBLICATIONSTMT>
+<SOURCEDESC><p>Slightly revised version of
+<biblFull><TITLESTMT><TITLE>Slides for CETH '95 Plenary Session</TITLE>
+<RESPSTMT><RESP>by</RESP>
+<NAME>C. M. Sperberg-McQueen</NAME></RESPSTMT></TITLESTMT>
+<PUBLICATIONSTMT><P>Unpublished</P></PUBLICATIONSTMT>
+<SOURCEDESC><P>Created in electronic form.</P></SOURCEDESC>
+</biblFull>, itself derived from numerous previous sources.</sourceDesc>
+<REVISIONDESC><LIST><ITEM>Minor changes and revisions to make 
+TEI Lite compatible</item>
+<!-- To do:<LIST>
+<ITEM>add meat to header</ITEM>
+<ITEM>add metadata discussion</ITEM>
+<ITEM>add Why Std DTDs won't do, with examples (?)</ITEM></LIST></ITEM>-->
+</LIST></REVISIONDESC></TEIHEADER>
+<TEXT>
+<FRONT><TITLEPAGE>
+<DOCTITLE><titlePart>The Generic TEI One Day Workshop</titlePart></DOCTITLE>
+<DOCAUTHOR>C. M. Sperberg-McQueen</DOCAUTHOR>
+<DOCAUTHOR>Lou Burnard</DOCAUTHOR>
+<docdate>November 1995</docDate>
+</titlePage>
+</FRONT>
+<BODY>
+<DIV TYPE="slidegrp"><HEAD>Introduction</HEAD>
+<DIV TYPE="slide"><HEAD>Organization of the Day</HEAD>
+<LIST><ITEM>Encoding and SGML</ITEM>
+<ITEM>Document Analysis</ITEM>
+<ITEM>The TEI Architecture and Origins</ITEM>
+<ITEM>TEI Lite</ITEM>
+<ITEM>Using SGML and TEI in the real world</ITEM></LIST></DIV>
+<DIV TYPE="slide"><head>Workshop Goals</head>
+<p>At the end of the day you will ...
+<list><item>Understand the case for SGML</item>
+<item><p>Know a little about ...
+<list><item>existing SGML software and users</item>
+<item>the scope and organization of the TEI scheme</item>
+<item>the content of TEI Lite, a general purpose view of the TEI dtd</item>
+</p></item>
+<item>Have hands-on experience of some general purpose SGML tools</item>
+</list></div>
+<DIV TYPE="slide"><HEAD>What <EMPH>won't</EMPH> happen</HEAD>
+<P>You will <EMPH>not</EMPH> leave the workshop...<LIST>
+<ITEM>with deep hands-on knowledge of TEI</ITEM>
+<ITEM>... or of SGML</ITEM>
+<ITEM>able to tag texts without reference to a manual</ITEM>
+<ITEM>able to write software to process SGML</ITEM></LIST> ...
+unless, of course, you already know most of this already!</P></DIV></DIV>
+
+<DIV TYPE="slidegrp"><HEAD>Encoding and SGML</HEAD>
+<DIV><LIST><ITEM>markup problems</ITEM>
+<ITEM>SGML and its advantages</ITEM>
+<ITEM>SGML tags and declarations</ITEM>
+<ITEM>a look forward to processing</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Basic Problems of Markup</HEAD>
+<LIST><ITEM>character representation</ITEM>
+<ITEM>representation of structure and typography</ITEM>
+<ITEM>reduction to linear form</ITEM>
+<ITEM>representation of analysis, interpretation, controversial
+information</ITEM>
+<ITEM>capture of ancillary contextual information</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Text Encoding</HEAD>
+<P>We distinguish:<LIST>
+<ITEM><TERM>character encoding</TERM>:  representation of the
+characters of an alphabet or writing system (ASCII, ISO 646, ISO
+10646, Unicode)</ITEM>
+<ITEM><TERM>page encoding</TERM>:  representation of a pattern of
+ink on a page (Postscript, TeX dvi files, PDF, RTF, etc., etc.)</ITEM>
+<ITEM><TERM>text encoding</TERM>:  representation of  a text with
+its structure and other information of interest (COCOA, SGML)</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Text, not Pages</HEAD>
+<P>Pages are <EMPH>physical</EMPH> objects.</P>
+<P>Texts are <EMPH>abstract</EMPH> objects.</P></DIV>
+<DIV TYPE="slide"><HEAD>Markup</HEAD>
+<P><TERM>Markup</TERM> is meta-information used to record the
+structure, status, properties, or other characteristics of a text.</P>
+<P>A <TERM>markup language</TERM> is a set of conventions governing
+the use of markup, especially <LIST>
+<ITEM>what kinds of markup are allowed, where they are allowed, and
+what they mean</ITEM>
+<ITEM>what kinds of markup are <EMPH>required</EMPH> and where</ITEM>
+<ITEM>how to tell markup from content (the text itself)</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Markup Languages</HEAD>
+<P>A markup language must specify methods for<LIST>
+<ITEM>representing all the <EMPH>characters</EMPH> of the text</ITEM>
+<ITEM>marking the <EMPH>structure</EMPH> of the text</ITEM>
+<ITEM>reducing the text to a linear order</ITEM>
+<ITEM>representing `extra-textual' or <EMPH>contextual</EMPH>
+information, e.g. analysis or documentation</ITEM>
+<ITEM>determining whether a given document is valid or not</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>SGML</HEAD>
+<P><TERM>SGML</TERM> is the <TERM>Standard Generalized Markup
+Language</TERM> (ISO 8879: 1986).  It <LIST>
+<ITEM>defines a standard abstract syntax for markup languages, with
+several types of markup:<LIST>
+<ITEM>tags, which mark occurrences of <TERM>element types</TERM></ITEM>
+<ITEM>entities</ITEM>
+<ITEM>notations</ITEM>
+<ITEM>processing instructions</ITEM></LIST></ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>SGML also ...</HEAD>
+<P>SGML also ...<LIST>
+<ITEM>defines methods for formal definition of markup languages,
+which can<LIST>
+<ITEM>define entities and element types</ITEM>
+<ITEM>change the standard markup delimiters</ITEM></LIST></ITEM></LIST>
+</P>
+<P>Despite its name therefore, SGML is not strictly a markup language, but a
+<term>metalanguage</term>.</P></DIV>
+<DIV TYPE="slide"><HEAD>Goals of SGML</HEAD>
+<LIST><ITEM>separation of data from processing specifications</ITEM>
+<ITEM>re-use of text in multiple forms by multiple processes</ITEM>
+<ITEM>system independence and portability of data</ITEM>
+<ITEM>addition of intelligence to data</ITEM>
+<ITEM>well-defined structure</ITEM>
+<ITEM>clean interfaces for specialized notations (e.g. for graphics)</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Adding Intelligence to Data</HEAD>
+<LIST><ITEM>management, tracking, version control information</ITEM>
+<ITEM>hypertext links, cross-references, indexing</ITEM>
+<ITEM>annotation</ITEM>
+<ITEM>references to external figures and graphics</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Major Features of SGML</HEAD>
+<LIST><ITEM>text divided into <TERM>elements</TERM>, which can nest</ITEM>
+<ITEM>element boundaries marked by <TERM>tags</TERM></ITEM>
+<ITEM>elements carry generic type and other <TERM>attributes</TERM></ITEM>
+<ITEM><TERM>entity references</TERM> allow string substitution for
+character set problems, standard boilerplate text, and document
+management</ITEM>
+<ITEM>consistent use of delimiters, few special characters</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Markup within the SGML Document</HEAD>
+<P>Everything is delimited:<LIST>
+<ITEM>Elements by <TERM>start-tags</TERM> and <TERM>end-tags</TERM></ITEM>
+<ITEM>Tags by < ... > and </ ... ></ITEM>
+<ITEM>Entities by & ... ;</ITEM></LIST></P>
+<P>For example:<EG><![CDATA [<quote lang='fra'>L'&eacute;tat, c'est moi!</quote>]]></EG></P></DIV>
+<DIV TYPE="slide"><HEAD>The DTD</HEAD>
+<P>SGML requires the markup language to be specified formally in a
+<TERM>document type definition</TERM> (DTD).  The DTD is included in,
+or referenced by, the SGML document itself.  Within a DTD, we can
+declare:<LIST>
+<ITEM>legal element types</ITEM>
+<ITEM>the attributes they carry</ITEM>
+<ITEM>entities we will refer to</ITEM>
+<ITEM>external notations we will use</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Advantages of SGML</HEAD>
+<LIST><ITEM>declarative, not procedural</ITEM>
+<ITEM>analytic, not appearance-oriented</ITEM>
+<ITEM>formally declared <TERM>document types</TERM></ITEM>
+<ITEM>device-independent, portable</ITEM>
+<ITEM>an international standard</ITEM>
+<ITEM>widely supported</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>SGML is <EMPH>not:</EMPH></HEAD>
+<LIST><ITEM>a standard set of required tags or data elements</ITEM>
+<ITEM>a standard set of recommended tags or data elements</ITEM>
+<ITEM>a user interface</ITEM>
+<ITEM>a presentation format</ITEM>
+<ITEM>a programming language</ITEM>
+<ITEM>a piece of software</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>TEI Processing Model</HEAD>
+<P>During their lifetime, electronic texts are:<LIST>
+<ITEM>created by scanning or keyboarding</ITEM>
+<ITEM>stored locally</ITEM>
+<ITEM>exchanged over network or by disk</ITEM>
+<ITEM>processed interactively (enriched)</ITEM>
+<ITEM>formatted for paper output</ITEM></LIST></P></DIV></DIV>
+<DIV TYPE="slidegrp"><HEAD>Document Analysis</HEAD>
+<DIV TYPE="slide"><HEAD>What <EMPH>is</EMPH> <SOCALLED>Document Analysis</SOCALLED>?</HEAD>
+<P>Document analysis includes:<LIST>
+<ITEM>gathering information used in a formal description of the
+electronic text</ITEM>
+<ITEM>studying the content and structure of the documents:<LIST>
+<ITEM>identifying and naming the components of some class of
+documents</ITEM>
+<ITEM>specifying their interrelationships</ITEM>
+<ITEM>naming their properties</ITEM></LIST></ITEM></LIST><EMPH>NO</EMPH>
+serious project to produce electronic texts should try to skip the
+document analysis phase.</P></DIV>
+<DIV TYPE="slide"><HEAD>Why is Document Analysis Essential?</HEAD>
+<P>Because you must know:<LIST>
+<ITEM>if you use the TEI encoding scheme, which parts of the TEI do
+you need?</ITEM>
+<ITEM>if you extend the TEI scheme, what must you add?</ITEM>
+<ITEM>if you design your own SGML markup, what needs to be in the
+document type definition?</ITEM>
+<ITEM>if you don't use SGML, what aspects of your documents will you
+mark, and how?</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Steps in Document Analysis</HEAD>
+<P>1.  Define the environment:  your requirements, external
+requirements, the document universe, the set of document types.</P>
+<P>2.  Define the textual features you care about.</P>
+<P>3.  Identify the relationships among the features.</P>
+<P>4.  Enrich the collection of text features.</P></DIV>
+<DIV TYPE="slide"><HEAD>Step 1a:  Define Your Goals</HEAD>
+<LIST><ITEM>goals and objectives</ITEM>
+<ITEM>scope</ITEM>
+<ITEM>internal and external constraints</ITEM>
+<ITEM>intended and foreseeable uses of information</ITEM>
+<ITEM>functions of the SGML application:<LIST>
+<ITEM>publishing (hardcopy, CD-ROM, network)</ITEM>
+<ITEM>database retrieval</ITEM>
+<ITEM>hypertext navigation</ITEM>
+<ITEM>electronic review and comment</ITEM>
+<ITEM>document interchange</ITEM>
+<ITEM>etc., etc.</ITEM></LIST></ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Step 1b:  Identify Relevant Standards</HEAD>
+<LIST><ITEM>TEI</ITEM>
+<ITEM>ISO 12083 (AAP)</ITEM>
+<ITEM>Majour (journal articles)</ITEM>
+<ITEM>CALS</ITEM>
+<ITEM>HTML</ITEM>
+<ITEM>specific guidelines for use of TEI in a field</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Step 1c: Document Universe</HEAD>
+<P>What documents are you talking about?</P>
+<LIST><ITEM>what <EMPH>is</EMPH>, or what <EMPH>should be</EMPH>?</ITEM>
+<ITEM>many similar items (Lope de Vega)? </ITEM>
+<ITEM>or one unique item (the OED)?</ITEM>
+<ITEM>what information in which documents?</ITEM>
+<ITEM>how many different kinds of documents?</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Step 1d:  Gathering Samples</HEAD>
+<P>Construct a set of samples to analyse, including:<LIST>
+<ITEM>typical samples as well as special cases:<LIST>
+<ITEM>typical</ITEM>
+<ITEM>unusual but within bounds</ITEM>
+<ITEM>off the wall</ITEM></LIST></ITEM>
+<ITEM>short examples <EMPH>and long ones</EMPH></ITEM>
+<ITEM>current documents <EMPH>and old ones</EMPH></ITEM>
+<ITEM>not just printed samples</ITEM>
+<ITEM>all the parts, all associated documents</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Step 2:  Define Features</HEAD>
+<P>What's a feature?</P>
+<LIST><ITEM>large structural units (table of contents, body, front
+matter, chapter, ...)</ITEM>
+<ITEM>smaller structural units within the larger (headings, figures,
+lists, ...)</ITEM>
+<ITEM>non-structural units conveying specialized information: 
+italics, hypertext links, people's names, dates, topical keywords,
+technical terms, ...)</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>How Big is a Feature?</HEAD>
+<P>As large or small as it needs to be.  A feature might be:<LIST>
+<ITEM>the entire dictionary</ITEM>
+<ITEM>a section of the dictionary</ITEM>
+<ITEM>an entry in the dictionary</ITEM>
+<ITEM>the headword in the dictionary</ITEM>
+<ITEM>a syllable within the headword</ITEM></LIST>Not all features
+print:  status information, internal editorial notes (one editor to
+the other:  <Q REND="inline" TYPE="inline">Have you gone crazy?</Q>)</P></DIV>
+<DIV TYPE="slide"><HEAD>Principles of Feature Definition</HEAD>
+<P>Something is a good candidate for definition as a feature if:<LIST>
+<ITEM>it looks different from the rest of the text</ITEM>
+<ITEM>it requires different processing</ITEM>
+<ITEM>you may want to find it easily later</ITEM>
+<ITEM>you may want to point at it from elsewhere</ITEM>
+<ITEM>it is a nameable part of the structure of the text (chapter,
+note, quotation, ...)</ITEM>
+<ITEM>it fills a clear function in the hierarchy of the text</ITEM>
+<ITEM>it is information of a specialized and interesting type</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>How Many Features?</HEAD>
+<EG>ACME Explosives, Inc.
+7000 N. Mesa
+El Paso, TX  79912</EG>
+<P>One feature:  <MENTIONED>name-and-address</MENTIONED>.</P>
+<P>Two features:  <MENTIONED>corporate-name</MENTIONED> and
+<MENTIONED>corporate-address</MENTIONED>.</P>
+<P>Three features:  <MENTIONED>name-and-address</MENTIONED>, which
+contains <MENTIONED>corporate-name</MENTIONED> and <MENTIONED>corporate-address</MENTIONED>.</P></DIV>
+<DIV TYPE="slide"><HEAD>How Many features?</HEAD>
+<EG>ACME Explosives, Inc.
+7000 N. Mesa
+El Paso, TX  79912</EG>
+<P>Eight features:  <MENTIONED>name-and-address</MENTIONED>,
+<MENTIONED>corporate-name</MENTIONED>, <MENTIONED>street-address</MENTIONED>,
+<MENTIONED>city</MENTIONED>, <MENTIONED>state</MENTIONED>,
+<MENTIONED>zip-code</MENTIONED>, <MENTIONED>basic-zip</MENTIONED> (5
+digits), and <MENTIONED>zip-extension</MENTIONED> (4 digits)</P>
+<P>Fourteen features: ten <MENTIONED>word</MENTIONED> and four
+<MENTIONED>punctuation</MENTIONED>.</P>
+<P>Five features:  <MENTIONED>address</MENTIONED>, <MENTIONED>name
+(type=corporate)</MENTIONED>, three <MENTIONED>address-line</MENTIONED>.</P></DIV>
+<DIV TYPE="slide"><HEAD>Choosing a Feature Analysis</HEAD>
+<P>The analysis of a sample text should ideally be:<LIST>
+<ITEM>true</ITEM>
+<ITEM>useful</ITEM>
+<ITEM>simple enough to use</ITEM></LIST> These features do not always
+co-exist.  </P>
+<P>In case of doubt, choose truth over an apparently useful lie.</P></DIV>
+<DIV TYPE="slide"><HEAD>Why Identify features at All?</HEAD>
+<P>So you can:<LIST>
+<ITEM>put all the technical terms into the draft glossary</ITEM>
+<ITEM>print personal names in blue, names of places in green</ITEM>
+<ITEM>find all occurrences of the word <MENTIONED>hypertext</MENTIONED>,
+but only in section headings, not in footnotes</ITEM>
+<ITEM>ensure that all announcements of public events specify the
+date, time, location, and sponsor of the event, as well as giving a
+description</ITEM>
+<ITEM>automatically maintain cross references and indices</ITEM>
+<ITEM>create links in hypertext applications</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Step 3: Identify Relationships</HEAD>
+<LIST><ITEM>hierarchy of containers (a part contains chapters, which
+contain sections)</ITEM>
+<ITEM>sequence (front matter precedes body, which precedes back
+matter)</ITEM>
+<ITEM>alternation:  either A or B, but not both</ITEM>
+<ITEM>occurrence (occurs once? many times? optional?)</ITEM>
+<ITEM>semantic groups: collections of like things</ITEM>
+<ITEM>syntactic groups:  items which can appear in like places</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Step 4:  Enrich the Collection</HEAD>
+<LIST><ITEM>non-printing information:  bibliographic and cataloguing
+data, subject keywords, identity of encoder, circumstances of
+production</ITEM>
+<ITEM>control information:  status tracking, routing and process
+control information, confidentiality</ITEM>
+<ITEM>gaps in semantic groups:  we have three reasons something might
+be italic; are there more?</ITEM>
+<ITEM>gaps in syntactic groups:  what <EMPH>else</EMPH> can occur at
+the beginning of a new chapter?</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Knowing When to Stop</HEAD>
+<P>What is <SOCALLED>enough</SOCALLED> document analysis?  How can
+you tell you're done?<LIST>
+<ITEM>a place for everything and everything in its place</ITEM>
+<ITEM>tag a sample:  can you tag everything you see?</ITEM>
+<ITEM>have you identified everything you'll want to point at, search
+for, search within, sort by, or process specially?</ITEM>
+<ITEM>is the set of features good enough to go on with?</ITEM>
+<ITEM>does this feature set provide a good foundation for later
+growth and change?</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>What is Good Enough?</HEAD>
+<P>Don't overstress the applications you foresee:  in the future,
+other applications and problems will take their place.  But it's not
+enough for markup to be useful <EMPH>eventually</EMPH>:  it can be
+made useful <EMPH>now</EMPH>:<LIST>
+<ITEM>can you search it acceptably?</ITEM>
+<ITEM>can you process it acceptably?</ITEM>
+<ITEM>can you display it on screen?</ITEM>
+<ITEM>can you print it?</ITEM>
+<ITEM>can you produce this level of markup with current procedures?</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Document Analysis</HEAD>
+<P>Document analysis forces you to:<LIST>
+<ITEM>clarify your needs and interests</ITEM>
+<ITEM>identify clearly the textual features of critical importance
+for your work</ITEM></LIST></P>
+<P>It thus prepares you to:<LIST>
+<ITEM>identify TEI tags you will need</ITEM>
+<ITEM>identify desirable or necessary extensions to the TEI encoding
+scheme</ITEM>
+<ITEM>define new SGML elements if necessary</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Group Document Analysis</HEAD>
+<LIST><ITEM>Define the environment.</ITEM>
+<ITEM>Define the textual features you care about.</ITEM>
+<ITEM>Identify the relationships among the features.</ITEM>
+<ITEM>Enrich the collection of text features.</ITEM></LIST></DIV></DIV>
+
+<DIV TYPE="slidegrp"><HEAD>The Text Encoding Initiative</HEAD>
+<LIST><ITEM>where the TEI came from</ITEM>
+<ITEM>architecture of the TEI scheme</ITEM>
+<ITEM>main and auxiliary DTDs</ITEM>
+<ITEM>core, base, and additional tag sets</ITEM></LIST>
+<DIV TYPE="slide"><HEAD>Where does the TEI come from?</HEAD>
+<P>From the research community:<LIST>
+<HEAD>Sponsors</HEAD>
+<ITEM><LABEL>ACH</LABEL> Association for Computers and the
+Humanities</ITEM>
+<ITEM><LABEL>ACL</LABEL> Association for Computational Linguistics</ITEM>
+<ITEM><LABEL>ALLC</LABEL> Association for Literary and Linguistic
+Computing</ITEM></LIST><LIST>
+<HEAD>Funders</HEAD>
+<ITEM>U.S. National Endowment for the Humanities</ITEM>
+<ITEM>Mellon Foundation</ITEM>
+<ITEM>Commission of European Communities DG XIII</ITEM>
+<ITEM>Social Science and Humanities Research Council of Canada</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Interchanging Data (today)</HEAD>
+
+<Q ID="pstitle">1.  Loomings</Q>
+<Q>CALL me Ishmael.  Some years ago --- never mind how long precisely--- having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.</Q></DIV>
+<DIV TYPE="slide"><HEAD>Interchanging Data (today)</HEAD>
+<EG><![CDATA [|chap1
+<C 1>Loomings
+\chapter
+\chapter[1]{Loomings}
+:h1.1.  Loomings
+MOBY001001LOOMINGS
+|C1
+.chapter Loomings
+.cp;.sp 6 a;.ce .bd 1.  Loomings
+~x]]></EG></DIV>
+<DIV TYPE="slide"><HEAD>Goals of the TEI</HEAD>
+<LIST><ITEM>better interchange and integration of data</ITEM>
+<ITEM>support for <EMPH>all</EMPH> texts, in <EMPH>all</EMPH>
+languages, from <EMPH>all</EMPH> periods</ITEM>
+<ITEM>guidance for the perplexed:  <EMPH>what</EMPH> to encode</ITEM>
+<ITEM>assistance for the specialist:  <EMPH>how</EMPH> to encode any
+information of interest</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>TEI Deliverables</HEAD>
+<P><LIST><ITEM>A coherent set of recommendations for text encoding<LIST
+>
+<ITEM>comprising several distinct SGML tag sets</ITEM>
+<ITEM>based on existing practice</ITEM>
+<ITEM>documented in a reference manual</ITEM></LIST></ITEM>
+<ITEM>Tutorials for general and specialized audiences (in progress)</ITEM>
+<ITEM>Sample texts (in progress)</ITEM></LIST> ... <EMPH>but no
+software (yet)</EMPH></P></DIV>
+<DIV TYPE="slide"><HEAD>TEI DTD Structure</HEAD>
+<LIST><ITEM>how to make <EMPH>one</EMPH> markup scheme handle
+<EMPH>infinite</EMPH> variety of requirements and interests</ITEM>
+<ITEM>all texts are alike</ITEM>
+<ITEM>every text is different</ITEM>
+<ITEM>similar to the database design problem:  one construct, many
+views</ITEM>
+<ITEM>each view a selection from the whole</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>How Many DTDs?</HEAD>
+<P>How many DTDs are necessary for a project like the TEI?<LIST>
+<ITEM><LABEL>one</LABEL> (a <SOCALLED>Prussian</SOCALLED> DTD)</ITEM>
+<ITEM><LABEL>none</LABEL> (a <SOCALLED>Waterloo</SOCALLED> DTD)</ITEM>
+<ITEM><LABEL>one per document</LABEL> (a <SOCALLED>Californian</SOCALLED>
+DTD)</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>The TEI DTDs</HEAD>
+<LIST><ITEM>a single <TERM>main</TERM> DTD with many faces (a
+<SOCALLED>British</SOCALLED> DTD)</ITEM>
+<ITEM>many tags (over 400)</ITEM>
+<ITEM>organized into <TERM>tag sets</TERM></ITEM>
+<ITEM>grouped into <TERM>classes</TERM></ITEM>
+<ITEM>several <TERM>auxiliary</TERM> DTDs for specialized
+information:<LIST>
+<ITEM>writing system / character set</ITEM>
+<ITEM>feature system (for feature-structure notation)</ITEM>
+<ITEM>tag set documentation</ITEM>
+<ITEM>independent, free-standing TEI header</ITEM></LIST></ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Combining Tag Sets</HEAD>
+<P>How to combine tag sets?  The how-many-DTDs problem is back.<LIST>
+<ITEM>all tag sets, all the time (the <TERM>table d'hote</TERM>
+model)</ITEM>
+<ITEM>a few pre-selected combinations (the <TERM>combination plate</TERM>
+model)</ITEM>
+<ITEM>in completely unconstrained abandon (the <TERM>smorgasbord</TERM>
+model)</ITEM>
+<ITEM>one from column A, two from column B (the <TERM>Chinese menu</TERM>
+model)</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>The Pizza Model</HEAD>
+<EG><![CDATA [
+<!ELEMENT pizza - - 
+					(base, 
+					(tomatoSauce & cheese),
+					topping*)
+<!ELEMENT base  - -
+					(thinCrust | deepdish
+             | stuffed) >
+<!ELEMENT topping - - 
+					(mushrooms | pepperoni 
+             | sausage | pepper
+             | anchovies | ...) >
+]]></EG></DIV>
+<DIV TYPE="slide"><HEAD>Selecting Tag Sets</HEAD>
+<EG><![CDATA [<!DOCTYPE tei.2 SYSTEM 'tei2.dtd' [
+  <!ENTITY % TEI.prose 'INCLUDE' >
+  <!ENTITY % TEI.analysis 'INCLUDE' >
+  <!ENTITY % TEI.fs 'INCLUDE' >
+]>]]></EG></DIV>
+<DIV TYPE="slide"><HEAD>Element Classes</HEAD>
+<LIST><HEAD>Model classes</HEAD>
+<ITEM>share syntactic properties (occur in same position)</ITEM>
+<ITEM>may have similar meaning</ITEM></LIST>
+<LIST><HEAD>Attribute classes</HEAD>
+<ITEM>share attributes</ITEM>
+<ITEM>generally have similar meaning</ITEM></LIST>
+<P>Both types of class may have subclasses; both have inheritance. 
+Both are documented and used to generate the DTD.</P></DIV>
+<DIV TYPE="slide"><HEAD>Modifying the TEI DTD</HEAD>
+<LIST><ITEM>renaming elements</ITEM>
+<ITEM>suppressing elements</ITEM>
+<ITEM>adding elements</ITEM>
+<ITEM>modifying elements</ITEM>
+<ITEM>invoking local modifications</ITEM>
+<ITEM>documenting local modifications</ITEM></LIST></DIV></DIV>
+<DIV TYPE="slidegrp"><HEAD>TEI Lite</HEAD>
+<LIST><ITEM>one of many possible views of the TEI dtd</ITEM>
+<ITEM>small, simple</ITEM>
+<ITEM>realistic for existing texts, e.g. OTA, Virginia </ITEM>
+<ITEM>realistic for  document production, e.g. TEI technical
+documentation</ITEM></LIST>
+
+<DIV ID="LT2"><HEAD>The Structure(s) of a TEI Document</HEAD>
+<LIST REND="bullets"><ITEM>a text contains a <TERM>header</TERM>
+followed by a
+<TERM>text</TERM></ITEM>
+<ITEM>the header contains:
+<LIST REND="hyphens">
+<ITEM>a <TERM>file description</TERM> 
+containing bibliographic information about the machine-readable  
+   text itself, and its source</ITEM>
+<ITEM>an <TERM>encoding description</TERM> 
+explaining how the electronic text was encoded </ITEM>
+<ITEM>a <TERM>profile description</TERM> 
+containing further information about the text</ITEM>
+<ITEM>a <TERM>revision description</TERM> 
+containing version control information about the text </ITEM></LIST></ITEM>
+</LIST></DIV>
+<DIV ID="LT3"><HEAD>Structure of a TEI <GI>text</GI></HEAD>
+<LIST REND="bullets"><ITEM>the text may be <TERM>unitary</TERM> or
+<TERM>composite</TERM></ITEM>
+<ITEM>a text contains:<LIST REND="hyph">
+<ITEM>front matter</ITEM>
+<ITEM>back matter</ITEM>
+<ITEM>a <TERM>body</TERM> </ITEM>
+</LIST></ITEM>
+<ITEM>in a composite text, the body is a <TERM>group</TERM> of texts
+(or nested groups)</ITEM>
+</LIST>
+</DIV>
+
+<!-- maybe use diagrams here -->
+
+<DIV ID="LT4"><HEAD>TEI Structures Summarized</HEAD>
+<EG REND="boxed"><![CDATA [tei2  :: teiHeader text
+text  :: front? (body|group) back?
+group :: (text|group)+
+teiCorpus :: teiHeader tei2+
+]]>
+</EG>
+</DIV>
+
+<DIV ID="LT4bis"><HEAD>Text divisions</HEAD>
+<LIST TYPE="bullets"><ITEM>generic, hierarchic subdivisions</ITEM>
+<ITEM><SOCALLED>vanilla</SOCALLED> or numbered</ITEM>
+<ITEM><ident>type</ident> attribute</ITEM>
+<ITEM>associated <GI>head</GI> and <GI>trailer</GI> elements</ITEM>
+</LIST>
+</DIV>
+
+<DIV ID="LT5"><HEAD>Global Attributes</HEAD>
+<LIST TYPE="bullets">
+<ITEM><ident>id</ident> for unique identification</ITEM>
+<ITEM><ident>n</ident> for  (non-unique) name or number</ITEM>
+<ITEM><ident>rend</ident> for rendition</ITEM>
+<ITEM><ident>lang</ident> for language and hence writing-system</ITEM>
+</LIST>
+<P REND="boxr">Applicable to <EMPH>all</EMPH> elements in TEI
+scheme.</P>
+<!-- examples here! -->
+
+</DIV>
+<div><head>A simple example</head>
+<p><eg><![ CDATA [
+ 
+<div0 type='book' n='I' id=JA0100>
+<head>Book I.</head>
+  <div1 type='chapter' n='1' id=JA0101>
+  <head>Of writing lives in general, and particularly of
+        Pamela, with a word by the bye of Colley
+        Cibber and others.</head>
+  <p>It is a trite but true observation, that examples work
+        more forcibly on the mind than precepts:  ...
+ 
+        <!-- remainder of chapter 1 here -->
+  </div1> 
+  <div1 n='2' id=JA0102>
+  <head>Of Mr. Joseph Andrews, his birth, parentage,
+        education, and great endowments; with a word
+        or two concerning ancestors.</head>
+  <p>Mr. Joseph Andrews, the hero of our ensuing history,
+        was esteemed to be the only son of Gaffar and
+        Gammar Andrews, and brother to the illustrious
+        Pamela, whose virtue is at present so famous ...
+ 
+        <!-- remainder of chapter 2 here -->
+  </div1>
+      <!-- remaining chapters of Book 1 here -->
+<trailer>The end of the first Book</trailer>
+</div0>
+<div0 n='II' id=JA0100>
+<head>Book II</head>
+  <div1 n='1' id=JA0201>
+  <head>Of divisions in authors</head>
+  <p>There are certain mysteries or secrets in all
+        trades, from the highest to the lowest, from
+   ....
+
+]]></eg>
+</div>
+<DIV ID="LT6"><HEAD>Text <SOCALLED>components</SOCALLED></HEAD>
+<P>What are divisions composed of?
+<LIST TYPE="bullets">
+<ITEM><HI REND="bold">prose</HI> is mostly paragraphs (<GI>p</GI>)
+</ITEM>
+<ITEM><HI REND="bold">verse</HI> is mostly lines (<GI>l</GI>),
+sometimes in    hierarchic groups (<GI>lg</GI>)</ITEM>
+<ITEM><HI REND="bold">drama</HI> is mostly speeches (<GI>sp</GI>)
+containing
+<GI>p</GI> or <GI>l</GI> and interspersed with stage directions (<GI>
+stage</GI>)</ITEM></LIST></P>
+<P>These may be mixed, and may also appear directly within undivided
+texts.</P></DIV>
+<!-- examples here? -->
+<DIV ID="LT8bis"><HEAD>Verse</HEAD>
+<LIST><ITEM>lines of verse with <GI>l</GI></ITEM>
+<ITEM>groups of lines (stanzas, verse paragraphs, other) with <GI>lg</GI></ITEM></LIST>
+<EG><![CDATA [
+<lg>
+<l>Summer grass &mdash;</l>
+<l>all that's left</l>
+<l>of warriors' dreams.</l>
+</lg>
+]]></EG></DIV>
+<DIV ID="LT8ter"><HEAD>Drama</HEAD>
+<LIST><ITEM>speeches (<GI>sp</GI>)</ITEM>
+<ITEM>speaker identifications (<ident>who</ident> attribute on <GI>sp</GI>,
+or <GI>speaker</GI>)</ITEM>
+<ITEM>stage directions (<GI>stage</GI>)</ITEM></LIST></DIV>
+<DIV><HEAD>An Example</HEAD>
+<EG><![CDATA [
+<stage>Enter Barnardo and Francisco,
+two Sentinels, at several doors</stage>
+<sp who='Barnardo'><l>Who's there?</l>
+<sp who='Francisco'><l>Nay, answer me.  Stand and unfold yourself.</l>
+<sp who='Barnardo'><l>Long live the king!</l>
+<sp who='Francisco'><l>Barnardo?</l>
+<sp who='Barnardo'><l>He.</l>
+]]></EG></DIV>
+<DIV><HEAD>Revised Example</HEAD>
+<P>To capture the metrical reality of one line in several speeches,
+use the <ident>part</ident> attribute on each <GI>l</GI>.</P>
+<EG><![CDATA [
+<sp who='Barn'><l part=i>Who's there?</l>
+<sp who='Fran'><l part=f>Nay, answer me.  Stand and unfold yourself.</l>
+<sp who='Barn'><l part=i>Long live the king!</l>
+<sp who='Fran'><l part=m>Barnardo?</l>
+<sp who='Barn'><l part=f>He.</l>
+]]></EG></DIV>
+
+<DIV ID="LT7"><HEAD>Phrase level elements include...</HEAD>
+<LIST TYPE="bullets">
+<ITEM><HI REND="bold">typographically highlighted phrases</HI> 
+(emphasis, technical terms, foreign language matter, titles, quoted
+matter, linguistically distinct etc.)</ITEM>
+<ITEM><HI>data-like</HI> (names, numbers, dates, times, addresses)</ITEM>
+<ITEM>notes and cross references</ITEM>
+<ITEM><HI>editorial intervention</HI> (corrections, regularizations,
+additions, omissions etc.)</ITEM>
+</LIST>
+</DIV>
+<div><head>Interpreting highlighted material</head>
+<p>The <gi>hi</gi> element is used to indicate typographic
+highlighting:
+<EG><![CDATA [<hi rend=gothic>And this Indenture further witnesseth</hi>
+that the said <hi rend=italic>Walter Shandy</hi>, merchant,
+in consideration of the said intended marriage ...
+]]>
+</EG></p>
+<p>Where the reason for highlighting is evident, a descriptive tag may
+be preferable:
+<EG><![CDATA [<seg type=formula>And this Indenture further witnesseth</seg>
+that the said <name>Walter Shandy</name>, merchant,
+in consideration of the said intended marriage ...
+]]>
+</div>
+<div><head>Foreign language phrases</head>
+<p>The <ident>lang</ident> attribute may be attached to any element;
+use <gi>foreign</gi> if nothing else is available...
+<EG><![CDATA [John has real <foreign lang=fra>savoir-faire</foreign>.
+
+Have you read <title lang=deu>Die Dreigroschenoper</title>?
+
+<mentioned lang=fra>Savoir-faire</mentioned> is French for know-how.
+
+The court issued a writ of <term lang=lat>mandamus</term>.
+]]>
+</EG></P>
+</div>
+<DIV ID="LT7bis"><HEAD>Quotations</HEAD>
+<LIST><ITEM>inline or display</ITEM>
+<ITEM>real quotation, feigned quotation, dialogue</ITEM></LIST>
+<EG><![CDATA [
+<q>Who-e debel you?</q>
+&mdash; he at last said &mdash;
+<q>you no speak-e, damme, I kill-e.</q>
+And so saying, the lighted tomahawk 
+began flourishing about me in the dark.
+]]></EG></DIV>
+
+<div><head>Names and other referring strings</head>
+<p>The <gi>rs</gi> (referring string) element is used for any kind of
+name...
+<EG><![CDATA [<q>My dear <rs type=person>Mr. Bennet</rs>, </q>
+said his lady to him one day, <q>have you heard
+that <rs type=place>Netherfield Park</rs> is let
+at last?</q>
+]]></eg></p>
+<p>... and also for anaphors (which may be resolved by the <ident>key</ident>
+attribute)
+<EG><![CDATA [  <q>My dear <rs type=person key=BENM1>Mr. Bennet</rs>,
+  </q> said <rs type=person key=BENM2>his lady</rs>
+  to him one day, <q>have you heard that
+  <rs type=place key=NETP1>Netherfield Park</rs>
+  is let at last?</q>
+]]>
+</EG>
+</div>
+
+<DIV ID="LT9"><HEAD>Cross References</HEAD>
+<p><hi>Within</hi> the current document...
+<LIST><ITEM>
+<GI>ptr</GI> (empty element)</ITEM>
+<ITEM><GI>ref</GI> (with content)
+<EG><![CDATA [
+    See especially <ref target=SEC12>
+    section 12 on page 34</ref>.
+ 
+    See especially <ptr target=SEC12>.
+]]></EG></ITEM>
+<ITEM>target is most conveniently an identifier (<ident>id</ident>
+value)
+<EG><![CDATA [
+    ...
+    see especially <ptr target=SEC12>.
+    ...
+    <div1 id=SEC12>
+    <head>Concerning Identifiers...
+    ...
+]]></EG></ITEM>
+<ITEM>Together, these provide simple hypertext capability.</ITEM></LIST>
+</DIV>
+<DIV><HEAD>Extended Pointers</HEAD>
+<p><hi>Outwith</hi>the current document...
+<LIST>
+<ITEM><GI>xptr</GI> (empty element) or
+<GI>xref</GI> (with content)
+</ITEM>
+<item>target document is specified by <ident>doc</ident> attribute</item>
+<item>... and as a <term>location ladder</term>
+</item></list>
+<EG><![CDATA [
+see especially <xptr doc=doc2 from="ID (SEC12)"> 
+
+see especially <xptr doc=doc2 
+from="DESCENDANT (2 DIV1) (4 P)
+      CHILD (1 QUOTE LANG LAT)">.]]></EG>
+
+<p>Together, these provide full hypertext capability.
+</DIV>
+
+<DIV ID="LT8"><HEAD>Boundary Points</HEAD>
+
+<P>Texts are not always neatly hierarchic:</P>
+<LIST TYPE="bullets"><ITEM>page and line breaks (<GI>pb</GI>, <GI>lb</GI>,
+and <GI>cb</GI>)</ITEM>
+<ITEM>generic <GI>milestone</GI> element  </ITEM>
+<ITEM>requires left-to-right processing, may not fit well into
+hierarchical model of SGML and SGML software</ITEM>
+</LIST>
+<eg><![ CDATA [
+<p>I wrote to Moor House and to Cambridge immediately, to
+say what I had done: fully explaining also why I had thus
+acted.  Diana and <pb ed=ED1 n='475'> Mary approved the step
+unreservedly.  Dia<pb ed=ED2 n='464'>na announced that she 
+would just give me time to get over the honeymoon, and 
+then she would come and see me.
+]]></eg>
+
+</DIV>
+<DIV ID="LT11"><HEAD>Bibliographic References</HEAD>
+
+<P>Use simple <GI>bibl</GI> with subcomponents:
+<LIST>
+<ITEM><GI>respStmt</GI> (for any kind of responsibility)</ITEM>
+<ITEM>or <GI>author</GI>, <GI>editor</GI>, etc.</ITEM>
+<ITEM><GI>title</GI> with optional <ident>level</ident> attribute</ITEM>
+<ITEM><GI>imprint</GI> groups publication details</ITEM>
+<ITEM><GI>biblScope</GI> adds page references etc.</ITEM>
+</LIST>
+</P>
+<P>Full Guidelines have more detailed structured elements
+<GI>biblStruct</GI> and <GI>biblFull</GI></P>
+<P>Use <GI>listBibl</GI> for list of references</P></DIV>
+<DIV ID="LT11bis"><HEAD>Omissions, Deletions, Additions</HEAD>
+<P>Various types of scribal, editorial, and impersonal  changes can
+be tagged:<LIST>
+<ITEM>omission by transcriber (<GI>gap</GI>)</ITEM>
+<ITEM>cancellation in source or by editor (<GI>del</GI>)</ITEM>
+<ITEM>insertion in source or by editor (<GI>add</GI>, <GI>supplied</GI>)</ITEM>
+<ITEM>material uncertain because illegible (<GI>unclear</GI>)</ITEM>
+<ITEM>physical damage to text carrier (<GI>damage</GI>)</ITEM></LIST></P></DIV>
+<div><head>Editorial Correction and Normalization</head>
+<p>An encoder may choose to record both the original and a correction
+or normalization:
+<EG><![CDATA [
+ ... for his nose was as sharp as a pen and 
+ <reg sic="a'">he</reg>
+ <corr sic='table' ed=Gifford>babbl'd</corr> of green
+ <reg sic='feelds'>fields</reg>
+]]>
+</EG>
+</div>
+
+<DIV ID="LT9bis"><HEAD>Notes</HEAD>
+
+<p><EMPH>Notes</EMPH> of any kind (editorial or authorial) are
+tagged as <GI>note</GI>s:
+<list>
+<ITEM>in-line or out of line: (use <ident>place</ident> value to
+specify)
+<EG><![CDATA [<lg>
+<l>The self-same moment I could pray
+<l>And from my neck so free
+<l>The albatross fell off, and sank
+<l>Like lead into the sea.
+<note type=auth place=margin>
+The spell begins to break.</note>
+</lg>
+]]></EG></ITEM>
+<ITEM>target is most conveniently an identifier (<ident>id</ident>
+value), functions like pointer</ITEM>
+</LIST>
+</DIV>
+<DIV ID="LT10"><HEAD>Lists</HEAD>
+<LIST>
+<ITEM>for lists of any kind (use <ident>type</ident> attribute to
+distinguish)</ITEM>
+<ITEM>use <GI>label</GI> for two-column lists or as alternative to
+<ident>n</ident> attribute</ITEM>
+<ITEM>may be nested as necessary</ITEM>
+</LIST>
+</DIV>
+<div><head>Figures and graphics</head>
+<list>
+<item>The presence of a graphic is indicated by the <gi>figure</gi> element</item>
+<item>The title of the graphic is tagged as a <gi>head</gi></item>
+<item>A description of the graphic may be supplied (as a <gi>figDesc</gi>)
+for use by software unable to render the graphic</item>
+<item>The graphic itself may be specified as an external entity</item>
+</list>
+<p>For example...
+<EG><![CDATA [  <figure entity=fezziPic>
+   <head>Mr Fezziwig's Ball</head>
+   <figdesc>A Cruikshank engraving showing Mr Fezziwig leading
+      a group of revellers.</figdesc>
+   </figure>
+]]></eg>
+</div>
+
+<DIV ID="LT12"><HEAD>Character Encoding Recommendations</HEAD>
+<LIST TYPE="bullets">
+<ITEM>for interchange, use ISO 646 subset</ITEM>
+<ITEM>extend, using standard entity sets or transliteration</ITEM>
+<ITEM>document transliteration scheme with formal <TERM>Writing
+System Declaration</TERM></ITEM></LIST>
+<P>The WSD maps grapheme, entity name (private or public), AFII
+value, ISO 10646 value, prose description, bitmap</P>
+</DIV>
+
+<!-- nothing on analysis here -->
+
+<DIV ID="LT13"><HEAD>The TEI Header</HEAD>
+<LIST TYPE="bullets"><ITEM>mandatory</ITEM>
+<ITEM>independently interchangeable</ITEM>
+<ITEM>support for librarians</ITEM>
+<ITEM>support for corpus builders</ITEM>
+</LIST></DIV>
+
+<DIV ID="LT14"><HEAD>The File Description contains...</HEAD>
+<LIST TYPE="bullets"><ITEM>five ISBD <TERM>areas</TERM>:
+<LIST>
+<ITEM>titleStmt</ITEM>
+<ITEM>editionStmt</ITEM>
+<ITEM>extent</ITEM>
+<ITEM>publicationStmt</ITEM></LIST></ITEM>
+<ITEM>sourceDesc</ITEM>
+<ITEM>notesStmt</ITEM></LIST>
+</DIV>
+
+<DIV ID="LT15"><HEAD>The Encoding Description contains...</HEAD>
+<LIST TYPE="bullets"><ITEM>projectDesc</ITEM>
+<ITEM>samplingDecl</ITEM>
+<ITEM>editorialDecl</ITEM>
+<ITEM>tagsDecl</ITEM>
+<ITEM>refsDecl</ITEM>
+<ITEM>classDecl</ITEM></LIST>
+</DIV>
+
+<DIV ID="LT16"><HEAD>The Profile Description contains...</HEAD>
+<P>miscellaneous additional information such as
+<LIST>
+<ITEM><GI>creation</GI> </ITEM>
+<ITEM><GI>langUsage</GI></ITEM>
+<ITEM><GI>textClass</GI></ITEM></LIST>
+</P>
+<P>plus, when the corpus tagset is chosen,
+<LIST TYPE="bullets">
+<ITEM>textDesc</ITEM>
+<ITEM>particDesc</ITEM>
+<ITEM>settingDesc</ITEM></LIST>
+</P></DIV></DIV>
+<DIV TYPE="slidegrp"><HEAD>Practical Issues</HEAD>
+<DIV TYPE="slide"><HEAD>Practical Issues</HEAD>
+<LIST><ITEM>Project planning</ITEM>
+<ITEM>Software</ITEM>
+<ITEM>Reasons not to use the TEI</ITEM>
+<ITEM>For more information ...</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Project Management</HEAD>
+<LIST><ITEM>The steps of a project:<LIST>
+<ITEM>clarify goals</ITEM>
+<ITEM>select sample and analyse documents</ITEM>
+<ITEM>specify markup policy</ITEM>
+<ITEM>encode the texts</ITEM>
+<ITEM>enrich, reuse, retarget, ...</ITEM></LIST></ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Setting Markup Policy</HEAD>
+<LIST><ITEM>design a new DTD from scratch?</ITEM>
+<ITEM>select a subset of an existing DTD?</ITEM>
+<ITEM>specify recognition criteria for elements (when do we tag a
+proper noun?  When do we tag place names?)</ITEM>
+<ITEM>plan markup stages:<LIST>
+<ITEM>markup which <EMPH>must</EMPH> be included at data capture
+stage</ITEM>
+<ITEM>markup software can generate</ITEM>
+<ITEM>markup requiring human intervention</ITEM>
+<ITEM>semi-manual / software-assisted markup</ITEM></LIST></ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Layering Information</HEAD>
+<P>SGML allows the same passage to contain:<LIST>
+<ITEM>orthographic transcription</ITEM>
+<ITEM>pointer(s) to digital recording</ITEM>
+<ITEM>pointer(s) to image</ITEM>
+<ITEM>markup of proper nouns, dates, times, etc.</ITEM>
+<ITEM>part-of-speech and morphological tagging</ITEM>
+<ITEM>syntactic analysis</ITEM>
+<ITEM>discourse analysis</ITEM>
+<ITEM>cross references to other material on the topic</ITEM>
+<ITEM>editorial commentary and annotation</ITEM>
+<ITEM>etc., etc., etc.</ITEM></LIST></P></DIV>
+<DIV TYPE="slide"><HEAD>Some Implications for Projects</HEAD>
+<LIST><ITEM>data representation is fundamental:  think ahead</ITEM>
+<ITEM>TEI conformance means less --- and more --- than you might
+think</ITEM>
+<ITEM>get your fingers dirty</ITEM>
+<ITEM><EMPH>record</EMPH> what you do:  data representation is
+fundamental </ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>What about Software?</HEAD>
+<LIST><ITEM>document analysis and design</ITEM>
+<ITEM>conversion</ITEM>
+<ITEM>databases</ITEM>
+<ITEM>electronic delivery</ITEM>
+<ITEM>HyTime engines</ITEM>
+<ITEM>page layout</ITEM>
+<ITEM>document management</ITEM>
+<ITEM>parsers</ITEM>
+<ITEM>text editors</ITEM></LIST>
+<P>Consult the <TITLE>Whirlwind Guide to SGML
+Tools</TITLE> by Steve Pepper <EG>ftp://ftp.falch.no/pub/SGML-Tools/*</EG></P></DIV>
+<!--
+<DIV TYPE="slide"><HEAD>Document Analysis/Design Tools</HEAD>
+<LIST><ITEM>CADE Groupware (W) Microstar</ITEM>
+<ITEM>Document Analyzer (U D) Avalanche</ITEM>
+<ITEM>DTD Viewer (W) ZifTech</ITEM>
+<ITEM>DTD2HTML (U) PD</ITEM>
+<ITEM>DTDocumenter (U) SoftQuad</ITEM>
+<ITEM>EasyDTD (D U) PD</ITEM>
+<ITEM>NEAR & FAR (U W) Microstar</ITEM>
+<ITEM>NEAR & FAR Lite (W) Microstar</ITEM>
+<ITEM>RulesBuilder (U W M) SoftQuad</ITEM>
+<ITEM>SGML Companion (W) PublDev</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Conversion Software</HEAD>
+<LIST><ITEM>Alchemy (W) Zandar</ITEM>
+<ITEM>Balise (U D V) AIS</ITEM>
+<ITEM>CoST: Copenhagen SGML Tool (U) PD</ITEM>
+<ITEM>DynaTag (U W) EBT</ITEM>
+<ITEM>EasyTag (W M O U) TetraSys</ITEM>
+<ITEM>FastTAG (U W D) Avalanche</ITEM>
+<ITEM>i2c (ISO/CALS table conversion) (U D) MID</ITEM>
+<ITEM>Integrated Chameleon Architecture (U) PD</ITEM>
+<ITEM>OmniMark (D I M O U V W) Exoterica</ITEM>
+<ITEM>PowerPaste (U) Arbortext</ITEM>
+<ITEM>qwertz/FORMAT (U) PD</ITEM>
+<ITEM>Rainbow-makers (U D) PD</ITEM>
+<ITEM>SGML Exportfilter for FrameBuilder (U) MID</ITEM>
+<ITEM>SGML Hammer (U W) Avalanche</ITEM>
+<ITEM>SGML2TeX (D) PD</ITEM>
+<ITEM>SureSTYLE (W) Avalanche</ITEM>
+<ITEM>TableTAG (U D) Unifilt</ITEM>
+<ITEM>TagWrite (W) Zandar</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Databases</HEAD>
+<LIST><ITEM>ActiveSearch (W) ActiveSystems</ITEM>
+<ITEM>ActiveServer (U) ActiveSystems</ITEM>
+<ITEM>Basis SGMLserver (U W V) IDI</ITEM>
+<ITEM>Impact Search and Retrieval (U) Auto-Graphics</ITEM>
+<ITEM>PAT (U) OpenText</ITEM>
+<ITEM>SARA (SGML Aware Retrieval Application) (U W) BNC</ITEM>
+<ITEM>SGML/Search (U) AIS</ITEM>
+<ITEM>SGML/Store (U) AIS</ITEM>
+<ITEM>SINDA (U) STEP</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Electronic Delivery</HEAD>
+<LIST><ITEM>DynaText (U W M) EBT</ITEM>
+<ITEM>Folio VIEWS (W D M) Folio</ITEM>
+<ITEM>Grif SGML ActiveViews (U W) Grif</ITEM>
+<ITEM>Guide Professional Publisher (W) InfoAccess</ITEM>
+<ITEM>HyperTag (W M O U) TetraSys</ITEM>
+<ITEM>HyperWriter for SGML (D W) Ntergaid</ITEM>
+<ITEM>Lector (U W) OpenText</ITEM>
+<ITEM>OLIAS Browser (U) HaL</ITEM>
+<ITEM>SGML Darc (U W) Synex</ITEM>
+<ITEM>SoftQuad Explorer (W) SoftQuad</ITEM>
+<ITEM>SoftQuad Panorama (W) SoftQuad</ITEM>
+<ITEM>SuperBook System (U W M O) Bellcore</ITEM>
+<ITEM>WorldView (U W) Interleaf</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>HyTime Engines</HEAD>
+<LIST><ITEM>HyMinder (U D) TechnoTeacher</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Page Layout</HEAD>
+<LIST><ITEM>ADEPT Publisher (U W) ArborText</ITEM>
+<ITEM>CAPS (U) XSoft</ITEM>
+<ITEM>Corel Ventura (W) Corel</ITEM>
+<ITEM>DL Composer (U) Datalogics</ITEM>
+<ITEM>FrameBuilder (U W) Frame</ITEM>
+<ITEM>Interleaf 5 SGML (U D) Interleaf</ITEM>
+<ITEM>Parlance Publisher (U) Xyvision</ITEM>
+<ITEM>SGML Enabler QuarkXTension (W M) SoftQuad</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Document Management</HEAD>
+<LIST><ITEM>DocMan (U) STEP</ITEM>
+<ITEM>DynaBase Publishing Environment (U) EBT</ITEM>
+<ITEM>Information Manager (U) Texcel</ITEM>
+<ITEM>Life*CDM (U) Corena</ITEM>
+<ITEM>Parlance Document Manager (U W) XyVision</ITEM>
+<ITEM>PassagePRO (U) Passage</ITEM>
+<ITEM>S4 (SGML Standard Support System) (M U W) Infrastructures</ITEM>
+<ITEM>SGML Editorial System (U W) MID</ITEM>
+<ITEM>SIM (Structured Information Manager) (U W) Ferntree</ITEM>
+<ITEM>WorkSMART (U W M) InfoDesign</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Parsers</HEAD>
+<LIST><ITEM>Amsterdam Parser (U) PD</ITEM>
+<ITEM>ARC-SGML (D U M) PD</ITEM>
+<ITEM>IBM SGML Translator (I) IBM</ITEM>
+<ITEM>Mark-It (U D W V) SEMA</ITEM>
+<ITEM>MarkMinder (U D) TechnoTeacher</ITEM>
+<ITEM>SGML Kernel (D I M O U V W) Exoterica</ITEM>
+<ITEM>sgmls (U D O I V) PD</ITEM>
+<ITEM>SP (U D) PD</ITEM>
+<ITEM>YASP (Yorktown SGML Parser) (U D O V I) PD</ITEM></LIST></DIV>
+<DIV TYPE="slide"><HEAD>Text Editors</HEAD>
+<LIST><ITEM>ADEPT Editor (U W) ArborText</ITEM>
+<ITEM>Author/Editor (U W M) SoftQuad</ITEM>
+<ITEM>EASE (E2S Advanced SGML Editor) (D) E2S</ITEM>
+<ITEM>EditTime (W) Timelux</ITEM>
+<ITEM>Extended SGML Structured Editor (W) Lexicon</ITEM>
+<ITEM>Grif SGML Editor (U) Grif</ITEM>
+<ITEM>Grif SGML Notes (W) Grif</ITEM>
+<ITEM>HotMetal (U W) SoftQuad</ITEM>
+<ITEM>InContext (W) InContext</ITEM>
+<ITEM>Intellitag (U D) WordPerfect</ITEM>
+<ITEM>NEAR & FAR Author for Microsoft Word 6.0 (W) Microstar</ITEM>
+<ITEM>PSGML (emacs mode) (U D) PD</ITEM>
+<ITEM>SGML Smart Editor (U D W) Auto-Graphics</ITEM>
+<ITEM>SGML Tag Wizard (W) NICE</ITEM>
+<ITEM>SGML Tagger (D) OUP</ITEM>
+<ITEM>WordPerfect SGML Edition for Windows (W) WordPerfect</ITEM>
+<ITEM>Write-It (D) SEMA</ITEM>
+<ITEM>WriterStation (D W O) Datalogics</ITEM></LIST></DIV>
+-->
+<DIV TYPE="slide"><HEAD>Reasons not to use SGML or TEI</HEAD>
+<P>Several reasons are advanced for not using TEI encoding.<LIST>
+<ITEM><Q REND="inline" TYPE="inline">There isn't any software</Q></ITEM>
+<ITEM><Q REND="inline" TYPE="inline">It's too complicated; I want
+something simpler</Q></ITEM>
+<ITEM><Q REND="inline" TYPE="inline">It's too simple: It doesn't do what I need</Q></ITEM>
+<ITEM><Q REND="inline" TYPE="inline">There isn't any typesetting
+(database, editing, network publishing ...) software for SGML</Q></ITEM>
+<ITEM><Q REND="inline" TYPE="inline">SGML is a flawed formal
+language</Q></ITEM>
+<ITEM><Q REND="inline" TYPE="inline">TEI is an assault on my
+intellectual freedom</Q></ITEM></LIST> Need it be said that these are
+not all plausible?</P></DIV>
+<DIV TYPE="slide"><HEAD>For More Information</HEAD>
+<LIST><ITEM>email to tei@uic.edu</ITEM>
+<ITEM>subscribe to TEI-L@uicvm.uic.edu</ITEM>
+<ITEM>read comp.text.sgml</ITEM>
+<ITEM>attend annual SGML conferences organized by Graphic
+Communications Association</ITEM>
+<ITEM>Eric van Herwijnen, <TITLE>Practical SGML</TITLE> (New York: 
+Kluwer, 1994)</ITEM>
+<ITEM>buy the TEI <TITLE>Guidelines for Electronic Text Encoding and
+Interchange</TITLE> (Chicago, Oxford:  TEI, 1994)</ITEM>
+</LIST></DIV></DIV>
+</BODY></TEXT></TEI.2>
