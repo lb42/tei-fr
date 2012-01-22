@@ -6,7 +6,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   exclude-result-prefixes="tei teix xsl">
   
-<xsl:import href="/usr/share/xml/tei/stylesheet/slides2/teilatex-slides.xsl"/>
+<xsl:import href="/usr/share/xml/tei/stylesheet/slides/teilatex-slides.xsl"/>
 <xsl:param name="reencode">false</xsl:param>
 <xsl:param name="attsOnSameLine">6</xsl:param>
 <xsl:param name="latexLogo"></xsl:param>

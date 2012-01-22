@@ -1,7 +1,7 @@
 ECHO=
 
 TALKS= \
-	talk-ms.xml \
+	tei-history.xml \
 	cartes-roma-1.xml \
 	cartes-roma-2.xml \
 	xslt-intro.xml 
