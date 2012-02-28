@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Personalisation de schema avec Roma</title>
+				<author>TEI@Oxford</author>
+				<author>Lou Burnard</author>
+				<respStmt>
+					<resp>relecture de cette version française, avril 2011</resp>
+					<name>Florence Clavaud (Ecole nationale des chartes)</name>
+				</respStmt>
+			</titleStmt>
+			<editionStmt>
+				<edition>
+					<date>2011-01</date>
+				</edition>
+			</editionStmt>
+			<publicationStmt>
+				<date when="2011-04">avril 2011</date>
+				<publisher>MEET</publisher>
+				<availability>
+					<p>Freely available for use and derivative works under a Creative Commons
+						Attribution license.</p>
+				</availability>
+				<availability xml:lang="fre">
+					<p>Ce texte est mis à disposition de tous selon les termes de la licence
+						Creative Commons « Paternité - Pas d’Utilisation Commerciale - Pas de
+						Modification ; 2.0 France ». Cette licence est disponible <ref
+							target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en
+							ligne</ref> ou par courrier postal à Creative Commons, 171 Second
+						Street, Suite 300, San Francisco, California 94105, USA.</p>
+				</availability>
+			</publicationStmt>
+			<sourceDesc>
+				<p>Various previous talks, TEI Guidelines, etc.</p>
+			</sourceDesc>
+		</fileDesc>
+		<revisionDesc>
+			<change>
+				<date>$ $.</date>
+				<name>$LastChangedBy: rahtz $</name>
+				<note>$LastChangedRevision: 10215 $</note>
+			</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body>
+			<div>
+				<head>Exploration de TEI par Roma</head>
+				<p>Roma est également un outil apte à l’exploration des possibilités du système
+					TEI.</p>
+				<list>
+					<item>Sélectionner l’onglet [Modules] pour voir les modules disponibles ou déjà
+						pris</item>
+					<item>Sélectionner le nom d’un module pour voir les éléments qu’il contient, et
+						pour en faire le choix.</item>
+					<item>(On peut par défaut supprimer tous les éléments d’un module, ou bien les
+						sélectionner tous) </item>
+					<item>Sélectionner le nom d’un élément pour voir sa documentation
+						complète</item>
+				</list>
+			</div>
+			<div>
+				<head>Roma: Modules</head>
+				<p>
+					<graphic url="../Graphics/Roma-modules.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Roma : Changer un Module</head>
+				<p>
+					<graphic url="../Graphics/Roma-core.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Autres possibilités de personnalisation</head>
+				<p>Pour notre schéma... <list>
+						<item>on veut définir une liste de valeurs possibles pour l’attribut
+								<att>type</att> de <gi>div</gi>
+						</item>
+						<item>on veut ajouter un nouveau élément <gi>saintName</gi> pour encoder les
+							noms des saints (pourquoi pas?) </item>
+						<item>on veut spécifier que chaque <gi>text</gi> contiendra un <gi>div
+								type="recto"</gi> suivi d’un <gi>div type="verso"</gi></item>
+					</list>
+				</p>
+			</div>
+			<div>
+				<head>L’avantage ODD</head>
+				<p>Toutes ces contraintes peuvent être exprimées dans notre ODD, et on peut en tirer
+					un schéma pour contrôler qu’elles soient respectées.</p>
+				<list>
+					<item>Un schéma peut être généré en <list>
+							<item>ISO RELAX NG language</item>
+							<item>W3C Schema Language</item>
+							<item>XML DTD language</item>
+						</list></item>
+					<item>Les modèles de contenu s’expriment dans le fichier ODD avec une syntaxe
+						RELAX NG </item>
+					<item>Les types de données (datatypes) sont définis selon le standard W3C
+						datatypes</item>
+					<item>Il y a quelques contraintes (e.g. alternatives, namespaces) qui ne sont pas
+						exprimables en DTD — donc RELAX NG schema est recommandé</item>
+					<item>Il y a quelques contraintes qui ne sont pas exprimables en aucune langue
+						de schéma : pour celles-ci, on se sert d’un autre langage ISO, qui s’appelle
+							<term>schematron</term>
+					</item>
+				</list>
+			</div>
+			<div>
+				<head>Roma: sélection des attributs</head>
+				<p>
+					<graphic url="../Graphics/Roma-div-attributes.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Roma: contraintes sur les valeurs des attributs</head>
+				<p>
+					<graphic url="../Graphics/Roma-vallist.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Qu’est ce qu’on vient de faire?</head>
+				<p>Notre fichier ODD contient maintenant : <egXML
+						xmlns="http://www.tei-c.org/ns/Examples" rend="full"><elementSpec
+							ident="div" module="textstructure" mode="change"><attList><attDef
+									ident="type" mode="change" usage="req"><valList type="closed"
+										mode="replace"><valItem ident="recto"/><valItem
+											ident="verso"/><valItem ident="obliteration"/><valItem
+											ident="message"/><valItem ident="destinataire"
+										/><!-- ... --></valList></attDef></attList></elementSpec></egXML>
+				</p>
+				<p>Nota : on peut ajouter de la documentation directement dans le fichier ODD: <egXML
+						xmlns="http://www.tei-c.org/ns/Examples" rend="full"><valItem
+							ident="obliteration"><desc>contient le texte d’une oblitération
+								quelconque sur une carte postale</desc></valItem></egXML>
+				</p>
+				<p>Recréer le schema, et voir l’effet de ces changements avec Oxygen...</p>
+			</div>
+			<!--
+       <div>
+	 <head>Ajout d’un élément</head>
+	 <p>Pour ajouter un élément il faut considérer:
+ <list><item>son nom, sa description</item><item>ses
+ attributs</item><item>son contenu</item><item>sa contexte (i.e. dans
+ quels autres éléments il peut apparaitre</item></list>
+ </p>
+	 <p>La systeme de classes TEI peut nous aider a répondre a toutes
+	 ces questions (sauf la premiere).</p>
+       </div>
+       <div>
+	 <head> La systeme de classes TEI</head>
+	 <list>
+	   <item>La TEI distingue plus que 500 éléments, </item>
+	   <item>Une organisation en classes facilite la comprehension,
+	   la modularité, et la modification.</item>
+	   <item><term>classes "Attribute"</term>: chaque membre de la
+	   classe porte des attributs en commun </item>
+	   <item><term>classes "Model"</term>: chaque membre de la
+	   classe peut apparaitre dans les memes locations hierarchiques</item>
+	   <item>les classes sont aussi classables en classe</item>
+	   <item>un élément peut etre membre de plusieures classes,
+	   sans distinction de module d’origine.</item>
+	 </list>
+       </div>
+       <div>
+	 <head> Attribute Classes</head>
+	 <list>
+	   <item>Les classes attributs portent un nom commencant en  <hi>att.</hi>; ex. <term>att.naming</term>,
+	   <term>att.typed</term></item>
+	   <item>chaque membre de la classe <code>att.naming</code>
+	   en hérite les attributs <att>key</att> et <att>ref</att>;
+	   chaque membre de la classes
+ <code>att.typed</code> en hérite  <att>type</att> et
+ <att>subtype</att></item>
+	   <item>Si on veut qu’un élément porte l’attribut
+	   <att>type</att> on n’a pas besoin de redéfinir cet attribut;
+	   on n’a qu’a ajouter l’élément a la classe.</item>
+	 </list>
+       </div>
+       <div>
+	 <head>Une classe importante: att.global </head>
+	 <p> Tout élément est membre de la classe <hi>att.global</hi>
+	 par defaut;
+ cette class fournit, entre autre: <list
+ type="gloss"><label><att>xml:id</att></label><item>identifiant
+ unique</item><label><att>xml:lang</att></label><item>langage du
+ contenu de l’ élément</item><label><att>n</att></label><item>chiffre
+ ou nom pour l’ élément</item><label><att>rend</att></label><item>code
+ pour la rendition original de l’ élément.</item></list> 
+	 </p>
+       </div>
+       <div>
+	 <head> Model Classes</head>
+	 <list>
+	   <item>Les classes dites "Model" portent un nom commencant en
+	   <hi>model.</hi>; et terminant en <code>part</code> ou
+	   <code>like</code>.  ex. <term>model.pPart</term>,
+	   <term>model.pLike</term> </item>
+ <item>Les suffixes explicite un peu la maniere de se servir de la
+ classe: ex. membres de la classe <hi>model.pLike</hi> sont des objets
+ qui  <q>ressemblent aux</q> paragraphs, en particulier qui sont permis aux memes
+ lieux dans un document que les  paragraphes
+		 </item>
+ <item>par contre, les membres de
+		 <hi>model.pPart</hi> sont des éléments qui peuvent
+		 apparaitre  <emph>dans</emph> un paragraphe. </item>
+ <item>En effet cette classe rassemble des sous classes:
+		 <list><item><hi>model.pPart.edit</hi>  éléments pour
+		 interventions editoriales ex. <gi>corr</gi>,
+		 <gi>del</gi>
+		 etc. </item>
+ <item><hi>model.pPart.data</hi>éléments
+		 qui ressemblent aux données classiques, tels que
+ <gi>name</gi>, <gi>num</gi>, <gi>date</gi> etc.</item><item>
+ <hi>model.pPart.msdesc</hi> éléments specifique a la description des
+ manuscrits tel que <gi>seal</gi> , <gi>origPlace</gi>... </item></list>
+ </item></list>
+       </div>
+-->
+			<!--      <div>
+	 <head>Basic Model Class Structure</head>
+	 <p>Simplifying wildly, one may say that the TEI recognises
+	   three kinds of élément:
+	   <list type="gloss"><label>divisions</label><item>high level major divisions of texts</item><label>chunks</label><item>éléments such as paragraphs appearing within texts
+	       or divisions, but not other chunks</item><label>phrase-level éléments</label><item>éléments such as highlighted phrases which can
+	       occur only within chunks</item></list>
+	   </p>
+	 <p>There are <q>base model classes</q> corresponding with
+	   each of these, and also with the following groupings:
+	   three: 
+	   <list type="gloss"><label>inter-level éléments</label><item>éléments such as lists which can appear either in
+	       or between chunks</item><label>components</label><item>éléments which can appear directly within texts or text
+	       divisions</item></list>
+	   </p>
+	 <p>And yes, there is a class <hi>model.global</hi> for
+ 	   éléments that can appear <emph>anywhere</emph> — at any
+	   hierarchic level.</p>
+       </div>
+ -->
+			<div>
+				<head>Ajout d’un élément nouveau <gi>saintName</gi></head>
+				<list type="gloss">
+					<label>Il ressemble à quels autres éléments?</label>
+					<item>C’est une sorte de nom, évidemment</item>
+					<label>Il peut contenir quoi?</label>
+					<item>Il peut contenir seulement du texte.</item>
+					<label>Où peut-il apparaître?</label>
+					<item>A l’intérieur des titres, des phrases, des paragraphes, etc. mais non pas
+						entre les deux.</item>
+				</list>
+				<p>Conclusion: <list>
+						<item>on le fait membre de la classe <hi>model.nameLike</hi></item>
+						<item>son contenu est défini par macro.xText</item>
+					</list></p>
+			</div>
+			<div>
+				<head>Roma: Définition d’un nouvel élément</head>
+				<p>
+					<graphic url="../Graphics/Roma-saintname1.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Définition de modèle de contenu</head>
+				<list>
+					<item>Le contenu d’un élément TEI est défini en langage RELAX NG</item>
+					<item>La plupart des éléments TEI définissent leur contenu par référence aux
+							<emph>classes</emph> d’éléments plutôt que par référence à des éléments
+						spécifiques.</item>
+					<item>Il existe des modèles prédéfinis très utiles, par exemple: <list
+							type="gloss">
+							<label>macro.paraContent</label>
+							<item>le contenu des éléments qui ressemblent aux paragraphes</item>
+							<label>macro.phraseSeq</label>
+							<item>séquence de caractères combinée à des éléments de la classe
+								model.phraseLike </item>
+							<label>macro.xText</label>
+							<item>séquence de caractères combinée avec l’élément <gi>g</gi> (qui sert
+								à encoder les caractères non-Unicode)</item>
+						</list>
+					</item>
+				</list>
+			</div>
+			<div>
+				<head>Roma: Définition d’un nouvel élément 2</head>
+				<p>
+					<graphic url="../Graphics/Roma-saintname3.png"/>
+				</p>
+			</div>
+			<div>
+				<head>Qu’est-ce qu’on vient de faire?</head>
+				<p>On a ajouté une spécification pour notre nouvel élément: <egXML
+						xmlns="http://www.tei-c.org/ns/Examples" rend="full"><elementSpec
+							ident="saintName" ns="http://www.example.org/ns/nonTEI" mode="add"
+								><desc> contains the name of a saint.</desc><classes><memberOf
+									key="model.nameLike"/><memberOf key="att.typed"
+									/></classes><content><rng:ref name="macro.xtext"
+							/></content></elementSpec></egXML>
+				</p>
+				<p>Nota : ce nouvel élément n’est <emph>pas</emph> un élément TEI ! Il appartient
+					donc à un autre espace de noms. </p>
+			</div>
+			<div>
+				<head>Autre contraintes</head>
+				<list>
+					<item>On peut contraindre le contenu d’un élément, ou la valeur d’un attribut en
+						se servant des <term>datatype</term>s (par exemple, pour insister que le
+						contenu de l’élément <gi>date</gi> soit vraiment une date)</item>
+					<item>La TEI prédéfinit plusieurs <term>macros</term> pour répondre à cette
+						possibilité. Par exemple <list type="gloss">
+							<label>data.word</label>
+							<item>un mot ou 'token'</item>
+							<label>data.name</label>
+							<item>un nom XML</item>
+							<label>data.enumerated</label>
+							<item>un nom XML pris dans une liste documentée</item>
+							<label>data.temporal.w3c</label>
+							<item>une date conforme au formalisme W3C date</item>
+							<label>data.truthValue</label>
+							<item>une valeur vraie (true/false)</item>
+							<label>data.language</label>
+							<item>un language humain</item>
+							<label>data.sex</label>
+							<item>le sexe d’un humain ou d’un animal</item>
+						</list>
+					</item>
+					<item>Ou on peut créer ses propres contraintes avec le langage Schematron</item>
+				</list>
+			</div>
+			<div>
+				<head>Contraintes Schematron</head>
+				<list>
+					<item>Une spécification d’élément peut contenir un élément
+							<gi>constraintSpec</gi> contenant des règles exprimées en langage ISO
+						Schematron </item>
+				</list>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
+					<elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="body"
+						module="teistructure" mode="change">
+						<constraintSpec mode="add" ident="bodyLim" scheme="isoschematron">
+							<constraint>
+								<s:assert
+									test="tei:div/@type='recto' and 
+				 tei:div/@type='verso' and
+				 count(tei:div)=2"
+									> le body doit contenir un recto et un verso et rien de plus
+								</s:assert>
+							</constraint>
+						</constraintSpec>
+					</elementSpec>
+				</egXML>
+				<p>A noter... <list>
+						<item>Pour ajouter de telles règles, il faut éditer le fichier ODD. Roma ne
+							vous aide pas.</item>
+						<item>L’implantation de telles règles n’est pas forcément disponible avec
+							tout processeur XML.</item>
+					</list>
+				</p>
+			</div>
+		</body>
+	</text>
+</TEI>
