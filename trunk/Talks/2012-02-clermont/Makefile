@@ -1,7 +1,7 @@
 ECHO=
 
 TALKS= \
-	talk-intro-tei.xml \
+	talk-intro-xml.xml \
 	talk-guidelines.xml \
 	talk-analysis.xml \
 	talk-oral.xml \
@@ -14,14 +14,14 @@ DOCS= \
 	tp-roma \
 	tp-analysis \
 	tp-lit \
-	tp-5-et-6 
+	tp-xslt 
  
 default: pdfslides
 slides: pdfslides 
 
 pdfslides:  
 	for i in $(TALKS) ; do \
-		saxon -o:`basename $$i .xml`.tex Talks/`basename $$i .xml`.xml slides.xsl \
+		saxon -o:`basename $$i .xml`.tex `basename $$i .xml`.xml slides.xsl \
 		 latexLogo=../Graphics/logo \
                  attsOnSameLine=6 \
                  reencode=false ; \
@@ -62,7 +62,7 @@ handout:  pdfslides-handout
 	echo "</div>" >> booklet.xml
 docs:	
 	for i in $(DOCS) ; do \
-		saxon  -o:$$i.tex Travaux/$$i.xml  \
+		saxon  -o:$$i.tex $$i.xml  \
 	       	/usr/share/xml/tei/stylesheet/latex/tei.xsl \
 		reencode=false ; \
 		xelatex $$i.tex ; \
