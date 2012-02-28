@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Structuration des données numérisées</title>
+<author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <p> For the ANGD</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from lots of other talks</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <list type="unordered">
+        <item><date>27 sep 11</date>LB: a few more tweaks to perfect
+	last year's version </item>
+        <item><date>15 aug 06</date>LB: revamp from
+	2010-06-frejus/xml-corpus-fr </item>
+      </list>    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+      <div rend="slide">
+        <head>Objectifs de cette présentation</head>
+        <list type="ordered">
+	  <item>Definition d'une source</item>
+          <item>Distinguer les documents des textes </item>
+          <item>Distinguer structuration de numérisation</item>
+          <item>Proposer des méthodes pour bien structurer un fonds numérisé</item>
+        </list>
+<p>Version XML disponible a <ptr target="http://tei.oucs.ox.ac.uk/Oxford/2011-10/structurer.xml"/></p>
+
+      </div>
+
+<div>
+<head>Qu'est-ce une source?</head>
+<list>
+<item>un document</item>
+<item>une représentation d'un document</item>
+<item>un ensemble de documents (ou de répresentations)</item>
+<item>un ensemble d'informations associées avec un document (ou ..)</item>
+</list>
+<p>Les information associées pourraient concerner le document lui
+meme, ou bien sa portée (par ex, les objets réels mentionées)
+</p>
+
+<p rend="box">La structuration d' une source définit et ses frontières et
+son contenu</p> </div>
+
+
+        <div rend="slide">
+	  <head>Voici deux documents numérisés...</head>
+<table>
+<row>
+<cell>      <graphic width="40%" url="../2010-06-frejus/corbeau-1.jpg"/></cell>
+<cell>      <graphic width="45%" url="../2010-06-frejus/corbeau-2.jpg"/></cell>
+</row></table>
+<p>Comment les structurer?</p>
+	</div>
+
+
+        <div>
+          <head>Un texte n'est pas un document...</head>
+
+<p>Un document est un objet physique, existant dans le monde
+physique. Un manuscrit, une peinture, une réalisation musicale, une copie spécifique d'un livre...</p>
+          <p rend="box">Un "texte" est quelque chose d'abstrait:
+	  la construction d'une communauté de lecteurs.</p>
+          <p>L'encodage explicite cette abstraction afin de mieux la gérer</p>
+        </div>
+
+
+
+<div rend="slide"><head>Qu'est-ce qu'on fait en numérisant un texte?</head>
+<figure>
+<graphic url="../Graphics/model-fr.png"/>
+</figure></div>
+
+
+<div><head>L'importance d'être explicite</head>
+<p>L' exploitation informatique nécessite une information
+<list>
+<item>explicite</item>
+<item>univoque</item>
+</list></p>
+<p>L' exploitation partagée nécessite une information
+explicite qui se base sur
+<list>
+<item>des standards communautaires</item>
+<item>des technologies ouvertes</item>
+</list>
+</p></div>
+
+<div>
+<head>Numériser et structurer...</head>
+<p>La numérisation nous propose une <emph>image</emph>, une représentation d'un
+object déjà existant</p>
+<p>La structuration nous permet de représenter l'image des <emph>idées</emph>
+résultant de ces représentations</p>
+</div>
+
+
+<div>
+<head>Des idées sur quoi?</head>
+<p>Tout! mais on peut distinger plusieurs axes...
+<list>
+<item>infos <q>intrinsèques</q> à l'objet : les formes, couleurs,
+etc. d'une image; les sons, rythmes, etc. d'une musique; les
+structures linguistiques (mot, phrase, paragraphe) d'un texte...</item>
+<item>infos <q>extrinsèques</q> ou <q>meta</q> sur l'objet : son type,
+ses origines, ses buts, ses usages...</item>
+<item>infos <q>interprétatives</q>: la portée d'un texte ou d'un
+dessin, le programme d'une musique ou d'un rite...</item>
+</list>
+</p>
+<p rend="display">distinctions floues mais pervasives...</p>
+</div>
+
+
+      <div><head>Pareillement, pour le soft</head>
+        <figure><graphic url="../Graphics/txttrin.png"/><head>(Burnard 1989)</head></figure>
+      </div>
+
+      <div>
+        <head>Comment choisir?</head>
+        <p>On ne structure pas pour se faire plaisir...
+          <figure> <graphic url="../2010-10-angd/grid.png"/></figure>
+        </p>
+      </div>
+
+<div>
+<head>Un mot sur l'OCR</head>
+<p>L'OCR existe à l'intersection entre numérisation et
+structuration</p>
+<list>
+<item>Un OCR parfait peut reproduire l'apparence d'un document imprimé .... </item>
+<item>... y compris les détails inutiles pour sa structuration. ex
+les titres courants, les mots coupés en fin de ligne, les changements
+de police inintéressants</item>
+<item>au coeur d'un moteur OCR se trouve un moteur de reconnaissance
+statistique, qu'il faut entrainer pour chaque langue différente </item>
+</list>
+
+</div>
+
+<div><head>Saisie de texte non OCR-isable</head>
+<list>
+<item>En principe il faut transcrire ex. les  manuscrits, les livres
+imprimés anciens, et les textes audio</item>
+<item>La saisie à la main à grande échelle s'effectue normalement
+par des prestataires</item>
+<item>Il faut préciser un marge d'erreur acceptable, un balisage
+préalable, préparer les documents etc...</item>
+</list></div>
+
+<div><head>Comment structurer?</head>
+<p>Il existe (quelques) méthodes classiques d'analyses de
+données. L'important c'est de comprendre:
+<list>
+<item>toute méthode ne serait qu'une modélisation</item>
+<item>il ne faut absolument pas laisser cette tâche aux
+informaticiens!</item>
+</list>
+</p>
+<p>Après modélisation, on peut faire une implémentation informatisée;
+sans modèle, une implémentation risque d'être incompréhensible et
+aléatoire, inutile..</p>
+</div>
+
+<div><head>Analyse des données classique</head>
+<p>On identifie...
+<list>
+<item>les "objets d'interêt"</item>
+<item>leurs attributs/propriétés</item>
+<item>les relations entre objets</item>
+<item>les procédures/traitements essentiels envisagés
+</item>
+</list>
+</p>
+</div>
+
+<div><head>Par exemple...</head>
+<figure><graphic url="../2010-10-angd/carte-modele.png"/></figure>
+</div>
+
+<div><head>Data ou text?</head>
+<p>En informatique on distingue nettement:
+<list><item>un système de traitement
+des données : par exemple une base de données relationnelle </item>
+<item>un système de gestion de documents XML</item>
+</list>
+</p>
+<p>Ils répondent à des besoins différents...
+<list>
+<item>gestion des abstractions</item>
+<item>gestion des composants documentaires</item>
+</list>
+</p>
+</div>
+
+
+<div><head>Approche base de données</head>
+<p>On représente le modèle abstrait en forme de <hi>tables
+normalisées</hi></p>
+<p>On profite de la disponibilité d'une technologie bien mûre avec des
+logiciels très performants</p>
+<p>On travaille dans une direction loin des faits documentaires. </p>
+</div>
+
+      <div><head>Approche base documentaire / XML</head>
+        <p>On représente le modèle abstrait en forme d' <hi>arborescence XML</hi></p>
+        <p>On profite de la disponibilité d'une technologie bien mûre avec des
+          logiciels très performants</p>
+        <p>On travaille dans une direction loin des abstractions platoniques. </p>
+      </div>
+      
+<!--
+
+<ul><li> structurer c'est numériser les idées. Il y a plusieurs sortes 
+d'idées. Certains font la distinction entre structuration "pure", 
+évidente, et structuration interprétative. Débat là-dessus, la 
+distinction est-elle si pertinente&nbsp;? Oui, parce que la 
+structuration d'une ressource numeriséee definit (et limite) ses usages 
+potentiels.
+</li><li> Pour qu'une info soit exploitable informatiquement c.a.d calculable par les machines elle doit être 
+</li><li> 1)explicite
+</li><li> 2)univoque. 
+</li></ul>
+<p>Cela a des conséquences sur la manière d'exprimer et d'encoder les corpus.
+</p>
+<ul><li> L'important, c'est de quoi on aura besoin à 
+l'exploitation&nbsp;: ce qui doit être explicité, 'discrétisé', atomisé 
+et inscrit informatiquement.
+</li><li> Il faut faire la balance entre tout ce qu'on peut inscrire 
+comme info, et le coût&nbsp;: temps d'annotation, complexité de la 
+structure, notion de granularité
+</li><li> mise en forme / portée du texte&nbsp;: reproduction visuelle du document et/ou portée du texte.
+</li><li> aborder les familles d'outils
+</li><li> faire le point sur l'OCR, les sorties possibles
+</li><li> la complexite des formats possible
+</li><li> signaler qu'actuellement XML est la syntaxe et le format pivot le plus répandu
+</li><li> problematique de l'XML: il renonce a definir des vocabulaires precises, c'est aux communautes de les definir
+</li><li> les grandes communautés qui se sont mises d'accord sur des vocabulaires XML: W3C, EAD, TEI...
+</li><li> un vocabulaire s'exprime en "schéma" (qui supplemente la vocabulaire avec des regles d'usage)
+</li><li> Schéma "maison" vs schéma "interchange"
+-->
+
+
+
+
+      <div rend="slide">
+        <head>Structuration XML des documents</head>
+        <list type="bulleted">
+          <item>Un document est plus qu'une séquence de caractères
+	  encodés!</item>
+<item>Un document est plus qu'une séquence de formes lexicales!
+<list><item>Il possède une  <hi>structure</hi> et une
+<hi>signification</hi></item>
+<item>Un document peut avoir plusieurs <hi>lectures</hi> variantes</item>
+<item>La portée d'un document peut être <hi>enrichie</hi> par des
+annotations , notamment sur ses <hi>contextes</hi> de production, de
+réception etc.</item> </list></item>
+	</list>
+<p rend="box">c'est l'intérêt principal de l'XML</p>
+</div>
+
+
+
+<!--
+<div><head>Origines d'XML</head>
+<list>
+<item>SGML: norme ISO pour la structuration des documents complexes,
+ex. les manuels techniques</item>
+<item>XML : version simplifiée adequate a la distribution documentaire
+a travers le web</item>
+<item>XML fournit une maniere de decrire plusieurs documents d'une
+maniere consistente</item>
+<item>en definissant un <hi>vocabulaire de balisage</hi> pour leurs
+elements constituants</item></list>
+
+</div>
+-->
+      
+      <div rend="slide">
+        <head>Le balisage XML</head>
+        <list type="bulleted">
+          <item>Un balisage explicite les distinctions qu'on désire
+	  faire en traitant une chaîne de caractères</item>
+          <item>Le balisage est une manière de nommer et de
+	  caractériser les composants d'une structure textuelle, d'une
+	  manière quasiment formelle</item>
+          <item>L'ensemble des balises proposé constitue  ce qu'on
+	  nomme un <hi>schéma</hi>...
+	  </item>
+        </list>
+      </div>
+
+
+<!--
+      <div rend="slide">
+        <head>XML: ce que c'est et pourquoi on devrait le  connaître</head>
+        <list>
+          <item>XML est une manière de représenter les <hi>données
+	  structurées</hi> en forme de chaîne de caractères</item>
+<item>XML fournit une syntaxe tout à fait générique, à appliquer dans
+tout domaine de ressources numerisées 
+       </item>
+<item>un document XML doit être  <hi>bien formé</hi> 
+       </item>
+<item>un document XML peut être <hi>valide</hi> 
+       </item>
+          <item>XML est indépendant de l'application, de la plateforme et du vendeur </item>
+          <item>XML rend le pouvoir aux fournisseurs de données, et
+	  facilite l'intégration des ressources diverses et polyglottes</item>
+        </list>
+      </div>
+
+-->
+
+
+      <div rend="slide">
+        <head>Qu'est ce qu'on balisera?</head>
+        <p>Comparer: </p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><lb/>LIVRE I.
+<lb/>FABLE SECONDE.
+<lb/>Le Corbeau &amp; le Renard
+<lb/>MAistre Corbeau sur un arbre perché,
+<lb/>Tenoit en son bec un fromage.
+<lb/>Maistre Renard par l'odeur alleché,
+<lb/>Luy tint à peu prés ce langage:
+...
+<lb/>A ces mots, le Corbeau ne se sent pas de joye:
+<lb/>A iii
+</egXML>
+<p> avec </p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<div type="fable" n="I2">
+<head>Le Corbeau &amp; le Renard</head>
+<l><hi rend="lettrine">M</hi>aistre Corbeau sur un arbre perché,</l>
+<l><reg>Tenait</reg> en son bec un fromage.</l>
+<l>Maistre Renard par l'odeur alleché,</l>
+<l><reg>Lui</reg> tint à peu prés ce langage:</l>
+<!-- ... -->
+<l>A ces mots, le Corbeau ne se sent pas de joye:</l>
+<fw type="sig">A iii</fw> 
+... </div>	    </egXML></div>
+
+      <div rend="slide">
+        <head>Syntaxe XML en un seul transparent</head>
+        <p>Un document  XML contient:
+     <list><item>des <term>éléments</term>, qui portent (facultativement)
+     des <term>attributs</term>, marqués par des <term>balises</term>
+       <code>&lt;comme att="ceci">...&lt;/comme></code>
+</item>
+     <item>des <term>commentaires</term> <code>&lt;!-- comment --></code></item>
+<item>des <term>instructions de traitement</term> <code>&lt;?tex \page</code></item>
+<item>des <term>références à des entités</term> (interne ou externe) <code>&amp;machin;</code></item>
+<item>des <term>sections CDATA</term> <code>&lt;[!CDATA[ .... ]]&gt;</code></item>
+<item>...et des caractères Unicode <code>&amp;#x0000</code></item></list>
+     </p>
+        <p>C'est tout!</p>
+      </div>
+
+<div><head>Par exemple...</head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<carte n="0010">
+<titre>Les Sables d'Olonne</titre> 
+<editeur>Artaud Freres, Ave de la Close, Nantes</editeur>
+<valeur date="2011-09-11" marché="NY">$2345</valeur>
+<collection>Virgolos 21345</collection>  
+<recto>
+  <graphic url="Sables-olonne_recto_v.jpg"/>
+</recto> 
+<verso url="Sables-olonne_verso_v.jpg">
+  <obliteration>
+    <date>26-07-1967</date>
+<lieu n="85">Les Sables d'Olonne, Vendée</lieu>
+</obliteration>
+<message>
+<p>Bientôt sur le chemin du retour avons eu du beau temps, tout le
+mois de juillet. Vous souhaite à tous la même chose. J'espère que vous
+êtes tous en bonne santé – A chacun son tour, le bon temps et le
+repos. Avec d'affectueuses pensées et bons baises à tous. Marcelle
+</p>
+</message>
+<destinataire>
+  <personne>Mme Veyssade Lucienne</personne>
+  <address><lb/>31, rue du Président Kennedy 
+  <lb/>ALFORTVILLE 
+  <lb/>Val de Marne
+</address></destinataire>
+</verso>
+</carte>
+</egXML>
+</div>
+
+
+      <div rend="slide">
+        <head>XML : au delà de la syntaxe</head>
+        <p>Un document XML doit etre <term>bien formé</term>... il peut aussi etre <term>valide</term> i.e. 
+          conforme à des règles supplémentaires, qui
+	constituent un <term>schéma</term>
+</p>
+
+        <p>Un schéma peut spécifier:
+<list><item>le nom de l'élément racine</item>
+<item>les noms de tous les  éléments légaux </item>
+<item>les noms et les types des attributs</item>
+<item>des règles concernant l'imbrication et le contenu des éléments</item>
+<item>et quelques autres menus propos...</item></list>
+            </p>
+        <p>n.b. Un schéma ne spécifie point la signification
+	sémantique des éléments: pour cela il faut des conventions, des normes, des standards. </p>
+      </div>
+
+
+<div><head>Un mot sur les standards</head>
+<p><graphic url="../Graphics/standards.png" /></p>
+</div>
+
+
+
+<div><head>Schémas standardisés</head>
+<p>Il existe plusieurs schémas XML "standardisés", ressortant des
+communautés spécifiques. On peut citer:
+<list>
+<item>SVG (standardised vector graphics)</item>
+<item>MathML (pour le math)</item>
+<item>XHTML (pour les pages web)</item>
+<item>EAD (Encoded Archival Description) pour les fonds documentaires</item>
+<item>Topic Maps (standard ISO) pour l'encodage des
+topos</item>
+<item>DocBook pour les editeurs scientifiques</item>
+<item>CML (Chemical Markup Language) pour l'encodage des structures  chimiques</item>
+<item>DCMES (Dublin Core Metadata Element Set) : vocabulaire très
+simples de 15 éléments pour  les metadonnées</item>
+
+<item> ... </item>
+<item> et bien sur, il y a la TEI</item>
+</list>
+</p>
+</div>
+
+
+
+<div rend="slide"><head>Les enjeux de la TEI (1)</head>
+<p><hi>"Text Encoding for Interchange"</hi></p>
+<list>
+<item>faciliter la <hi>création</hi>, l’<hi>échange</hi>, et
+l’<hi>intégration</hi> des ressources informatisées <list>
+<item>toute sorte de texte</item>
+<item>toutes les langues </item>
+<item>toute origine temporelle ou culturelle</item></list></item>
+<item>La TEI s'adresse également ...<list>
+<item>aux débutants, cherchant des solutions bien connues et consensuelles</item>
+<item>aux experts, cherchant à créer de nouvelles solutions</item>
+</list></item></list></div>
+
+<div><head>Les enjeux de la TEI (2)</head>
+<list>
+<item>faire des recommandations qui se basent sur un consensus
+existant</item>
+<item>préférer les solutions générales à celles spécifiques à une
+discipline</item>
+<item>en même temps permettant la spécialisation et l'extension</item>
+</list>
+ 
+</div>
+
+
+
+
+      <div rend="slide">
+        <head>Le paysage de la TEI </head>
+<p>TEI vous propose un buffet de 400+ balises :
+
+
+<list>
+<item>metadonnées (l'entete TEI)</item>
+<item>la structuration basique des textes</item>
+<item>les textes oraux</item>
+<item>la transcription des sources originales</item>
+<item>l'édition critique</item>
+<item>les dictionnaires</item>
+<item>l'annotation linguistique</item>
+<item>les noms de lieux et de personnes et les entites nommes</item>
+<item>la description de manuscrits</item>
+<item>les liens et analyses hypertextuels</item>
+<item>etc etc </item>
+          <item>Et cetera: voir <ptr target="http://www.tei-c.org/P5/Guidelines/"/></item>
+        </list>
+</p>
+
+        <p>... un encyclopédie du balisage </p>
+      </div>
+
+
+<div><head>L'esprit TEI</head>
+<p>Qu'est-ce que cela veut dire: «être conforme» à la TEI ?</p>
+<list>
+<item>une pratique de balisage consensuel</item>
+<item>une lexique commune</item>
+<item>un respect de l'autonomie</item>
+</list>
+<p>La standardisation ne devait pas signifier «fais comme moi»; mais
+plutot  «expliques-moi ce que tu fais. »</p>
+</div>
+
+
+<!--
+
+<div><head>Organisation (technique) de la TEI</head>
+<figure><graphic height="80%" url="../Graphics/class-system-FR.png"/></figure>
+</div>
+
+
+
+<div>
+<head>Il n'y a pas un seul  &#x201C;TEI dtd&#x201D;</head>
+
+<list type="unordered">
+<item> TEI est un système <emph>modulaire</emph>. On s'en sert pour
+créer un système d'encodage selon ses propres besoins, en
+sélectionnant les éléments desirés </item>
+<item>en plus, on peut proposer de restrictions sur (par ex.) les valeurs
+des attributs, changer la sélection des attributs disponibles, etc. </item>
+<item>on peut y mélanger des éléments nouveaux, ou bien natifs ou
+bien ressortant d'autres standards (par ex. SVG, MathML...) </item>
+</list>
+</div>
+
+
+
+<div><head>Modules</head>
+<p>Par convenience, les elements TEI sont regroupes en
+<soCalled>modules</soCalled> pour
+<list>
+<item>metadonnées (l'entete TEI)</item>
+<item>la structuration basique des textes</item>
+<item>les textes oraux</item>
+<item>la transcription des sources originales</item>
+<item>l'édition critique</item>
+<item>les dictionnaires</item>
+<item>l'annotation linguistique</item>
+<item>les noms de lieux et de personnes et les entites nommes</item>
+<item>la description de manuscrits</item>
+<item>les liens et analyses hypertextuels</item>
+<item>etc etc </item></list></p></div>
+
+
+<div rend="slide"><head>"One Document Does it all (ODD)"</head>
+<list><item>Les Guidelines TEI sont produits à partir
+d'une même ressource XML qui contient: <list>
+<item>de la prose descriptive (une grande quantité)</item>
+<item>des exemples d'utilisations (plusieurs)</item>
+<item>des déclarations formelles pour les constituants du modèle abstrait de TEI</item>
+<item>les éléments et leurs attributs</item>
+<item>les modules</item>
+<item>les classes, et les macros</item></list></item>
+<item>On appelle cette ressource un ODD (bien qu'elle consiste en des centaines de petits fichiers)</item>
+</list>
+
+</div>
+
+<div rend="slide"><head>Et alors?</head>
+<list >
+<item>Vu ses visées ambitieuses, on ne peut se servir du système TEI qu'en le personnalisant</item>
+<item>Les personnalisations s'expriment également en langue ODD </item>
+<item>Cela permet de communiquer la manière où on a appliqué la TEI,
+sans perturber les normes</item>
+</list>
+</div>
+
+        <div>
+          <head>Exemple...</head>
+          <p>Un fichier TEI ODD  est un document TEI comme les autres,
+	  avec autant de prose discursif qu'il faut, mais en plus un
+	  élément specialisé: un  <gi>schémaSpec</gi> qui définit le
+	  schéma documenté</p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<text><body>
+<div><head>Notre manuel d'encodage</head>
+<p>Dans ce projet on ....</p>
+<schémaSpec ident="TEI-minimal" start="TEI">
+              <moduleRef key="tei"/>
+              <moduleRef key="header"/>
+              <moduleRef key="core" except="sp stage speaker"/>
+              <moduleRef key="textstructure"/>
+<elementSpec ident="head" mode="change" module="core">
+<content><text/></content>
+</elementSpec>
+</schémaSpec>
+</div></body></text>
+</egXML>
+        </div>
+-->
+
+
+<div><head>Des références...</head>
+<list type="gloss">
+<label>Site web du Consortium TEI</label>
+<item><ptr target="http://www.tei-c.org"/></item>
+<label>Dépôt sourceforge</label>
+<item><ptr target="http://tei.sf.net"/></item>
+</list>
+
+<p>Quelques références francophones:
+
+<list><item>tei-fr@cru.fr</item>
+<item>http://meet.tge-adonis.fr</item>
+<item>http://lespetitescases.net/index102/</item>
+<item>http://www.culture.gouv.fr/culture/dglf/riofi/tei.htm</item>
+<item>http://artist.inist.fr/article.php3?id_article=122"/></item>
+</list>
+</p></div>
+
+</body></text></TEI>
+
+
