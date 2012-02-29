@@ -4,7 +4,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>TEI et analyses linguistique</title>
+                <title>Encoder l'oral avec TEI</title>
                 <respStmt>
                     <resp>relecture de cette version française, avril 2011</resp>
                     <name>Florence Clavaud (Ecole nationale des chartes)</name>
@@ -46,9 +46,88 @@
 
 
 <text><body>
+
+
+            <div>
+                <head>Annotation de l'oral</head>
+                <p>Un cas extrème -- il n y a pas de texte à annoter; on le crée en annotant.</p>
+                <p><graphic url="../Graphics/oral-annot.png"/></p>
+            </div>
+
+
+            <div>
+                <head>Au niveau de transcription...</head>
+                <p>Même jeu ... On peut identifier (au moins) 5 systèmes de transcription pour les
+                    énoncés eux-mêmes: <table>
+                        <row>
+                            <cell role="label">HIAT</cell>
+                            <cell>((coughs)) You must/ you (should) let • it be. ((laughs))
+                                Pleease!</cell>
+                        </row>
+                        <row>
+                            <cell role="label">GAT</cell>
+                            <cell><code>((coughs)) you must- you (should/could) let (-) it be;
+                                    ((laughs)) plea:se-</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">CHAT</cell>
+                            <cell><code>&amp;=coughs you must... you should let # it be.
+                                    &amp;=laughs please!</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">DT1</cell>
+                            <cell><code>(COUGH) you must-- you &lt;X should X&gt; let .. it be. @@
+                                    please?</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">cGAT</cell>
+                            <cell><code>((coughs)) you must you (should/could) let (-) it be
+                                    ((laughs)) please</code>
+                            </cell>
+                        </row>
+                    </table>
+                </p>
+                <p>(Table from Schmidt 2011)</p>
+            </div>
+
+            <div>
+                <head>ou, en TEI XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <u>
+                        <seg type="interrupted">
+                            <incident>
+                                <desc>coughs</desc>
+                            </incident>
+                            <w>you</w>
+                            <w>must</w>
+                        </seg>
+                        <seg type="declarative">
+                            <w>you</w>
+                            <w>should</w>
+                            <w>let</w>
+                            <pause dur="short"/>
+                            <w>it</w>
+                            <w>be</w>
+                        </seg>
+                        <seg type="emphatic">
+                            <incident>
+                                <desc>laughs</desc>
+                            </incident>
+                            <w>please</w>
+                        </seg>
+                    </u>
+                </egXML>
+            </div>
+
+
+
+
 <div>
   <head>L’oral</head><p>
-Dans un texte oral on peut reconnaître :
+Dans un texte oral on peut reconnaître un sous-ensemble des phénomènes de discours qui sont d’ interet lexical:
   <list><item>des énoncés (utterances)</item>
   <item>des pauses</item>
   <item>des phénomènes vocalisés mais pas lexicalisés, par exemple la
@@ -60,7 +139,7 @@ Dans un texte oral on peut reconnaître :
   <item>des événements écrits, que l’on peut donc transcrire, par exemple des
   titres ou des diapositives affichés pendant une communication</item>
   <item>des changements dans la qualité de la voix, par exemple de volume</item></list></p>
-<p>Un sous-ensemble des phénomènes de discours qui sont d’utilité lexicale</p>
+<p rend="box"> .. contrairement aux textes écrits, un texte oral est organisé dans le temps </p>
 </div>
 
 
@@ -83,9 +162,9 @@ Dans un texte oral on peut reconnaître :
 <label>Des éléments pour la transcription de l’oral</label>
 <item>            <gi>incident</gi>, <gi>kinesic</gi>, <gi>pause</gi>,<gi>shift</gi>, <gi>u</gi>,
             <gi>vocal</gi>, <gi>writing</gi></item>
-          <label>Des attributs supplémentaires</label>
-          <item><att>dur</att> <att>start</att> <att>end</att>
-	  <att>sync</att> etc. </item>
+          <label>Des mechanismes pour representer le timing : l'alignement dans le temps </label>
+          <item><gi>timeLine</gi>, <att>dur</att> <att>start</att> <att>end</att>
+	  <att>sync</att>  </item>
         </list>
       </div>
 

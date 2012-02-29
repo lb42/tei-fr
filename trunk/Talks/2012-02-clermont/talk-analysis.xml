@@ -1,100 +1,295 @@
-<?xml version="1.0"?>
-<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<?xml version="1.0"?> 
 <TEI xmlns="http://www.tei-c.org/ns/1.0"
   xmlns:rng="http://relaxng.org/ns/structure/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>TEI et analyses linguistique</title>
-        <respStmt>
-          <resp>relecture de cette version française, avril 2011</resp>
-          <name>Florence Clavaud (Ecole nationale des chartes)</name>
-        </respStmt>
+        <title>TEI-XML : est-ce que cela s'impose pour de l'analyse linguistique?</title>
       </titleStmt>
-      <editionStmt>
-        <edition>
-          <date>January 2010</date>
-        </edition>
-      </editionStmt>
       <publicationStmt>
-        <date when="2011-04">avril 2011</date>
-        <publisher>University of Oxford</publisher>
-        <availability>
-          <p>Freely available for use and derivative works under a Creative
-            Commons Attribution license.</p>
-        </availability>
-        <availability xml:lang="fre">
-          <p>Ce texte est mis à disposition de tous selon les termes de la licence
-            Creative Commons « Paternité - Pas d’Utilisation Commerciale - Pas de
-            Modification ; 2.0 France ». Cette licence est disponible <ref
-              target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en
-              ligne</ref> ou par courrier postal à Creative Commons, 171 Second
-            Street, Suite 300, San Francisco, California 94105, USA.</p>
-        </availability>
+        <publisher>TEI</publisher>
+        <address>
+               <addrLine>tei@oucs.ox.ac.uk</addrLine>
+            </address>
       </publicationStmt>
       <sourceDesc>
-        <p>Various previous talks, TEI Guidelines, etc.</p>
+        <p>This is the master version of an original document.</p>
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
       <change>
-        <date>$LastChangedDate: $.</date>
-        <name>$LastChangedBy: jamesc $</name>
-        <note>$LastChangedRevision: $</note>
+        <date>$LastChangedDate: 2008-07-15 17:25:41 +0100 (Tue, 15 Jul 2008) $.</date>
+        <name>$LastChangedBy: lou $</name>
+        <note>$LastChangedRevision: 3014 $</note>
       </change>
     </revisionDesc>
   </teiHeader>
   <text>
-    <body>
-    
 
-<div><head>L’analyse, l’annotation</head>
+<!--Lexiques, Dictionnaires, Informatique
+LDI - UMR 7187 - CNRS
+Université Paris 13
+99, avenue J. B. Clément
+F 93430 - Villetaneuse
+
+Tél. 33  0)1 49 40 38 56
+Fax  33 (0)1 49 40 40 99
+
+
+\titre{XML-TEI}
+\formateur{Lou Burnard}
+\volume{3h}
+\begin{desc}
+Tout système informatisé XML a besoin d'un schéma, i.e. une définition formelle des balises utilisées et de leurs propriétés. Si l'un des objectifs de l'informatisation des ressources est de les rendre interopérables et intégrables, une expression cohérente de la sémantique de ces balises s'impose. Le cours présentera la TEI (Text Encoding Initiative) comme une architecture pour générer des schémas XML intéroperables et standardisés, en résumant son histoire et ses enjeux, et en proposant une démonstration des outils Roma et OxGarage, qui permettent respectivement la génération d'un schema, et la transformation des instances XML.    
+\end{desc}
+\begin{outils}
+\item {Roma : http://www.tei-c.org/Roma}
+\item {Oxgarage : http://www.oxgarage.oucs.ox.ac.uk}
+\end{outils}
+\begin{liens}
+\item{http://meet.tge-adonis.fr}
+\item{http://www.tei-c.org}
+\end{liens}
+-->
+
+    <body>
+
+<!--
+
+<div>        <head>Qu'est-ce que c'est que la TEI?</head>
+
+        <list>
+          <item rend="pause">un labyrinthe trop complexe pour les humanistes?</item>
+          <item rend="pause">un système fasciste imposant des normes informatiques à ceux qui n'en
+            ont pas besoin?</item>
+          <item rend="pause">un machin des bibliothécaires numérisés?</item>
+          <item rend="pause">un bibelot inutile qui sort du TAL ?</item>
+          <item rend="pause">une manière de gérer les trucs informatisés vraiment démodée quoi,
+            puisqu'on a tout sur google...</item>
+        </list>
+      </div>
+
+<div><head>In the beginning</head>
+<p>Le but originel de la TEI fut de modeliser ...
 <list>
-<item>Tout balisage resort d’une  analyse; tout balisage s’exprime en annotation.</item>
-<item>Quand même, il y a un sentiment qu’il vaut mieux distinguer
-des assertions telles que
-<eg>ceci est un paragraphe
-</eg>
-des assertions telles que
-<eg>ceci est un nom verbal
-</eg>
-</item>
-<item>La standardisation des annotations linguistiques, en particulier à
-l’usage de la communauté du TAL, fut un des enjeux originaux de la TEI
-</item>
-<item>(bien que l’historique subséquent démontre que cet enjeu aurait
-pu être un peu ambitieux)</item>
-<item>La TEI propose une gamme de mécanismes génériques</item>
+<item>les structures</item>
+<item>les lectures</item>
+<item>les distinctions signifiantes</item>
 </list>
+qui subsisteraient dans les textes.</p>
+</div>
+
+<div><head>Pourquoi?</head>
+<figure>
+<graphic url="../Graphics/babel.jpg" height="65%"/>
+</figure>
+<p>Parce qu'on s'est aperçu qu'on risquait une nouvelle confusion de
+langues avec l'arrivée de l'informatique dans la représentation des
+données textuelles!</p>
 </div>
 
 
-<div><head>Principes d’annotation linguistique (G.Leech, 1998) </head>
+<div><head>Et qu'est-ce que c'est qu'un texte?</head>
+<figure>
+<graphic  url="../Graphics/dubellayz.png"/>
+</figure>
+</div>
+
+
+
+        <div>
+          <head>Un texte n'est pas un document...</head>
+          <p>En quoi consiste l'essentiel d'un texte ? <list >
+              <item>l'apparence des lettres, la mise en page, etc
+	      appartiennent au niveau documentaire</item>
+              <item>on ne lit pas les textes anciens de la meme
+	      maniere que leurs auteurs/écrivains originaux</item>
+              <item>une partie importante de tels textes consiste en
+	      l'accumulation des lectures apportées ou
+	      trouvées dedans </item>
+	      <item>ce qui peut etre complémentaire aux intentions
+	      (supposées) de l'auteur originel</item>
+            </list>
+Bref...
+          </p>
+          <p rend="box">Un "texte" est quelque chose d'abstrait:
+	  la construction d'un communauté de lecteurs.</p>
+<p>L'encodage explicite cette abstraction à fin de la mieux gérer</p>
+        </div>
+
+-->
+
+<div><head>L'annotation linguistique  TEI</head>
 <list>
-<item>l’annotation devrait être séparable du texte</item>
-<item>des annotations multiples peuvent co-exister dans le texte</item>
-<item>l’annotation devrait être 
+<item>On pourrait dire que  — tout balisage ressortant d'une analyse  —  le
+balisage des textes serait inévitablement une procédure analytique
+voire linguistique... </item>
+<item>Il n'empêche que pour la plupart des gens, il y a une différence
+significative et qualitative entre des assertions telles que:
 <list>
-<item>auto-documentée </item>
-<item>explicite</item>
-<item>reproductible</item>
-<item>formellement vérifiable</item></list></item>
+<item>ceci est un paragraphe</item>
+<item>ceci est un complément nomino-verbal</item>
+</list></item></list>
+<p>C'est pour cela que le monde scientifique est tres balkanisé ....</p>
+</div>
+
+
+
+
+
+      <div rend="slide">
+        <head>Origines de la TEI </head>
+        <list type="unordered">
+          <item>La TEI naquit dans les années 1990 comme  projet de recherche
+	  ... <list
+              type="unordered">
+              <item>Parainé par trois associations érudites </item>
+              <item>Financé 1990-1994 par NEH, EU LE Programme et SSHRC au Canada</item>
+            </list>
+          </item>
+          <item>Influences majeures <list type="unordered">
+              <item>bibliothèques et archives numerisées</item>
+              <item>ingénierie linguistique</item>
+              <item>édition des sources littéraires ou historiques</item>
+            </list></item>
+          <item>Consortium international établi en 1999 (voir <ref target="http://www.tei-c.org"
+              >http://www.tei-c.org/</ref>)</item>
+        </list>
+<p rend="box">Le numérique comme démotique...</p>
+      </div>
+
+
+
+            <div>
+                <head>L'annotation : un mal nécessaire ? ou un aspect incontournable ?</head>
+
+                <p rend="box"><q>Annotation ... is anathema to corpus-driven linguists.</q> (Aarts,
+                    2002) </p>
+
+                <p rend="box"><q>The interspersing of tags in a language text is a perilous
+                        activity, because the text thereby loses integrity.</q> (Sinclair, 2004)</p>
+
+                <p rend="box"><q> …the categories used to annotate a corpus are typically determined
+                        before any corpus analysis is carried out, which in turn tends to limit ...
+                        the kind of question that usually is asked.</q> (Hunston, 2002)</p>
+                <list>
+                    <item>l'annotation présente les intuitions dans une forme codifiée</item>
+                    <item>on risque la circularité
+                        <!-- annotation uses pre-corpus categories--></item>
+                </list>
+            </div>
+            <div>
+                <head>Définition classique de l'annotation</head>
+                <p rend="box">... the practice of adding interpretative linguistic information to a
+                    corpus (Leech 2005) </p>
+                <p>A noter: l'annotation est <list>
+                        <item>un acte interprétatif</item>
+                        <item>d'intérêt linguistique</item>
+                        <item>et son objectif serait : un corpus enrichi ... ou simplifié</item>
+                    </list></p>
+            </div>
+            <div>
+                <head>Annotation: modèle classique</head>
+
+                <p><graphic url="../Graphics/model-fr.png"/></p>
+
+            </div>
+            <div>
+                <head>Principes d'annotation selon (Leech, 2005) </head>
+                <list>
+                    <item>the annotation should be separable from the text</item>
+                    <item> multiple annotations may co-exist within the text</item>
+                    <item> annotation should be <list>
+                            <item> self-documenting</item>
+                            <item> explicit</item>
+                            <item> reproducible</item>
+                            <item> formally verifiable</item>
+                        </list>
+                    </item>
+                </list>
+            </div>
+            <div>
+                <head>Quelques variétés d'annotation</head>
+                <list>
+                    <item>art-of-speech (POS)</item>
+                    <item>lemmatisation</item>
+                    <item>syntaxique</item>
+                    <item>sémantique </item>
+                    <item>de coréférences</item>
+                    <item>pragmatique </item>
+                    <item>stylistique</item>
+                    <item>prosodique </item>
+                    <item>évaluative (ex learner co)</item>
+                </list>
+                <p rend="box">L'annotation est liée étroitement avec une théorie langagière
+                    quelconque</p>
+            </div>
+             <div>
+                <head>Au niveau plus abstrait..</head>
+                <p>du point de vue technique, l'annotation implique <list>
+                        <item>une catégorisation des composants du corpus</item>
+                        <item>l'identification des composants supplémentaires </item>
+                        <item>l'identification des relations entre des composants spécifiés <list>
+                                <item>des ensembles</item>
+                                <item>des correspondences</item>
+                            </list></item>
+                    </list></p>
+                <p rend="box"> Donc, tout système d' annotation ayant ces capacités devrait répondre
+                    aux besoins des annotateurs</p>
+            </div>
+
+
+
+<div><head>Un peu d'histoire ...</head>
+<p>A l'origine les travaux de la TEI ont été prises en main par quatre
+comités:
+<list>
+<item>Documentation</item>
+<item>Metalanguage</item>
+<item>Text Representation</item>
+<item>Analysis and Interpretation</item>
 </list>
+</p>
+<p>TR: codification des objets formels et structurés consensuellement reconnus dans
+les textes écrits; </p>
+<p>AI: codification des analyses effectuées  </p>
+</div>
+
+
+<div><head>Text Representation</head>
+<p>Bien que coordonné par un linguiste de corpus (Stig
+Johansson), ce comité était constitué de personnes que l'on appelerait
+aujourd'hui les  <soCalled>digital
+humanists</soCalled></p>
+<p>Il s'est exclusivement appliqué à donner des noms aux animaux des
+champs: paragraphes, listes, structures philologiques...</p>
 </div>
 
 <div>
-<head>Diversité des annotations</head>
-<list type="gloss">
-<label>Segmentation</label>
-<item>identification des segments, locations, et "empans"</item>
-<label>Alignement et correspondance</label>
-<item>identification d’associations entre segments
-(e.g. équivalence, anaphore...)</item>
-<label>Catégorisation</label>
-<item>classification des  structures identifiées, e.g. classement
-morpho-syntaxique, fonction syntaxique, catégorie analytique</item>
-</list>
+<head>Analysis and Interpretation</head>
+<p>Coordonné par un linguiste théorique (Terry Langendoen), ce comité
+était constitué de gens que l'on appelerait
+aujourd'hui les
+<soCalled>linguistes computationels</soCalled></p>
+<p>Il a commencé avec un enjeu tres ambitieux: identifier et encoder
+toute la gamme des analyses linguistiques et littéraires.</p>
 </div>
+
+
+<div><head>L'imperatif EAGLES</head>
+<p>En Europe il y avait un fort désir de standardisation des
+ressources numériques, associé à un financement majeur pour les systemes <soCalled>ingénerie
+linguistique</soCalled> à l'époque.
+<list>
+<item> l'affaire Eurotra</item>
+<item> une convergence d'interêts académiques/privés </item>
+<item> l'établissement des industries langagières </item>
+</list>
+</p>
+<p>Malheureusement une énumeration complète des concepts linguistiques
+n'est pas tellement evidente...</p>
+</div>
+
 
 
 <div><head>L’importance de la segmentation</head>
@@ -141,112 +336,207 @@ arbitraire, éventuellement imbriquée </item>
     </list>
 </item></list>
 <p>Tous ces  éléments portent des attributs
-<att>type</att>, <att>subtype</att> et <att>function</att>
+<att>type</att>, <att>subtype</att> et <att>function</att> pour leur catégorisation
 </p>
       </div>
-  <div>
-  <head>L’annotation au niveau des mots ou des phrases est facile...</head>
 
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-         <p><s>The export of sardines in oil from
-Sweden is prohibited. </s>
-	 </p></egXML>
+<div><head>Encodage des relations</head>
+<p>XML est conçu pour représenter des structures arborescentes linéarisées: le  discontinuité et le chevauchement necessitent des astuces ... dont la TEI propose plusieurs</p>
+<list type="gloss">
+<label>relations d'ensemble</label>
+<item><list>
+<item>attributs <att>next</att>, <att>prev</att>, <att>part</att> servent à pointer sur les segments indépendemment de leur emboitement</item>
+<item>element <gi>join</gi> sert à indiquer un élément <soCalled>virtuel</soCalled>, de maniere debarqué</item>
+</list></item>
+<label>relations d'équivalence</label>
+<item>l'attribut <att>corresp</att> peut indiquer (par ex) une traduction, une référence anaphorique...</item>
+<label>mécanismes génériques</label>
+<item><list>
+<item>les éléments <gi>link</gi> et <gi>linkGrp</gi></item>
+<item>l'élément <gi>relation</gi></item>
+</list></item>
+</list></div>
 
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<s n="11">
-<w>The</w>
-<w>export</w>
-<w>of</w>
-<w>sardines</w>
-<w>in</w>
-<w>oil</w>
-<w>from</w>
-<w>Sweden</w>
-<w>is</w>
-<w>prohibited</w>
-<c>.</c>
-</s>
-</egXML>
+
+            <div>
+                <head>Quelques exemples concrets</head>
+                <p>Un labo illustre d'Angleterre, à l'université de Lancaster, nous propose un
+                    "tasting plate" (plat de dégustation) des
+		variétés d'annotation qui y sont pratiquées: </p>
+                <p rend="box">http://ucrel.lancs.ac.uk/annotation.html</p>
+                <p>Des systèmes d'annotation qui ont evolué dans le temps, et qui sont dans leurs
+                    aspects notationels entièrement <foreign>sui generis</foreign>...</p>
+            </div>
+            <div>
+                <head>part-of-speech (POS) tagging </head>
+                <p>
+                    <eg><![CDATA[hospitality_NN is_BEZ an_AT excellent_JJ virtue_NN ,_, but_CC 
+ not_XNOT when_WRB the_ATI guests_NNS have_HV to_TO sleep_VB 
+ in_IN rows_NNS in_IN the_ATI cellar_NN !_! 
+ ]]></eg>
+                </p>
+                <list>
+                    <item>distinction mot/ annotation</item>
+                    <item>confusion mot/ ponctuation</item>
+                    <item>opacité des catégories</item>
+                </list>
+            </div>
+            <div>
+                <head>ou... en XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><w pos="NN">hospitality</w>
+                    <w pos="BEZ">is</w>
+                    <w pos="AT">an</w>
+                    <w pos="JJ">excellent</w>
+                    <w pos="NN">virtue</w></egXML>
+
+                <p>ou, également : </p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><w>
+                        <pos>NN</pos>
+                        <form>hospitality</form>
+                    </w>
+                    <w><pos>BEZ</pos>
+                        <form>is</form>
+                    </w></egXML>
+                <p>ou meme : </p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><w pos="NN" form="hospitality"/>
+                    <w pos="BEZ" form="is"/>
+                </egXML>
+            </div>
+            <div>
+                <head> Grammatical parsing</head>
+                <eg><![CDATA[
+ [S[N Nemo_NP1 ,_, [N the_AT killer_NN1 whale_NN1 N]
+ ,_, [Fr [N who_PNQS N][V 'd_VHD grown_VVN [J too_RG 
+ big_JJ [P for_IF [N his_APP$ pool_NN1 [P on_II [N Clacton_NP1 
+ Pier_NNL1 N]P]N]P]J]V]Fr]N] ,_, [V has_VHZ arrived_VVN 
+ safely_RR [P at_II [N his_APP$ new_JJ home_NN1 [P in_II 
+ [N Windsor_NP1 [ safari_NN1 park_NNL1 ]N]P]N]P]V] ._. S]]]></eg>
+                <list>
+                    <item>syntaxe identique (labelled bracketting), mais notation tout à fait
+                        différente! </item>
+                    <item>redondance des labels</item>
+                </list>
+            </div>
+            <div>
+                <head>... ou en XML</head>
+                <egXML rend="teeny" xmlns="http://www.tei-c.org/ns/Examples">
+                    <s type="S">
+                        <s type="N">
+                            <w pos="NP1">Nemo</w><c>,</c>
+                            <s type="N">
+                                <w pos="AT">the</w>
+                                <w pos="NN1">killer</w>
+                                <w pos="NN1">whale</w>
+                            </s>
+                            <s type="Fr">
+                                <s pos="N">
+                                    <w pos="PNQS">who</w>
+                                </s>
+                                <s pos="V">
+                                    <w pos="VHD">'d</w>
+                                    <w pos="VVN">grown</w>
+                                    <s pos="J">
+                                        <w pos="RG">too</w>
+                                        <w pos="JJ">big</w>
+                                        <s type="P">
+                                            <w pos="IF">for</w>
+                                            <s type="N">
+                                                <w pos="APP">his</w>
+                                                <w pos="NN1">pool</w>
+                                            </s>
+                                            <s type="P">
+                                                <w pos="II">on</w>
+                                                <s type="N">
+                                                  <w pos="NP1">Clacton</w>
+                                                  <w pos="NNL1">Pier</w>
+                                                </s>
+                                            </s>
+                                        </s></s>
+                                </s></s>
+                        </s>
+                    </s></egXML>
+            </div>
+
+            <div>
+                <head>Semantic tagging</head>
+                <eg><![CDATA[PPIS1     I            Z8
+VV0       like         E2+
+AT1       a            Z5
+JJ        particular   A4.2+
+NN1       shade        O4.3
+IO        of           Z5
+NN1       lipstick     B4
+]]></eg>
+                <list>
+                    <item>notation entièrement différente, et <foreign>ad hoc</foreign></item>
+                </list>
+            </div>
+            <div>
+                <head>... mais simple à exprimer en XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <w pos="PPIS1" cat="Z8">I</w>
+                    <w pos="VV0" cat="E2" plus="Y">like</w>
+                    <w pos="AT1" cat="Z5">a</w>
+                    <w pos="JJ" cat="A4.2" plus="Y">particular</w>
+                    <w pos="NN1" cat="O4.3">shade</w>
+                    <w pos="IO" cat="Z5">of</w>
+                    <w pos="NN1" cat="B4">lipstick</w></egXML>
+
+                <p rend="box">(Je reviens sur la question des catégories )</p>
+            </div>
+
+            <div>
+                <head>Annotation des anaphores</head>
+                <eg>S.1 (0) The state Supreme Court has refused to release \{1 [2 Rahway State
+                    Prison 2] inmate 1\}\} (1 James Scott 1) on bail . S.2 (1 The fighter 1) is
+                    serving 30-40 years for a 1975 armed robbery conviction . S.3 (1 Scott 1) had
+                    asked for freedom while &lt;1 he waits for an appeal decision . </eg>
+                <list>
+                    <item>syntaxe encore divergente</item>
+                    <item>besoin d'exprimer des correspondences ou liaisons</item>
+                </list>
+
+            </div>
+
+
+            <div>
+                <head>... ou en XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <s n="1">The state Supreme Court has refused to release <rs key="P1"
+                            type="copula">
+                            <rs key="P2">Rahway State Prison</rs> inmate </rs>
+                        <rs key="P1">James Scott</rs> on bail .</s>
+                    <s n="2">
+                        <rs key="P1">The fighter</rs> is serving 30-40 years for a 1975 armed
+                        robbery conviction .</s>
+                    <s n="3">
+                        <rs key="P1">Scott</rs> had asked for freedom while <rs key="P1"
+                            type="pronominal">he</rs> waits for an appeal decision .</s>
+                </egXML>
+                <list>
+                    <item>ici, on indique le coréférence avec une "clef magique" (<att>key</att>)</item>
+                    <item>un balisage explicite des correspondences serait préférable </item>
+                </list>
+            </div>
+
+            <div>
+                <head>... ou en XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <s n="1">The state Supreme Court has refused to release <rs xml:id="P1_1"
+                            type="copular">
+                            <rs>Rahway State Prison</rs> inmate </rs>
+                        <rs xml:id="P1_2">James Scott</rs> on bail .</s>
+                    <s n="2">
+                        <rs xml:id="P1_3">The fighter</rs> is serving 30-40 years for a 1975 armed
+                        robbery conviction .</s>
+                    <s n="3">
+                        <rs xml:id="P1_4">Scott</rs> had asked for freedom while <rs xml:id="P1"
+                            type="pronominal">he</rs> waits for an appeal decision .</s>
+<!-- ... -->
+<link type="coref" target="#P1_1 #P1_2 #P1_3 #P1_4"/>
+                </egXML>
 </div>
 
-
-<div><head>...les structures syntaxiques sont un peu moins évidentes</head>
-<eg>((The export of (sardines in 
-oil) (from Sweden)) is prohibited.)
-</eg>
-
-<eg>((The export of (sardines (in 
-oil from Sweden)) is prohibited.)
-</eg>
-
-<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><s n="11">
-  <seg><w>The</w> <w>export</w> <w>of</w>
-       <seg><w>sardines</w> <w>in</w> <w>oil</w></seg>
-       <seg><w>from</w><w>Sweden</w></seg>
-  </seg>
-   <w>is</w> <w>prohibited</w><c>.</c>
-</s></egXML>
-</div>
-
-
-
-<div><head>La complexité intrinsèque est rendue explicite</head>
-<p>bien que XML ait été conçu pour représenter des structures arborescentes linéarisées, <list><item>il y a des problèmes de discontinuité et de chevauchement</item>
-<item>catégoriser les relations peut être problématique</item>
-</list></p>
-<!-- <p>Although  XML was <emph>designed</emph> to represent
-linearized tree structures, 
-<list>
-<item>there are problems with discontinuity and overlap</item>
-<item>typing of relationships can be problematic</item>
-</list></p>-->
-<p><!-- Consider the next sentence...-->Voyez la phrase ci-après...
-
-<egXML xmlns="http://www.tei-c.org/ns/Examples"><s><cl>Some resentment
-is felt <phr>at the order</phr><phr>by the
-Germans</phr></cl>, <cl>who <phr>with their customary
-ingenuity</phr> have <phr>for some time</phr> been
-importing <phr>india-rubber sardines in
-petrol</phr> <phr>without detection</phr></cl></s>
-</egXML></p>
-</div>
-
-
-<div><!-- <head>Discontinuity: using pointers</head>-->
-  <head>Discontinuité : utilisation des pointeurs</head>
-
-<eg>... (Germans, who (with their customary ingenuity) have 
-(for some time) been importing)... 
-</eg>
-
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<seg>
-<w xml:id="s1" next="#s2">who</w>
-<phr>with their customary ingenuity</phr>
-<w xml:id="s2" prev="#s1" next="#s3">have</w>
-<phr>for some time</phr>
-<w xml:id="s3" prev="#s2">been</w>
-<w>importing</w></seg></egXML>
-
-<!-- <p>can also use <att>part</att> attribute to indicate that segments
-are incomplete</p>-->
-  <p>On peut aussi utiliser l’attribut <att>part</att> pour indiquer que les segments sont incomplets.</p>
-</div>
-
-<div><!-- <head>Discontinuity: using &#8220;standoff&#8221;
-technique</head>-->
-  <head>Discontinuité : utilisation des techniques de type "standoff markup"</head>
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<w xml:id="W1">who</w>
-<phr>with their customary ingenuity</phr>
-<w xml:id="W2">have</w>
-<phr>for some time</phr>
-<w xml:id="W3">been</w>
-<w>importing</w>
-<!--... -->
-<join targets="#W1 #W2 #W3" result="seg"/>
-</egXML>
-</div>
 
 
 <div><head>Traduction</head>
@@ -315,242 +605,265 @@ méthodes suivantes :
 alternative de catégoriser les éléments.</p>
 </div>
 
-<div><head>Analyse au niveau des mots</head>
 
-<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
-<s n="11">
-<w ana="#DT" >The</w>
-<w ana="#NN" >export</w>
-<w ana="#IN" >of</w>
-<w ana="#NNS">sardines</w>
-<w ana="#IN" >in</w>
-<w ana="#NN" >oil</w>
-<w ana="#IN" >from</w>
-<w ana="#NP" >Sweden</w>
-<w ana="#VBZ">is</w>
-<w ana="#VVN">prohibited</w>
-<c ana="#SENT">.</c>
-</s>
-</egXML>
+            <div>
+                <head>Méta-annotation</head>
+                <p>Revenons sur les catégories annotées: <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><s><w type="VVD">annotated</w>
+                            <w type="NN2">corpora</w>
+                            <w type="VV2">are</w>
+                            <w type="JJ1">cool</w>.</s></egXML>
+                </p>
+                <list>
+                    <item>un parser XML validera la structuration de ce fichier </item>
+                    <item>on désire également contrôler que chaque valeur d'attribut soit choisie
+                        dans un ensemble prédéfini</item>
+                    <item>on désire aussi fournir une explication des codes</item>
+                </list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><interp id="VVD"
+                        value="past tense adjectival form of lexical verb"/>
+                    <interp id="NN2" value="plural form of common noun"/></egXML>
+            </div>
 
-<p>Ceci implique qu’il existe quelque part une définition de DT, NN,
-IN etc. Par exemple:
+            <div>
+                <head>Définition des annotations</head>
+                <p>On pourrait donc représenter une taxinomie des POS-codes <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><interpGrp xml:id="NN"
+                            value="common noun">
+                            <interp xml:id="NN1" value="singular common noun"/>
+                            <interp xml:id="NN2" value="plural common noun"/>
+                        </interpGrp></egXML>
+                </p>
+                <p>Cette taxinomie peut être organisée de manière hiérarchique, distinguant par
+                    exemple les noms propres (NP) des noms communs (NN) : <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><interpGrp value="nominal">
+                            <interpGrp id="NN">
+                                <interp id="NN1" value="singular common noun"/>
+                                <interp id="NN2" value="plural common noun"/>
+                            </interpGrp>
+                            <interpGrp id="NP">
+                                <interp id="NP1" value="singular proper noun"/>
+                                <interp id="NP2" value="plural proper noun"/>
+                            </interpGrp></interpGrp></egXML></p>
+            </div>
 
-<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
-<interp xml:id="DT"><desc>déterminant</desc></interp>
-<interp xml:id="NN"><desc>nom au singulier</desc></interp>
-<interp xml:id="NNS"><desc>nom au pluriel</desc></interp>
-<!-- ... etc -->
-</egXML>
-</p></div>
 
-<div><head>Ou bien...</head>
-<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
-<s n="11">
-<w type="DT" >The</w>
-<w type="NN" >export</w>
-<w type="IN" >of</w>
-<w type="NNS">sardines</w>
-<!-- ... -->
-</s></egXML>
-<p>Dans ce cas il faut définir un ODD où les valeurs possibles pour
-l’attribut <att>type</att> seront spécifiées, de cette manière
-<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
-<elementSpec ident="w" mode="change">
-<attList><attDef ident="type" mode="replace">
-<valList>
-<valItem ident="DT"><desc>déterminant</desc></valItem>
-<valItem ident="NN"><desc>nom au singulier</desc></valItem>
-<valItem ident="NNS"><desc>nom au pluriel</desc></valItem>
-<!-- ... -->
-</valList></attDef></attList></elementSpec></egXML>
-</p></div>
+            <div>
+                <head>Structures de traits</head>
+                <p>La TEI propose aussi un "meta-model" pour décrire n'importe quel système
+                    d'annotation linguistique... et de les rendre mutuellement compréhensibles, voire
+                    unifiables</p>
+                <p>Ce modèle opère à deux niveaux: <list>
+                        <item><hi>représentation</hi> de l'analyse comme un lot de traits, typés,
+                            structurés, et linéarisés en XML</item>
+                        <item>définition d'un <hi>système de traits</hi>, représentant les
+                            contraintes sur les valeurs intégrées, et les règles à suivre pour les
+                            interpréter, surtout du point de vue d'une grammaire
+                            d'unification</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Feature Structure Representation (ISO 24061)</head>
 
-<div><head>La représentation en structures de trait</head>
-<list>
-<item>La <term>structure de trait</term> est un concept bien connu en
-linguistique théorique.</item>
-<item>Toute analyse peut être representée par des paires de traits nom +
-valeurs, structurées d’une manière spécifique </item>
-<item>La représentation TEI  a été standardisée au
-niveau de l’ISO; elle fournit une solution pragmatique et neutre aux
-problèmes de communication machine-machine dans le domaine du TAL industriel</item>
-</list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <w ana="#NP1">ATILF</w>
+                    <w ana="#NN2">corpora</w>
+                </egXML>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><fs xml:id="NP1">
+                        <f name="class"><symbol value="noun"/></f>
+                        <f name="number"><symbol value="singular"/></f>
+                        <f name="proper"><binary value="true"/></f></fs>
+                    <fs xml:id="NN2">
+                        <f name="class"><symbol value="noun"/></f>
+                        <f name="number"><symbol value="plural"/></f>
+                        <f name="proper"><binary valu="false"/></f></fs></egXML>
+            </div>
+
+            <div>
+                <head>Représentation simplifiée</head>
+                <p>Avec prédéfinition d'une librarie de traits ... <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><fLib>
+                            <f name="class" xml:id="FCN"><symbol value="noun"/></f>
+                            <f name="number" xml:id="FN1"><symbol value="singular"/></f>
+                            <f name="number" xml:id="FN2"><symbol value="plural"/></f>
+                            <f name="proper" xml:id="FPP"><binary value="true"/></f>
+                            <f name="proper" xml:id="FPM"><binary value="false"/></f>
+                        </fLib></egXML></p>
+                <p> ... on arrive à simplifier cette représentation : <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><fs xml:id="NN1"
+                            feats="FCN FPM FN1"/>
+                        <fs xml:id="NN2" feats="#FCN #FPM #FN2"/>
+                        <fs xml:id="NP1" feats="#FCN #FPP #FN1"/>
+                        <fs xml:id="NN1" feats="#FCN #FPP #FN2"/></egXML></p>
+            </div>
+            <div>
+                <head>Mais pourquoi réinventer la roue?</head>
+                <list>
+                    <item>ISO 12620:2009 Data Category Register : fournit une plateforme pour
+                        l'enregistrement des taxinomies linguistiques </item>
+                    <item>accessible on line ou comme service web</item>
+                    <item>démontre que ce n'est pas un problème insignifiant</item>
+                </list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+		  <interp xml:id="NP1"
+			  sameAs="http://www.isocat.org/datcat/DC-1892">
+		  <desc>Nom propre au singulier</desc></interp>
+<!-- .... -->
+                    <w ana="#NP1" >ATILF</w>
+                </egXML>
+
+            </div>
+
+            <div>
+                <head>C'est quoi un "noun"?</head>
+                <p><graphic url="../Graphics/isocat-noun.png"/></p>
+            </div>
+
+            <div>
+                <head>C'est quoi un "substantive"?</head>
+                <p><graphic url="../Graphics/isocat-subst.png"/></p>
+            </div>
+
+
+<div>                <head>Une tour (trop) bien connue</head>
+<p><graphic height="60%" url="../Graphics/babel.jpg"/></p>
+<list><item>Dans un seul labo vous avez vu une multiplication des systèmes de
+                    notation</item>
+                <item>Entre labos divers, le cas est encore pire: le même phénomène
+                    linguistique se présentant dans des formats
+		divergents — même si la notation est identique</item></list>
 </div>
 
-<div><head>Des exemples</head>
+            <div>
+                <head>Par conséquent...</head>
+                <list>
+                    <item>on ne peut pas mutaliser ou intégrer ses ressources</item>
+                    <item>chaque nouvelle ressource requiert un outil nouveau d'analyse</item>
+                    <item>les résultats scientifiques sont difficiles
+		    voire impossibles à répliquer ou tester</item>
+                </list>
+                <p rend="box">Donc on doit renoncer à prétendre faire de la science empirique :-( </p>
+            </div>
 
-<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
+            <div>
+                <head>Est-ce que XML nous fournit la réponse idéale?</head>
+                <p>Oui! <list>
+                        <item>une technologie mûre, bien comprise, omniprésente</item>
+                        <item>beaucoup d'outils, des systèmes de développement, et de
+                            l'expertise</item>
+                        <item>bon compromis entre tractabilités humain/machine</item>
+                    </list></p>
+                <p>Non! <list>
+                        <item>le modèle XML est trop restreint; trop axé sur le texte</item>
+                        <item>ne supporte pas les structures ayant plusieurs hiérarchies</item>
+                        <item>ne supporte guère les annotations imprécises ou incomplètes</item>
+                    </list></p>
+                <p rend="box">Annotation graphs? RDF? microformats? </p>
+            </div>
 
-<w ana="#NN2">corpora</w>
+            <div>
+                <head>Problèmes de chevauchement</head>
 
-<fs xml:id="NN2">
- <f name="class"><symbol value="noun"/></f>
- <f name="number"><symbol value="plural"/></f>
- <f name="proper"><binary value="false"/></f>
-</fs>
-<fs xml:id="NN2">
- <f name="class"><symbol value="noun"/></f>
- <f name="number"><symbol value="singular"/></f>
- <f name="proper"><binary value="false"/></f>
-</fs>
-</egXML>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <lg>
+                        <l>Maître corbeau, sur un arbre perché</l>
+                        <l>Tenait en son bec un fromage.</l>
+                        <l>Maître renard par l'odeur alléché</l>
+                        <l>Lui tint à peu près ce langage:</l>
+                        <l>Hé! bonjour Monsieur du Corbeau</l>
+                        <l>Que vous êtes joli! que vous me semblez beau!</l> ... </lg></egXML>
 
-<!--
-feature définitions may be storeded in a library
+                <p>avec superposition d'analyse linguistique...</p>
 
-<fLib>
- <f id=FCN name=class>
-   <sym value="noun"/></f>
- <f id=FN1 name="number">
-   <sym value="singular"/></f> 
- <f id=FN2 name="number">
-   <sym value="plural"/></f>
- <f id=FPM name="proper">
-   <minus/></f>
- ...
-</fLib>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+                        <l><s part="I">Maître corbeau, sur un arbre perché</s></l>
+                        <l><s part="F">Tenait en son bec un fromage.</s></l>
+                        <l><s part="I">Maître renard par l'odeur alléché</s></l>
+                        <l><s part="F">Lui tint à peu près ce langage:</s></l>
+                        <l><s>Hé! bonjour Monsieur du Corbeau</s></l>
+                        <l><s>Que vous êtes joli!</s><s> que vous me semblez beau!</s></l> ...
+               </egXML>
+                <p rend="box">Du bricolage...</p>
+            </div>
 
-and invoked by reference
+            <div>
+                <head>Balisage débarqué </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <lg>
+                        <l><seg xml:id="S1">Maître corbeau, sur un arbre perché</seg></l>
+                        <l><seg xml:id="S2">Tenait en son bec un fromage.</seg></l>
+                        <!-- ... -->
+                    </lg>
+                    <join result="s" targets="#S1 #S2"/>
+                </egXML>
+                <p>Au lieu de fournir des identifiants, on peut se servir de la syntaxe XPath pour les
+                    offset: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <lg>
+                            <l>Maître corbeau, sur un arbre perché</l>
+                            <l>Tenait en son bec un fromage.</l>
+                            <!-- ... -->
+                        </lg>
+                        <join result="s" target="lg/l[1] lg/l[2]"/>
+                    </egXML>
+                </p>
+            </div>
+            <div>
+                <head>Overlap Happens</head>
+                <p><graphic
+     url="../Graphics/icecream.png"/></p>
+<!--<table>
+<row><cell role="label">tokens</cell><cell>de </cell><cell>la
+</cell><cell>crème  </cell><cell>glacé</cell></row>
+<row><cell role="label">phonemes</cell><cell cols="2">dla
+</cell><cell>krEm </cell><cell>glase</cell></row>
+<row><cell role="label">syntaxique</cell><cell cols="2">P </cell><cell
+cols="3">NP</cell></row>
+<row><cell role="label">lexique</cell><cell cols="2">some </cell><cell
+cols="2">ice-cream</cell></row>
+</table>
+-->                <p>(Redrawn from Wörner et al, 2006)</p>
+                <p rend="box">Essentiellement, un problème de
+		tokenisation/ annotation.</p>
+            </div>
 
-<fs id=NN1 
-   feats=“FCN FPM FN1”/>
-<fs id=NN2 
-   feats=“FCN FPM FN2”/>
 
-Simplest kind of feature is just plus or minus
 
-<fs type=’phonetic segment’>
-  <f name='segment'><plus/>   
-  <f name='consonantal'><plus/>  
-  <f name='vocalic'><minus/> 
-  <f name='nasal'><minus/>
-  <f name='low'><minus/>  
-  <f name='high'><minus/>
-  <f name='back'><minus/> 
-  <f name='round'><minus/>
-  <f name='anterior'><plus/> 
-  <f name='coronal'><plus/>
-  <f name='continuant'><plus/> 
-  <f name='delayedRelease'><plus/>
-  <f name='strident'><plus/>
-</fs>
+            <div>
+                <head>Une façon naturelle d' annoter?</head>
 
-nest primitive values
+                <p>Par exemple: voici du discours: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <u xml:id="u1">Can I have ten oranges and a kilo of bananas please?</u>
+                        <u xml:id="u2">Yes, anything else?</u>
+                        <u xml:id="u3">No thanks.</u>
+                        <u xml:id="u4">That'll be a dollar forty.</u>
+                        <u xml:id="u5">Two dollars</u>
+                        <u xml:id="u6">Sixty, eighty, two dollars. Thank you.</u>
+                    </egXML></p>
+                <p>Ensuite, je veux catégoriser des unités: <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><spanGrp type="transactions">
+                            <span target="#u1">sale request</span>
+                            <span target="#u2 #u3">sale compliance</span>
+                            <span target="#u4">sale</span>
+                            <span target="#u5 #u6">purchase</span>
+                            <span from="#u6">purchase closure</span>
+                        </spanGrp>
+                    </egXML>
+                </p>
+            </div>
 
-<fs type='word structure'>
-   <f name='lemma'><str>goose</str>
-   <f name='category'><sym value='noun"/>
-   <f name='barLevel'><nbr value='0"/>
-   <f name='number'><sym value='plural"/>
-</fs>
+            <div>
+                <head>L'annotation débarquée en 2 étapes</head>
+                <list>
+                    <item>une structuration basique, en unités (segments, tokens)
+                        identifiables</item>
+                    <item>un système pour mettre en relation les segments ainsi identifiés</item>
+                </list>
+                <p rend="box">les normes XPath et XInclude servent à compléter la sérialisation XML
+                </p>
+            </div>
 
-values may be alternmated
-
-<fs id=VVD type="lexical">
- <f name=“class”>
- <vAlt mutExcl=“Y”>
-       <sym value="verb"/>
-       <sym value="adj"/> 
- </vAlt>
- </f>
-...
-</fs>
-
-or collected
-
-complex example
--->
-</div>
-<div><head>Encore un exemple...</head>
-
-<egXML rend="small" xmlns="http://www.tei-c.org/ns/Examples">
-
- <fs type='word structure'>
-  <f name='spelling'><string>pólesi</string></f>
-  <f name='lemma'><string>pólis</string></f>
-  <f name='gloss' xml:lang="en">city</f>
-  <f name='category'><symbol value="noun"/></f>
-  <f name='proper'><binary value="false"/></f>
-  <f name='gender'><symbol value="feminine"/></f>
-  <f name='inflection'>
-     <fs type='inflection structure'>
-        <f name="case"><symbol value="dative"/></f>
-        <f name='number'><symbol value="plural"/></f>
-        </fs></f>
-  </fs>
-</egXML>
-</div>
-      <div>
-        <head>Niveaux d’annotation (1) </head>
-
-        <p>Ces mécanismes très génériques peuvent s’appliquer à
-	n’importe quel niveau de structuration</p>
-
-<p>Par exemple, on peut distinguer les syntagmes :
-
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          
-            <s>
-              <cl type="finite-declarative" function="independent">
-                <phr type="NP" function="subject">It</phr>
-                <phr type="VP" function="predicate">
-                  <phr type="V" function="verb-main">was</phr>
-                  also
-                  <phr type="NP" function="predicate-nom.">a crucial year for me</phr>
-                </phr>
-              </cl>
-            </s>  
-          </egXML>
-</p>
-        </div>
-
-        <div>
-          <head>Niveaux d’annotation (2)</head>
-
-<p>On peut décomposer les mots :
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <s xml:lang="la">
-              <w lemma="timeo">timeo</w>
-              <w lemma="danaii">Danaos</w>
-              <w lemma="et">et</w>
-              <w lemma="donum">dona</w>
-              <w lemma="fero">ferentes</w>
-            </s>
-            
-          </egXML>
-            ou
-            <egXML xmlns="http://www.tei-c.org/ns/Examples">
-              <w type="adjective">
-                <m type="prefix" baseForm="con">com</m>
-                <m type="root">fort</m>
-                <m type="suffix">able</m>
-              </w></egXML>
-          </p>
-
-        </div>
-
-        <div>
-          <head>Niveaux d’annotation (3)</head>
-
-          <p>ou des unités de discours ... 
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <u xml:id="u1">Can I have ten oranges and a kilo of bananas please?</u>
-            <u xml:id="u2">Yes, anything else?</u>
-            <u xml:id="u3">No thanks.</u>
-            <u xml:id="u4">That’ll be dollar forty.</u>
-            <u xml:id="u5">Two dollars</u>
-            <u xml:id="u6">Sixty, eighty, two dollars. Thank you.</u>
-            <spanGrp type="transactions">
-              <span from="#u1">sale request</span>
-              <span from="#u2" to="#u3">sale compliance</span>
-              <span from="#u4">sale</span>
-              <span from="#u5">purchase</span>
-              <span from="#u6">purchase closure</span>
-            </spanGrp>
-          </egXML>
-</p>        </div>
-
-    </body>
-  </text>
+</body>
+</text>
 </TEI>
