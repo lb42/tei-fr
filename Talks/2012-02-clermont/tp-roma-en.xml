@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise: Using Roma</title>
+        </titleStmt>
+      <publicationStmt>
+        <publisher>James Cummings</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>January 2010</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community and certainly
+          from the TEI P5 1.0 Release of the Guidelines.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate:  $.</date>
+        <name>$LastChangedBy: jamesc $</name>
+        <note>$LastChangedRevision: $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+      <div>
+        <head>Before you start</head>
+
+        <p>In this exercise, you will use <hi>Roma</hi>, a web tool
+        available from the TEI web site and usable with any web
+        browser: Firefox or Internet Explorer or Opera for
+        example. Once you have created your schema, you will also need
+        an XML-aware editor: oXygen in our case.</p>
+
+
+        <p>Our goal is to make a schema which we can use to mark up
+        the sample page. We don't need all of of TEI Lite, much less
+        the full TEI, but we do need bits of various modules. We'll
+        also have to tinker with some of the modules, to make our
+        schema more helpful with daily editing. </p>
+      </div>
+
+      <div>
+        <head>Making your own schema</head>
+          <list type="ordered">
+            <item>Open the Roma application, by pointing your favourite web browser at <ptr
+                target="http://www.tei-c.org/Roma/"/>
+              <!--, or, if you are working
+from the CD, at <ptr target="http://localhost/Roma/"/> (on the TEI Knoppix CD
+the recommended web browser is Mozilla Firefox, available on the
+toolbar; but you can also use Konqueror or even Lynx if you
+prefer).--></item>
+
+            <item>The Roma start screen allows you to create a new
+            customization, or to upload an existing customization for
+            further work. We will start from scratch, which means
+            ticking the first radio button ("Build schema (Create a
+            new customisation by adding elements and modules to the
+            smallest recommended schema)"). Press the
+            <code>Submit</code> button at bottom left of the screen to
+            continue.</item>
+          <item>The next and subsequent screens show you a row of tabs for acting on your customization
+            (<code>Save</code>, <code>Customize</code>, <code>New</code>, and <code>Help</code>),
+          and a row of tabs for each of the major stages or tasks making up a customization
+            (<code>Modules</code>, <code>Add elements</code>, <code>Change classes</code>,
+            <code>Language</code>, <code>Schema</code>, and <code>Documentation</code>. We won't
+          explore all of these in this exercise. By default the <code>Customize your
+          Customization</code> screen is displayed. This allows you to specify a file name and other
+          details for the schema, and also to change the interface language if you wish. For now,
+          accept the defaults. Go to the <code>Modules</code> tab to proceed. </item>
+
+        <item>The modules screen shows two lists: on the left are all available TEI modules; on the
+          right are the modules currently selected for your schema. You can add modules from the
+          list on the left, and remove modules from the list on the right, by clicking the
+          appropriate word next to the module you wish to operate on. </item>
+            
+            <item>For this exercise, we will need the following extra module: <list>
+                <item>
+                  <code>figures</code>
+                </item>
+              </list> Click the word <code>add</code> next to the name of the module. </item>
+
+            <item>The modules chosen contain many more elements than we need, so we will now remove
+              some of them, simplying the view in the XML editor. Click the name of a module in the
+                <emph>List of selected modules</emph> (the right-most column) to see a list of the
+              elements this module defines. </item>
+          
+
+        <item>Each element listed has a name, a radio button indicating whether it is to be included or
+          excluded, a tag name, a description, and a link to a further screen where its attributes
+          are specified. You can toggle inclusion or exclusion of all elements in the list by
+          clicking the appropriate column heading. You can click on <code>Exclude</code> to remove
+          all elements from the module.</item>
+
+        <item>Now work down the list clicking the radio button to restore or add the elements needed
+          for this exercise. Remember to press the <code>Submit</code> button when you have finished
+          with each module. Press the <code>Modules</code> or <code>back</code> links to go back to
+          the list of modules. <list type="gloss">
+
+            <label>from the core module</label>
+            <item>delete <gi>add</gi>, <gi>analytic</gi>, <gi>cb</gi>, <gi>cit</gi>, <gi>corr</gi>,
+                <gi>del</gi>, <gi>distinct</gi>, <gi>expan</gi>, <gi>gap</gi>,
+                <gi>gloss</gi>, <gi>headItem</gi>, <gi>headLabel</gi>, <gi>index</gi>,
+              <gi>meeting</gi>, <gi>mentioned</gi>, <gi>milestone</gi>, <gi>orig</gi>, <gi>pb</gi>,
+                <gi>postBox</gi>, <gi>postCode</gi>, <gi>reg</gi>, <gi>series</gi>, <gi>sic</gi>,
+                <gi>street</gi>, <gi>time</gi>, and <gi>unclear</gi>
+            </item>
+
+
+            <label>from the textstructure module</label>
+            <item>delete <gi>argument</gi>, <gi>byline</gi>, <gi>closer</gi>, <gi>dateline</gi>,
+                <gi>epigraph</gi>, <gi>imprimatur</gi>, <gi>opener</gi>, <gi>salute</gi>,
+                <gi>titlePage</gi>, and <gi>trailer</gi>. </item>
+
+            <label>from the figures module</label>
+            <item>delete <gi>cell</gi>, <gi>formula</gi>, <gi>row</gi> and <gi>table</gi>. </item>
+
+          </list>
+        </item>
+
+        <item>We are now ready to generate a schema. Click the <emph>Schema</emph> tab, and then press
+          Submit, taking the default option of a RELAXNG compact schema. Your browser will ask
+          whether you want to save or open the generated file: you should save it into your Desktop
+          directory (the default). Look at the result, if you feel strong, or experiment with other
+          options of the web application.</item>
+
+
+        <item>Complete this stage by going to the <emph>Save</emph> tab and saving your work. Do not
+        close the web browser, we'll use it again shortly.</item>
+            </list>
+      </div>
+
+      <div>
+        <head>Using your schema in oXygen</head>
+
+        <p>You can use oXygen and the file you made earlier to check that you've made your schema
+          correctly. Proceed as follows: <list type="ordered">
+            <item>Open the file you made earlier in oXygen. </item>
+            <item>Go to the menu <code>Document</code>, then <code>XML Document</code> and then
+                <code>Associate Schema</code>. Choose the <code>RELAXNG</code> tab, and locate your
+              schema file (using the middle folder icon on the right to browse).</item>
+            <item>If all goes well, oXygen will insert some code to mark the schema location, and
+              attempt to validate the file. Try inserting some new elements, and you should see a
+              much-reduced collection.</item>
+          </list>
+        </p>
+
+      </div>
+
+      <div>
+        <head>Enhancing your schema</head>
+        <p>Now let us return to the Roma, and make the schema more constrained, to make sure we get
+          just what we want in our documents. The example we have chosen is to constrain the allowed
+          values of the <code>type</code> attribute on <gi>div</gi>, and to make it compulsory.</p>
+
+        <list type="ordered"><item>Go back to Roma. If you have closed the browser, you can restart Roma and load the
+          session you saved earlier.</item><item> Go to the <emph>Modules</emph> tab and click on
+            <code>textstructure</code> in the right-hand column.</item> <item>Find <gi>div</gi> and click on
+            <code>Change attributes</code> on the right-hand side.</item><item> This will show you all the
+          attributes of <gi>div</gi>. Click on <code>type</code>, and you will be able to change its
+          properties: <list>
+            <item>Change the <code>Is it optional</code> radio button to make it compulsory</item>
+            <item>Change the radio button for <code>Closed list?</code> to make it a closed list</item>
+            <item> In the box for <code>List of values</code>, type <eg> cartoon,verse,drama </eg>
+              (ie a list of possible values, separated by commas).</item>
+            <item>Click on Submit Query</item>
+          </list></item> <item>Now save the schema as before and reload the file in oXygen. There should be a
+          validation error, because the last <gi>div</gi> in the Punch file has no type
+        attribute.</item></list>
+      </div>
+      <div>
+        <head>Documenting your schema with Roma</head>
+        <p>One of the major benefits of Roma, is that after you have customized your schema it can
+          produce two ways of documenting the changes you have made. One of these is the ODD file
+          that you saved earlier (and can save again if you want) which indicates how your schema
+          differs from full TEI, what modules you have included, what elements you may have added
+          and changed, amongst other things. This is a good file to keep with your generated schema,
+          in case you need to generate a new schema with additional elements or constrain it
+          further. It also means that others can generate the schema for your documents in different
+          schema languages if needed.</p>
+
+        <p>
+          <hi>You may wish to open the ODD file you saved earlier and see how this format
+          works.</hi>
+        </p>
+
+        <p> You don't need to use the web version of Roma to create ODD files, you can just author
+          them by hand if you are feeling geeky. There is a command-line Roma script which you can
+          use to generate any of the outputs which the web version produces.</p>
+        <p>However, since the TEI Guidelines themselves are made up of ODD documents, Roma also
+          allows you to generate a set documentation for your particular customization of the TEI.
+          You don't need to worry about creating the documentation for the existing elements you
+          have included, Roma already knows about them. If you've added new elements you are able to
+          provide descriptions and information about the element at that point, and Roma will use
+          that. Moreover, if you've changed the names of the elements or their descriptions (perhaps
+          for reasons of internationalization) it will use the new names you have provided in the
+          documentation it generates. </p>
+        <p>
+          <hi> You may wish to generate this from the <code>Documentation</code> tab.</hi>
+        </p>
+
+        <p>This concludes the brief exercises on <hi>Roma</hi> for customizing the TEI schema. If
+          you have time you may wish to experiment with making some other customizations to your
+          schema! Some ideas are below.</p>
+      </div>
+
+
+
+      <div>
+        <head>Other things to try with Roma</head>
+        <list type="ordered">
+          <item>How do you go about renaming an existing element? What happens in the ODD when you
+            do?</item>
+          <item>How do you add a new element? What namespace does it end up in when you do? How can
+            you control this?</item>
+          <item>Once you have an ODD, you can generate project-specific documentation. Where would
+            you put this prose in the ODD file? Try generating some test documentation with
+            additions you have made.</item>
+          <item>Experiment with starting with different exemplar customization Roma offers. Which do
+            you think would be best for your project?</item>
+          <item>Save the ODD for the TEI ALL Plus schema -- how does this add in schemas from other
+            namespaces?</item>
+          <item>How do you go about changing the content model of an element? What implications does
+            this have for your schema? How is it expressed in ODD?</item>
+          <item>Try modifying an ODD 'manually' in oXygen to include/exclude other elements and then
+            submitting it to Roma to generate a schema.</item>
+        </list>
+      </div>
+
+    </body>
+  </text>
+</TEI>

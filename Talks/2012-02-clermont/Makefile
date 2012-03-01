@@ -5,16 +5,15 @@ TALKS= \
 	talk-guidelines.xml \
 	talk-analysis.xml \
 	talk-oral.xml \
+	talk-roma.xml \
 	talk-lit.xml \
 	talk-corpora.xml 
 
 
 DOCS= \
-	tp-1 \
-	tp-roma \
-	tp-analysis \
-	tp-lit \
-	tp-xslt 
+	tp-oxygen \
+	tp-roma-en \
+	tp-cartes
  
 default: pdfslides
 slides: pdfslides 

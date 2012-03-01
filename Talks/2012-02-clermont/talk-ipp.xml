@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Mr Punch meets the TEI Core </title>
+        <author>TEI@Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2009</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+	      license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2009-07-13 12:07:39 +0100 (Mon, 13 Jul 2009) $.</date>
+        <name>$LastChangedBy: rahtz $</name>
+        <note>$LastChangedRevision: 8782 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+
+
+<div><head>Un projet imaginaire :  Imaginary Punch Project</head>
+<list>
+<item><hi>Punch</hi> est un journal comique anglais de grand renomme,
+qui apparaissait presque chaque semaine de 1841 jusqu'a 1992: (voir <ptr
+target="http://www.punch.co.uk/historyofpunch.html"/>.</item>
+<item>Nous proposons un projet de numerisation/encodage qui rendra disponible
+ce corpus en mode texte numerique, encode, et avec soutien de
+pages images integrales. Ce corpus sera destine
+<list>
+<item>aux chercheurs dans les SHS</item>
+<item>aux bibliothecaires interesses de conservation du patrimoine britannique</item>
+<item>aux chercheurs linguistes</item>
+</list></item>
+<item>Est-ce que la  TEI va nous aider? De quelles parties aurons-nous
+besoin? </item>
+</list>
+</div>
+
+        
+
+<div><head>Qu'est-ce qu'il faut baliser ?</head>
+<list>
+<item>chaque edition de notre journal a des identifiants (numero de
+tome, datation, numerotation  de pages ) </item>
+<item>il rassemble plusieurs "morceaux" de texte, ou on trouve par
+exemple des images, des vers, du prose, entiers ou en combinaison</item>
+<item>ces "morceaux" contiennent des unites formelles telles que 
+<list>
+<item>image plus titre explicatif</item>
+<item>strophes et vers</item>
+<item>paragraphs, listes, tables</item>
+<item>enonces, didascalies ... </item>
+</list></item>
+<item>entre autre...</item>
+</list>
+</div>
+
+<div><head>Structuration proposee</head>
+<p>Nous allons considerer chaque edition du journal comme notre
+unite de base, notre <gi>text</gi>; on va baliser chaque morceau
+distingue dans ce texte comme un 
+ <gi>div</gi> element d'un type predefini (e.g. cartoon, verse,
+prose)</p>
+
+<p>Par exemple sur la  <ref
+target="../Materials/Punch/Pages/147_01.jpg">page 1</ref>, il y a deux
+
+divisions, a savoir un dessin et une poeme:
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="1"/>
+<div type="cartoon"><!-- ... --></div>
+<div type="poem"><head>Progress</head><!-- ... --></div>
+  </egXML>
+<ref target="../Materials/Punch/Pages/147_02.jpg">page 2</ref> also has two, of different types:
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="2"/>
+<div type="prose"><head>The enchanted castle</head><!-- ... --></div>
+<div type="snippet"><head>Correspondence</head><!-- ... --></div>
+  </egXML>
+</p></div>
+
+<div><head>Nota :  divisions ne correspondent pas exactement aux pages!</head>
+<p>Une division peut commencer au sein d'une page (<ref
+target="../Materials/Punch/Pages/147_05.jpg">page 5</ref> par ex) and
+se terminer sur une autre (<ref
+target="../Materials/Punch/Pages/147_06.jpg">page 6</ref>)</p>
+<p>Nous allons nous servir d'une  <term>balise vide</term> <gi>pb</gi>
+pour indiquer le frontiere de chaque page, qui portera un lien sur
+l' image numerise de la page.</p>
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="5" facs="Pages/147_05.jpg"/><div type="cartoon"><!-- ... --></div>
+<div type="review"><head>Egypt in Venice</head><!-- ... -->
+<pb n="Pages/147_06.jpg"/>
+<!-- ... --> </div>
+<div type="cartoon"><!-- ... --></div>
+<div type="verse"><head>Enigma</head><!-- ... --></div>
+<div type="snippets"><!-- ... --></div>
+  </egXML>
+<!--<p>The sequence in which divisions appear is rather
+arbitrary.</p>--></div>
+
+<div><head>Les divisions peuvent s'imbriquer... </head>
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<div type="snippets">
+<div type="snippet"><!--Curiously....Chancellor--></div>
+<div type="snippet"><!--Men for the Antarctic... Canadians--></div>
+</div>
+  </egXML>
+<list>
+<item>Les divisions font une tesselation complete a chaque niveau. </item>
+</list>
+
+</div>
+
+<div><head>Attributs globaux</head>
+<p>TEI identife des traits quasiment universels de tout element: 
+<list>
+<item>identification</item>
+<item>langue</item>
+<item>mise en form </item>
+</list></p>
+<p>Les attributs globaux proposes par TEI :
+<list>
+<item><att>xml:id</att> fourni un identifiant unique pour l' element;</item>
+<item><att>n</att> fourni un label ou autre nom, pas forcenment
+unique, pour l'  element</item>
+<item><att>xml:lang</att> specifie la langue naturelle du contenu de
+l'  element, en utilisant un code standard ISO</item>
+<item><att>rend</att> et <att>rendition</att> fournissent des codes
+descriuptifs de la mise en forme du contenu de l' element</item>
+</list>
+</p>
+</div>
+<!--
+      <div>
+        <head>More about divisions</head>
+        <p>Note that in TEI, the heading or headings of a division are
+	<emph>part of</emph> the division, not separate from it.
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<div n="1916-07-02_1147" xml:id="V1470004">
+<head>THE HERE, THERE AND LONDON LETTER.</head>
+<head type="sub">With apologies to <title>The Westminster
+Gazette</title>.</head>
+<div xml:id="V147000401">
+<head>The Home of the South Saxons.</head>
+<p> Sussex, the county for which Mr. C. B. Fry (who hurt his leg in the
+   Lord's centenary match) used to play before he moved to Hampshire, is
+...
+</p>            </div></div>
+          </egXML>
+        </p>
+      
+      </div>
+
+      <div>
+        <head>Floating text</head>
+        <p> As mentioned above, <gi>div</gi>s must tesselate over the entire text <egXML rend="tiny"
+    xmlns="http://www.tei-c.org/ns/Examples">
+    <div1>
+      <p> ... </p>
+      <div2><p> ... </p></div2>
+      <div2><p> ... </p></div2>
+    </div1>
+  </egXML> is valid BUT <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+    <div1>
+      <p> ... </p>
+      <div2>
+      <p> ... </p></div2>
+      <p> ... </p>
+    </div1>
+  </egXML> is <emph>not valid</emph>.</p>
+<p rend="box">A special <gi>floatingText</gi> element is available for "interruptions"</p>
+
+      </div>
+-->
+
+<div><head>Composition des  divisions</head>
+<p>Un div peut contenir (a part d'une div plus petite)... </p>
+<list>
+<item><gi>head</gi> (heading) : un titre </item>
+<item><gi>p</gi> (paragraph) : des paragraphes </item>
+<item><gi>list</gi> : une liste (contenant <gi>head</gi>, <gi>label</gi>, <gi>item</gi>)</item>
+<item><gi>table</gi> : une table  (contenant <gi>row</gi> contenant <gi>cell</gi>)  ... </item>
+<item><gi>l</gi> (verse line) : un ou plusieurs vers, facultativement
+regroupes dans une  <gi>lg</gi> (line
+group) strophe </item>
+<item><gi>sp</gi> (speech) :  un enonce dramatique avec une
+label du locuteur (<gi>speaker</gi>) et des <gi>p</gi>, <gi>l</gi>
+etc. Plus des <gi>stage</gi> (didascalies)</item>
+<item><gi>figure</gi> (contenant <gi>graphic</gi>, <gi>figDesc</gi>, 
+<gi>head</gi>...)</item>
+</list>
+</div>
+
+<div>
+<head>Par exemple.... </head>
+        <p><graphic url="../Materials/Punch/Pages/147_03.jpg" height="90%"/></p>
+      </div>
+
+<div><head>Une division de type "cartoon", rassemblant un image et un
+peu de dialogue.</head>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<div type="cartoon">
+<figure>
+<head>When the ships come home</head>
+<figDesc>Un homme en vetement turc est allonge sur une fauteuil,
+fumant une cigarette et regardant dans un carnet intitule  "Naval
+ledger". Un autre, en vetement grec, est debout devant lui, consultant
+egalement un carnet.</figDesc>
+<graphic url="../Materials/Punch/XML/Graphics/003.png"/>
+</figure>
+  <sp><speaker>Greece.</speaker><p> Isn't it time we started fighting  again?</p></sp>
+  <sp><speaker>Turkey.</speaker><p> Yes, I daresay. How soon could you begin?</p></sp>
+  <sp><speaker>Greece.</speaker><p> Oh, in a few weeks.</p></sp>
+  <sp> <speaker>Turkey.</speaker><p> No good for me. Shan't be ready till
+  the autumn.</p></sp>
+</div></egXML>
+        </div>
+
+<div>
+<head>Par exemple...</head>
+        <p><graphic url="../Materials/Punch/Pages/147_15.jpg" height="90%"/></p>
+      </div>
+      
+
+<div><head>Titres, paragraphes, et une table</head>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+      <div type="prose">
+  <head>THE MILITANTS' TARIFF.</head>
+  <head rend="right">Etna Lodge, W.</head>
+  <p>Mrs. Bangham Smasher, having entered into partnership with the
+  Misses Burnham Blazer, as General Agents of Destruction, begs to
+  inform the public that the firm will be prepared to execute commissions of all
+kinds, at the shortest notice, on the very moderate terms given below : --
+  </p>
+  <table>
+<row role="label">
+<cell></cell><cell>£</cell><cell>s.</cell><cell>d.</cell>
+</row>
+<row>
+  <cell>For breaking windows, per window ...</cell>
+  <cell>0</cell> <cell>7</cell> <cell>6</cell>
+</row>
+<row>
+  <cell>For howling, kicking, or biting during service
+  in church, per howl, kick, or bite ...</cell>
+  <cell>0</cell> <cell>10</cell> <cell>6</cell>
+</row>
+<row>
+  <cell>For sitting on doorsteps of obnoxious persons,
+  per hour, if fine ...</cell>
+  <cell>0</cell> <cell>15</cell> <cell>0</cell>
+</row>
+<row>
+  <cell>For sitting on doorsteps of obnoxious persons,
+  per hour, if wet ...</cell>
+  <cell>1</cell> <cell>1</cell> <cell>0</cell>
+</row>
+<!-- ... -->
+  </table></div></egXML>
+<!--<row>
+  <cell>For bombs suited to wreck really superior
+  buildings, such as Westminster Abbery
+  and St. Paul's</cell>
+  <cell>50</cell> <cell>0</cell> <cell>0</cell>
+</row>
+<row>
+  <cell>For disturbing public meetings and the
+  general harassing and annoyance of all
+  peaceable and decent people ...</cell>
+  <cell cols="3">No Charge</cell>
+</row>
+  </table>
+  <p>Bangham Smasher, Burnham Blazer &amp; Co. beg to assure 
+  their patrons that all the choppers, hammers, bombs, 
+  stones, etc., employed in their business are of the very 
+  best quality, and only refined paraffin and wax matches
+  will be used in burning down any building.</p>
+
+</div></egXML>
+-->
+</div>
+
+<!--
+<div>
+<head>Par exemple...</head>
+        <p><graphic url="../Materials/Punch/Pages/147_05.jpg" height="90%"/></p>
+      </div>
+-->      
+
+<div><head>Usage des attributs globaux  (1)</head>
+
+<p><graphic width="2in" url="../Materials/Punch/Examples/heads.png"/></p>
+<p><title>Egypt in Venice</title> ( <ref
+target="../Materials/Punch/Pages/147_05.jpg">Page 05</ref>) commence
+par deux titres, dont un en francais ....
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<div type="prose" xml:lang="en" 
+  xml:id="I1914-07-01_05_02" >
+<head>Egypt in Venice.</head>
+<head xml:lang="fr" rend="it">"La Légende de Joseph."</head>
+<p>Those who know the kind of attractions that the 
+Russian ballet offers in so many of its themes ....</p></div></egXML>
+</p>
+</div>
+
+<div><head>Usage des attributs globaux (2)</head>
+
+<p><graphic width="2in" url="../Materials/Punch/Examples/lg.png"/></p>
+
+<p>Le dernier vers de chaque strophe du poeme  <ref
+target="../Materials/Punch/Pages/147_10">page 10</ref> 
+est indented:
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+    <lg>
+ <l>There were eight pretty walkers who went up a hill;</l>
+ <l>They were Jessamine, Joseph and Japhet and Jill,</l>
+ <l>And Allie and Sally and Tumbledown Bill,</l>
+ <l rend="indent">And Farnaby Fullerton Rigby.</l>
+    </lg>
+  </egXML>
+</p>
+</div>
+
+
+
+
+<div><head>Au dessous de la paragraphe...</head>
+
+<p>Les elements deja discutes peuvent contenir d'autres elements
+melanges avec le texte pur . Par exemple: <list>
+<item>des frontieres, pafr ex de page, de colonne, ou meme de ligne typographique</item>
+    <item> des mots qui sont mise en valeurs, emphase, citation </item>
+    <item> des trace d'intervention editoriale par ex des corrections
+    ou normalisations. </item>
+    <item> des noms, chiffres, dates, des adresses ... </item>
+    <item> des liens ou references  </item>
+    <item> des annotations, termes a indexer, etc </item>
+    <item> des graphies </item>
+    <item> des citations bibliographiques </item>
+    <item> des mots, phrases, autres structuration linguistique</item>
+  </list>
+  </p>
+
+  </div>
+
+  <div>
+  <head>Mise en valeur (highlighting)</head>
+  <p>By <term>highlighting</term> we mean  any combination of typographic features
+    (font, size, hue, etc.) which distinguishes the highlighted text
+    from its surroundings. This may be for many reasons... <list
+     >
+<item>to mark foreign, archaic, technical usages</item>
+<item>for emphasis when spoken</item>
+<item>to show something is not part of the text..
+(e.g. cross references, titles, headings)</item>
+<item>or is  attributed to some other agency inside or outside the text (e.g.
+  direct speech, quotation)</item>
+    </list>
+  </p>
+<p rend="boxed">TEI provides both a generic <gi>hi</gi> tag and a
+large number of specific ones...</p>
+  </div>
+
+  <div>
+  <head>Quelques exemples</head>
+  <list>
+    <item>
+<gi>hi</gi> (highlighted: distinction typographique, sans motif particulier)
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+ <p>[The rest of this communication is
+omitted owing to considerations of
+space.—<hi rend="sc">Ed</hi>.]</p>
+</egXML>
+</item>
+    <item>
+<gi>emph</gi> (emphase linguistique)
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<said>'E won't bite yer <emph>if you buy 'im</emph> guv'ner.</said> 
+</egXML></item>
+
+<item><gi>title</gi> et <gi>foreign</gi>:
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<p><foreign xml:lang="fr">À propos</foreign> of Oxford, it is a question whether
+that extremely amusing book <title>Verdant Green</title> is still
+much read by freshers. </p></egXML></item>
+    <item>
+
+<gi>distinct</gi> (distinction typographique avec motif linguistique)
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+But then I remind myself
+that the Russian ballet is nothing if not
+<distinct>bizarre</distinct>
+</egXML></item>
+
+  </list>
+  </div>
+
+  <div>
+  <head>Citation</head>
+  <p>Les guillemets servent a baliser un empan de texte, pour
+  plusieurs raisons : <list>
+<item><gi>q</gi> (used if the reason is unknown or
+unimportant)</item>
+<item><gi>said</gi> (speech or thought)</item>
+<item><gi>quote</gi> (attributed to an external source)</item>
+<item><gi>mentioned</gi> and <gi>soCalled</gi> (nuances of
+narrative status)</item>
+    </list></p>
+<p><graphic width="2in" url="../Materials/Punch/Examples/q.png"/></p>
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+ <p><said who="#Celia">I know a lovely tin of potted
+grouse,</said>  said Celia,  and she went off to cut some sandwiches. </p>
+</egXML>
+
+  </div>
+<div><head>Citation fictive "SoCalled" </head>
+<p><graphic url="../Materials/Punch/Examples/soCalled.png" height="2in"/></p>
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+	    <head>How to utilise the art of <soCalled>suggestion</soCalled></head>
+<head>The Doctor, six down at the turn, 
+<soCalled>suggests</soCalled> to his opponent that
+they are playing croquet, and wins by two and one.</head>
+    </egXML>
+</div>
+<div><head>Citation imbriquee</head>
+
+<p><graphic width="2in" url="../Materials/Punch/Examples/nested-q.png"/></p>
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+   <p>The poet returned to his work. <said><quote>In
+tooth and claw,</quote></said> he muttered to himself,
+<said><quote>In tooth and claw.</quote></said></p>
+    </egXML>
+
+</div>
+
+
+<div><head>Interventions editorialles</head>
+
+<p><graphic width="2in" url="../Materials/Punch/Examples/dawg.png"/></p>
+
+<p>We can:
+<list><item>use <gi>orig</gi> to show that  "dawg" is what it says, even
+though this is a nonstandard spelling</item>
+<item>use <gi>reg</gi> to show that  "dog" is an editorially-supplied
+regularisation of what it says</item>
+<item>or provide both within a <gi>choice</gi> element to say either is
+a valid encoding:</item>
+</list>
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+...a nice little
+<choice><orig>dawg</orig><reg>dog</reg></choice>?
+    </egXML></p>
+</div>
+
+  <div>
+  <head> Entites nommes... </head>
+  <p>
+    <list>
+<item><gi>name</gi> (a name in the text, contains a proper noun or noun
+  phrase)</item>
+<item><gi>rs</gi> (a general-purpose name or referencing string )</item>
+<item><gi>title</gi> (any form of title)</item>
+    </list>
+  </p>
+  <p>The <att>type</att> attribute is useful for categorizing these, and they both also have <att>key</att>,
+    <att>ref</att>, and <att>nymRef</att> attributes.</p>
+  </div>
+
+  <div>
+  <head>Examples of names </head>
+
+<p>Using <att>type</att> to distinguish personal from geographic names:
+
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<p>The scene opens at a party given by 
+<name type="person">Potiphar</name> in  
+<name type="place">Venice</name>. </p>
+</egXML>
+  </p>
+
+
+  <p>Using <att>key</att> and <att>ref</att> to de-reference names:
+
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<p><label>Business done.</label>—The Commons 
+still harping on the Budget. 
+<name type="person"
+      ref="http://en.wikipedia.org/wiki/Timothy_Michael_Healy"> 
+Tim Healy</name> enlivened proceedings by vigorous personal attack 
+on <q>the most reckless and incapable
+<rs key="LLG">Chancellor of the Exchequer</rs> 
+that ever sat on the Treasury Bench.</q>
+<name key="LLG">Lloyd George's</name>
+retort courteous looked forward to with interest.</p></egXML>
+  </p>
+  </div>
+
+  <div>
+  <head>Dates</head>
+  <p>
+    <list>
+<item><gi>date</gi> contains a date and time  in any format</item>
+<item>For processing it is convenient to add a normalized
+version, using the <att>when</att> attribute</item>
+<item>Uncertain dates and times, and ranges, can be indicated by
+other attributes: <att>notBefore</att>, <att>notAfter</att>,
+<att>from</att>, <att>to</att></item>
+    </list>
+  </p>
+<p><graphic width="2in" url="../Materials/Punch/Examples/date.png"/></p>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<p>House of Commons, <date when="1914-06-22">
+Monday, June 22, 1914</date>.</p>
+<p><date notAfter="1914-06-01" notBefore="1914-03-01">
+Sunday, a month ago,</date> was hot.</p>
+
+</egXML>
+  </div>
+
+  <div>
+  <head>Cross references</head>
+  <p>A <term>cross reference</term> is a  link from one point in a text
+  (the source) to
+  another (the target). </p>
+  <p>TEI provides generic elements <gi>ptr</gi> and <gi>ref</gi> for
+  this purpose. If the linking text can be automatically  generated use
+<gi>ptr</gi>; otherwise use
+  <gi>ref</gi>.</p>
+<p>The source is the location of the <gi>ptr</gi> or <gi>ref</gi>; the
+target is specified by the <att>target</att> attribute, in the form of
+a  URI reference.</p>
+<p><egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"> 
+See <ref target="#Section12">section 12 on page 34</ref>. 
+</egXML>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"> 
+See <ptr target="#Section12"/>. 
+</egXML>
+</p>
+
+  </div>
+
+
+
+  <div>
+  <head>Bibliographic Citations</head>
+  <p>TEI provides special elements for  bibliographic citations or references:
+    <list>
+<item><gi>bibl</gi> (loosely structured)</item>
+<item><gi>biblStruct</gi> (standard bibliographic structure)</item>
+<item><gi>listBibl</gi> (encloses a  bibliography)</item>
+    </list></p>
+<p>These are typically used in preparing bibliographies, or in
+footnotes. But even in Punch, there are examples. </p>
+  </div>
+
+  <div>
+  <head> Simple <gi>bibl</gi> Example</head>
+  <p>In Punch, bibliographic citations are usually associated with a
+ a quotation from another
+  paper </p>
+<p><graphic width="2in" url="../Materials/Punch/Examples/cit.png"/>
+</p>
+<p>The<gi>cit</gi> element groups the two:
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><cit>
+<quote>It was the time when Henry III. was
+batting with Simon de Montfort and his
+Barons.</quote>
+<bibl><title>Straits Times.</title></bibl>
+</cit></egXML></p>
+  </div>
+
+
+  <div>
+  <head>Embedded notes</head>
+  <p>Notes, whether appearing in the original source, or added by an
+  editor, can be marked using the <gi>note</gi> element. </p>
+<p>We might use this to add biographical details to the Punch
+transcriptions:
+</p>
+<p>
+<graphic url="../Materials/Punch/Examples/beecham.png" height="0.7in"/>
+</p>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"> 
+<p>By-the-by, it is denied that 
+Sir <name rend="sc">Joseph Beecham</name>
+<note>Sir Joseph Beecham, 1st Baronet 
+(8 June 1848 - 23 October 1916)...</note>.  
+was in any way responsible for the Government's 
+"Pills for Earthquakes," by which it was hoped to
+avert the Irish crisis.</p>
+</egXML>
+<p><gi>note</gi> has attributes <att>place</att> and
+<att>resp</att></p>
+	</div>
+
+<div><head>Linked notes</head>
+<table>
+<row><cell>
+<?tex \vbox to 0em{?><graphic url="../Materials/Punch/Examples/beechams.png"
+	 height="0.7in"/><?tex }?>
+</cell>
+<cell>Since we have several references to the same person, it might be
+better to put the notes elsewhere and point to them from the names</cell></row></table>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"> 
+<div type="notes">
+<note xml:id="BEECHJO">Sir Joseph Beecham, 1st Baronet (8 June 1848 -
+23 October 1916) the eldest son of Thomas Beecham (1820-1907) played a
+large part in the growth and expansion of his father's medicinal pill
+business which he joined in 1866....</note>
+<!-- other notes -->
+</div>
+<div type="snippets">
+<p>... Both Earl <name rend="sc">Beauchamp</name>
+and <name>Sir <ref target="#BEECHJO">Joseph Beecham</ref></name> appear
+in the recent Honours List.</p>
+<p>By-the-by, it is denied that Sir <name rend="sc" ref="#BEECHJO">Joseph
+Beecham</name> was in any way responsible...</p>
+</div></egXML>
+<p>Could also use specialised <gi>person</gi> element, in this
+case.</p>
+<p><q>Elsewhere</q> can be <emph>anywhere</emph> on the Internet...</p>
+	</div>
+    </body>
+  </text>
+</TEI>
