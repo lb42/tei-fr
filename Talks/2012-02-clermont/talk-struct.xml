@@ -1,0 +1,146 @@
+<?xml version="1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Structuration des corpus TEI</title>
+      </titleStmt>
+      <publicationStmt>
+        <p> For the TEI Website</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from lots of other talks</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <list type="unordered">
+        <item><date>1 mar 12</date> LB: first draft</item>
+      </list>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+   
+        <div>
+          <head>Structure of a TEI Document</head>
+          <p>There are two basic structures of a TEI Document:<list>
+            <item><gi>TEI</gi> (TEI document) contains a single
+              TEI-conformant document, comprising a TEI header and a
+              text, either in isolation or as part of a teiCorpus
+              element.</item>
+            <item><gi>teiCorpus</gi> contains the whole of a TEI
+              encoded corpus, comprising a single corpus header and one
+              or more TEI elements, each containing a single text header
+              and a text.</item>
+          </list></p>
+        </div>
+      <div>
+       <head>TEI basic structures (1)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiCorpus>
+              <teiHeader><!-- required --></teiHeader>
+              <TEI><!-- required --></TEI>
+            </teiCorpus>
+          </egXML>
+        </p>
+      </div>
+        <div><head>TEI basic structures (2)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <TEI>
+              <teiHeader><!-- required --></teiHeader>
+              <facsimile><!--  optional  --></facsimile>
+              <text><!-- required if no facsimile --></text>
+            </TEI>
+          </egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>
+          <gi>text</gi>
+        </head>
+        <list>
+            <item rend="pause"> A text may be unitary or composite <list>
+                <item>unitary: forming an organic whole</item>
+                <item>composite: consisting of several components which are in some important sense
+                  independent of each other</item>
+              </list></item>
+            <item rend="pause"> a unitary text contains <list>
+                <item>optional front matter</item>
+                <item><gi>body</gi> (required)</item>
+                <item>optional back matter</item>
+              </list>
+            </item>
+            <!-- etc. -->
+          </list>
+      </div>
+
+      <div>
+        <head>Composite texts</head>
+        <p> A composite text contains <list>
+            <item>optional front matter</item>
+            <item><gi>group</gi> (required)</item>
+            <item>optional back matter</item>
+          </list>
+        </p>
+        <p>A corpus is a collection of text and header pairs. It has its own header.</p>
+        <p><gi>group</gi> tags may self-nest.</p>
+      </div>
+      
+        <div>
+        <head>TEI text structure (1)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <text>
+              <front> <!-- optional --></front>
+              <body><!-- required --></body>
+              <back><!-- optional --></back>
+            </text>
+          </egXML>
+        </p>
+        </div>
+        
+        <div><head>TEI text structure (2)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	    <text>
+	      <front><!-- ... --></front>
+	      <group>
+		<text>
+		  <body>
+		    <p>...</p>
+		  </body>
+		</text>
+	      </group>
+	      <back><!-- ... --></back>
+	    </text>
+	  </egXML>
+        </p>
+        </div>
+        
+        
+        <div>
+          <head>Another Grouped Text Example</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <TEI>
+              <teiHeader>
+                <!-- header information for the whole collection -->
+              </teiHeader>
+              <text> <!-- optional front matter -->
+                <group>
+                  <text><!-- optional front matter -->
+                    <body><!-- First Body --> </body>
+                  </text>
+                  <text><!-- optional front matter -->
+                    <body> <!-- Second Body--></body>
+                  </text>
+                </group>
+              </text>
+            </TEI>
+          </egXML>
+        </div>
+        
+
+</body></text></TEI>

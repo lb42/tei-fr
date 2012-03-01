@@ -5,9 +5,9 @@ TALKS= \
 	talk-guidelines.xml \
 	talk-analysis.xml \
 	talk-oral.xml \
-	talk-lit.xml \
 	talk-struct.xml \
 	talk-hdr.xml \
+	talk-lit.xml \
 	talk-cartes.xml
 
 
