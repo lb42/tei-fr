@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Construction des corpus pour l'analyse lexicale</title>
+      </titleStmt>
+      <publicationStmt>
+        <p> For the TEI Website</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from lots of other talks</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <list type="unordered">
+        <item><date>15 aug 06</date>LB: revamp from ODP version francais</item>
+        <item><date>25 Jan 05</date>LB: revamp</item>
+        <item><date>11 No 04</date> SR: revamp</item>
+        <item><date>19 Jan 03</date> LB: minor revisions</item>
+        <item><date>16 Feb 03</date> LB: first draft</item>
+      </list>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+<div rend="slide">
+<head>TEI pour les corpus litteraires</head>
+
+<p rend="centre">Lou Burnard</p>
+<p rend="center">lou.burnard@tge-adonis.fr</p>
+</div>      
+
+
+
+        <div rend="slide">
+	  <head>Des textes literraires comme ceci, par exemple ?</head>
+<table>
+<row>
+<cell>      <graphic width="40%" url="../Graphics/corbeau-1.jpg"/></cell>
+  <cell>      <graphic width="40%" url="../Graphics/corbeau-2.jpg"/></cell>
+</row></table>
+	</div>
+
+
+<!--
+        <div>
+          <head>Un texte n'est pas un document...</head>
+          <p>En quoi consiste l'essentiel d'un texte ? <list rend="pause">
+              <item>en l'apparence des lettres et leur mise-en-page?</item>
+              <item>en la version originelle (pretendue) de cette copie?</item>
+              <item>en les interpretations/lectures apportées ou
+	      trouvées? en les intentions (supposées) de son auteur? </item>
+            </list>
+          </p>
+          <p rend="box">Un "texte" est quelque chose d'abstrait:
+	  la construction d'un communauté de lecteurs.</p>
+<p>L'encodage explicite cette abstraction à fin de la mieux gérer</p>
+        </div>
+
+<div rend="slide"><head>Qu'est-ce qu'on fait en numérisant un texte?</head>
+<figure>
+<graphic url="../Graphics/model-fr.png"/>
+</figure></div>
+
+      <div rend="slide">
+        <head>L'encodage</head>
+        <list type="bulleted">
+          <item>Un texte est plus qu'une séquence de caractères
+	  encodés!</item>
+<item>Un text est plus qu'une séquence de formes lexicaux!
+<list><item>Il a une  <hi>structure</hi> et une
+<hi>signification</hi></item>
+<item>Un texte peut avoir plusieurs <hi>lectures</hi> variantes</item>
+<item>La portée d'un texte peut être <hi>enrichie</hi> par des annotations</item> </list></item>
+          <item>L'encodage explicite les lectures</item>
+          <item>Sans explicitation, on ne peut rien traiter 
+</item>
+        </list>
+      </div>
+
+<div><head>L'effet Babel</head>
+<p>Bien sûr il existe plusieurs lectures possibles pour la
+plupart des textes...</p>
+<p><figure>
+<graphic url="../Graphics/babel.jpg" width="50%"/>
+</figure></p>
+<p>... et (malheureseument) plusieurs manières d'expression pour ces
+lectures!</p>
+</div>
+-->
+
+      <div rend="slide">
+        <head>Qu'est ce qu'on balisera?</head>
+        <p>Comparer: </p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><lb/>LIVRE I.
+<lb/>FABLE SECONDE.
+<lb/>Le Corbeau &amp; le Renard
+<lb/>MAistre Corbeau sur un arbre perché,
+<lb/>Tenoit en son bec un fromage.
+<lb/>Maistre Renard par l'odeur alleché,
+<lb/>Luy tint à peu prés ce langage:
+...
+<lb/>A ces mots, le Corbeau ne se sent pas de joye:
+<lb/>A iii
+</egXML>
+<p> avec </p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<div type="fable" n="I2">
+<head>Le Corbeau &amp; le Renard</head>
+<l><hi rend="lettrine">M</hi>aistre Corbeau sur un arbre perché,</l>
+<l><reg>Tenait</reg> en son bec un fromage.</l>
+<l>Maistre Renard par l'odeur alleché,</l>
+<l><reg>Lui</reg> tint à peu prés ce langage:</l>
+<!-- ... -->
+<l>A ces mots, le Corbeau ne se sent pas de joye:</l>
+<fw type="sig">A iii</fw> 
+... </div>	    </egXML></div>
+
+
+
+
+<div><head>Un autre exemple...</head>
+
+<figure>
+<!--<graphic url="../Graphics/petitcomtois.png"/>-->
+
+<graphic url="../Graphics/1883-08-06-page.png"/>
+</figure>
+</div>
+
+
+
+<div rend="slide">
+        <head>Un petit exercice intellectuel...</head>
+        <p>Imaginez vous: on a des milliers des pages à baliser.... 
+<list type="bulleted"><item>Quels traits existent dans ces
+materiaux?</item>
+<item>Quels traits faut-il baliser? lequels seraient (in)utiles? </item>
+<item>Comment justifier l'étiquettage choisi?</item>
+<item>Comment garantir et la consistence et l'étendue du balisage?</item></list>
+    </p>
+        <p>Maintenant, on réduit le budget de 50%. Répétez l'exercice!</p>
+      </div>
+
+
+<div><head>Par exemple...</head>
+<p>On commence par noter la structuration:
+<list>
+<item>la page contient des entêtes, des colonnes, des lignes,  etc.</item>
+<item>le journal contient des titres, des regroupements de notices,
+une episode de feuilleton, des notices de publicité, etc.</item>
+<item>dans le texte du journal, il y a partout des noms d'autre
+journaux, de
+personnages, des lieux, etc.</item>
+<item>le texte est (principalement) en français, d'un style d'interêt
+historique</item>
+<item>on note également des références aux evênements historiques</item>
+<item>et on a bien-sûr des infos supplementaires regardant la production, la
+dissemination, la bibliographie etc. de cette source...</item>
+</list>
+</p>
+</div>
+
+<div><head>Focalisons...</head>
+<figure>
+
+<graphic url="../Graphics/1883-08-06-bit.png"/>
+</figure>
+
+</div>
+
+<div><head>Encodage "texte nature"</head>
+<eg>
+Un journal algérien annonce que M. Constantin, recteur de l'académie
+d'Alger, a demandé la révocation de ce professeur imprudent.  Le
+général Tricoche, directeur de l'artillerie au ministère de la
+guerre, sera nommé général de division et chargé des l'organisation
+des batteries d'artillerie de forteresse, avec le titre d'inspecteur
+général.  Il sera remplacé dans ses fonctions au ministère par le
+général Lavocat.  Aujourd'hui, à deux heures du matin, un fort
+tremblement de terre a été ressenti au Pirée.  0n télégraphie
+d'Athènes qu'aucun accident de personnes n'est à déplorer.
+</eg>
+</div>
+
+<div><head>A noter...</head>
+<list>
+<item>on ne mets en evidence que les mots des notices</item>
+<item>il n'y a pas de frontiere entre les deux notices</item>
+<item>tous les mots semblent pareilles en terme de leur fonctionnement
+dans le texte</item>
+</list>
+</div>
+
+<!--
+<div><head>Balisage ASTARTEX</head>
+
+<eg>
+<![CDATA[ <ASTX_ATTR SOURCE=PETIT_COMTOIS DATE=1883-08-06 NUMERO=0006
+PAGE=1 LARGEUR=1 EMPLACEMENT=4M
+RUBRIQUE=DEPECHES_DE_NUIT_INFORMATIONS_GENERALES
+RUB_GR=DEPECHES_DE_NUIT
+TITRE=L'organisation_de_l'artillerie_de_forteresse
+SIGNATURE=Service_de_notre_correspondant_spécial. > Le général
+Tricoche, directeur de l'artillerie au ministère de la guerre, sera
+nommé général de division et chargé des l'organisation des batteries
+d'artillerie de forteresse, avec le titre d'inspecteur général.  Il
+sera remplacé dans ses fonctions au ministère par le général Lavocat.
+<ASTX_ATTR SOURCE=PETIT_COMTOIS DATE=1883-08-06 NUMERO=0006 PAGE=1_2
+LARGEUR=1 EMPLACEMENT=4M_1H
+RUBRIQUE=DEPECHES_DE_NUIT_INFORMATIONS_GENERALES
+RUB_GR=DEPECHES_DE_NUIT
+TITRE=Tremblement_de_terre_en_Grèce. 
+SIGNATURE=Service_de_notre_correspondant_spécial. >
+Aujourd'hui, à deux heures du matin, un fort tremblement de terre a
+été ressenti au Pirée.  0n télégraphie d'Athènes qu'aucun accident de
+personnes n'est à déplorer.  ]]></eg>
+</div>
+
+<div><head>A noter...</head>
+<list>
+<item>on ne mets en evidence que les mots des notices</item>
+<item>les parties structurantes sont transformées en annotation</item>
+<item>les annotations s'expriment comme propretés des mots</item>
+</list>
+</div>
+-->
+
+      <div rend="slide">
+        <head>Un balisage TEI </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<div type="groupe" decls="DDN" n="4">
+<head type="RUBRIQUE">DEPECHES DE NUIT</head>
+<head type="SIGNATURE">Service de notre correspondant spécial.</head>
+<head type="RUBRIQUE">INFORMATIONS GENERALES</head>
+<div type="NOTICE" rend="EMP.4M LG.1" n="4">
+<head type="TITRE">L'organisation de l'artillerie de forteresse</head>
+<p>Le général Tricoche, directeur de l'artillerie au ministère de la guerre, sera nommé général de 
+division et chargé des l'organisation des batteries 
+d'artillerie de forteresse, avec le titre d'inspecteur 
+général. </p>
+<p>Il sera remplacé dans ses fonctions au ministère 
+par le général Lavocat.</p>
+</div>
+<div type="NOTICE" rend="EMP.4M LG.1" n="5">
+<head>Tremblement de terre en Grèce.</head>
+<p>Aujourd'hui, à deux heures du matin, un fort 
+tremblement de terre a été ressenti au Pirée.</p>
+<p>0n télégraphie d'Athènes qu'aucun accident de 
+personnes n'est à déplorer.</p>
+</div>
+</div></egXML>
+      </div>
+
+<div><head>A noter...</head>
+<list>
+<item>on  met en evidence  les mots des notices mais egalement les
+objets qu'ils constituent (paragraphes, titres...)</item>
+<item>(une selection des) objets textuels sont balisés explicitement avec leur fonction</item>
+<item>les annotations s'expriment comme propretés des objets auxquels
+elles sont attachées</item>
+<item>on se sert de XML, un syntaxe standardisé</item>
+</list>
+</div>
+
+      <div rend="slide">
+        <head>Encore de balisage TEI </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p><s n='42'><w type="NOM"  lemma="XXXX">0n</w>
+<w type="VER:pres" lemma="télégraphier">télégraphie</w>
+<w type="PRP" lemma="de">d'</w>
+<w type="NOM" lemma="XXXX">Athènes</w>
+<w type="KON" lemma="que">qu'</w>
+<w type="PRO:IND" lemma="aucun">aucun</w>
+<w type="NOM" lemma="accident">accident</w>
+<w type="PRP" lemma="de">de</w>
+<w type="NOM" lemma="personne">personnes</w>
+<w type="ADV" lemma="ne">n'</w>
+<w type="VER:pres" lemma="être">est</w>
+<w type="PRP" lemma="à">à</w>
+<w type="VER:infi" lemma="déplorer">déplorer</w>
+<c type="SENT" >.</c>
+</s></p>
+</egXML></div>
+
+      <div rend="slide">
+        <head>Encore de balisage TEI </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p><persName key="#TRIC01">Le général Tricoche</persName>, directeur 
+de l'artillerie 
+au ministère de la guerre, sera nommé général de 
+division et chargé des l'organisation des batteries 
+d'artillerie de forteresse, avec le titre d'inspecteur 
+général. </p>
+<p>Il sera remplacé dans ses fonctions au ministère 
+par <persName ref="#LAVOC32">le général Lavocat</persName>.</p>
+<!-- ... -->
+<person xml:id="LAVOC32">
+<persName>
+<forename>Jean-Louis</forename>
+<surname>Lavocat</surname>
+</persName>
+<birth when="1823-02-09">ne le 9 fevrier 1823 a Besancon</birth>
+<!-- ...-->
+</person>
+<relation type="remplacement" active="#LAVOC32" passive="#TRIC01"/>
+</egXML></div>
+
+      <div rend="slide">
+        <head>Et encore de balisage TEI... </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<teiHeader><fileDesc>  
+           <titleStmt>
+                 <title>Le Petit Comtois: TEI-XML Edition</title>
+             </titleStmt>
+             <publicationStmt>
+                 <p>Prepared for MISAT</p>
+             </publicationStmt>
+             <sourceDesc>
+                 <bibl><title>Le Petit Comtois: Journal Républicain
+		 démocratique quotidien </title>
+		 <ref>http://laseldi.univ-fcomte.fr/petit_comtois/archives.php</ref></bibl></sourceDesc>
+<encodingDesc>
+<classDecl><taxonomy xml:id="notice-class">
+<category xml:id="DDN"><catDesc>Dépêches de nuit</catDesc></category>
+<category xml:id="CR"><catDesc>Chroniques régionales</catDesc></category>
+</taxonomy></classDecl>
+</encodingDesc>
+<revisionDesc>
+<change when="2009-06-15">Taxinomies révisées</change>
+</revisionDesc></fileDesc></teiHeader></egXML></div>
+
+<div><head>Un mot sur l'outillage TEI</head>
+
+<p>Une des raisons fortes pour lesquelles se servir de la TEI est l'existence des outils TEI p.e. <list  type="gloss">
+            <label>roma</label>
+            <item>http://www.tei-c.org/Roma permet de construire des schemas TEI</item>
+            <label>"Garage"</label>
+            <item>services web pour transformation entre TEI/docx/html/epub etc.</item>
+            <label>TEI publisher</label>
+  <item>systeme d'édition numérique</item>
+            <label>Versioning Machine</label>
+            <item>systeme de gestion des variance</item>
+          </list></p>
+<p>Une autre est la possibilite de se servir de n'importe quelle
+outillage XML -- parce que la TEI est  100% standard XML!
+  <list  type="gloss">
+    <label>oxygen</label>
+    <item>editeur (etc.) XML générique</item>
+    <label>saxon</label>
+    <item>moteur de transformation XML générique</item>
+  </list></p>
+  <p rend="box">Des "plug-ins" sont en cours d'évolution par exemple pour Zotero, Drupal, Omeka ... </p>
+</div>
+
+<div><head>Des références...</head>
+<list type="gloss">
+<label>Site web du Consortium TEI</label>
+<item><ptr target="http://www.tei-c.org"/></item>
+<label>Depot sourceforge</label>
+<item><ptr target="http://tei.sf.net"/></item>
+</list>
+
+<p>Quelques références francophones:
+<list><item>tei-fr@cru.fr</item>
+            <item>http://meet.tge-adonis.fr (prochainement)</item>
+<item>http://lespetitescases.net/index102/</item>
+<item>http://www.culture.gouv.fr/culture/dglf/riofi/tei.htm</item>
+<item>http://artist.inist.fr/article.php3?id_article=122</item>
+<item>http://www.mutec-shs.fr/la-tei-en-france-pratiques-et-perspectives</item>
+</list></p>
+</div>
+
+</body></text></TEI>
