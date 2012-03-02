@@ -1,378 +1,590 @@
-<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../slides/teixmlslides.xsl"?>
+<TEI  xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>TEI pour des corpus litteraires </title>
+         </titleStmt>
+      <editionStmt>
+            <edition>
+               <date>Feb 2007</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+	   <p>Unpublished, 2005</p>
+	 </publicationStmt>
+         <sourceDesc>
+            <p>Various</p>
 
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Construction des corpus pour l'analyse lexicale</title>
-      </titleStmt>
-      <publicationStmt>
-        <p> For the TEI Website</p>
-      </publicationStmt>
-      <sourceDesc>
-        <p>Derived from lots of other talks</p>
-      </sourceDesc>
-    </fileDesc>
-    <revisionDesc>
-      <list type="unordered">
-        <item><date>15 aug 06</date>LB: revamp from ODP version francais</item>
-        <item><date>25 Jan 05</date>LB: revamp</item>
-        <item><date>11 No 04</date> SR: revamp</item>
-        <item><date>19 Jan 03</date> LB: minor revisions</item>
-        <item><date>16 Feb 03</date> LB: first draft</item>
-      </list>
-    </revisionDesc>
-  </teiHeader>
-  <text>
-    <body>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+<text>
+<body>
 
 
 <div rend="slide">
-<head>TEI pour les corpus litteraires</head>
+<head>
+Comment structurer les corpus?</head>
 
-<p rend="centre">Lou Burnard</p>
-<p rend="center">lou.burnard@tge-adonis.fr</p>
-</div>      
-
+<p><graphic url="../Graphics/struct-1.png"/></p>
 
 
-        <div rend="slide">
-	  <head>Des textes literraires comme ceci, par exemple ?</head>
-<table>
-<row>
-<cell>      <graphic width="40%" url="../Graphics/corbeau-1.jpg"/></cell>
-  <cell>      <graphic width="40%" url="../Graphics/corbeau-2.jpg"/></cell>
-</row></table>
-	</div>
+</div>
+<div rend="slide">
+<head>
+Comment structurer les corpus?</head>
 
+<p><graphic url="../Graphics/struct-2.png"/></p>
 
+</div>
+<div><head>Comment structurer les composants d'un corpus?</head>
+<p><graphic url="../Graphics/struct-3.png"/></p>
+</div>
 <!--
-        <div>
-          <head>Un texte n'est pas un document...</head>
-          <p>En quoi consiste l'essentiel d'un texte ? <list rend="pause">
-              <item>en l'apparence des lettres et leur mise-en-page?</item>
-              <item>en la version originelle (pretendue) de cette copie?</item>
-              <item>en les interpretations/lectures apportées ou
-	      trouvées? en les intentions (supposées) de son auteur? </item>
-            </list>
-          </p>
-          <p rend="box">Un "texte" est quelque chose d'abstrait:
-	  la construction d'un communauté de lecteurs.</p>
-<p>L'encodage explicite cette abstraction à fin de la mieux gérer</p>
-        </div>
+<list>
+<item>Every TEI-conformant document comprises a 
+<emph>header </emph> followed by (at least one) 
+<emph>text </emph></item>
+<item>the header contains: 
+<list>
+<item>mandatory file description</item>
+<item>optional encoding, profile and revision descriptions</item>
+</list></item>
+<item>the header is essential for:
+<list type="unordered">
+<item>bibliographic control and identification</item>
+<item>resource documentation and processing</item>
+</list></item>
+</list>
+</div>
 
-<div rend="slide"><head>Qu'est-ce qu'on fait en numérisant un texte?</head>
-<figure>
-<graphic url="../Graphics/model-fr.png"/>
-</figure></div>
+<div rend="slide">
+<head>Structure of a TEI text</head>
 
-      <div rend="slide">
-        <head>L'encodage</head>
-        <list type="bulleted">
-          <item>Un texte est plus qu'une séquence de caractères
-	  encodés!</item>
-<item>Un text est plus qu'une séquence de formes lexicaux!
-<list><item>Il a une  <hi>structure</hi> et une
-<hi>signification</hi></item>
-<item>Un texte peut avoir plusieurs <hi>lectures</hi> variantes</item>
-<item>La portée d'un texte peut être <hi>enrichie</hi> par des annotations</item> </list></item>
-          <item>L'encodage explicite les lectures</item>
-          <item>Sans explicitation, on ne peut rien traiter 
-</item>
-        </list>
-      </div>
+<list type="unordered">
+<item>In the simplest case, a text just consists of paragraphs or
+clauses or verse lines</item>
 
-<div><head>L'effet Babel</head>
-<p>Bien sûr il existe plusieurs lectures possibles pour la
-plupart des textes...</p>
-<p><figure>
-<graphic url="../Graphics/babel.jpg" width="50%"/>
-</figure></p>
-<p>... et (malheureseument) plusieurs manières d'expression pour ces
-lectures!</p>
+<item>A TEI text has a little more structure: it contains
+<list type="unordered">
+<item>optional front matter</item>
+<item>optional back matter</item>
+<item>a body </item>
+</list></item>
+<item>We'll see some more complex cases later. </item>
+</list>
 </div>
 -->
 
-      <div rend="slide">
-        <head>Qu'est ce qu'on balisera?</head>
-        <p>Comparer: </p>
-<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><lb/>LIVRE I.
-<lb/>FABLE SECONDE.
-<lb/>Le Corbeau &amp; le Renard
-<lb/>MAistre Corbeau sur un arbre perché,
-<lb/>Tenoit en son bec un fromage.
-<lb/>Maistre Renard par l'odeur alleché,
-<lb/>Luy tint à peu prés ce langage:
-...
-<lb/>A ces mots, le Corbeau ne se sent pas de joye:
-<lb/>A iii
-</egXML>
-<p> avec </p>
-            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-<div type="fable" n="I2">
-<head>Le Corbeau &amp; le Renard</head>
-<l><hi rend="lettrine">M</hi>aistre Corbeau sur un arbre perché,</l>
-<l><reg>Tenait</reg> en son bec un fromage.</l>
-<l>Maistre Renard par l'odeur alleché,</l>
-<l><reg>Lui</reg> tint à peu prés ce langage:</l>
-<!-- ... -->
-<l>A ces mots, le Corbeau ne se sent pas de joye:</l>
-<fw type="sig">A iii</fw> 
-... </div>	    </egXML></div>
+<div><head>Un composant d'un corpus peut etre... </head>
+<p><graphic height="65%" url="../Graphics/struct-4.png"/></p>
+<list>
+<item>une transcription textuelle</item>
+<item>ou un ensemble de representations visuelles</item>
+<item>ou tous les deux</item>
+</list>
+</div>
 
+<div><head>Dans une transcription  on peut trouver ... </head>
+<p><graphic height="65%" url="../Graphics/struct-5.png"/></p>
+<list>
+<item>une transcription textuelle</item>
+<item>ou une transcription documentaire</item>
+<item>ou tous les deux</item>
+</list>
+</div>
 
+<div><head>Un texte simple  ... </head>
+<p><graphic url="../Graphics/struct-text.png"/></p>
+</div>
 
+<div><head>Un texte complexe  ... </head>
+<p><graphic url="../Graphics/struct-group-1.png"/></p>
+</div>
+<div><head>Un texte complexe  ... </head>
+<p><graphic url="../Graphics/struct-group-2.png"/></p>
+</div>
 
-<div><head>Un autre exemple...</head>
+<div rend="slide">
+<head>The body of a text usually has divisions </head>
 
-<figure>
-<!--<graphic url="../Graphics/petitcomtois.png"/>-->
+<list type="unordered">
+<item>usually nested one with another</item>
+<item>the <att>type</att> attribute  labels a particular level e.g. as
+"part" or "chapter"</item>
+<item>the <att>n</att> attribute gives a particular division a name or
+number</item>
+<item>the <att>xml:id</att> attribute gives a particular division a unique identifier
+</item>
+</list>
+</div>
 
-<graphic url="../Graphics/1883-08-06-page.png"/>
-</figure>
+<div rend="slide">
+<head>For example...</head>
+<egXML  xmlns="http://www.tei-c.org/ns/Examples">
+<text>
+<front> <!-- titlepage, etc here --> </front>
+<body>
+ <div type='book' n='I' xml:id='JA0100'>
+ <head>Book I.</head>
+    <div type='chapter' n='1' xml:id='JA0101'>
+    <head>Of writing lives in general...</head>
+        <!-- remainder of chapter 1 here -->
+    </div>
+    <div n='2' xml:id='JA0102'>
+        <!-- chapter 2 here -->
+    </div>
+ <!-- remainder of book 1 here -->
+</div>
+<div type='book' n='II' xml:id='JA0200'>
+ <!-- book 2 here -->
+</div>
+<!-- remaining books here -->
+</body></text></egXML>
+
+<p rend="box">NB. divisions always tesselate.</p>
+</div>
+
+<div rend="slide">
+<head>TEI global attributes </head>
+
+<list type="unordered">
+<item>The attribute class <ident>att.global</ident> defines these for all elements:
+<list type="unordered">
+<item><att>xml:id</att> supplies a  unique identifier</item>
+<item><att>n</att> supplies a (non-unique) name or number</item>
+<item><att>rend</att> gives a suggestion about rendition (appearance)</item>
+<item><att>xml:lang</att> identifies the language using an ISO
+standard code</item>
+</list></item>
+<item>The linking module extends this class with:
+<list type="unordered">
+<item><att>corresp, synch, ana</att> for specific association types</item>
+<item><att>next, prev </att>for aggregating fragmented elements</item>
+</list></item>
+</list>
+</div>
+
+<div rend="slide">
+<head>Text components</head>
+<p>What are divisions composed of? 
+<list type="unordered">
+<item>prose is mostly paragraphs (<gi>p</gi>)</item>
+<item>verse is mostly lines (<gi>l</gi>), sometimes in 
+hierarchic groups 
+(<gi>lg</gi>)</item>
+<item>drama is mostly speeches (<gi>sp</gi>)
+ containing <gi>p</gi> or <gi>l</gi>  elements
+interspersed with stage directions (<gi>stage</gi>)</item>
+</list>
+These may be mixed, and may also appear directly within undivided texts.
+</p>
+<p>... but divisions can also contain embedded <gi>text</gi> 
+or <gi>quote</gi> elements.</p>
 </div>
 
 
+<div rend="slide">
+<head>For example</head>
+
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<div type="book">
+<l>Of Man's first disobedience, and the fruit</l>
+<l>Of that forbidden tree whose mortal taste</l>
+<l>Brought death into the World, and all our woe,</l>
+<l>With loss of Eden...</l>
+....
+</div></egXML>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<lg type="haiku">
+<l n="1">Summer grass —</l>
+<l n="2">all that's left</l>
+<l n="3">of warriors' dreams</l>
+</lg>
+</egXML>
+</div>
+
+<div rend="slide"><head>For example</head>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples"><stage>Enter Barnardo and Francisco, 
+two Sentinels,at several doors</stage> 
+<sp who="Barnardo">
+  <l part="f">Who's there? </l></sp> 
+<sp who="Francisco">
+  <l>Nay, answer me. Stand and unfold yourself.</l>
+</sp> 
+<sp who="Barnardo">
+  <l part="i">Long live the king! </l></sp> 
+<sp who="Francisco">
+  <l part="m">Barnardo? </l></sp> 
+<sp who="Barnardo">
+  <l part="f">He. </l></sp></egXML>
+</div>
+
+<div rend="slide"><head>not to mention</head>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples"><p>.... And he wrote on one side 
+of the paper:
+<quote><p>HELP!</p>
+<p>PIGLIT (ME)</p>
+</quote>
+and on the other side:
+<quote>IT'S ME PIGLIT, HELP HELP</quote>
+</p><p>Then he put the paper in the bottle...
+</p></egXML>
+</div>
 
 <div rend="slide">
-        <head>Un petit exercice intellectuel...</head>
-        <p>Imaginez vous: on a des milliers des pages à baliser.... 
-<list type="bulleted"><item>Quels traits existent dans ces
-materiaux?</item>
-<item>Quels traits faut-il baliser? lequels seraient (in)utiles? </item>
-<item>Comment justifier l'étiquettage choisi?</item>
-<item>Comment garantir et la consistence et l'étendue du balisage?</item></list>
-    </p>
-        <p>Maintenant, on réduit le budget de 50%. Répétez l'exercice!</p>
-      </div>
-
-
-<div><head>Par exemple...</head>
-<p>On commence par noter la structuration:
-<list>
-<item>la page contient des entêtes, des colonnes, des lignes,  etc.</item>
-<item>le journal contient des titres, des regroupements de notices,
-une episode de feuilleton, des notices de publicité, etc.</item>
-<item>dans le texte du journal, il y a partout des noms d'autre
-journaux, de
-personnages, des lieux, etc.</item>
-<item>le texte est (principalement) en français, d'un style d'interêt
-historique</item>
-<item>on note également des références aux evênements historiques</item>
-<item>et on a bien-sûr des infos supplementaires regardant la production, la
-dissemination, la bibliographie etc. de cette source...</item>
+<head>What are speeches, paragraphs, and lines made of?</head>
+<list type="unordered">
+<item>
+phrases that are conventionally typographically distinct</item>
+<item>
+&#x201C;data-like&#x201D; (names, numbers, dates, times, addresses)</item>
+<item>
+editorial interventions (corrections, regularizations, additions, omissions ...)</item>
+<item>
+cross references and links</item>
+<item>lists, notes, graphics, tables,  bibliographic citations...</item>
+<item>all kinds of annotations!</item>
 </list>
+<p rend="box">Which of these you need to markup will depend on your research agenda</p>
+</div>
+
+
+<div rend="slide"><head>for example...</head>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<head>Of writing lives in general,and particularly of 
+<title>Pamela </title>, with a word by the bye of 
+<name key="#CIBC03">Colley Cibber</name> and others.</head>
+<p>It is a trite but true observation, that 
+<q>examples work more forcibly on the mind 
+than precepts</q></p>
+<p><name key="#JA">Mr. Joseph Andrews</name>, 
+<rs>the hero of our ensuing history</rs>, was 
+esteemed to be ...</p>
+</egXML>
+</div>
+
+<div rend="slide">
+<head>Direct speech</head>
+<list type="unordered">
+<item>Use the who attribute to show speakers</item>
+<item>Speeches can be nested in other speeches</item>
+</list>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<q who="Wilson"> Spaulding, he came down into 
+the office just this day eight weeks with 
+this very paper in his hand, and he
+says: <q who="Spaulding">I wish to 
+the Lord, Mr. Wilson, that I was a 
+red-headed man.</q></q></egXML>
+</div>
+
+<div rend="slide">
+<head>Foreign language phrases </head>
+<list type="unordered">
+<item>The <att>xml:lang</att> attribute may be attached to any element</item>
+<item>Use <gi>foreign</gi> if nothing else is available</item>
+<item>Use ISO 639-2 code to identify language</item>
+</list>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+Have you read <title xml:lang="deu">Die Dreigroschenoper</title>? 
+</egXML>
+
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<mentioned xml:lang="fra">Savoir-faire </mentioned>
+ is French for know-how. 
+</egXML>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+John has real <foreign xml:lang="fra">savoir-faire </foreign>.
+</egXML>
+</div> 
+
+<div rend="slide">
+<head>Correction and Regularization</head>
+<list type="unordered">
+<item><gi>corr</gi> marks a correction </item>
+<item><gi>sic</gi> marks a (deliberate) non-correction</item>
+<item><gi>reg</gi>  marks a regularization </item>
+<item><gi>orig</gi> marks something deliberately un-normalized</item>
+<item>Use  <gi>choice</gi> to indicate a combination of possible encodings</item>
+</list>
+</div>
+
+<div rend="slide">
+<head>For his nose was as sharp as a pen and a table of
+green feelds</head>
+
+
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">... and <reg>he</reg>
+<corr resp="#Theobald">babbl'd</corr> ... </egXML>
+
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">... and 
+<choice>
+  <orig>a</orig>
+  <reg>he</reg> 
+</choice>
+<choice>
+  <sic>table</sic>
+  <corr resp="#Theobald">babbl'd</corr> 
+</choice>
+of green <choice>
+  <orig>feelds</orig>
+  <reg>fields</reg>
+</choice></egXML>
+</div>
+<div rend="slide">
+<head><soCalled>Inter</soCalled> class elements</head>
+<list type="unordered">
+<item><gi>list</gi>
+ lists of all kinds</item>
+<item><gi>note</gi>
+ notes (authorial or editorial)</item>
+<item><gi>figure</gi>
+ pictures or figures</item>
+<item><gi>table</gi> tables</item>
+<item><gi>bibl</gi>
+ bibliographic descriptions</item>
+</list>
+</div>
+
+<div rend="slide">
+<head>Lists</head>
+<list type="unordered">
+<item>use <gi>list</gi> for lists of any kind (use <att>type</att>
+ attribute to distinguish)</item>
+<item>use <gi>label</gi> in two-column lists as alternative to <att>n</att> attribute</item>
+<item>may be nested as necessary
+</item>
+</list>
+</div>
+
+<div rend="slide">
+<head>for example...</head>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples"><list type="xmas">
+  <label>For my true love</label>
+  <item>
+    <list type="bullets">
+      <item>three calling birds></item> 
+      <item>two french hens</item> 
+      <item>a partridge in a pear tree</item>
+    </list>
+  </item>
+  <label>For Uncle Joe</label>
+  <item>socks as usual</item>
+</list></egXML>
+</div>
+
+<div rend="slide">
+<head>Figures and graphics</head>
+<p>The presence of a graphic is indicated by the 
+<gi>graphic</gi> element, usually contained within a <gi>figure</gi>
+element which groups together:
+<list type="unordered">
+<item>The title of the graphic (<gi>head</gi>)</item>
+<item>A description of the graphic  (<gi>figDesc</gi>)
+ for use by software unable to render the graphic
+</item>
+<item>The graphic resource itself is pointed to by an <att>url</att>
+attribute on the <gi>graphic</gi> element, and may also have attributes <att>scale</att>,
+<att>height</att>, <att>width</att></item>
+<item>Alternatively, it may be directly embedded within a
+<gi>binaryObject</gi> element</item>
+<item><gi>figure</gi>s may self-nest, and may also contain other
+display class items such as <gi>formula</gi>s</item>
+</list>
+</p>
+
+</div>
+
+<div rend="slide">
+<head>Example</head>
+<p><graphic url="../Graphics/fezziPic.png" width="4cm"/></p>
+<p><egXML   xmlns="http://www.tei-c.org/ns/Examples"><figure>
+<head>Mr Fezziwig's Ball</head>
+<figDesc>A Cruikshank engraving showing 
+Mr Fezziwig leading a 
+group of revellers.</figDesc>
+<graphic url="fezz.gif"/></figure></egXML>
 </p>
 </div>
 
-<div><head>Focalisons...</head>
-<figure>
 
-<graphic url="../Graphics/1883-08-06-bit.png"/>
-</figure>
 
-</div>
 
-<div><head>Encodage "texte nature"</head>
-<eg>
-Un journal algérien annonce que M. Constantin, recteur de l'académie
-d'Alger, a demandé la révocation de ce professeur imprudent.  Le
-général Tricoche, directeur de l'artillerie au ministère de la
-guerre, sera nommé général de division et chargé des l'organisation
-des batteries d'artillerie de forteresse, avec le titre d'inspecteur
-général.  Il sera remplacé dans ses fonctions au ministère par le
-général Lavocat.  Aujourd'hui, à deux heures du matin, un fort
-tremblement de terre a été ressenti au Pirée.  0n télégraphie
-d'Athènes qu'aucun accident de personnes n'est à déplorer.
-</eg>
-</div>
-
-<div><head>A noter...</head>
-<list>
-<item>on ne mets en evidence que les mots des notices</item>
-<item>il n'y a pas de frontiere entre les deux notices</item>
-<item>tous les mots semblent pareilles en terme de leur fonctionnement
-dans le texte</item>
+<div rend="slide">
+<head>Tables</head>
+<list type="unordered">
+<item>a <gi>table</gi> element contains 
+<gi>row</gi>s of 
+<gi>cell</gi>s</item>
+<item>spanning 
+is indicated by 
+<att>rows</att> and 
+<att>cols</att>
+ attributes
+</item>
+<item><att>role</att>
+ attribute indicates whether row or column holds data or a label
+</item>
+<item>embedded tables are permitted
+</item>
 </list>
 </div>
+
+<div rend="slide">
+<head>for example...</head>
+<table border="1">
+<row>
+<cell cols="3" role="label">A three column table</cell>
+</row>
+<row><cell role="label">Row1</cell><cell>123</cell>
+<cell>4567</cell></row>
+<row><cell role="label">Row2</cell><cell>abc</cell>
+<cell>defgh</cell></row>
+</table>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples"><table>
+<row>
+ <cell  cols="3" role="label">A three column table</cell>
+</row>
+<row>
+ <cell role="label">Row1</cell>
+ <cell>123</cell><cell>4567</cell>
+</row>
+<row>
+ <cell role="label">Row2</cell>
+ <cell>abc</cell><cell>defgh</cell>
+</row>
+</table></egXML>
+</div>
+
+<div rend="slide">
+<head>Bibliography</head>
+
+<list type="unordered">
+<item>The <gi>listBibl</gi> element lists bibliographic
+citations</item>
+<item>Individual citations may be represented loosely as 
+<gi>bibl</gi> elements, or in a more structured way as
+<gi>biblStruct</gi> elements</item>
+<item>In either case, elements from the <term>model.biblPart</term>
+class are used, e.g. 
+<list>
+<item><gi>author</gi>, <gi>editor</gi>,  (generic) <gi>respStmt</gi>
+etc.
+</item>
+<item><gi>title</gi>
+ with optional level attribute to distinguish monographic, analytic etc.
+</item>
+<item><gi>imprint</gi>
+ groups publication info (publisher, date etc.)
+</item>
+<item><gi>biblScope</gi>
+ adds page references etc.
+</item></list></item>
+<item>Individual citations may be linked to in the usual way</item>
+
+</list>
+</div>
+
+<div rend="slide">
+<head>Example</head>
+<p><code><![CDATA[<p>See for example 
+<ref target="#REG92">Regis (1992)</ref>...]]></code></p>
+
+<egXML   xmlns="http://www.tei-c.org/ns/Examples"><div rend="slide"><head>Bibliography</head>
+<listBibl> 
+ <bibl xml:id="REG92"> 
+  <author>Ed Regis</author>
+  <title level="m">Great Mambo Chicken and 
+     the Trans-Human Experience</title>
+  <pubPlace>London </pubPlace>
+  <publisher>Penguin Books</publisher> 
+  <date>1992</date>
+  <biblScope>pp 144 ff</biblScope>
+ </bibl>
+</listBibl>
+</div></egXML>
+</div>
+
+<div rend="slide">
+<head>Notes </head>
+<list type="unordered">
+<item>Use  <gi>note</gi> for notes of any kind (editorial or authorial)</item>
+<item>if in-line, use <att>place</att> attribute to specify location</item>
+<item>if out of line, either use 
+<list>
+<item><att>target</att> attribute to specify attachment point</item>
+<item>or mark attachment point as a <gi>ref</gi></item>
+</list></item>
+</list>
+</div>
+
+<div rend="slide">
+<head>for example...</head>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<lg><l>The self-same moment I could pray></l> 
+<l>And from my neck so free</l>
+<l>The albatross fell off, and sank</l>
+<l>Like lead into the sea. 
+<note type="auth" place="margin"> 
+The spell begins to break.</note> </l> 
+</lg></egXML>
+<p>or</p>
+<egXML   xmlns="http://www.tei-c.org/ns/Examples">
+<lg>
+...
+<l>The albatross fell off, and sank</l>
+<l xml:id="L213">Like lead into the sea. </l> 
+</lg>
+...
+<note type="auth" place="margin" target="#L213"> 
+The spell begins to break.</note> 
+</egXML>
+</div>
+
+<div rend="slide"><head>Feeling overwhelmed?</head>
+<p>All of this is just one way of looking at the TEI. </p>
+<list type="ordered">
+<item>The TEI is a <emph>modular</emph> system: you use it to build an
+encoding scheme <emph>appropriate to your needs</emph>, by selecting specific <term>modules</term></item>
+<item>Each module defines a group of elements and attributes</item>
+<item>Elements are classified <term>structurally</term> and
+<term>semantically</term>
+</item>
+</list>
+
+<p rend="box">Define your goals <emph>before</emph> using the TEI!</p>
+</div>
+
+<div rend="slide"><head>Some other modules</head>
+<p>Your choice from:
+<list type="ordered">
+<item>Transcription of spoken texts</item>
+<item>Dictionaries and lexica</item>
+<item>Varieties of linguistic annotation</item>
+<item>Nonstandard characters and glyphs</item>
+<item>Linking, alignment, non-hierarchic structures</item>
+<item>Detailed metadata (the TEI Header) </item>
+<item>Manuscript Description</item>
+<item>Text-critical apparatus</item>
+<item>Physical description</item>
+<item>Onomastics and ontologies</item>
+<item>The ODD system</item>
+</list></p></div>
 
 <!--
-<div><head>Balisage ASTARTEX</head>
-
-<eg>
-<![CDATA[ <ASTX_ATTR SOURCE=PETIT_COMTOIS DATE=1883-08-06 NUMERO=0006
-PAGE=1 LARGEUR=1 EMPLACEMENT=4M
-RUBRIQUE=DEPECHES_DE_NUIT_INFORMATIONS_GENERALES
-RUB_GR=DEPECHES_DE_NUIT
-TITRE=L'organisation_de_l'artillerie_de_forteresse
-SIGNATURE=Service_de_notre_correspondant_spécial. > Le général
-Tricoche, directeur de l'artillerie au ministère de la guerre, sera
-nommé général de division et chargé des l'organisation des batteries
-d'artillerie de forteresse, avec le titre d'inspecteur général.  Il
-sera remplacé dans ses fonctions au ministère par le général Lavocat.
-<ASTX_ATTR SOURCE=PETIT_COMTOIS DATE=1883-08-06 NUMERO=0006 PAGE=1_2
-LARGEUR=1 EMPLACEMENT=4M_1H
-RUBRIQUE=DEPECHES_DE_NUIT_INFORMATIONS_GENERALES
-RUB_GR=DEPECHES_DE_NUIT
-TITRE=Tremblement_de_terre_en_Grèce. 
-SIGNATURE=Service_de_notre_correspondant_spécial. >
-Aujourd'hui, à deux heures du matin, un fort tremblement de terre a
-été ressenti au Pirée.  0n télégraphie d'Athènes qu'aucun accident de
-personnes n'est à déplorer.  ]]></eg>
-</div>
-
-<div><head>A noter...</head>
+<div rend="slide"><head>Exploring TEI P5</head>
 <list>
-<item>on ne mets en evidence que les mots des notices</item>
-<item>les parties structurantes sont transformées en annotation</item>
-<item>les annotations s'expriment comme propretés des mots</item>
+<item>Visit <xptr
+url="http://www.tei-c.org/release/doc/tei-p5-doc/html/"/></item>
+<item>alphabetical lists of classes, macros, elements</item>
+<item>each chapter describes a distinct module</item>
+<item>each module presents a semantically related list of elements,
+with examples of their use</item>
 </list>
+<p rend="box">Feedback and advice available to all on <code>tei-l@listserv.brown.edu</code></p>
 </div>
 -->
-
-      <div rend="slide">
-        <head>Un balisage TEI </head>
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<div type="groupe" decls="DDN" n="4">
-<head type="RUBRIQUE">DEPECHES DE NUIT</head>
-<head type="SIGNATURE">Service de notre correspondant spécial.</head>
-<head type="RUBRIQUE">INFORMATIONS GENERALES</head>
-<div type="NOTICE" rend="EMP.4M LG.1" n="4">
-<head type="TITRE">L'organisation de l'artillerie de forteresse</head>
-<p>Le général Tricoche, directeur de l'artillerie au ministère de la guerre, sera nommé général de 
-division et chargé des l'organisation des batteries 
-d'artillerie de forteresse, avec le titre d'inspecteur 
-général. </p>
-<p>Il sera remplacé dans ses fonctions au ministère 
-par le général Lavocat.</p>
-</div>
-<div type="NOTICE" rend="EMP.4M LG.1" n="5">
-<head>Tremblement de terre en Grèce.</head>
-<p>Aujourd'hui, à deux heures du matin, un fort 
-tremblement de terre a été ressenti au Pirée.</p>
-<p>0n télégraphie d'Athènes qu'aucun accident de 
-personnes n'est à déplorer.</p>
-</div>
-</div></egXML>
-      </div>
-
-<div><head>A noter...</head>
-<list>
-<item>on  met en evidence  les mots des notices mais egalement les
-objets qu'ils constituent (paragraphes, titres...)</item>
-<item>(une selection des) objets textuels sont balisés explicitement avec leur fonction</item>
-<item>les annotations s'expriment comme propretés des objets auxquels
-elles sont attachées</item>
-<item>on se sert de XML, un syntaxe standardisé</item>
-</list>
-</div>
-
-      <div rend="slide">
-        <head>Encore de balisage TEI </head>
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p><s n='42'><w type="NOM"  lemma="XXXX">0n</w>
-<w type="VER:pres" lemma="télégraphier">télégraphie</w>
-<w type="PRP" lemma="de">d'</w>
-<w type="NOM" lemma="XXXX">Athènes</w>
-<w type="KON" lemma="que">qu'</w>
-<w type="PRO:IND" lemma="aucun">aucun</w>
-<w type="NOM" lemma="accident">accident</w>
-<w type="PRP" lemma="de">de</w>
-<w type="NOM" lemma="personne">personnes</w>
-<w type="ADV" lemma="ne">n'</w>
-<w type="VER:pres" lemma="être">est</w>
-<w type="PRP" lemma="à">à</w>
-<w type="VER:infi" lemma="déplorer">déplorer</w>
-<c type="SENT" >.</c>
-</s></p>
-</egXML></div>
-
-      <div rend="slide">
-        <head>Encore de balisage TEI </head>
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p><persName key="#TRIC01">Le général Tricoche</persName>, directeur 
-de l'artillerie 
-au ministère de la guerre, sera nommé général de 
-division et chargé des l'organisation des batteries 
-d'artillerie de forteresse, avec le titre d'inspecteur 
-général. </p>
-<p>Il sera remplacé dans ses fonctions au ministère 
-par <persName ref="#LAVOC32">le général Lavocat</persName>.</p>
-<!-- ... -->
-<person xml:id="LAVOC32">
-<persName>
-<forename>Jean-Louis</forename>
-<surname>Lavocat</surname>
-</persName>
-<birth when="1823-02-09">ne le 9 fevrier 1823 a Besancon</birth>
-<!-- ...-->
-</person>
-<relation type="remplacement" active="#LAVOC32" passive="#TRIC01"/>
-</egXML></div>
-
-      <div rend="slide">
-        <head>Et encore de balisage TEI... </head>
-<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-<teiHeader><fileDesc>  
-           <titleStmt>
-                 <title>Le Petit Comtois: TEI-XML Edition</title>
-             </titleStmt>
-             <publicationStmt>
-                 <p>Prepared for MISAT</p>
-             </publicationStmt>
-             <sourceDesc>
-                 <bibl><title>Le Petit Comtois: Journal Républicain
-		 démocratique quotidien </title>
-		 <ref>http://laseldi.univ-fcomte.fr/petit_comtois/archives.php</ref></bibl></sourceDesc>
-<encodingDesc>
-<classDecl><taxonomy xml:id="notice-class">
-<category xml:id="DDN"><catDesc>Dépêches de nuit</catDesc></category>
-<category xml:id="CR"><catDesc>Chroniques régionales</catDesc></category>
-</taxonomy></classDecl>
-</encodingDesc>
-<revisionDesc>
-<change when="2009-06-15">Taxinomies révisées</change>
-</revisionDesc></fileDesc></teiHeader></egXML></div>
-
-<div><head>Un mot sur l'outillage TEI</head>
-
-<p>Une des raisons fortes pour lesquelles se servir de la TEI est l'existence des outils TEI p.e. <list  type="gloss">
-            <label>roma</label>
-            <item>http://www.tei-c.org/Roma permet de construire des schemas TEI</item>
-            <label>"Garage"</label>
-            <item>services web pour transformation entre TEI/docx/html/epub etc.</item>
-            <label>TEI publisher</label>
-  <item>systeme d'édition numérique</item>
-            <label>Versioning Machine</label>
-            <item>systeme de gestion des variance</item>
-          </list></p>
-<p>Une autre est la possibilite de se servir de n'importe quelle
-outillage XML -- parce que la TEI est  100% standard XML!
-  <list  type="gloss">
-    <label>oxygen</label>
-    <item>editeur (etc.) XML générique</item>
-    <label>saxon</label>
-    <item>moteur de transformation XML générique</item>
-  </list></p>
-  <p rend="box">Des "plug-ins" sont en cours d'évolution par exemple pour Zotero, Drupal, Omeka ... </p>
-</div>
-
-<div><head>Des références...</head>
-<list type="gloss">
-<label>Site web du Consortium TEI</label>
-<item><ptr target="http://www.tei-c.org"/></item>
-<label>Depot sourceforge</label>
-<item><ptr target="http://tei.sf.net"/></item>
-</list>
-
-<p>Quelques références francophones:
-<list><item>tei-fr@cru.fr</item>
-            <item>http://meet.tge-adonis.fr (prochainement)</item>
-<item>http://lespetitescases.net/index102/</item>
-<item>http://www.culture.gouv.fr/culture/dglf/riofi/tei.htm</item>
-<item>http://artist.inist.fr/article.php3?id_article=122</item>
-<item>http://www.mutec-shs.fr/la-tei-en-france-pratiques-et-perspectives</item>
-</list></p>
-</div>
 
 </body></text></TEI>
