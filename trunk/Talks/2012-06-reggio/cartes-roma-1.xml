@@ -4,7 +4,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Roma: TEI à la carte (1)</title>
+        <title>TEI à la carte (1)</title>
         <author>TEI@Oxford</author>
       </titleStmt>
       <editionStmt>
@@ -26,72 +26,63 @@
     <revisionDesc>
       <change>
         <date>$ $.</date>
-        <name>$LastChangedBy: rahtz $</name>
-        <note>$LastChangedRevision: 10215 $</note>
+        <name>$LastChangedBy: $</name>
+        <note>$LastChangedRevision: $</note>
       </change>
     </revisionDesc>
   </teiHeader>
   <text>
     <body>
       <div>
-	<head>Personnalisation des schémas TEI</head>
+	<head>TEI under the hood</head>
+<p>In this talk we'll introduce ROMA, an online web application with many related uses: 
 	<list>
-	  <item>TEI au-dessous de la capote</item>
-	  <item>Construction d'un schéma TEI</item>
-	  <item>Personnalisation de la TEI</item>
-	  <item>Exploration des TEI Guidelines</item>
-	</list>
+	  <item>Construction of a TEI schema TEI</item>
+	  <item>Customizing the TEI</item>
+	  <item>Exploration of the TEI Guidelines</item>
+	</list></p>
       </div>
       <div>
-        <head>Reprise terminologique</head>
+        <head>The TEI architecture</head>
         <list>
-          <item> Le système TEI comprend plusieurs <term>modules</term></item>
-          <item> Chaque  module comprend plusieurs
-	  <term>spécifications d'élément</term> </item>
-          <item> Chaque spécification comprend:
-<list><item>un nom canonique (<gi>gi</gi>) en anglais pour l'élément et
-facultativememt  des noms équivalents en d'autre langues</item>
-<item>une description canonique de sa fonction ou mode d'emploi (facultativement traduite en d'autre langues)
-function</item><item>une déclaration pour chacune des
-<term>classes</term> auxquelles il appartient </item>
-<item>une définition pour chacun de ses <term>attributs</term>s</item>
-<item>une définition de son <term>modele de contenu</term></item>
-<item>des exemples d'usage, des notes, des liens</item></list>
+          <item> The TEI framework is made up of several  <term>modules</term></item>
+          <item> Each module contains several
+	  <term>element specifications</term></item>
+          <item> Each element specification contains:
+<list><item>a canonical name (<gi>gi</gi>) in English, and optionally also equivalent names in other languages</item>
+<item>a canonical description of the intended semantics and function for the element (in English, and optionally also translated into other languages)</item>
+<item>declarations for each of the 
+<term>classes</term> to which it belongs </item>
+<item>a definition pour each of its  <term>attributes</term>s</item>
+<item>a definition for its  <term>content model</term></item>
+<item>examples demonstrating how to use it, notes, links to the text of the Guidelines etc.</item></list>
 	  </item>
-          <item>une spécification de <term>schéma</term> TEI
-	  (<gi>schemaSpec</gi>) se fait par une sélection de
-modules ou d'éléments, avec (eventuellement) des modifications </item>
-          <item> un document TEI qui contient une spécification de
-	  schema s'appelle (informellement!)  un
+          <item>a  TEI <term>schema  specification</term> 
+	  (<gi>schemaSpec</gi>) is made by selecting and combining the modules or elements required, together with any further modifications required</item>
+          <item> a TEI document containing such a schema specification is informally called an 
 <term>ODD</term> (One Document Does it all)</item>
         </list>
       </div>
 
-       <!-- now we say all that again only more slowly and with
-      examples... -->
        <div>
-	 <head>Qu'est-ce que c'est qu'un  module? </head>
+	 <head>What is a TEI  <soCalled>module</soCalled>? </head>
 	 <list>
-	   <item>Une manière convenable de regrouper un ensemble de
-	   déclarations d'éléments</item>
-	   <item>D'habitude (mais pas forcément) associés avec champs
-	   de travail ou topos specifique</item>
-	   <item>La plupart des chapitres de P5 fournissent la
-	   définition d'un seul module</item>
-	   <item>On crée un schéma  TEI en selectionnant des
-	   modules, et en supprimant ou en selectionnant des éléments
-	   spécifiques de ces modules</item>
+	   <item>A convenient way of grouping together several vaguely related element declarations</item>
+	   <item>Often, but not necessarily, representing a particular kind of work or subject area</item>
+	   <item>Each module is described by a single chapter of P5</item>
+<item>TEI classes and datatypes are (mostly) declared in the TEI module</item>
+	   <item>A TEI  schema is made by choosing the modules needed, and then by either suppressing elements not required, or specifying which elements are required</item>
 	 </list>
        </div>
        <div>
-	 <head>Liste des modules</head>
+	 <head>List of  modules</head>
 	 <table xml:id="tab-mods">
 	   <row>
 	     <cell>
-	       <hi>Nom des module</hi>
+	       <hi>Name</hi>
 	     </cell>
 	     <cell>
-	       <hi>chapitre</hi>
+	       <hi>chapter</hi>
 	     </cell>
 	   </row>
 	   <row>
@@ -104,7 +95,7 @@ modules ou d'éléments, avec (eventuellement) des modifications </item>
 	   </row>
 	   <row>
 	     <cell>core</cell>
-	     <cell>Éléments Available in All TEI Documents</cell>
+	     <cell>Elements Available in All TEI Documents</cell>
 	   </row>
 	   <row>
 	     <cell>corpus</cell>
@@ -156,7 +147,7 @@ modules ou d'éléments, avec (eventuellement) des modifications </item>
 	   </row>
 	   <row>
 	     <cell>tagdocs</cell>
-	     <cell>Documentation Éléments</cell>
+	     <cell>Documentation Elements</cell>
 	   </row>
 	   <row>
 	     <cell>tei</cell>
@@ -181,28 +172,24 @@ modules ou d'éléments, avec (eventuellement) des modifications </item>
 	 </table>
        </div>
        <div>
-	 <head>Comment choisir?</head>
+	 <head>How do you choose?</head>
 	 <list>
-	   <item>On peut tout choisir!  (pas vraiment une bonne idée)</item>
-	   <item>On peut partir d'une selection prédéfinie  (TEI Lite, TEI Bare...) </item>
-	   <item>On peut faire artisanal -- selon les besoins
-	   spécifique de son projet</item>
+	   <item>Just choose everything...   (probably not a very good idea)</item>
+	   <item>Work with one of the predefined selections  (TEI Lite, TEI Bare...) </item>
+	   <item>Roll your own, according to the specific needs of your project</item>
 	 </list>
-<p>Dans ce dernier cas, il faut  prendre conscience
-	  de toutes les
-	   possibilités disponibles...</p>
 
 	 <list type="gloss">
 	   <label>Roma</label>
-	   <item>un logiciel en ligne qui simplifie cette procedure</item>
+	   <item>an online tool which makes this task easier</item>
 	 </list>
 	 <p rend="box">http://www.tei-c.org/Roma/</p>
        </div>
 
-<div><head>Un cas d'étude: la carte postale</head>
-<p>Supposons qu'on a proposé un ANR pour la numérisation et
+<div><head>Un cas d'etude: la carte postale</head>
+<p>Supposons qu'on a propose un ANR pour la numerisation et
 transcription d'une collection gigantesque de cartes postales. Comment
-on va créer un schéma apte à gérer des centaines de choses comme celles-ci?</p>
+on va creer un schema apte à gerer des centaines de choses comme celles-ci?</p>
 </div>
 
 <div><head>Une carte postale</head>
@@ -222,23 +209,23 @@ on va créer un schéma apte à gérer des centaines de choses comme celles-ci?<
 </figure>
 </div>
 
-<div><head>Quelles sont les éléments significatifs, qu'il faut
+<div><head>Quelles sont les elements significatifs, qu'il faut
 absolument distinguer dans notre encodage?</head>
 
 <list rend="pause">
 <item>image</item>
-<item>oblitération</item>
-<item>partie imprimée</item>
-<item>message(s) écrit(s)</item>
+<item>obliteration</item>
+<item>partie imprimee</item>
+<item>message(s) ecrit(s)</item>
 <item>destinataire(s)</item>
-<item>metadonnées à volonté</item>
+<item>metadonnees à volonte</item>
  <item>...</item>
  </list>
  </div>
 
  <div><head>Propositions</head>
  <p>On va commencer en structurant chaque carte en divisions de type
- variés:
+ varies:
  <list>
  <item><hi>recto</hi> : la surface qui porte l'image
  (normalement)</item>
@@ -247,12 +234,12 @@ absolument distinguer dans notre encodage?</head>
 
  </list>
  </p>
- <p>Ensuite, on observe que on pourrait avoir indifférement sur ces
+ <p>Ensuite, on observe que on pourrait avoir indifferement sur ces
  deux surfaces d'autres sous-divisions telles:
  <list>
  <item>le message</item>
  <item>le destinataire</item>
- <item>l'oblitération</item>
+ <item>l'obliteration</item>
  </list>
  </p></div>
 
@@ -263,18 +250,18 @@ absolument distinguer dans notre encodage?</head>
 <verso url="Sables-olonne_verso_v.jpg">
 <obliteration>
 <date>26-07-1967</date>
-<lieu>Les Sables d'Olonne, Vendée</lieu>
+<lieu>Les Sables d'Olonne, Vendee</lieu>
 </obliteration>
 <message>
 <p>Bientôt sur le chemin du retour avons eu du beau temps, tout le
 mois de juillet. Vous souhaite à tous la même chose. J'espère que vous
-êtes tous en bonne santé – A chacun son tour, le bon temps et le
-repos. Avec d'affectueuses pensées et bons baises à tous. Marcelle
+êtes tous en bonne sante – A chacun son tour, le bon temps et le
+repos. Avec d'affectueuses pensees et bons baises à tous. Marcelle
 </p>
 </message>
 <destinataire>
 Mme Veyssade Lucienne 
-31, rue du Président Kennedy 
+31, rue du President Kennedy 
 ALFORTVILLE 
 Val de Marne
 </destinataire>
@@ -291,16 +278,16 @@ travaux avec des autres.</item>
 <item>On n'a pas mis en evidence tout ce qui pourrait nous interesser de
 point de vue patrimoniale,
 par exemple les ratures, les retours à ligne, les noms de personnes ou
-de lieux, les aspects linguistiques, les metadonnées ... </item>
+de lieux, les aspects linguistiques, les metadonnees ... </item>
 <item>Pour ajouter de telles choses on doit inventer encore de
 vocabulaire... ce qui gaspille un peu notre temps, vue que la TEI l'a
-déjà fait...</item>
+dejà fait...</item>
 </list></div>
 
 <div><head>Proposition TEI</head>
 <p>On traite chaque carte comme un <gi>text</gi> </p>
 <p>On traite chaque division comme  un <gi>div type="[fonction]"</gi> </p>
-<p>Les noms de lieux seront balisés avec <gi>placeName</gi>, les noms de
+<p>Les noms de lieux seront balises avec <gi>placeName</gi>, les noms de
 personnes avec <gi>persName</gi>, et les addresses avec
 <gi>address</gi> (qui regroupe des <gi>addrLine</gi>) </p>
 <p>En plus, on se servira  de <gi>del</gi> (pour les ratures),
@@ -308,7 +295,7 @@ personnes avec <gi>persName</gi>, et les addresses avec
 regularisations), <gi>lb</gi> pour les retours a ligne, <gi>p</gi>
 pour les paragraphes, <gi>list</gi> et <gi>item</gi> pour les listes,
 <gi>hi</gi> pour les mots ou phrases mises en evidence.</p>
-<p>On aura egalement besoin de l'attribut <att>facs</att> pour
+<p>On aura egalement besoin de l'attribute <att>facs</att> pour
 associer une partie de texte avec son image numerise, et des balises
 <gi>figure</gi> et <gi>graphic</gi> pour signaler les images.</p>
 <p rend="box">Est-ce que cela servira?</p>
