@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Roma: TEI à la carte (1)</title>
+        <author>TEI@Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>2011-01</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+	      license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$ $.</date>
+        <name>$LastChangedBy: rahtz $</name>
+        <note>$LastChangedRevision: 10215 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+	<head>Personnalisation des schémas TEI</head>
+	<list>
+	  <item>TEI au-dessous de la capote</item>
+	  <item>Construction d'un schéma TEI</item>
+	  <item>Personnalisation de la TEI</item>
+	  <item>Exploration des TEI Guidelines</item>
+	</list>
+      </div>
+      <div>
+        <head>Reprise terminologique</head>
+        <list>
+          <item> Le système TEI comprend plusieurs <term>modules</term></item>
+          <item> Chaque  module comprend plusieurs
+	  <term>spécifications d'élément</term> </item>
+          <item> Chaque spécification comprend:
+<list><item>un nom canonique (<gi>gi</gi>) en anglais pour l'élément et
+facultativememt  des noms équivalents en d'autre langues</item>
+<item>une description canonique de sa fonction ou mode d'emploi (facultativement traduite en d'autre langues)
+function</item><item>une déclaration pour chacune des
+<term>classes</term> auxquelles il appartient </item>
+<item>une définition pour chacun de ses <term>attributs</term>s</item>
+<item>une définition de son <term>modele de contenu</term></item>
+<item>des exemples d'usage, des notes, des liens</item></list>
+	  </item>
+          <item>une spécification de <term>schéma</term> TEI
+	  (<gi>schemaSpec</gi>) se fait par une sélection de
+modules ou d'éléments, avec (eventuellement) des modifications </item>
+          <item> un document TEI qui contient une spécification de
+	  schema s'appelle (informellement!)  un
+<term>ODD</term> (One Document Does it all)</item>
+        </list>
+      </div>
+
+       <!-- now we say all that again only more slowly and with
+      examples... -->
+       <div>
+	 <head>Qu'est-ce que c'est qu'un  module? </head>
+	 <list>
+	   <item>Une manière convenable de regrouper un ensemble de
+	   déclarations d'éléments</item>
+	   <item>D'habitude (mais pas forcément) associés avec champs
+	   de travail ou topos specifique</item>
+	   <item>La plupart des chapitres de P5 fournissent la
+	   définition d'un seul module</item>
+	   <item>On crée un schéma  TEI en selectionnant des
+	   modules, et en supprimant ou en selectionnant des éléments
+	   spécifiques de ces modules</item>
+	 </list>
+       </div>
+       <div>
+	 <head>Liste des modules</head>
+	 <table xml:id="tab-mods">
+	   <row>
+	     <cell>
+	       <hi>Nom des module</hi>
+	     </cell>
+	     <cell>
+	       <hi>chapitre</hi>
+	     </cell>
+	   </row>
+	   <row>
+	     <cell>analysis</cell>
+	     <cell>Simple Analytic Mechanisms</cell>
+	   </row>
+	   <row>
+	     <cell>certainty</cell>
+	     <cell>Certainty and Responsibility</cell>
+	   </row>
+	   <row>
+	     <cell>core</cell>
+	     <cell>Éléments Available in All TEI Documents</cell>
+	   </row>
+	   <row>
+	     <cell>corpus</cell>
+	     <cell>Language Corpora</cell>
+	   </row>
+	   <row>
+	     <cell>dictionaries</cell>
+	     <cell>Dictionaries</cell>
+	   </row>
+	   <row>
+	     <cell>drama</cell>
+	     <cell>Performance Texts</cell>
+	   </row>
+	   <row>
+	     <cell>figures</cell>
+	     <cell>Tables, Formulae, and Graphics</cell>
+	   </row>
+	   <row>
+	     <cell>gaiji</cell>
+	     <cell>Representation of Non-standard Characters and Glyphs</cell>
+	   </row>
+	   <row>
+	     <cell>header</cell>
+	     <cell>The TEI Header</cell>
+	   </row>
+	   <row>
+	     <cell>iso-fs</cell>
+	     <cell>Feature Structures</cell>
+	   </row>
+	   <row>
+	     <cell>linking</cell>
+	     <cell>Linking, Segmentation, and Alignment</cell>
+	   </row>
+	   <row>
+	     <cell>msdescription</cell>
+	     <cell>Manuscript Description</cell>
+	   </row>
+	   <row>
+	     <cell>namesdates</cell>
+	     <cell>Names, Dates, People, and Places</cell>
+	   </row>
+	   <row>
+	     <cell>nets</cell>
+	     <cell>Graphs, Networks, and Trees</cell>
+	   </row>
+	   <row>
+	     <cell>spoken</cell>
+	     <cell>Transcriptions of Speech</cell>
+	   </row>
+	   <row>
+	     <cell>tagdocs</cell>
+	     <cell>Documentation Éléments</cell>
+	   </row>
+	   <row>
+	     <cell>tei</cell>
+	     <cell>The TEI Infrastructure</cell>
+	   </row>
+	   <row>
+	     <cell>textcrit</cell>
+	     <cell>Critical Apparatus</cell>
+	   </row>
+	   <row>
+	     <cell>textstructure</cell>
+	     <cell>Default Text Structure</cell>
+	   </row>
+	   <row>
+	     <cell>transcr</cell>
+	     <cell>Representation of Primary Sources</cell>
+	   </row>
+	   <row>
+	     <cell>verse</cell>
+	     <cell>Verse</cell>
+	   </row>
+	 </table>
+       </div>
+       <div>
+	 <head>Comment choisir?</head>
+	 <list>
+	   <item>On peut tout choisir!  (pas vraiment une bonne idée)</item>
+	   <item>On peut partir d'une selection prédéfinie  (TEI Lite, TEI Bare...) </item>
+	   <item>On peut faire artisanal -- selon les besoins
+	   spécifique de son projet</item>
+	 </list>
+<p>Dans ce dernier cas, il faut  prendre conscience
+	  de toutes les
+	   possibilités disponibles...</p>
+
+	 <list type="gloss">
+	   <label>Roma</label>
+	   <item>un logiciel en ligne qui simplifie cette procedure</item>
+	 </list>
+	 <p rend="box">http://www.tei-c.org/Roma/</p>
+       </div>
+
+<div><head>Un cas d'étude: la carte postale</head>
+<p>Supposons qu'on a proposé un ANR pour la numérisation et
+transcription d'une collection gigantesque de cartes postales. Comment
+on va créer un schéma apte à gérer des centaines de choses comme celles-ci?</p>
+</div>
+
+<div><head>Une carte postale</head>
+<figure>
+<graphic url="../2011-01-tours/carte-1r.png"/>
+</figure>
+</div>
+<div><head>Une carte postale</head>
+<figure>
+<graphic url="../2011-01-tours/carte-1v.png"/>
+</figure>
+</div>
+
+<div><head>Une autre carte postale</head>
+<figure>
+<graphic url="../2011-01-tours/carte-2.png"/>
+</figure>
+</div>
+
+<div><head>Quelles sont les éléments significatifs, qu'il faut
+absolument distinguer dans notre encodage?</head>
+
+<list rend="pause">
+<item>image</item>
+<item>oblitération</item>
+<item>partie imprimée</item>
+<item>message(s) écrit(s)</item>
+<item>destinataire(s)</item>
+<item>metadonnées à volonté</item>
+ <item>...</item>
+ </list>
+ </div>
+
+ <div><head>Propositions</head>
+ <p>On va commencer en structurant chaque carte en divisions de type
+ variés:
+ <list>
+ <item><hi>recto</hi> : la surface qui porte l'image
+ (normalement)</item>
+ <item><hi>verso</hi> : la surface qui porte  (normalement) le message
+ </item>
+
+ </list>
+ </p>
+ <p>Ensuite, on observe que on pourrait avoir indifférement sur ces
+ deux surfaces d'autres sous-divisions telles:
+ <list>
+ <item>le message</item>
+ <item>le destinataire</item>
+ <item>l'oblitération</item>
+ </list>
+ </p></div>
+
+  <div><head>Première proposition d'encodage</head>
+ <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+<carte n="0010">
+<recto url="Sables-olonne_recto_v.jpg"/>
+<verso url="Sables-olonne_verso_v.jpg">
+<obliteration>
+<date>26-07-1967</date>
+<lieu>Les Sables d'Olonne, Vendée</lieu>
+</obliteration>
+<message>
+<p>Bientôt sur le chemin du retour avons eu du beau temps, tout le
+mois de juillet. Vous souhaite à tous la même chose. J'espère que vous
+êtes tous en bonne santé – A chacun son tour, le bon temps et le
+repos. Avec d'affectueuses pensées et bons baises à tous. Marcelle
+</p>
+</message>
+<destinataire>
+Mme Veyssade Lucienne 
+31, rue du Président Kennedy 
+ALFORTVILLE 
+Val de Marne
+</destinataire>
+</verso>
+</carte>
+</egXML>
+</div>
+
+<div><head>Commentaire</head>
+<list>
+<item>On ne s'est pas servi du vocabulaire TEI: donc on aura de mal à
+expliquer cet encodage à des non francophones, ou de partager nos
+travaux avec des autres.</item>
+<item>On n'a pas mis en evidence tout ce qui pourrait nous interesser de
+point de vue patrimoniale,
+par exemple les ratures, les retours à ligne, les noms de personnes ou
+de lieux, les aspects linguistiques, les metadonnées ... </item>
+<item>Pour ajouter de telles choses on doit inventer encore de
+vocabulaire... ce qui gaspille un peu notre temps, vue que la TEI l'a
+déjà fait...</item>
+</list></div>
+
+<div><head>Proposition TEI</head>
+<p>On traite chaque carte comme un <gi>text</gi> </p>
+<p>On traite chaque division comme  un <gi>div type="[fonction]"</gi> </p>
+<p>Les noms de lieux seront balisés avec <gi>placeName</gi>, les noms de
+personnes avec <gi>persName</gi>, et les addresses avec
+<gi>address</gi> (qui regroupe des <gi>addrLine</gi>) </p>
+<p>En plus, on se servira  de <gi>del</gi> (pour les ratures),
+<gi>add</gi> (pour les ajouts), <gi>reg</gi> (pour les
+regularisations), <gi>lb</gi> pour les retours a ligne, <gi>p</gi>
+pour les paragraphes, <gi>list</gi> et <gi>item</gi> pour les listes,
+<gi>hi</gi> pour les mots ou phrases mises en evidence.</p>
+<p>On aura egalement besoin de l'attribut <att>facs</att> pour
+associer une partie de texte avec son image numerise, et des balises
+<gi>figure</gi> et <gi>graphic</gi> pour signaler les images.</p>
+<p rend="box">Est-ce que cela servira?</p>
+</div>
+</body></text></TEI>
+

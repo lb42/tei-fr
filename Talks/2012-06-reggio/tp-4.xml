@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP4 : Edition Numerique</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative
+            Commons Attribution license.</p>
+        </availability>
+        <date>Jan 2011</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI
+          Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+
+  <text>
+    <body>
+      <div>
+        <head>Balisage pour l'édition numérique</head>
+        <p>Dans cet exercice, nous allons enrichir le texte du sonnet
+	du Du Bellay avec quelques balises utiles pour en faire une
+	édition numérique, notamment : <list>
+            <item>ajout des lectures modernes</item>
+            <item>ajout des pointeurs vers les pages numérisées</item>
+	    <item>ajout des notes, commentaires, bibliographie...</item>
+          </list>
+        </p>
+      </div>
+
+<div><head>Vers un texte moderne</head>
+<p>Pour plusieurs lecteurs, le français du XVIe siècle pose des
+problèmes. L'orthographe  n'était guère standardisée à cette
+époque, et manifeste beaucoup de variations. Notre texte l'a conservée
+telle qu'elle était dans la version d'origine. On va compléter cela
+avec les équivalents modernes où nécessaire.</p>
+
+<list>
+<item>Ouvrez avec Oxygen la version du sonnet que vous avez balisée dans le
+premier exercice. Si vous ne l'avez plus, recherchez <ident
+>duBellay.xml</ident> dans le dossier <ident>Travaux/Corr</ident>) </item>
+<item>Identifier les mots qui n'ont pas une orthographe moderne
+Pour cela utilisez <ref target="http://poesie.webnet.fr/lesgrandsclassiques/poemes/joachim_du_bellay/a_l_ambitieux_et_avare_ennemi_des_bonnes_lettres.html">cette version moderne</ref> si vous n'êtes pas
+certain.</item>
+<item>Par exemple, dans le vers n°2, il faut normaliser <q>heus</q> en
+<q>eus</q> et <q>toymesmes</q> en <q>toi-même</q>.</item>
+<item>Sélectionnez donc <q>heus</q> et entourez ce mot de la balise
+<gi>orig</gi> ; après cela, tapez l'équivalent en orthographe moderne,
+et entourez-le par <gi>reg</gi>. </item>
+<item>Entourez les deux éléments que vous venez d'ajouter avec un
+troisième balise : <gi>choice</gi>.</item>
+<item><p>voici le résultat souhaité :</p>
+<p><graphic url="toimeme.png"/></p></item>
+ <item>Faites de même pour tout le sonnet.</item>
+</list>
+
+</div>
+
+<div><head>Ajouter des liens</head>
+<p>Pour associer le texte transcrit avec son image, la méthode la plus
+simple :
+<list>
+<item>En début de page, inserez une balise vide <gi>pb/</gi> et noter la
+correspondance entre cette marque de début de page et son image avec
+l'attribut <att>corresp</att> (L'attribut <att>facs</att> serait
+préférable, mais il n'est pas disponible dans le schéma TEI Lite).</item>
+<item>Le fichier image (<ident>N0609518_97.jpg</ident>) se trouve dans
+le même dossier que la transcription : donc on peut l'encoder
+simplement comme <code>&lt;pb corresp="N0609518_97.jpg"/></code>. Vous
+pourriez également mettre le lien direct sur Gallica <code>&lt;pb corresp="http://gallica.bnf.fr/ark:/12148/btv1b8609518r/f97.image.pagination"/></code>
+</item>
+</list></p>
+</div>
+
+<div><head>Ajout des commentaires</head>
+<p>Vous pouvez ajouter des commentaires à volonté, en vous servant de
+la balise <gi>note</gi>. Par exemple:
+<list>
+<item>Après l'élément <gi>quote</gi>, insérez une <gi>note</gi>
+comme ceci : <q>"la Muse donne l'immortalité" (Horace, Carm IV, 29)</q>
+</item>
+<item>D'autres balises sont disponibles pour cette même note : par exemple
+<gi>gloss</gi>, <gi>bibl</gi>, <gi>author</gi>, <gi>title</gi>,
+<gi>biblStruct</gi>.</item>
+<item>Vous pourriez aussi faire un lien entre la référence
+bibliographique et un URL tel que
+<ref>http://www.thelatinlibrary.com/horace/carm4.shtml</ref>
+</item>
+</list>
+</p></div>
+<div><head>Enregistrement obligatoire !</head>
+<p>N'oubliez pas d'enregistrer votre version du fichier sous
+<ident>duBellayEd.xml</ident> dans le dossier
+<ident>Travaux</ident>. Vous en aurez besoin dans le prochain
+exercice.</p>
+</div>
+
+</body></text></TEI>

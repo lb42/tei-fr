@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Initiation à XSLT </title>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2009</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+	      license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Translated and adapted from Rahtz 2009-07-23;  previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2009-07-23 12:39:21 +0100 (Thu, 23 Jul 2009) $.</date>
+        <name>$LastChangedBy: rahtz $</name>
+        <note>$LastChangedRevision: 8840 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+	<head>XSL: un ensemble de standards complementaires</head>
+	<p>
+	  <list type="unordered">
+	    <item>XPath: un syntaxe normalise pour la definition des
+	    sous-parties d'une arborescence XML </item>
+	    <item>XSLT: un langage informatique pour la transformation
+	    des structures XML </item>
+	    <item>XSL FO: un langage XML pour la description
+	    d'affichage des pages </item>
+	  </list>
+	</p>
+      </div>
+      
+      <div>
+	<head>XSLT</head>
+	<p>Un feuille de style XSLT 
+	<list>
+	  <item>s'exprime en  XML</item>
+	  <item>transforme un document XML dans un autre</item>
+	  <item>doit se servir des <term>noms d'espace</term> pour
+	  distinguer les éléments qui represente instructions des
+	  éléments traites et des éléments produits
+</item>
+<item>est exprime par un <gi>xsl:stylesheet</gi> rassemblant au moins un
+<gi>xsl:template</gi>
+</item>
+
+	</list>
+</p>
+      </div>
+      
+      <div>
+	<head>Comment se servir d' XSLT ?</head>
+	<p><figure>
+	  <graphic url="../Graphics/xslt-use.png" height="50%"/>
+</figure></p>
+</div>
+
+<!--      
+      <div>
+	<head>XSLT implementations</head>
+	<list type="gloss">
+	  <label>MSXML</label><item>Built into Microsoft Internet Explorer</item>
+	  <label>Saxon</label><item>Java-based, standards leader, implements
+	  XSLT 2.0 (basic version free)</item>
+	  <label>Xalan</label><item>Java-based, widely used in servlets (open source)</item>
+	  <label>libxslt</label><item>C-based, fast and efficient  (open source)</item>
+	  <label>transformiix</label><item>C-based, used in Mozilla (open source)</item>
+	</list>
+	
+      </div>
+   -->   
+      
+      <div>
+	<head>Transformation?</head>
+	<p>Une operation fondamentalle. Par exemple, on veut
+	<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+	  <item n="1"><name>Burger</name></item>
+	  <item n="2"><name>Campbell</name></item>
+	  <item n="3"><name>Casagrande</name></item>
+	</egXML>
+mais on a 
+	<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+	    <persName><forename>Milo</forename><surname>Casagrande</surname></persName>
+	    <persName><forename>Corey</forename><surname>Burger</surname></persName>
+	    <persName><forename>Naaman</forename><surname>Campbell</surname></persName>
+	</egXML>
+ 	</p>
+      </div>
+
+
+<div>
+<head>Un exemple</head>
+<p>A partir de ceci :
+<egXML xmlns="http://www.tei-c.org/ns/Examples" >
+  <div type="recette" n="34">
+    <head></head>
+    <list>
+      <item>pates</item>
+      <item>fromage râpé</item>
+    </list>
+    <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+  </div>
+</egXML>
+on veut produire :
+<egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <h1>34: Pasta pour les novices</h1>
+    <p>Ingrédients: pates  fromage râpé</p>
+    <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+  </html>
+</egXML>
+</p>
+</div>
+
+<div>
+  <head>Comment exprimer cela en XSL?</head>
+  <p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <xsl:stylesheet 
+	  xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+	  version="2.0">
+	<xsl:template match="div">
+	  <html> 
+	    <h1>
+	      <xsl:value-of select="@n"/>:
+	      <xsl:value-of select="head"/>
+	    </h1>
+	    <p>Ingrédients:    
+	    <xsl:apply-templates  
+		select = "list/item"/> 
+	    </p> 
+	    <p>
+	      <xsl:value-of select="p"/>
+	    </p>
+	  </html> 
+  </xsl:template>
+</xsl:stylesheet>
+</egXML>
+</p>
+</div>
+
+
+
+<div>
+<head>Structure d'une feuille de style XSL</head>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<xsl:stylesheet
+    xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+    version="2.0">
+
+<xsl:template match="div">
+<!--  .... do something with div elements....-->
+</xsl:template>
+
+<xsl:template match="p">
+<!--  .... do something with p elements....-->
+</xsl:template>
+
+</xsl:stylesheet>
+</egXML>
+<p>The <code>div</code> and <code>p</code> are <emph>XPath
+expressions</emph>, which specify which bit of the document is matched
+by the template.</p>
+<p>Any element not starting with <hi>xsl:</hi> in a template body
+is put into the output.</p>
+</div>
+
+<div><head>Les règles d'or de XSLT</head>
+<list type="ordered">
+<item>Si aucun template ne correspond a un element, traiter les
+elements qu'il contient </item>
+<item>Si aucun element reste a traiter par regle 1, sortir le texte
+contenu par un element</item>
+<item>Un element n'est traite que si un template lui correspond</item>
+<item><code>xsl:apply-templates select="XX"</code> traitez les 
+templates disponibles pour l' element indique par le XPath "XX"; <code>xsl:value-of
+select="XX"</code> sortez le contenu de l'element indique par le XPath
+"XX".</item>
+<item>(<code>xsl:template match="XX"</code> ne traite rien: il definit
+un correspondence entre un template et un element)</item>
+<item>L'ordre des templates est sans significance</item>
+<item>Tout partie du document est traitable part tout template,
+plusieurs fois.</item>
+<item>Un stylesheet ne peut contenir que du XML bien-forme</item>
+    </list>
+</div>
+
+<div>
+  <head>Deux astuces</head>
+<p>Vous etes conseille de fournir ces attributs sur <gi>stylesheet</gi>:
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<xsl:stylesheet
+    xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+    version="2.0">
+....
+</xsl:stylesheet>
+</egXML>
+... ce qui signifie :
+<list type="ordered">
+  <item>tout element sans prefix dans une expression XPath est
+  considere d'appartenir a l'espace de noms TEI</item>
+<item>on se sert de la  version 2.0 de la  specification  XSLT.</item>
+</list>
+</p>
+</div>
+
+<div>
+<head>A simple test file</head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <text>
+      <front>
+	<div>
+	  <p>Material up front</p>
+	</div>
+      </front>
+      <body>
+	<div>
+	  <head>Introduction</head>
+	  <p rend="it">Some sane words</p>
+	  <p>Rather more surprising words</p>
+	</div>
+      </body>
+      <back>
+	<div>
+	  <p>Material in the back</p>
+	</div>
+      </back>
+    </text>
+</egXML>
+</div>
+
+<div>
+<head>Feature:  <code>apply-templates</code></head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<xsl:stylesheet  
+    version="2.0"
+    xpath-default-namespace="http://www.tei-c.org/ns/1.0">
+<xsl:template match="/">
+ <html>
+   <xsl:apply-templates/>
+  </html>
+</xsl:template>
+</xsl:stylesheet>
+</egXML>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<xsl:template match="TEI"   >
+ <xsl:apply-templates select="text"/>
+</xsl:template>
+</egXML>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples"   >
+    <xsl:template match="text">
+      <h1>FRONT MATTER</h1>
+      <xsl:apply-templates select="front"/>
+      <h1>BODY MATTER</h1>
+      <xsl:apply-templates select="body"/>
+</xsl:template>
+</egXML>
+</div>
+
+<div ><head>Feature:  <code>value-of</code></head>
+<p>Templates for paragraphs and headings:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="p">
+      <p><xsl:apply-templates/></p>
+</xsl:template>
+
+<xsl:template match="div">
+ <h2><xsl:value-of select="head"/></h2>
+ <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="div/head" />
+</egXML>
+</p>
+<!-- <p>Pourquoi Notice how we avoid getting the heading text twice.</p>
+
+<p>Why
+did we need to qualify it to deal with just <gi>head</gi>
+inside <gi>div</gi>?</p> -->
+   </div>
+
+
+<div>
+<head>La puissance d' XPath</head>
+<p>L'attribut <ident>match</ident> sur  <gi>xsl:template</gi>
+peut pointer partout dans un  document. 
+<table>
+  <row><cell><code>/</code></cell><cell>la racine du document </cell></row>
+  <row><cell><code>*</code></cell><cell>tout element</cell></row>
+  <row><cell><code>text()</code></cell><cell>tout morceau de te</cell></row>
+  <row><cell><code>name</code></cell><cell>tout element nomme
+  <q>name</q></cell></row>
+  <row><cell><code>@name</code></cell><cell>tout attribut nomme <q>name</q></cell></row>
+</table>
+</p>
+<p>exemple d'un Xpath comme object de  <gi>value-of</gi>:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:value-of
+	select="/TEI/teiHeader/fileDesc/titleStmt/title"/>
+  </egXML>
+</p>
+
+</div> 
+
+<div>
+<head>Plusieures templates peut etre specifies pour des contextes divers</head>
+<p>Compare
+<egXML xmlns="http://www.tei-c.org/ns/Examples" >
+<xsl:template match="head">
+  ....
+</xsl:template>
+</egXML>
+with
+<egXML xmlns="http://www.tei-c.org/ns/Examples" >
+<xsl:template match="div/head">
+ ...
+</xsl:template>
+<xsl:template match="figure/head">
+ ....
+</xsl:template>
+</egXML>
+</p>
+</div>
+
+
+<div>
+<head>En cas de conflit...</head>
+<p>Exemple de conflit:
+<egXML xmlns="http://www.tei-c.org/ns/Examples" >
+<xsl:template match="person/name">…
+</xsl:template>
+<xsl:template match="name">…
+</xsl:template>
+</egXML>
+Quel template correspondra a une occurrence donnee de  <gi>name</gi>
+dans le document?
+</p>
+</div>
+
+<div>
+<head>Prioritisation</head>
+<p>En general,  <hi>le template le plus specifique gagne</hi>.
+<egXML xmlns="http://www.tei-c.org/ns/Examples" >
+<xsl:template match="*">
+<!-- ... -->
+</xsl:template>
+<xsl:template match="tei:*">
+<!-- ... -->
+</xsl:template>
+<xsl:template match="p">
+<!-- ... -->
+</xsl:template>
+<xsl:template match="div/p">
+<!-- ... -->
+</xsl:template>
+
+<xsl:template match="div/p/@n">
+<!-- ... -->
+</xsl:template>
+
+</egXML>
+</p>
+<p>Et en cas ou, un attribut 
+ <ident>priority</ident> est disponible sur <gi>template</gi> pour
+ varier cette principe</p>
+</div>
+<!--
+<div>
+<head>Pushing and pulling </head>
+<p>XSLT stylesheets can be characterized as being
+of two types:
+<list type="gloss">
+  <label>push</label>
+  <item>In this type of stylesheet, there is a different template for
+  every element, communication via <gi>xsl:apply-templates</gi>
+ and the overall result is assembled from bits in each template. It is
+  sometimes hard to visualize the final design.
+<hi>Common for data-oriented processing where the structure is fixed.</hi></item>
+  <label>pull</label>
+  <item>In this type, there is a master template (usually matching
+  <code>/</code>) with the main structure of the output, and specific
+  <gi>xsl:for-each</gi> or <gi>xsl:value-of</gi> commands to
+  grab what is needed for each part. The templates tend to get large
+  and unwieldy. <hi>Common for document-oriented processing where the
+  input document structure varies.</hi></item>
+</list>
+</p>
+</div>
+-->
+<div>
+  <head>Une astuce pour les valeurs d'attribut</head>
+  <p>On a : 
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <ref target="http://www.gallica.bnf.fr">site Gallica</ref>
+  </egXML>
+On veut :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <a  xmlns="http://www.w3.org/1999/xhtml" href="http://www.gallica.bnf.fr"/>
+  </egXML>
+</p><p>Ceci ne sera <emph>pas</emph> efficace :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples" >
+    <xsl:template match="ref">
+      <a href="@target">
+	<xsl:apply-templates/>
+      </a>
+    </xsl:template>
+  </egXML>
+  </p>
+<p>parce qu'il donnera a l'attribut <att>href</att> la valeur  <q>@target</q>!</p>
+
+</div>
+
+<div>
+<head>Un astuce syntaxique...</head>
+<p>On utilise  <code>{}</code> pour indiquer qu'une expressions
+doit etre  <hi>evaluée</hi>:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="ref" >
+      <a href="{@target}">
+	<xsl:apply-templates/>
+      </a>
+    </xsl:template>
+  </egXML>
+  </p>
+<p>ceci donnera a l'attribut <att>href</att>  la valeur de l' attribut
+<att>target</att> quelle que soit la valeur de ce dernier</p>
+
+</div>
+
+<div>
+  <head>Bouclage:  <code>for-each</code></head>
+  <p>De temps en temps, il est utile de iterer sur un ensemble d'
+  elements. Par exemple :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+    <xsl:template match="listPerson" >
+      <ul>
+	<xsl:for-each select="person">
+	  <li>
+	    <xsl:value-of select="persName"/>
+	  </li>
+	</xsl:for-each>
+      </ul>
+    </xsl:template>
+  </egXML>
+cf.
+  <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+    <xsl:template match="listPerson" >
+      <ul>
+	<xsl:apply-templates select="person"/>
+      </ul>
+    </xsl:template>
+    <xsl:template match="person" >
+      <li>
+	<xsl:value-of select="persName"/>
+      </li>
+    </xsl:template>
+  </egXML>
+  </p>
+</div>
+
+
+<div>
+  <head>Conditions:  <code>if</code></head>
+  <p>On peut proposer des actions conditionelles :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="person">
+      <xsl:if test="@sex='1'">
+	<li>
+	  <xsl:value-of select="persName"/>
+	</li>
+      </xsl:if>
+    </xsl:template>
+</egXML>
+cf.
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="person[@sex='1']">
+	<li>
+	  <xsl:value-of select="persName"/>
+	</li>
+    </xsl:template>
+    <xsl:template match="person"
+		  xmlns:xsl='http://www.w3.org/1999/XSL/Transform'/>
+  </egXML>
+  </p>
+</div>
+
+<div>
+  <head>Choix:  <code>choose</code></head>
+  <p>On peut specifier un choix multiple, selon ce qu'on trouve dans
+  le texte:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="person">
+      <xsl:apply-templates/>
+      <xsl:choose>
+	<xsl:when test="@sex='1'">
+	  (male)
+	</xsl:when>
+	<xsl:when test="@sex='2'">
+	  (female)
+	</xsl:when>
+	<xsl:when test="not(@sex)">
+	  (no sex specified)
+	</xsl:when>
+	<xsl:otherwise>
+	  (unknown sex)
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+  </egXML>
+  </p>
+</div>
+
+<div>
+  <head>Numerotation:  <code>number</code></head>
+  <p>On peut generer une numerotation derivée de la position des
+  elements dans l'arborescence XML
+  text.
+  <list type="ordered">
+    <item>Position à l'interieur de l'element parent:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="p">
+      <xsl:number/>
+    </xsl:template>
+  </egXML>
+    </item>
+    <item>Position a l'interieur du document entier :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="p">
+      <xsl:number level="any"/>
+    </xsl:template>
+  </egXML>
+    </item>
+    <item>Position a l'interieur d'un element ancetre specifie:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <xsl:template match="l">
+      <xsl:number level="any" from="lg"/>
+    </xsl:template>
+  </egXML>
+    </item>
+  </list>
+  </p>
+</div>
+<!--
+<div>
+<head>Creating new elements and attributes dynamically in the output</head>
+<p>Instead of explicitly putting elements into the output, you can 
+use <gi>xsl:element</gi> and <gi>xsl:attribute</gi>. So instead of 
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <a  xmlns="httrazytp://www.w3.org/1999/xhtml" href="http://www.bbc.co.uk/">the BBC</a>
+</egXML>
+you can say
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <xsl:element name="a">
+    <xsl:attribute name="href">
+      <xsl:text>http://www.bbc.co.uk/</xsl:text>
+    </xsl:attribute>
+    <xsl:text>The BBC</xsl:text>
+  </xsl:element>
+</egXML>
+which sometimes makes for more readable code. Note the use
+of <gi>xsl:text</gi> to control whitespace.</p>
+</div>
+-->
+<div>
+  <head>Sommaire</head>
+  <p>Maintenant vous comprenez comment
+  <list type="ordered">
+    <item>creer des templates </item>
+    <item>selectionner des morceaux de texte</item>
+    <item>definir des actions conditionnelles</item>
+    <item>numeroter les objets de sortie</item>
+  </list>
+  </p>
+<p>On va experimenter cela....</p>
+</div>
+
+</body>
+</text>
+</TEI>
+

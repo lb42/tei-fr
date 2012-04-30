@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP5 : Construction d'un feuille de style XSLT</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>Jan 2011</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+
+  <text>
+    <body>
+      <div>
+        <head>Experiences XSLT</head>
+        <p>Dans ce petit exercice, nous allons faire des expériences avec XSLT sous contrôle
+          d'Oxygen. </p>
+        <p>XSLT est un langage très simple, mais pour le maîtriser il faut faire un peu d'effort.
+          Vous trouverez plusieurs sites sur Internet qui peuvent vous aider. Dans ce petit exercice
+          nous espérons vous donner un avant-goût de ces possibilités.</p>
+        <p>L'application classique de XSLT est de transformer un document TEI XML en HTML pour le
+          visualiser dans un navigateur. On commence donc par là.</p>
+      </div>
+
+      <div>
+        <head>Alimentation du navigateur</head>
+        <list>
+          <item> Ouvrez Oxygen. Sélectionnez <ident>Ouvrir</ident> sur le menu
+              <ident>Fichier</ident> et rouvrez le fichier <ident>duBellayEd.xml</ident> que vous
+            avez enregistré à la fin de l'exercice précédent, c'est-à-dire la version enrichie avec
+            des balises <gi>choice</gi>.</item>
+          <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
+            ensuite <ident>Configurer un scénario de transformation</ident> ou tapez
+              <code>ctrl-maj-C</code>, ou bien cliquez sur le bouton à droite du triangle rouge sur
+            la barre d'outils.</item>
+        </list>
+        <p>Cliquez d'abord sur <ident>nouveau</ident> pour ouvrir la boîte de dialogue
+            <ident>Nouveau Scénario</ident>.</p>
+        <p><graphic height="5cm" url="../Graphics/Oxy12/scenario-2.png"/></p>
+        <list>
+          <item>Tapez <code>duBellay.xsl</code> dans le champ <ident>XSL URL</ident>.</item>
+          <item>Cliquez sur l'onglet <code>Sortie</code>
+          </item>
+          <item>Tapez <code>output.html</code> dans le champ <code>Enregistrer sous</code>
+          </item>
+          <item>Cochez la case <code>Ouvrir dans un navigateur</code></item>
+          <item>Cliquez sur<code>Accepter</code></item>
+        </list>
+        <p>Vous avez maintenant créé un nouveau scénario de transformation, qui s'appelle
+            <ident>duBellayEd</ident>.</p>
+        <p>
+          <graphic height="5cm" url="../Graphics/Oxy12/scenario-4.png"/></p>
+        <list>
+          <item>Cliquez sur <code>Transformer maintenant</code></item>
+          <item>En bas de l'écran, le message <code>Transformation réussie</code> apparaît... </item>
+          <item>.. et après un bref délai, votre navigateur devrait s'ouvrir pour afficher le
+            fichier <ident>output.html</ident> que vous venez de créer.</item>
+          <item>C'est joli, hein ? Peut-être y a-t-il encore un peu de travail à faire...</item>
+        </list>
+
+      </div>
+
+      <div>
+        <head>Une feuille de style XSLT</head>
+        <p>Une feuille de style XSLT est un document XML. Il peut donc être édité avec Oxygen. <list>
+            <item>Allez de nouveau sur <ident>Fichier - Ouvrir</ident>. Ouvrez le fichier
+                <ident>duBellay.xsl</ident> dans votre dossier de travail.</item>
+            <item>Ce fichier XSLT contient un seul template, qui correspond à l'élément
+              <gi>TEI</gi>, l'élément racine de notre document. Son effet sera de produire les
+              balises <gi>html</gi> et <gi>/html</gi>, avec entre les deux le résultat du
+                <gi>xsl:apply-templates</gi></item>
+            <item>Ce dernier va essayer d'appliquer tous les templates disponibles... il n'y en a
+              pas, donc il ne va produire que le texte du document. </item>
+            <item>... et en effet, si vous revenez sur votre navigateur et regardez la source du
+              fichier, c'est ce qu'il a fait.</item>
+          </list></p>
+
+        <p>Au travail ! D'abord, nous allons extraire de l'en-tête un titre pour le document HTML, et
+          supprimer le reste du TEI Header.</p>
+
+        <list>
+          <item>Après le <gi>html</gi>, tapez <code>&lt;head></code></item>
+          <item>Oxygen ajoute la balise fermante. C'est bien. Continuez donc. Ajoutez
+              <code>&lt;title></code> à l'intérieur de l'élément <gi>head</gi>. Pour trouver le titre du document il faut naviguer de la
+            racine du document (l'élément TEI) jusqu'à l'élément <gi>title</gi>, qui se trouve dans
+            le <gi>titleStmt</gi>, dans le <gi>fileDesc</gi>, dans le <gi>teiHeader</gi>. Cela
+            s'effectue avec le <term>Xpath</term> suivant.</item>
+          <item>Tapez <gi>xsl:value-of select="teiHeader/fileDesc/titleStmt/title"/</gi>.</item>
+          <item>Modifiez la balise <gi>xsl:apply-templates</gi>, en ajoutant <code>
+              select="text"</code> et entourez-la d'un élément HTML <gi>body</gi></item>
+          <item>Cliquez sur le bouton Indentation. Votre feuille de style maintenant devrait
+            ressembler à ceci :</item>
+        </list>
+        <p><graphic height="8cm" url="script-1.png"/></p>
+        <list>
+          <item>Cliquez sur l'icône de la disquette (ou tapez ctrl-s) pour enrégistrer les
+            modifications que vous venez de faire.</item>
+          <item>Cliquez sur l'onglet <ident>duBellayEd.xml</ident> pour revenir sur votre document
+            XML.</item>
+          <item>Cliquez sur l'icône triangle-rouge pour relancer la transformation (ou tapez
+            CTRL-maj-T)</item>
+          <item>Voyons ce que cela donne : cette fois, on ne voit que le <gi>text</gi> de notre
+            document. On fait des progrès !</item>
+        </list>
+
+        <p>Maintenant, on va ajouter des templates.</p>
+
+        <list>
+          <item>Revenez sur la feuille de style. </item>
+          <item>Ajoutez <list>
+              <item>un template pour <gi>l</gi>, qui va ajouter une balise <gi>br/</gi> après chaque
+                vers</item>
+              <item>un template pour <gi>head</gi>, qui va l'entourer de <gi>h2</gi>
+              </item>
+              <item>un template pour <gi>lg</gi>, qui va l'entourer de <gi>p</gi>, et en plus le
+                préfixer du nombre de chaque strophe.</item>
+            </list></item>
+          <item>Voici les templates requis... essayez de comprendre par vous-même le fonctionnement de
+            chacun d'entre eux. </item>
+        </list>
+        <p><graphic height="8cm" url="script-2"/>
+        </p>
+      </div>
+
+      <div>
+        <head>L'avantage du XSLT</head>
+        <p>Jusque là, presque tout ce que l'on a fait est de l'affichage. Nous voyons mieux la puissance
+          du langage XSLT en réfléchissant sur les éléments <gi>choice</gi>, éléments dont notre document
+          est dotés.</p>
+        <p>L'idéal serait d'avoir une feuille de style qui pourrait supprimer ou bien les
+            <gi>reg</gi>, ou bien les <gi>orig</gi>, en fonction du souhait de l'usager. Pour le moment, on va simplement
+          ajouter un template qui va supprimer les <gi>orig</gi>.</p>
+        <p>Tout ce qu'il faut, c'est ajouter un template comme ceci : <gi>xsl:template
+            match="orig"/</gi>. Essayez-le. Est-ce que vous comprenez comment cela fonctionne ? Si oui,
+          vous avez bien compris les principes de XSLT !</p>
+      </div>
+
+
+
+
+    </body>
+  </text>
+</TEI>
