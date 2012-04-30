@@ -1,0 +1,674 @@
+<?xml version="1.0"?>
+<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>L'envergure de la TEI <lb/>Un tour d'horizon de l'univers TEI</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: $.</date>
+        <name>$LastChangedBy: jamesc $</name>
+        <note>$LastChangedRevision: $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+      <div>
+        <head>The TEI Guidelines</head>
+        <p>Un tour d'horizon très rapide du contenu des TEI <title>Guidelines</title>... </p>
+        <p>Dans ses 1400 pp imprimées, vous trouverez : <list type="gloss">
+            <label>un lexique</label>
+            <item>521 éléments, regroupés en 146 classes, et 22 modules</item>
+            <label>des règles d'usage</label>
+            <item>7185 lignes de règles syntaxiques en Relax NG </item>
+            <label>des contraintes formalisées</label>
+            <item>21 types de données, plusieurs règles formalisées en Schematron</item>
+            <label>des règles / conventions d'utilisation</label>
+            <item><emph>beaucoup</emph> de prose</item>
+            <label>plusieurs exemples d'utilisation</label>
+            <item>dont au moins un par élément</item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>La liste des chapitres (1)</head>
+        <p rend="tiny">À part les pièces liminaires, les <title>Guidelines</title> contiennent <list
+            type="unordered">
+            <item>1. The TEI Infrastructure</item>
+            <item>2. The TEI Header</item>
+            <item>3. Elements Available in All TEI Documents</item>
+            <item>4. Default Text Structure</item>
+            <item>5. Representation of Non-standard Characters and Glyphs</item>
+            <item>6. Verse</item>
+            <item>7. Performance Texts</item>
+            <item>8. Transcriptions of Speech</item>
+            <item>9. Dictionaries</item>
+            <item>10. Manuscript Description</item>
+            <item>11. Representation of Primary Sources</item>
+            <item>12. Critical Apparatus</item>
+          </list>...</p>
+      </div>
+
+      <div>
+        <head>La liste des chapitres (2)</head>
+        <p rend="tiny">...<list type="unordered">
+            <item>13. Names, Dates, People, and Places</item>
+            <item>14. Tables, Formulæ, and Graphics</item>
+            <item>15. Language Corpora</item>
+            <item>16. Linking, Segmentation, and Alignment</item>
+            <item>17. Simple Analytic Mechanisms</item>
+            <item>18. Feature Structures</item>
+            <item>19. Graphs, Networks, and Trees</item>
+            <item>20. Non-hierarchical Structures</item>
+            <item>21. Certainty and Responsibility</item>
+            <item>22. Documentation Elements</item>
+            <item>23. Using the TEI</item>
+          </list></p>
+      </div>
+
+
+      <div>
+        <head>v. A Gentle Introduction to XML</head>
+        <p>Un texte classique sur l'SGML, mise à jour pour l'XML. <list>
+            <item>Résume tout ce qu'il faut savoir sur l'XML pour se servir des Guidelines.</item>
+            <item>Incontournable pour les XML novices</item>
+            <item>Traite des principes du balisage, sa représentation en XML, et les possibilités de
+              traitement ainsi fournies</item>
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>1 - 5 : Les essentiels</head>
+        <list type="gloss">
+          <label>1. The TEI Infrastructure</label>
+          <item>Définition et explication des classes et des attributs globaux : présentation
+            essentielle de l'architecture informatique de la TEI</item>
+          <label>2. The TEI Header</label>
+          <item>Tout ce qu'il faut savoir sur les métadonnées</item>
+          <label>3. Éléments Available in All TEI Documents</label>
+          <item>Une cinquantaine d'éléments à utiliser dans presque tout document ... le noyau du
+            système</item>
+          <label>4. Default Text Structure</label>
+          <item>Structuration (par défaut) des documents TEI en sections, sous-ensembles,
+            groupements etc.</item>
+          <label>5. Representation of Non-standard Characters and Glyphs</label>
+          <item>Traitement des caractères et des glyphes
+	  non-Unicode. Entre autres, ette section propose l'
+            élément <gi>g</gi> qui permet de référencer les caractères
+	    et les glyphes non-Unicode et l'élément
+              <gi>charDecl</gi> qui permet de les définir. </item>
+        </list>
+      </div>
+
+      <div>
+        <head>6. Verse</head>
+        <list>
+          <item>Le noyau fournit déjà : <gi>lg</gi> (line-groups) et <gi>l</gi> (line)</item>
+
+          <item>Ce module rajoute : <gi>rhyme</gi> pour la rime d'un vers</item>
+          <item><gi>caesura</gi> pour indiquer le lieu de césure du vers </item>
+          <item>
+            <gi>metDecl</gi> et <gi>metSym</gi> pour déclarer un système d'analyse métrique et des
+            attributs <att>met</att> et <att>real</att> pour s'en servir </item>
+        </list>
+        <!--      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <metDecl xml:id="ip" type="met" >
+          <metSym value="T">syllabe tonique</metSym>
+          <metSym value="A">syllabe atone</metSym>
+          <metSym value="|">pause métrique</metSym>
+        </metDecl>
+      </egXML>
+-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <lg type="quatrain" rhyme="aabccb">
+            <l> Les étoiles, points d'or, percent les branches n<rhyme label="a">oires</rhyme> ; </l>
+            <l> Le flot huileux et lourd décompose ses m<rhyme label="a">oires</rhyme></l>
+            <l> Sur l'océan blê<rhyme label="b">mi</rhyme> ;</l>
+            <l>Les nuages ont l'air d'oiseaux prenant la f<rhyme label="c">uite</rhyme>,</l>
+            <l>Par moments le vent parle, et dit des mots sans s<rhyme label="c">uite</rhyme></l>
+            <l> Comme un homme endor<rhyme label="b">mi</rhyme>.</l>
+          </lg>
+        </egXML>
+      </div>
+
+      <div>
+        <head>7. Performance Texts</head>
+        <list>
+          <item>Le noyau fournit déjà : <gi>sp</gi>, <gi>stage</gi>, <gi>speaker</gi></item>
+          <item>Ce module rajoute : <gi>actor</gi>, <gi>camera</gi>, <gi>caption</gi>,
+              <gi>castGroup</gi>, <gi>castItem</gi>, <gi>castList</gi>, <gi>epilogue</gi>,
+              <gi>move</gi>, <gi>performance</gi>, <gi>prologue</gi>, <gi>role</gi>,
+              <gi>roleDesc</gi>, <gi>set</gi>, <gi>sound</gi>, <gi>tech</gi>, <gi>view</gi></item>
+        </list>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <performance>
+            <p><name type="theatre">Théâtre national du Petit-Odéon, Paris</name>, <date>du 10
+                Décembre 1974 au 12 Janvier 1975</date><castList>
+                <castItem>
+                  <role>Paul Valéry</role>
+                  <actor>Michel Duchaussoy</actor>
+                </castItem>
+                <castItem>
+                  <role>Joseph</role>
+                  <actor>Gérard Caillaud</actor>
+                </castItem>
+                <!-- ... -->
+              </castList></p>
+            <p>Adaptation et mise en scène de <name>Pierre Franck</name></p>
+          </performance>
+        </egXML>
+      </div>
+
+      <div>
+        <head>8. Transcriptions of Speech</head>
+        <p>Ceci est un module spécialisé pour les transcriptions de discours oraux : <list>
+            <item>il fournit des éléments supplémentaires pour le Header (<gi>broadcast</gi>,
+                <gi>equipment</gi>, <gi>recording</gi>, <gi>recordingStmt</gi>,
+              <gi>scriptStmt</gi>)</item>
+            <item>des éléments pour la transcription ( <gi>incident</gi>, <gi>kinesic</gi>,
+                <gi>pause</gi>, <gi>shift</gi>, <gi>u</gi>, <gi>vocal</gi>, <gi>writing</gi>)
+            </item>
+          </list>
+        </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <vocal iterated="true">
+            <desc>sifflements intermittents</desc>
+          </vocal>
+          <u who="#spkr1">si tu te déplaçais</u>
+          <u trans="latching" who="#spkr2">Joe et moi l'aurions mis entre nous</u>
+          <list type="speakers">
+            <item xml:id="spkr1"/>
+            <item xml:id="spkr2"/>
+          </list>
+        </egXML>
+      </div>
+
+      <div>
+        <head>9. Dictionaries</head>
+        <p>Ce module propose des éléments spécialisés pour les différentes composantes d’un
+          dictionnaire, organisées dans une structure stricte (<gi>entry</gi>) ou quasi-aléatoire
+            (<gi>entryFree</gi>)</p>
+        <p>Composants du module : <gi>case</gi>, <gi>colloc</gi>, <gi>def</gi>, <gi>dictScrap</gi>,
+            <gi>etym</gi>, <gi>form</gi>, <gi>gen</gi>, <gi>gram</gi>, <gi>gramGrp</gi>,
+            <gi>hom</gi>, <gi>hyph</gi>, <gi>iType</gi>, <gi>lang</gi>, <gi>lbl</gi>, <gi>mood</gi>,
+            <gi>number</gi>, <gi>oRef</gi>, <gi>oVar</gi>, <gi>orth</gi>, <gi>pRef</gi>,
+            <gi>pVar</gi>, <gi>per</gi>, <gi>pos</gi>, <gi>pron</gi>, <gi>re</gi>, <gi>sense</gi>,
+            <gi>stress</gi>, <gi>subc</gi>, <gi>superEntry</gi>, <gi>syll</gi>, <gi>tns</gi>,
+            <gi>usg</gi>, <gi>xr</gi></p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <entry>
+            <form>
+              <orth>poussin</orth>
+              <pron>[pusë]</pron>
+            </form>
+            <gramGrp>
+              <pos>n.</pos>
+              <gen>m.</gen>
+            </gramGrp>
+            <sense n="1">Jeune poulet, nouvellement sorti de l'œuf, encore couvert de duvet. La
+              poule et ses poussins.</sense>
+            <sense n="2">Zool. Jeune oiseau (par rapport aux adultes, aux parents). </sense>
+            <sense n="3"> (êtres humains) <def n="1">Fam. Terme d'affection (enfant). </def>
+              <def n="2"> Sports. Catégorie d'âge (9 ans) qui précède celle des benjamins.</def>
+              <def n="3">Elève de première année dans certaines écoles (Air,
+              Aéronautique).</def></sense>
+          </entry>
+        </egXML>
+      </div>
+
+      <div>
+        <head>10. Manuscript Description</head>
+        <list>
+          <item>Ce module fournit un élément <gi>msDesc</gi>, disponible ou dans un teiHeader, ou
+            dans un texte, pour encoder une description structurée
+	    d'un manuscrit, d'un incunable, ou d'un            autre objet inscrit. </item>
+          <item>Il est organisé en 4 parties principales : <gi>msIdentifier</gi>,
+              <gi>msContents</gi>, <gi>physDesc</gi>, <gi>history</gi>, <gi>additional</gi>, suivi
+            facultativement de plusieurs <gi>msPart</gi>.</item>
+          <item>Ses composants peuvent contenir des paragraphes en prose, ou encore des éléments
+            plus spécifiques.</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <msDesc>
+            <msIdentifier>
+              <settlement>Oxford</settlement>
+              <repository>Bodleian Library</repository>
+              <idno>MS. Add. A. 61</idno>
+              <altIdentifier type="SC">
+                <idno>28843</idno>
+              </altIdentifier>
+            </msIdentifier>
+            <p>In Latin, on parchment: written in more than one hand of the 13 th cent. in England:
+              7¼ x 5⅜ in., i + 55 leaves, in double columns: with a few coloured capitals.</p>
+            <p>'Hic incipit Bruitus Anglie,' the De origine et gestis Regum Angliae of Geoffrey of
+              Monmouth (Galfridus Monumetensis: beg. 'Cum mecum multa &amp; de multis.'</p>
+            <p>On fol. 54v very faint is 'Iste liber est fratris guillelmi de buria de ... Roberti
+              ordinis fratrum Pred[icatorum],' 14th cent. (?): 'hanauilla' is written at the foot of
+              the page (15th cent.). Bought from the rev. W. D. Macray on March 17, 1863, for £1
+              10s.</p>
+          </msDesc>
+        </egXML>
+      </div>
+      <div>
+        <head>10. Manuscript Description (contd.)</head>
+        <p>Composants spécialisés : <gi>accMat</gi>, <gi>acquisition</gi>, <gi>additions</gi>,
+          <gi>adminInfo</gi>, <gi>altIdentifier</gi>, <gi>binding</gi>, <gi>bindingDesc</gi>,
+            <gi>catchwords</gi>, <gi>collation</gi>, <gi>collection</gi>, <gi>colophon</gi>,
+            <gi>condition</gi>, <gi>custEvent</gi>, <gi>custodialHist</gi>, <gi>decoDesc</gi>,
+            <gi>decoNote</gi>, <gi>depth</gi>, <gi>dimensions</gi>, <gi>explicit</gi>,
+            <gi>filiation</gi>, <gi>finalRubric</gi>, <gi>foliation</gi>, <gi>handDesc</gi>,
+            <gi>height</gi>, <gi>heraldry</gi>, <gi>incipit</gi>, <gi>institution</gi>,
+            <gi>layout</gi>, <gi>layoutDesc</gi>, <gi>locus</gi>, <gi>locusGrp</gi>,
+            <gi>material</gi>, , <gi>msItem</gi>, <gi>msName</gi>, <gi>musicNotation</gi>,
+            <gi>objectDesc</gi>, <gi>origDate</gi>, <gi>origPlace</gi>, <gi>origin</gi>,
+            <gi>provenance</gi>, <gi>recordHist</gi>, <gi>repository</gi>, <gi>rubric</gi>,
+            <gi>seal</gi>, <gi>sealDesc</gi>, <gi>secFol</gi>, <gi>signatures</gi>, <gi>source</gi>,
+            <gi>stamp</gi>, <gi>summary</gi>, <gi>support</gi>, <gi>supportDesc</gi>,
+            <gi>surrogates</gi>, <gi>textLang</gi>, <gi>typeDesc</gi>, <gi>watermark</gi>,
+            <gi>width</gi>
+        </p>
+      </div>
+
+      <div>
+        <head>11. Representation of Primary Sources</head>
+        <p>Fournit des éléments spécialisés pour le balisage des aspects physiques d'un document,
+          complémentaires à ceux contenus dans le noyau.</p>
+        <list>
+          <item>éléments de transcription: <gi>addSpan</gi>, <gi>am</gi>, <gi>damage</gi>,
+              <gi>damageSpan</gi>, <gi>delSpan</gi>, <gi>ex</gi>, <gi>fw</gi>, <gi>handNotes</gi>,
+              <gi>handShift</gi>, <gi>restore</gi>, <gi>space</gi>, <gi>subst</gi>,
+              <gi>supplied</gi>
+          </item>
+          <item>éléments pour textes numérisés en mode-image: <gi>facsimile</gi>, <gi>surface</gi>,
+              <gi>zone</gi></item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
+            <graphic url="page1.png"/>
+            <graphic url="page2.png"/>
+            <graphic url="page3.png"/>
+            <graphic url="page4.png"/>
+          </facsimile>
+        </egXML>
+      </div>
+
+      <div>
+        <head>12. Critical Apparatus</head>
+        <p>Éléments spécialisés pour la représentation de l'apparat critique classique :
+            <gi>app</gi>, <gi>lacunaEnd</gi>, <gi>lacunaStart</gi>, <gi>lem</gi>, <gi>listWit</gi>,
+            <gi>rdg</gi>, <gi>rdgGrp</gi>, <gi>variantEncoding</gi>, <gi>wit</gi>,
+            <gi>witDetail</gi>, <gi>witEnd</gi>, <gi>witStart</gi>, <gi>witness</gi>
+        </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <app>
+            <lem wit="wit1">comte</lem>
+            <rdgGrp type="orthographic">
+              <rdg wit="#wit2">cante</rdg>
+              <rdg wit="#wit3">contes</rdg>
+            </rdgGrp>
+          </app>
+        </egXML>
+      </div>
+
+      <div>
+        <head>13. Names, Dates, People, Places</head>
+        <list>
+          <item> Éléments spécialisés pour la représentation des nominations et des entités nommées :
+              <gi>addName</gi>, <gi>affiliation</gi>, <gi>age</gi>, <gi>birth</gi>, <gi>bloc</gi>,
+              <gi>climate</gi>, <gi>country</gi>, <gi>death</gi>, <gi>district</gi>,
+              <gi>education</gi>, <gi>event</gi>, <gi>faith</gi>, <gi>floruit</gi>,
+              <gi>forename</gi>, <gi>genName</gi>, <gi>geo</gi>, <gi>geogFeat</gi>,
+              <gi>geogName</gi>, <gi>langKnowledge</gi>, <gi>langKnown</gi>, <gi>listEvent</gi>,
+              <gi>listNym</gi>, <gi>listOrg</gi>, <gi>listPerson</gi>, <gi>listPlace</gi>,
+              <gi>location</gi>, <gi>nameLink</gi>, <gi>nationality</gi>, <gi>nym</gi>,
+              <gi>occupation</gi>, <gi>offset</gi>, <gi>org</gi>, <gi>orgName</gi>,
+              <gi>persName</gi>, <gi>person</gi>, <gi>personGrp</gi>, <gi>place</gi>,
+              <gi>placeName</gi>, <gi>population</gi>, <gi>region</gi>, <gi>relation</gi>,
+              <gi>relationGrp</gi>, <gi>residence</gi>, <gi>roleName</gi>, <gi>settlement</gi>,
+              <gi>sex</gi>, <gi>socecStatus</gi>, <gi>state</gi>, <gi>surname</gi>,
+            <gi>terrain</gi>, <gi>trait</gi></item>
+        </list>
+      </div>
+      <div>
+        <head>13. Names, Dates, People, Places</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <person xml:id="Ovi01" sex="1" role="poet">
+            <persName xml:lang="la">Publius Ovidius Naso</persName>
+            <birth when="-0044-03-20"> 20 March 43 BC<placeName>
+                <settlement type="city">Sulmona</settlement>
+                <country key="IT">Italie</country>
+              </placeName></birth>
+            <death notBefore="0017" notAfter="0018">17 or 18 AD<placeName>
+                <settlement type="city">Tomis (Constanta)</settlement>
+                <country key="RO">Roumanie</country>
+              </placeName></death>
+          </person>
+          <!-- ... -->
+          <p>Les Métamorphoses d'<name ref="#Ovi01">Ovide</name>, un long poème en quinze livres...
+          </p>
+        </egXML>
+      </div>
+
+
+
+
+      <div>
+        <head>14. Tables, Formulae, and Graphics</head>
+        <list>
+          <item>Éléments spécialisés pour les tables, les formulaires, etc : <gi>cell</gi>,
+              <gi>figDesc</gi>, <gi>figure</gi>, <gi>formula</gi>, <gi>row</gi>,
+            <gi>table</gi></item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <formula notation="TeX">$e=mc^2$</formula>
+        </egXML>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <table rows="4" cols="4">
+            <head>Persistance de la neige dans les Alpes suisses </head>
+            <row>
+              <cell role="label">A l'altitude de</cell>
+              <cell role="data">650 m.</cell>
+              <cell role="data">1300m.</cell>
+              <cell role="data">1950m.</cell>
+              <cell role="data">2700m.</cell>
+            </row>
+            <row>
+              <cell role="label">la neige reste</cell>
+              <cell role="data">77 jours.</cell>
+              <cell role="data"> 200 jours.</cell>
+              <cell role="data"> 245 jours.</cell>
+              <cell role="data"> 365 jours.</cell>
+            </row>
+          </table>
+        </egXML>
+      </div>
+
+
+
+      <div>
+        <head>15. Language Corpora</head>
+        <p>Ce chapitre traite de la construction des grands corpus linguistiques, et par conséquence
+          se réfère à presque tous les autres chapitres. Il propose d'ailleurs quelques éléments
+          spécialisés pour l'enrichissement des métadonnées associées à un corpus : <list>
+            <item><gi>activity</gi>, <gi>channel</gi>, <gi>constitution</gi>, <gi>derivation</gi>,
+                <gi>domain</gi>, <gi>factuality</gi>, <gi>interaction</gi>, <gi>locale</gi>,
+                <gi>particDesc</gi>, <gi>preparedness</gi>, <gi>purpose</gi>, <gi>setting</gi>,
+                <gi>settingDesc</gi>, <gi>textDesc</gi>
+            </item>
+          </list>
+        </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <settingDesc>
+            <setting who="#p1 #p2">
+              <name> Clermont-Ferrand</name>
+              <date>Mi-décembre</date>
+              <locale>Ceyrat</locale>
+              <activity>mise en marche de la voiture</activity>
+            </setting>
+          </settingDesc>
+        </egXML>
+      </div>
+
+      <div>
+        <head>16. Linking, Segmentation, and Alignment</head>
+        <p>Ce chapitre fournit des éléments génériques de <list>
+            <item>structuration : <gi>ab</gi>, <gi>seg</gi></item>
+            <item>liaison (hyperliens) : <gi>alt</gi>, <gi>altGrp</gi>, <gi>anchor</gi>, <gi>join</gi>,
+                <gi>joinGrp</gi>, <gi>link</gi>, <gi>linkGrp</gi></item>
+            <item>synchronisation : <gi>timeline</gi>, <gi>when</gi>, et plusieurs attributs.</item>
+            <item>et les attributs associés : <att>corresp</att>, <att>synch</att>,
+                <att>sameAs</att>, <att>next</att>, <att>prev</att>, <att>exclude</att>,
+                <att>select</att>. </item>
+          </list>
+        </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <linkGrp type="translation">
+            <link targets="#CCS1 #SW1"/>
+            <link targets="#CCS2 #SW2"/>
+            <!-- ... -->
+          </linkGrp>
+          <div type="volume" xml:id="CCS" xml:lang="fr">
+            <p>
+              <s xml:id="CCS1">Longtemps, je me suis couché de bonne heure.</s>
+              <s xml:id="CCS2">Parfois, à peine ma bougie éteinte, mes yeux se fermaient si vite que
+                je n'avais pas le temps de me dire : "Je m'endors."</s>
+            </p>
+            <!-- ... -->
+          </div>
+          <div type="volume" xml:id="SW" xml:lang="en">
+            <p>
+              <s xml:id="SW1">For a long time I used to go to bed early.</s>
+              <s xml:id="SW2">Sometimes, when I had put out my candle, my eyes would close so
+                quickly that I had not even time to say "I'm going to sleep."</s>
+            </p>
+            <!-- ... -->
+          </div>
+        </egXML>
+      </div>
+
+
+      <div>
+        <head>17. Simple Analytic Mechanisms</head>
+
+        <p>Propose des éléments spécifiques pour les besoins communs de : <list>
+            <item>segmentation linguistique: <gi>c</gi>, <gi>cl</gi>, <gi>m</gi>, <gi>phr</gi>,
+                <gi>s</gi>,<gi>w</gi></item>
+            <item>analyses ou interprétations thématiques (etc.) <gi>interp</gi>,
+              <gi>interpGrp</gi>, <gi>span</gi>, <gi>spanGrp</gi></item>
+            <item>fournit en plus l'attribut <att>ana</att></item> </list></p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <l>
+            <w ana="#O3">Le </w>
+            <w ana="#SM">vin </w>
+            <w ana="#V">sait </w>
+            <w ana="#V">revêtir </w>
+            <w ana="#A">le plus </w>
+            <w ana="#J">sordide </w>
+            <w ana="#SM">bouge</w>
+          </l>
+          <l>
+            <w ana="#DF">D'</w>
+            <w ana="#DF">un </w>
+            <w ana="#SM">luxe </w>
+            <w ana="#J">miraculeux</w>
+            <c ana="#CC">,</c>
+          </l>
+          <l>
+            <w ANA="#CC">Et </w>
+            <w ana="#V">fait </w>
+            <w ana="#V">surgir </w>
+            <w ana="#O">plus </w>
+            <w ana="#DF">d'</w>
+            <w ana="#DF">un </w>
+            <w ana="#SM">portique </w>
+            <w ana="fabuleux_J">fabuleux</w>
+          </l>
+
+
+        </egXML>
+      </div>
+
+
+
+      <div>
+        <head>18. Feature Structures</head>
+        <p>Ce chapitre décrit un jeu de balises pour représenter un système analytique très répandu dans la
+          linguistique théorique et maintenant standardisé au niveau ISO. La sémantique est
+          modélisée en terme de <term>traits</term> nommés et leurs valeurs, qui peuvent être
+          regroupés dans des "systèmes de traits" quasiment formelles.</p>
+        <p>Cette norme permet l'interopérabilité des lexiques et des autres systèmes de gestion
+          d'intelligence artificielle. Il y a deux parties : <list>
+            <item>représentations des traits : <gi>binary</gi>, <gi>f</gi>, <gi>fs</gi>,
+                <gi>fsDecl</gi>, <gi>fsDescr</gi>, <gi>numeric</gi>, <gi>string</gi>,
+                <gi>symbol</gi>, <gi>vAlt</gi>, <gi>vColl</gi>, <gi>vDefault</gi>, <gi>vLabel</gi>,
+                <gi>vMerge</gi>, <gi>vNot</gi>, <gi>vRange</gi></item>
+            <item>déclaration de système de traits : <gi>bicond</gi>, <gi>cond</gi>,
+                <gi>default</gi>, <gi>fDecl</gi>, <gi>fDescr</gi>, <gi>fLib</gi>,
+                <gi>fsConstraints</gi>, <gi>fsdDecl</gi>, <gi>fsdLink</gi>, <gi>fvLib</gi>,
+                <gi>if</gi>, <gi>iff</gi>, <gi>then</gi>,</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>18. Feature Structures (contd.)</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <fs type="real_estate_listing">
+            <f name="selling.points">
+              <vColl org="set">
+                <string>alarm system</string>
+                <string>good view</string>
+                <vAlt>
+                  <string>pool</string>
+                  <string>jacuzzi</string>
+                </vAlt>
+              </vColl>
+            </f>
+          </fs>
+        </egXML>
+      </div>
+
+
+
+
+      <div>
+        <head>19. Graphs, Networks, and Trees</head>
+        <p>Ce chapitre propose des éléments pour la représentation de quelques structures
+          abstraites, notamment les arborescences, les réseaux, et les graphes.</p>
+        <p>Sont définis : <gi>arc</gi>, <gi>eLeaf</gi>, <gi>eTree</gi>, <gi>forest</gi>,
+            <gi>forestGrp</gi>, <gi>graph</gi>, <gi>iNode</gi>, <gi>leaf</gi>, <gi>node</gi>,
+            <gi>root</gi>, <gi>tree</gi>, <gi>triangle</gi>
+        </p>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <graph>
+            <node xml:id="LAX2" degree="2" adj="#LVG2 #PHX2">
+              <label>LAX2</label>
+            </node>
+            <node xml:id="LVG2" degree="2" adj="#LAX2 #PHX2">
+              <label>LVG2</label>
+            </node>
+            <!-- ... -->
+          </graph>
+        </egXML>
+      </div>
+
+
+
+      <div>
+        <head>20. Non-hierarchical Structures</head>
+        <p>Ce chapitre fait le bilan de plusieurs techniques proposées pour le balisage des
+          structures non-imbriquées / hiérarchies superposées, notamment les méthodes "stand-off"
+          (débordé). </p>
+        <p>Il ne propose pas de balises spécifiques.</p>
+      </div>
+
+
+      <div>
+        <head>21. Certainty and Responsibility</head>
+
+        <list>
+          <item>Éléments et autres mécanismes pour indiquer le degré
+	  de certitude, la précision, ou la responsabilité
+            envers l'encodage : <gi>certainty</gi>,<gi>respons</gi> and <gi>precision</gi>
+          </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">Elisabeth aimait bien <persName xml:id="ESX"
+            >Essex</persName>
+          <!-- ... -->
+          <certainty target="#ESX" locus="gi" degree="0.6">
+            <desc>réfère probablement à l'Earl de Essex</desc>
+          </certainty>
+          <certainty target="#CE-pl1" locus="gi" degree="0.4" assertedValue="placeName">
+            <desc>pourrait référer au comté de Essex</desc>
+          </certainty>
+        </egXML>
+      </div>
+
+
+
+      <div>
+        <head>22. Documentation Éléments</head>
+        <p> Ce chapitre définit des éléments spécialisés pour l'encodage des manuels d'encodage,
+          notamment ceux qui se servent de la TEI. </p>
+        <list>
+          <item>Éléments appropriés à tout système d'encodage : <gi>code</gi>, <gi>ident</gi>,
+              <gi>att</gi>, <gi>gi</gi>, <gi>tag</gi>, <gi>val</gi>, <gi>eg</gi>, <gi>egXML</gi>. </item>
+          <item>Éléments spécialisés pour le système ODD: <gi>schemaSpec</gi>, <gi>elementSpec</gi>,
+              <gi>moduleRef</gi>, etc. </item>
+                </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec prefix="TEI_" ident="testsvg" start="TEI svg">
+            <moduleRef key="header"/>
+            <moduleRef key="core"/>
+            <moduleRef key="tei"/>
+            <moduleRef key="textstructure"/>
+            <moduleRef url="svg11.rng"/>
+          </schemaSpec>
+        </egXML>
+
+      </div>
+
+      <div>
+        <head>23. Using the TEI</head>
+        <p> Ce chapitre rassemble des informations sur l'utilisation du système TEI, en particulier
+          : <list>
+            <item>comment personnaliser le schéma TEI</item>
+            <item>définition formelle de <term>TEI conformance</term></item>
+            <item>implémentation d'un processeur ODD</item>
+          </list>
+        </p>
+      </div>
+
+      <!--
+
+      <div>
+        <head>Live Demos</head>
+        <p>Now if I have time, and an internet connection, I'll do some
+          live demos looking around the Guidelines, Référence Material,
+          Roma, etc. <list>
+            <item>Guidelines: <ref
+                target="http://www.tei-c.org/Guidelines/P5/"
+                >http://www.tei-c.org/Guidelines/P5/</ref></item>
+            <item>Référence: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ÉLÉMENTS.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ÉLÉMENTS.html</ref></item>
+            <item>Roma: <ref target="http://www.tei-c.org/Roma/"
+                >http://www.tei-c.org/Roma/</ref></item>
+            <item>Stylesheets: <ref
+                target="http://www.tei-c.org/Tools/Stylesheets/"
+                >http://www.tei-c.org/Tools/Stylesheets/</ref></item>
+            <item>Badges: <ref target="http://www.tei-c.org/About/Badges/"
+                >http://www.tei-c.org/About/Badges/</ref></item>
+            <item>Wiki: <ref target="http://wiki.tei-c.org/"
+                >http://wiki.tei-c.org/</ref></item>
+            <item>Sourceforge: <ref
+                target="http://sourceforge.net/projects/tei/"
+                >http://sourceforge.net/projects/tei/</ref></item>
+          </list>
+        </p>
+      </div>
+-->
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,519 @@
+<?xml version="1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Initiation à l'encodage XML-TEI</title>
+	<author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <p></p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from lots of other talks</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <list type="unordered">
+        <item><date>15 aug 06</date>LB: revised for 2010 version</item>
+        <item><date>15 aug 06</date>LB: revamp from ODP version francais</item>
+        <item><date>25 Jan 05</date>LB: revamp</item>
+        <item><date>11 No 04</date> SR: revamp</item>
+        <item><date>19 Jan 03</date> LB: minor revisions</item>
+        <item><date>16 Feb 03</date> LB: first draft</item>
+      </list>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+      <div rend="slide">
+        <head>Goals of this session</head>
+        <list type="ordered">
+          <item>What do we mean by "encoding"? </item>
+          <item>What is a text ? what is a document ? </item>
+	  <item>What can we do with XML ?</item>
+        </list>
+      </div>
+
+
+
+      <div rend="slide">
+        <head>Digitization and encoding</head>
+        <p>We expect more and more of the digital objects we produce ...
+</p>
+<list>
+            <item>surrogate representations of original documents </item>
+            <item>descriptions of such representations ("metadata") </item>
+            <item>integrated collections of such representations and their metadata (the "digital edition") </item> 
+            <item>support for increasingly complex searching and analysis across such collections</item>
+          </list>
+<p rend="box">And increasingly we want to <term>share</term> these digital resources in new and unexpected ways</p>
+      </div>
+
+      <div rend="slide">
+        <head>Maybe the TEI can help ...</head>
+        <p>The TEI (of which more anon) provides a well established <term>conceptual model of text</term> able to support: <list>
+	<item> conversion od existing data</item>
+            <item>creation of new datasets </item>
+            <item>integration of existing data sets deriuved from a variety of sources</item>
+        </list></p>
+        <p>It is an open and non proprietary format, based on open technologies</p>
+<p>It also expresses an explicit theory about textual ontology</p>
+</div>
+
+        <div rend="slide">
+	  <head>Are these images of the same thing?</head>
+<p> <graphic  url="../Graphics/duBellay-1.png"/></p>
+	</div>
+        <div rend="slide">
+	  <head>Are these images of the same thing?</head>
+<p> <graphic  url="../Graphics/duBellay-1a.png"/></p>
+	</div>
+
+
+        <div>
+          <head>A text is not a document</head>
+          <p>What is the essential part of a text? 
+	  <list rend="pause">
+              <item>in the shape of letters and their layout?</item>
+              <item>in the original from which this copy derives?</item>
+              <item>in the stories we read into it? or in its author's
+                intentions? </item>
+            </list>
+          </p>
+
+<p rend="box">A "document" is something that exists in the world,
+which we can <term>digitize</term>.</p>
+
+          <p rend="box">A "text" is an abstraction, created by or for a
+            community of readers, which we can <term>encode</term>.</p>
+
+
+        </div>
+
+<div><head>What do we do when we digitize?</head>
+<p><graphic url="../Graphics/model.png"/></p>
+</div>
+
+        <div>
+          <head>Encoding of texts</head>
+          <list>
+            <item>A text is more than a sequence of encoded glyphs or
+	    characters!</item>
+<item>A text is more than a sequence of lexical forms!
+ <list>
+                <item>It has a <term>structure</term> and
+                  a <term>communicative function</term></item>
+                <item>It also  has multiple possible <term>readings</term></item>
+<item>its meaning can be <term>enriched</term> by annotation</item>              </list></item>
+            <item>Encoding, or markup, is a way of making these things
+              explicit </item>
+          <item>Only that which is explicit can be reliably
+            processed</item></list>
+
+        </div>
+
+
+<div><head>The Babel effect</head>
+<p>Naturally, there are many possible readings of most texts ...</p>
+<p><figure>
+<graphic url="../Graphics/loomings.png" width="90%"/>
+</figure></p>
+<p>... and (alas) many different ways of expressing each reading!</p>
+</div>
+
+<div rend="slide"><head>Encodings</head>
+<figure>
+<graphic url="../Graphics/moby.png" height="60%"/>
+</figure>
+<list>
+<item rend="pause">Good news : there is software capable of converting amongst hundreds of different formats</item>
+<item rend="pause">Bad news : we still need it</item>
+</list>
+</div>
+
+<div rend="slide"><head>Information exchange (1)</head>
+<figure>
+<graphic url="../Graphics/echange-1.png" />
+<head>without a standard interchange format: 20 translations are needed for 5 formats (n*n-n)</head>
+</figure></div>
+<div rend="slide"><head>Information exchange (2)</head>
+<figure>
+<graphic url="../Graphics/echange-1.png" />
+<head>with a standard interchange format: 10 translations are needed for 5 formats (n*2)</head>
+</figure></div>
+
+
+      <div rend="slide">
+        <head>Definitions</head>
+        <list type="bulleted">
+          <item>Encoding is a way of making explicit the important distinctions identified in a text</item>
+          <item>Hence, it is a way of identifying and naming the components of a textual structure in a formal manner</item>
+          <item>What kinds of component are significant? This will depend on our intended usage... </item>
+        </list>
+      </div>
+
+        <div rend="slide">
+          <head>Separation of form and content</head>
+<p>It is a very very old argument (going back to Aristotle), but in general
+          <list type="bulleted">
+            <item rend="pause">descriptive encoding (such as the TEI) which focus on the content rather than the form is to be preferred</item>
+	    <item rend="pause">if only because it makes it easier to re-use the same content for many purposes</item>
+	    <item rend="pause">and because content seems somehow less dispensable than form</item>
+	  </list>
+</p>	</div>
+
+
+      <div rend="slide">
+        <head>What shall we tag ??</head>
+        <p>Compare: </p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><pb n="4"/>A MONSEI-
+<lb/>GNEUR LE REVE-
+<lb/>rendissime Cardinal
+<lb/>du Bellay.
+<lb/>S
+<lb/><c rend="lettrine">V</c>EU le Personnaige,
+<lb/>que tu joues au Spec-
+<lb/>tacle de toute l'Europe...</egXML>
+<p> avec </p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"><div type="dedicace">
+<head>A MONSEIGNEUR LE REVERENDISSIME CARDINAL DU BELLAY</head>
+<salute>S<ex>alut</ex></salute>
+<p><c rend="lettrine">V</c>EU le Personnaige, que tu joues au
+Spectacle de toute l'Europe...
+</p>...</div></egXML>
+        </div>
+
+<div><head>... and </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><pb n="4"/>
+<s><w pos="PPJ" lemma="voir">VEU</w>
+<w pos="ART" lemma="le">le</w>
+<w pos="SBC" lemma="personnage">Personnaige</w>
+<pc>,</pc>
+<w pos="COO" lemma="que">que</w>
+...</s>
+</egXML>
+<p>ou bien</p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<s><choice><reg>Vu</reg><orig>Veu</orig></choice>
+le <choice><reg>Personnage</reg><orig>Personnaige</orig></choice>,
+que tu joues au Spectacle...</s>
+</egXML>
+</div>
+
+<div rend="slide"><head>The encoding language we use must be able to ...</head>
+<list>
+<item>specify all the characters found in a document</item>
+<item>make explicit the structures perceived in a text</item>
+<item>represent that structure in a linear processable form </item>
+<item>supply a variety of metadata: additional information about the document and the text.</item>
+</list>
+<p rend="box">Which specific components from this list we need will vary depending on the goal of our project, but the TEI is based on the belief that we can agree on a useful inventory</p>
+</div>
+
+        <div rend="slide">
+          <head>Some alphabet soup</head>
+          <table>
+            <row>
+              <cell>SGML</cell>
+              <cell>Standard Generalized Markup Language</cell>
+            </row>
+            <row>
+              <cell>HTML</cell>
+              <cell>Hypertext Markup Language</cell>
+            </row>
+            <row>
+              <cell>W3C</cell>
+              <cell>World Wide Web Consortium</cell>
+            </row>
+            <row>
+              <cell>XML</cell>
+              <cell>eXtensible Markup Language</cell>
+            </row>
+            <row>
+              <cell>DTD</cell>
+              <cell>Document Type Definition (or Declaration)</cell>
+            </row>
+            <row>
+              <cell>CSS</cell>
+              <cell>Cascading Style Sheet</cell>
+            </row>
+            <row>
+              <cell>Xpath</cell>
+              <cell>XML Path Language</cell>
+            </row>
+            <row>
+              <cell>XSLT</cell>
+              <cell>eXtensible Stylesheet Language - Transformations</cell>
+            </row>
+            <row>
+              <cell>XQuery</cell>
+              <cell>XML Querying</cell>
+            </row>
+            <row>
+              <cell>RELAXNG</cell>
+              <cell>Regular Expression Language for XML (New
+                Generation)</cell>
+            </row>
+          </table>
+          <p>Oh, and then there's also <hi>TEI</hi>, the <emph>Text
+              Encoding Initiative</emph></p>
+        </div>
+
+
+
+
+
+
+        <div rend="slide">
+          <head>XML: what it is and why you should care</head>
+          <list>
+            <item>XML is <hi>structured data</hi> represented as strings of
+              text</item>
+            <item>XML looks like HTML, except that:-<list>
+                <item>XML is <hi>extensible</hi>
+                </item>
+                <item>XML must be <hi>well-formed</hi>
+                </item>
+                <item>XML can be <hi>validated</hi>
+                </item>
+              </list>
+            </item>
+            <item>XML is application-, platform-, and vendor- independent </item>
+            <item>XML empowers the <hi>content provider</hi> and
+              facilitates data integration</item>
+          </list>
+        </div>
+
+
+<div><head>(Nearly) all you need to know about XML, on one slide</head>
+<list>
+<item>An XML document contains at least one named
+<term>element</term></item>
+<item>The start of each element occurrence is indicated by a <term>start-tag</term>,
+and its end by an <term>end-tag</term>; in between there may (or may not) be some content  </item>
+<item>An element may also have some  <term>attributes</term>, each of which
+has a <term>name</term> and a <term>value</term></item>
+<item>An XML document  <emph>must </emph> be <soCalled>well
+formed</soCalled> i.e. it must conform to the syntax of  XML</item>
+<item>A well-formed XML document may 
+<emph>optionally</emph> be  <term>valid</term> i.e. il may conform to some additional rules defined in some particular <term>schema</term> </item>
+</list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <![CDATA[<?xml version="1.0" ?>
+            <root>
+              <element attribute="value"> content </element>
+              <!-- comment -->
+            </root>]]>
+          </egXML>
+
+
+</div>
+
+
+        <div rend="slide">
+        <head>A sample XML document </head>
+        <eg><![CDATA[   <?xml version="1.0" encoding="utf-8" ?>
+     <cookBook>
+     <recipe n="1">
+       <head>Stone soup</head>
+       <ingredientList>
+         <ingredient>an onion</ingredient>
+         <ingredient>two carrots</ingredient>
+         <ingredient>some water</ingredient>
+            ...
+         <ingredient>a magic stone</ingredient>
+         <ingredient>some naive peasants</ingredient>
+       </ingredientList>
+       <procedure>
+         <step>put the water to boil in a big cauldron</step>
+	 <step>add the other ingredients</step>
+          ....   
+         <step>take out the stone and serve</step>
+       </procedure>  
+      </recipe>
+      <recipe n="2"> 
+              <!-- second recipe here -->
+     </recipe>
+            <!-- hic desunt multa -->
+  </cookBook>
+]]></eg>
+      </div>
+      <div rend="slide">
+        <head>XML syntax</head>
+        <p>An XML document contains :-
+     <list><item>Unicode characters </item>
+     <item><term>elements</term>, with optional <term>attributes</term> 
+</item>
+     <item> <term>comments</term> </item>
+<item><term>processing instructions</term></item>
+<item><term>entity references</term> (internal ou external) </item>
+<item><term>CDATA marked sections</term> </item>
+</list></p>
+        <p>That's all !</p>
+      </div>
+      <div rend="slide">
+        <head>XML: rules of the game</head>
+        <list>
+          <item>An XML document actually represents  a <term>tree</term> composed of  <hi>nodes</hi>
+       </item>
+
+<item>There is one root node which contains all the others</item>
+          <item>Each  node can contain  
+<list><item>a (sub)tree
+	  </item>
+<item>an <hi>element</hi> with optional attributes </item>
+<item>a string of characters (<q>text</q>)
+       </item>
+</list>
+</item>
+<item>A subtree can contain <list>
+<item> a mixture of elements and text (<q>mixed content</q>) </item>
+<item> elements only (<q>element content</q>)
+</item>
+</list>
+       </item>
+
+          <item>Each 
+       element has a name  <hi>a generic identifier</hi>
+       </item>
+          <item>Each  attribute has a name  and a value</item>
+<item>Names are associatred with a  <hi>namespace</hi> </item>
+
+        </list>
+      </div>
+<div>          <head>Representing an XML tree</head>
+          <list>
+            <item>An XML document is encoded as a linear string of
+              Unicode characters </item>
+            <item>It begins with a special <term>processing instruction</term>
+            </item>
+            <item>Each element occurrence within it is marked by a
+	    <term>start-</term> and an
+                <term>end-tags</term>.
+            </item>
+            <item>Attribute name/value pairs are supplied on the start-tag
+               and may be given in any order</item>
+            <item> The characters<hi> &lt;</hi> and <hi>&amp;</hi>
+              are <emph>Magic</emph> and must always be "escaped" if you
+              want to use them as themselves</item>
+	      <item>The namespace to which an element belongs may be indicated by means of a predefined <term>namespace prefix</term> e.g. <code>xml:</code></item>
+            <item><term>Comments</term> are delimited by &lt;!- - and -
+              -&gt;</item>
+            <item>Entity references are delimited by &amp; and ;</item>
+            <item><term>CDATA sections</term> are delimited by &lt;![CDATA[
+              and ]]&gt;</item>
+         </list>
+        </div>
+
+
+        <div rend="slide">
+          <head>XML syntax: the small print</head>
+          <p>What does it mean for a document to be <hi>well-formed</hi>?</p>
+          <list type="ordered">
+            <item> there is a single root node containing the whole of it</item>
+            <item> each subtree is properly nested within the root
+              node</item>
+            <item> names are always case sensitive</item>
+            <item> start-tags and end-tags are always mandatory (except
+              that a combined start-and-end tag may be used for empty
+              nodes)</item>
+            <item> attribute values are always quoted</item>
+          </list>
+
+</div>
+      <div rend="slide">
+        <head>Well formed? </head>
+
+<list type="unordered">
+                <item rend="pause">
+                  <code><![CDATA[<seg>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg><foo>some</foo> <bar>text</bar></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg><foo>some <bar></foo> text</bar></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type='text'>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type=text>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type = "text">some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text<seg/>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text<gap/></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text< /seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text</Seg>]]></code>
+                </item>
+              </list>
+        </div>
+
+
+        <div rend="slide">
+          <head>XML is an international standard</head>
+          <list>
+            <item>An XML  document must respect ISO standard ISO 10646 (aka Unicode) <list>
+                <item>un repertoire de caractères 31-bit adequate à la
+		plupart des systèmes d'ecriture humaine</item>
+                <item>encode en deux formats  UTF8 ou UTF16</item>
+              </list></item>
+            <item>un document peut specifier qu'il contient les mêmes
+	    caractères encodes d'une autre manière (notamment ISO 8859)</item>
+            <item>un element peut specifier le langage de sa contenue avec
+                l'attribut predefini <att>xml:lang</att></item>
+          </list>
+          <p rend="box">L'attribut <att>xml:id</att> est egalement
+	  predefini par le W3C.</p>
+        </div>
+
+
+<div rend="slide">
+<head>XML validation</head>
+<p>A <hi>valid</hi> XML document is well formed, and also conforms to some additional rules, which make up what we call a  <term>schema</term>. </p>
+<p>A schema allows you to specify:
+<list>
+<item>which elements can appear as the root element of a document</item>
+<item>which elements and attributes can appear where</item>
+<item>names, datatypes, and default values for all attributes</item>
+</list></p>
+<p>A schema thus allows you to check that  <q>every chapter
+	  must begin with a heading</q> or <q>recipes must include an
+	  ingredient list</q></p>
+<p>A namespace by contrast just allows you to label elements as being somehow related. A schema provides a formal specification and is
+written in a formal language</p>
+     </div>
+
+
+        <div rend="slide">
+          <head>Schema languages</head>
+<p>A schema can be expressed using:
+<list>
+<item>DTD: an older ISO standard</item>
+<item>RNG:  ISO standard RELAXNG</item>
+<item>WSD: the W3C Schema language</item>
+</list>
+All have different tool kits, different syntaxes, and different
+methods of doing things, particularly for content validation.</p>
+        <p>The TEI uses RELAXNG </p>
+
+<p>        <graphic width="2in" url="../Graphics/relax.png"/></p>
+      </div>
+
+
+</body></text></TEI>

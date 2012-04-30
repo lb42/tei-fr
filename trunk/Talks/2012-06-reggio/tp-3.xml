@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP3 : oXygen</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative
+            Commons Attribution license.</p>
+        </availability>
+        <date>Jan 2011</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some parts may be lifted from previous talks/workshops by the TEI
+          Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+
+  <text>
+    <body>
+      <div>
+        <head>À la découverte d' Oxygen - 3</head>
+        <p>Dans ce troisième exercice, nous allons approfondir votre
+          expérience  avec Oxygen pour : <list>
+            <item>l'encodage XML d'un document Word existant</item>
+            <item>la représentation des structures aperçues dans un
+              pièce de théâtre</item>
+          </list>
+        </p>
+      </div>
+
+
+<div><head>Par ma chandelle verte...</head>
+    <p>Voici le commencement d'une scène extraite de <title>Ubu Roi</title> de Alfred
+        Jarry (1896), dans la version téléchargeable sur Gallica. </p>
+    <p><graphic height="8cm" url="Travaux/ubu-gallica.png"/></p>
+    <p>Et voici le début de la même scène, transcrite avec Word:</p>
+    <p><graphic height="8cm" url="ubu-word.png"/></p>
+</div>
+
+
+<div><head>Transformation d'un fichier Word</head>
+    <p>Vous avez vu comment baliser un fichier « text ». Comment 
+        pouvons-nous faire de même avec notre fichier Word ?</p>
+    <p>Nous pourrions exporter le fichier Word au format « plein text ». Nous
+        pourrions aussi faire un copier-coller. Mais dans chaque cas, nous perdrions le
+        formatage qui distingue (par exemple) le nom de chaque locuteur de ces
+        énoncés. </p>
+    <p>Si le fichier Word est bien stylé, on peut le transformer en XML,
+        sans perte d’information. L'outil OxGarage nous aidera.</p>
+    <list>
+        <item>Ouvrez votre Internet browser, et allez sur le site
+            <ref>http://www.tei-c.org/ege-webclient/</ref></item>
+        <item>Cliquez sur <ident>Text Documents</ident>. Dans la liste des
+            formats de saisi proposée, cochez la case pour Microsoft Word
+            Document.</item>
+        <item>Une liste des formats cibles proposés apparaît. Cochez la case
+            pour TEI P5 XML.</item>
+        <item>En haut de l'écran un bouton <ident>Browse</ident> apparaît. Cliquez sur ceci,
+            et naviguez jusqu'au fichier <ident>ubu.doc</ident> dans votre
+            dossier <ident>Travaux</ident>.</item>
+        <item>Cliquez sur le grand bouton <ident>Convert</ident> et patientez. </item>
+        <item>Le site vous renvoie (après un bref délai) un fichier
+            <ident>ubu.xml</ident>. Enregistrez-le dans votre dossier
+            <ident>Travaux</ident>.</item>
+    </list>
+</div>
+
+<div><head>Structuration des pièces de théâtre</head>
+    <p>Une pièce de théâtre contient :
+        <list>
+            <item>des <term>didascalies</term> de plusieurs types... à baliser
+                avec <gi>stage</gi> (en se servant de l'attribut <att>type</att> pour
+                les distinguer au cas ou)</item>
+            <item>des <term>énoncés</term> ou discours ... à baliser avec
+                <gi>sp</gi> (<q>speech</q>) </item>
+            <item>des titres ou marques de <term>locuteur</term> ... à baliser
+                avec <gi>speaker</gi></item>
+            <item>des paragraphes, ou des vers, balisés comme d'habitude.</item>
+        </list>
+    </p>
+</div>
+
+<div><head>Transformation des balises</head>
+    <p>Voyons ce que le Garage aura fait de notre fichier Word. En  tout
+        cas, il est devenu un document TEI valide, même s'il est plein
+        de mensonges...</p>
+    <list>
+        <item>Lancez Oxygen, et ouvrez le fichier <ident>ubu.xml</ident> que
+            vous venez de créer.</item>
+        <item>On laisse passer pour le moment le TEI Header. Vous pouvez
+            le compléter plus tard. </item>
+        <item>D'abord notez que chaque énoncé est devenu un <gi>div</gi>,
+            contenant  un <gi>head</gi> et un <gi>p</gi>. Cela va beaucoup nous aider, et c'est une conséquence
+            du fait que la version Word s'est servi des styles (chaque énoncé
+            était précédé d'un objet style <q>heading 2</q>)</item>
+        <item>Mettez le curseur d'abord sur une des balises <gi>div</gi></item>
+        <item>Dans le menu <ident>Document</ident> sélectionnez la commande <ident>XML-Refactoring</ident>,
+            puis <ident>Renommer l'élément</ident> (ou tapez ALT-MAJ-R).</item>
+        <item><p>Oxygen vous propose ce dialogue</p>
+            <p><graphic height="5cm" url="../Graphics/Oxy12/renommer.png"/></p></item>
+        <item>Dans le champs <code>Nouveau nom</code>
+            entrez <code>sp</code>, le nom de la
+            balise souhaitée, 
+            et cocher la case <ident>Renommer tous les éléments ayant le même
+                nom.</ident></item>
+        <item>Cliquez sur Accepter et tous les <gi>div</gi> deviennent
+            <gi>sp</gi>. (Le document n'est plus valide, mais on va rectifier cela tout à
+            l'heure.)</item>
+        <item>Faites de même pour les balises <gi>head</gi> : transformez les
+            tous en <gi>speaker</gi>.</item>
+        <item>Avant de rectifier la structuration du document, on va supprimer
+            les <code>rend="Heading_20_2"</code> qui n'ont plus de
+            sens. Sélectionnez cette chaîne de caractères n'importe où sur
+            l'écran.</item>
+        <item>Tapez CRL-F, ou sélectionnez <ident>Rechercher/Replacer</ident>
+            sur le menu <ident>Recherche</ident>. </item>
+        <item><p><graphic height="5cm" url="../Graphics/Oxy12/remplacer.png"/></p>
+            <p>Tapez <code>Tout remplacer</code>.</p> </item>
+    </list>
+    <p>Enfin, regardez les trois morceaux de texte mal-balisés au début de la
+        scène : le plus simple serait d'enlever leur balisage actuel et ensuite
+        d’ajouter les balises qu'il nous faut.</p>
+    <list>
+        <item>Mettez le curseur sur le texte <q>Scène Vi</q>. Dans le menu
+            Document, sélectionnez <ident>XML Refactoring</ident>, et ensuite <ident>Effacer les balises</ident>
+            (ALT-MAJ-X). Répétez jusqu'a ce que toutes les balises qui l'entourent
+            soient effacées.</item>
+        <item>Même jeu pour les deux lignes suivantes : <q>Le palais...</q> et
+            <q>LE ROI VENCESLAUS...</q></item>
+        <item>Maintenant, entourez tout le texte souligné en rouge, et
+            balisez-le avec un <gi>head</gi>.</item>
+        <item>Votre document redevient valide ! à vous maintenant de le rendre
+            correcte :
+            <list>
+                <item>diviser les trois parties du <gi>head</gi> au début de la scène.</item>
+                <item>les phrases balisées <gi>emph</gi> et l'un des <gi>p</gi> sont des didascalies : changez-
+                    les donc en <gi>stage</gi>.</item>
+                <item>il reste des valeurs de l'attribut <att>rend</att> à
+                    enlever</item>
+                <item>Dans ce <gi>body</gi> nous n'avons qu'une des scènes du texte
+                    d'Ubu. Il serait préférable (plus honnête !) d'indiquer cela en entourant le tout avec
+                    un <gi>div type="scene"</gi></item>
+            </list></item></list>
+<p>S'il vous reste du temps, pensez à compléter le TEI Header. Quand
+vous aurez fini, n'oubliez pas d'enregistrer votre belle version TEI
+du fichier! </p>
+    
+</div></body></text></TEI>
