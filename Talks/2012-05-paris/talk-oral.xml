@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Encoder l'oral avec TEI</title>
+                <respStmt>
+                    <resp>relecture de cette version française, avril 2011</resp>
+                    <name>Florence Clavaud (Ecole nationale des chartes)</name>
+                </respStmt>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>January 2010</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <date when="2011-04">avril 2011</date>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+                <availability xml:lang="fre">
+                    <p>Ce texte est mis à disposition de tous selon les termes de la licence
+                        Creative Commons « Paternité - Pas d’Utilisation Commerciale - Pas de
+                        Modification ; 2.0 France ». Cette licence est disponible <ref
+                            target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en
+                            ligne</ref> ou par courrier postal à Creative Commons, 171 Second
+                        Street, Suite 300, San Francisco, California 94105, USA.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: $.</date>
+                <name>$LastChangedBy: jamesc $</name>
+                <note>$LastChangedRevision: $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+
+
+<text><body>
+
+
+            <div>
+                <head>Annotation de l'oral</head>
+                <p>Un cas extrème -- il n y a pas de texte à annoter; on le crée en annotant.</p>
+                <p><graphic url="../Graphics/oral-annot.png"/></p>
+            </div>
+
+Encoding oral means
+
+a) capturing an audio signal
+b) transcribing it
+c) contextualising it
+
+Transcription
+
+a) complex interpretative act : not (yet) automated... so expensive
+b) difficult decisions about spelling, tokenization, selection of phenomena
+c) readable script vs "diplomatic" script
+
+Transcript : macro structure
+
+- sometimes (lecture, debate, interview) the structure is entirely predefined
+- sometimes less so (transactional interactions, chat while performing an action, conversation)
+- turn, backchannel, speaker, communicative acts
+
+Transcript : function
+
+What is the transcript for?
+
+to provide a key to the audio
+- to make it readable? (i.e. legible by a person)
+- to make it analysable? (i.e. machine processable)
+
+in its own right
+- for historical/social analysis : focus on message
+- for linguistic analysis : focus on medium
+
+
+
+
+
+
+
+
+            <div>
+                <head>Au niveau de transcription...</head>
+                <p>On peut identifier (au moins) 5 conventions  de transcription pour les
+                    énoncés : <table>
+                        <row rend="ruled">
+                            <cell role="label">HIAT</cell>
+                            <cell>((coughs)) You must/ you (should) let • it be. ((laughs))
+                                Pleease!</cell>
+                        </row>
+                        <row>
+                            <cell role="label">GAT</cell>
+                            <cell><code>((coughs)) you must- you (should/could) let (-) it be;
+                                    ((laughs)) plea:se-</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">CHAT</cell>
+                            <cell><code>&amp;=coughs you must... you should let # it be.
+                                    &amp;=laughs please!</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">DT1</cell>
+                            <cell><code>(COUGH) you must-- you &lt;X should X&gt; let .. it be. @@
+                                    please?</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">cGAT</cell>
+                            <cell><code>((coughs)) you must you (should/could) let (-) it be
+                                    ((laughs)) please</code>
+                            </cell>
+                        </row>
+                    </table>
+                </p>
+                <p>(Table from Schmidt 2011)</p>
+            </div>
+
+
+            <div>
+                <head>Combien de standards faut-il dans le monde?</head>
+                <list>
+<label>WKWBFY</label><!-- we know whats best for you -->
+                    <item>un seul : solution centraliste</item>
+<label>NWEUMP</label> <!-- nobody will ever understand my problem -->
+<item>aucun : solution anarchiste</item>
+<label>FTH</label> <!-- follow the herd -->
+<item>autant qu'il en arrive : solution laissez-faire
+</item>
+                </list>
+            </div>
+
+
+            <div>
+                <head>Les normes ne s'imposent pas dans la vie intellectuelle</head>
+                <list>
+                    <item>soit ils emergent d'un besoin aperçu dans le communauté </item>
+                    <item>soit leur usage dérive du necessité d'utiliser
+		    une technologie particulière </item>
+<item>mais on ne renonce pas volontièrement à son indépendence! 
+</item>
+                </list>
+            </div>
+
+<div><head>Standards : un paysage complexe</head>
+<list>
+<label>Agences officiels de standardisation</label>
+<item>nationales : AFNOR, ANSI, BSI, DIN; internationales: ISO, IEC, W3C, OASIS, TEI ... </item>
+
+<label>Regroupements des Personnes Interessées</label>
+<item>Plusieurs... ex
+<list>
+<item>LISA (Localisation Industry Standards Association)</item>
+<item>MPEG (Moving Pictures Expert Group)
+</item></list></item>
+<label>Projets ayant des enjeux pre-normatifs</label>
+<item>En Europe seul, on peut noter EAGLES, Multext, MATE,
+ISLE...</item>
+<label>Infrastructures de recherche</label>
+<item>International: Bamboo, DARIAH, CLARIN; Français : TGIR-Corpus, Adonis</item>
+</list></div>
+
+<div><head>Standards : on peut s'en passer?</head>
+<p>Pour le scientifique, les standards pourraient sembler un
+inconvenience:
+<list>
+<item>ils figent les avances de la connaissance</item>
+<item>leur production est chronophage</item>
+<item>... et nécessite des compétences sociales</item>
+</list></p>
+<p rend="box">quand même il y a des "plus" pratiques qu'il faut souligner:</p>
+</div>
+
+
+<div><head>Quelques besoins scientifiques</head>
+<list type="ordered">
+<item>Comment identifier et retrouver les ressources numériques
+d'interet linguistique sur le web?</item>
+<item>Comment valider les résultats scientifiques obtenus par d'autres
+personnes?</item>
+<item>Comment enrichir ou intégrer les ressources existantes avec ses propres idées?</item>
+<item>Comment séparer les ressources des outils qui les
+gèrent/analisent?</item>
+</list>
+<p rend="box">Pour tout cela, les standards restent essentiels</p>
+</div>
+
+
+            <div>
+                <head>ou, en TEI XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <u>
+                        <seg type="interrupted">
+                            <incident>
+                                <desc>coughs</desc>
+                            </incident>
+                            <w>you</w>
+                            <w>must</w>
+                        </seg>
+                        <seg type="declarative">
+                            <w>you</w>
+                            <w>should</w>
+                            <w>let</w>
+                            <pause dur="short"/>
+                            <w>it</w>
+                            <w>be</w>
+                        </seg>
+                        <seg type="emphatic">
+                            <incident>
+                                <desc>laughs</desc>
+                            </incident>
+                            <w>please</w>
+                        </seg>
+                    </u>
+                </egXML>
+            </div>
+
+
+
+
+<div>
+  <head>L’oral</head><p>
+Dans un texte oral on peut reconnaître plusieurs phénomènes de discours qui seraient d’ interet lexical:
+  <list><item>des énoncés (utterances)</item>
+  <item>des pauses</item>
+  <item>des phénomènes vocalisés mais pas lexicalisés, par exemple la
+  toux, des quasi-mots comme "hein", "uh" etc.  </item>
+  <item>des phénomènes <term>kinésiques</term> (non vocalisés,
+  non lexicaux, mais servant à communiquer) notamment les gestes</item>
+  <item>des événements entièrement non linguistiques, mais ayant un
+  effet sur le discours, par exemple un camion qui passe etc. </item>
+  <item>des événements écrits, que l’on peut donc transcrire, par exemple des
+  titres ou des diapositives affichés pendant une communication</item>
+  <item>des changements dans la qualité de la voix, par exemple de volume</item></list></p>
+<p rend="box"> .. contrairement aux textes écrits, un texte oral est organisé dans le temps </p>
+</div>
+
+
+
+      <div rend="slide">
+        <head>En résumé... </head>
+        <figure>
+          <graphic url="../Graphics/SpeechDiagram.png"/>
+        </figure>
+      </div>
+
+
+
+
+      <div>
+        <head>Propositions du module <ident>spoken</ident> </head>
+        <list type="gloss">
+          <label>Des éléments supplementaire dans l’en-tête </label>
+          <item><gi>broadcast</gi>, <gi>equipment</gi>,
+
+            <gi>recording</gi>, <gi>recordingStmt</gi>,
+            <gi>scriptStmt</gi></item>
+<label>Des éléments pour la transcription de l’oral</label>
+<item>            <gi>incident</gi>, <gi>kinesic</gi>, <gi>pause</gi>,<gi>shift</gi>, <gi>u</gi>,
+            <gi>vocal</gi>, <gi>writing</gi></item>
+          <label>Des mechanismes pour representer le timing : l'alignement dans le temps </label>
+          <item><gi>timeLine</gi>, <att>dur</att> <att>start</att> <att>end</att>
+	  <att>sync</att>  </item>
+        </list>
+      </div>
+
+
+<div><head>Par exemple...</head>
+
+          <egXML xmlns="http://www.tei-c.org/ns/Examples"><u
+							      who="#Jan">mmm delicieux</u>
+<incident><desc>téléphone sonne</desc></incident>
+<u who="#Kim">j’y vais</u> 
+<u who="#Tom">ya longtemps  <vocal><desc>tousse</desc></vocal> jne
+fume plus</u>
+<u who="#Bob"><vocal><desc>sniffs</desc></vocal>il se croit dur</u>
+<vocal who="#Ann"><desc>grognement</desc></vocal>
+<u who="#Tom">oueh 
+<kinesic><desc>fait un geste avec le doigt</desc></kinesic></u>
+<u who="#Bob">donc j’aurais dû <vocal
+who="#Ann"><desc>faisant tss-tss</desc></vocal> faire quoi</u></egXML>
+</div>
+
+
+
+      <div>
+        <head>Le concept d’"énoncé" </head>
+        <list>
+          <item>une séquence de discours d’un seul locuteur </item>
+          <item>peut être regroupé dans des sections <gi>div</gi></item>
+          <item>peut être fragmenté dans des segments <gi>seg</gi> ou
+              <gi>s</gi></item>
+          <item>L’attribut <att>who</att> sert à indiquer le locuteur</item>
+        </list>
+      </div>
+
+
+
+      <div>
+        <head>Exemple utilisant d’autres éléments TEI</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mar">you never <pause/> take this cat for 
+              show and tell
+              <pause/> meow meow</u>
+            <u who="#ros">yeah well I dont want to</u>
+            <incident><desc>toy cat has bell in tail which continues 
+              to make a tinkling sound</desc></incident>
+            <u who="#ros">because it is so old</u>
+            <u who="#mar">how <choice><orig>bout</orig>
+              <reg>about</reg></choice>
+              <emph>your</emph> cat <pause/>yours is  <emph>new</emph>
+              <kinesic><desc>shows Father the cat</desc></kinesic> </u>
+            <u trans="pause" who="#fat">thats <pause/> darling</u>
+            <u who="#mar">no <emph>mine</emph> isnt old
+              mine is just um a little dirty</u></egXML>
+        </p>
+
+      </div>
+
+      <div rend="slide">
+        <head>Changements de voix</head>
+        <list>
+          <item>Problème de chevauchement classique ! <list>
+              <item>on peut se servir de la balise <gi>shift</gi>
+	      comme <gi>milestone</gi> pour indiquer les frontières...</item>
+              <item>... ou des  <gi>seg</gi> typés</item>
+            </list></item>
+          <item>applicable également au "code shifting" </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#LB">
+            <shift feature="loud" new="f"/>Elizabeth</u>
+          <u who="#EB">Yes</u>
+          <u who="#LB"><shift feature="loud"/>Come and try this <pause/>
+            <shift feature="loud" new="ff"/>come on
+            <shift feature="code" new="fr-mru"/> 'tin va!
+          </u>
+      <listPerson type="speakers">
+        <person xml:id="LB"/>
+        <person xml:id="EB"/>
+      </listPerson>
+        </egXML>
+
+
+      </div>
+
+      <div>
+        <!-- <head>Sample prosodic feature list</head>-->
+<head>Liste non exhaustive de caractéristiques en prose</head>
+        <p>(basée sur Boase, Survey of English Usage, 1990)
+        <table>
+          <row><cell>tempo</cell>
+          <cell>rapide, lent, de plus en plus rapide, de plus en plus lent, etc.</cell></row>
+          <row><cell>volume</cell>
+          <cell>fort, faible, de plus en plus fort, de plus en plus faible</cell></row>
+          <row><cell>hauteur</cell>
+          <cell>aigu, grave,...</cell></row>
+          <row><cell>tension</cell>
+          <cell>lié, tendu, staccato, legato...</cell></row>
+          <row><cell>rythme</cell>
+            <cell>régulier, irrégulier...</cell></row>
+          <row><cell>qualité de la voix</cell>
+            <cell>murmures, voix enrouée, voix de fausset, gloussements, sanglots, bâillements, soupirs...</cell></row>
+        </table></p>
+        <!-- <p>(based on Boase, Survey of English Usage, 1990) <table>
+            <row>
+              <cell>tempo</cell>
+              <cell> (fast, slow, getting faster, slower, etc.)</cell>
+            </row>
+            <row>
+              <cell>loud</cell>
+              <cell>loud, soft, getting louder, slower</cell>
+            </row>
+            <row>
+              <cell>pitch range</cell>
+              <cell>high, low, wide, narrow, ascending...</cell>
+            </row>
+            <row>
+              <cell>tension</cell>
+              <cell>slurred, tense, staccato, legato...</cell>
+            </row>
+            <row>
+              <cell>rhythm</cell>
+              <cell>regular, irregular, spiky rising or falling...</cell>
+            </row>
+            <row>
+              <cell>voice quality</cell>
+              <cell>whisper, husky, falsetto, giggle, sobbing, yawning,
+                sighing...</cell>
+            </row>
+          </table>
+        </p>-->
+
+        <!-- <p rend="box">Researchers need to define their own terms</p>-->
+<p rend="box">Les chercheurs ont besoin de définir leur propre terminologie</p>
+      </div>
+
+
+
+<div>
+  <head><gi>shift/</gi> : exemple</head>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <u who="#a">écoutez <shift new="reading"/>Matignon se déclare
+    confiant que les problèmes financiers actuels seront
+    entièrement maîtrisés fin juin<shift/> mon cul</u>
+  </egXML>
+<p>Ou bien : 
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#a">écoutez 
+            <incident>
+              <desc>lit à haute voix du journal</desc>
+            </incident>mon cul</u>
+        </egXML>
+</p>      </div>
+      
+    
+
+      <div>
+        <head><gi>writing</gi> exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#a">regardez ceci</u>
+          <writing who="#a" type="newspaper" gradual="false"> 
+            Matignon se déclare
+    <soCalled>confiant de maîtriser</soCalled> les problèmes financiers actuels          </writing>
+          <u who="#a">mon cul!</u>
+        </egXML>
+      </div>
+
+
+      <div>
+        <head>Questions relatives à la temporalité</head>
+        <list>
+          <item>pour les pauses : élément <gi>pause</gi> </item>
+          <item>pour la durée : attribut <att>dur</att> </item>
+          <item>synchronisation : attribut <att>synch</att></item>
+          <item>chevauchement : attribut <att>trans</att></item>
+        </list>
+      </div>
+
+
+
+      <div>
+        <head><gi>pause</gi> : exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u>Okay <pause dur="PT2M"/>U-m<pause dur="PT75S"/>la scène ouvre
+            <pause dur="PT50S"/> avec <pause dur="PT20S"/> um <pause
+	    dur="PT145S"/> on voit un arbre okay?</u>
+        </egXML>
+      </div>
+      
+
+
+      <div>
+        <head>Chevauchement</head>
+        <p>
+          <eg><![CDATA[Mutt: vous avez entendu l - -
+Jeff: les résultats?
+Mutt: quel désastre !
+Jeff: (en même temps) quel miracle!]]></eg>
+        </p>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mutt">vous avez entendu l</u>
+            <u trans="latching" who="#jeff">les résultats</u>
+            <u who="#mutt">quel désastre</u>
+            <u who="#jeff" trans="overlap">quel miracle </u>
+          </egXML>
+        </p>
+      </div>
+
+
+      
+
+
+      <div>
+        <head>Synchronisation</head>
+        <p>
+
+
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#mutt">vous avez entendu <anchor synch="#t1"/>l</u>
+            <u who="#jeff" synch="#t1">les résultats</u>
+            <u who="#mutt" synch="#t2">quel désastre</u>
+            <u who="#jeff" synch="#t2">quel miracle</u>
+            
+<!-- Elsewhere in Document -->            
+            
+            <timeline origin="#t1">
+              <when xml:id="t1" since="00001728281"/>
+              <when xml:id="t2" since="00001728302"/>
+            </timeline>
+            
+          </egXML>
+
+        </p>
+      </div>
+
+
+<div>
+  <head><gi>timeline</gi> : exemple</head>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <timeline unit="s" origin="#TS-P1">
+      <when xml:id="TS-P1" absolute="12:20:01"/>
+      <when xml:id="TS-P2" interval="4:05" since="#TS-P1"/>
+      <when xml:id="TS-P6"/>
+      <when xml:id="TS-P3" interval="1:05" since="#TS-P6"/>
+    </timeline>
+    </egXML>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <u xml:id="TS-U1" start="#TS-P2" end="#TS-P3">This is my <anchor synch="#TS-P6" xml:id="TS-P6A"/> turn</u>
+  </egXML>
+  <p>Le début de l’énoncé TS-U1 s’aligne avec le point temporel TS-P2,
+  il est donc 4.5 unités après TS-P1, i.e. à 12:24:06. Sa fin est
+  synchronisée avec le point temporel TS-P3. La transition entre les
+  mots <q>my</q> et <q> turn</q> arrive à un moment synchronisé avec
+  le point temporerel TS-P6.</p>
+</div>
+
+
+
+<!--      
+      
+      <div>
+        <head>Using éléments seen elsewhere</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u>
+            <del type="truncation">s</del>see
+            <del type="repetition">you you</del> you know
+            <del type="falseStart">it’s</del> he’s crazy
+          </u></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <gap reason="passing truck" extent="5" unit="s"/>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <u who="#P1">I proposed that <foreign xml:lang="de"> wir können <pause dur="PT1S"/> vielleicht </foreign> go to warsaw and <emph>vienna</emph> </u>
+        </egXML>
+        </div>
+    -->  
+      
+      <div rend="slide">
+        <head>Description des participants</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <particDesc>
+            <listPerson>
+          <person xml:id="P-1234" sex="2" age="mid">
+            <p>informateur, sexe féminin, bonne éducation, née à Shropshire UK, 12 Jan 1950,
+                commerçante parle français couramment. Statut
+		socio-économique (SSE) :
+              commerçante.</p>
+          </person>
+              <person xml:id="P-4332" sex="1">
+                <persName>
+                  <surname>Hancock</surname> <forename>Antony</forename> <forename>Aloysius</forename> <forename>St John</forename>
+                </persName>
+                <residence notAfter="1959">
+                  <address>
+                    <street>Railway Cuttings</street>
+                    <settlement>East Cheam</settlement>
+                  </address>
+                </residence>
+                <occupation>comedian</occupation>
+              </person>
+            </listPerson>
+          </particDesc>
+        </egXML>
+        
+      </div>
+      <!--
+      <div>
+        <head>Flexibility and standardization of metadata</head>
+        <list>
+          <item>Information can be supplied purely in documentary terms, as
+            plain text...</item>
+          <item>... or it can be organized in a structured way, using a
+            rich set of XML descriptors</item>
+          <item>The available descriptors can be constrained by means of a
+            customised schema</item>
+          <item>Additional descriptors can be added, and integrated by
+            means of the TEI class system</item>
+        </list>
+      </div>
+      
+      <div><head><gi>scriptStmt</gi> example</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <sourceDesc>
+            <scriptStmt xml:id="CNN12">
+              <bibl>
+                <author>CNN Network News</author>
+                <title>News headlines</title>
+                <date when="1991-06-12">12 Jun 91</date>
+              </bibl>
+            </scriptStmt>
+          </sourceDesc>
+        </egXML>
+      </div>
+      -->
+      
+      <div>
+        <head>Description des enregistrements</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><recordingStmt>
+      <recording type="audio" dur="P10M">
+        <equipment>
+          <p>podcast</p>
+        </equipment>
+        <broadcast>
+          <bibl>
+            <title>Questions sur la souffrance et la santé au travail : pénibilité, stress,
+              dépression, harcèlement, maladies et accidents...</title>
+            <author>France Inter</author>
+            <respStmt>
+              <resp>Présentateur</resp>
+              <name>Alain Bédouet</name>
+            </respStmt>
+            <respStmt>
+              <resp>Personne interrogée</resp>
+              <name> Marie Pezé, Docteur en psychologie, psychanalyste, expert judiciaire ; dirige
+                la consultation « souffrance et travail » à l’Hôpital de Nanterre (92), auteure de
+                  <title>ils ne mourraient pas tous mais tous étaient frappés</title>, Editions
+                Pearson.</name>
+            </respStmt>
+            <series>
+              <title>Le Téléphone sonne</title>
+            </series>
+            <note>Première diffusion le <date when="2008-09-24">mercredi 24 septembre
+            2008</date>
+                  </note>
+          </bibl>
+        </broadcast>
+      </recording>
+        </recordingStmt></egXML>
+      </div>
+      
+      
+      
+      <div>
+        <head>Ou peut-être plus simplement...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <recordingStmt>
+            <recording type="audio" dur="P15M" xml:id="rec-3001">
+              <date>14 Feb 2001</date>
+            </recording>
+            <recording type="audio" dur="P15M" xml:id="rec-3002">
+              <date>17 Feb 2001</date>
+            </recording>
+            <recording type="audio" dur="P15M" xml:id="rec-3003">
+              <date>22 Feb 2001</date>
+            </recording>
+          </recordingStmt>
+        </egXML>
+      </div>
+      
+      <div rend="slide">
+        <head>...et pour le contexte</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <setting xml:id="KDFSE002" n="063505" who="#PS0M6">
+            <name type="place">Lancashire:  Morecambe </name>
+            <locale> at home </locale>
+            <activity> watching television </activity>
+          </setting>
+        </egXML>
+        
+      </div>
+      
+</body></text></TEI>

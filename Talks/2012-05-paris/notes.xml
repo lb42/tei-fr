@@ -1,0 +1,486 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title> ?</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>Publication information</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Information about the source</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div>
+                <head>Au niveau plus abstrait..</head>
+                <p>du point de vue technique, l'annotation implique <list>
+                        <item>une catégorisation des composants du corpus</item>
+                        <item>l'identification des composants supplémentaires </item>
+                        <item>l'identification des relations entre des composants spécifiés <list>
+                                <item>des ensembles</item>
+                                <item>des correspondences</item>
+                            </list></item>
+                    </list></p>
+                <p rend="box"> Donc, tout systeme d' annotation ayant ces capacités devrait répondre
+                    aux besoins des annotateurs</p>
+            </div>
+
+            <div>
+                <head>Comment annoter?</head>
+                <list type="gloss">
+                    <label>à la main :</label>
+                    <item> danger d'incohérences; gros travaux ... </item>
+                    <label>automatiquement : </label>
+                    <item>danger de circularité; necessité de faire évoluer les outils </item>
+                    <label>compromis britannique</label>
+                    <item>tous les deux ensemble</item>
+                    <label>compromis google</label>
+                    <item>"crowd sourcing", "mechanical turk" etc. </item>
+                </list>
+            </div>
+
+            <div>
+                <head>Mechanical turk ?</head>
+                <p><graphic url="../Graphics/mechanicalTurk.png"/></p>
+                <p rend="box"><ptr
+                        target="http://blog.crowdflower.com/2008/09/amt-fast-cheap-good-machine-learning/"
+                    /></p>
+            </div>
+
+
+            <div>
+                <head>Annotation de l'oral</head>
+                <p>Un cas extrème -- il n y a pas de texte à annoter; on le crée en annotant.</p>
+                <p><graphic url="../Graphics/oral-annot.png"/></p>
+            </div>
+
+
+            <div>
+                <head>Modélisation de l'oral</head>
+
+                <p>Outils de transcriptions les plus répandus : <list>
+                        <item>Anvil, CHAT, ELAN, EXMARaLDa, FOLKER, Praat, Transcriber.</item>
+                    </list></p>
+                <p>Schmidt (2011) note que toutes ces systèmes proposent un modèle commun, une
+                    simplification d'une <term>annotation graph</term> : <list>
+                        <item>l'oral existe dans le temps : donc chaque morceau de transcription est
+                            associé avec un point de départ et une fin</item>
+                        <item>ces triplets sont regroupables en <q>tiers</q> (couches?)</item>
+                        <item>une couche peut etre associée avec un locuteur, et/ou un type</item>
+                    </list></p>
+                <p rend="box">n'empêche un pluralité de moyens de l'exprimer..</p>
+
+            </div>
+
+            <div>
+                <head>EXMARaLDA, par exemple</head>
+                <p><graphic url="../Graphics/exmaralda.jpg"/></p>
+                <p>EXMARaLDA: “Extensible Markup Language for Discourse Annotation”
+                    http://www.exmaralda.org/</p>
+            </div>
+
+            <div>
+                <head>Format EXMARaLDA</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <common-timeline>
+                        <tli id="T0" time="0.0"/>
+                        <tli id="T1" time="1.309974117691172"/>
+                        <tli id="T2" time="1.899962460773455"/>
+                        <tli id="T3" time="2.3399537674788866"/> ....</common-timeline>
+                    <tier id="TIE0" speaker="SPK0" category="v" type="t" display-name="PRE [v]">
+                        <event start="T2" end="T3">Good evening. </event>
+                        <event start="T5" end="T6">I have with me tonight Ann Elk Mistress Ann Elk.
+                        </event></tier></egXML>
+            </div>
+            <div>
+                <head>Voices of the Holocaust</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <div xml:lang="de">
+                        <u who="#boderD" start="127.732" end="x">[In German] Also, sagen Sie mir,
+                            wie lautet Ihr Name, Frau Button?</u>
+                        <u who="#buttonE" start="132.669" end="x">Deutsch sprechen?</u>
+                        <u who="#boderD" start="135.403" end="x">Auf Deutsch.</u>
+                        <u who="#buttonE" start="137.122" end="x">Ich heiße Eda Button. Ich war
+                            deportiert von Athen im, äh, April '44.</u>
+                        <u who="#boderD" start="137.122" end="x">Und nach wo wurden sie
+                            deportiert?</u>
+                        <u who="#buttonE" start="146.903" end="x">Ich war deportiert in äh
+                            Bergen-Belsen.</u>
+                        <u who="#boderD" start="149.496" end="x">Ja. Also, sagen Sie mal, äh, wo ist
+                            Ihr Mann?</u>
+                        <u who="#buttonE" start="153.090" end="x">Mein Mann ist, äh, weggelau- war,
+                            äh, in, äh, Palästina, in Tel Aviv.</u>
+                    </div>
+                </egXML>
+            </div>
+            <div>
+                <head>IFA Dialog Video corpus </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><TIME_ORDER>
+                        <TIME_SLOT TIME_SLOT_ID="ts1" TIME_VALUE="0"/>
+                        <TIME_SLOT TIME_SLOT_ID="ts2" TIME_VALUE="10"/>
+                        <TIME_SLOT TIME_SLOT_ID="ts3" TIME_VALUE="462"/>
+                        <TIME_SLOT TIME_SLOT_ID="ts4" TIME_VALUE="840"/> ...</TIME_ORDER>
+                    <ANNOTATION>
+                        <ALIGNABLE_ANNOTATION ANNOTATION_ID="a1" TIME_SLOT_REF1="ts4"
+                            TIME_SLOT_REF2="ts7">
+                            <ANNOTATION_VALUE>beginnen we weer opnieuw?</ANNOTATION_VALUE>
+                        </ALIGNABLE_ANNOTATION>
+                    </ANNOTATION>
+                </egXML>
+            </div>
+
+            <div>
+                <head>COLT</head>
+                <p>Sentence Level</p>
+                <eg>
+                    <![CDATA[<u who=5 id=1 time=0.112> But I must see Mr <name> [smile again.]
+<u who=1 id=2 time=2.016> [<unclear> spoiled again?] ...
+ </u>]]></eg>
+                <p>Word level</p>
+                <eg><![CDATA[<u who=5 id=1 time=0.112>
+<Audio word=BUT time=0.112 durn=0.176>But</Audio>
+<Audio word=I time=0.288 durn=0.064>I</Audio>
+<Audio word=MUST time=0.352 durn=0.304>must</Audio>
+<Audio word=SEE time=0.816 durn=0.352>see</Audio>
+<Audio word=MR time=1.168 durn=0.160>Mr</Audio> ...
+]]></eg>
+            </div>
+
+            <div>
+                <head>Transcriber</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><Turn speaker="spk2"
+                        startTime="0.557" endTime="5.851">
+                        <Sync time="0.557"/> so what do you know of your family ’s <Sync
+                            time="2.255"/> history like <Sync time="3.410"/> do you know when and
+                        why they came to Oxford </Turn>
+                </egXML>
+            </div>
+
+            <div>
+                <head>Au niveau de transcription...</head>
+                <p>Meme jeu ... On peut identifier (au moins) 5 systemes de transcription pour les
+                    énoncés eux-memes: <table>
+                        <row>
+                            <cell role="label">HIAT</cell>
+                            <cell>((coughs)) You must/ you (should) let • it be. ((laughs))
+                                Pleease!</cell>
+                        </row>
+                        <row>
+                            <cell role="label">GAT</cell>
+                            <cell><code>((coughs)) you must- you (should/could) let (-) it be;
+                                    ((laughs)) plea:se-</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">CHAT</cell>
+                            <cell><code>&amp;=coughs you must... you should let # it be.
+                                    &amp;=laughs please!</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">DT1</cell>
+                            <cell><code>(COUGH) you must-- you &lt;X should X&gt; let .. it be. @@
+                                    please?</code>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell role="label">cGAT</cell>
+                            <cell><code>((coughs)) you must you (should/could) let (-) it be
+                                    ((laughs)) please</code>
+                            </cell>
+                        </row>
+                    </table>
+                </p>
+                <p>(Table from Schmidt 2011)</p>
+            </div>
+
+            <div>
+                <head>ou, en TEI XML</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <u>
+                        <seg type="interrupted">
+                            <incident>
+                                <desc>coughs</desc>
+                            </incident>
+                            <w>you</w>
+                            <w>must</w>
+                        </seg>
+                        <seg type="declarative">
+                            <w>you</w>
+                            <w>should</w>
+                            <w>let</w>
+                            <pause dur="short"/>
+                            <w>it</w>
+                            <w>be</w>
+                        </seg>
+                        <seg type="emphatic">
+                            <incident>
+                                <desc>laughs</desc>
+                            </incident>
+                            <w>please</w>
+                        </seg>
+                    </u>
+                </egXML>
+            </div>
+
+<div>
+                <head>Digging into Data</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><fs xml:id="D94:0083:11">
+                        <f name="orth">wanted</f>
+                        <f name="phon_ana">
+                            <vcoll type="lst">
+                                <symbol synch="#D94:0083:11:0" value="W"/>
+                                <symbol synch="#D94:0083:11:1" value="AO1"/>
+                                <symbol synch="#D94:0083:11:2" value="N"/>
+                                <symbol synch="#D94:0083:11:3" value="AH0"/>
+                                <symbol synch="#D94:0083:11:4" value="D"/>
+                            </vcoll>
+                        </f>
+                    </fs>
+                </egXML>
+                </div>
+
+            <div>
+                <head>Un tour (trop) bien connu</head>
+                <p><graphic height="60%" url="../Graphics/babel.jpg"/></p>
+                <p rend="box">Dans un seul labo vous avez vu une multiplication des systemes de
+                    notation</p>
+                <p rend="box">Entre labos divers, le cas est encore pire: le meme phénomène
+                    linguistique se présente dans des formats divergents meme si la notation est la meme                    pareill</p>
+            </div>
+
+            <div>
+                <head>Par consequent...</head>
+                <list>
+                    <item>on ne peut pas mutaliser ou integrer ses ressources not share or
+                        integrate data</item>
+                    <item>chaque nouvelle ressource requiert un outil nouveau d'analyse</item>
+                    <item>les resultats scientifique sont difficiles a répliquer ou tester</item>
+                </list>
+                <p rend="box">Donc on doit renoncer a pretendre faire de la science empirique :-( </p>
+            </div>
+
+            <div>
+                <head>Est-ce que XML nous fournit la réponse parfaite?</head>
+                <p>Oui! <list>
+                        <item>une technologie mure, bien comprise, omniprésente</item>
+                        <item>beaucoup d'outils, des systemes de developpement, et de
+                            l'expertise</item>
+                        <item>bon compromis entre tractabilités humain/machine</item>
+                    </list></p>
+                <p>Non! <list>
+                        <item>le modèle XML est trop restreint; trop axé sur le texte</item>
+                        <item>ne supporte pas les structures ayant plusieurs hiérarchies</item>
+                        <item>ne supporte guère les annotations imprécises ou incomplètes</item>
+                    </list></p>
+                <p rend="box">Annotation graphs? RDF? microformats? </p>
+            </div>
+
+            <div>
+                <head>Overlap Happens 1</head>
+                <p><graphic url="../Graphics/icecream.png"/></p>
+                <p>(Redrawn from Wörner et al, 2006)</p>
+                <p rend="box">Essentially, it's a tokenization/annotation problem.</p>
+            </div>
+
+
+            <div>
+                <head>Problèmes de chevauchement</head>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <lg>
+                        <l>Maître corbeau, sur un arbre perché</l>
+                        <l>Tenait en son bec un fromage.</l>
+                        <l>Maître renard par l'odeur alléché</l>
+                        <l>Lui tint à peu près ce langage:</l>
+                        <l>Hé! bonjour Monsieur du Corbeau</l>
+                        <l>Que vous êtes joli! que vous me semblez beau!</l> ... </lg></egXML>
+
+                <p>avec superposition d'analyse linguistique...</p>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <lg>
+                        <l><s part="I">Maître corbeau, sur un arbre perché</s></l>
+                        <l><s part="F">Tenait en son bec un fromage.</s></l>
+                        <l><s part="I">Maître renard par l'odeur alléché</s></l>
+                        <l><s part="F">Lui tint à peu près ce langage:</s></l>
+                        <l><s>Hé! bonjour Monsieur du Corbeau</s></l>
+                        <l><s>Que vous êtes joli!</s><s> que vous me semblez beau!</s></l> ...
+                    </lg></egXML>
+                <p rend="box">Du bricolage...</p>
+            </div>
+
+            <div>
+                <head>Balisage debarque </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <lg>
+                        <l><seg xml:id="S1">Maître corbeau, sur un arbre perché</seg></l>
+                        <l><seg xml:id="S2">Tenait en son bec un fromage.</seg></l>
+                        <!-- ... -->
+                    </lg>
+                    <join result="s" targets="#S1 #S2"/>
+                </egXML>
+                <p>Au lieu de fournir des identifiants, on peut se servir de la syntax XPath pour les
+                    offset: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <lg>
+                            <l>Maître corbeau, sur un arbre perché</l>
+                            <l>Tenait en son bec un fromage.</l>
+                            <!-- ... -->
+                        </lg>
+                        <join result="s" target="lg/l[1] lg/l[2]"/>
+                    </egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Un facon naturel d' annoter?</head>
+
+                <p>Par exemple: voici du discours: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <u xml:id="u1">Can I have ten oranges and a kilo of bananas please?</u>
+                        <u xml:id="u2">Yes, anything else?</u>
+                        <u xml:id="u3">No thanks.</u>
+                        <u xml:id="u4">That'll be a dollar forty.</u>
+                        <u xml:id="u5">Two dollars</u>
+                        <u xml:id="u6">Sixty, eighty, two dollars. Thank you.</u>
+                    </egXML></p>
+                <p>Ensuite, je veux catégoriser des unités: <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples"><spanGrp type="transactions">
+                            <span target="#u1">sale request</span>
+                            <span target="#u2 #u3">sale compliance</span>
+                            <span target="#u4">sale</span>
+                            <span target="#u5 #u6">purchase</span>
+                            <span from="#u6">purchase closure</span>
+                        </spanGrp>
+                    </egXML>
+                </p>
+            </div>
+
+            <div>
+                <head>L'annotation debarquée en 2 étapes</head>
+                <list>
+                    <item>une structuration basique, en unités (segments, tokens)
+                        identifiables</item>
+                    <item>un systeme pour mettre en relation les segments ainsi identifiés</item>
+                </list>
+                <p rend="box">les normes XPath et XInclude servent à completer la sérialization XML
+                </p>
+            </div>
+
+            <div>
+                <head>Conclusions</head>
+                <list>
+                    <item>Tout corpus est intrinsiquement annoté</item>
+                    <item>l'annotation est une acte linguistique, interprétative</item>
+                    <item>une structuration très simple peut supporter plusieurs niveaux
+                        d'annotation complexe</item>
+                </list>
+                <p rend="box">La quete d'une langue universelle d'annotation reste inachevée...</p>
+
+
+            </div>
+
+            <!--
+            <div>
+                <head>Bibliography</head>
+                <listBibl>
+             
+                    <bibl>Hunston, S. 2002 Corpora in Applied Linguistics (Cambridge: Cambridge
+                        University Press) </bibl>
+                    <bibl>Langendoen, D T and Gary F. Simons. 1995  <title>Rationale for the TEI
+                        Recommendations for Feature-Structure Markup</title> in N. Ide. and
+                        J. Veronis, eds. <title>The Text Encoding Initiative: Background and
+                            Contexts</title>, special triple issue of <title>Computers and the Humanities</title>, 29:3,
+                        1995, 191-209. </bibl><bibl>Leech, G 2005 ‘Adding Linguistic Annotation’, in M. Wynne, Developing
+                        Linguistic Corpora: a Guide to Good Practice (Oxford: Oxbrow Books), pp.
+                        17-29 [http://ahds.ac.uk/linguistic-corpora/]</bibl>
+			<bibl>Schmidt, T. 2011 'A TEI-based approach
+			to standardising spoken language
+			transcription' Journal of the Text Encoding
+			Initiative 1 (June 2011). <ref>http://jtei.revues.org/142</ref></bibl>
+                    <bibl>Sinclair, J. 2004 Trust the Text: Language, Corpus and Discourse (London:
+                        Routledge) </bibl>
+
+<bibl>[Wörner et al., 2006] Wörner, K., Witt, A., Rehm, G., Dipper, S. (2006). Modelling Linguistic Data Structures. Presented at Extreme Markup Languages 2006, Montréal, Québec. Available from http://conferences.idealliance.org/extreme/html/2006/Witt01/EML2006Witt01.html </bibl>
+                </listBibl>
+            </div>
+    -->
+
+            <div>
+                <head>Combien de standards faut-il dans le monde?</head>
+                <list>
+<label>WKWBFY</label><!-- we know whats best for you -->
+                    <item>un seul : solution centraliste</item>
+<label>NWEUMP</label> <!-- nobody will ever understand my problem -->
+<item>aucun : solution anarchiste</item>
+<label>FTH</label> <!-- follow the herd -->
+<item>autant qu'il en arrive : solution laissez-faire
+</item>
+                </list>
+            </div>
+
+
+            <div>
+                <head>Les normes ne s'imposent pas dans la vie intellectuelle</head>
+                <list>
+                    <item>soit ils emergent d'un besoin aperçu dans le communauté </item>
+                    <item>soit leur usage dérive du necessité d'utiliser
+		    une technologie particulière </item>
+<item>mais on ne renonce pas volontièrement à son indépendence! 
+</item>
+                </list>
+            </div>
+
+<div><head>Standards : un paysage complexe</head>
+<list>
+<label>Agences officiels de standardisation</label>
+<item>nationales : AFNOR, ANSI, BSI, DIN; internationales: ISO, IEC, W3C, OASIS, TEI ... </item>
+
+<label>Regroupements des Personnes Interessées</label>
+<item>Plusieurs... ex
+<list>
+<item>LISA (Localisation Industry Standards Association)</item>
+<item>MPEG (Moving Pictures Expert Group)
+</item></list></item>
+<label>Projets ayant des enjeux pre-normatifs</label>
+<item>En Europe seul, on peut noter EAGLES, Multext, MATE,
+ISLE...</item>
+<label>Infrastructures de recherche</label>
+<item>International: Bamboo, DARIAH, CLARIN; Français : TGIR-Corpus, Adonis</item>
+</list></div>
+
+<div><head>Standards : on peut s'en passer?</head>
+<p>Pour le scientifique, les standards pourraient sembler un
+inconvenience:
+<list>
+<item>ils figent les avances de la connaissance</item>
+<item>leur production est chronophage</item>
+<item>... et nécessite des compétences sociales</item>
+</list></p>
+<p rend="box">quand même il y a des "plus" pratiques qu'il faut souligner:</p>
+</div>
+
+
+<div><head>Quelques besoins scientifiques</head>
+<list type="ordered">
+<item>Comment identifier et retrouver les ressources numériques
+d'interet linguistique sur le web?</item>
+<item>Comment valider les résultats scientifiques obtenus par d'autres
+personnes?</item>
+<item>Comment enrichir ou intégrer les ressources existantes avec ses propres idées?</item>
+<item>Comment séparer les ressources des outils qui les
+gèrent/analisent?</item>
+</list>
+<p rend="box">Pour tout cela, les standards restent essentiels</p>
+
+</div>
+
+
+
+
+        </body>
+    </text>
+</TEI>
