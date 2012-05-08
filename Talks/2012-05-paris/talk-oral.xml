@@ -609,120 +609,89 @@ who="#Ann"><desc>faisant tss-tss</desc></vocal> faire quoi</u></egXML>
 
       <div>
         <head>Chevauchement</head>
-        <p>
-          <eg><![CDATA[Mutt: vous avez entendu l - -
-Jeff: les résultats?
-Mutt: quel désastre !
-Jeff: (en même temps) quel miracle!]]></eg>
+        <p>Approche minimale : 
+          <eg><![CDATA[Jules: vous avez entendu les - -
+Jim: les résultats?
+Jules: quel désastre !
+Jim: (en même temps) quel miracle!]]></eg>
         </p>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <u who="#mutt">vous avez entendu l</u>
-            <u trans="latching" who="#jeff">les résultats</u>
-            <u who="#mutt">quel désastre</u>
-            <u who="#jeff" trans="overlap">quel miracle </u>
+            <u who="#jules">vous avez entendu les</u>
+            <u trans="latching" who="#jim">les résultats</u>
+            <u who="#jules">quel désastre</u>
+            <u who="#jim" trans="overlap">quel miracle </u>
           </egXML>
         </p>
       </div>
 
-
-      
-
+<div>
+        <head>Synchronisation 1</head>
+<p>L'attribut <att>synch</att> indique un point <hi>ou empan</hi> synchronise avec l'element qui le porte:
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#jules">vous avez entendu <anchor xml:id="T1"/>les</u>
+            <u synch="#T1" who="#jim">les résultats</u>
+            <u who="#jules" xml:id="T2">quel désastre</u>
+            <u who="#jim" synch="#T2">quel miracle </u>
+          </egXML>
+        </p>
+<p>Les attributs <att>start</att> et <att>end</att> permettent un peu plus de precision :
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <u who="#jules" end="#T2">vous avez entendu <anchor xml:id="T1"/> les</u>
+            <u start="#T1" who="#jim">les <anchor xml:id="T2"/> résultats</u>
+          </egXML>
+</p></div> 
 
       <div>
-        <head>Synchronisation</head>
-        <p>
+        <head>Alignment</head>
+        <p>Le cas typique: un registrement identifie par un flux temporel, avec lequel on veut aligner une (ou plusieurs) transcriptions.</p>
+<p>L' element <gi>timeline</gi> represente un flux temporel, regroupant plusieurs <gi>when</gi>, un pour chaque moment identifiable. </p>
+<p>Un <gi>when</gi> peut etre absolu: 
 
-
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <u who="#mutt">vous avez entendu <anchor synch="#t1"/>l</u>
-            <u who="#jeff" synch="#t1">les résultats</u>
-            <u who="#mutt" synch="#t2">quel désastre</u>
-            <u who="#jeff" synch="#t2">quel miracle</u>
-            
-<!-- Elsewhere in Document -->            
-            
-            <timeline origin="#t1">
-              <when xml:id="t1" since="00001728281"/>
-              <when xml:id="t2" since="00001728302"/>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">            
+            <timeline corresp="fichier.wav" units="ms">
+              <when xml:id="t0" absolute="00001728281"/>
+              <when xml:id="t1" absolute="00001728285"/>
+              <when xml:id="t2" absolute="00001728302"/>
             </timeline>
-            
           </egXML>
 
         </p>
+<p>Ou relatif:
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <timeline xml:id="TL01" unit="ms">
+        <when xml:id="TL-w0" absolute="11:30:00"/>
+        <when xml:id="TL-w1" interval="unknown" since="#TL-w0"/>
+        <when xml:id="TL-w2" interval="100" since="#TL-w1"/>
+        <when xml:id="TL-w3" interval="200" since="#TL-w2"/>
+<!-- ... -->
+      </timeline>
+    </egXML>
+</p>
       </div>
 
 
 <div>
-  <head><gi>timeline</gi> : exemple</head>
+  <head>Usage de <gi>timeline</gi> </head>
+<p>Cela permets l' alignment de plusieurs instants synchronises :
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <timeline unit="s" origin="#TS-P1">
       <when xml:id="TS-P1" absolute="12:20:01"/>
       <when xml:id="TS-P2" interval="4:05" since="#TS-P1"/>
       <when xml:id="TS-P6"/>
-      <when xml:id="TS-P3" interval="1:05" since="#TS-P6"/>
     </timeline>
-    </egXML>
-  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-    <u xml:id="TS-U1" start="#TS-P2" end="#TS-P3">This is my <anchor synch="#TS-P6" xml:id="TS-P6A"/> turn</u>
+
+<!-- ... -->
+
+    <u who="#jules" xml:id="TS-U1" start="#TS-P1" end="#TS-P3"> 
+         vous avez entendu <anchor sync="#TS-P2"/> les</u>
+    <u  who="#jim" start="#TS-P2">les résultats</u>
   </egXML>
-  <p>Le début de l’énoncé TS-U1 s’aligne avec le point temporel TS-P2,
-  il est donc 4.5 unités après TS-P1, i.e. à 12:24:06. Sa fin est
-  synchronisée avec le point temporel TS-P3. La transition entre les
-  mots <q>my</q> et <q> turn</q> arrive à un moment synchronisé avec
-  le point temporerel TS-P6.</p>
+</p>
+<p rend="box">NB un <gi>when</gi> represente un instant, et non pas un empan</p>
 </div>
 
 
-
-<!--      
-      
-      <div>
-        <head>Using éléments seen elsewhere</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <u>
-            <del type="truncation">s</del>see
-            <del type="repetition">you you</del> you know
-            <del type="falseStart">it’s</del> he’s crazy
-          </u></egXML>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <gap reason="passing truck" extent="5" unit="s"/>
-        </egXML>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <u who="#P1">I proposed that <foreign xml:lang="de"> wir können <pause dur="PT1S"/> vielleicht </foreign> go to warsaw and <emph>vienna</emph> </u>
-        </egXML>
-        </div>
-    -->  
-      
-      <div rend="slide">
-        <head>Description des participants</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <particDesc>
-            <listPerson>
-          <person xml:id="P-1234" sex="2" age="mid">
-            <p>informateur, sexe féminin, bonne éducation, née à Shropshire UK, 12 Jan 1950,
-                commerçante parle français couramment. Statut
-		socio-économique (SSE) :
-              commerçante.</p>
-          </person>
-              <person xml:id="P-4332" sex="1">
-                <persName>
-                  <surname>Hancock</surname> <forename>Antony</forename> <forename>Aloysius</forename> <forename>St John</forename>
-                </persName>
-                <residence notAfter="1959">
-                  <address>
-                    <street>Railway Cuttings</street>
-                    <settlement>East Cheam</settlement>
-                  </address>
-                </residence>
-                <occupation>comedian</occupation>
-              </person>
-            </listPerson>
-          </particDesc>
-        </egXML>
-        
-      </div>
-      <!--
       <div>
         <head>Flexibility and standardization of metadata</head>
         <list>
@@ -736,7 +705,56 @@ Jeff: (en même temps) quel miracle!]]></eg>
             means of the TEI class system</item>
         </list>
       </div>
+
       
+      <div rend="slide">
+        <head>Description des participants</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <particDesc>
+            <listPerson>
+          <person xml:id="P-1234" sex="2" age="mid">
+            <p>informateur, sexe féminin, bonne éducation, née à Shropshire UK, 12 Jan 1950,
+                commerçante parle français couramment. Statut
+		socio-économique (SSE) :
+              commerçante.</p>
+          </person>
+	  </listPerson></particDesc>
+<!-- ... -->
+<u who="#P-1234"> Et avec cela? </u>
+</egXML>
+</div>
+
+<div><head>Les richesses du TEI</head>
+<p>Pour les entites nommes (personnes, lieux, organisations), on dispose d' une large gamme d' elements specifique ou generiques pour representer les etats, traits, evenements, et inter-relations de telles entites. </p>
+<p>Tous ces informations sont datables, exactement ou approximativement, avec des attributs.</p>
+<p>La liaison entre ces descriptions et les enonces (typiquement l'identifiant du locuteur) permet de rechercher les enonces regroupe par attributs de locuteurs, par exemple sexe, classe sociale, etc.</p>
+</div>
+
+      <div rend="slide">
+        <head>Description des participants</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<listPerson>
+<person xml:id="jules" sex="1" >
+<persName>Jules</persName>
+<age value="4"  />
+<birth when="1970-02-12"/>
+<nationality key="FR">French</nationality>
+<residence notBefore="2000-10-01">  
+<country>France</country>
+<settlement>Lyon</settlement>
+</residence> 
+<langKnowledge>
+<langKnown level="first" tag="fr">French mother tongue</langKnown>
+<langKnown level="other" tag="en">Fluent English</langKnown>
+</langKnowledge> 
+<occupation ref="http://classement.fr/#xyz">cheminot</occupation>
+<education level="superior">DEA Ingenerie</education>
+</person>
+</listPerson>        </egXML>
+        
+      </div>
+
+<!--      
       <div><head><gi>scriptStmt</gi> example</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <sourceDesc>
@@ -754,12 +772,13 @@ Jeff: (en même temps) quel miracle!]]></eg>
       
       <div>
         <head>Description des enregistrements</head>
-        
+<p>Plusieurs possibilites...        
         <egXML xmlns="http://www.tei-c.org/ns/Examples"><recordingStmt>
-      <recording type="audio" dur="P10M">
-        <equipment>
-          <p>podcast</p>
-        </equipment>
+      <recording type="audio" dur="P10M" corresp="fichier.wav">
+<equipment>        <p>Enregistreur numérique avec connexion USB et 512 Mo de mémoire intégrée</p></equipment>
+</recording>
+<recording type="video" dur="P7M" corresp="http://youtube.com/fichier"/>
+<recording>
         <broadcast>
           <bibl>
             <title>Questions sur la souffrance et la santé au travail : pénibilité, stress,
@@ -771,11 +790,12 @@ Jeff: (en même temps) quel miracle!]]></eg>
             </respStmt>
             <respStmt>
               <resp>Personne interrogée</resp>
-              <name> Marie Pezé, Docteur en psychologie, psychanalyste, expert judiciaire ; dirige
+              <name> Marie Pezé</name>
+      </respStmt>
+      <note>Marie Pesé est Docteur en psychologie, psychanalyste, expert judiciaire ; dirige
                 la consultation « souffrance et travail » à l’Hôpital de Nanterre (92), auteure de
                   <title>ils ne mourraient pas tous mais tous étaient frappés</title>, Editions
-                Pearson.</name>
-            </respStmt>
+                Pearson.</note>
             <series>
               <title>Le Téléphone sonne</title>
             </series>
@@ -785,27 +805,9 @@ Jeff: (en même temps) quel miracle!]]></eg>
           </bibl>
         </broadcast>
       </recording>
-        </recordingStmt></egXML>
+        </recordingStmt></egXML></p>
       </div>
       
-      
-      
-      <div>
-        <head>Ou peut-être plus simplement...</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <recordingStmt>
-            <recording type="audio" dur="P15M" xml:id="rec-3001">
-              <date>14 Feb 2001</date>
-            </recording>
-            <recording type="audio" dur="P15M" xml:id="rec-3002">
-              <date>17 Feb 2001</date>
-            </recording>
-            <recording type="audio" dur="P15M" xml:id="rec-3003">
-              <date>22 Feb 2001</date>
-            </recording>
-          </recordingStmt>
-        </egXML>
-      </div>
       
       <div rend="slide">
         <head>...et pour le contexte</head>
