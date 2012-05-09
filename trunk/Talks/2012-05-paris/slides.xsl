@@ -68,6 +68,32 @@
   <xsl:text>&gt;}</xsl:text>
 </xsl:template>
 
+
+  <xsl:template match="teix:egXML[@rend='tiny']">
+\bgroup\ttfamily\fontsize{6.5pt}{7pt}\selectfont\par
+\begin{exampleblock}{}
+\noindent\ttfamily\mbox{}<xsl:apply-templates mode="verbatim"/>
+\end{exampleblock}
+\par\egroup
+  </xsl:template>
+
+  <xsl:template match="teix:egXML[@rend='small']">
+\bgroup\ttfamily\fontsize{7.5pt}{8pt}\selectfont\par
+\begin{exampleblock}{}
+\noindent\ttfamily\mbox{}<xsl:apply-templates mode="verbatim"/>
+\end{exampleblock}
+\par\egroup
+  </xsl:template>
+
+  <xsl:template match="teix:egXML">
+\bgroup\ttfamily\fontsize{8.5pt}{9pt}\selectfont\par
+\begin{exampleblock}{}
+\noindent\ttfamily\mbox{}<xsl:apply-templates mode="verbatim"/>
+\end{exampleblock}
+\par\egroup
+  </xsl:template>
+
+
   <xsl:template match="tei:eg">
     <xsl:variable name="fontsize">
       <xsl:choose>
