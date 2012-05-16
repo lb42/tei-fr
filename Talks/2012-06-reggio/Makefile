@@ -1,13 +1,22 @@
 ECHO=
 
 TALKS= \
-	talk-intro-en.xml \
+	talk-intro.xml \
+	talk-intro-tei.xml \
 	talk-guidelines.xml \
+	talk-cartes.xml \
+	talk-xslt.xml \
 	talk-hdr.xml \
-	talk-cartes.xml
+
 
 
 DOCS= \
+	tp-1.xml \
+	tp-2.xml \
+	tp-3.xml \
+	tp-4.xml \
+	tp-5.xml \
+	tp-6.xml \
 	tp-oxygen \
 	tp-roma-en \
 	tp-cartes 
