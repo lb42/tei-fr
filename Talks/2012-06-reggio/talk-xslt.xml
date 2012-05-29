@@ -4,7 +4,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Initiation à XSLT </title>
+        <title>Processing TEI documents : XSLT and CSS  </title>
       </titleStmt>
       <editionStmt>
         <edition>
@@ -32,32 +32,49 @@
   </teiHeader>
   <text>
     <body>
+
+<div><head>Cascading Style Sheets (CSS) </head>
+<p>A W3C-defined language for defining the format of web pages :
+<list>
+<item>specifies layout properties such as size, font, colour, alignment</item>
+<item>properties can be inherited "down" the structure</item>
+<item>simple (but non-XML) syntax</item>
+<item>always processes the whole of a document "as is"</item>
+</list></p></div>
+
       <div>
-	<head>XSL: un ensemble de standards complementaires</head>
+	<head>XSL: a set of complementary standards</head>
 	<p>
 	  <list type="unordered">
-	    <item>XPath: un syntaxe normalise pour la definition des
-	    sous-parties d'une arborescence XML </item>
-	    <item>XSLT: un langage informatique pour la transformation
-	    des structures XML </item>
-	    <item>XSL FO: un langage XML pour la description
-	    d'affichage des pages </item>
-	  </list>
+	    <item>XPath: a standard syntax for defining and addressing sub-parts of an XML tree </item>
+	    <item>XSLT: a programming language for defining transformations of XML structures</item>
+	    <item>XSL FO: an XML vocabulary for the description of page make up </item>
+	    	  </list>
 	</p>
       </div>
       
+<div><head>CSS vs. XSLT </head>
+<p>In practice, they are complementary :
+<list>
+<item>Use XSLT and XPath to identify and reorganize the parts of a TEI document you want to process</item>
+<item>Use CSS to determine how those parts are formatted by a web browser</item>
+<item>... or use XSLT to output in a different format (e.g. XSL FO, TeX) which can be used to generate print </item>
+</list>
+</p>
+<p>Most web browsers now support CSS directly.</p>
+</div>
+
       <div>
 	<head>XSLT</head>
-	<p>Un feuille de style XSLT 
+	<p>An XSLT stylesheet
 	<list>
-	  <item>s'exprime en  XML</item>
-	  <item>transforme un document XML dans un autre</item>
-	  <item>doit se servir des <term>noms d'espace</term> pour
-	  distinguer les éléments qui represente instructions des
-	  éléments traites et des éléments produits
+	  <item>is an XML document itself</item>
+	  <item>defines a transformation which can be applied to one XML document to generate another (not necessarily XML)</item>
+	  <item>uses the XSL  <term>name space</term> to
+	  distinguish the XML elements representing  instructions from the XML elements to be processed and generated
 </item>
-<item>est exprime par un <gi>xsl:stylesheet</gi> rassemblant au moins un
-<gi>xsl:template</gi>
+<item>is represented by a single <gi>xsl:stylesheet</gi> element, containing at least one
+<gi>xsl:template</gi> element
 </item>
 
 	</list>
@@ -65,7 +82,7 @@
       </div>
       
       <div>
-	<head>Comment se servir d' XSLT ?</head>
+	<head>Usage of XSLT ?</head>
 	<p><figure>
 	  <graphic url="../Graphics/xslt-use.png" height="50%"/>
 </figure></p>
@@ -87,14 +104,14 @@
    -->   
       
       <div>
-	<head>Transformation?</head>
-	<p>Une operation fondamentalle. Par exemple, on veut
+	<head>What do we mean by "transformation" ?</head>
+	<p>A basic operation. For example, we want to generate a list of surnames : 
 	<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 	  <item n="1"><name>Burger</name></item>
 	  <item n="2"><name>Campbell</name></item>
 	  <item n="3"><name>Casagrande</name></item>
 	</egXML>
-mais on a 
+starting from a number of <gi>persName</gi> elements 
 	<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 	    <persName><forename>Milo</forename><surname>Casagrande</surname></persName>
 	    <persName><forename>Corey</forename><surname>Burger</surname></persName>
@@ -105,31 +122,31 @@ mais on a
 
 
 <div>
-<head>Un exemple</head>
-<p>A partir de ceci :
+<head>A complete example</head>
+<p>From this  :
 <egXML xmlns="http://www.tei-c.org/ns/Examples" >
   <div type="recette" n="34">
-    <head></head>
+    <head>Pasta for Beginners</head>
     <list>
-      <item>pates</item>
-      <item>fromage râpé</item>
+      <item>pasta</item>
+      <item>grated cheese</item>
     </list>
-    <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+    <p>Boil the pasta, and then sprinkle the cheese on it.</p>
   </div>
 </egXML>
-on veut produire :
+we want to produce :
 <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
   <html xmlns="http://www.w3.org/1999/xhtml">
-    <h1>34: Pasta pour les novices</h1>
-    <p>Ingrédients: pates  fromage râpé</p>
-    <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+    <h1>34: Pasta for Beginners</h1>
+    <p>Ingredients: pasta grated cheese</p>
+    <p>Boil the pasta, and then sprinkle the cheese on it.</p>
   </html>
 </egXML>
 </p>
 </div>
 
 <div>
-  <head>Comment exprimer cela en XSL?</head>
+  <head>How do we express that in  XSL?</head>
   <p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples">
       <xsl:stylesheet 
@@ -158,7 +175,7 @@ on veut produire :
 
 
 <div>
-<head>Structure d'une feuille de style XSL</head>
+<head>How does it work ?</head>
 
 <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <xsl:stylesheet
