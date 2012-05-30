@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Oxygen: tutoriel</title>
+        <author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>juin 2011</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+      <div>
+        <head>Before you begin...</head>
+        <p>In this and subsequent exercises you will be using the XML editor Oxygen to work with
+          data files we've prepared for you. Oxygen should be installed on your work stations
+          already: you can start it up by just clicking on the Oxygen XML Editor icon on the
+          desktop, or selecting it from the Programs menu in the usual way.
+          <!-- graphic of XML Editor icon needed -->
+        </p>
+        <p>We recommend you to keep all the files you make during the exercises in a single folder.
+          We refer to this below as your <ident>Work</ident> folder. We will put this in place in
+          your home directory, with with all the files you'll need. </p>
+      </div>
+
+
+      <div>
+        <head>Editing TEI-XML using Oxygen - 1</head>
+        <p>In the first part of this little tutorial you will learn how to use Oxygen to : <list>
+            <item>create a born digital XML document</item>
+            <item>add XML tags to a document</item>
+            <item>continously validate the document against a simple schema</item>
+            <item>display the document in various ways</item>
+          </list>
+        </p>
+        <p>Oxygen can be configured for use in several languages, including English, French, German,
+          and Italian. If you'd prefer to work in some language other than English, use the
+          Preferences command, the first option on the Options menu (fifth from left on the menu
+          bar), to change it. This tutorial mostly assumes you are using the English version, though
+          some of the illustrations are taken from the French version, and so may not match exactly
+          what you see on the screen.</p>
+
+
+        <!--
+<p>Si Oxygen n'est pas encore installé sur votre poste, vous pouvez
+l'installer facilement:
+<list>
+<item>copiez sur votre bureau les fichiers
+<ident>oxygen-licence.txt</ident> et <ident>oxygen.exe</ident> (pour
+Windows) ou <ident>oxygen.zip</ident> (pour MAC). Si ces derniers ne
+sont pas disponibles, vous pouvez les télécharger du site Oxygen à
+<ptr
+target="http://www.oxygenxml.com/download_oxygenxml_editor.html"/>
+</item>
+<item>Cliquez sur l'icone du fichier approprié à votre machine et
+suivez la procedure d'installation indiquée.</item>
+<item>La première fois que vous lancerez le
+logiciel, il vous demandera de copier-coller le contenu du licence,
+qui est contenu dans le fichier <ident>oxygen-licence.txt</ident>. Ce
+licence est temporaire: vous pouvez en telecharger une autre du site
+ci dessus.</item>
+</list></p>
+    -->
+        <div>
+          <head>The born-digital document</head>
+          <p>The TEI is not just for encoding ancient documents from their paper or stone originals.
+            It's also useful for the creation of new documents, starting <foreign>ex
+              nihilo</foreign>....</p>
+        </div>
+
+        <div>
+          <head>Creating a document</head>
+          <list>
+            <item>Start Oxygen. </item>
+            <item>Click on the New icon top left (or choose New from the File menu, or type CTRL-N)
+              to open the New dialog box )</item>
+            <item>Oxygen offers you a choice of various pre-defined templates for your new document,
+              grouped under four headings ("Recently used", "New Document", "Global templates", or
+              "Framework templates" in English). These groups are organised hierarchically : you can
+              open or close subgroups by clicking the blue key icon to the left of the folder icon. </item>
+            <item>Open the last group <ident>Framework templates</ident>, then within it <ident>TEI
+                P5</ident>, then <ident>Bare</ident>, to choose a very simple TEI schema. </item>
+            <item><graphic height="5cm" url="../Graphics/new-bare-1.png"/></item>
+            <item> Click the <ident>Create</ident> button at the bottom. Oxygen displays a minimal
+              TEI document, which we will now complete.</item>
+          </list>
+
+          <p>By default, Oxygen shows you a number of windows. In the centre is the main workspace,
+            containing your document. At lower left, you can see the <ident>Summary</ident> window
+            which gives you a view of the hierarchic structure of your document. </p>
+          <p><graphic height="2cm" url="../Graphics/outline-1.png"/></p>
+          <p>As you see, a TEI document is divided in two : the upper part, tagged
+              <gi>teiHeader</gi> contains metadata ; the lower part, tagged <gi>text</gi> contains
+            the data. </p>
+          <p><graphic height="5cm" url="../Graphics/nouveau-bare-2.png"/></p>
+          <p>As before, you can open or close parts of the Outline display by clicking the blue key
+            icon. If you click on a tag name in the Outline view, the corresponding part of the
+            document itself is selected in the Editor window.</p>
+          <p>At the bottom of the Editor window you can see three buttons labelled Text Grid and
+            Author. These change the way the document is displayed : for the moment, since we are
+            not afraid of tags, we will stay in the default Text mode, but you may like to click on
+            the others to see what they do. </p>
+          <p>Let's begin by giving our document the three pieces of essential metadata needed for
+            every TEI document : a title, a note on its publication, and another note on its
+            sources. Oxygen has proposed some default text for each which needs to be completed or
+            corrected ... <list>
+              <item>Replace the word <q>Title</q> (between the tags <gi>title</gi> and
+                  <gi>/title</gi>) by a title for your document. It's up to you to find a good
+                title! Something like <q>Experimenting with Oxygen</q> will do, but you may want to
+                be more specific. </item>
+              <item>Replace the two other bits of text by some appropriate phrases. For example, you
+                might put something like <q>Unpublished draft</q> or <q>Distributed on my blog</q>
+                in the publication statement, depending on your ambitions for this text. For the
+                  <gi>sourceDesc</gi>, even though there is no pre-existing source, you are required
+                to put something: we suggest <q>An original work, produced as part of a TEI-Epidoc
+                  Workshop</q>. </item>
+            </list>
+          </p>
+          <p>Oxygen always tries to keep your document valid. What happens if you mess things up? <list>
+              <item>Delete a few letters within any tag : for example, change
+                  <gi>publicationStmt</gi> to <gi>publicat</gi>. </item>
+              <item>Oxygen does its best. First, it changes the corresponding end-tag to match (so
+                it becomes <gi>/publicat</gi>): the document is thus still well formed. But it's no
+                longer valid -- there is no such element as <gi>publicat</gi> in the schema.
+                Consequently the faulty tags are underligned in red, there's an error message at the
+                foot of the screen, and on the right there are some red marks indicating visually
+                where the error occurs. .</item>
+              <item>Click on one of the red marks and see if you can follow the logic by which one
+                error leads to another.</item>
+              <item>Click CTRL-Z (or choose <ident>Undo</ident> from the <ident>Edit</ident> menu)
+                to return to a state of grace ... you will see that the little red square at top
+                right becomes green when all errors have been corrected.</item>
+            </list>
+          </p>
+          <p>Oxygen also encourages you to keep your document valid. It can offer you a choice of
+            tags to enter, but it will offer only those which are valid at the current point in the
+            document. <list>
+              <item>Put the cursor at the end of the 7th line, or the start of the 8th, between
+                  <gi>/title</gi> and <gi>/titleSmt</gi>;</item>
+              <item>type <code>&lt;</code> and pause ;</item>
+              <item>the green square becomes red because you have not yet entered the name of an
+                element.</item>
+              <item>Oxygen suggests a list of the tags which can legally appear at this place in the
+                document : at this point, you can add an <gi>author</gi> element, or another
+                  <gi>title</gi>, close the <gi>titleStmt</gi>, or insert an XML comment. </item>
+              <item>Let's take the first suggestion : select <gi>author</gi> and hit RETURN. Oxygen
+                will insert both start and end-tags for the new element.</item>
+              <item>Note that the cursor stays inside the opening tag <gi>author</gi> just in case
+                you now want to enter some attributes for it (type a space if you are curious to see
+                what attributes are available). Move the cursor one character to the right and type
+                your name, since you are the author of the file.</item>
+              <item>You may like to experiment to see what other elements are available at other
+                points in the document : as you will see, this is a really simple schema with very
+                few elements.</item>
+            </list>
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <head>Adding text to the document</head>
+          <p>Now let's start adding some real content to our document. It's up to you what you write
+            and (within limits) how you tag it. </p>
+
+          <p>To start with, how will your document be organized? A document containing just one
+            paragraph, though possible, seems unllikely. The schema we are using allows you to mark
+            up : <list>
+              <item>sections or subsections or subsubsections or ... (we will call them all
+                divisions). Tag these all <gi>div</gi>
+              </item>
+              <item>headings for the divisions. Tag these with <gi>head</gi></item>
+              <item> lists, also containing headings, labels and items. Tag these with
+                <gi>list</gi>, <gi>head</gi>, <gi>label</gi>, or <gi>item</gi> as appropriate</item>
+              <item>paragraphs. Tag these with <gi>p</gi></item>
+            </list> Let's go !</p>
+
+          <p>In the rest of this part of the tutorial we will start showing you some of the tricks
+            and short cuts provided by the Oxygen program. . </p>
+
+          <p>Firstly, a big question. Obviously, the program can't generate the actual content of
+            the document we're writing, but do we really have to type in all the tags as well ? Not
+            at all : Oxygen is there to help. You've already seen how it can suggest a list of
+            possible elements to be inserted at a given point in the text. It can also propose tags
+            to wrap around any part of the document. </p>
+
+          <list>
+            <item>With your mouse, select <emph>the whole content</emph> of the <gi>body</gi>
+              element, i.e. the start and end tags for the <gi>p</gi> and the three words it
+              contains <code>&lt;p>Some text here&lt;/p></code>. </item>
+            <item>Type CTRL-E or choose <ident>XML Refactoring - Surround with Tags </ident> from
+              the <ident>Document</ident> menu.</item>
+            <item>Oxygen offers you a choice of all the elements it knows about. Choose the one that
+              makes sense here : <gi>div</gi>. Then click on <ident>Accept</ident></item>
+            <item>This <gi>div</gi> element will contain the first section of your document. You
+              might like to give it a title, by inserting a <gi>head</gi> element before its first
+              paragraph. </item>
+            <item>It would also be useful to number your divisions explicitly : for that you can use
+              the attribute <att>n</att> which is available on every TEI element, including
+                <gi>div</gi>. </item>
+            <item>Put the cursor <emph>inside</emph> the <gi>div</gi> tag, just before the &gt; et
+              type a space. Oxygen offers a list of available attributes. </item>
+            <item>Choose <att>n</att> and hit RETURN. Oxygen warns you that you must supply a legal
+              value for this attribute, and the cursor remains inside the quote marks.</item>
+            <item>Type (for example) <code>1</code>, and your document becomes valid once more.
+            </item>
+          </list>
+
+          <p>Your document should now look like this :</p>
+          <p><graphic height="3cm" url="../Graphics/body-shot.png"/></p>
+          <p>Now you need to add some text to the paragraph : hopefully a bit more interesting than
+              <q>some text here</q> ! Describe your first reactions to Oxygen ; give us your views
+            on the current economic crisis ; write about your childhood -- it's up to you! The point
+            of the exercise is to get you used to the idea of writing in an XML editor as easily as
+            you would write in a word processor.</p>
+          <p>No doubt you will soon feel the need for a new paragraph, or for a bulleted list. How
+            do you close the current paragraph and start a new one? Just hitting RETURN a couple of
+            times doesn't seem to work. Is there a better way of doing this without having to type
+            the tags <gi>/p>&lt;p</gi> ? Of course there is. </p>
+        </div>
+
+
+        <div>
+          <head>Divide and conquer</head>
+          <p>Let's assume you now have several hundred words in one paragraph, which you now want to
+            split up into several paragraphs. </p>
+          <list>
+            <item>Put the cursor at each point where you want to split the paragraph </item>
+            <item>Type CTRL-ALT-D or choose <ident>XML Refactoring - Split element</ident> from the
+                <ident>Document</ident> menu.</item>
+          </list>
+          <p>You can of course do exactly the same thing to split up your one <gi>div</gi> element.
+            Take care that you choose the right place to do the splitting though. You must put the
+            cursor <emph>between</emph> two <gi>p</gi> elements, not within one of them.</p>
+        </div>
+
+
+
+        <div>
+          <head>Making tagged text readable</head>
+          <p>Are you beginning to worry about the amount of tagging in your document ? </p>
+          <p>You can tidy up the tagging you've inserted by clicking on the "Format and Indent"
+            button, typing CTRL+SHIFT+P, or choosing <ident>Source->Format and Indent</ident> from the  Document menu. But maybe you'd rather just get rid of all the tags ?</p>
+          <list>
+            <item>At the bottom of the screen there are three tabs : Text Grid and Author. Choose
+              the last of these. The way your document is displayed now looks quite different, and
+              there is also a new menu TEI P5. Choose <ident>Tags Display Mode</ident>  and look at
+              the various possibilities it offers</item>
+            <item>You can display the tags as little icons, large icons, or not at all</item>
+            <item> Note also that your document is now formatted -- different elements have
+              different colours, and the layout is more like that of a word processor. </item>
+            <item>In Author mode, you <emph>can</emph>  split an element just by hitting RETURN
+              twice. Try it!
+              <!-- Attention : en mode auteur
+Oxygen vous propose plusieurs éléments possibles qui ne sont pas
+disponibles dans le schéma Bare : il faut s'en méfier.--></item>
+          </list>
+
+
+          <p>In the next section we will see how you can control the formatting of your document
+            using a  <term>stylesheet</term>.</p>
+
+          <p>After all this work, don't forget to save your document in your Work folder ! </p>
+
+        </div>
+      </div>
+      <div>
+        <head>À la découverte d' Oxygen - 2</head>
+        <p>Dans cette deuxième partie du tutoriel, nous allons approfondir votre expérience avec
+          Oxygen pour : <list>
+            <item>l'encodage XML d'un document Word existant</item>
+            <item>le transformation d'un fichier XML dans un autre</item>
+          </list>
+        </p>
+
+
+
+        <div>
+          <head>Quelques documents historiques</head>
+          <p>Vous trouverez dans votre dossier <ident>Travaux</ident> un fichier nommé
+              <ident>petain-sample.docx</ident>. Il contient trois communications du Maréchal
+            Pétain, transcrits et annotes par un chercheur de l'universite de Nice, ensuite édité
+            dans un <title>Lexicometrica</title> de 2005. </p>
+          <p>En voici le début dans le fichier Word:</p>
+          <p><graphic height="10cm" url="../Graphics/petain-word.png"/></p>
+          <p>Ce fichier contient : <list>
+              <item>trois transcriptions distinctes, chacune datée</item>
+              <item>des notices, qui figurent comme notes de bas de pages</item>
+              <item>des paragraphes </item>
+              <item>des titres</item>
+            </list></p>
+        </div>
+
+
+        <div>
+          <head>Transformation d'un fichier Word</head>
+          <p>Quoi faire pour transformer ce joli fichier en XML et travailler la-dessus avec Oxygen? </p>
+          <p>Nous pourrions l'exporter au format « plein text ». Nous pourrions aussi faire un
+            copier-coller. Mais dans chaque cas, nous risquons la perte du formatage qui distingue
+            (par exemple) les annotations en bas de page du texte annote. s. </p>
+          <p>Si le fichier Word est bien stylé, on peut le transformer en XML, sans perte
+            d’information. L'outil OxGarage nous aidera.</p>
+          <list>
+            <item>Ouvrez votre Internet browser, et allez sur le site
+                <ref>http://www.tei-c.org/ege-webclient/</ref></item>
+            <item>Cliquez sur <ident>Text Documents</ident>. Dans la liste des formats de saisi
+              proposée, cochez la case pour Microsoft Word Document.</item>
+            <item>Une liste des formats cibles proposés apparaît. Cochez la case pour TEI P5
+              XML.</item>
+            <item>En haut de l'écran un bouton <ident>Browse</ident> apparaît. Cliquez sur ceci, et
+              naviguez jusqu'au fichier <ident>petain-sample.docx</ident> dans votre dossier
+                <ident>Travaux</ident>.</item>
+            <item>Cliquez sur le grand bouton <ident>Convert</ident> et patientez. </item>
+            <item>Le site vous renvoie (après un bref délai) un fichier
+                <ident>petain-sample.xml</ident>. Enregistrez-le dans votre dossier
+                <ident>Travaux</ident>.</item>
+          </list>
+        </div>
+
+        <div>
+          <head>Structure du fichier</head>
+          <p>Voyons ce que le Garage aura fait de notre fichier Word. En tout cas, il est devenu un
+            document TEI valide, même s'il pourrait etre amélioré. </p>
+          <list>
+            <item>Relancez Oxygen (si necessaire), et ouvrez le fichier que vous venez de recevoir
+              du garage. </item>
+            <item>Oxygen vous avertit que ce fichier ne contient pas de retours à la ligne : ce
+              n'est pas grave. Cliquez sur "format".</item>
+
+            <item><p>D'abord, explorez un peu la structure du fichier. La structuration est plus
+                evidente dans la fenêtre <ident>Sommaire</ident> à gauche de l'ecran. Cliquez à
+                gauche de chaque noeud pour l'ouvrir, ou pour l'enfermer. Par exemple, apres avoir
+                cliqué à gauche de "text" et de "body", vous allez voir ceci: </p>
+              <p><graphic height="3cm" url="../Graphics/structure-1.png"/></p></item>
+            <item><p>Ensuite, si vous cliquez à gauche du <hi>deuxieme</hi> "div", vous allez voir
+                ceci:</p><p>
+                <graphic height="3.5cm" url="../Graphics/structure-2.png"/></p></item>
+            <item><p>Vous allez vite comprendre que dans ce fichier, il y a quatre <gi>div</gi>,
+                dont le premier ne contient que le titre du fichier. Apres cela, il y a trois
+                  <gi>div</gi>, contenant un <gi>head</gi> et une serie de <gi>p</gi>. Quelques-uns
+                de ces <gi>p</gi> ne contient que de texte, mais il y en a aussi qui contiennent un
+                  <gi>hi</gi>, contenant un <gi>note</gi>, contenant des <gi>p</gi> emboites comme
+                ceci :</p>
+              <p>
+                <graphic height="4cm" url="../Graphics/structure-3.png"/></p></item>
+            <item>Pourquoi? Notre fichier, comme tout autre fichier issu d'un outil bureautique,
+              retient les annotations dans le texte à la point de référence. L'opération de stylage
+              classique sera d'extraire les annotations, les numerotées, et les affichées en bas de
+              page : une espece de transformation. </item>
+
+          </list>
+        </div>
+        <div>
+          <head>Correction du fichier</head>
+          <p>Avant de continuer, vous etes invité d'améliorer un peu le balisage du fichier. Essayez
+            de : <list>
+              <item>transférer les deux titres dans le bon endroit du <gi>teiHeader</gi> ; </item>
+              <item>enlever la premiere division du fichier ; </item>
+              <item>ajouter une numérotation à chaque division du fichier (basé sur la date, p.e.
+                  <gi>div n="1940-06-17".</gi></item>
+            </list>
+          </p>
+          <p>Une version corrigée est à votre disposition, si vous en avez besoin, dans le fichier
+              <ident>petain-sample-corr.xml</ident>! </p>
+        </div>
+        <div>
+          <head>Transformation du fichier</head>
+          <p>Vous avez deja vu Oxygen faire une transformation de XML : si vous affichez votre
+            document en mode Auteur, vous allez voir que les titres sont maintenant plus jolis,
+            numerotés et mises en evidence, et que les annotations sont affichees avec une police
+            plus petite, mais peut etre pas à l'endroit que vous les attendiez.</p>
+          <p>Essayons d'autre transformations. Il serait impressionant de transformer notre fichier
+            directement en HTML ou PDF pour l'afficher, n'est-ce pas? <list>
+              <item>Sur le barre aux outils, il y a un bouton qui contient une fleche rouge. Cliquez
+                la dessus (ou taper CTRL-MAJ-T, ou sélectionnez Document -> Transformation ->
+                Appliquer le scenario de transformation ) </item>
+              <item>En Oxygen un <q>scenario de transformation</q> associe un document avec une
+                feuille de style, et la fait tourner. Par défaut, vous voyez <code>TEI P5
+                  XHTML</code> et <code>TEI P5 PDF</code>. Séléctionnez le scenario qui vous plait,
+                et regardez ce qu'il donne, en cliquant le bouton <ident>Transformer
+                  maintenant</ident>. Experimentez-l' autre !</item>
+              <item>Bien sur, on peut configurer ces transformations à volonté, et en créer des
+                nouveaux. Pour vous en donner le goût, on va finir en vous proposant une
+                transformation qui n'a rien à faire avec la visualisation.</item>
+
+            </list></p>
+
+          <p>La feuille de style qui controle une transformation s'écrit dans un autre langage XML,
+            qui s'appelle XSLT : sujet fascinant, mais peut etre pas pour les debutants. Vous
+            trouverez quelques exemplaires de feuilles de styles XSLT dans votre dossier. Pour en
+            servir, il faut créer une nouvelle transformation en Oxygen <list>
+              <item>Cliquez sur la flèche rouge (CTRL-MAJ-T) de nouveau</item>
+              <item>Cliquez le bouton <ident>Nouveau</ident> pour ouvrir la fenetre Nouveau
+                Scenario. Dans cette fenetre: <list>
+                  <item>choisir un nom pour le scenario : on vous propose "texte-brut"</item>
+                  <item>specifier la location du fichier XSL souhaité, en cliquant sur le petit
+                    icone dossier jaune à droite du champs <ident>XSL URL</ident>. Ceci vous permets
+                    de naviguer au dossier <ident>Travaux</ident> : sélectionner le fichier
+                      <ident>texte-brut.xsl</ident> et cliquer <ident>Ouvrir</ident>.</item>
+                  <item>sélectionnez <ident>Saxon HE 9</ident> du menu <ident>Transformateur</ident>
+                  </item>
+                  <item>Cliquer <ident>Accepter</ident> pour terminer, et <ident>Transformer
+                      Maintenant</ident> pour voir le resultat. </item>
+                </list></item>
+            </list></p>
+          <p>Comme vous voyez, c'est possible de transformer notre document XML ou bien dans un
+            format d'affichage, ou bien dans un format d'analyse tres classique. </p>
+        </div>
+      </div>
+    </body>
+  </text>
+</TEI>
