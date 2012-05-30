@@ -11,12 +11,12 @@ TALKS= \
 
 
 DOCS= \
-	tp-1.xml \
-	tp-2.xml \
-	tp-3.xml \
-	tp-4.xml \
-	tp-5.xml \
-	tp-6.xml \
+	tp-1 \
+	tp-2 \
+	tp-3 \
+	tp-4 \
+	tp-5 \
+	tp-6 \
 	tp-oxygen \
 	tp-roma-en \
 	tp-cartes 
