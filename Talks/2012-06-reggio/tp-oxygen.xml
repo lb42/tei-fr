@@ -253,16 +253,17 @@ ci dessus.</item>
           <head>Making tagged text readable</head>
           <p>Are you beginning to worry about the amount of tagging in your document ? </p>
           <p>You can tidy up the tagging you've inserted by clicking on the "Format and Indent"
-            button, typing CTRL+SHIFT+P, or choosing <ident>Source->Format and Indent</ident> from the  Document menu. But maybe you'd rather just get rid of all the tags ?</p>
+            button, typing CTRL+SHIFT+P, or choosing <ident>Source->Format and Indent</ident> from
+            the Document menu. But maybe you'd rather just get rid of all the tags ?</p>
           <list>
             <item>At the bottom of the screen there are three tabs : Text Grid and Author. Choose
               the last of these. The way your document is displayed now looks quite different, and
-              there is also a new menu TEI P5. Choose <ident>Tags Display Mode</ident>  and look at
+              there is also a new menu TEI P5. Choose <ident>Tags Display Mode</ident> and look at
               the various possibilities it offers</item>
             <item>You can display the tags as little icons, large icons, or not at all</item>
             <item> Note also that your document is now formatted -- different elements have
               different colours, and the layout is more like that of a word processor. </item>
-            <item>In Author mode, you <emph>can</emph>  split an element just by hitting RETURN
+            <item>In Author mode, you <emph>can</emph> split an element just by hitting RETURN
               twice. Try it!
               <!-- Attention : en mode auteur
 Oxygen vous propose plusieurs éléments possibles qui ne sont pas
@@ -270,18 +271,179 @@ disponibles dans le schéma Bare : il faut s'en méfier.--></item>
           </list>
 
 
-          <p>In the next section we will see how you can control the formatting of your document
-            using a  <term>stylesheet</term>.</p>
+          <p>Later on, we will see how you can control the formatting of your document using a
+              <term>stylesheet</term>.</p>
 
           <p>After all this work, don't forget to save your document in your Work folder ! </p>
 
         </div>
       </div>
+
       <div>
         <head>À la découverte d' Oxygen - 2</head>
-        <p>In the second part of this tutorial you will learn how Oxygen can be used to : <list>
+        <p>In this second part of the exercise we'll experiment with using Oxygen to : <list>
+            <item>encode a pre-existing document in TEI XML</item>
+            <item>represent some typical literary structures</item>
+          </list>
+        </p>
+
+        <div>
+          <head>Sample text</head>
+          <p>In this essay we will encode a Petrarchan sonnet, respecting its organization into
+            stanzas and lines. To make your life easier, we have prepared a transcription already
+            for you, so you don't need to do quite so much typing as in the previous exercise...
+          </p>
+        </div>
+
+        <div>
+          <head>Create a new document</head>
+
+          <p>As you did before, open Oxygen and click on the New icon at top left to open the New
+            document dialogue. This time, when asked to choose which schema to use, we suggest you
+            select <ident>TEI P5</ident> and then <ident>TEI-Lite</ident>. This will give you a more
+            useful schema than the minimalist one we used in the first exercise.<list>
+
+              <item>As before, Oxygen gives you the basic TEI structure, with a few extra
+                components. </item>
+              <item>Complete the TEI header quickly, as you did before. We suggest the following as
+                title <q>A Petrarchan Sonnet in TEI-XML format</q>), and as source <q>Transcription
+                  taken from "Il Canzoniere" di Francesco Petrarca a cura di Gianfranco Contini
+                  Edizione Einaudi, 1964</q></item>
+              <item>Remove everything proposed as content for the <gi>body</gi> element, taking care
+                to retain the <gi>body</gi> et <gi>/body</gi> tags. </item>
+
+            </list>
+          </p>
+        </div>
+
+        <div>
+          <head>Adding text to the document</head>
+          <p>You can, of course, type out the poem for yourself as you did before. But this time we
+            propose the following method : <list>
+              <item>Check that your cursor is <emph>between</emph> the <gi>body</gi> and
+                  <gi>/body</gi> tags in your empty document </item>
+              <item>Choose <ident>File -> Insert File</ident> from the <ident>Document</ident> menu
+                  (<hi>Note: Not the File Menu on the menu bar, but the one fond under the Document
+                  Menu!</hi>)</item>
+              <item>Navigate to the file <ident>sonnet.txt</ident> which you will find in your
+                working folder, select it and click Open.</item>
+
+              <item>Your document is full of red lines but don't panic! we will sort that out in a
+                moment. Look at the error message at the foot of the screen and see if you
+                understand it.</item>
+            </list>
+          </p>
+        </div>
+
+        <div>
+          <head>Adding structure to the body of a document</head>
+          <p>The structure of a document is important. In this case, the body contains : <list>
+              <item>a heading ... to be tagged with <gi>head</gi>
+              </item>
+              <item>an octet and a sestet ... both to be tagged with <gi>div</gi></item>
+              <item>four stanzas ... to be tagged with <gi>lg</gi></item>
+
+              <item>14 lines ... to be tagged with <gi>l</gi></item>
+
+            </list> Let's go !</p>
+
+
+          <list>
+            <item>Select the first two lines <q>Canzoniere (Rerum vulgarium fragmenta) VII
+              </q></item>
+            <item>Type CTRL-E and choose head from the list of available tags to select
+                <gi>head</gi>; then click <ident>Accept</ident></item>
+
+            <item>For extra marks, you may want to cut this heading in two, distinguishing the
+              number (which is the number of the sonnet) from the general title which precedes it.
+              If so, put the cursor before the number <q>VII</q> and use CTRL-ALT-D or some other
+              way of splitting the heading as you did in the previous exercise.</item>
+          </list>
+
+          <p>Now for the poem itself. Our goal is to have each verse line tagged <gi>l</gi>
+              (<q>line</q>), each stanza tagged <gi>lg</gi>, the octet tagged <gi>div
+              type="octet"</gi> and the sestet tagged <gi>div type="sestet"</gi>. </p>
+          <p>Of course there's more than one way to do this. We suggest one fairly quick way, but
+            feel free to experiment with other approaches ! <list>
+              <item>Select with your mouse the whole of the text of the poem. </item>
+              <item>Surround the whole poem with one <gi>l</gi>. </item>
+
+              <item>All the red lines disappear and the little green square reappears ! Have we
+                finished? Sorry, no : a document can be valid while still containing lies... and
+                it's a lie that a sonnet contains only one line! Lies can also be dangerous : hit
+                the Indentation button on the toolbar (or type CTRL-SHIFT-P). </item>
+            </list>
+            <graphic height="3cm" url="../Graphics/onelineonly.png"/></p>
+          <p>Since the line endings are not explicit in the markup, Oxygen is not obliged to respect
+            them when formatting the display. To be both honest and explicit, we need to split this
+            one line into fourteen. (If you can't remember where to split the line, you can bring
+            back the original display by typing CTRL-Z) </p>
+          <list>
+            <item>Put the cursor at the end of the first verse line and type ALT-SHIFT-D </item>
+            <item>Use the down arrow key to move down to the end of the next line and repeat </item>
+            <item>(Or, if you prefer to live dangerously, you can also cut and paste the sequence
+                <code>&lt;/l>&lt;l></code> at the end of each line.</item>
+            <item>When you've finished, check that everything is correct by typing CTRL-SHIFT-P or
+              hitting the Indentation button again.</item>
+            <item>You now need to repeat essentially the same manoeuver for the stanzas : select all
+              the lines and wrap them in an <gi>lg</gi>, then split that <gi>lg</gi> after the
+              fourth, eighth, and 12th lines. (Take care that you do this splitting in the right
+              place! your cursor should be between the end of one <gi>l</gi> and the start of the
+              next, i.e. after the <gi>/l</gi> and before the following <gi>l</gi>) </item>
+            <item>Finally, we suggest wrapping the first two stanzas in a <gi>div type="octet"</gi>
+              and the second two in a <gi>div type="sestet"</gi>
+            </item>
+          </list>
+        </div>
+
+        <div>
+          <head>Changing the display</head>
+          <p>As you've already seen, Oxygen can display the hierarchic structure of our sonnet -- if
+            you look in the Summary window to the left you should now see something like this : </p>
+          <p><graphic height="4cm" url="../Graphics/summary-2.png"/>. And you can also, as before,
+            switch to Author mode to see the text nicely formatted with no tags. </p>
+
+          <p>The way texts are displayed in Author mode is determined by a series of instructions
+            supplied by a separate document called a <term>stylesheet</term>. We will learn more
+            about this tomorrow. To conclude this part of the exercise we'll show you how to make a
+            few changes in the Author mode display of your sonnet.</p>
+          <list>
+            <item>First, put your document into Text mode</item>
+            <item>Select <ident>XML Document</ident> et <ident>Associate stylesheet </ident> from
+              the <ident>Document</ident> menu.</item>
+            <item>In the dialogue that opens, click the CSS tab. Click the arrow at extreme right,
+              select "Look for local file" and then navigate to a file called
+                <ident>petrarch.css</ident> in your <ident>Work</ident> folder. Press Select.</item>
+            <item>A line containing a "processing instruction" is added to the start of your
+              document</item>
+            <item>Now see what happens when you switch to Author mode.</item>
+          </list>
+          <p>You can edit the stylesheet to get different effects if you like. Open
+              <ident>petrarch.css</ident> with Oxygen. But take care : <list>
+              <item>CSS is not itself an XML language, but its syntax is fairly self evident. </item>
+              <item>It is fairly simple to change the size of a font or the margins for all elements
+                of a specified type </item>
+              <item>For this exercise, we suggest you just try changing the colour of the title from
+                purple to red. </item>
+            </list>
+          </p>
+
+          <p>More complex transformatuons are easy with a more powerful stylesheet language called
+            XSLT, as you will see tomorrow..</p>
+
+        </div>
+      </div>
+
+
+
+
+
+      <div>
+        <head>À la découverte d' Oxygen - 3</head>
+        <p>In the third part of this tutorial you will learn how Oxygen can be used to : <list>
             <item>transform an existing Word document into TEI XML</item>
-            <item>transform a TEI XML file into a different format </item>
+          <item>search for markup in a TEI XML document</item>
+            <item>transform a TEI XML document into a different format </item>
           </list>
         </p>
 

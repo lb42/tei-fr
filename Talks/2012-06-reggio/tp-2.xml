@@ -23,121 +23,73 @@
     <body>
       <div>
         <head>À la découverte d' Oxygen - 2</head>
-        <p>Dans ce deuxième exercice, nous allons approfondir votre expérience avec Oxygen pour : <list>
-            <item>l'encodage XML d'un document existant</item>
-            <item>la représentation des structures aperçues dans un texte littéraire</item>
-            <item>l'affichage en mode « auteur »</item>
+        <p>In this second part of the exercise we'll experiment with using Oxygen to  : <list>
+            <item>encode a pre-existing document in TEI XML</item>
+            <item>represent some typical literary structures</item>
           </list>
         </p>
       </div>
       <div>
         <head>Sample text</head>
-        <p>Dans cet exercice, nous allons baliser ce sonnet de Du Bellay, un écrivain du XVIe siècle
-          : </p>
-        <p>
-          <graphic height="8cm" url="../2010-01-tours/duBellay/sonnet.png"/>
-        </p>
-        <p>Pour vous simplifier la vie, on a déjà préparé une transcription prête à l'emploi... ne
-          la regardez pas tout de suite !</p>
+        <p>In this essay we will encode a Petrarchan sonnet, respecting its organization into stanzas and lines. To make your life easier, we have prepared a transcription already for you, so you don't need to do quite so much typing as in the previous exercise...  </p>
       </div>
 
       <div>
-        <head>Création du document</head>
+        <head>Create a new document</head>
 
-        <p>Ouvrez Oxygen. Cliquez sur l'icône Nouveau en haut à gauche, (ou sélectionnez Nouveau du
-          menu Fichier, ou tapez CTRL-N.) pour ouvrir la boîte de dialogue Nouveau</p>
-        <p>
-          <list>
-            <item>Cette fois, choisissez <ident>Cadre des modèles</ident>, ensuite <ident>TEI
-                P5</ident>, et ensuite <ident>TEI-Lite</ident>, pour sélectionnez un schéma TEI plus
-              complet. </item>
-            <item><graphic height="4cm" url="../Graphics/Oxy12/nouveau-4.png"/></item>
-            <item>Comme auparavant, Oxygen vous propose un squelette du document ; vous observerez
-              que le schéma TEI lite décrit un document TEI plus élaboré avec un choix de balises
-              plus important. </item>
-            <item>Complétez l'entête TEI avec des indications de titre (<q>Un sonnet du Du Bellay
-                numérisé</q>), distribution, et source (<q>encodé à partir d'un facsimilé de la
-                première édition produit au CESR, Tours</q>)</item>
-            <item>Enlevez toute la partie proposée par défaut pour le <gi>body</gi> (mais retenez
-              les balises <gi>body</gi> et <gi>/body</gi>). </item>
+        <p>As you did before, open Oxygen and click on the New icon at top left to open the New document dialogue. This time, when asked to choose which schema to use, we suggest you select  <ident>TEI
+                P5</ident> and then <ident>TEI-Lite</ident>. This will give you a more useful schema than the minimalist one we used in the first exercise.<list>
+           
+            <item>As before, Oxygen gives you the basic TEI structure, with a few extra components.  </item>
+                  <item>Complete the TEI header quickly, as you did before. We suggest the following as title  <q>A Petrarchan Sonnet in TEI-XML format</q>), and as source <q>Transcription taken from "Il Canzoniere" di Francesco Petrarca
+                    a cura di Gianfranco Contini
+                    Edizione Einaudi, 1964</q></item>
+            <item>Remove everything proposed as content for the <gi>body</gi> element, taking care to retain the  <gi>body</gi> et <gi>/body</gi> tags. </item>
 
           </list>
         </p>
       </div>
 
       <div>
-        <head>Ajout de texte au document</head>
-        <p>Rien ne vous empêche de taper à la main tout le poème directement. Mais pour gagner du
-          temps on vous propose la démarche suivante : <list>
-            <item>Assurez-vous que le curseur soit toujours entre les deux balises <gi>body</gi> et
-                <gi>/body</gi> de votre document vide</item>
-            <item>Dans le menu <ident>Document</ident>, sélectionnez <ident>Fichier</ident>, et
-              ensuite <ident>Insèrer un fichier</ident>
-              <!--(<hi>Note: Not the File
+        <head>Adding text to the document</head>
+        <p>You can, of course, type out the poem for yourself as you did before. But this time we propose the following method : <list>
+            <item>Check that your cursor is <emph>between</emph> the <gi>body</gi> and
+                <gi>/body</gi> tags in your empty document </item>
+          <item>Choose  <ident>File -> Insert File</ident> from the  <ident>Document</ident> menu (<hi>Note: Not the File
                 Menu on the menu bar, but the one fond under the Document
-                Menu!</hi>)--></item>
-            <item>Naviguez jusqu'au fichier <ident>duBellay.txt</ident> dans le dossier
-                <ident>Travaux</ident> qui devrait se trouver sur votre Bureau, et insérez-le. Ce
-              fichier est aussi disponible sur le web, <ref
-                target="http://tei.oucs.ox.ac.uk/Oxford/2010-01-tours/duBellay/sonnet.txt">à cet
-                URL</ref> )</item>
+                Menu!</hi>)</item>
+            <item>Navigate to the file <ident>sonnet.txt</ident> which you will find in your working folder, select it  and click Open.</item>
+            
+            <item>Your document is full of red lines but don't panic! we will sort that out in a moment. Look at the error message at the foot of the screen and see if you understand it.</item>          
           </list>
         </p>
       </div>
 
       <div>
-        <head>Attention, Will Robinson !</head>
-
-        <p>Votre document est rempli de taches rouges! </p>
-        <p>
-          <graphic height="5cm" url="../Graphics/Oxy12/amp-error.png"/>
-        </p>
-        <p>On va régler cela petit à petit. Commençons avec la partie la plus sérieuse : où le texte
-          lui-même est affiché en rouge.</p>
-        <list>
-          <item>Oxygen vous indique que la partie en rouge n'est pas bien formée</item>
-          <item>Il y a un message en bas de l'écran qui vous aidera (un peu) à identifier le
-            problème. Sauriez vous comment le résoudre ?</item>
-          <item>Conseil : souvenez-vous du fait que l'esperluette est un caractère magique en XML,
-            qui doit donc être représentée de manière indirecte.</item>
-        </list>
-      </div>
-
-      <div>
-        <head>Structuration du document</head>
-        <p>Il est possible d'identifier dans ce document plusieurs sous-parties. En particulier, il
-          contient : <list>
-            <item>un titre ... à baliser avec la balise <gi>head</gi></item>
-            <item>quatre strophes ... à baliser avec la balise <gi>lg</gi></item>
-            <item>des vers ... à baliser avec la balise <gi>l</gi></item>
-            <item>une citation d'Horace ... à baliser avec la balise <gi>quotte</gi>
-            </item>
-          </list> Allons-y !</p>
+        <head>Adding structure to the body of a document</head>
+        <p>The structure of a document is important. In this case, the body contains :  <list>
+            <item>a heading  ... to be tagged with <gi>head</gi> </item>
+         <item>an octet and a sestet ... both to be tagged with <gi>div</gi></item>
+          <item>four stanzas ... to be tagged with <gi>lg</gi></item>
+          
+            <item>14 lines ... to be tagged with  <gi>l</gi></item>
+            
+          </list> Let's go !</p>
 
 
         <list>
-          <item>Avec la souris, sélectionnez les quatre premières lignes du document <q>À
-              l'ambitieux et avare ... sonnet </q>; ceux-ci constituent son titre.</item>
-          <item>Tapez CTRL-E (ou sélectionnez <ident> XML Refactoring</ident> et ensuite
-              <ident>Entourer des balises</ident> dans le menu <ident>Document</ident></item>
-          <item>Oxygen vous propose toutes les balises disponibles à cet emplacement.</item>
-          <item>Sélectionnez <gi>head</gi> et cliquez <ident>Accepter</ident></item>
-          <item><graphic height="4cm" url="../Graphics/Oxy12/head-1.png"/></item>
-          <item>Ce sonnet est bicéphale : coupez en deux parties le <gi>head</gi> existant.. La
-            première partie est le titre. La seconde partie est le mot sonnet. Chacune de ces deux
-            parties devrait-être balisée avec un <gi>head</gi> au début et à la fin, en vous plaçant
-            avant ou après le mot <q>Sonnet</q> et en vous servant de CTRL-ALT-D ou d'une autre manière
-            comme lors du premier exercice.</item>
+          <item>Select the first two lines  <q>Canzoniere (Rerum vulgarium fragmenta) 
+            VII </q></item>
+          <item>Type CTRL-E and choose head from the list of available tags to select <gi>head</gi>; then click <ident>Accept</ident></item>
+       
+          <item>For extra marks, you may want to cut this heading in two, distinguishing the number (which is the number of the sonnet) from the general title which precedes it. If so, put the cursor before the number <q>VII</q> and use CTRL-ALT-D or some other way of splitting the heading as you did in the previous exercise.</item>
         </list>
-      </div>
-
-      <div>
-        <head>Balisage du poème</head>
-        <p>Enfin, il faut travailler un peu sur l'étiquetage du poème lui-même. Notre but serait de
-          baliser chaque vers, se servant de la balise TEI <gi>l</gi> (<q>line</q>) et en amont de
-          baliser chaque ensemble de vers constituant une strophe avec la balise TEI <gi>lg</gi>. </p>
-        <p>Bien sur, il y a plusieurs manières de faire. On va vous décrire une méthode assez
-          rapide, mais si vous préfériez une autre démarche, on n'insiste pas ! <list>
+    
+        <p>Now for the poem itself. Our goal is to have each verse line tagged  <gi>l</gi>
+            (<q>line</q>), each stanza tagged  <gi>lg</gi>, the octet tagged <gi>div type="octet"</gi> and
+          the sestet tagged <gi>div type="sestet"</gi>. </p>
+        <p>Of course there's more than one way to do this. We suggest one fairly quick way, but feel
+          free to experiment with other approaches ! <list>
             <item>Sélectionnez avec la souris tout le texte du poème, jusqu'à la citation d'Horace
                 <q>caelo musa beat</q>. </item>
             <item>Entourez toute le poème d'une balise <gi>l</gi>. </item>
