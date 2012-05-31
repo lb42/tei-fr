@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>What is the TEI ?</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>June 2012 </date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+	      license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2011-07-04 16:23:52 +0100 (Sun, 04 Jul 2010) $.</date>
+        <name>$LastChangedBy: rahtz $</name>
+        <note>$LastChangedRevision: 10312 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+
+    <body>
+
+   
+
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+
+
+
+        
+
+        
+   
+<div rend="slide">
+<head>The TEI is <emph>not</emph> (just) a schema</head>
+<p>The TEI architecture provides: <list rend="pause">
+            <item>definitions and names for several hundred useful textual distinctions</item>
+            <item>a set of modules that can be used to generate schemas making those
+              distinctions</item>
+            <item>usage rules (varying in their formality) for those elements</item>
+            <item>a customization mechanism for selecting, modifying, and combining these
+              definitions</item>
+            <item>a very rich library of existing specialised components</item>
+            <item>an integrated suite of standard stylesheets for delivering schemas and
+              documentation in various languages and formats </item>
+          </list></p>
+<p>The TEI thus constitutes a simple consensus-based way of organizing and structuring
+textual (and others) resources.</p>
+
+</div>
+
+<div><head>Relevance of the TEI</head>
+<p>Why would you want those things?
+<list>
+<item rend="pause">because we need to interchange resources
+<list>
+<item>between people</item>
+<item>(increasingly) between machines</item>
+</list></item>
+<item rend="pause">because we need to integrate resources
+<list>
+<item>of different media types</item>
+<item>from different technical contexts</item>
+</list></item>
+<item rend="pause">because we need to preserve resources
+<list>
+<item>cryogenics is not the answer!</item>
+<item>we need to preserve metadata as well as data</item>
+</list></item></list></p></div>
+
+    
+<div rend="slide">
+<head>A framework like the TEI makes good business sense</head>
+<list type="bulleted">
+<item>re-usability and repurposing of resources</item>
+<item>modular software development </item>
+<item>lower training costs</item>
+<item><q>frequently answered questions</q>  &#x2014; common technical
+      solutions for different application areas  </item>
+    </list>
+<p rend="box">The TEI was <emph>designed</emph> to support multiple views of the
+     same resource</p>
+   </div>
+
+
+<div><head>The Imaginary Punch Project</head>
+<list>
+<item><title>Punch</title> is a famous English humorous journal, published weekly between 1841 and 1992: see <ptr
+target="http://www.punch.co.uk/historyofpunch.html"/>.</item>
+<item>The IPP plans to make available fully marked up texts of
+the journal, in conjunction with page images...
+<list>
+<item>for social historians</item>
+<item>for librarians</item>
+<item>for linguists</item>
+</list></item>
+<item>How will the TEI help? More specifically, which parts of the TEI
+will the project
+use?</item>
+</list>
+</div>
+
+
+        <div>
+          <head>What's in a text?</head>
+          <p>
+            <graphic width="60%" url="../Materials/Punch/Pages/147_01.jpg"/>
+          </p>
+        </div>
+
+        
+
+<div><head>Looking at Punch, what do we need to mark up?</head>
+<list>
+<item>issue information and page number for reference purposes</item>
+<item>"chunks" or divisions of text, which may contain a picture, a
+poem, some prose, some drama, or a combination</item>
+<item>within the chunks, we can identify formal units such as 
+<list>
+<item>a picture, a caption</item>
+<item>stanzas, lines</item>
+<item>paragraphs</item>
+<item>speeches and stage-directions</item>
+</list></item>
+<item>and more...</item>
+</list>
+</div>
+
+<div><head>Macrostructure</head>
+<p>All the issues of <title>Punch</title> for one year make up a
+<term>volume</term>. If consider the volume as a single
+<gi>text</gi>, we could treat each issue as a <gi>div</gi> within
+it. Or (better) we could
+use the <gi>group</gi> element:
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<text xml:id="v147">
+  <front><!-- introductory materials for volume 147 here --></front>
+  <group>
+<text xml:id="I1914-07-01">
+  <body><!-- first issue (1 July) --></body>
+</text>
+<text xml:id="I1914-07-15">
+  <body><!-- second issue (15 July) --></body>
+</text>
+<!-- etc... -->
+  </group>
+  <back><!-- volume index, appendix etc. --></back>
+</text>
+  </egXML>
+</p>
+</div>
+
+
+<div><head>TEI tags for the high level structure</head>
+<p>Treating each <term>issue</term> as a single <gi>text</gi>
+element each identifiable chunk within it can be a <gi>div</gi>
+element of a particular <term>type</term> (e.g. cartoon, verse,
+prose)</p>
+
+<p>For example, <ref target="../Materials/Punch/Pages/147_01.jpg">page 1</ref> has two
+divisions, 
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="1"/>
+<div type="cartoon"><!-- ... --></div>
+<div type="poem"><head>Progress</head><!-- ... --></div>
+  </egXML>
+<ref target="../Materials/Punch/Pages/147_02.jpg">page 2</ref> also has two, of different types:
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="2"/>
+<div type="prose"><head>The enchanted castle</head><!-- ... --></div>
+<div type="snippet"><head>Correspondence</head><!-- ... --></div>
+  </egXML>
+</p></div>
+
+<div><head>Why divisions rather than pages?</head>
+<p>Because a division can start on one page (<ref
+target="../Materials/Punch/Pages/147_05.jpg">page 5</ref> for example) and finish on another (<ref
+target="../Materials/Punch/Pages/147_06.jpg">page 6</ref>)</p>
+<p>We use an <term>empty element</term> <gi>pb</gi> to mark the
+boundary between pages, rather than enclosing each page in a <gi>div
+type="page"</gi>.</p>
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<pb n="5"/><div type="cartoon"><!-- ... --></div>
+<div type="review"><head>Egypt in Venice</head><!-- ... -->
+<pb n="6"/>
+<!-- ... --> </div>
+<div type="cartoon"><!-- ... --></div>
+<div type="verse"><head>Enigma</head><!-- ... --></div>
+<div type="snippets"><!-- ... --></div>
+  </egXML>
+<p>The sequence in which divisions appear is rather
+arbitrary (see <ref
+target="../Materials/Punch/Pages/147_06.jpg">page 6</ref> for example)</p></div>
+
+<div><head>Divisions can contain divisions... </head>
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<div type="snippets">
+<div type="snippet"><!--Curiously....Chancellor--></div>
+<div type="snippet"><!--Men for the Antarctic... Canadians--></div>
+</div>
+  </egXML>
+<list>
+<item>TEI also provides division elements with names that
+indicate their degree of nesting (<gi>div1</gi>, <gi>div2</gi> etc.)
+which some people prefer. </item>
+<item>Divisions must always tessellate: once "down" a level, you
+cannot pop "up" again within the same division. </item>
+<item>The heading or headings of a division are
+	<emph>part of</emph> the division, not separate from it.
+</item>
+</list>
+
+</div>
+
+<div><head>Global attributes</head>
+<p>Some features (potentially) apply to everything: 
+<list>
+<item>identity</item>
+<item>language</item>
+<item>rendition</item>
+</list></p>
+<p>TEI provides global attributes for these:
+<list>
+<item><att>xml:id</att> provides a unique identifier for any element;</item>
+<item><att>n</att> provides a name or number for any element</item>
+<item><att>xml:lang</att> specifies the language of any element, using
+an ISO standard code</item>
+<item><att>rend</att> and <att>rendition</att> provide ways of specifying
+the visual appearance (rendition) of any element</item>
+</list>
+</p>
+</div>
+
+<div><head>What are divisions made of?</head>
+<p>(apart from other smaller divisions)</p>
+<list>
+<item><gi>head</gi> (heading) </item>
+<item><gi>p</gi> (paragraph)</item>
+<item><gi>sp</gi> (speech, contains any of the foregoing, also
+<gi>stage</gi> and <gi>speaker</gi>)</item>
+<item><gi>list</gi> (contains <gi>head</gi>, <gi>label</gi>, <gi>item</gi>)</item>
+<item><gi>table</gi>, (contains <gi>row</gi> containing <gi>cell</gi>)  ... </item>
+<item><gi>l</gi> (verse line) optionally grouped into <gi>lg</gi> (line
+group) stanzas </item>
+<item><gi>figure</gi> (contains <gi>graphic</gi>, <gi>figDesc</gi>, 
+<gi>head</gi>...)</item>
+</list>
+</div>
+
+<div>
+
+<head>Below the paragraph...</head>
+
+<p>Within the elements already introduced, TEI offers plenty of scope
+for mark-up of smaller components. For example: <list>
+<item>boundaries, such as page, column, or line breaks</item>
+    <item> highlighting, emphasis and quotation </item>
+    <item> editorial changes such as correction, normalization etc. </item>
+    <item> names, numbers, dates, addresses... </item>
+    <item> links and cross-references </item>
+    <item> notes, annotation, indexing </item>
+    <item> graphics </item>
+    <item> bibliographic citations </item>
+    <item> words and other analyses</item>
+  </list>
+  </p>
+
+  </div>
+
+
+<div>
+<head>A simple dialogue example ... </head>
+<figure>
+<graphic url="../Materials/Punch/Pages/147_03.jpg"
+height="90%"/>
+</figure>
+
+      </div>
+
+<div><head>... encoded</head>
+<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<div type="cartoon">
+<figure>
+<head>When the ships come home</head>
+<figDesc>A man in Turkish dress lounges on a sofa, 
+smoking a cigarette and consulting a book 
+labelled <title>Naval ledger</title>. Another man, in
+traditional Greek costume, stands beside him, 
+also reading a notebook, labelled <title>Engagements</title>.</figDesc>
+<graphic url="../Materials/Punch/XML/Graphics/003.png"/>
+</figure>
+  <sp><speaker>Greece.</speaker><p> Isn't it time we started fighting  again?</p></sp>
+  <sp><speaker>Turkey.</speaker><p> Yes, I daresay. How soon could you begin?</p></sp>
+  <sp><speaker>Greece.</speaker><p> Oh, in a few weeks.</p></sp>
+  <sp> <speaker>Turkey.</speaker><p> No good for me. Shan't be ready till
+  the autumn.</p></sp>
+</div></egXML>
+        </div>
+
+<div><head>An editorial intervention</head>
+
+<p>Consider:
+<q>Excuse me sir, but would you like to buy a nice little
+    dawg?</q> on <ref target="../Materials/Punch/Pages/147_06.jpg">page
+    6</ref>.</p>
+
+<p><graphic rend="center" width="3in" url="../Materials/Punch/Examples/dawg.png"/></p>
+
+<p>We can:
+<list><item>use <gi>orig</gi> to show that  "dawg" is what it says, even
+though this is a nonstandard spelling</item>
+<item>use <gi>reg</gi> to show that  "dog" is an editorially-supplied
+regularisation of what it says</item>
+<item>or provide both within a <gi>choice</gi> element to say either is
+a valid encoding:</item>
+</list>
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+...a nice little
+<choice><orig>dawg</orig><reg>dog</reg></choice>?
+    </egXML></p>
+<p>More (much more) of this kind of thing later...</p>
+</div>
+
+
+
+<div><head>Macrostructure </head>
+<p>As well as the transcribed text, we have to combine metadata about
+each volume, and images of its pages. These are the three parts of a
+canonical TEI resource:
+
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+    <TEI>
+<teiHeader><!-- required; provides metadata --></teiHeader>
+<facsimile><!-- the document represented in image form  --></facsimile>
+<text><!-- the text transcribed and marked up --></text>
+    </TEI>
+  </egXML>
+
+</p>
+</div>
+   
+
+<div><head>What kinds of metadata?</head>
+<p>For <title>IPP</title> and for any other comparable project, we
+will need a place for such information as
+<list>
+<item>identification of the resource itself ("what is this thing?")</item>
+<item>statements of responsibility ("who did what when?")</item>
+<item>indication of source ("what was this derived from?")</item>
+<item>publication statement ("how is this item distributed and by whom?")</item>
+<item>declaration of encoding practice ("what do the codes we added
+mean?")</item>
+</list></p>
+<p rend="box">The TEI Header supports all these, and more...</p>
+</div>
+
+<div><head>Simple TEI Header for IPP</head>
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+   <teiHeader>
+<fileDesc>
+   <titleStmt>
+<title>Punch, or the London Charivari, Vol. 147, July 1, 1914</title>
+   </titleStmt>
+   <publicationStmt>
+<idno type="gutenberg">24357</idno>
+<availability>
+   <p>This text is freely available for re-use 
+under US and UK law, consult your local 
+legal restrictions if elsewhere.</p>
+</availability>
+   </publicationStmt>
+   <sourceDesc>
+<p>This text is a TEI version of a Project Gutenberg 
+text originally located at <ptr
+target="http://www.gutenberg.org/dirs/2/4/3/5/24357/"/>. 
+As per their license agreement we have removed all 
+references to the PG trademark.</p>
+   </sourceDesc>
+</fileDesc>
+<revisionDesc>
+   <change when="2008-07-26T23:49:55.968+01:00"/>
+</revisionDesc>
+   </teiHeader>
+  </egXML>
+</div>
+
+
+<div><head>Macrostructure</head>
+<p>If many such documents are grouped together to form a corpus
+(rather than a collection), it may be useful to factor out the
+metadata they have in common:
+  <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+<teiCorpus>
+<teiHeader><!-- shared metadata --></teiHeader>
+  <TEI>
+<teiHeader><!-- specific metadata --></teiHeader>
+<text><!-- ...  --></text>
+    </TEI>
+  <TEI>
+<teiHeader><!-- specific metadata --></teiHeader>
+<text><!-- ...  --></text>
+    </TEI>
+</teiCorpus>
+  </egXML></p></div>
+
+      <div rend="slide">
+        <head>Where did the TEI come from? </head>
+        <list>
+          <item>Originally, a research project within the humanities
+            <list>
+              <item>Sponsored by three professional associations</item>
+              <item>Funded 1990-1994 by US NEH, EU LE Programme etc.</item>
+            </list>
+          </item>
+          <item>Major influences <list>
+            <item>digital libraries and text collections</item>
+            <item>language corpora</item>
+            <item>scholarly datasets</item>
+          </list></item>
+          <item>International consortium established June 1999 (see
+            <ref target="http://www.tei-c.org"
+              >http://www.tei-c.org/</ref>)</item>
+        </list>
+      </div>
+      
+      <div rend="slide">
+        <head>Goals of the TEI </head>
+        <list>
+          <item rend="pause">better interchange and integration of scholarly data </item>
+          <item rend="pause">support for all texts, in all languages, from all periods </item>
+          <item rend="pause">guidance for the perplexed: <hi>what</hi> to encode &#x2014;
+            hence, a user-driven codification of existing best practice </item>
+          <item rend="pause">assistance for the specialist:<hi> how</hi> to encode &#x2014;
+            hence, a loose framework into which unpredictable extensions can be fitted</item>
+        </list>
+        <p rend="box">These apparently incompatible goals result in a highly flexible, modular,
+          environment</p>
+      </div>
+      
+      <div rend="slide">
+        <head>TEI Deliverables </head>
+        <list>
+          <item rend="pause">A set of recommendations for text encoding, covering both generic
+            text structures and some highly specific areas based on (but not limited by) existing
+            practice </item>
+          <item rend="pause">A very large collection of element <hi>definitions</hi> with
+            associated <hi>declarations</hi> for various schema languages</item>
+          <item rend="pause">A modular system for creating personalized schemas or DTDs from the
+            foregoing</item>
+          <item>Software that transforms TEI documents</item>
+        </list>
+        <p rend="box">For the full picture see <ref target="http://www.tei-c.org/TEI/Guidelines/"
+          >http://www.tei-c.org/TEI/Guidelines/</ref></p>
+        
+    
+      </div>
+      <div>
+        <head>What is the TEI today ?</head>
+        <list>
+          <item>A set of non-prescriptive <term>Guidelines</term> </item>
+          <item>representing a scholarly consensus about the significant distinctions worth making when encoding a huge variety of textual materials</item>
+          <item>expressed in two fat volumes of prose and a set of detailed formal definitions   </item>
+              <item>these formal definitions are also expressed in several formal schema languages: <list>
+                <item>TEI P1-P3 (1991-1999) : in SGML DTD </item>
+                <item>TEI P4 (2000) : in SGML or XML DTD</item>
+                <item>TEI P5 (2005-) in XML DTD,  W3C Schema, or in RelaxNG</item>
+              </list>
+              </item>
+              <item>underlying which there is a formal model, increasingly expressed as a class system or <term>ontology</term>  </item>
+            </list>
+            <p rend="box">and an active user community ...</p>
+          </div>
+            
+            <div><head>Organisation de la TEI</head>
+              <figure><graphic height="80%" url="../Graphics/tei-community.png"/></figure>
+            </div>
+      
+      <div rend="slide">
+        <head>Legacy of the TEI</head>
+        <list>
+          <item>a way of looking at what text
+            <emph>really</emph> is</item>
+          <item>a codification of current scholarly practice</item>
+          <item>(crucially) a set of shared assumptions and priorities about the
+            digital agenda: <list>
+              <item>focus on content and function (rather than presentation)</item>
+              <item>identify generic solutions (rather than application-specific
+                ones) </item>
+            </list>
+          </item>
+        </list>
+      </div> 
+      
+      <div rend="slide">
+        <head>The TEI landscape</head>
+        <list>
+          <item>Basic structuring of continuous texts</item>
+          <item>Diplomatic transcription diplomatique, images, multimédia, annotations...</item>
+          <item>Formal data sets : dates, named entities, events, relations ...</item>
+          <item>Paratextual and metatextual data</item>
+          <item>All kinds of linguistic and analytic data</item>
+          <item>Documentation of markup schemes</item>
+          <item>Et cetera: see <ptr target="http://www.tei-c.org/P5/Guidelines/"/></item>
+        </list>
+        <p>... an encyclopaedia of encoding praxis </p>
+      </div>
+      
+      
+      
+      <div>
+        <head>The TEI toolkit</head>
+        
+        <p>TEI is <emph>not</emph> a piece of software, but there is plenty of free TEI software around!
+          <list>
+            <label>roma</label>
+            <item>http://www.tei-c.org/Roma  for building TEI schemas</item>
+            <label>"Garage"</label>
+            <item>a web service for generic conversion in and out of TEI</item>
+            
+            <label>TEI boiler plate</label>
+            <item>web publishing system</item>
+            <label>Sosol</label>
+            <item>specialised transcription tool for epigraphists</item>
+          </list>
+        </p>
+        <p>Since the TEI remains 100% standard XML, there will always be more... </p>
+      </div>
+      
+   </body>
+  </text>
+</TEI>
