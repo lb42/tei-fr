@@ -2,7 +2,7 @@ ECHO=
 
 TALKS= \
 	talk-intro.xml \
-	talk-intro-tei.xml \
+	talk-tei.xml \
 	talk-guidelines.xml \
 	talk-cartes.xml \
 	talk-xslt.xml \
@@ -11,12 +11,6 @@ TALKS= \
 
 
 DOCS= \
-	tp-1 \
-	tp-2 \
-	tp-3 \
-	tp-4 \
-	tp-5 \
-	tp-6 \
 	tp-oxygen \
 	tp-roma-en \
 	tp-cartes 
@@ -28,7 +22,6 @@ slides: pdfslides
 pdfslides:  
 	for i in $(TALKS) ; do \
 		saxon -o:`basename $$i .xml`.tex `basename $$i .xml`.xml slides.xsl \
-		 latexLogo=../Graphics/logo \
                  attsOnSameLine=6 \
                  reencode=false ; \
 		$(ECHO) xelatex `basename $$i .xml`.tex ;\
