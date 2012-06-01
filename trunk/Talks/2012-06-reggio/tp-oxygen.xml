@@ -450,92 +450,88 @@ disponibles dans le schéma Bare : il faut s'en méfier.--></item>
 
 
         <div>
-          <head>Quelques documents historiques</head>
-          <p>Vous trouverez dans votre dossier <ident>Travaux</ident> un fichier nommé
-              <ident>petain-sample.docx</ident>. Il contient trois communications du Maréchal
-            Pétain, transcrits et annotes par un chercheur de l'universite de Nice, ensuite édité
-            dans un <title>Lexicometrica</title> de 2005. </p>
-          <p>En voici le début dans le fichier Word:</p>
-          <p><graphic height="10cm" url="../Graphics/petain-word.png"/></p>
-          <p>Ce fichier contient : <list>
-              <item>trois transcriptions distinctes, chacune datée</item>
-              <item>des notices, qui figurent comme notes de bas de pages</item>
-              <item>des paragraphes </item>
-              <item>des titres</item>
-            </list></p>
+          <head>Something dramatic</head>
+          <p>You've seen how to make a valid TEI document out of nothing at all, and out of a plain text file. In reality, many documents start life in a word processor such as Word or Open Office. Can Oxygen work with those too? </p><p>In your Work folder you have a small Word document called <ident>goldoni.docx</ident>. This
+            contains just the start of a famous Italian play from the 18th century: Goldoni's <hi rend="italic">Servitore di due padroni</hi>. You may like to open it to check that it
+            is in fact a Word document, with nice formatting and no sign of any pointy brackets.</p>
         </div>
 
 
         <div>
-          <head>Transformation d'un fichier Word</head>
-          <p>Quoi faire pour transformer ce joli fichier en XML et travailler la-dessus avec Oxygen? </p>
-          <p>Nous pourrions l'exporter au format « plein text ». Nous pourrions aussi faire un
-            copier-coller. Mais dans chaque cas, nous risquons la perte du formatage qui distingue
-            (par exemple) les annotations en bas de page du texte annote. s. </p>
-          <p>Si le fichier Word est bien stylé, on peut le transformer en XML, sans perte
-            d’information. L'outil OxGarage nous aidera.</p>
+          <head>Transformation from Word to TEI</head>
+          <p>How can we convert this document into TEI-XML?</p>
+          <p>We could save it in <soCalled>plain text</soCalled> format and use that ;  we could cut and paste the text into Oxygen. But either method would be tiresome and would also lose information, such as the italic font which distinguishes (for example) stage directions from parts of a speech. </p>
+          <p>Since this Word file uses formatting in a consistent way, using Word styles, it's
+            possible to transform it to XML more or less automatically, losing very little
+            information. Oxygen can be configured to do this for you, but we will use a different
+            tool for a change. </p>
           <list>
-            <item>Ouvrez votre Internet browser, et allez sur le site
+            <item>Open your Internet browser, and visit
                 <ref>http://www.tei-c.org/ege-webclient/</ref></item>
-            <item>Cliquez sur <ident>Text Documents</ident>. Dans la liste des formats de saisi
-              proposée, cochez la case pour Microsoft Word Document.</item>
-            <item>Une liste des formats cibles proposés apparaît. Cochez la case pour TEI P5
+            <item>Click <ident>Text Documents</ident>. In the list of different formats proposed,
+              check the box for Microsoft Word Docx</item>
+            <item>A list of target formats appears to the right. Check the  box for TEI P5
               XML.</item>
-            <item>En haut de l'écran un bouton <ident>Browse</ident> apparaît. Cliquez sur ceci, et
-              naviguez jusqu'au fichier <ident>petain-sample.docx</ident> dans votre dossier
-                <ident>Travaux</ident>.</item>
-            <item>Cliquez sur le grand bouton <ident>Convert</ident> et patientez. </item>
-            <item>Le site vous renvoie (après un bref délai) un fichier
-                <ident>petain-sample.xml</ident>. Enregistrez-le dans votre dossier
-                <ident>Travaux</ident>.</item>
+            <item>At the top of the screen a <ident>Browse</ident> button appears. Click on this and
+              navigate to the file <ident>goldoni.docx</ident> in your  <ident>Work</ident>
+              folder.</item>
+            <item>Click the big <ident>Convert</ident> button ... be patient </item>
+            <item>The Garage will send you  (after a brief delay) a file called
+                <ident>goldoni.xml</ident>. Save it in your <ident>Work</ident> folder. (Note that
+              if you are using Internet Explorer, you may have to reassure the software that you
+              really do want to download this dangerous XML file)</item>
           </list>
         </div>
-
         <div>
-          <head>Structure du fichier</head>
-          <p>Voyons ce que le Garage aura fait de notre fichier Word. En tout cas, il est devenu un
-            document TEI valide, même s'il pourrait etre amélioré. </p>
+          <head>Tag translating</head>
+          <p>Let's see what OxGarage has made out of our Word file. At least it's a valid TEI
+            document, even if it is full of lies...</p>
           <list>
-            <item>Relancez Oxygen (si necessaire), et ouvrez le fichier que vous venez de recevoir
-              du garage. </item>
-            <item>Oxygen vous avertit que ce fichier ne contient pas de retours à la ligne : ce
-              n'est pas grave. Cliquez sur "format".</item>
-
-            <item><p>D'abord, explorez un peu la structure du fichier. La structuration est plus
-                evidente dans la fenêtre <ident>Sommaire</ident> à gauche de l'ecran. Cliquez à
-                gauche de chaque noeud pour l'ouvrir, ou pour l'enfermer. Par exemple, apres avoir
-                cliqué à gauche de "text" et de "body", vous allez voir ceci: </p>
-              <p><graphic height="3cm" url="../Graphics/structure-1.png"/></p></item>
-            <item><p>Ensuite, si vous cliquez à gauche du <hi>deuxieme</hi> "div", vous allez voir
-                ceci:</p><p>
-                <graphic height="3.5cm" url="../Graphics/structure-2.png"/></p></item>
-            <item><p>Vous allez vite comprendre que dans ce fichier, il y a quatre <gi>div</gi>,
-                dont le premier ne contient que le titre du fichier. Apres cela, il y a trois
-                  <gi>div</gi>, contenant un <gi>head</gi> et une serie de <gi>p</gi>. Quelques-uns
-                de ces <gi>p</gi> ne contient que de texte, mais il y en a aussi qui contiennent un
-                  <gi>hi</gi>, contenant un <gi>note</gi>, contenant des <gi>p</gi> emboites comme
-                ceci :</p>
-              <p>
-                <graphic height="4cm" url="../Graphics/structure-3.png"/></p></item>
-            <item>Pourquoi? Notre fichier, comme tout autre fichier issu d'un outil bureautique,
-              retient les annotations dans le texte à la point de référence. L'opération de stylage
-              classique sera d'extraire les annotations, les numerotées, et les affichées en bas de
-              page : une espece de transformation. </item>
-
+            <item>Start up Oxygen, et open the file <ident>goldoni.xml</ident> which you
+              just created.</item>
+            <item>Don't look at the TEI Header for the moment : you can complete that later.
+              Scroll down to the start of the play. </item>
+            <item>If you look at the summary view, or change briefly to Author mode, you
+              will see that the conversion has correctly identified the act and scene
+              structure. It has however converted each speech into a <gi>div</gi>,
+              containing a <gi>head</gi> and a <gi>p</gi>. This makes our life much
+              easier. (It happened because in the Word file, we used a heading style to
+              mark each speaker prefix )</item>
+            <item>In Text view, put the cursor into any one of the <gi>div</gi> tags</item>
+            <item>From the <ident>Document</ident> menu choose the <ident>XML-Refactoring ->
+              Rename Element </ident> command (or type ALT-SHIFT-R).</item>
+            <item><p>Oxygen displays this dialogue box </p>
+              <p><graphic height="5cm" url="../Graphics/rename.png"/></p></item>
+            <item>In the <code>New name</code> box, change <code>div</code> to
+              <code>sp</code>, which is the name of the element we want, and check the
+              box <ident>Rename all elements with the same name</ident>
+            </item>
+            <item>Click <ident>OK</ident> and all the <gi>div</gi> elements become <gi>sp</gi>s. (Our
+              document is no longer valid, but we will fix that in a moment.)</item>
+            <item>Now repeat this manoever for all the <gi>head</gi> elements : turn these all into <gi>speaker</gi> elements.</item>
+            <item>Our document is still invalid : the <gi>div</gi> elements marking the scene and act divisions should not have been converted. But there are only a few of these, so it is not so hard to change them back. Click on the <gi>sp</gi> tag immediately before the words <q>ATTO PRIMO</q> and type ALT-SHIFT-R. This time click the <ident>Rename current element </ident>radio button before choosing <code>div</code> as the replacement.</item>
+            <item>Repeat the manoever to rename the <gi>speaker</gi> element containing the words ATTO PRIMO as <gi>head</gi>. Repeat it again so that the sequence <gi>sp</gi><gi>label</gi><code>SCENA PRIMA</code> gets retagged as <gi>div</gi><gi>head</gi><code>SCENA PRIMA</code></item>
+            <item>If you do this correctly, lots of red marks should disappear. Click on the first one still remaining to move down to the next scene, where you will need to repeat the manoever for a third time, so that the sequence <gi>sp</gi><gi>label</gi><code>SCENA SECONDA</code> gets retagged as <gi>div</gi><gi>head</gi><code>SCENA SECONDA</code> (You can also just correct the tags by retyping them if you like).</item>
+            
           </list>
-        </div>
-        <div>
-          <head>Correction du fichier</head>
-          <p>Avant de continuer, vous etes invité d'améliorer un peu le balisage du fichier. Essayez
-            de : <list>
-              <item>transférer les deux titres dans le bon endroit du <gi>teiHeader</gi> ; </item>
-              <item>enlever la premiere division du fichier ; </item>
-              <item>ajouter une numérotation à chaque division du fichier (basé sur la date, p.e.
-                  <gi>div n="1940-06-17".</gi></item>
-            </list>
-          </p>
-          <p>Une version corrigée est à votre disposition, si vous en avez besoin, dans le fichier
-              <ident>petain-sample-corr.xml</ident>! </p>
+          <p>The stage directions in our text have all been converted to <gi>hi rend="Caption_Characters"</gi> elements because they were styled with a style of that name and we did not provide any mapping for that style name in the Word to TEI conversion. For the moment, simply convert all the <gi>hi</gi> elements to <gi>stage</gi> using the Rename Element command again. </p><p>Finally, we will remove all the redundant <code>rend="Normal"</code> attribute specifications. This is easily done using the <ident>Find</ident> menu</p>
+          <list>
+            <item> Select the text <q> rend="Normal"</q> somewhere on the screen.</item>
+            <item>Choose Find/Replace on the Find menu, or type CTRL-F</item>
+            <item>Check <ident>Case sensitive</ident> and <ident>Wrap around</ident> in the Options . Uncheck the box labelled Enable XML search options. The dialog should look like this : </item>
+            <item><figure><graphic url="../Graphics/noNormal.png"/></figure></item>
+            <item>Press Replace All</item>
+          </list>
+          <p>If you'd like to improve your file further, here are some suggestions:
+            <list>
+              <item>Use the <att>type</att> attribute to distinguish different kinds of stage direction</item><item>Turn the sequence of <gi>p rend="Text body indent"</gi> elements at the start into a cast list, tagged with <gi>castList</gi>. </item><item>Look for words of Venetian dialect and mark them with <gi>foreign</gi></item><item>Add some information to the Header, such as the correct title and author, your name as encoder, and the source of this text (It is transcribed from the "Commedia", di Carlo Goldoni
+                volume primo, nona edizione
+                collezione: I grandi libri Garzanti
+                Garzanti editore
+                Milano, 1992 )</item>
+            </list></p><p>You'll notice that we did not specify a schema to use for this document. Consequently all the TEI elements are available for you to use... </p>
+          <p>If you get lost or can't finish don't worry. Our suggested version of the file is available for you to look at in the file
+              <ident>corr-goldoni.xml</ident>! </p>
         </div>
         <div>
           <head>Transformation du fichier</head>
