@@ -4,7 +4,8 @@ TALKS= \
 	talk-intro.xml \
 	talk-tei.xml \
 	talk-guidelines.xml \
-	talk-cartes.xml \
+	talk-editing.xml \
+	talk-customizing.xml \
 	talk-xslt.xml \
 	talk-hdr.xml \
 
