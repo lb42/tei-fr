@@ -4,7 +4,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>TEI à la carte (1)</title>
+        <title>TEI à la carte</title>
         <author>TEI@Oxford</author>
       </titleStmt>
       <editionStmt>
@@ -186,64 +186,59 @@
 	 <p rend="box">http://www.tei-c.org/Roma/</p>
        </div>
 
-<div><head>Un cas d'etude: la carte postale</head>
-<p>Supposons qu'on a propose un ANR pour la numerisation et
-transcription d'une collection gigantesque de cartes postales. Comment
-on va creer un schema apte à gerer des centaines de choses comme celles-ci?</p>
+<div><head>For example ...</head>
+<p>TEI out of the box is clearly designed to work with traditionally organised books and manuscripts. But suppose we want to work on a slightly different kind of object -- a postcard collection, or a monumental inscription? How do we make a TEI schema to handle hundreds or thousands of things like this : </p>
 </div>
 
-<div><head>Une carte postale</head>
+<div><head>A postcard (front)</head>
 <figure>
-<graphic url="../2011-01-tours/carte-1r.png"/>
+<graphic url="../Graphics/carte-1r.png"/>
 </figure>
 </div>
-<div><head>Une carte postale</head>
+<div><head>A postcard (back)</head>
 <figure>
-<graphic url="../2011-01-tours/carte-1v.png"/>
-</figure>
-</div>
-
-<div><head>Une autre carte postale</head>
-<figure>
-<graphic url="../2011-01-tours/carte-2.png"/>
+<graphic url="../Graphics/carte-1v.png"/>
 </figure>
 </div>
 
-<div><head>Quelles sont les elements significatifs, qu'il faut
-absolument distinguer dans notre encodage?</head>
+<div><head>Another postcard</head>
+<figure>
+<graphic url="../Graphics/carte-2.png"/>
+</figure>
+</div>
+
+<div><head>Which are the most significant components of these texts?</head>
 
 <list rend="pause">
-<item>image</item>
-<item>obliteration</item>
-<item>partie imprimee</item>
-<item>message(s) ecrit(s)</item>
-<item>destinataire(s)</item>
-<item>metadonnees à volonte</item>
+<item>the graphic</item>
+<item>the postmark</item>
+<item>the printed part</item>
+<item>the message(s) written on them</item>
+<item>the addressee(s)</item>
+<item>classification of the image, the context etc. (metadata!)</item>
  <item>...</item>
  </list>
  </div>
 
- <div><head>Propositions</head>
- <p>On va commencer en structurant chaque carte en divisions de type
- varies:
+ <div><head>Suggestion</head>
+ <p>We could begin by structuring the card as divisions of various types</p>
+<p>Physically :
  <list>
- <item><hi>recto</hi> : la surface qui porte l'image
- (normalement)</item>
- <item><hi>verso</hi> : la surface qui porte  (normalement) le message
+ <item><hi>recto</hi> : one side, usually the one with the picture</item>
+ <item><hi>verso</hi> : the other side, usually the one with the message
  </item>
 
  </list>
  </p>
- <p>Ensuite, on observe que on pourrait avoir indifferement sur ces
- deux surfaces d'autres sous-divisions telles:
+ <p>Logically : 
  <list>
- <item>le message</item>
- <item>le destinataire</item>
- <item>l'obliteration</item>
+ <item>the message</item>
+ <item>the addressee</item>
+ <item>the postmark</item>
  </list>
  </p></div>
 
-  <div><head>Première proposition d'encodage</head>
+  <div><head>First try at encoding a postcard</head>
  <egXML  xmlns="http://www.tei-c.org/ns/Examples">
 <carte n="0010">
 <recto url="Sables-olonne_recto_v.jpg"/>
@@ -270,23 +265,16 @@ Val de Marne
 </egXML>
 </div>
 
-<div><head>Commentaire</head>
+<div><head>Commentary</head>
 <list>
-<item>On ne s'est pas servi du vocabulaire TEI: donc on aura de mal à
-expliquer cet encodage à des non francophones, ou de partager nos
-travaux avec des autres.</item>
-<item>On n'a pas mis en evidence tout ce qui pourrait nous interesser de
-point de vue patrimoniale,
-par exemple les ratures, les retours à ligne, les noms de personnes ou
-de lieux, les aspects linguistiques, les metadonnees ... </item>
-<item>Pour ajouter de telles choses on doit inventer encore de
-vocabulaire... ce qui gaspille un peu notre temps, vue que la TEI l'a
-dejà fait...</item>
+<item>We didn't use the TEI vocabulary. This means we may have trouble sharing or explaining our data with non-french speakers. Or benefitting from their work..</item>
+<item>We haven't included all the things that might be encoded : for example, corrections in the text, layout of the components, names of people or places referred to, linguistic or historical features ... </item>
+<item>Of course, we can always invent more tags for these things. But isn't it rather a  waste of our time if the TEI has already done it ?</item>
 </list></div>
 
-<div><head>Proposition TEI</head>
-<p>On traite chaque carte comme un <gi>text</gi> </p>
-<p>On traite chaque division comme  un <gi>div type="[fonction]"</gi> </p>
+<div><head>TEI version</head>
+<p>We regard each card as a <gi>text</gi> </p>
+<p>We On traite chaque division comme  un <gi>div type="[fonction]"</gi> </p>
 <p>Les noms de lieux seront balises avec <gi>placeName</gi>, les noms de
 personnes avec <gi>persName</gi>, et les addresses avec
 <gi>address</gi> (qui regroupe des <gi>addrLine</gi>) </p>
