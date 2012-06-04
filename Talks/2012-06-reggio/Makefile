@@ -13,8 +13,8 @@ TALKS= \
 
 DOCS= \
 	tp-oxygen \
-	tp-roma-en \
-	tp-cartes 
+	tp-styling \
+	tp-editing 
 
 
 default: pdfslides
