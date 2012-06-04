@@ -177,48 +177,33 @@ we want to produce :
 <div>
 <head>How does it work ?</head>
 
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<xsl:stylesheet
-    xpath-default-namespace="http://www.tei-c.org/ns/1.0"
-    version="2.0">
+<list>
+<item>An XSLT processor walks down the document tree</item>
+<item>For each element it finds, it checks to see if there is a matching template</item>
+<item>If a matching template is found, then the actions defined by that template are carried out</item>
+<item>If no template is found, then it looks at the children of the element</item>
+<item>If we get to a child element which is just a text fragment, by default we output the text</item>
+</list>
 
-<xsl:template match="div">
-<!--  .... do something with div elements....-->
-</xsl:template>
-
-<xsl:template match="p">
-<!--  .... do something with p elements....-->
-</xsl:template>
-
-</xsl:stylesheet>
-</egXML>
-<p>The <code>div</code> and <code>p</code> are <emph>XPath
-expressions</emph>, which specify which bit of the document is matched
-by the template.</p>
-<p>Any element not starting with <hi>xsl:</hi> in a template body
-is put into the output.</p>
 </div>
 
-<div><head>Les règles d'or de XSLT</head>
+<div><head>Some useful template commands</head>
 <list type="ordered">
-<item>Si aucun template ne correspond a un element, traiter les
-elements qu'il contient </item>
-<item>Si aucun element reste a traiter par regle 1, sortir le texte
-contenu par un element</item>
-<item>Un element n'est traite que si un template lui correspond</item>
-<item><code>xsl:apply-templates select="XX"</code> traitez les 
-templates disponibles pour l' element indique par le XPath "XX"; <code>xsl:value-of
-select="XX"</code> sortez le contenu de l'element indique par le XPath
+<item><code>xsl:apply-templates select="XX"</code> : process any available templates for the element/s indicated by the  XPath "XX" at this point</item>
+<item> <code>xsl:value-of
+select="XX"</code> output the content of the element/s indicated by the XPath
 "XX".</item>
-<item>(<code>xsl:template match="XX"</code> ne traite rien: il definit
-un correspondence entre un template et un element)</item>
-<item>L'ordre des templates est sans significance</item>
-<item>Tout partie du document est traitable part tout template,
-plusieurs fois.</item>
-<item>Un stylesheet ne peut contenir que du XML bien-forme</item>
-    </list>
+<item><code>xsl:template match="XX"</code> : this is not a command ! it just defines a template which may or may not be triggered if an element XX is found </item>
+</list>
+<p>The order of templates in a stylesheet is not significant and any part of the document can trigger any matching template once or several times.</p>
+<p>A stylesheet must contain well-formed XML, usually from one of three namespaces:
+<list>
+<item>the XSLT namespace</item>
+<item>the namespace of the input document</item>
+<item>the namespace of the output document</item>
+</list></p>
 </div>
-
+<!--
 <div>
   <head>Deux astuces</head>
 <p>Vous etes conseille de fournir ces attributs sur <gi>stylesheet</gi>:
@@ -306,38 +291,30 @@ plusieurs fois.</item>
 <xsl:template match="div/head" />
 </egXML>
 </p>
-<!-- <p>Pourquoi Notice how we avoid getting the heading text twice.</p>
 
-<p>Why
-did we need to qualify it to deal with just <gi>head</gi>
-inside <gi>div</gi>?</p> -->
    </div>
 
+-->
 
 <div>
-<head>La puissance d' XPath</head>
-<p>L'attribut <ident>match</ident> sur  <gi>xsl:template</gi>
-peut pointer partout dans un  document. 
+<head>What can a template match ?</head>
+<p>The  <ident>match</ident> attribute on  <gi>xsl:template</gi>
+can specify almost anything in a document :
 <table>
-  <row><cell><code>/</code></cell><cell>la racine du document </cell></row>
-  <row><cell><code>*</code></cell><cell>tout element</cell></row>
-  <row><cell><code>text()</code></cell><cell>tout morceau de te</cell></row>
-  <row><cell><code>name</code></cell><cell>tout element nomme
+  <row><cell><code>/</code></cell><cell>the root of the  document </cell></row>
+  <row><cell><code>*</code></cell><cell>every  element</cell></row>
+  <row><cell><code>text()</code></cell><cell>every text fragment</cell></row>
+  <row><cell><code>name</code></cell><cell>any element called 
   <q>name</q></cell></row>
-  <row><cell><code>@name</code></cell><cell>tout attribut nomme <q>name</q></cell></row>
+  <row><cell><code>@name</code></cell><cell>any attribute called <q>name</q></cell></row>
+<row><cell><code>xxxx</code></cell><cell>any XPath</cell></row>
 </table>
-</p>
-<p>exemple d'un Xpath comme object de  <gi>value-of</gi>:
-  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-    <xsl:value-of
-	select="/TEI/teiHeader/fileDesc/titleStmt/title"/>
-  </egXML>
 </p>
 
 </div> 
 
 <div>
-<head>Plusieures templates peut etre specifies pour des contextes divers</head>
+<head>Different templates can be specified for the same element in different contexts</head>
 <p>Compare
 <egXML xmlns="http://www.tei-c.org/ns/Examples" >
 <xsl:template match="head">
@@ -354,49 +331,20 @@ with
 </xsl:template>
 </egXML>
 </p>
+
 </div>
 
 
 <div>
-<head>En cas de conflit...</head>
-<p>Exemple de conflit:
+<head>In case of conflict</head>
+<p> (like this)
 <egXML xmlns="http://www.tei-c.org/ns/Examples" >
 <xsl:template match="person/name">…
 </xsl:template>
 <xsl:template match="name">…
 </xsl:template>
-</egXML>
-Quel template correspondra a une occurrence donnee de  <gi>name</gi>
-dans le document?
-</p>
-</div>
-
-<div>
-<head>Prioritisation</head>
-<p>En general,  <hi>le template le plus specifique gagne</hi>.
-<egXML xmlns="http://www.tei-c.org/ns/Examples" >
-<xsl:template match="*">
-<!-- ... -->
-</xsl:template>
-<xsl:template match="tei:*">
-<!-- ... -->
-</xsl:template>
-<xsl:template match="p">
-<!-- ... -->
-</xsl:template>
-<xsl:template match="div/p">
-<!-- ... -->
-</xsl:template>
-
-<xsl:template match="div/p/@n">
-<!-- ... -->
-</xsl:template>
-
-</egXML>
-</p>
-<p>Et en cas ou, un attribut 
- <ident>priority</ident> est disponible sur <gi>template</gi> pour
- varier cette principe</p>
+</egXML></p>
+<p>In general the <emph>most specific</emph> template wins</p>
 </div>
 <!--
 <div>
@@ -420,7 +368,7 @@ of two types:
 </list>
 </p>
 </div>
--->
+
 <div>
   <head>Une astuce pour les valeurs d'attribut</head>
   <p>On a : 
@@ -460,11 +408,11 @@ doit etre  <hi>evaluée</hi>:
 <att>target</att> quelle que soit la valeur de ce dernier</p>
 
 </div>
-
+-->
 <div>
-  <head>Bouclage:  <code>for-each</code></head>
-  <p>De temps en temps, il est utile de iterer sur un ensemble d'
-  elements. Par exemple :
+  <head>Loops :  <code>xsl:for-each</code></head>
+  <p>You can iterate over a set of 
+  elements. For example :
   <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
     <xsl:template match="listPerson" >
       <ul>
@@ -476,7 +424,7 @@ doit etre  <hi>evaluée</hi>:
       </ul>
     </xsl:template>
   </egXML>
-cf.
+<!--cf.
   <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
     <xsl:template match="listPerson" >
       <ul>
@@ -488,13 +436,13 @@ cf.
 	<xsl:value-of select="persName"/>
       </li>
     </xsl:template>
-  </egXML>
+  </egXML>-->
   </p>
 </div>
 
-
+<!--
 <div>
-  <head>Conditions:  <code>if</code></head>
+  <head>Conditions:  <code>xsl:if</code></head>
   <p>On peut proposer des actions conditionelles :
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <xsl:template match="person">
@@ -517,11 +465,10 @@ cf.
   </egXML>
   </p>
 </div>
-
+-->
 <div>
-  <head>Choix:  <code>choose</code></head>
-  <p>On peut specifier un choix multiple, selon ce qu'on trouve dans
-  le texte:
+  <head>Choice:  <code>xsl:choose</code></head>
+  <p>Multiple choices are possible depending on data value :
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <xsl:template match="person">
       <xsl:apply-templates/>
@@ -545,26 +492,24 @@ cf.
 </div>
 
 <div>
-  <head>Numerotation:  <code>number</code></head>
-  <p>On peut generer une numerotation derivée de la position des
-  elements dans l'arborescence XML
-  text.
+  <head>Numbering :  <code>xsl:number</code></head>
+  <p>An XML tree has an implicit ordering, which can always be accessed.
   <list type="ordered">
-    <item>Position à l'interieur de l'element parent:
+    <item> order within parent element:
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <xsl:template match="p">
       <xsl:number/>
     </xsl:template>
   </egXML>
     </item>
-    <item>Position a l'interieur du document entier :
+    <item> order within the whole document :
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <xsl:template match="p">
       <xsl:number level="any"/>
     </xsl:template>
   </egXML>
     </item>
-    <item>Position a l'interieur d'un element ancetre specifie:
+    <item> order within a specified ancestor element
   <egXML xmlns="http://www.tei-c.org/ns/Examples">
     <xsl:template match="l">
       <xsl:number level="any" from="lg"/>
@@ -596,16 +541,16 @@ of <gi>xsl:text</gi> to control whitespace.</p>
 </div>
 -->
 <div>
-  <head>Sommaire</head>
-  <p>Maintenant vous comprenez comment
+  <head>Summary</head>
+  <p>Now you have seen how to 
   <list type="ordered">
-    <item>creer des templates </item>
-    <item>selectionner des morceaux de texte</item>
-    <item>definir des actions conditionnelles</item>
-    <item>numeroter les objets de sortie</item>
+    <item>create and use templates </item>
+    <item>select bits of text</item>
+    <item>define conditional actions</item>
+    <item>number the output objects</item>
   </list>
   </p>
-<p>On va experimenter cela....</p>
+<p>Let's experiment a little with these ideas ....</p>
 </div>
 
 </body>
