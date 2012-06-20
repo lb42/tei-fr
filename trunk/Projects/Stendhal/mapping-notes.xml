@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Transcribing Stendhal in TEI XML</title>
+            <author>Lou </author>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+               <date>2012-06-20T16:09:18</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+            <p>Preliminary working document only</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Derived from material on the Stendhal project's website, modified by Lou</p>
+         </sourceDesc>
+      </fileDesc>
+      <revisionDesc>
+         <change>
+            <name>Lou </name>
+            <date>2012-06-20T17:56:19</date>
+         </change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <head>Stendhal transcription DTD</head>
+         <p>These very preliminary notes indicate how I think it might be possible to re-express the components of the Stendhal transcription DTD in  TEI. The object of the exercise is not just to reclaim for the TEI one of the more interesting transcription projects out there, but also to test the newly developed TEI recommendations for source transcription using <gi>sourceDoc</gi>. Once the mapping is defined, I plan to write an ODD to express it. The next step will be to write stylesheets to convert some of the existing Stendhal transcriptions to an XML form complying with that ODD.</p>
+         <p>I started by looking at the informal documentation provided for the transcription DTD at <ptr target="http://stendhal.msh-alpes.fr/index.php?n=XML.Manuel"/>, from which I copy the following text. </p>
+<quote>         <p>La "racine" du document est la page qui contient (peu importe l'ordre) :
+         <list>
+            <item>un descriptif constitué<list>
+               <item>d'un fichier image (dont on donnera le nom de fichier - voir chapitre suivant)</item>
+               <item>d'un ou plusieurs transcripteurs (qui indiqueront leur nom et la date à laquelle ils effectuent la transcription)</item>
+               <item>d'un corpus principal auquel se rattache la page</item>
+               <item>d'un document principal auquel se rattache la page</item>
+               <item>d'une cote, d'un volume, d'un type de page (recto, verso, tranche) et d'un numéro éventuel de page</item>
+               <item>de propriétés physiques</item>
+               <item>d'une date de rédaction</item>
+               <item>d'un lieu de rédaction</item>
+               <item>d'un commentaire du transcripteur constitué d'un ou plusieurs paragraphes</item>
+            </list>
+            </item>
+                      
+            <item>un contenu (ce qui est présent sur la page) constitué de<list type="unordered">
+               <item>zéro, une ou plusieurs paginations qui contient une ligne où stipuler le numéro</item>
+               <item>zéro, une ou plusieurs figures dont on donne la description et qui peuvent contenir un ou plusieurs paragraphes</item>
+               <item>zéro, une ou plusieurs marginales décrites comme le texte (il n'y a pas de différence si ce n'est qu'il s'agit d'un bloc "marginale" qui sera traité différemment du texte suivant les besoins).</item>
+               <item>zéro, un ou plusieurs textes qui contiennent<list type="unordered">
+                  <item>zéro, un ou plusieurs titres décrits comme des paragraphes</item>
+                  <item>zéro, un ou plusieurs paragraphes</item>
+               </list>
+               </item>
+            </list>
+            </item>
+         </list></p></quote>
+         <p>In TEI, I propose to make the root element <gi>teiCorpus</gi> , and to provide a <gi>TEI</gi> for each distinct <q>document</q>. Its <gi>teiHeader</gi> will contain some of the descriptive data, aggregated from the “descriptif”s attached to each page. It will be followed by a <gi>sourceDoc</gi>, containing <gi>surface</gi> elements for each page in that document. In detail:
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">   <teiCorpus>
+         <teiHeader>
+         <!-- descriptive data common to the whole project for example lists of transcribers, codes used etc. -->
+         </teiHeader>
+         <TEI>
+         <teiHeader>
+         <!-- descriptive data common to a single document-->
+         </teiHeader>
+         <sourceDoc n="cote/vol/etc">
+         <surface facs="image-file.URL" type="recto/verso/tranche" n="numéro éventuel">
+         <note resp="person-key">commentaire du transcripteur constitué d'un ou plusieurs paragraphes</note>
+         <zone>
+            <!-- for each written area , at least one is required-->
+         </zone>
+         </surface>
+         <surface> 
+            <!-- next page here-->
+         </surface>
+         </sourceDoc>
+         </TEI>
+         <!-- next document here -->
+         </teiCorpus></egXML></p>
+         <p>Within <gi>zone</gi>s of writing, individual lines may be indicated using <gi>line</gi> elements. Alternatively, line endings can be marked using <gi>lb/</gi> which reduces the probability of overlap. In either case, as well as plain text zones can contain any of the following phrase level elements combined as need be:</p>
+         <list type="unordered">
+            <item>&lt;del&gt; : du texte biffé</item>
+            <item>&lt;sic&gt;? Or &lt;orig&gt;? Or &lt;abbr&gt;? Or &lt;code&gt;? du texte "codé" (un mot ou une expression utilisé pour un autre)</item>
+            <item>&lt;hi rend=”exp”&gt; du texte en exposant</item>
+            <item>&lt;hi rend=”sup”&gt; du texte en indice</item>
+            <item>&lt;add place=”inline”&gt; du texte en ajout (le texte en ajout se distingue de l'interligne dans le sens où il est inséré dans la ligne d'écriture)</item>
+            <item>&lt;add place=”interlinear”&gt; du texte en interligne</item>
+            <item>&lt;date&gt; des dates</item>
+            <item>&lt;placeName&gt; des lieux</item>
+            <item>&lt;lb/&gt; (unless &lt;line&gt; is used) : des retours à la ligne</item>
+            <item>&lt;hi rend=”it”&gt; du texte en italique</item>
+            <item>&lt;hi rend=”bo”&gt; du texte en gras</item>
+            <item>&lt;hi rend=”ul”&gt; du texte souligné</item>
+            <item>&lt;gap reason=”illegible”&gt; du texte illisible (on ne met que la balise qui sera remplacée par *...*</item>
+            <item>&lt;unclear&gt; du texte douteux (le transcripteur n'est pas sûr de sa lecture)</item>
+            <item>&lt;add place=”overwritten”&gt; du texte en surcharge</item>
+            <item>! no obvious TEI element ! du texte à vérifier (le transcripteur souhaite que ses collègues puissent vérifier sa transcription à un endroit précis)</item>
+            <item>
+               <p>! no obvious TEI element ! du texte surligné (le transcripteur souhaite que soit mis en évidence ce texte)</p>
+            </item>
+         </list>
+         <p>Changes in various properties of the writing are indicated using the <gi>handShift</gi>
+            element. This can signal a change in “l'outil d'écriture (encre noire, encre rouge,
+            crayon)” using the @medium attribute, a change in the “type d'écriture principal
+            (Calligraphie, Script, Normal)” using the @script attribute, or a change in “le
+            scripteur... s'il diffère du scripteur principal de la page” using the @scribe attribute
+            and can be placed at any appropriate point in the transcription.</p>
+         <p>For images (i.e. those included in the text, as distinct from those representing the page) we could use the <gi>graphic</gi> element, which has attributes <att>width</att> <att>scale</att> etc to control its display size. Its placement on the page is inherited from its parent <gi>zone</gi>.</p>
+            <p>Pagination/signatures (I think that is what <q>les paginations</q> are) could be regarded as a kind of <gi>metamark</gi>, but is probably better handled as <gi>fw</gi>, with its <att>type</att> attribute giving appropriate values such as linenum, sig, catch etc.  t
+            </p>
+         <p>Not sure what is meant by <q>le texte décalé</q></p> 
+         <p>For things currently treated with <gi>code</gi> or (apparently) <gi>surcharge</gi>, the
+            <gi>choice</gi> element will be useful. Its attributes <att>resp</att> and <att>cert</att> can be used to indicate <q>la personne qui a effectué cette estimation (peut ne pas être le transcripteur</q>, and <q>l'estimation de cet équivalent</q> respectively. For example:
+         <egXML xmlns="http://www.tei-c.org/ns/Examples"><choice>
+         <abbr>gvt.</abbr>
+         	<expan resp="#TL" cert="high">gouvernement</expan></choice>
+         </egXML>
+         </p>  
+    <p>Positioning of zones on the surface of the page can be expressed much more explicitly in <gi>sourceDoc</gi> but it's hard to see how to automate the addition of the required co-ordinate information.</p>     
+         <p>To express <q>l'équivalent lisible de la date</q> TEI provides an attribute <att>when</att> (though this requires ISO or W3C format "aaaa-mm-jj" rather than "jj-mm-aaaa")</p>
+              
+              <p>For marginal notes, use <gi>note</gi> with attributes <att>resp</att>, <att>place</att>, <att>hand</att> etc. as necessary. </p>
+           
+      </body>
+   </text>
+</TEI>
