@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="exercises.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Exercise 8: Linguistic Markup</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+
+            <div>
+                <head>Exercise 8: Linguistic Markup</head>
+                <!-- Learning Outcomes -->
+                <div>
+                    <head>Learning Outcomes</head>
+                    <p>When you successfully complete this exercise you should be able to:
+                            <list type="bulleted">
+                            <item>Understand how to use a <gi>taxonomy</gi> in the header
+                                for hierarchical classifications</item>
+                            <item>Know how to mark up words, and their
+                                parts-of-speech</item>
+                            <item>Associate XSLT stylesheets with an XSLT file</item>
+                        </list>
+                    </p>
+                </div>
+
+                <!-- Summary -->
+                <div>
+                    <head>Summary</head>
+                    <p>We're going to mark up the parts of speech for individual words in
+                        the transcription of spoken text we encoded in the previous
+                        exercise. To do this we'll first put in a <gi>taxonomy</gi>
+                        element to refer to with standard linguistic parts of speech.
+                        We'll then tag individual words, and use an attribute to refer
+                        back to this taxonomy. We'll then realise how hard this is to do
+                        manually, and we'll find a way to cheat! Finally we'll transform
+                        our XML file, not only into a standard web page displaying the
+                        transcribed text, but also to a page grouping together the words
+                        we've marked up.</p>
+                </div>
+                <div>
+                    <head>Starting Up</head>
+                    <p>In oXygen, load up the file you created in the previous exercise.
+                        If you didn't finish that exercise, you can cheat by loading up
+                        'spoilers/ex07.xml'. </p>
+                </div>
+
+                <!-- More tutorial divs -->
+                <div>
+                    <head>Inserting a Taxonomy</head>
+                    <p>In order to have something to refer back to we're going to insert a
+                            <gi>taxonomy</gi> element into our file. <list>
+                            <item>Immediate after the closing <gi>/profileDesc</gi> tag,
+                                add a <gi>encodingDesc</gi> with a <gi>classDecl</gi>
+                                inside it. </item>
+                            <item>Making sure the cursor is in-between the starting and
+                                ending <gi>classDecl</gi> tags, insert the 'taxonomy.xml'
+                                file ('Document' -> 'File' -> 'Insert File'). </item>
+                            <item>This should add a large taxonomy of linguistic
+                                categories, each with their own <att>xml:id</att> and
+                                description in a <gi>catDesc</gi> element. </item>
+                            <item>Your <gi>encodingDesc</gi> should look something
+                                like:</item>
+                        </list>
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<encodingDesc>
+<classDecl>
+    <taxonomy>
+        <category xml:id="adje">
+            <catDesc>adjectives</catDesc>
+            <category xml:id="AJ0">
+                <catDesc>adjective (unmarked) (e.g. GOOD, OLD)</catDesc>
+            </category>
+            <category xml:id="AJC">
+                <catDesc>comparative adjective (e.g. BETTER, OLDER)</catDesc>
+            </category>
+            <category xml:id="AJS">
+                <catDesc>superlative adjective (e.g. BEST, OLDEST)</catDesc>
+            </category>
+            <category xml:id="AT0">
+                <catDesc>article (e.g. THE, A, AN)</catDesc>
+            </category>
+        </category>
+        ...
+    </taxonomy>
+</classDecl>
+</encodingDesc>
+</egXML>
+                    </p>
+                </div>
+
+                <div>
+                    <head>Marking Up Part of Speech</head>
+                    <p>Let's mark up some words! <list>
+                            <item>We need to wrap a <gi>w</gi> element around each of the
+                                words in the three utterances. Highlight the first one,
+                                and use 'control-e' to then surround it with this tag.
+                                Then highlight the second one, and press 'control-/' to
+                                surround with the tag you just used. Do that until
+                                'changed over time?'</item>
+                            <item>Each word though needs to get an <att>ana</att>
+                                attribute added to it. Either do this manually or think
+                                how you might search for <gi>w</gi> and replace it with
+                                    <gi>w ana=""</gi>. </item>
+                            <item>Now the problem is that each of those <att>ana</att>
+                                attributes needs a value! It needs to be '#' followed by
+                                one of the <att>xml:id</att> values in our
+                                    <gi>taxonomy</gi>. We know that you might not
+                                automatically know what category each word is, so we've
+                                listed what our first three utterances look like below:
+                            </item>
+                        </list>
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<u who="#SL" start="#fragmentStart" end="#TS2">
+    <!--Lee (24.27-24.36):-->
+    <w ana="#AV0">So</w>
+    <w ana="#UNC">em</w>
+    <w ana="#UNC">d-em</w>
+    <w ana="#VHG">having</w>
+    <w ana="#VVN">read</w>
+    <incident dur="PT0.17S">
+        <desc>clicking sound</desc>
+    </incident>
+    <w ana="#AT0">the</w>
+    <title><w ana="#NN2">Wipers</w>
+        <w ana="#NN2">Times</w></title>
+    <w ana="#AV0">now</w>
+    <w ana="#CJC">and</w>
+    <w ana="#CJC">and</w>
+    <w ana="#DPS">your</w>
+    <pause dur="PT0.62S"/>
+    <w ana="#NN1">view</w>
+    <w ana="#CJT">that</w>
+    <w ana="#NN0">th</w>
+    <w ana="#NN0">th</w>
+    <w ana="#AT0">the</w>
+    <w ana="#CRD">thirties</w>
+    <w ana="#WBD">was</w>
+    <w ana="#CJT">that</w>
+    <w ana="#CJT">that</w>
+    <w ana="#NN1">prisonment</w>
+    <w ana="#PNP">you</w>
+    <w ana="#VVB">say</w>
+</u>
+<u who="#IH" start="#TS2">
+    <!--Hislop (24.36):-->
+    <w ana="#ITJ">Yeah.</w>
+</u>
+<u who="#SL" start="#TS2" end="#TS3">
+    <!--Lee (24.36-24.42)-->
+    <incident dur="PT1.28S">
+        <desc>clicking sound</desc>
+    </incident>
+    <w ana="#VVG">looking</w>
+    <w ana="#AVP">back</w>
+    <w ana="#PRP">on</w>
+    <w ana="#AT0">a</w>
+    <w ana="#AJ0">failed</w>
+    <w ana="#NN1">piece</w>
+    <pause dur="PT0.35S"/>
+    <w ana="#VHZ">has</w>
+    <w ana="#DPS">your</w>
+    <w ana="#NN1">attitude</w>
+    <w ana="#PRP">to</w>
+    <w ana="#AT0">the</w>
+    <w ana="#PRP">to</w>
+    <w ana="#AT0">the</w>
+    <w ana="#NN1">War</w>
+    <w ana="#NN2">Poets</w>
+    <persName><w ana="#NP0">Wilfred</w>
+        <w ana="#NP0">Owen</w></persName>
+    <persName><w ana="#NP0">Sassoon</w></persName>
+    <pause dur="PT0.30S"/>
+    <w ana="#VVD">changed</w>
+    <w ana="#PRP">over</w>
+    <w ana="#NN1">time?</w>
+</u> </egXML>
+                    </p>
+                </div>
+
+                <div>
+                    <head>How to Cheat</head>
+                    <p>That was an awful lot of work. In fact, some of those entries might
+                        be wrong. Why is that? Well, it is because we fed a plain text
+                        version of the transcription to an automatic part-of-speech tagger
+                        for English at <ref target="http://ucrel.lancs.ac.uk/claws/"
+                            >http://ucrel.lancs.ac.uk/claws/</ref>. This has some
+                        limitations, but makes good guesses. Go and skim-read the web page
+                        about it quickly. <list>
+                            <item>So we cheated in determining which parts-of-speech these
+                                words were, so we can hardly stop you cheating if you
+                                don't want to manually mark up the rest of the spoken text
+                                in this file!</item>
+                            <item>We'd highly recommend, instead, that you save your
+                                current file (perhaps calling it 'exercise08.xml'?), and
+                                open up 'spoilers/ex08.xml' which has a finished version
+                                of the file! (Just to save time you understand). </item>
+                            <item>In a real-world situation you probably wouldn't manually
+                                tag a corpus like this in any case. You would run scripts
+                                over it (as we did) in order to automatically process it
+                                and convert the output of a part-of-speech tagger. </item>
+
+                        </list>
+                    </p>
+                </div>
+
+                <div>
+                    <head>Transforming Your File</head>
+                    <p>But what can we do with this markup now that we have ... erm...
+                        added it? (Ok, loaded it by opening 'spoilers/ex08.xml'.) <list>
+                            <item>Let's transform this file with an XSLT stylesheet we
+                                have prepared! XSLT is a transformation language for XML
+                                which allows us to turn our XML files into other things
+                                (such as other XML, HTML, DOCX, PDF, TXT, etc.) and
+                                control what happens to them.</item>
+                            <item>In order to relate the XML file to a stylesheet we have
+                                to associate the two together. Go to the 'Document' ->
+                                'XML Document' -> 'Associate XSLT/CSS Stylesheet'
+                                menu.</item>
+                            <item>Click on the 'XSLT' tab, and click the folder icon to
+                                browse for a file.</item>
+                            <item>Choose 'spoilers/parts-of-speech.xsl' as the XSLT file
+                                to use.</item>
+                            <item>You should notice that oXygen adds a new line to the top
+                                of your file that looks something like:
+                                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+&lt;?xml-stylesheet type="text/xsl" href="parts-of-speech.xsl"?>                                    
+                                </egXML>
+                            </item>
+                            <item>This allows the XML document to know what stylesheet it
+                                can use to transform the document. </item>
+                            <item>Select from the 'Document' -> 'Transformation' menu,
+                                'Configure Transformation Scenario'.</item>
+                            <item>On the window that appears select 'XML Stylesheet
+                                Processing Instruction', and then click 'Transform
+                                Now'.</item>
+                            <item>If everything has worked perfectly (sometimes settings
+                                change across versions of oXygen), then your web browser
+                                should open a web page containing the text of this
+                                interview. It should have a table-of-contents which allows
+                                you to see two different versions of the text. One as you
+                                might expect, the other with words grouped by part of
+                                speech. (If for any reason it does not open, simply open
+                                up 'spoilers/parts-of-speech.html' in a web browser as a
+                                demonstration.)</item>
+                            <item>Have a look at both of these. Hover the mouse over the
+                                words in both cases and note the extra information you
+                                should get in a tooltip.</item>
+                        </list>
+                    </p>
+                </div>
+
+
+
+                <!-- Saving Your Work -->
+                <div>
+                    <head>Saving Your Work</head>
+                    <p>You don't really have to save this exercise (though feel free to if
+                        you want) since we opened up 'spoilers/ex08.xml'. </p>
+                </div>
+
+                <!-- Self-Assessment -->
+                <div>
+                    <head>Self-Assessment</head>
+                    <p>Check if you understand some of the core principles of this
+                        exercise by answering the following questions: <list>
+                            <item>Where does a <gi>taxonomy</gi> go in the header?</item>
+                            <item>Can <gi>category</gi> elements nest inside each
+                                other?</item>
+                            <item>What element is used to mark words? </item>
+                            <item>How do you mark the part-of-speech of a word?</item>
+                            <item>How do you associate an XSLT stylesheet with an XML
+                                file?</item>
+                        </list>
+                    </p>
+                </div>
+
+                <!-- Next  -->
+                <div>
+                    <head>Next and More Reading</head>
+                    <p>Next we'll move on to learning how to customise the TEI for your
+                        own purposes. However, before that if you have time you may wish to:<list>
+                            <item>Look up the reference pages for each of the new elements
+                                you've used.</item>
+                            <item>Read more about linguistic markup in the TEI chapter on
+                                'Simple Analytic Mechanisms' <ref
+                                    target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/AI.html"
+                                    >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/AI.html</ref>.
+                            </item>
+                            <item>You may also be interested in the TEI chapter on
+                                'Linking, Segmentation and Alignment' <ref
+                                    target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/SA.html"
+                                    >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/SA.html</ref>.</item>
+                        </list>
+                    </p>
+                </div>
+            </div>
+        </body>
+    </text>
+</TEI>

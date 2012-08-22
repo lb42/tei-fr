@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="teitalks.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Talk 2: TEI Core Module</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <!-- 
+    Pasted old intro to TEI and core here.  move some of TEI to talk1
+    
+    -->
+      <div>
+        <head>Default Text Structure</head>
+        <p> All TEI documents are structured in a particular manner. This section attempts to
+          describe the different variations on this as briefly as possible. </p>
+        <div>
+          <head>Structure of a TEI Document</head>
+          <p>There are two basic structures of a TEI Document:<list>
+              <item><gi>TEI</gi> (TEI document) contains a single TEI-conformant document,
+                comprising a TEI header and a text, either in isolation or as part of a teiCorpus
+                element.</item>
+              <item><gi>teiCorpus</gi> contains the whole of a TEI encoded corpus, comprising a
+                single corpus header and one or more TEI elements, each containing a single text
+                header and a text.</item>
+            </list></p>
+        </div>
+        <div>
+          <head>TEI basic structures (1)</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiCorpus>
+              <teiHeader><!-- required --></teiHeader>
+              <TEI><!-- required --></TEI>
+              <!-- More <TEI> elements -->
+            </teiCorpus>
+          </egXML>
+          </p>
+        </div>
+        <div>
+          <head>TEI basic structures (2)</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <TEI>
+              <teiHeader><!-- required --></teiHeader>
+              <facsimile><!-- optional--></facsimile>
+              <sourceDoc><!-- optional --></sourceDoc>
+              <text><!-- required if no facsimile or sourceDoc--></text>
+            </TEI>
+          </egXML>
+          </p>
+        </div>
+        <div>
+          <head>
+            <gi>text</gi>
+          </head>
+          <p> What is a text?<list>
+              <item rend="pause"> A text may be unitary or composite <list>
+                  <item>unitary: forming an organic whole</item>
+                  <item>composite: consisting of several components which are in some important
+                    sense independent of each other</item>
+                </list></item>
+              <item rend="pause"> a unitary text contains <list>
+                  <item>optional front matter</item>
+                  <item><gi>body</gi> (required)</item>
+                  <item>optional back matter</item>
+                </list>
+              </item>
+              <!-- etc. -->
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Composite texts</head>
+          <p> A composite text contains <list>
+              <item>optional front matter</item>
+              <item><gi>group</gi> with <gi>text</gi> inside (required)</item>
+              <item>optional back matter</item>
+            </list>
+          </p>
+          <p>A corpus is a collection of text and header pairs that also has its own header.</p>
+          <p><gi>group</gi> tags may self-nest.</p>
+        </div>
+        <div>
+          <head>TEI text structure (1)</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <text>
+              <front> <!-- optional --></front>
+              <body><!-- required --></body>
+              <back><!-- optional --></back>
+            </text>
+          </egXML>
+          </p>
+        </div>
+        <div>
+          <head>TEI text structure (2)</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	    <text>
+	      <front><!-- ... --></front>
+	      <group>
+		<text>
+		  <body>
+		    <p>...</p>
+		  </body>
+		</text>
+	      </group>
+	      <back><!-- ... --></back>
+	    </text>
+	  </egXML>
+          </p>
+        </div>
+        <div>
+          <head>Another Grouped Text Example</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <TEI>
+              <teiHeader>
+                <!-- header information for the whole collection -->
+              </teiHeader>
+              <text> <!-- optional front matter -->
+                <group>
+                  <text><!-- optional front matter -->
+                    <body><!-- First Body --> </body>
+                  </text>
+                  <text><!-- optional front matter -->
+                    <body> <!-- Second Body--></body>
+                  </text>
+                </group>
+              </text>
+            </TEI>
+          </egXML>
+        </div>
+        <!-- MERGE -->
+        <!--   
+        
+        <div>
+          <head>The Imaginary Punch Project</head>
+          <list>
+            <item><hi>Punch</hi> is a famous English humorous journal, published regularly between
+              1841 and 1992: see <ref target="http://www.punch.co.uk/historyofpunch.html">http://www.punch.co.uk/historyofpunch.html</ref>.</item>
+            <item>The IPP plans to make available fully marked up texts of the journal, in conjunction
+              with page images... <list>
+                <item>for social historians</item>
+                <item>for librarians</item>
+                <item>for linguists</item>
+              </list></item>
+            <item>How will the TEI help? And which parts of the TEI will we use?</item>
+            <item>Although we won't have time to accomplish this in this workshop, we've provided the Punch text and images in your materials directory.</item>
+          </list>
+        </div>
+        -->
+        <div>
+          <head>Examples from WW1 Poetry Digital Archive</head>
+          <p>Many of our examples come from the First World War Poetry Digital Archive: <ref
+              target="http://www.oucs.ox.ac.uk/ww1lit/">http://www.oucs.ox.ac.uk/ww1lit/</ref>. and
+            related 'Great War Archive'. In specific we will be looking at the correspondence and
+            poetry of Wilfred Owen. </p>
+        </div>
+        <div>
+          <head>Postcard Front</head>
+          <p><graphic url="../images/1918-02-12-page-2-surface.jpg" width="90%"/></p>
+        </div>
+        <div>
+          <head>Postcard Front</head>
+          <p><graphic url="../images/1918-02-12-page-1-surface.jpg" width="90%"/></p>
+        </div>
+        <div>
+          <head>Letter 1917-01-10 (page 1)</head>
+          <p><graphic url="../images/1917-01-10-page-1.jpg" height="90%"/></p>
+        </div>
+        <div>
+          <head>Letter 1917-01-10 (page 2)</head>
+          <p><graphic url="../images/1917-01-10-page-2.jpg" height="90%"/></p>
+        </div>
+        <div>
+          <head>Letter 1917-01-10 (page 5)</head>
+          <p><graphic url="../images/1917-01-10-page-5.jpg" height="90%"/></p>
+        </div>
+        <div>
+          <head>Preface MS</head>
+          <p><graphic url="materials/preface-ms.jpg" height="90%"/></p>
+        </div>
+        <div>
+          <head>Preface Edited</head>
+          <p><graphic url="materials/preface-stallworthy.jpg" height="80%"/></p>
+        </div>
+        <div>
+          <head>Red Cross or Iron Cross?</head>
+          <p><graphic url="../images/Red-cross-or-iron-cross-poster.jpg" height="90%"/></p>
+        </div>
+        <div>
+          <head>The Kitchen is the Key to Victory</head>
+          <p><graphic url="../images/The-kitchen-is-the-key-to-victory-poster.jpg" height="90%"
+            /></p>
+        </div>
+        <div>
+          <head>Looking at Wilfred Owen material, what do we need to mark up?</head>
+          <list>
+            <item>Identification information, page numbers, sources</item>
+            <item>"chunks" or divisions of text, which may contain a picture, a poem, some prose, or
+              a combination</item>
+            <item>within the chunks, we can identify formal units such as <list>
+                <item>a picture, a caption</item>
+                <item>stanzas, lines</item>
+                <item>paragraphs</item>
+              </list></item>
+            <item>and more...</item>
+          </list>
+        </div>
+        <!--
+        <div>
+          <head>Macrostructure</head>
+          <p>All the issues of <title>Punch</title> for one year make up a <term>volume</term>. We
+            could regard the volume as a single <gi>text</gi>, and each issue as a <gi>div</gi>
+            within it. Or we could use the <gi>group</gi> element:
+            <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+              <text xml:id="v147">
+                <front><!-\- introductory materials for volume 147 here -\-></front>
+                <group>
+                  <text xml:id="I1914-07-01">
+                    <body><!-\- first issue (1 July) -\-></body>
+                  </text>
+                  <text xml:id="I1914-07-15">
+                    <body><!-\- second issue (15 July) -\-></body>
+                  </text>
+                  <!-\- etc... -\->
+                </group>
+                <back><!-\- volume index, appendix etc. -\-></back>
+              </text>
+            </egXML>
+          </p>
+        </div>-->
+        <div>
+          <head>TEI tags for the high level structure</head>
+          <p>Each identifiable division within text is a <gi>div</gi> element and can be given a
+            particular <term>type</term> (e.g. cartoon, verse, prose)</p>
+          <p>For example, <ref target="../Materials/Punch/Pages/147_01.jpg">page 1</ref> has two
+            divisions,
+            <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <pb n="1"/>
+            <div type="prose">
+              <p>....</p>
+            </div>
+            <div type="verse">
+              <head>Strange Meeting</head>
+              <lg>
+                <l>....</l>
+              </lg>
+            </div>
+          </egXML>
+          </p>
+        </div>
+        <!--
+        <div>
+          <head>More high level structure</head>
+          <p>
+            <ref target="../Materials/Punch/Pages/147_02.jpg">page 2</ref> also has two, of
+            different types:
+            <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+              <pb n="2"/>
+              <div type="prose">
+                <head>The enchanted castle</head>
+                <p>....</p>
+              </div>
+              <div type="snippet">
+                <head>Correspondence</head>
+                <p>....</p>
+              </div>
+            </egXML>
+          </p>
+        </div>-->
+        <div>
+          <head>Why divisions rather than pages?</head>
+          <p>Because a division can start on one page and finish on another, or cross other physical
+            boundaries</p>
+          <p>We use an <term>empty element</term>
+            <gi>pb/</gi> to mark the boundary between pages, rather than enclosing each page in a
+              <gi>div type="page"</gi>.</p>
+          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <pb n="5"/>
+            <div type="prose">
+              <p>...</p>
+            </div>
+            <div type="verse">
+              <head>Strange Meeting</head>
+              <lg>
+                ...
+              <pb n="6"/>
+                ...
+              </lg>
+            </div>
+            <div type="prose">
+              <p>...</p>
+            </div>
+            </egXML>
+        </div>
+        <div>
+          <head>Divisions can contain divisions... </head>
+          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <div type="postcard">
+              <div type="postmark">
+                <div type="advert">
+                  <ab>BUY NATIONAL<lb/>WAR BONDS</ab>
+                </div>
+                <div type="dateStamp">
+                  <dateline><placeName>SCARBOROUGH</placeName><lb/><time>6.30 PM</time><lb/></dateline>
+                </div>
+                <div type="advert">
+                  <ab>BUY NATIONAL<lb/>WAR BONDS</ab>
+                </div>
+              </div>
+              <div type="address"><!-- <address> here --></div>
+              <div type="prose"><!-- text here --></div>
+            </div>
+          </egXML>
+        </div>
+        <div>
+          <head>More about divisions</head>
+          <p>
+            <gi>div</gi>
+            <list>
+              <item rend="pause">generic, hierarchic subdivisions, each incomplete as a text as a
+                whole</item>
+              <item rend="pause">the <att>type</att> attribute is used to label a particular level
+                e.g. as 'part' or 'chapter'</item>
+              <item rend="pause">the <att>n</att> attribute gives a particular division a name or
+                number</item>
+              <item rend="pause">the <att>xml:id</att> attribute gives a particular division a
+                unique identifier</item>
+              <item rend="pause">Divisions must always tessellate: once "down" a level, you cannot
+                pop "up" again within the same division. </item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Divisions may have heads and trailers</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <div>
+              <head>Preface</head>
+              <p><!-- content of the div --></p>
+	      <trailer>...</trailer>   
+            </div>
+          </egXML>
+          </p>
+        </div>
+        <div>
+          <head>Numbered and unnumbered divisions</head>
+          <p> The level can be made explicit by using 'numbered' divs (div1, div2). Opinions
+            vary:</p>
+          <p><gi>div1</gi> vs. <gi>div n="1"</gi>
+            <list>
+              <item> numbered: the number indicates the depth of this particular division within the
+                hierarchy, the largest such division being ‘div1’, any subdivision within it being
+                ‘div2’, etc.</item>
+              <item> unnumbered: nest recursively to indicate their hierarchic depth. (And computers
+                can count very well!)</item>
+            </list> The two styles must not be combined within a single <gi>front</gi>,
+              <gi>body</gi>, or <gi>back</gi> element. </p>
+          <p>N.B. Divisions always tessellate</p>
+        </div>
+        <div>
+          <head>Groups vs Floating Texts</head>
+          <p>The <gi>group</gi> element should be used to represent a collection of independent
+            texts which is to be regarded as a single unit for processing or other purposes.</p>
+          <p><gi>floatingText</gi> contains a single text of any kind, whether unitary or composite,
+            which interrupts the text containing it at any point and after which the surrounding
+            text resumes. </p>
+        </div>
+        <div>
+          <head>Floating Text (1)</head>
+          <p>
+            <gi>div</gi>s must tesselate over the entire text
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <div1>
+              <div2><!-- content --></div2>
+              <div2><!-- content --></div2>
+            </div1>
+          </egXML>
+            is valid, while
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <div1>
+              <!-- content -->
+              <div2><!-- content --></div2>
+              <!-- content -->
+            </div1>
+          </egXML>
+            is <hi>not valid</hi>.</p>
+        </div>
+        <div>
+          <head>Floating Text (2)</head>
+          <p> In the second case, div2 is a 'floating' text and its content must be encoded using
+            the <gi>floatingText</gi> element. </p>
+          <p>The <gi>floatingText</gi> element is a member of the model.divPart class, and can thus
+            appear within any division level element in the same way as a paragraph.</p>
+        </div>
+        <div>
+          <head>Floating Text Example</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <p>She was thus ruminating, when a Gentleman enter'd the Room, the Door being a jar...  calling for a Candle, she beg'd a thousand Pardons, engaged him to sit down, and let her know, what had so long conceal'd him from her Correspondence. </p>
+            <pb n="5"/>
+            <floatingText>
+              <body>
+                <head>The Story of <hi>Captain Manly</hi>
+                </head>
+                <p><!-- Captain Manly's store here  --></p>
+              </body>
+            </floatingText>
+            <pb n="37"/>
+            <p>The Gentleman having finish'd his Story ... <!-- more --></p>
+          </egXML>
+        </div>
+        <div>
+          <head>Virtual divisions</head>
+          <p> Where the whole of a division can be automatically generated, for example because it
+            is derived from another part of this or another document, an encoder may prefer not to
+            represent it explicitly but instead simply mark its location by means of a processing
+            instruction, or by using the special purpose <gi>divGen</gi> element:
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <front>
+            <divGen type="toc"/>
+              <div>
+                <head>Preface</head>
+                <p>...</p>
+              </div>
+            </front>
+          </egXML>
+            (intended primarily for use in document production or manipulation, rather than in
+            transcription of pre-existing material) </p>
+        </div>
+        <div>
+          <head>Document order vs XML Order</head>
+          <p>The order of XML encoding does not necessarily reflect the order of the source
+            document. Compare:
+            <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+              <div type="postcard">
+                <div type="address"><!-- <address> here --></div>
+                <div type="prose"><!-- text here --></div>
+                <div type="postmark">
+                  <div type="advert">
+                    <ab>BUY NATIONAL<lb/>WAR BONDS</ab>
+                  </div>
+                  <div type="dateStamp">
+                    <dateline><placeName>SCARBOROUGH</placeName><lb/><time>6.30 PM</time><lb/></dateline>
+                  </div>
+                  <div type="advert">
+                    <ab>BUY NATIONAL<lb/>WAR BONDS</ab>
+                  </div>
+                </div>
+                </div>
+            </egXML>
+            with the version we saw earlier</p>
+        </div>
+      </div>
+      <!-- Core Elements -->
+      <div>
+        <head>'Core' elements</head>
+        <p>The so-called 'Core' module groups together elements which may appear in any kind of text
+          and the tags used to mark them in all TEI documents. This includes: <list>
+            <item> paragraphs </item>
+            <item> highlighting, emphasis and quotation </item>
+            <item> simple editorial changes </item>
+            <item> basic names numbers, dates, addresses </item>
+            <item> simple links and cross-references </item>
+            <item>lists, notes, annotation, indexing </item>
+            <item>graphics </item>
+            <item>reference systems, bibliographic citations </item>
+            <item> simple verse and drama</item>
+          </list>
+        </p>
+        <!-- Notice nested div -->
+        <div>
+          <head>Paragraphs</head>
+          <p>
+            <gi>p</gi> (paragraph) marks paragraphs in prose <list>
+              <item>Fundamental unit for prose texts</item>
+              <item><gi>p</gi> can contain all the phrase-level elements in the core</item>
+              <item><gi>p</gi> can appear directly inside <gi>body</gi> or inside <gi>div</gi>
+                (divisions)</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p>Thanks for yours of this morning. I hope <lb/>you have had my card posted last Monday. <lb/>On Mond. next I lecture the <orgName ref="#Fieldclub">Field Club</orgName> - <lb/>a Nat. Hist. Association, in the lines of our <lb/>old Society - Geological, (you + me) + Botanical <lb/>(New) Do you remember: you<supplied>r</supplied> old <lb/>Black Molt?</p>
+</egXML>
+          </p>
+        </div>
+        <div>
+          <head>Highlighting</head>
+          <p>By <emph>highlighting</emph> we mean the use of any combination of typographic features
+            (font, size, hue, etc.) in a printed or written text in order to distinguish some
+            passage of a text from its surroundings. For words and phrases which are: <list>
+              <item>distinct in some way (e.g. foreign, archaic, technical)</item>
+              <item>emphatic or stressed when spoken</item>
+              <item>not really part of the text (e.g. cross references, titles, headings)</item>
+              <item>a distinct narrative stream (e.g. an internal monologue, commentary)</item>
+              <item>attributed to some other agency inside or outside the text (e.g. direct speech,
+                quotation)</item>
+              <item>set apart in another way (e.g. proverbial phrases, words mentioned but not
+                used)</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Highlighting Examples</head>
+          <list>
+            <item>
+              <gi>hi</gi> (general purpose highlighting);<gi>distinct</gi> (linguistically distinct)
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <p>Last week I wrote (to order) a strong <lb/>bit of Blank: on <hi rend="ul">Antaeus v.
+                  Heracles</hi>. <lb/>These are the best lines, methinks: <lb/>(N.B. Antaeus deriving
+                  strength from his Mother Earth <lb/>nearly licked old <distinct>Herk</distinct>.) </p>
+</egXML>
+            </item>
+            <item>Other similar elements include: <gi>emph</gi>, <gi>mentioned</gi>,
+                <gi>soCalled</gi>, <gi>term</gi> and <gi>gloss</gi></item>
+          </list>
+        </div>
+        <div>
+          <head>Quotation</head>
+          <p>Quotation marks can be used to set off text for many reasons, so the TEI has the
+            following elements: <list>
+              <item><gi>q</gi> (separated from the surrounding text with quotation marks)</item>
+              <item><gi>said</gi> (speech or thought)</item>
+              <item><gi>quote</gi> (passage attributed to an external source)</item>
+              <item><gi>cit</gi> (groups a quotation and citation)</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+         <quote>
+           <l>... How Earth herself empowered him with her trick,</l>
+           <l>Gave him the grip and stringency of Winter,</l>
+           <l>And all the ardour of th' invincible Spring;</l>
+           <bibl><author>Wilfred Owen</author> 
+             <title>Letter to Leslie Gunston / The Wrestler</title>
+             <date when="1917-07"/></bibl>
+         </quote>
+</egXML>
+          </p>
+        </div>
+        <!-- Choice -->
+        <div>
+          <head>Simple Editorial Changes: <gi>choice</gi> and Friends</head>
+          <p>
+            <list>
+              <item><gi>choice</gi> (groups alternative editorial encodings)</item>
+              <item>Errors: <list>
+                  <item><gi>sic</gi> (apparent error)</item>
+                  <item><gi>corr</gi> (corrected error)</item>
+                </list></item>
+              <item>Regularization: <list>
+                  <item><gi>orig</gi> (original form)</item>
+                  <item><gi>reg</gi> (regularized form)</item>
+                </list></item>
+              <item>Abbreviation: <list>
+                  <item><gi>abbr</gi> (abbreviated form)</item>
+                  <item><gi>expan</gi> (expanded form)</item>
+                </list></item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Choice Example</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>...any might, <unclear reason="scribbled">majesty</unclear>, 
+                <choice>
+                <abbr>domin</abbr>
+                <expan>domin<ex>ion</ex></expan>
+              </choice> or power...</p>
+            </egXML>
+          </p>
+        </div>
+        <div>
+          <head>Additions, Deletions, and Omissions</head>
+          <p>
+            <list>
+              <item><gi>add</gi> (addition to the text, e.g. marginal gloss)</item>
+              <item><gi>del</gi> (phrase marked as deleted in the text)</item>
+              <item><gi>gap</gi> (indicates point where material is omitted)</item>
+              <item><gi>unclear</gi> (contains text unable to be transcribed clearly)</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Example of <gi>add</gi>, <gi>del</gi>, <gi>gap</gi>, and <gi>unclear</gi></head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>
+                <add place="left">My </add>
+                <del rend="stroked">It's </del>
+                <add place="above">
+                  <del rend="stroked">The </del>
+                </add> subject <del rend="stroked">of</del> is War, and the <unclear>pity </unclear>of <del rend="stroked">it</del> War. <lb/> The Poetry is in the pity. </p>
+    </egXML>
+          </p>
+        </div>
+        <div>
+          <head>Basic Names </head>
+          <p>
+            <list>
+              <item><gi>name</gi> (a name in the text, contains a proper noun or noun phrase)</item>
+              <item><gi>rs</gi> (a general-purpose name or referencing string )</item>
+            </list>
+          </p>
+          <p>The <att>type</att> attribute is useful for categorizing these, and they both also have
+              <att>key</att>, <att>ref</att>, and <att>nymRef</att> attributes.</p>
+        </div>
+        <div>
+          <head>Addresses</head>
+          <p>
+            <list>
+              <item><gi>email</gi> (an electronic mail address)</item>
+              <item><gi>address</gi> (a postal address)</item>
+              <item><gi>addrLine</gi> (a non-specific address line)</item>
+              <item><gi>street</gi> (a full street address)</item>
+              <item><gi>postCode</gi> (a postal (or zip) code)</item>
+              <item><gi>postBox</gi> (a postal box number)</item>
+              <item><gi>name</gi> can also be used</item>
+              <item>and the 'namesdates' module extends this with more geographic names</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Basic Address Example </head>
+          <p> WW1 Poetry Archive Project:
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <email>ww1lit@oucs.ox.ac.uk</email> </egXML>
+              Shell-shock hospital 'Craiglockhart' that Wilfred Owen stayed in: 
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <address>
+        <street>14 Frederick Street</street>
+        <postCode>EH2 2HB</postCode>
+        <settlement>Edinburgh</settlement>
+        <country>United Kingdom</country>
+      </address>
+</egXML>
+          </p>
+        </div>
+        <div>
+          <head>Basic Numbers and Measures</head>
+          <p>
+            <list>
+              <item><gi>num</gi> (marks a number of any sort)</item>
+              <item><gi>measure</gi> (marks a quantity or commodity)</item>
+              <item><gi>measureGrp</gi> (groups specifications relating to a single object)</item>
+              <item>While <gi>num</gi> has simple <att>type</att> and <att>value</att> attributes,
+                  <gi>measure</gi> has <att>type</att>, <att>quantity</att>, <att>unit</att> and
+                  <att>commodity</att> attributes</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Number and Measure examples</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+              <l>With a <num value="1000">thousand</num> pains that vision's face was grained;</l>
+</egXML>
+          </p>
+          <p><egXML xmlns="http://www.tei-c.org/ns/Examples">... only <measure type="distance" unit="m" quantity="3218.69">two miles</measure> from the front....</egXML></p>
+        </div>
+        <div>
+          <head>Dates</head>
+          <p>
+            <list>
+              <item><gi>date</gi> (contains a date in any format and includes a <att>when</att>
+                attribute for a regularised form and a <att>calendar</att> attribute to specify what
+                calendar system)</item>
+              <item><gi>time</gi> (contains a time in any format and includes a <att>when</att>
+                attribute for a regularised form)</item>
+            </list>
+          </p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <date when="1917-07">July 1917.<lb/> Wednesday</date>
+</egXML>
+        </div>
+        <div>
+          <head>Simple Linking</head>
+          <p>
+            <list>
+              <item><gi>ptr</gi> (defines a pointer to another location)</item>
+              <item><gi>ref</gi> (defines a reference to another location, with optional linking
+                text)</item>
+              <item>Both elements have: <list>
+                  <item><att>target</att> attribute taking a URI reference</item>
+                  <item><att>cRef</att> attribute for canonical referencing schemes</item>
+                </list>
+              </item>
+              <item>If the linking text is able to be generated, <gi>ptr</gi> and <gi>ref</gi> might
+                be used in the same place.</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Simple Linking Example</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+See <ref target="#Section12">section 12 on page 34</ref>. 
+</egXML>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+See <ptr target="#Section12"/>. 
+</egXML>
+          </p>
+        </div>
+          
+          
+        <div>
+          <head>Lists</head>
+            <list>
+              <item><gi>list</gi> (a sequence of items forming a list)</item>
+              <item><gi>item</gi> (one component of a list)</item>
+              <item><gi>label</gi> (label associated with an item)</item>
+              <item><gi>headLabel</gi> (heading for column of labels)</item>
+              <item><gi>headItem</gi> (heading for column of items)</item>
+            </list>
+        </div>
+        <div>
+          <head>Simple List Example</head>
+          <p> The previous slide contained only:
+  <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<div>
+<head>Lists</head>
+ <list>
+  <item><gi>list</gi> (a sequence of items forming a list)</item>
+  <item><gi>item</gi> (one component of a list)</item>
+  <item><gi>label</gi> (label associated with an item)</item>
+  <item><gi>headLabel</gi> (heading for column of labels)</item>
+  <item><gi>headItem</gi> (heading for column of items)</item>
+ </list>
+ 
+</div>
+            </egXML>
+          </p>
+        </div>
+        <div>
+          <head>Notes</head>
+          <p>
+            <list>
+              <item><gi>note</gi> (contains a note or annotation)</item>
+              <item>Notes can be those existing in the text, or provided by the editor of the
+                electronic text</item>
+              <item>A <att>place</att> attribute can be used to indicate the physical location of
+                the note</item>
+              <item>Notes should usually be encoded where its identifier/mark first
+                appears; notes can also be kept separately and point back to their location with a
+                  <att>target</att> attribute</item>
+            </list>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples"><note>Painted by <persName>John Singer Sargent</persName>, 1918</note></egXML>
+          </p>
+        </div>
+        <div>
+          <head>Indexing</head>
+          <p>
+            <list>
+              <item>If converting an existing index, use nested lists. For auto-generated
+                indexes:</item>
+              <item><gi>index</gi> (marks an index entry) with optional <att>indexName</att>
+                attribute</item>
+              <item>The <gi>term</gi> element is used to mark a term inside an <gi>index</gi>
+                element</item>
+              <item>The <gi>index</gi> element can self-nest for hierarchical index entries</item>
+            </list>
+          </p>
+        </div>
+        <div>
+          <head>Indexing Example</head>
+          <p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Last week I wrote (to order) a strong <lb/>bit of Blank<index><term>Verse</term><index><term>Blank Verse</term></index></index>:</p>
+</egXML>
+          </p>
+        </div>
+        <div>
+          <head>Graphics</head>
+          <p>
+            <list>
+              <item><gi>graphic</gi> (indicates the location of an inline graphic, illustration, or
+                figure)</item>
+              <item><gi>binaryObject</gi> (encoded binary data embedding a graphic or other
+                object)</item>
+              <item>The <title>figure</title> module provides <gi>figure</gi> and <gi>figDesc</gi>
+                for more complex graphics</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <figure>
+    <graphic url="images/postcard-front.jpg"/>
+    <figDesc>A postcard image of two men relaxing at a table, smoking pipes and drinking. A dog and potted fruit tree are nearby with a house over the wall in the distance.</figDesc>
+  </figure>
+</egXML>
+          </p>
+        </div>
+        <div>
+          <head>Simple Verse</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <lg type="stanza">
+      <l>It seemed that out of battle I escaped</l>
+      <l>Down some profound dull tunnel, long since scooped</l>
+      <l>Through granites which titanic wars had groined.</l>
+    </lg>
+  </egXML>
+        </div>
+        <div>
+          <head>Simple Drama</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <sp>
+            <speaker>The reverend Doctor Opimiam</speaker>
+            <p>I do not think I have named a single unpresentable fish.</p>
+          </sp>
+          <sp>
+            <speaker>Mr Gryll</speaker>
+            <p>Bream, Doctor: there is not much to be said for bream.</p>
+          </sp>
+        </egXML>
+        </div>
+        <div>
+          <head>Next</head>
+          <p>And now we're going to move on to another exercise where you get to apply some of the
+            more structural elements you have learned about.</p>
+        </div>
+      </div>
+    </body>
+  </text>
+</TEI>

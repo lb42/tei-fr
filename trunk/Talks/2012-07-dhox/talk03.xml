@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Talk 3: TEI Metadata</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+
+
+            <div>
+                <head>The TEI Header</head>
+                <p> The TEI header was designed with two goals in mind <list>
+                        <item> needs of bibliographers and librarians trying to document
+                            ‘electronic books’</item>
+                        <item> needs of text analysts trying to document ‘coding
+                            practices’ within digital resources</item>
+                    </list> The result is that discussion of the header tends to be pulled
+                    in two directions... </p>
+
+            </div>
+            <div>
+                <head>The Librarian’s Header</head>
+                <p>
+                    <list>
+                        <item> Conforms to standard bibliographic model, using similar
+                            terminology</item>
+                        <item> Organized as a single source of information for
+                            bibliographic description of a digital resource, with
+                            established mappings to other such records (e.g. MARC, EAD,
+                            etc.)</item>
+                        <item>General consensus on 'Best Practical for TEI for Libraries'
+                            fomr TEI-LIB SIG</item>
+                        <item> Pressure for greater and more exact constraints to improve
+                            precision of description: preference for structured data over
+                            loose prose</item>
+                    </list>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Everyman’s Header </head>
+                <p>
+                    <list>
+                        <item> Gives a polite nod to common bibliographic practice, but
+                            has a far wider scope</item>
+                        <item> Supports a (potentially) huge range of very miscellaneous
+                            information, organized in fairly ad hoc or individualistic
+                            ways</item>
+                        <item> Many different codes of practice in different user
+                            communities</item>
+                        <item> Unpredictable combinations of narrowly encoded
+                            documentation systems and loose prose descriptions</item>
+                    </list>
+                </p>
+            </div>
+
+
+            <div>
+                <head>TEI Header Structure</head>
+                <p> The TEI header has four main components: <list>
+                        <item>
+                            <gi>fileDesc</gi> (file description) contains a full
+                            bibliographic description of an electronic file.</item>
+                        <item>
+                            <gi>encodingDesc</gi> (encoding description) documents the
+                            relationship between an electronic text and the source or
+                            sources from which it was derived.</item>
+                        <item>
+                            <gi>profileDesc</gi> (text-profile description) provides a
+                            detailed description of non-bibliographic aspects of a text,
+                            specifically the languages and sublanguages used, the
+                            situation in which it was produced, the participants and their
+                            setting. (just about everything not covered in the other
+                            header elements</item>
+                        <item>
+                            <gi>revisionDesc</gi> (revision description) summarizes the
+                            revision history for a file.</item>
+                    </list>
+                </p>
+                <p>Only <gi>fileDesc</gi> is required; the others are optional.</p>
+            </div>
+
+
+            <div>
+                <head>Example Header: Minimal required header</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiHeader>
+              <fileDesc>
+                <titleStmt>
+                  <title>A title?</title>
+                </titleStmt>
+                <publicationStmt>
+                  <p>Who published?</p>
+                </publicationStmt>
+                <sourceDesc>
+                  <p>Where from?</p>
+                </sourceDesc>
+              </fileDesc>
+            </teiHeader>
+          </egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>The TEI supports two <q>levels</q> or types of header</head>
+                <list>
+                    <item><term>corpus level</term> metadata sets default properties for
+                        everything in a corpus</item>
+                    <item><term>text level</term> metadata sets specific properties for
+                        one component text of a corpus</item>
+                </list>
+            </div>
+            <div>
+                <head>Corpus Header Example</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<teiCorpus xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader type="corpus">
+    <!-- corpus-level metadata here -->
+    </teiHeader>
+        <TEI>
+            <teiHeader type="text">
+            <!-- metadata specific to this text here -->
+            </teiHeader>
+            <text>
+               <!-- ... -->
+            </text>
+        </TEI>
+    
+        <TEI>
+            <teiHeader type="text">
+            <!-- metadata specific to this text here -->
+            </teiHeader>
+            <text>
+            <!-- ... -->
+            </text>
+         </TEI>
+    
+</teiCorpus>
+        </egXML>
+            </div>
+
+            <div>
+                <head>Types of content in the TEI header</head>
+                <p>
+                    <list type="unordered">
+                        <item>free prose <list>
+                                <item>prose description: series of paragraphs</item>
+                                <item>phrase: character data, interspersed with
+                                    phrase-level elements, but not paragraphs</item>
+                            </list>
+                        </item>
+                        <item>grouping elements: specialised elements recording some
+                            structured information </item>
+                        <item>declarations: Elements whose names end with the suffix Decl
+                            (e.g. subjectDecl, refsDecl) enclose information about
+                            specific encoding practices applied in the electronic
+                            text.</item>
+                        <item>descriptions: Elements whose names end with the suffix Desc
+                            (e.g. <gi>settingDesc</gi>, <gi>projectDesc</gi>) contain a
+                            prose description, possibly, but not necessarily, organised
+                            under some specific headings by suggested sub-elements.</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>A minimal header for 'Strange Meeting'</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <teiHeader>
+                        <fileDesc>
+                            <titleStmt>
+                                <title>My 'Strange Meeting' document</title>
+                            </titleStmt>
+                            <publicationStmt>
+                                <p>An exercise for learning TEI.</p>
+                            </publicationStmt>
+                            <sourceDesc>
+                                <p> The primary resource of this file is 
+                                    <ref target="http://www.oucs.ox.ac.uk/ww1lit/collections/item/3350"> 
+                                        Strange Meeting</ref> from Jon Stallworthy's edition, available on the First World War Poetry Digital Archive. </p>
+                            </sourceDesc>
+                        </fileDesc>
+                    </teiHeader>
+                </egXML>
+            </div>
+
+            <div>
+                <head>File Description <gi>fileDesc</gi></head>
+                <p>
+                    <list type="unordered">
+                        <item> has some <hi>mandatory</hi> parts:<list type="unordered">
+                                <item><gi>titleStmt</gi>: provides a title for the
+                                    resource and any associated statements of
+                                    responsibility</item>
+                                <item><gi>sourceDesc</gi>: documents the sources from
+                                    which the encoded text derives (if any)</item>
+                                <item><gi>publicationStmt</gi>: documents how the encoded
+                                    text is published or distributed</item>
+                            </list>
+                        </item>
+                        <item> and some <hi>optional</hi> ones: <list type="unordered">
+                                <item><gi>editionStmt</gi>: yes, digital texts have
+                                    editions too</item>
+                                <item><gi>seriesStmt</gi>: and they also fit into
+                                    "series".</item>
+                                <item><gi>extent</gi>: how many floppy disks, gigabytes,
+                                    files?</item>
+                                <item><gi>notesStmt</gi>: notes of various types</item>
+                            </list>
+                        </item>
+                    </list>
+                </p>
+                <!--  <p>NB A "file" may actually correspond with several operating system
+            files. </p>
+        -->
+            </div>
+
+            <div>
+                <head>The File Description</head>
+
+                <list type="unordered">
+                    <item>
+                        <gi>titleStmt</gi>: contains a mandatory <gi>title</gi> which
+                        identifies the electronic file (not its source!)</item>
+                    <item> optionally followed by additional titles, and by ‘statements of
+                        responsibility’, as appropriate, using <gi>author</gi>,
+                            <gi>editor</gi>, <gi>sponsor</gi>, <gi>funder</gi>,
+                            <gi>principal</gi> or the generic <gi>respStmt</gi></item>
+                    <item>
+                        <gi>publicationStmt</gi>: may contain <list>
+                            <item>plain text (e.g. to say the text is unpublished)</item>
+                            <item>one or more <gi>publisher</gi>, <gi>distributor</gi>,
+                                    <gi>authority</gi>, each followed by
+                                <gi>pubPlace</gi>, <gi>address</gi>,
+                                <gi>availability</gi>, <gi>idno</gi></item>
+                        </list>
+                    </item>
+                </list>
+
+            </div>
+
+       
+
+            <div type="slide">
+                <head>Title- and Responsibility- statements...</head>
+                <p>You can duplicate any of these elements as necessary, and document
+                    additional responsbilities with a generic <gi>respStmt</gi>:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<titleStmt>
+    <title>Letter to Leslie Gunston</title>
+    <author>Wilfred Owen</author>
+    <editor>Renée van Baalen</editor>
+    <principal>James Cummings</principal>
+    <meeting>Digital.Humanities@Oxford Summer School</meeting>
+    <respStmt>
+        <resp>Improved encoding</resp>
+        <name>James Cummings</name>
+    </respStmt>
+</titleStmt>
+          </egXML></p>
+            </div>
+
+            <!--     <div>
+                <head><gi>titleStmt</gi> example</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <titleStmt>
+              <title>Yogadarśanam (arthāt
+                yogasūtrapūphah):
+                a digital edition.</title>
+              <title>The Yogasūtras of Patañjali:
+                a digital edition.</title>
+              <funder>Wellcome Institute for the History of Medicine</funder>
+              <principal>Dominik Wujastyk</principal>
+              <respStmt>
+                <name>Wieslaw Mical</name>
+                <resp>data entry and proof correction</resp>
+              </respStmt>
+              <respStmt>
+                <name>Jan Hajic</name>
+                <resp>conversion to TEI-conformant markup</resp>
+              </respStmt>
+            </titleStmt>
+          </egXML>
+            </div>-->
+
+            <div>
+                <head><gi>editionStmt</gi> and <gi>extent</gi> example</head>
+                <p><gi>editionStmt</gi> can be used to document the details of this
+                    particular edition: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <editionStmt>
+        <edition>First Edition</edition>
+    </editionStmt>
+    <extent>6.5 kb</extent>
+    </egXML>
+                    <gi>extent</gi> is sometimes used to document number of words in a
+                    corpus. </p>
+            </div>
+
+            <div>
+                <head><gi>publicationStmt</gi> example</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<publicationStmt>
+    <publisher>TEI @ Oxford</publisher>
+    <distributor>Digital.Humanities@Oxford Summer School</distributor>
+    <authority>James Cummings</authority>
+    <pubPlace>
+        <address>
+            <orgName>Oxford University Computing Services</orgName>
+            <street>13 Banbury Road</street>
+            <settlement>Oxford</settlement>
+            <postCode>OX2 6NN</postCode>
+            <country>United Kingdom</country>
+        </address>
+    </pubPlace>
+    <date when="2012-07-03">3 July 2012</date>
+    <idno>dhoxss-tei-ex03</idno>
+    <availability>
+        <licence>Licensed with a <ref target="http://creativecommons.org/licenses/by/3.0/">Creative
+            Commons Attribution</ref> licence.</licence>
+    </availability>
+</publicationStmt>
+        </egXML>
+            </div>
+
+
+            <div>
+                <head><gi>notesStmt</gi> example</head>
+                <p><gi>notesStmt</gi> can contain notes on almost any aspect of the file
+                    or its contents:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<notesStmt>
+    <note>Transcribed for DHOXSS TEI Workshop</note>
+</notesStmt>
+          </egXML>
+                    These notes can be short statements, or many parargaphs long. </p>
+
+            </div>
+
+
+            <div>
+                <head>The Source Description</head>
+                <p>All electronic works need to document their source, <hi>even</hi> 'born
+                    digital' ones! There are variety of ways to do so: <list
+                        type="unordered">
+                        <item>prose description, just a <gi>p</gi></item>
+                        <item>
+                            <gi>bibl</gi> : contains free text and/or any mixture of
+                            bibliographic elements such as <gi>author</gi>,
+                                <gi>publisher</gi> etc. </item>
+                        <item>
+                            <gi>biblStruct</gi> contains similar elements but constrained
+                            in various ways according to bibliographic standards</item>
+                        <item>
+                            <gi>biblFull</gi> special-cases texts which were born TEI by
+                            replicating an embedded <gi>fileDesc</gi></item>
+                        <item>A <gi>listBibl</gi> may be used for lists of such
+                            descriptions, e.g. bibliographies</item>
+                        <item>Specialised elements for spoken texts
+                                (<gi>recordingStmt</gi> etc.) and for manuscripts
+                                (<gi>msDesc</gi>) <hi>Discussed later!</hi></item>
+                        <item>Authority lists: <gi>listPerson</gi>, <gi>listPlace</gi>,
+                                <gi>listOrg</gi></item>
+                    </list>
+                </p>
+            </div>
+
+
+            <div>
+                <head><gi>sourceDesc</gi> example</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<sourceDesc>
+    <biblStruct>
+        <analytic>
+            <title>Letter to Leslie Gunston</title>
+            <author>Wilfred Owen</author>
+        </analytic>
+        <monogr>
+            <title>The Wilfred Owen Collection</title>
+            <ref target="http://www.oucs.ox.ac.uk/ww1lit/ collections/document/5243/4769"> First World War Poetry Digital Archive</ref>
+            <imprint>
+                <publisher>The First World War Poetry Digital Archive</publisher>
+                <pubPlace>Oxford</pubPlace>
+                <biblScope type="pp" n="2">Two pages</biblScope>
+            </imprint>
+        </monogr>
+        <relatedItem>
+            <bibl>The source of this digital resource is a copy from the <distributor>Harry Ransom Centre</distributor>.</bibl>
+        </relatedItem>
+    </biblStruct>
+</sourceDesc></egXML></p>
+            </div>
+            <!--
+            <div>
+                <head>
+                    <gi>bibl</gi> vs. <gi>biblStruct</gi> Example</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <bibl>
+            <title level="a">Enigma</title>, in 
+<title level="j">Punch: or the London Charivari</title> (July 1, 1914), vol 147, pp. 1-20</bibl>
+        </egXML>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <biblStruct>
+            <analytic>
+              <title level="a">Enigma</title>
+            </analytic>
+            <monogr>
+              <title level="j">Punch: or the London Charivari</title>
+              <imprint>
+                <pubPlace>London</pubPlace>
+                <date when="1914-07-01">July 1, 1914</date>
+                <biblScope type="vol">147</biblScope>
+                <biblScope type="pp">1-20</biblScope>
+              </imprint>
+            </monogr>
+          </biblStruct>
+        </egXML>
+
+            </div>
+-->
+            <!--
+      <div>
+        <head><gi>sourceDesc</gi> example (2)</head>
+
+        <p><egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <sourceDesc>
+              <biblStruct xml:lang="fr">
+                <monogr>
+                  <author>Eugène Sue</author>
+                  <title>Martin, l'enfant trouvé</title>
+                  <title type="sub">Mémoires d'un valet de chambre</title>
+                  <imprint>
+                    <pubPlace>Bruxelles et Leipzig</pubPlace>
+                    <publisher>C. Muquardt</publisher>
+                    <date when="1846">1846</date>
+                  </imprint>
+                </monogr>
+              </biblStruct>
+            </sourceDesc>
+          </egXML></p>
+      </div>
+-->
+            <div>
+                <head>Association between header and text</head>
+                <p> By default everything asserted by a header is true of the text to
+                    which it is prefixed. This can be over-ridden: <list type="unordered">
+                        <item> as when a text header over-rides or amplifies a
+                            corpus-header setting</item>
+                        <item> when model.declarable elements are selected by means of the
+                                <att>decls</att> attribute (available on all
+                            model.declaring elements)</item>
+                        <item> using special purpose selection/definition elements e.g.
+                                <gi>catRef</gi> and <gi>taxonomy</gi>
+                        </item>
+                    </list> Most components of the encoding description are declarable.
+                </p>
+            </div>
+
+
+            <div>
+                <head>Encoding Description</head>
+                <p>
+                    <gi>encodingDesc</gi> groups notes about the procedures used when the
+                    text was encoded, either summarised in prose or within specific
+                    elements such as <list type="unordered">
+                        <item>
+                            <gi>projectDesc</gi>: goals of the project</item>
+                        <item>
+                            <gi>samplingDecl</gi>: sampling principles</item>
+                        <item><gi>editorialDecl</gi>: editorial principals, e.g.
+                                <gi>correction</gi>, <gi>normalization</gi>,
+                                <gi>quotation</gi>, <gi>hyphenation</gi>,
+                                <gi>segmentation</gi>, <gi>interpretation</gi></item>
+                        <item>
+                            <gi>classDecl</gi>: classification system/s used</item>
+                        <item>
+                            <gi>tagsDecl</gi>: specifics about usage of particular
+                            elements</item>
+                    </list> Detailed notes in <gi>encodingDesc</gi> could be used to
+                    generate section of an editorial description.</p>
+            </div>
+
+
+            <div>
+                <head><gi>encodingDesc</gi> Example (1)</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<encodingDesc>
+    <projectDesc>
+        <p>The TEI@Oxford project created teaching materials for DHOXSS</p>
+    </projectDesc>
+    <editorialDecl>
+        <correction>
+            <p>Apparent errors have been marked as <gi>sic</gi> but correct
+                readings not provided</p>
+        </correction>
+        <hyphenation>
+            <p>Hyphens have been transcribed as they appear.</p>
+        </hyphenation>
+    </editorialDecl>
+</encodingDesc></egXML>
+            </div>
+
+            <div>
+                <head><gi>encodingDesc</gi> Example (2)</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<encodingDesc>
+<classDecl>
+    <taxonomy xml:id="part-of-speech">
+        <category xml:id="adje">
+            <catDesc>adjectives</catDesc>
+            <category xml:id="AJ0">
+                <catDesc>adjective (unmarked) (e.g. GOOD, OLD)</catDesc>
+            </category>
+            <category xml:id="AJC">
+                <catDesc>comparative adjective (e.g. BETTER, OLDER)</catDesc>
+            </category>
+            <category xml:id="AJS">
+                <catDesc>superlative adjective (e.g. BEST, OLDEST)</catDesc>
+            </category>
+        </category>
+        <category xml:id="AT0">
+            <catDesc>article (e.g. THE, A, AN)</catDesc>
+        </category><!-- ... -->
+    </taxonomy>
+</classDecl>
+</encodingDesc></egXML>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><w ana="#AJ0">brilliant</w></egXML>
+            </div>
+
+            <div>
+                <head>Sample encoding description 3</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<encodingDesc>
+<tagsDecl>
+  <namespace name="http://www.tei-c.org/ns/1.0">
+    <tagUsage gi="cit" occurs="410"/>
+    <tagUsage gi="div" occurs="115"/>
+    <tagUsage gi="gap" occurs="3"/>
+    <tagUsage gi="head" occurs="156"/>
+    <tagUsage gi="hi" occurs="147"/>
+    <tagUsage gi="l" occurs="2"/>
+    <tagUsage gi="lg" occurs="1"/>
+    <tagUsage gi="p" occurs="680"/>
+    <tagUsage gi="quote" occurs="3"/>
+    <tagUsage gi="s" occurs="2415"/>
+    <tagUsage gi="w" occurs="41799"/>
+  </namespace>
+  <namespace name="http://www.example.com/ns/1.0">
+    <tagUsage gi="WEO" occurs="4"/>
+  </namespace>
+</tagsDecl>
+</encodingDesc></egXML>
+            </div>
+
+
+            <div>
+                <head><gi>rendition</gi> element</head>
+                <p>
+                    <list>
+                        <item><gi>rendition</gi>: structured information about appearance
+                            in the source document </item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <tagsDecl>
+                <rendition xml:id="r-center" scheme="css">text-align: center;</rendition>
+                <rendition xml:id="r-small" scheme="css">font-size: small;</rendition>
+                <rendition xml:id="r-large" scheme="css">font-size: large;</rendition>
+              </tagsDecl>
+            </egXML>
+                    which you can easily point to from the text:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><hi rendition="#r-center #r-large">this bit of text was large and centred</hi></egXML>
+                    but compare:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><hi rend="large center">this bit of text was large and centred</hi></egXML>
+                </p>
+            </div>
+
+
+
+            <div>
+                <head>
+                    <gi>appInfo</gi> element</head>
+                <p><gi>appInfo</gi>: structured information about an application which has
+                    edited this TEI file
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <appInfo>
+                <application version="1.8.2.2" ident="ImageMarkupTool" 
+                    notAfter="2012-06-01">
+                  <label>Image Markup Tool</label>
+                  <ptr target="#P1"/>
+                  <ptr target="#P2"/>
+                </application>
+              </appInfo>
+            </egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Profile Description</head>
+                <p> A collection of descriptions, categorised only as ‘non-bibliographic’.
+                    Default members of the model.profileDescPart class include: <list
+                        type="unordered">
+                        <item>
+                            <gi>creation</gi>: information about the origination of the
+                            intellectual content of the text, e.g. time and place</item>
+                        <item>
+                            <gi>langUsage</gi>: information about languages, registers,
+                            writing systems etc used in the text</item>
+                        <item>
+                            <gi>textDesc</gi> and <gi>textClass</gi>: classifications
+                            applied to the text by means of a list of specified criteria
+                            or by means of a collection of pointers, respectively</item>
+                        <item>
+                            <gi>particDesc</gi> and <gi>settingDesc</gi>: information
+                            about the ‘participants’, either real or depicted, in the
+                            text</item>
+                        <item>
+                            <gi>handNotes</gi>: information about the hands identified in
+                            a manuscript</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head><gi>creation</gi> example</head>
+                <p><egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<creation>
+    <date when="1918-05"/>
+    <placeName>Ripon</placeName>
+    <listChange ordered="true">
+        <change xml:id="CHG-1">First stage, written in pencil in Owen's hand </change>
+        <change xml:id="CHG-2">Second stage, revised in pencil in Owen's hand</change>
+        <change xml:id="CHG-3">Fixation of the revised passages and further minor revisions by Owen using ink</change>
+        <change xml:id="CHG-4">Addition of another stanza with a different ink, probably at a later stage</change>
+    </listChange>
+</creation>
+</egXML>
+                    Here <gi>listChange</gi> records stages in changes to the document.
+                    Further down, in <gi>revisionDesc</gi> the same element is used to
+                    record changes to the electronic file. </p>
+            </div>
+
+
+
+            <div>
+                <head>Language and character set usage</head>
+                <p> The <gi>langUsage</gi> element is provided to document usage of
+                    languages and writing systems in the text. Languages are identified by
+                    their ISO codes:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <langUsage>
+              <language ident="en">English</language>
+              <language ident="fr">French</language>
+              <language ident="bg-cy">Bulgarian in Cyrillic characters </language>
+              <language ident="bg">Romanized Bulgarian</language>
+            </langUsage>
+          </egXML>
+                </p>
+            </div>
+
+
+
+            <div>
+                <head>Classification Methods</head>
+                <p>
+                    <gi>textClass</gi> provides a classification (by domain, medium,
+                    topic...) for the whole of a text expressed in one or more of the
+                    following ways: <list type="gloss">
+                        <label>using <gi>catRef</gi></label>
+                        <item> direct reference to a locally defined (e.g. in the corpus
+                            header) category </item>
+                        <label>using <gi>classCode</gi></label>
+                        <item> reference to some commonly agreed and externally defined
+                            category </item>
+                        <label>using <gi>keywords</gi></label>
+                        <item>assign arbitrary descriptive terms taken from a
+                            bibliographic controlled vocabulary or a tag cloud</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>BNC Example</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <profileDesc>
+              <creation>
+                <date when="1962"/>
+              </creation>
+              <textClass>
+                <catRef target="#WRI #ALLTIM1 #ALLAVA2 #ALLTYP3 #WRIDOM5 #WRILEV2 #WRIMED1 #WRIPP5 #WRISAM3 #WRISTA2 #WRITAS0"/>
+                <classCode scheme="DLEE">W nonAc: humanities arts</classCode>
+                <keywords scheme="COPAC">
+                  <term>History, Modern - 19th century</term>
+                  <term>Capitalism - History - 19th century</term>
+                  <term>World, 1848-1875</term>
+                </keywords>
+              </textClass>
+            </profileDesc>
+          </egXML>
+                </p>
+                <p rend="box">This categorization applies to the whole text. For more fine
+                    grained classification, use <att>decls</att> on e.g. a <gi>div</gi>
+                    element to point to applicable variation in header.</p>
+            </div>
+
+
+            <div>
+                <head>Detailed characterization of a text</head>
+                <p>
+                    <gi>textDesc</gi> provides a description of a text in terms of its
+                    ‘Situational parameters’</p>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <textDesc n="novel">
+              <channel mode="w">print; part issues</channel>
+              <constitution type="single"/>
+              <derivation type="original"/>
+              <domain type="art"/>
+              <factuality type="fiction"/>
+              <interaction type="none"/>
+              <preparedness type="prepared"/>
+              <purpose type="entertain" degree="high"/>
+              <purpose type="inform" degree="medium"/>
+            </textDesc>
+           </egXML>
+                    These subelements constitute the class <hi>model.textDescPart</hi>: you could modify that for other parameters. 
+                </p>
+            </div>
+
+
+            <div>
+                <head><gi>particDesc</gi> example (1)</head>
+<p>                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<particDesc xml:id="p2">
+    <p>Female informant, well-educated, born in Shropshire UK, 12 Jan 1950, of unknown occupation. Speaks French fluently. Socio-Economic status B2 in the PEP classification scheme.</p>
+</particDesc>
+</egXML>
+<gi>particDesc</gi> can just contain paragraphs of prose, or a more structured <gi>person</gi> element in <gi>listPerson</gi>
+</p>            </div>
+
+
+
+            <div>
+                <head><gi>particDesc</gi> example (2)</head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<particDesc>
+    <listPerson>
+        <person xml:id="SL">
+            <persName>Stuart Lee</persName>
+            <note>
+                <ref target="http://users.ox.ac.uk/~stuart/Site/About_Me.html"> Stuart Lee's home page</ref>
+            </note>
+            <!-- We could give more details about Stuart here -->
+        </person>
+        <person xml:id="IH">
+            <persName>Ian Hislop</persName>
+            <note>
+                <ref target="http://en.wikipedia.org/wiki/Ian_Hislop"> Ian Hislop's entry in Wikipedia</ref>
+            </note>
+        </person>
+    </listPerson>
+</particDesc>
+        </egXML>
+
+            </div>
+
+            <div>
+                <head>Revision Description</head>
+                <list>
+                    <item>A list of <gi>change</gi> elements, each with a <att>date</att>
+                        and <att>who</att> attributes, indicating significant stages in
+                        the evolution of a document. Most recent first. </item>
+                    <item>Can be grouped into <gi>listChange</gi> elements. Used here it
+                        is about the electronic file, used in <gi>creation</gi> it is
+                        about the document.</item>
+                    <item>Can be maintained manually, or done by means of a version
+                        control system (like SVN)</item>
+                </list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<revisionDesc>
+    <listChange>
+        <change when="2012-07-03"><persName>James Cummings</persName> improved the header.</change>
+        <change when="2012-02"><persName>Renée van Baalen</persName> transcribed the <title>Letter to Leslie Gunston</title> document. </change>
+    </listChange>
+</revisionDesc>
+        </egXML>
+
+            </div>
+
+
+
+            <div type="slide">
+                <head>Some more metadata acronym soup</head>
+                <list type="gloss">
+                        <label>DCMI: Dublin Core Metadata Initiative</label>
+                        <item>Very simple standard for describing web resources: 15
+                                <soCalled>lowest common denominator</soCalled>
+                            fields</item>
+                        <label>RDF: Resource Description Framework</label>
+                        <item>W3C Standard for representing any kind of resource
+                            description using object oriented concepts: basis of the
+                                <soCalled>semantic web</soCalled>
+                        </item>
+                        <label>EAD: Encoded Archival Description</label>
+                        <item>International Standard for describing archival
+                            collections</item>
+                        <label>METS: Metadata Encoding and Transcription Standard</label>
+                        <item>generalised method to integrate different metadata systems</item>
+                    </list>
+                <p rend="box">TEI provides a richer vocabulary than EAD or DCMI, and is
+                    less abstract than RDF or METS</p>
+            </div>
+
+
+            <div>
+                <head>Next</head>
+                <p>That is a whirlwind tour of the kinds of things you can put in the
+                        <gi>teiHeader</gi>, however be aware that adding some of the other
+                    TEI modules can expand what is allowed in the header. (e.g. Manuscript
+                    Description)</p>
+                <p>Now let's do an exercise where we make an existing <gi>teiHeader</gi>
+                    element better!</p>
+            </div>
+
+
+
+
+        </body>
+    </text>
+</TEI>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Exercise 7: Encoding Spoken Text</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div>
+            <head>Exercise 7: Encoding Spoken Text</head>
+            <!-- Learning Outcomes -->
+            <div>
+                <head>Learning Outcomes</head>
+                <p>When you successfully complete this exercise you should be able to:
+                        <list type="bulleted">
+                        <item>Encode a transcription of spoken text</item>
+                        <item>Use a <gi>recordingStmt</gi> in the header to document an
+                            audio source </item>
+                        <item>Record participants in a linguistic interaction</item>
+                        <item>Mark utterances, pauses, and other incidents</item>
+                        <item>Understand basic use of a <gi>timeline</gi> element </item>
+                        <item>Use other markup in a spoken text transcription</item>
+
+                    </list>
+                </p>
+            </div>
+
+            <!-- Summary -->
+            <div>
+                <head>Summary</head>
+                <p>This exercise starts with a TEI template and quickly makes a
+                    transcription of an audio interview into a full valid TEI P5 file. The
+                    interviewer (Stuart Lee) is interviewing Ian Hislop, who had recently
+                    done a television programme 'Not Forgotten' about the impact on
+                    British society of the First World War. We will mark up the
+                    utterances, pauses, and other aspects of a fragment of this
+                    interview.</p>
+            </div>
+            <div>
+                <head>Starting Up</head>
+                <p>With oXygen loaded, start a new TEI P5 document by going to 'File' ->
+                    'New' -> 'Framework Templates' -> 'TEI P5' -> 'All', and modify the
+                    headers as below.</p>
+            </div>
+
+
+            <div>
+                <head>Creating a Better Header</head>
+                <p>The default template header isn't very good, let's make it better. <list>
+                        <item>Modify the default <gi>fileDesc</gi> element to have a
+                            better <gi>title</gi> and <gi>publicationStmt</gi>. This
+                            document will be a transcribed fragment of an interview with
+                            Ian Hislop for teaching purposes. Your <gi>fileDesc</gi>
+                            should look something like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<fileDesc>
+    <titleStmt> 
+      <title>Fragment of interview with Ian Hislop for teaching purposes</title>
+    </titleStmt>
+    <publicationStmt>
+       <p>Used for a teaching exercise at DHOXSS TEI Workshop</p>
+    </publicationStmt>
+</fileDesc>
+</egXML>
+                        </item>
+                        <item>Use the <gi>recordingStmt</gi> element inside
+                                <gi>sourceDesc</gi> to describe the source of the material
+                            as an (audio in this case) recording. This recording is 27
+                            minutes and 9 seconds long, and was made by OUCS on the 7th
+                            September 2007. So our <gi>sourceDesc</gi> looks something
+                            like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<sourceDesc>
+<recordingStmt>
+    <recording type="audio" dur="PT27M09S">
+        <respStmt>
+            <resp>Recording by</resp>
+            <orgName ref="#OUCS">Oxford University
+             Computing Services</orgName>
+        </respStmt>
+        <date when="2007-09-07">7th September, 2007</date>
+    </recording>
+</recordingStmt>
+</sourceDesc>
+</egXML>
+                        </item>
+                        <item> After the end of the <gi>fileDesc</gi> element but before
+                            the closing <gi>/teiHeader</gi> tag, insert a
+                                <gi>profileDesc</gi> element, and within that a
+                                <gi>particDesc</gi>. This is where we’re going to record
+                            the participants in the interview. Inside here create a
+                                <gi>listPerson</gi> with two <gi>person</gi> elements. The
+                            first (interviewer) should have an xml:id attribute value of
+                            ‘SL’. This is the interviewer and his name is Stuart Lee.
+                            Create a <gi>persName</gi> inside the <gi>person</gi> for him.
+                            Also inside the <gi>person</gi>, alongside the
+                                <gi>persName</gi>, create a <gi>note</gi> with a
+                                <gi>ref</gi> inside. The <att>target</att> attribute’s
+                            value should be <ref
+                                target="http://users.ox.ac.uk/~stuart/Site/About_Me.html"
+                                >http://users.ox.ac.uk/~stuart/Site/About_Me.html</ref>
+                            with the <gi>ref</gi> content being something like 'Stuart
+                            Lee’s home page'. </item>
+                        <item>In the second <gi>person</gi> element, add an
+                                <att>xml:id</att> attribute value of ‘IH’. The person
+                            being interviewed’s name is Ian Hislop, a well known UK
+                            comedian and editor of the satirical Private Eye magazine.
+                            Create a <gi>note</gi> for him with a <gi>ref</gi> that points
+                            to his wikipedia page: <ref
+                                target="http://en.wikipedia.org/wiki/Ian_Hislop"
+                                >http://en.wikipedia.org/wiki/Ian_Hislop</ref> Your
+                                <gi>profileDesc</gi> should look something like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<profileDesc>
+<particDesc>
+    <listPerson>
+        <person xml:id="SL">
+            <persName>Stuart Lee</persName>
+            <note>
+                <ref target="http://users.ox.ac.uk/~stuart/Site/About_Me.html">
+                    Stuart Lee's home page</ref>
+            </note>
+        </person>
+        <person xml:id="IH">
+            <persName>Ian Hislop</persName>
+            <note>
+                <ref target="http://en.wikipedia.org/wiki/Ian_Hislop">
+                    Ian Hislop's entry in Wikipedia</ref>
+            </note>
+        </person>
+    </listPerson>  
+</particDesc>
+</profileDesc>    
+</egXML>
+                        </item>
+                        <item>Your document should be well-formed valid, and have a
+                            happy green square!</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>Adding the Transcription and Utterances</head>
+                <p>
+                    <list>
+                        <item>Inside the <gi>body</gi> element, delete any paragraph that
+                            is there, and insert the 'hislop.txt' file by going to the
+                            'Document' -> 'File' -> 'Insert File' menu. (Otherwise you
+                            could copy and paste it from notepad or similar). </item>
+                        <item>oXygen will complain that you have a bunch of text just
+                            inside <gi>body</gi>, let’s solve that first by adding some
+                            structure. </item>
+                        <item> Replace the [gap for sampling purposes] at the start and
+                            end of the text with a <gi>gap reason=”sampling”/</gi>.
+                        </item>
+                        <item>Around <hi>each</hi> line-break separated utterance
+                            (including the speaker name) wrap a <gi>u</gi> element.
+                            (highlight and press 'control-e'; or you could put it in one
+                                <gi>u</gi> element and split it with 'alt-shift-D' in
+                            front of each one.) </item>
+                        <item>Your first utterance should look something like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<u>
+Lee (24.27-24.36):
+So em d-em having read [clicking sound: 0.17s] the Wipers Times
+now and and your [pause: 0.62s] view that 
+th th the thirties was that that
+prisonment you say 
+</u>
+</egXML>
+                        </item>
+                        <item>Your document should be well-formed and valid now, with a
+                            happy green square, sort out any problems before progressing
+                            further.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Making Better Utterances</head>
+                <p>While our markup might be well-formed and valid it is a long way from
+                    the truth. <list>
+                        <item> The first person to speak didn’t really say ‘Lee
+                            (24.27-24.36):’. </item>
+                        <item>These are artifacts left by the transcriber to give a time
+                            stamp and indicate which person was speaking. </item>
+                        <item>Go through and comment out each of these lines by
+                            highlighting it and pressing 'control-shift-comma' (or
+                            selecting ‘Toggle Comment’ from the right-click menu). </item>
+                        <item>Let’s use this information now to add some extra metadata to
+                            each of the utterances. </item>
+                        <item>For each utterance add a who attribute with a value of #
+                            followed byt the corresponding <att>xml:id</att> value of the
+                            person you are pointing to. </item>
+                        <item>So your first utterance should look something like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<u who="#SL">
+<!-- Lee (24.27-24.36): -->
+So em d-em having read [clicking sound: 0.17s] the Wipers Times
+now and and your [pause: 0.62s] view that 
+th th the thirties was that that
+prisonment you say 
+</u>
+</egXML>
+                        </item>
+                        <item>Repeat this for all the utterances using '#IH' and '#SL'
+                            where appropriate. </item>
+                        <item>Note: we are not going to use the timestamps in this
+                            exercise, but do not delete them. Having XML comments in your
+                            file doesn't cost you anything, but they can be deleted by
+                            other applications processing the files. So they are a good
+                            place to temporarily store information (such as where you are
+                            having a problem with some encoding, or how far you have got
+                            through a file).</item>
+
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Incidents and Pauses (and Regular Expressions)</head>
+                <p>Our audio transcriber has rigorously recorded the number of seconds of
+                    a clicking sound that they heard and the pauses that speakers made in
+                    speaking. We want to turn these non-spoken notes into markup. <hi>If
+                        you want to listen to the audio clip it is provided as
+                        'hislop.mp3'. You probably don't have time to listen to the whole
+                        interview but it is provided as 'ian_hislop.mp3'. (The transcriber may have mis-heard some words here and there.)</hi><list>
+                        <item>In the first utterance replace “[clicking sound: 0.17s]”
+                            with:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples"><incident dur="PT0.17S">
+                                <desc>clicking sound</desc>
+                            </incident></egXML>
+                            and “[pause: 0.62s]” with
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples"><pause dur="PT0.62S"/></egXML>
+                        </item>
+                        <item> We want to do this throughout the document, but doing this
+                            manually is a bit of hard work. If you cannot get Regular
+                            Expressions to work, you can always do this manually, but this
+                            might make it a bit quicker! Press 'control-f' (or 'Find' ->
+                            'Find/Replace' in the menus) to bring up the search and
+                            replace dialog window. </item>
+                        <item> Make sure the ‘Regular expression’ option is ticked. We are
+                            going to use regular expressions (sometimes called 'regex' or
+                            'regexes') to make the search and replacing more powerful. </item>
+                        <item>In this case put <code>\[clicking sound: ([0-9.]*)s\]</code>
+                            into the ‘Text to find:’ box. This means that we’re looking
+                            for a literal square bracket, followed by the text ‘clicking
+                            sound:’ then any combination of numbers and ‘.’ followed by an
+                            s and a closing bracket. We have to escape the brackets
+                            because they are used as part of the regular expression
+                            language. </item>
+                        <item>In the Replace with: section put:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples"><incident dur="PT\1S">
+                                <desc>clicking sound</desc>
+                            </incident></egXML>
+                            which has us insert the incident element and adds the string
+                            of text that we found in parentheses in the search
+                            (represented by \1) to the duration value we’re adding to the
+                            replacement. </item>
+                        <item>Click ‘Find’ a couple times to make sure this is finding the
+                            recorded clicking sounds. If so, click ‘Replace All’. Check
+                            that this has done what you want. </item>
+                        <item>Do the same with the pauses that have been recorded by using
+                                <code>\[pause: ([0-9.]*)s\]</code> as the text to search
+                            for and
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples"><pause dur="PT\1S"/></egXML>
+                            as the text to replace it with. </item>
+                        <item>When regular expressions are used carefully, they can make
+                            text replacement and markup a quicker job. What do you think
+                            are the dangers of using regular expressions?</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>Encoding a Timeline</head>
+                <p>Having a timeline is optional, but gives you a way to relate one point
+                    in a spoken text to another. In our case it is a bit artificial so you
+                    can decide whether to encode it our not. <list>
+                        <item>Inside the <gi>body</gi> before the first <gi>gap/</gi>
+                            element put the following <gi>timeline</gi> construction. We
+                            could put this in the header, or a number of places, but this
+                            is as good a place as any.
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <timeline unit="min" xml:id="recordingStart">
+        <when xml:id="fragmentStart" interval="24.27"/>
+        <when xml:id="TS2" interval="24.36"/>
+        <when xml:id="TS3" interval="24.42"/>
+        <when xml:id="TS4" interval="25.13"/>
+        <when xml:id="TS5" interval="26.35"/>
+        <when xml:id="TS6" interval="26.36"/>
+        <when xml:id="TS7" interval="27.09"/>
+ </timeline>
+</egXML>
+                        </item>
+                        <item>What this does is set up a timeline, with units in minutes
+                            and then has a series of <gi>when</gi> elements with
+                                <att>xml:id</att> attributes that we can then point at
+                            from the body of our transcription. The fragment we are using
+                            is 24.27 minutes through the interview. The next speaker says
+                            something at 24.36, etc. These correspond to the times in the
+                            comments inside your <gi>u</gi> elements. </item>
+                        <item>This means that we can add a <att>start</att> and
+                                <att>end</att> (where desirable) to the <gi>u</gi>
+                            elements to point to these <gi>when</gi> elements. </item>
+                        <item>Our first utterance opening tag now looks like:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <u who="#SL" start="#fragmentStart" end="#TS2">
+                                So em d-em having read 
+                                ...
+                            </u>
+                        </egXML>
+                        </item>
+                        <item> For our second we've only indicated the start:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                                <u who="#IH" start="#TS2">
+                                    <!--Hislop (24.36):-->
+                                    Yeah.
+                                </u>
+                            </egXML>
+                        </item>
+                        <item>The
+                            third:<egXML xmlns="http://www.tei-c.org/ns/Examples"><u who="#SL" start="#TS2" end="#TS3">
+                            <!--Lee (24.36-24.42)-->
+                        ...
+                            </u>
+                        </egXML></item>
+                        <item>Fourth:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples"><u who="#IH" start="#TS3" end="#TS4">
+                            <!--Hislop (24.42-25.13):-->
+                            <pause dur="PT0.76S"/> Not really I mean
+                                ...
+                        </u></egXML>
+                        </item>
+                        <item>Fifth:<egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <u who="#SL" start="#TS4">
+                                <!--Lee (25.13):-->
+                                Yes.
+                            </u>
+                        </egXML>
+                        </item>
+                        <item>Sixth:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <u who="#IH" start="#TS4" end="#TS5">
+                                <!--Hislop (25.13-26.35)-->
+                                um <pause dur="PT0.50S"/>  which I saw again and
+                                ...
+                            </u>
+                            </egXML>
+                        </item>
+                        <item>Seventh:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <u who="#SL" start="#TS5">
+                                <!--Lee (26.35)-->
+                                hmm
+                            </u>
+                        </egXML>
+                        </item>
+                        <item>Eighth:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <u who="#IH" start="#TS6" end="#TS7">
+                                <!--Hislop (26.36-27.09)-->
+                                I think it's difficult to read the history of the century
+                                ...
+                            </u>
+                        </egXML>
+                        </item>
+                        <item>If you have done all that your document should be
+                            well-formed and valid with a happy green square. If it isn't,
+                            find the problem!</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>Other Things to Encode</head>
+                <p>There are some other things we could encode like: <lb/>
+                        <gi>title</gi>s, <gi>note</gi>s, and <gi>persName</gi>s. <list>
+                        <item>There are three titles mentioned 'Wiper Times', 'The
+                            Gassed', and 'Voices'. Mark them up as titles, removing any
+                            quotation marks that indicated they were titles if they
+                            exist.</item>
+                        <item>There are two notes recorded by the transcriber: one has
+                            'John Singer Sargent, 1918' in it (remove the square brackets
+                            before marking it as a <gi>note</gi>. The other is 'syllables
+                            -damental while laughing', mark this as a note as well. This
+                            last one could also have been marked using the <gi>shift</gi>
+                            element, but let's leave it as a note for simplicity. </item>
+                        <item>There are a number of personal names, mark these as
+                                <gi>persName</gi>.</item>
+                    </list>
+                </p>
+            </div>
+
+
+            <!-- Saving Your Work -->
+            <div>
+                <head>Saving Your Work</head>
+                <p> Let's save our work: <list>
+                        <item>Is your work well-formed? Do you have a happy green square
+                            or an angry red one?</item>
+                        <item>Have you formatted and indented your work automatically? </item>
+                        <item>From the 'File' menu select 'Save' or click on the Save icon
+                            (looks like an old-style 3.5" disk).</item>
+                        <item>Or if you prefer use the 'File' then 'Save As' menu item to
+                            save the file using the name 'exercise07.xml' or another name
+                            of your choice.</item>
+                    </list></p>
+            </div>
+
+            <!-- Self-Assessment -->
+            <div>
+                <head>Self-Assessment</head>
+                <p>Check if you understand some of the core principles of this exercise by
+                    answering the following questions: <list>
+                        <item>What element in the <gi>teiHeader</gi> is used to document
+                            the details of a recording that acts as a source?</item>
+                        <item>How do you mark utterances in spoken texts? </item>
+                        <item>What useful attributes can this element have?</item>
+                        <item>How do you indicate pauses or other incidents?</item>
+                        <item>What does a <gi>timeline</gi> look like? </item>
+                        <item>How do you mark titles that someone has said? </item>
+                    </list>
+                </p>
+            </div>
+
+            <!-- Next  -->
+            <div>
+                <head>Next and More Reading</head>
+                <p>Next we'll be looking at some linguistic markup. However, before that if
+                    you have time you may wish to:<list>
+                        <item>Look up the reference pages for each of the new elements
+                            you've used.</item>
+                        <item>You might want to read the chapter on 'Transcriptions of
+                            Speech' at <ref
+                                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TS.html"
+                                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TS.html</ref>.</item>
+                    </list>
+                </p>
+            </div></div>
+        </body>
+    </text>
+</TEI>
