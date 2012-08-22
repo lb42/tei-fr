@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP1 : oXygen</title>
+        <author>TEI@Oxford</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>Jan 2011</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>À la découverte d' Oxygen - 2</head>
+        <p>Dans ce deuxième exercice, nous allons approfondir votre expérience avec Oxygen pour : <list>
+            <item>l'encodage XML d'un document existant</item>
+            <item>la représentation des structures aperçues dans un texte littéraire</item>
+            <item>l'affichage en mode « auteur »</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Sample text</head>
+        <p>Dans cet exercice, nous allons baliser ce sonnet de Du Bellay, un écrivain du XVIe siècle
+          : </p>
+        <p>
+          <graphic height="8cm" url="../2010-01-tours/duBellay/sonnet.png"/>
+        </p>
+        <p>Pour vous simplifier la vie, on a déjà préparé une transcription prête à l'emploi... ne
+          la regardez pas tout de suite !</p>
+      </div>
+
+      <div>
+        <head>Création du document</head>
+
+        <p>Ouvrez Oxygen. Cliquez sur l'icône Nouveau en haut à gauche, (ou sélectionnez Nouveau du
+          menu Fichier, ou tapez CTRL-N.) pour ouvrir la boîte de dialogue Nouveau</p>
+        <p>
+          <list>
+            <item>Cette fois, choisissez <ident>Cadre des modèles</ident>, ensuite <ident>TEI
+                P5</ident>, et ensuite <ident>TEI-Lite</ident>, pour sélectionnez un schéma TEI plus
+              complet. </item>
+            <item><graphic height="4cm" url="../Graphics/Oxy12/nouveau-4.png"/></item>
+            <item>Comme auparavant, Oxygen vous propose un squelette du document ; vous observerez
+              que le schéma TEI lite décrit un document TEI plus élaboré avec un choix de balises
+              plus important. </item>
+            <item>Complétez l'entête TEI avec des indications de titre (<q>Un sonnet du Du Bellay
+                numérisé</q>), distribution, et source (<q>encodé à partir d'un facsimilé de la
+                première édition produit au CESR, Tours</q>)</item>
+            <item>Enlevez toute la partie proposée par défaut pour le <gi>body</gi> (mais retenez
+              les balises <gi>body</gi> et <gi>/body</gi>). </item>
+
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Ajout de texte au document</head>
+        <p>Rien ne vous empêche de taper à la main tout le poème directement. Mais pour gagner du
+          temps on vous propose la démarche suivante : <list>
+            <item>Assurez-vous que le curseur soit toujours entre les deux balises <gi>body</gi> et
+                <gi>/body</gi> de votre document vide</item>
+            <item>Dans le menu <ident>Document</ident>, sélectionnez <ident>Fichier</ident>, et
+              ensuite <ident>Insèrer un fichier</ident>
+              <!--(<hi>Note: Not the File
+                Menu on the menu bar, but the one fond under the Document
+                Menu!</hi>)--></item>
+            <item>Naviguez jusqu'au fichier <ident>duBellay.txt</ident> dans le dossier
+                <ident>Travaux</ident> qui devrait se trouver sur votre Bureau, et insérez-le. Ce
+              fichier est aussi disponible sur le web, <ref
+                target="http://tei.oucs.ox.ac.uk/Oxford/2010-01-tours/duBellay/sonnet.txt">à cet
+                URL</ref> )</item>
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Attention, Will Robinson !</head>
+
+        <p>Votre document est rempli de taches rouges! </p>
+        <p>
+          <graphic height="5cm" url="../Graphics/Oxy12/amp-error.png"/>
+        </p>
+        <p>On va régler cela petit à petit. Commençons avec la partie la plus sérieuse : où le texte
+          lui-même est affiché en rouge.</p>
+        <list>
+          <item>Oxygen vous indique que la partie en rouge n'est pas bien formée</item>
+          <item>Il y a un message en bas de l'écran qui vous aidera (un peu) à identifier le
+            problème. Sauriez vous comment le résoudre ?</item>
+          <item>Conseil : souvenez-vous du fait que l'esperluette est un caractère magique en XML,
+            qui doit donc être représentée de manière indirecte.</item>
+        </list>
+      </div>
+
+      <div>
+        <head>Structuration du document</head>
+        <p>Il est possible d'identifier dans ce document plusieurs sous-parties. En particulier, il
+          contient : <list>
+            <item>un titre ... à baliser avec la balise <gi>head</gi></item>
+            <item>quatre strophes ... à baliser avec la balise <gi>lg</gi></item>
+            <item>des vers ... à baliser avec la balise <gi>l</gi></item>
+            <item>une citation d'Horace ... à baliser avec la balise <gi>quotte</gi>
+            </item>
+          </list> Allons-y !</p>
+
+
+        <list>
+          <item>Avec la souris, sélectionnez les quatre premières lignes du document <q>À
+              l'ambitieux et avare ... sonnet </q>; ceux-ci constituent son titre.</item>
+          <item>Tapez CTRL-E (ou sélectionnez <ident> XML Refactoring</ident> et ensuite
+              <ident>Entourer des balises</ident> dans le menu <ident>Document</ident></item>
+          <item>Oxygen vous propose toutes les balises disponibles à cet emplacement.</item>
+          <item>Sélectionnez <gi>head</gi> et cliquez <ident>Accepter</ident></item>
+          <item><graphic height="4cm" url="../Graphics/Oxy12/head-1.png"/></item>
+          <item>Ce sonnet est bicéphale : coupez en deux parties le <gi>head</gi> existant.. La
+            première partie est le titre. La seconde partie est le mot sonnet. Chacune de ces deux
+            parties devrait-être balisée avec un <gi>head</gi> au début et à la fin, en vous plaçant
+            avant ou après le mot <q>Sonnet</q> et en vous servant de CTRL-ALT-D ou d'une autre manière
+            comme lors du premier exercice.</item>
+        </list>
+      </div>
+
+      <div>
+        <head>Balisage du poème</head>
+        <p>Enfin, il faut travailler un peu sur l'étiquetage du poème lui-même. Notre but serait de
+          baliser chaque vers, se servant de la balise TEI <gi>l</gi> (<q>line</q>) et en amont de
+          baliser chaque ensemble de vers constituant une strophe avec la balise TEI <gi>lg</gi>. </p>
+        <p>Bien sur, il y a plusieurs manières de faire. On va vous décrire une méthode assez
+          rapide, mais si vous préfériez une autre démarche, on n'insiste pas ! <list>
+            <item>Sélectionnez avec la souris tout le texte du poème, jusqu'à la citation d'Horace
+                <q>caelo musa beat</q>. </item>
+            <item>Entourez toute le poème d'une balise <gi>l</gi>. </item>
+            <item>Entourez la citation d'Horace d'une balise <gi>quote</gi></item>
+            <item>Le petit carré vert apparaît ! Avons-nous terminé ? Hélas non : un document peut
+              être valide, tout en contenant des mensonges ! Voyez-vous des mensonges ? Cliquez sur
+              le bouton Indentation (ou tapez CTRL-SHIFT-P). </item>
+          </list>
+          <graphic height="3cm" url="ambitieux-2.png"/></p>
+        <p>Parce qu'elles ne sont pas explicités par le balisage, la distinction entre chaque vers
+          et entre chaque strophe ne sont plus affichées. Il fait donc les baliser. (Si vous ne
+          voyez pas bien où indiquer ces séparations, vous pouvez ré-établir l'affichage originel en
+          tapant CTRL-Z) </p>
+        <list>
+          <item>Mettez le curseur au début de chaque vers, et distinguez-le du précédent, en vous
+            servant du bouton <ident>division</ident> ou en tapant ALT-SHIFT-D </item>
+          <item>Si cela vous semble plus rapide, vous pouvez aussi <q>tricher</q> : copiez la
+            séquence <code>&lt;/l>&lt;l></code>, et collez-la au commencement de chaque vers.</item>
+          <item>Quand vous aurez fini, cliquez encore sur le bouton Indentation. Ou sont les
+            strophes ?</item>
+          <item>Entourez tous les vers (tous les <gi>l</gi>) avec une balise <gi>lg</gi>.</item>
+          <item>Divisez cette strophe unique en quatre strophes distinctes. Attention : il faut
+            effectuer cette distinction au bon endroit — entre la fin d’un vers et le début du
+            suivant, (i.e. après une balise fermante et avant une balise ouvrante). </item>
+        </list>
+      </div>
+
+      <div>
+        <head>Affichage du texte balisé</head>
+        <p>Est-ce que la disparition graduelle de notre beau sonnet au dessus d'un nuage de balises
+          commence à vous inquiéter un peu ? Cela nous permet au moins de visualiser la structure
+          émergeante du sonnet -- regardez par exemple dans la fenêtre <q>Sommaire</q> à gauche
+          :</p>
+        <p><graphic height="4cm" url="../Graphics/Oxy12/sommaire-1.png"/></p>
+
+        <p>Pour contrôler l'affichage d'un text balisé, il faut préciser comment nous désirons
+          visualiser chaque balise. Ces précisions se font avec ce qu'on appelle une <term>feuille
+            de style</term>.</p>
+        <list>
+          <item>Sélectionnez <ident>XML Document</ident> et ensuite <ident>Associer une feuille de
+              style</ident> à partir du menu <ident>Document</ident>. </item>
+          <item>Naviguez jusqu'au fichier <ident>duBellay.css</ident> dans le dossier
+              <ident>Travaux</ident> qui devrait se trouver sur votre Bureau, et associez-le (ce
+            fichier est aussi disponible à l'URL <ref
+              target="http://tei.oucs.ox.ac.uk/Oxford/2011-02-aix/Travaux/duBellay.css">sur le
+              web</ref> ).</item>
+          <item>Notez qu'une ligne contenant un "processing instruction" est ajouté au début de
+            votre document.</item>
+          <item>Contrôlez l'effet sur l'affichage de votre document au mode Auteur.</item>
+        </list>
+        <p>On peut changer cet affichage. Ouvrez le fichier <ident>duBellay.css</ident> avec Oxygen
+          et modifiez-le, si cela vous intéresse. Mais il y a des limites : <list>
+            <item>CSS n'est pas un langage XML, et ne permet que de modifier l'affichage du contenu
+              d'un document XML.</item>
+            <item>On peut changer la taille de police, l'étendu des marges, les couleurs etc.</item>
+            <item>Changez la couleur du titre de <code>red</code> en <code>purple.</code></item>
+          </list>
+        </p>
+
+        <p>Des transformations beaucoup plus intéressantes sont possibles avec un autre langage de
+          feuille de style : le XSLT. On verra cela prochainement...</p>
+
+      </div>
+    </body>
+  </text>
+</TEI>
