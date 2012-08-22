@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Exercise 9: Customise the TEI with Roma</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative Commons
+                        Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            
+            <div>
+                <head>Exercise 9: Customise the TEI with Roma</head>
+            <!-- Learning Outcomes -->
+           
+            <div>
+                <head>Learning Outcomes</head>
+                <p>When you successfully complete this exercise you should be able to: <list
+                        type="bulleted">
+                        <item>Analyse the TEI elements, attributes and values you need for your TEI
+                            XML document </item>
+                        <item>Tailor a TEI schema to your TEI XML file in Roma </item>
+                        <item>Use a different schema in oXygen</item>
+                        <item>Generate human-readable specifications of your TEI schema in Roma </item>
+                        <item>Set the value of existing attributes</item>
+                        <item>Be aware of the underlying TEI ODD XML format</item>
+                    </list>
+                </p>
+            </div>
+            <!-- Summary -->
+            <div>
+                <head>Summary</head>
+                <p>In this exercise we will customise the TEI to remove those elements we do not
+                    think we'll use. In order to customise a TEI schema you need to know which
+                    elements you want to use, and which you don't, which sometimes involves a
+                    lengthy document analysis process. In our case we'll shortcut that by telling
+                    you what to include or not include. You will learn to create a new schema, and
+                    download and use it in oXygen. You'll learn how to constrain the acceptable
+                    values for an attribute, and require its presence. You'll have a look at the
+                    underlying TEI ODD XML format which enables this customisation.</p>
+            </div>
+            <div>
+                <head>Starting Up</head>
+                <p>Load up the file 'spoilers/ex06.xml' in oXygen and save it under a new name. Open
+                    up a web browser and go to <ref target="http://www.tei-c.org/Roma/"
+                        >http://www.tei-c.org/Roma/</ref>. (There is also a development version of
+                    this at <ref target="http://tei.oucs.ox.ac.uk/Roma/"
+                        >http://tei.oucs.ox.ac.uk/Roma/</ref>.)</p>
+            </div>
+            <div>
+                <head>Your Current Schema</head>
+                <p>oXygen already knows about the TEI, it comes bundled with an open source TEI
+                    Framework (oxygen-tei) that helps it understand how TEI files are meant to work. <list>
+                        <item>In oXygen with 'spoilers/ex06.xml' (or whatever you saved it as)
+                            loaded, move the cursor to just inside a paragraph after the opening
+                                <gi>p</gi>.</item>
+                        <item>If you type a '&lt;' at this point, as you know, oXygen will give you
+                            a dropdown list of all the elements allowed inside a <gi>p</gi>. </item>
+                        <item>Scroll down the list of elements, referring to the pop-up tooltip if
+                            you want to know what the elements are for. Notice such elements as
+                                <gi>address</gi>, <gi>camera</gi>, <gi>incident</gi>,
+                                <gi>metamark</gi>, and <gi>notatedMusic</gi>.</item>
+                        <item>Hit escape to leave the dropdown menu and delete the '&lt;' that you
+                            had added.</item>
+                        <item>You certainly have a lot of choices for elements you can add here! But
+                            in any project it is unlikely that you are going to want all those
+                            choices. Also, increased choice of what elements to add can lead to
+                            greater human error and inconsistency, and we don't want that!</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Roma: Starting a New Schema</head>
+                <p>Roma enables you to customise the TEI schema and remove those bits you are not
+                    going to use. <list>
+                        <item>Go to <ref target="http://www.tei-c.org/Roma/"
+                                >http://www.tei-c.org/Roma/</ref> in your browser and note that you
+                            are given four options from which to start: <list type="ordered">
+                                <item><hi>Build up:</hi> this allows you to create a new
+                                    customisation by <emph>adding</emph> elements and modules to the
+                                    smallest recommended schema </item>
+                                <item><hi>Reduce:</hi> this allows you to create a new customisation
+                                    by <emph>removing</emph> elements and modules from the full
+                                    tei_all (largest) schema</item>
+                                <item><hi>Template:</hi> this allows you to create a customisation
+                                    from a template provided by the TEI as a starting point</item>
+                                <item><hi>Open:</hi> this allows you to open an existing
+                                    customisation that you have saved previously. </item>
+                            </list>
+                        </item>
+                        <item>In our case, let's start by choosing 'reduce', and clicking 'start'. </item>
+                        <item>Set your parameters, change the following things: <list>
+                                <item><hi>Title:</hi> 'TEI with maximal setup' is kind of boring,
+                                    why not call it something like 'My special TEI customisation'. </item>
+                                <item><hi>Filename:</hi> change 'tei_all' for something like 'myTEI'
+                                    (don't include spaces). </item>
+                                <item><hi>Author name:</hi> You aren't Sebastian! Change this to
+                                    your name! </item>
+                                <item>You can leave the description as it is for now.</item>
+                            </list>
+                        </item>
+                        <item>Click 'Save' at the bottom of the page. Notice how the box in the
+                            upper right tells you which customisation you are working on.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Adding and Deleting Modules</head>
+                <p>Modules are groupings of TEI elements for structural or semantic reasons. For
+                    example there is a 'dictionary' module which contains most of the elements
+                    needed for writing dictionaries. If you aren't writing a dictionary, you
+                    probably don't need that module. Below is a list of all the TEI modules:</p>
+                <table rend="rules">
+                    <head>List of TEI Modules</head>
+                    <row>
+                        <cell>analysis </cell>
+                        <cell>Simple analytic mechanisms</cell>
+                    </row>
+                    <row>
+                        <cell>certainty </cell>
+                        <cell>Certainty and uncertainty</cell>
+                    </row>
+                    <row>
+                        <cell>core </cell>
+                        <cell>Elements common to all TEI documents</cell>
+                    </row>
+                    <row>
+                        <cell>corpus </cell>
+                        <cell>Corpus texts</cell>
+                    </row>
+                    <row>
+                        <cell>dictionaries </cell>
+                        <cell>Dictionaries</cell>
+                    </row>
+                    <row>
+                        <cell>drama </cell>
+                        <cell>Performance texts</cell>
+                    </row>
+                    <row>
+                        <cell>figures </cell>
+                        <cell>Tables, formulæ, notated music, and figures</cell>
+                    </row>
+                    <row>
+                        <cell>gaiji </cell>
+                        <cell>Character and glyph documentation</cell>
+                    </row>
+                    <row>
+                        <cell>header </cell>
+                        <cell>The TEI Header</cell>
+                    </row>
+                    <row>
+                        <cell>iso-fs </cell>
+                        <cell>Feature structures</cell>
+                    </row>
+                    <row>
+                        <cell>linking </cell>
+                        <cell>Linking, segmentation and alignment</cell>
+                    </row>
+                    <row>
+                        <cell>msdescription </cell>
+                        <cell>Manuscript Description</cell>
+                    </row>
+                    <row>
+                        <cell>namesdates </cell>
+                        <cell>Names and dates</cell>
+                    </row>
+                    <row>
+                        <cell>nets </cell>
+                        <cell>Graphs, networks, and trees</cell>
+                    </row>
+                    <row>
+                        <cell>spoken </cell>
+                        <cell>Transcribed Speech</cell>
+                    </row>
+                    <row>
+                        <cell>tagdocs </cell>
+                        <cell>Documentation of TEI modules</cell>
+                    </row>
+                    <row>
+                        <cell>textcrit </cell>
+                        <cell>Critical Apparatus</cell>
+                    </row>
+                    <row>
+                        <cell>textstructure </cell>
+                        <cell>Default text structure</cell>
+                    </row>
+                    <row>
+                        <cell>transcr </cell>
+                        <cell>Transcription of primary sources</cell>
+                    </row>
+                    <row>
+                        <cell>verse </cell>
+                        <cell>Verse structures</cell>
+                    </row>
+                </table>
+                <p>
+                    <list>
+                        <item>Click on the 'Modules' tab to go to the page that allows you to
+                            add/delete modules from your schema.</item>
+                        <item>Notice that because we've started with a 'maximal' schema, the list of
+                            selected modules on the right is completely the same as the list of TEI
+                            modules on the left.</item>
+                        <item>Click 'remove' next to 'analysis' on the right-hand side. Note that it
+                            vanishes from this list, but remains on the left-hand side where you
+                            could add it back if you wanted it.</item>
+                        <item>Remove 'analysis', 'certainty', 'corpus', 'dictionaries', 'drama',
+                            'figures', 'gaiji', 'iso-fs', 'linking', 'nets', 'spoken', 'textcrit',
+                            'verse', and 'tagdocs'! </item>
+                        <item>Well! With removing that many maybe we should have started by building
+                            up instead of reducing down? You should be left with: 'tei' (you can't
+                            remove this one in Roma), 'core', 'header', 'msdescription',
+                            'namesdates', 'textstructure', and 'transcr'. Why do you think we have
+                            left these modules? </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Including or Excluding Elements</head>
+                <p>We have shrunk down the TEI to just a few modules, but those modules contain
+                    elements that we don't want. <list>
+                        <item>Click on 'core' (note: not 'remove' but the word 'core') on the
+                            right-hand side. This should take you to a page listing all of the
+                            elements in the 'core' module. </item>
+                        <item>Each row of this table has: <list>
+                                <item>the element</item>
+                                <item>whether it is Included or Excluded</item>
+                                <item>the name being used for the element</item>
+                                <item>a question mark linking to the reference page for this
+                                    element</item>
+                                <item>a description of the element</item>
+                                <item>a link to change its attributes</item>
+                            </list>
+                        </item>
+                        <item>It is possible to Include or Exclude all the elements by clicking this
+                            word in the table header. </item>
+                        <item>From 'core' exclude the following elements: 'addrLine', 'address',
+                            'analytic', 'biblStruct', 'binaryObject', 'distinct', 'divGen', 'gb',
+                            'headItem', 'headLabel', 'imprint', 'index', 'listBibl', 'measure',
+                            'measureGrp', 'meeting', 'mentioned', 'monogr', 'postBox', 'postCode',
+                            'relatedItem', 'rs', 'said', 'series', 'sp', 'speaker', 'stage',
+                            'street', 'teiCorpus', 'term', 'textLang', and 'time'. </item>
+                        <item>Wow! That's a lot less elements in your TEI schema. <hi>Remember to
+                                click 'Save' at the bottom of the page!</hi></item>
+                        <item>We could go through to each of the other modules removing elements
+                            from there, but you get the idea. In a real life situation you would
+                            work through carefully <emph>only</emph> including elements that you
+                            really needed. The tighter your schema, the more consistent your data!
+                        </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Saving Your Schema</head>
+                <p>
+                    <list>
+                        <item>If you click on the 'Schema' tab you will see a drop down menu listing
+                            various schema formats to generate. The TEI uses a meta-schema format of
+                            its own called ODD which allows it to generate these different formats. </item>
+                        <item>Generate a schema either in Relax NG Compact Syntax, or Relax NG XML
+                            Syntax. These really are the best choice. </item>
+                        <item>When you click 'generate' your browser should automatically download the
+                            schema file. Find wherever it has saved it, and move it (not copy,
+                            move) it to the place you have saved the 'ex06.xml' (or whatever you
+                            saved it as) file. They should be in the same directory.</item>
+                        <item rend="bold">Do not close down your browser window or you'll have to do
+                            that all again.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Associating Your Schema in oXygen</head>
+                <p>oXygen has been using the tei_all schema by default because it recognises (from
+                    the TEI element in the TEI namespace) what kind of files we have been creating. <list>
+                        <item>Go to oXygen and the file you have previously loaded ('ex06.xml' or
+                            whatever you saved it as).</item>
+                        <item>With this file open go to the 'Document' -> 'Schema' menu and note the
+                            icon next to 'Associate Schema'. This icon should also be on your oXygen
+                            toolbar. Click either the icon, or 'Associate Schema'. </item>
+                        <item>Click on the little folder icon next to 'URL' in order to 'Browse for
+                            local file'. Find the schema file you saved earlier, select it, and then
+                            click 'OK' when back in the oXygen dialog box.</item>
+                        <item>When you click 'Ok' then oXygen should add a line that looks something
+                            lke this:
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+&lt;?xml-model href="myTEI.rng" type="application/xml" 
+schematypens="http://relaxng.org/ns/structure/1.0"?></egXML>
+                            at the top of your file. </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Trying It Out</head>
+                <p>Remember those elements like 'address' and 'camera' that you could add within a
+                    paragraph? <list>
+                        <item>Go to somewhere just after a <gi>p</gi> opening tag, and insert an
+                            '&lt;' to get a dropdown list from oXygen.</item>
+                        <item>Are any of the elements you excluded available? No? Good! If they are,
+                            then chances are you didn't click 'Save' after Including/Excluding them,
+                            go back and do it again!</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Constraining the <att>type</att> Attribute on <gi>div</gi></head>
+                <p>Removing elements is all well and good and is the first step in customising your
+                    schema, but we want to do more. Let's customise the <att>type</att> attribute on
+                        <gi>div</gi> to only allow certain values. <list>
+                        <item>Go back to Roma in your browser (hopefully you didn't shut it and lose
+                            all your work?)</item>
+                        <item>Click on the 'Modules' tab.</item>
+                        <item>Click on the 'textstructure' module name. </item>
+                        <item> On the row containing 'div' click on 'Change Attributes' on the far
+                            right-hand side. </item>
+                        <item>This should take you to a page listing all the possible attributes on
+                                <gi>div</gi>. This is also where you would include/exclude use of
+                            those attributes if we wanted to change that. </item>
+                        <item>Scroll down to 'type' and click on it. This should take you to a page
+                            allowing you to set various options for the <att>type</att> attribute.
+                            Set them as follows: <list>
+                                <item><hi>Is it optional?</hi> This allows us to control whether the
+                                    attribute is <emph>required</emph> or not. Let's make our
+                                        <att>type</att> attribute required, so click 'no' it is not
+                                    optional.</item>
+                                <item><hi>Contents</hi> This would allow us to change what type of
+                                    datatype is allowed and how many times it should appear. Let's
+                                    leave that just as it is as 'Text'. </item>
+                                <item><hi>Default value</hi> would allow us to set a default value
+                                    for the attribute if you didn't supply one. Let's force
+                                    ourselves to supply one and so leave this blank. </item>
+                                <item><hi>Closed list?</hi> enables us to say whether our list of
+                                    values is fixed, or merely a suggestion. Let's be rigorous and
+                                    say that it is a closed list. Answer yes! </item>
+                                <item><hi>List of values</hi> is where we give the values we want to
+                                    supply to the schema as valid values for the <att>type</att>
+                                    attribute on <gi>div</gi>. We give this as a comma-separated
+                                    list. So write in:
+                                        <code>prose,verse,drama,chapter,somethingElse</code>.
+                                </item>
+                                <item><hi>Description</hi> allows us to change the description of
+                                    this attribute. Add the phrase 'Our modified type attribute ' to
+                                    the start of the description. </item>
+                            </list>
+                        </item>
+                        <item rend="bold">Click 'Save' at the bottom of the page. </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Trying It Out Again</head>
+                <p>Let's go try out the changes we made. You know how to do this now: <list>
+                        <item>Click on the 'Schema' tab.</item>
+                        <item>Choose one of the Relax NG formats from the dropdown list. </item>
+                        <item>Click 'Generate' </item>
+                        <item>Find where the file has downloaded it and copy it over the previous
+                            version you had there. </item>
+                        <item rend="bold">Do not close down your browser!</item>
+                        <item>Go back to oXygen, and the 'ex06.xml' (or whatever you renamed it as)
+                            file, and go to the 'Document' -> 'Validate' -> 'Reset Cache and
+                            Validate' menu item. </item>
+                        <item>You document should validate fine and you should have a happy green
+                            square. </item>
+                        <item>Go to the first <gi>div</gi> tag in the document that looks like
+                                <code>&lt;div type="prose"&gt;</code> and change it to be just
+                                <code>&lt;div&gt;</code>. </item>
+                        <item>Your document should not be valid. You should have an angry red
+                            square. If it is still valid 'Reset Cache and Validate' again, and
+                            ensure that it is pointing to the correct schema. The error message it
+                            should be providing is that that <code>element 'div' missing required
+                                attribute 'type'</code> or something similar. </item>
+                        <item>Put your cursor immediately after the 'v' in <gi>div</gi> and press
+                            space. oXygen should provide a dropdown list of attributes available on
+                                <gi>div</gi>. Scroll down until you find <att>type</att> and note
+                            that it is in bold. This is because we made it required. </item>
+                        <item>Select <att>type</att> and notice that oXygen gives you another
+                            dropdown list of the possible values. This is because we provided the
+                            values and said that this was a closed value list. </item>
+                        <item>Choose one of the values, perhaps 'prose'. Your document should again
+                            be valid and have a happy green square. </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Saving Your Customisation</head>
+                <p>This is great, but what if you want to save your customisation, and come back
+                    later to do more work? <list>
+                        <item>Go back to your web browser and click on the 'Save Customization' tab. </item>
+                        <item>Your browser should automatically start downloading an XML file. Move
+                            it to somewhere convenient, for example where you put the schema.</item>
+                        <item rend="bold">Do not shut your web browser yet!</item>
+                        <item>This is the file that you could upload when going to the 'New' tab on
+                            Roma (the very first page with the four choices), if you had selected
+                            'Open existing customization'. (Don't do this now though!)</item>
+                        <item>Open this XML file in oXygen. It might not be formatted or indented
+                            properly. If not go to the 'Document' -> 'Source' -> 'Format and Indent'
+                            menu, or click the Format and Indent icon on the toolbar, or press
+                            'control-shift-p'.</item>
+                        <item>Read through the file to get a sense of how it relates to your
+                            customisation. Note how <gi>moduleRef</gi> includes those modules you
+                            have asked for, and how the 'core' module is included except for the
+                            list of attributes you excluded. </item>
+                        <item>Look at the <gi>elementSpec</gi> for <gi>div</gi> and see how we've
+                            changed it. </item>
+                        <item>Note that this file is a TEI file just like the ones you've been
+                            editing, it just uses special elements from the 'tagdocs' module.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Generating Reference Documentation</head>
+                <p>Roma does not only generate schemas, but also customised reference documentation. <list>
+                        <item>If you return to your web browser and click on the 'Documentation'
+                            tab.</item>
+                        <item> Choose HTML web page from the dropdown menu and click 'Generate'. </item>
+                        <item>If your browser has downloaded the file, instead of opening it, open
+                            the saved file with your web browser.</item>
+                        <item>You should get a web page starting with a table of contents listing
+                            the elements. Scroll down and click on <gi>div</gi>. </item>
+                        <item>Notice that this has the <att>type</att> attribute as required, and
+                            lists the legal values. Notice, however, that the example has not
+                            changed and it says <code>type="poetry"</code> in that.</item>
+                        <item>Try generating some PDF documentation as well. Which do you
+                            prefer?</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>More About Roma</head>
+                <p>Roma the web front-end is a bit of a dated interface to a command line script and
+                    the OxGarage web service. When you generated the documentation this used
+                    OxGarage and you didn't even notice!</p>
+                <p>Some people write their TEI ODD customisation files entirely in XML and do not
+                    use the Roma web interface at all. There are a number of things that the Roma
+                    web interface can't do which the TEI ODD language underneath is capable of.
+                    Notice, for example, that you weren't able to provide descriptions of each of
+                    the attribute values you entered for <att>type</att>? You can do that in the
+                    underlying XML. Some people do a combination of both Roma and hand editing.</p>
+                <p>There is also a 'Sanity Checker' tab... click that and find out what happens! (It
+                    might warn about the element <gi>term</gi> being used in <gi>keywords</gi> but
+                    not being defined. That is fine!)</p>
+            </div>
+            <!-- Self-Assessment -->
+            <div>
+                <head>Self-Assessment</head>
+                <p>Check if you understand some of the core principles of this exercise by answering
+                    the following questions: <list>
+                        <item>What is Roma?</item>
+                        <item>How do you add and remove TEI modules using Roma?</item>
+                        <item>How do you include/exclude individual elements using Roma? </item>
+                        <item>How can you change attributes using Roma? </item>
+                        <item>Is it possible to save your customisation in Roma? </item>
+                        <item>What kinds of documentation can you generate in Roma? </item>
+                        <item>What kinds of schemas can you generate in Roma? </item>
+                        <item>What does an underlying TEI ODD customisation file look like? Is it a
+                            TEI file like the ones you've been working with?</item>
+                    </list>
+                </p>
+            </div>
+            <!-- Next  -->
+            <div>
+                <head>Next and More Reading</head>
+                <p>Next we'll move on to some of the other tools and utilities offered by the TEI
+                    Consortium. But first consider reading more about TEI ODD at: <list>
+                        <item><ref
+                                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM"
+                                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM</ref>.</item>
+                        <item>and also the Documentation Elements chapter at <ref
+                                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html"
+                                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html</ref>.</item>
+                        <item>See also, <ref target="http://tbe.kantl.be/TBE/modules/TBED08v00.htm"
+                                >http://tbe.kantl.be/TBE/modules/TBED08v00.htm</ref>.</item>
+                    </list>
+                </p>
+            </div>
+            </div>
+        </body>
+    </text>
+</TEI>

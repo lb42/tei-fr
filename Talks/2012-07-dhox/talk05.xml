@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Talk 5: Manuscript Description</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <!-- 
+      Pasted in old msDesc 
+      
+      -->
+        <body>
+            <div rend="slide">
+                <head>Manuscript Description</head>
+                <p><hi>Why are manuscripts special?</hi></p>
+                <list>
+                    <item>Manuscripts are <emph>unique objects</emph>, sometimes of great
+                        cultural or political value.</item>
+                    <item>Books, by contrast, exist in multiple copies, and can be
+                        described adequately by well-established and formalised
+                        bibliographic conventions.</item>
+                    <item>For manuscripts, there are several traditions, often descriptive
+                        or <hi>belle lettriste</hi>, and little consensus.</item>
+                    <item>Manuscripts can be ancient or modern, and it benefits us to use
+                        the same forms of description for them.</item>
+                </list>
+                <p>Similar concerns apply to other text-bearing objects, and
+                        <gi>msDesc</gi> is often also used for incunabula. </p>
+
+            </div>
+
+            <div rend="slide">
+                <head>Objectives of <gi>msDesc</gi></head>
+                <p>The TEI <gi>msDesc</gi> element is intended for several different kinds
+                    of applications: <list>
+                        <item>standalone database of library records (<term>finding
+                                aid</term>)</item>
+                        <item>discursive text collecting many records (<term>catalogue
+                                raisonn&#x00E9;</term>)</item>
+                        <item>metadata component within a digital surrogate
+                                (<term>electronic edition</term>)</item>
+                        <item>tool for <soCalled>quantitative codicology</soCalled></item>
+                    </list></p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Catalogue Raisonn&#x00E9;</head>
+                <p>An <gi>msDesc</gi> can appear anywhere a <gi>p</gi> paragraph can</p>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <div>
+            <head>The Arnamagnæan Manuscript Collection</head>
+
+            <p>The Arnamagnæan Collection is widely recognised as one of the most significant collections of early Scandinavian manuscripts in the world…</p>
+            <p>Among its more important holdings are: <msDesc xml:id="AM02-0101" xml:lang="en"><!-- …--></msDesc></p>
+            <p>In the following manuscript…. <msDesc xml:id="AM04-0595" xml:lang="en"><!-- …--></msDesc>
+            </p>
+          </div>
+        </egXML>
+            </div>
+
+
+            <div rend="slide">
+                <head>Having one's cake and eating it</head>
+                <p>Two conflicting desires: <list>
+                        <item>preserve (or perpetuate) existing descriptive prose</item>
+                        <item>reliable search, retrieval, and analysis of data</item>
+                    </list>
+                </p>
+                <p>The <gi>msDesc</gi> tries, wherever possible, to do both of these
+                    things. </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Components of a manuscript description</head>
+                <p>Inside <gi>msDesc</gi> only <gi>msIdentifier</gi> is required. After
+                    this <gi>head</gi> is sometimes used for a brief summary. These are
+                    then followed either by one or more paragraphs (<gi>p</gi>), or one or
+                    more of the following specialised elements: <list>
+                        <item><gi>msContents</gi>: alist of the intellectual content of
+                            the manuscript </item>
+                        <item><gi>physDesc</gi>: groups information concerning all
+                            physical aspects of the manuscript</item>
+                        <item><gi>history</gi>: provides information on the history of the
+                            manuscript, its origin, provenance and acquisition by current
+                            holding institution </item>
+                    </list>
+                </p>
+            </div>
+            <div rend="slide">
+                <head>Components of a manuscript description (cont.)</head>
+                <p><list>
+                        <item><gi>additional</gi>: groups other information about the
+                            manuscript (e.g. administrative information relating to its
+                            availability, custodial history, surrogates) </item>
+                        <item><gi>msPart</gi>: contains in essence a nested
+                                <gi>msDesc</gi>, in cases of composite manuscripts now
+                            regarded as constituting a single unit but made up of two or
+                            more parts which were originally physically distinct. </item>
+                    </list>
+                </p>
+            </div>
+            <div rend="slide">
+                <head>Inside the top level</head>
+                <p>Within each of these elements a number of sub-elements is available;
+                        <gi>msContents</gi>, for example, will normally consist of one or
+                    more <gi>msItem</gi> elements, each in turn containing specific
+                    elements for <gi>rubric</gi>, <gi>incipit</gi>, <gi>explicit</gi> and
+                        <gi>colophon</gi>, as well as the standard TEI elements
+                        <gi>author</gi>, <gi>title</gi> and <gi>bibl</gi> for
+                    bibliographic references. As with <gi>msDescription</gi> itself,
+                    however, the contents of these first-level and second-level elements
+                    need not be this structured, since there is also the option of just
+                    using paragraphs (<gi>p</gi>). </p>
+            </div>
+
+            <div rend="slide">
+                <head>Identification (1)</head>
+                <p>The <gi>msIdentifier</gi></p>
+                <p>Traditional three part specification: <list>
+                        <item>place (<gi>country</gi>, <gi>region</gi>,
+                                <gi>settlement</gi>)</item>
+                        <item>repository (<gi>institution</gi>,
+                            <gi>repository</gi>)</item>
+                        <item>identifier (<gi>collection</gi>, <gi>idno</gi>) </item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<msIdentifier>
+    <country>United States of America</country>
+    <region>Texas</region>
+    <settlement>Austin</settlement>
+    <institution> The University of Texas at Austin </institution>
+    <repository>Harry Ransom Centre</repository>
+    <collection>Wilfred Owen Collected Letters</collection>
+    <idno type="folio">ff504</idno>
+    <altIdentifier>
+        <idno>Letter no. 535 Ed. 'Wilfred Owen Collected Letters'</idno>
+    </altIdentifier>
+    <msName>Letter to Leslie Gunston</msName>
+</msIdentifier>
+    
+</egXML>
+                    <!--<egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <msIdentifier>
+                <country>Canada</country>
+                <settlement>Ottawa</settlement>
+                <repository>Library and Archives Canada</repository>
+                <collection>E.W.B. Morrison</collection>
+                <idno>MG 30 E 81 v. 16</idno>
+              </msIdentifier>
+            </egXML>-->
+                    <!--   <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <msIdentifier>
+              <country>France</country>
+              <settlement>Troyes</settlement>
+              <repository>Bibliothèque Municipale</repository>
+              <idno>50</idno>
+            </msIdentifier>
+          </egXML>-->
+                </p>
+            </div>
+
+            <div rend="slide">
+                <head>Identification (2)</head>
+                <p>Alternative or additional names can also be included:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<msIdentifier>
+  <country>Danmark</country>
+  <settlement>København</settlement>
+  <repository> Det ArnamagnæanskeInstitut </repository>
+  <idno>AM 45 fol.</idno>
+  <msName xml:lang="la">Codex Frisianus</msName>
+  <msName xml:lang="is">Fríssbók</msName>
+</msIdentifier>
+</egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Intellectual Content</head>
+                <p>May simply use paragraphs of text or a set of <gi>msItem</gi> elements,
+                    optionally preceded by a prose summary.
+                    Unstructured:<egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <msContents>
+              <p>An extraordinary charivari of heroic deeds and improving tales,
+                including an early version of <title>Guy of Warwick</title> and
+                several hymns.</p>
+            </msContents>
+          </egXML>or
+                    structured:
+                    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <msContents>
+              <summary>An extraordinary charivari of heroic deeds, improving
+                tales, and hymns.</summary>
+              <msItem>
+                <!-- details of Guy of Warwick here -->
+              </msItem>
+              <msItem>
+                <!-- other msItems for hymns here -->
+              </msItem>
+            </msContents>
+          </egXML>
+                </p>
+            </div>
+
+            <div rend="slide">
+                <head>The <gi>msItem</gi> element</head>
+                <p>Manuscripts contain identifiable items, usually physically tied to a
+                        <term>locus</term>. <list>
+                        <item><gi>locus</gi>, if present, must be given first</item>
+                        <item>then any of the following, in a specified order: <list>
+                                <item><gi>author</gi>, <gi>respStmt</gi></item>
+
+                                <item><gi>title</gi>, <gi>rubric</gi>, <gi>incipit</gi>,
+                                        <gi>explicit</gi>, <gi>colophon</gi>,
+                                        <gi>finalRubric</gi>
+                                </item>
+                                <item><gi>quote</gi>, <gi>textLang</gi>,
+                                    <gi>decoNote</gi>, <gi>bibl</gi>, <gi>listBibl</gi>,
+                                        <gi>note</gi> …</item>
+                                <item>… or indeed nested <gi>msItem</gi>s</item>
+                            </list></item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head><gi>msContents</gi> with multiple <gi>msItem</gi>s </head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <msContents>
+                <!-- first item -->
+              <msItem n="1">
+                <locus from="5r" to="7v">fols. 5r-7v</locus>
+                <title type="supplied">An ABC</title>
+              </msItem>
+                <!-- second item -->
+              <msItem n="2">
+                <locus from="7v" to="8v">fols. 7v-8v</locus>
+                <title type="uniform" xml:lang="fr">L'envoy de Chaucer a Scogan</title>
+              </msItem>
+              <!-- …further items here… -->
+              <msItem n="6">
+                <locus from="14r" to="126v">fols. 14r-126v</locus>
+                <title type="uniform">Troilus and Criseyde</title>
+                <note>Bk. 1:71-Bk. 5:1701, with additional losses due to mutilation throughout</note>
+              </msItem>
+            </msContents>
+          </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Physical Description</head>
+                <p>An artificial (but helpful) grouping of many distinct items.</p>
+                <p>You can simply supply paragraphs of prose, covering such topics as <list>
+                        <item><gi>objectDesc</gi>: the physical carrier</item>
+                        <item><gi>handDesc</gi>: what is carried on it</item>
+                        <item><gi>musicNotation</gi>, <gi>decoDesc</gi>,
+                                <gi>additions</gi>
+                        </item>
+                        <item><gi>bindingDesc</gi> and <gi>sealDesc</gi></item>
+                        <item><gi>accMat</gi>: accompanying material </item>
+                    </list> Or, group your discussion within the specific elements
+                    mentioned above.</p>
+                <p>Similarly, within the specific elements, you can supply paragraphs of
+                    prose, or further specific elements.</p>
+            </div>
+
+            <div>
+                <head>The carrier 1 </head>
+                <p>The <gi>objectDesc</gi> can contain just paragraphs, or
+                        <gi>supportDesc</gi> and <gi>layoutDesc</gi>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <objectDesc form="codex">
+              <supportDesc material="mixed">
+                <p>Early modern <material>parchment</material> and
+                    <material>paper</material>.</p>
+              </supportDesc>
+              <layoutDesc>
+                <layout columns="1" ruledLines="25 32"/>
+              </layoutDesc>
+            </objectDesc>
+          </egXML></p>
+            </div>
+
+            <div>
+                <head>The carrier 2</head>
+                <p>A more complex substructure with specific elements for
+                    <gi>support</gi>, <gi>extent</gi>, <gi>foliation</gi>,
+                        <gi>collation</gi>, <gi>condition</gi>.</p>
+                <p>Multiple layouts may also be specified:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <layoutDesc>
+              <layout ruledLines="25" columns="1">
+                <p><locus from="1r" to="202v"/>
+                  <locus from="210r" to="212v"/> Between 25 and 32 ruled
+                  lines.</p>
+              </layout>
+              <layout ruledLines="34 50" columns="1">
+                <p><locus from="203r" to="209v"/>Between 34 and 50 ruled
+                  lines.</p>
+              </layout>
+            </layoutDesc>
+          </egXML></p>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> and <gi>decoDesc</gi></head>
+                <list>
+                    <item>
+                        <gi>handNote</gi> (note on hand) describes a particular style or
+                        hand distinguished within a manuscript. </item>
+                    <item><gi>decoNote</gi> contains a note describing either a decorative
+                        component of a manuscript or a fairly homogenous class of such
+                        components.</item>
+                </list>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> example (1)</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <handDesc hands="2">
+              <p>The manuscript is written in two contemporary hands, otherwise unknown, but clearly those of practised scribes. Hand 1 writes ff.1r-22v and hand 2 ff. 23 and 24. Some scholars, notably Verner Dahlerup and Hreinn Benediktsson, have argued for a third hand on f. 24, but the evidence for this is insubstantial.</p>
+            </handDesc>
+          </egXML>
+                </p>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> example (2)</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <handDesc hands="2">
+              <handNote xml:id="Eirsp-1" scope="minor" script="other">
+                <p>The first part of the manuscript, <locus from="1v" to="72v:4">fols 1v-72v:4</locus>, is written in a practised Icelandic Gothic bookhand. This hand is not found elsewhere.</p>
+              </handNote>
+              <handNote xml:id="Eirsp-2" scope="major" script="other">
+                <p>The second part of the manuscript, <locus from="72v:4" to="194v">fols 72v:4-194</locus>, is written in a hand contemporary with the first; it can also be found in a fragment of <title>Knýtlinga saga</title>, <ref>AM 20b II fol.</ref>.</p>
+              </handNote>
+            </handDesc>
+          </egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Another <gi>physDesc</gi> example</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<physDesc>
+    <objectDesc form="folio">
+        <supportDesc material="paper">
+            <support>A single folio of <material>paper</material> in the collection as ff504 recto and verso</support>
+        </supportDesc>
+        <layoutDesc>
+            <layout columns="1" writtenLines="20">Written full width as a single column, with approximately 20 lines per page</layout>
+        </layoutDesc>
+    </objectDesc>
+    <handDesc hands="1">
+        <handNote>Written in <persName ref="#WO">Wilfred Owen's</persName> hand.</handNote>
+    </handDesc>
+</physDesc>                       
+</egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>
+                    <gi>additions</gi>
+                </head>
+                <p> The <gi>additions</gi> element can be used to list or describe any
+                    additions to the manuscript, such as marginalia, scribblings, doodles,
+                    etc., which are considered to be of interest or importance. </p>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<additions>
+  <p>The text of this manuscript is not interpolated with sentences from Royal decrees promulgated in 1294, 1305 and 1314. In the margins, however, another somewhat later scribe has added the relevant paragraphs of these decrees, see pp. 8, 24, 44, 47 etc.</p>
+  <p>As a humorous gesture the scribe in one opening of the manuscript, pp. 36 and 37, has prolonged the lower stems of one letter f and five letters þ and has them drizzle down the margin.</p>
+</additions>
+          </egXML>
+                </p>
+            </div>
+
+            <div>
+                <head>
+                    <gi>accMat</gi>
+                </head>
+                <p>
+                    <gi>accMat</gi> (accompanying material) contains details of any
+                    significant additional material which may be closely associated with
+                    the manuscript being described, such as non-contemporaneous documents
+                    or fragments bound in with the manuscript at some earlier historical
+                    period.</p>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <accMat> A copy of a tax form from 1947 is included in the envelope with the letter. It is not catalogued separately. </accMat>
+          </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>
+                    <gi>history</gi>
+                </head>
+                <list>
+                    <item><gi>origin</gi>: where it all began </item>
+                    <item><gi>provenance</gi>: everything in between</item>
+
+                    <item><gi>acquisition</gi>: how you acquired it</item>
+                </list>
+                <p><gi>origin</gi> is <term>datable</term> element and thus has attributes
+                        <att>notBefore</att> and <att>notAfter</att>, <att>when</att> etc.
+                </p>
+            </div>
+
+            <div>
+                <head><gi>history</gi> Example</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <history>
+              <origin>
+                <p>Written in <origPlace>England</origPlace> in the <origDate notAfter="1300" notBefore="1200">13th cent. </origDate></p>
+              </origin>
+              <provenance>
+                <p>On fol. 54v very faint is <q>Iste liber est fratris guillelmi de buria de <gap reason="illegible"/> Roberti ordinis fratrum Pred<ex>icatorum</ex></q>, 14th cent. (?): <q>hanauilla</q> is written at the foot of the page (15th cent.).</p>
+              </provenance>
+              <acquisition>
+                <p>Bought from the Rev. <name type="person">W. D. Macray</name> on <date when="1863-03-17">March 17, 1863</date>, for 1 pound 10s.</p>
+              </acquisition>
+            </history>
+          </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head><gi>additional</gi> information</head>
+                <list>
+                    <item><gi>adminInfo</gi> : administrative information</item>
+                    <item><gi>surrogates</gi> : information about other surrogates, i.e.
+                        photographs, digital images etc.</item>
+                    <item><gi>accMat</gi> : accompanying material </item>
+                    <item><gi>listBibl</gi> : bibliography</item>
+                </list>
+            </div>
+
+            <div rend="slide">
+                <head>Administrative information</head>
+                <list>
+                    <item>record history</item>
+                    <item>availability</item>
+                    <item>custodial history</item>
+                    <item>miscellaneous remarks</item>
+                </list>
+                <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <adminInfo>
+            <custodialHist>
+              <custEvent type="conservation" notBefore="1961-03" notAfter="1963-02">
+                <p>Conserved between March 1961 and February 1963 at Birgitte Dalls Konserveringsv&#xE6;rksted.</p>
+              </custEvent>
+              <custEvent type="photography" notBefore="1988-05-01" notAfter="1988-05-30">
+                <p>Photographed in May 1988 by AMI/FA.</p>
+              </custEvent>
+            </custodialHist>
+          </adminInfo>
+        </egXML>
+            </div>
+
+            <div rend="slide">
+                <head>And finally</head>
+                <p>A <gi>msDesc</gi> can contain <gi>msPart</gi>, essentially a nested
+                        <gi>msDesc</gi>, where originally distinct manuscripts or parts of
+                    a manuscripts have been brought together to form a composite
+                    manuscript.</p>
+                <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <msDesc>
+            <msIdentifier>
+              <settlement>Amiens</settlement>
+              <repository>Bibliothèque Municipale</repository>
+              <idno>MS 3</idno>
+              <msName>Maurdramnus Bible</msName>
+            </msIdentifier>
+            <!-- other elements here -->
+            <msPart>
+              <altIdentifier>
+                <idno>MS 6</idno>
+              </altIdentifier>
+              <!-- other information specific to this part here -->
+            </msPart>
+                  <!-- other msParts here -->
+          </msDesc>
+        </egXML>
+            </div>
+
+
+
+            <div rend="slide">
+                <head>Conclusions</head>
+                <list>
+                    <item>The TEI header was originally conceived as something for
+                        non-specialist usage but has everything needed for rigorous
+                        bibliographic description</item>
+                    <item>It provides detailed methods for encoding specialist items such
+                        as manuscript descriptions or details concerning spoken texts or
+                        linguist corpora</item>
+                    <item>Standard codes of practice or ways of using have been developed
+                        by particular user communities (e.g. digital librarians, corpus
+                        linguists)</item>
+                    <item>As a <soCalled>primary source of information</soCalled> it
+                        remains an essential framework for documenting: <list>
+                            <item>what your text is</item>
+                            <item>where it came from</item>
+                            <item>how you encoded it</item>
+                            <item>how it may be used (technically)</item>
+                            <item>how it may be used (legally)</item>
+                        </list>
+                    </item>
+                </list>
+            </div>
+
+
+
+            <div>
+                <head>Next</head>
+                <p>That is a whirlwind tour of the kinds of things you can describe using
+                        <gi>msDesc</gi> Now let's do an exercise where we make an existing
+                        <gi>msDesc</gi> element much more structured!</p>
+            </div>
+
+
+
+
+
+
+        </body>
+    </text>
+</TEI>

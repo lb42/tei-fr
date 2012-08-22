@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 6: Transcribing with the TEI</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+<div>
+    <head>Exercise 6: Transcribing with the TEI</head>
+    
+        <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item>Undertake conversion of a transcription of a document </item>
+            <item>Use <gi>add</gi>, <gi>del</gi> and <gi>subst</gi> effectively </item>
+            <item>Use <gi>choice</gi> with <gi>abbr</gi> and <gi>expan</gi>
+            </item>
+            <item>Use <gi>unclear</gi> to note difficult to read passages </item>
+
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>In this exercise you will take a transcription, already partly in TEI but with a bespoke
+          transcription notation, and convert it fully to TEI P5 XML. You'll learn how to use
+            <gi>add</gi>, <gi>del</gi>, <gi>subst</gi>, <gi>choice</gi>,<gi>abbr</gi>,
+            <gi>expan</gi>, and <gi>unclear</gi> in both simple and nested manners to indicate some
+          complex transcriptional phenomena. </p>
+      </div>
+      <div>
+        <head>Starting Up</head>
+        <p> In this case we're starting with a sample file that we have created for you. Load up the
+          file called: 'preface.xml' in the oXygen XML editor. Check that the file is well-formed
+          and valid. Note that: <list>
+
+            <item>There is a minimal header with an <gi>msDesc</gi>.
+            </item>
+            <item>There is a commented-out plain text edition of this preface, edited by J.
+              Stallworthy. (This is just to give you a reading copy of a clean text). </item>
+            <item>There is a transcription with a bespoke notation of "(deleted: 'some text')" by a
+              transcriber to show what was deleted, added, and other aspects. In some case additions
+              and deletions are nested together as a single act with an extra set of parentheses. In
+              other cases deletions are made inside additions. </item>
+            <item>There is an image of the manuscript page in the 'preface-ms.jpg' file. Have a look
+              at this, the commented out edited version, and the transcription of the manuscript.
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Using <att>rend</att></head>
+        <p> Note that the <gi>head</gi> inside the division has a content of: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<head>(underlined:'Preface.')</head>      
+    </egXML>
+          <list>
+            <item>Remove the "(underlined:'" and "')" so that you are left with just the text. </item>
+            <item>Add a <att>rend</att> attribute with a value of 'underline'.</item>
+            <item> You should have a <gi>head</gi> that looks something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <head rend="underline">Preface.</head>  
+</egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+
+      <div>
+        <head>Second Paragraph</head>
+        <p>Let's change some of this transcription notation to real markup in the second paragraph
+          (the first has no transcription notation). <list>
+            <item>Change <code>(added below: 'about glory, honour,') </code> to be
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<add place="below">about glory, honour,</add>              
+            </egXML>
+            </item>
+            <item>The next is an example of a substitution, a deletion and addition provided as a
+              single act, followed by a deletion. Change <code>((deleted:'battles, and glory of
+                battles') (added above:'deeds or lands')) (deleted 'or land,') </code> to be
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<subst>
+  <del rend="stroked">battles, and glory of battles</del>
+  <add place="above">deeds or lands</add>
+</subst>
+<del rend="stroked">or land,</del>                
+              </egXML>
+            </item>
+            <item>Replace <code> ((deleted:'or') (added below:'or anything about')) </code> with
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<subst>
+  <del rend="stroked">or</del>
+  <add place="below">or anything about</add>
+</subst>                 
+              </egXML>
+            </item>
+            <item>The transcriber has marked a passage that was unclear in transcription as
+                <code>(unclear, scribbled: 'majesty')</code>. Replace this with
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<unclear reason="scribbled">majesty</unclear>                
+              </egXML>
+            </item>
+            <item>The transcriber has recorded an abbreviation with its expansion as
+                <code>domin(ion)</code>. This is meant to mean that 'domin' is what it is on the
+              page, but that it should be expanded to 'dominion'. Encode this as:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<choice>
+  <abbr>domin</abbr>
+  <expan>domin<ex>ion</ex></expan>
+</choice> 
+</egXML>
+              The <gi>ex</gi> element gives the supplied letters in the expanded form. </item>
+            <item>Replace <code>(deleted:'whatever') </code> with
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <del rend="stroked">whatever</del>
+            </egXML>
+            </item>
+            <item>This concludes your second paragraph, and has given you some experience in marking
+              up <gi>add</gi>, <gi>del</gi>, and wrapping those in <gi>subst</gi>, also using
+                <gi>unclear</gi> and <gi>choice</gi> with <gi>abbr</gi>, <gi>expan</gi> and
+                <gi>ex</gi>. Your paragraph should look something like: </item>
+          </list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p> Nor is it <add place="below">about glory, honour,</add> about 
+<subst>
+  <del rend="stroked">battles, and glory of battles</del>
+  <add place="above">deeds or lands</add>
+</subst>
+<del rend="stroked">or land,</del>
+<subst>
+  <del rend="stroked">or</del>
+  <add place="below">or anything about</add>
+</subst> any might, <unclear reason="scribbled">majesty</unclear>, <choice>
+  <abbr>domin</abbr>
+  <expan>domin<ex>ion</ex></expan>
+</choice> or power <lb/>
+<del rend="stroked">whatever</del> except War. </p>                
+              </egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Third Paragraph</head>
+        <p> The third paragraph introduces nesting additions/deletions inside additions for when
+          someone has added something, and then changed their mind by adding more, and/or deleting
+          the addition. <list>
+            <item>Change <code>(added left: 'Above all') (deleted: 'Its') ((added above:'I am')
+                (deleted:'This book')) </code> to be:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<add place="left">Above all </add>
+<del rend="stroked">Its </del>
+<subst>
+    <add place="above">I am </add>
+    <del rend="stroked">This book</del>
+</subst>                
+              </egXML>
+            </item>
+            <item>Modify <code>(added above:'(deleted: '(unclear, unsure:'center')')') </code> which
+              contains an unclear bit of text that has been deleted, inside an addition, to be
+              something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<add place="above">
+      <del rend="stroked"><unclear>center</unclear></del>
+</add>                              </egXML>
+            </item>
+            <item> Modify <code>((added left:'My') (deleted:"It's")) (added above:'(deleted:'The')')
+              </code> which has a substitution with an addition and a deletion as well as an
+              addition which is then deleted.
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<subst>
+  <add place="left">My </add>
+  <del rend="stroked">It's </del>
+</subst>
+<add place="above">
+  <del rend="stroked">The </del>
+</add>                
+              </egXML>
+            </item>
+
+            <item>Finish up the last couple of deletions in this paragraph and it should look
+              something like: </item>
+          </list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p>
+  <add place="left">Above all </add>
+  <del rend="stroked">Its </del>
+  <subst>
+      <add place="above">I am </add>
+      <del rend="stroked">This book</del>
+  </subst> is <add place="above">
+      <del rend="stroked"><unclear>center</unclear></del>
+  </add> not concerned with Poetry. <lb/>
+  <subst>
+      <add place="left">My </add>
+      <del rend="stroked">It's </del>
+  </subst>
+  <add place="above">
+      <del rend="stroked">The </del>
+  </add> subject <del rend="stroked">of</del> is War, and the pity of 
+  <del rend="stroked">it</del> War. <lb/> The Poetry is in the pity. 
+</p> 
+</egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Fourth Paragraph</head>
+        <p>The fourth paragraph has more of the same, but also a deletion with a nested addition
+          with both a substitution and standalone deletion. <list>
+            <item>Change <code>(deleted:'I have no hesistation in') (deleted:'making public')
+                </code><lb/><code> (deleted:'publishing such') </code><lb/>
+              <code>((deleted:'My') (added above with caret:'Yet these'))(deleted:'I have no
+                hesistation in') (deleted:'making public') </code><lb/>
+              <code>(deleted:'publishing such') </code><lb/>
+              <code>((deleted:'My') (added above with caret:'Yet these'))</code> into:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <del rend="stroked">I have no hesistation in </del>
+  <del rend="stroked">making public</del>
+  <lb/>
+  <del rend="stroked">publishing such</del>
+  <lb/>
+  <subst>
+      <del rend="stroked">My </del>
+      <add place="above" rend="caret">Yet these</add>
+  </subst> 
+              </egXML>
+            </item>
+            <item>Change <code>(added above:'to this (added above:'(deleted:'past')') generation')
+                (deleted: 'not further consolation')</code> into:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<add place="above">to this <add place="above">
+  <del rend="stroked">past </del>
+</add> generation </add>
+<del rend="stroked">not further consolation</del>                
+              </egXML>
+            </item>
+          </list></p>
+        <p><list>
+            <item>Change <code> (deleted:'The') to (deleted:'this' (added
+                above:'((deleted:'a')</code><lb/>
+              <code>(added above:'this')) (deleted:'bereaved')') generation')</code> which is a
+              deletion (of 'this generation') with a nested addition with a substitution and a
+              deletion to: </item>
+          </list>
+        </p>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<del rend="stroked">The</del> to 
+<del rend="stroked">this <add place="above">
+  <subst>
+      <del rend="stroked">a</del>
+      <add place="above">this</add>
+  </subst>
+  <del rend="stroked">bereaved</del>
+</add> generation</del>.                
+              </egXML></p>
+        <p><list>
+            <item> (That is quite complicated in terms of additions and substitions!) Change the
+              next couple deletions into markup, and then <code>(deleted:'used proper names.')
+                (added above:'(All a poet can do today is (added above:'(deleted:'to')') warn
+                (deleted:'children')') </code> into:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<del rend="stroked">used proper names.</del>
+<add place="above">All a poet can do today is 
+  <add place="above">
+        <del rend="stroked">to</del>
+  </add> warn <del rend="stroked">children</del>
+</add>
+              </egXML>
+            </item>
+            <item>Mark the last deletion 'War', and then this paragraph should now look something
+              like: </item>
+          </list>
+        </p>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p>
+    <del rend="stroked">I have no hesistation in </del>
+    <del rend="stroked">making public</del>
+    <lb/>
+    <del rend="stroked">publishing such</del>
+    <lb/>
+    <subst>
+        <del rend="stroked">My </del>
+        <add place="above" rend="caret">Yet these</add>
+    </subst> elegies are <add place="above">to this <add place="above">
+            <del rend="stroked">past </del>
+        </add> generation </add>
+    <del rend="stroked">not further consolation</del>
+    <lb/> in no sense consolatory <lb/>
+    <del rend="stroked">The</del> to <del rend="stroked">this <add place="above">
+            <subst>
+                <del rend="stroked">a</del>
+                <add place="above">this</add>
+            </subst>
+            <del rend="stroked">bereaved</del>
+        </add> generation</del>. They may be to the <lb/> next. <del rend="stroked">If I thought the letter of this</del>
+    <lb/>
+    <del rend="stroked">book would last, I now might have </del>
+    <lb/>
+    <del rend="stroked">used proper names.</del>
+    <add place="above">All a poet can do today is <add place="above">
+            <del rend="stroked">to</del>
+        </add> warn <del rend="stroked">children</del>
+    </add>
+    <lb/> That is why the true <del rend="stroked">War</del> Poets must be truthful.
+    <lb/>
+</p></egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Final Paragraph</head>
+        <p>The final paragraph doesn't really introduce anything new that you don't know already, so
+          finish it off quickly! It should end up looking something like:
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p>[If I thought the letter of this book would last, I <lb/>
+<del rend="stroked">wo </del> might have used proper names; but if the spirit of
+<lb/> it <add place="above">survives</add> - survives Prussia - <subst>
+    <del rend="stroked">I </del>
+    <add>my ambition</add>
+</subst> and those mames will <lb/>
+<del rend="stroked">be</del>
+<del rend="stroked">content</del> have achieved <del rend="stroked">themselves</del>
+<lb/>
+<del>ourselves</del> fresher fields than Flanders, <lb/> for he, not of war,
+would he <lb/> sing 
+</p>
+            </egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Transcription Comparison</head>
+        <p>Compare your transcription to the image in 'preface-ms.jpg'. <list>
+            <item>Is there anything you haven't noted that you think is important?</item>
+            <item>Are there any mistakes in the transcription that you should correct?</item>
+            <item>Are there things you might have marked up differently?</item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>Have you formatted and indented your work automatically? </item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like an
+              old-style 3.5" disk).</item>
+            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file using
+              the name 'exercise06.xml' or another name of your choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions: <list>
+            <item>If you want to indicate an abbreviation and expansion (or correction and error)
+              are linked, what element do you wrap them in?</item>
+            <item>If you want to indicate an addition and deletion are one editorial act, what do
+              you surround them with? </item>
+            <item>How do you show that an addition is subsequently deleted? </item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next and More Reading</head>
+        <p>Next we'll be moving on to spoken texts and linguistic corpora. However, before that if
+          you have time you may wish to:<list>
+            <item>Look up the reference pages for each of the new elements you've used.</item>
+            <item>What we haven't covered in this exercise is the genetic encoding, using
+                <gi>sourceDoc</gi> and linking transcriptions to the <gi>facsimile</gi> element.
+              Read some of the chapter on Representation of Primary Sources: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/PH.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/PH.html</ref>.</item>
+            <item>At the bottom of that chapter you can find a list of elements added by the
+              'transcr' module. It is interesting to note how many of the elements we used appear in
+              the 'core' module at: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html</ref>. </item>
+          </list>
+        </p>
+      </div>
+    </div>
+    </body>
+  </text>
+</TEI>

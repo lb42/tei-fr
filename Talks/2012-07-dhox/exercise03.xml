@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 3: Improving a <gi>teiHeader</gi></title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+        <div><head>Exercise 3: Improving a <gi>teiHeader</gi></head>
+      <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item>read through and analyse encoding in an existing TEI file.</item>
+            <item>improve the structure and metadata of a <gi>teiHeader</gi>.</item>
+            <item>understand the components of a <gi>fileDesc</gi> including: <list>
+                <item><gi>titleStmt</gi> for title and intellectual responsibility.</item>
+                <item><gi>publicationStmt</gi> for information about the publication and
+                  distribution of the electronic item.</item>
+                <item><gi>sourceDesc</gi> to record metadata about the source document.</item>
+              </list>
+            </item>
+            <item> use the <gi>encodingDesc</gi> to record the markup used in the file.</item>
+            <item> use the <gi>profileDesc</gi> to record non-biliographic aspects of the
+              file.</item>
+            <item>record major changes to the file in the <gi>revisionDesc</gi>.</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>This exercise gives you a chance to read through a TEI XML file you have not encoded and
+          understand its markup and structure. It walks you through improvements to various aspects
+          of the <gi>teiHeader</gi> and how to record additional metadata about the electronic file
+          and its sources.</p>
+      </div>
+
+      <div>
+        <head>Starting Up</head>
+        <p> In this case we're starting with a sample file that we have created for you. Load up the
+          file called: 'letter-to-LG.xml' in the oXygen XML editor. Check that the file is
+          well-formed and valid. Note the line near the top of the file:
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          &lt;?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+        </egXML>
+            This is what tells the oXygen editor that it should be validating this file with the tei_all schema.
+        </p>
+      </div>
+
+
+      <div>
+        <head>Reading through the file</head>
+        <p>This file contains a letter from Wilfred Owen to Leslie Gunston. It talks about a
+          forthcoming address to the Field Club, and contains a partial draft of 'The Wrestlers'. It
+          was written in July 1917 from Craiglockhart War Hospital, Edinburgh, Scotland. Images of this letter are available
+          in your DHOXSS booklet as well as in the materials we've provided. <list>
+            <item>Note the very minimal <gi>teiHeader</gi>.</item>
+            <item>Look at the structure of the document as three divisions and make sure you
+              understand these divisions.</item>
+            <item>Note the use of the <gi>dateline</gi> element.</item>
+            <item>See how the encoder has recorded line-breaks in the prose.</item>
+            <item>What other elements has the encoder included? Make sure you understand the meaning
+              of them. If you are unsure of the meaning of them, look them up on the TEI-C website
+              at: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ELEMENTS.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ELEMENTS.html</ref>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Improving the <gi>titleStmt</gi></head>
+        <p>As you can see the <gi>teiHeader</gi> is lacking a lot of information. Let's improve it! <list>
+            <item>Inside the <gi>fileDesc</gi> the <gi>titleStmt</gi> contains only a
+              <gi>title</gi>. What else can <gi>titleStmt</gi> contain? (hint: typing '&lt;' here
+              will provoke oXygen into providing a dropdown list of possibilities).</item>
+            <item> Underneath the <gi>title</gi> add an <gi>author</gi> element. The content of this
+              should be 'Wilfred Owen'. </item>
+            <item>Below this add an <gi>editor</gi> element with the content of 'Renée van Baalen'.
+              (She transcribed the letter for our teaching purposes.) How does one type in 'é' in
+              oXygen? <hi>Hint:</hi> the 'Edit' menu contains a 'Insert from Character Map' entry. </item>
+            <item>After this add a <gi>principal</gi> element to record the person primarily
+              responsible for the project. In this case, use your own name. </item>
+            <item>Below this add a <gi>meeting</gi> element with the content of 'Digital Humanities
+              at Oxford Summer School 2012'.</item>
+            <item>After that add <gi>respStmt</gi> with a <gi>resp</gi> inside it saying 'Improved
+              encoding' and a <gi>name</gi> with your name.</item>
+            <item> Your <gi>titleStmt</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <titleStmt>
+        <title>Letter to Leslie Gunston</title>
+        <author>Wilfred Owen</author>
+        <editor>Renée van Baalen</editor>
+        <principal>[your name here]</principal>
+        <meeting>Digital Humanities at Oxford Summer School 2012</meeting>
+        <respStmt>
+          <resp>Improved encoding</resp>
+          <name>[Your name here]</name>
+        </respStmt>
+      </titleStmt>
+            </egXML>
+              If you do not understand what any of these elements are for, make sure to look them up
+              on the TEI-C website at the URL given above. </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Improving the <gi>publicationStmt</gi></head>
+
+        <!-- 
+        
+      <publicationStmt> 
+        <publisher>[Your Name Here]</publisher>
+        <distributor>Digital Humanities at Oxford Summer School</distributor>
+        <authority>[Your name here]</authority>
+        <pubPlace>Oxford, UK</pubPlace>
+        <date when="2012-07-03">3 July 2012</date>
+        <idno>[Insert an ID number here]</idno>
+        <availability>
+          <p>[Look up your favoured Creative Commons licence on http://creativecommons.org/choose/]</p>
+        </availability>
+        <address>
+          <orgName>Oxford University Computing Services</orgName>
+          <street>13 Banbury Road</street>
+          <settlement>Oxford</settlement>
+          <postCode>OX2 6NN</postCode>
+          <country>United Kingdom</country>
+        </address>
+      </publicationStmt>
+        -->
+        <p> The <gi>publicationStmt</gi> is also fairly limited. It could contain a lot of
+          structured information, but just has a paragraph of prose. Let's replace it! <list>
+            <item>Delete the entire paragraph including the starting and ending <gi>p</gi>
+              tags.</item>
+            <item>Inside <gi>publicationStmt</gi> add a <gi>publisher</gi> element. In this case,
+              'TEI @ Oxford' is the publisher. </item>
+            <item>Below the <gi>publisher</gi> add a <gi>distributor</gi> containing 'Digital
+              Humanities at Oxford Summer School 2012'.</item>
+            <item>After this add an <gi>authority</gi> element, to detail under who's authority it
+              is published. In this case let's say it is under your authority, so add your
+              name.</item>
+            <item>Next, inside a <gi>pubPlace</gi> element, which itself contains an
+                <gi>address</gi> element with an <gi>orgName</gi> (Oxford University Computing
+              Services), a <gi>street</gi> address (13 Banbury Road), a <gi>settlement</gi>
+              (Oxford), a <gi>postCode</gi> (OX2 6NN), and a <gi>country</gi> (United
+              Kingdom).</item>
+            <item>After the <gi>pubPlace</gi> element but still inside the <gi>publicationStmt</gi>
+              add a <gi>date</gi> element with content of '3 July 2012'. The <gi>date</gi> element
+              can have a <att>when</att> attribute to take a standardised YYYY-MM-DD form of the
+              date, add this as well.</item>
+            <item>Add an ID number after this using <gi>idno</gi>. This should be something like a
+              catalogue number, or a URL at which this document will reside. In this case, make up
+              what you think a sensible ID number would be for your edition of this letter. </item>
+            <item>Next add an <gi>availability</gi> statement with a <gi>p</gi> containing a
+              description of the licence you would want to distribute this under. We recommend you
+              choose a Creative Commons license using <ref
+                target=" http://creativecommons.org/choose/"
+                >http://creativecommons.org/choose/</ref>. For bonus points you can include a link
+              (using <gi>ref</gi> with a <att>target</att> attribute to the license your chose. </item>
+            <item> Your <gi>publicationStmt</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <publicationStmt>
+        <publisher>TEI @ Oxford</publisher>
+        <distributor>Digital Humanities at Oxford Summer School 2012</distributor>
+        <authority>[Your name here]</authority>
+        <pubPlace>
+          <address>
+          <orgName>Oxford University Computing Services</orgName>
+          <street>13 Banbury Road</street>
+          <settlement>Oxford</settlement>
+          <postCode>OX2 6NN</postCode>
+          <country>United Kingdom</country>
+        </address>
+        </pubPlace>
+        <date when="2012-07-03">3 July 2012</date>
+        <idno>[Insert an ID number here]</idno>
+        <availability>
+          <p>Licensed with a <ref target="http://creativecommons.org/licenses/by/3.0/">Creative
+              Commons Attribution</ref> licence.</p>
+        </availability>
+      </publicationStmt>
+      </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Improving the <gi>sourceDesc</gi></head>
+
+        <p>Our <gi>sourceDesc</gi> is also fairly limited. <list>
+            <item>Delete the entire paragraph that is currently in the <gi>sourceDesc</gi> and
+              replace it with a <gi>biblStruct</gi>.</item>
+            <item>The <gi>biblStruct</gi> should have an <gi>analytic</gi> with a <gi>title</gi>
+              (Letter to Leslie Gunston), and <gi>author</gi> (Wilfred Owen).</item>
+            <item>The <gi>biblStruct</gi> should also have a <gi>monogr</gi> for the collection containing:<list>
+                <item><gi>title</gi> (The Wilfred Owen Collection).</item>
+                <item>A <gi>ref</gi> (First World War Poetry Digital Archive) containing a
+                    <att>target</att> attribute pointing to
+                  'http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243'.</item>
+                <item>An <gi>imprint</gi> element containing a <gi>publisher</gi> (The First World
+                  War Poetry Digital Archive), a <gi>pubPlace</gi> (Oxford), and a
+                    <gi>biblScope</gi> (Two pages) with a <att>type</att> attribute of 'pp', and a
+                    <att>n</att> attribute of '2'.</item>
+                <item> Outside the <gi>monogr</gi> but inside the <gi>biblStruct</gi> add a
+                    <gi>relatedItem</gi> with a <gi>bibl</gi> containing 'The source of this digital
+                  resource is a copy from the Harry Ransom Centre.' You could also wrap 'Harry
+                  Ransom Centre' in a <gi>distributor</gi> element. This is an example of a much
+                  less structured bibliographic citation inside a structured one.</item>
+              <item>Your <gi>sourceDesc</gi> should now look something like:
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<sourceDesc>
+<biblStruct>
+  <analytic>
+    <title>Letter to Leslie Gunston</title>
+    <author>Wilfred Owen</author>
+  </analytic>
+  <monogr>
+    <title>The Wilfred Owen Collection</title>
+    <ref target="http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243/4769">
+        First WorldWar Poetry Digital Archive</ref>
+    <imprint>
+      <publisher>The First World War Poetry Digital Archive</publisher>
+      <pubPlace>Oxford</pubPlace>
+      <biblScope type="pp" n="2">Two pages</biblScope>
+    </imprint>
+  </monogr>
+  <relatedItem>
+    <bibl>The source of this digital resource is a copy from the 
+        <distributor>Harry Ransom Centre</distributor>.</bibl>
+  </relatedItem>
+</biblStruct>
+</sourceDesc>
+</egXML>
+      </item>
+              </list>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Other components of the <gi>fileDesc</gi></head>
+        <p>There are other elements that could appear in your <gi>fileDesc</gi>.
+          <list>
+            <item>Immediately after the closing <gi>/fileDesc</gi> tag you could add an
+                <gi>editionStmt</gi> with an <gi>edition</gi> containing a descriptive phrase such
+              as 'First Edition' for the current edition of the electronic file.</item>
+            <item>Immediately after the closing <gi>/editionStmt</gi> you could add an
+                <gi>extent</gi> element with some measure of the size of the text (e.g. '260
+              words').</item>
+            <item>Immediately after the closing <gi>/publicationStmt</gi> you could add a
+                <gi>notesStmt</gi> with one or more <gi>note</gi> elements inside it. One could contain
+              something saying 'Transcribed for DHOXSS TEI Workshop'.</item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Adding an <gi>encodingDesc</gi></head>
+
+        <!-- 
+        
+    <encodingDesc>
+      <projectDesc>
+        <p> [Description of the project creating this]</p>
+      </projectDesc>
+      <editorialDecl>
+        <correction>
+          <p>Apparent errors have been marked as <gi>sic</gi> but correct readings not provided</p>
+        </correction>
+        <hyphenation>
+          <p>Hyphens have been transcribed as they appear.</p>
+        </hyphenation>
+      </editorialDecl>
+    </encodingDesc>
+        
+        -->
+        <p> An <gi>encodingDesc</gi> element will give us a place to document the encoding practices
+          in the document. <list>
+            <item>After the closing <gi>/fileDesc</gi> we should add an <gi>encodingDesc</gi>
+              element.</item>
+            <item>Inside the <gi>encodingDesc</gi> add a <gi>projectDesc</gi> with a <gi>p</gi>
+              inside it saying something like 'The TEI@Oxford project created teaching materials for
+              DHOXSS'.</item>
+            <item>Next inside the <gi>encodingDesc</gi> add an <gi>editorialDecl</gi> with a
+                <gi>correction</gi> inside that with a paragraph saying something like 'Apparent
+              errors have been marked as <gi>sic</gi> but correct readings not provided'. 
+              Mark up <gi>sic</gi> as an element by using <gi>gi</gi> (generic identifier).</item>
+            <item>Also inside the <gi>editorialDecl</gi> add a <gi>hyphenation</gi> with a paragraph
+              saying something like 'Hyphens have been transcribed as they appear'.</item>
+            <item>Look at the other options available to you inside <gi>editorialDecl</gi> and
+                <gi>encodingDesc</gi>.</item>
+            <item> Your <gi>encodingDesc</gi> should look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <encodingDesc>
+      <projectDesc>
+        <p>The TEI@Oxford project created teaching materials for DHOXSS.</p>
+      </projectDesc>
+      <editorialDecl>
+        <correction>
+          <p>Apparent errors have been marked as <gi>sic</gi> but correct readings not provided.</p>
+        </correction>
+        <hyphenation>
+          <p>Hyphens have been transcribed as they appear.</p>
+        </hyphenation>
+      </editorialDecl>
+    </encodingDesc>
+              </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+
+        <!-- 
+        
+    <profileDesc>
+      <creation>
+        <placeName ref="#Cra">Craiglockhart</placeName>
+        <date when="1917-07">July 1917</date>
+      </creation>
+      <handNotes>
+        <handNote>Written in Wilfred Owen's hand</handNote>
+      </handNotes>
+      <langUsage>
+        <language ident="en" usage="100">English</language>
+      </langUsage>
+      <textClass>
+        <classCode scheme="http://www.oclc.org/dewey/resources/summaries/default.htm"
+          >826</classCode>
+      </textClass>
+  </profileDesc>
+        -->
+        <head>Adding a <gi>profileDesc</gi></head>
+        <p>A <gi>profileDesc</gi> is a place to store various non-bibliographic information
+          concerning the text. <list>
+            <item>After the closing <gi>/encodingDesc</gi> add a <gi>profileDesc</gi>.</item>
+            <item>Inside this add a <gi>creation</gi> with a <gi>placeName</gi> (Craiglockhart) and
+              a <gi>date</gi> (July 1917) perhaps with a <att>when</att> attribute
+              ('1917-07').</item>
+            <item>In the <gi>profileDesc</gi> next add a <gi>handNotes</gi> with a <gi>handNote</gi>
+              inside it saying something like 'Written in Wilfred Owen's hand'.</item>
+            <item> Next, add a <gi>langUsage</gi> inside the <gi>profileDesc</gi> with a
+                <gi>language</gi> inside ('English') with an <att>ident</att> attribute with a value
+              of 'en' for the English language code.</item>
+            <item>Next add a <gi>textClass</gi> with a <gi>classCode</gi> with content of '826' and
+              a <att>scheme</att> attribute of
+              "http://www.oclc.org/dewey/resources/summaries/default.htm". This is the Dewey
+              classification code for 'English Letters'. </item>
+            <item>Your <gi>profileDesc</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <profileDesc>
+      <creation>
+        <placeName>Craiglockhart</placeName>
+        <date when="1917-07">July 1917</date>
+      </creation>
+      <handNotes>
+        <handNote>Written in Wilfred Owen's hand</handNote>
+      </handNotes>
+      <langUsage>
+       <language ident="en">English</language>
+      </langUsage>
+      <textClass>
+        <classCode scheme="http://www.oclc.org/dewey/resources/summaries/default.htm">826
+        </classCode>
+      </textClass>
+  </profileDesc>
+             </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Adding a <gi>revisionDesc</gi></head>
+        <p>A <gi>revisionDesc</gi> gives you a way to record major stages in revision to a document. <list>
+            <item>After the closing <gi>/profileDesc</gi> add a <gi>revisionDesc</gi>
+              element.</item>
+            <item>Add two <gi>change</gi> elements. On the first one add a <att>when</att> attribute
+              with today's date. Inside the <gi>change</gi> add a <gi>persName</gi> containing your
+              name, followed by the text 'improved the header'.</item>
+            <item> In the second <gi>change</gi> add a <att>when</att> attribute of '2012-02', with
+              a <gi>persName</gi> of 'Renée van Baalen' saying that she 'transcribed the Letter to
+              Leslie Gunston document'. You may also wish to mark 'Letter to Leslie Gunston' as a
+                <gi>title</gi>. </item>
+            <item>It is standard practice for the most recent <gi>change</gi> to be first.</item>
+            <item>Your <gi>revisionDesc</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <revisionDesc>
+      <change when="2012-07-03"><persName>[Your name here]</persName> improved the header.</change>
+      <change when="2012-02"><persName>Renée van Baalen</persName> transcribed the <title>Letter to
+          Leslie Gunston</title> document. </change>
+    </revisionDesc>
+              
+            </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+
+      <!-- Saving Your Work -->
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>Have you formatted and indented your work automatically? </item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like an
+              old-style 3.5" disk).</item>
+            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file using
+              the name 'exercise03.xml' or another name of your choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions: <list>
+            <item>What kinds of metadata can you store in a <gi>titleStmt</gi>?</item>
+            <item>What is a <gi>publicationStmt</gi> used for? What can it contain? </item>
+            <item>How do you provide details of the source for the file?</item>
+            <item>What is the difference between <gi>bibl</gi> and <gi>biblStruct</gi>?</item>
+            <item>What is an <gi>encodingDesc</gi> for? </item>
+            <item>What order should <gi>change</gi> elements be listed in a
+              <gi>revisionDesc</gi>?</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next and More Reading</head>
+        <p>Next we'll learn to relate information in the body of the text to aspects of the header.
+          There is lots of information we could have put in our header which we didn't. <list>
+            <item>If you haven't already, look up the main elements in the <gi>teiHeader</gi> on the
+              TEI-C website and see what they are allowed to contain.</item>
+            <item>You could also have a look at the TEI Guidelines chapter of the Header at <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html</ref>. </item>
+          </list>
+        </p>
+      </div>
+
+</div>    </body>
+  </text>
+</TEI>

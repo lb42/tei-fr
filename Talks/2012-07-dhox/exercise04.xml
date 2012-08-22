@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 4: Marking Up Names</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+        <div><head>Exercise 4: Marking Up Names</head>
+      <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item>encode personal, place, and organizational names</item>
+            <item>store metadata concerning people, places, or organizations in the
+                <gi>teiHeader</gi></item>
+            <item>link names in the document text to metadata stored in the header or another file</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>This exercise will give you practical experience in marking up names of people, places,
+          and organizations. You'll learn how to store richly structured metadata about these in the
+          header, and how to link to them from the document.</p>
+      </div>
+      <div>
+        <head>Starting Up</head>
+        <p>Load up the completed file from the previous exercise. If you did not complete the
+          exercise you can cheat by loading up 'spoilers/ex03.xml' and saving it under a new
+          name.</p>
+      </div>
+
+
+      <div>
+        <head>Marking Up Names</head>
+        <p>In addition to the general purpose <gi>name</gi> element which can take a <att>type</att>
+          attribute for classification, there are three types of names specifically catered for in
+          the TEI. These are: organizational names (<gi>orgName</gi>), personal names
+            (<gi>persName</gi>), and place names (<gi>placeName</gi>). Occasionally you might want
+          to mark something like 'she' which is not strictly a name but references an understood
+          named entity. To do this we use a reference string or <gi>rs</gi> element. <list>
+            <item>In the first <gi>salute</gi> mark up 'L.' as a <gi>persName</gi>. </item>
+            <item>In the first paragraph encode 'Field Club' as an <gi>orgName</gi>, and 'Berlitz,
+              Edin.' as an <gi>orgName</gi> with a <gi>placeName</gi> inside it ('Edin.'). </item>
+            <item>In the second paragraph mark up Antaeus, Heracles, Mother Earth, and 'old Herk.'
+              as <gi>persName</gi> elements.</item>
+            <item>In the verse encode 'Earth' as a <gi>persName</gi> (because it is used
+              anthropomorphically here).</item>
+            <item>In the final division mark up 'Locke's' and 'Swinburne' as a <gi>persName</gi>
+              elements.</item>
+            <item>Inside the <gi>signed</gi> element mark up 'WEO' as a <gi>persName</gi>.</item>
+            <item>There are more names we could mark up, such as the use of the names Leslie Gunston
+              and Wilfred Owen throughout the header, but that is optional.</item>
+          </list>
+        </p>
+
+      </div>
+
+      <div>
+        <head>Making People</head>
+
+        <p>The names we find in documents are merely instances of names, they are not people,
+          places, or organizations. Often we want to store canonical metadata about these many
+          instances in our <gi>teiHeader</gi> and so we use the <gi>person</gi>, <gi>place</gi>,
+            <gi>org</gi> elements as containers for this metadata. We contain these in a
+            <gi>listPerson</gi>, <gi>listPlace</gi>, or <gi>listOrg</gi> commonly (but not always)
+          stored inside the <gi>sourceDesc</gi> of the header. <list>
+            <item>Just before the closing <gi>/sourceDesc</gi> add a <gi>listPerson</gi>
+              element.</item>
+            <item>Add a <gi>person</gi> element with an <att>xml:id</att> attribute, and at least a
+                <gi>persName</gi> inside as follows: <table rend="rules">
+                <row n="label">
+                  <cell><att>xml:id</att></cell>
+                  <cell><gi>persName</gi></cell>
+                  <cell>Other Info</cell>
+                </row>
+                <row>
+                  <cell>LG</cell>
+                  <cell>Leslie Gunston</cell>
+                  <cell/>
+                </row>
+                <row>
+                  <cell>herc</cell>
+                  <cell>Heracles</cell>
+                  <cell> </cell>
+                </row>
+                <row>
+                  <cell>earth</cell>
+                  <cell>Mother Earth</cell>
+                  <cell> </cell>
+                </row>
+                <row>
+                  <cell>ant</cell>
+                  <cell>Antaeus</cell>
+                  <cell> </cell>
+                </row>
+                <row>
+                  <cell>WL</cell>
+                  <cell>William John Locke</cell>
+                  <cell>Birth: Cunningsbury St. George, 20th March 1863<lb/> Death: Paris, , 15th
+                    May 1930<lb/>
+                  </cell>
+                </row>
+                <row>
+                  <cell>AS</cell>
+                  <cell>Algernon Charles Swinburne</cell>
+                  <cell>Birth: London, 5th April 1837<lb/> Death: London, 10th April 1909 </cell>
+                </row>
+                <row>
+                  <cell>WO</cell>
+                  <cell>Wilfred Edward Salter Owen</cell>
+                  <cell>Birth: Oswestry, 18th March 1893<lb/> Death: Ors, 4th November 1918</cell>
+                </row>
+              </table> For bonus points, perhaps mark <gi>forename</gi>s and <gi>surname</gi> of
+              real people inside the <gi>persName</gi> and also add a <gi>birth</gi> and
+                <gi>death</gi> element for those with this information. These can have a
+                <att>when</att> attribute with a YYYY-MM-DD format of the date, and can also
+              themselves contain <gi>placeName</gi> elements. </item>
+            <item>Your <gi>listPerson</gi> might look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<listPerson>
+  <person xml:id="LG">
+    <persName><forename>Leslie</forename><surname>Gunston</surname></persName>
+  </person>
+  <person xml:id="herc">
+    <persName>Heracles</persName>
+  </person>
+  <person xml:id="ant">
+    <persName>Antaeus</persName>
+  </person>
+  <person xml:id="earth">
+    <persName>Mother Earth</persName>
+  </person>
+  <person xml:id="WL">
+    <persName>
+      <forename>William</forename>
+      <forename>John</forename>
+      <surname>Locke</surname>
+    </persName>
+    <birth when="1863-03-20"><placeName ref="#Cun">Cunningsbury St. George</placeName>, 20th March 1863</birth>
+    <death when="1930-05-20"><placeName ref="#Par">Paris</placeName>, 15th May 1930</death>
+  </person>
+  <person xml:id="AS">
+    <persName>
+      <forename>Algernon</forename>
+      <forename>Charles</forename>
+      <surname>Swinburne</surname>
+    </persName>
+    <birth when="1837-04-05"><placeName ref="#Lon">London</placeName>, 5th April 1837</birth>
+    <death when="1909-04-10"><placeName ref="#Lon">London</placeName>, 10th April 1909</death>
+  </person>
+  <person xml:id="WO">
+    <persName>
+      <forename>Wilfred</forename>
+      <forename>Edward</forename>
+      <forename>Salter</forename>
+      <surname>Owen</surname>
+    </persName>
+    <birth when="1893-03-18"><placeName ref="#Osw">Oswestry</placeName>, 18th March 1893</birth>
+    <death when="1918-11-04"><placeName ref="#Ors">Ors</placeName>, 4th November 1918</death>
+  </person>
+</listPerson>
+</egXML>
+            </item>
+          </list>
+        </p>
+
+      </div>
+
+      <div>
+        <head>Building Places</head>
+
+        <p>We also refer to some places in our file, so let's document those as well! <list>
+            <item>After the closing <gi>/listPerson</gi> create a <gi>listPlace</gi>.</item>
+            <item>Add a <gi>place</gi> inside, with an <att>xml:id</att> of 'edinburgh',
+                <gi>placeName</gi> of 'Edinburgh', a <gi>region</gi> of 'Scotland', and a
+                <gi>country</gi> of 'United Kingdom'.</item>
+            <item>Inside this <gi>place</gi> add a nested <gi>place</gi> element with an
+                <att>xml:id</att> of 'craiglockhart'.</item>
+            <item>Inside this <gi>place</gi> add a <gi>placeName</gi> of 'Craiglockhart War
+              Hospital' and as a sibling to this a <gi>settlement</gi> of 'Edinburgh'.</item>
+            <item>Then add a <gi>location</gi> with a <gi>geo</gi> inside which contains the
+              coordinates 55.91812, -3.24019.</item>
+            <item>Your <gi>listPlace</gi> might look something like this:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<listPlace>
+  <place xml:id="edinburgh">
+    <placeName>Edinburgh</placeName>
+    <region>Scotland</region>
+    <country>United Kingdom</country>
+      <place xml:id="craiglockhart">
+        <placeName>Craiglockhart War Hospital</placeName>
+        <settlement>Edinburgh</settlement>
+          <location>
+            <geo>55.91812, -3.24019</geo>
+          </location>
+        </place>
+</place>
+</listPlace>                
+</egXML>
+            </item>
+            <item>By nesting the hospital's location inside the place for Edinburgh, we record that
+              the one place is inside the other through the XML hierarchy. The nested
+                <gi>settlement</gi> of 'Edinburgh' is technically redundant.</item>
+          </list>
+        </p>
+
+      </div>
+
+      <div>
+        <head>Creating Organizations</head>
+
+        <p>The principle is basically the same for creating an <gi>org</gi> inside a
+            <gi>listOrg</gi>: <list>
+            <item>After the closing <gi>/listPlace</gi> create a <gi>listOrg</gi> with an
+                <gi>org</gi> inside it with an <att>xml:id</att> of 'Berlitz'.</item>
+            <item>Give this <gi>org</gi> an <gi>orgName</gi> of 'Berlitz'.</item>
+            <item>Inside this <gi>org</gi> add a <gi>place</gi> element with a <gi>location</gi>
+              containing an <gi>address</gi> with a <gi>street</gi> of '14 Frederick Street', a
+                <gi>postCode</gi> of 'EH2 2HB', a <gi>settlement</gi> of 'Edinburgh', and a
+                <gi>country</gi> of 'United Kingdom'.</item>
+            <item>Your <gi>listOrg</gi> might look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<listOrg>
+  <org xml:id="Berlitz">
+    <orgName>Berlitz</orgName>
+    <place>
+      <location>
+        <address>
+        <street>14 Frederick Street</street>
+        <postCode>EH2 2HB</postCode>
+        <settlement>Edinburgh</settlement>
+        <country>United Kingdom</country></address>
+      </location>
+    </place>
+  </org>
+</listOrg>                  
+</egXML>
+            </item>
+            <item>Also inside this <gi>listOrg</gi> add an <gi>org</gi> for the 'Field Club' with an
+                <gi>orgName</gi> and a <gi>note</gi> recording that this is now known as the
+              Edinburgh Natural History Society, and has a website at
+              "http://www.edinburghnaturalhistorysociety.org.uk/". </item>
+          </list>
+        </p>
+
+      </div>
+
+      <div>
+        <head>Linking Names and Metadata</head>
+
+        <p>Having marked all these names, and created stored metadata about them, it seems a shame
+          not to link the names to this metadata. So let's do that! <list>
+            <item>Go to the <gi>persName</gi> you put in the first <gi>salute</gi> around 'L.'. Put
+              the cursor immediately after the final 'e' in the opening <gi>persName</gi> tag and
+              press space. You should get a drop-down list of attributes, select 'ref', when you do
+              so you should get a drop-down list of <att>xml:id</att> values present in the entire
+              document. Scroll down and select '#LG'. </item>
+            <item>This <gi>salute</gi> now should look like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<salute>Dear <persName ref="#LG">L.</persName></salute>                
+</egXML>
+            </item>
+            <item>The value of <att>ref</att> is a URI, which includes URLs, and in this case a
+              'fragmentary URL'. It starts with a '#' to let us know it is in the same document. You
+              could also have stored the <gi>listPerson</gi> in a separate document, in which case
+              we would put something like 'people.xml#LG', or stored this online somewhere
+              'http://www.example.com/people.xml#LG'. While it is best if this points to a TEI
+                <gi>person</gi> element, it can in fact point to anything which documents the name
+              such as a wikipedia article. (One reason it is better for this to point to a
+                <gi>person</gi> element is that inside that you could indeed point to more than one
+              external source of information.) </item>
+            <item>For each <gi>persName</gi>, <gi>placeName</gi>, and <gi>orgName</gi> (for which
+              you've created a <gi>person</gi>, <gi>place</gi> or <gi>org</gi> element) go through
+              and add a <att>ref</att> attribute pointing to the correct <att>xml:id</att>.</item>
+            <item>The benefit of doing all this work, is now for each instance of the name a
+              standardised form of it, and other metadata is available during processing to other
+              outputs. (e.g. for help in searching, or displaying this information) </item>
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Referencing Strings</head>
+        <p>As explained earlier the <gi>rs</gi> element can be used to mark things which aren't
+          strictly names in themselves but are understood to reference named entities. For example
+          'I' and 'you' in this file refer to Wilfred Owen and Leslie Gunston respectively. <list>
+            <item>Depending on how much time you have left, mark as many of the instances of 'I' and
+              'you' as <gi>rs</gi> pointing to the appropriate <gi>person</gi> element in each
+              case.</item>
+          </list>
+        </p>
+      </div>
+      <!-- Saving Your Work -->
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>Have you formatted and indented your work automatically? </item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like a
+              old-style 3.5" disk).</item>
+            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file using
+              the name 'exercise04.xml' or another name of your choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions: <list>
+            <item>Which elements are used to mark personal, place, and organizational names?</item>
+            <item>How do you store metadata in the header about the entities these names refer
+              to?</item>
+            <item>What values does the <att>ref</att> attribute allow? How can this be used to point
+              to external files or URLs?</item>
+            <item>How do you mark up strings of text which reference named entities, but aren't
+              themselves names?</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next and More Reading</head>
+        <p> Next we'll be investigating more about the physical document itself. However, before
+          that if you have time you may wish to:<list>
+            <item>Look up the reference pages for each of the new elements you've used.</item>
+            <item>Read some of the chapter on Names, Dates, People, and Places: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html</ref>.</item>
+          </list>
+        </p>
+      </div>
+        </div>
+    </body>
+  </text>
+</TEI>

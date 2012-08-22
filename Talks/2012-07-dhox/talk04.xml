@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Talk 4: Names, People, and Places</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: jamesc$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div rend="slide">
+                <head>Names, People, and Places</head>
+                <p>Instances of names are distinct from the entities which they reference.
+                    One entity (person, place, organisation) might be known by many
+                    names.</p>
+            </div>
+            <div>
+                <head>Names</head>
+                <p>TEI provides several ways of marking up names and nominal expressions: <list>
+                        <item><gi>rs</gi> ("referring string") -- any phrase which refers
+                            to a person or place, e.g. <q>the girl you mentioned</q>,
+                                <q>my husband</q>... </item>
+                        <item><gi>name</gi> -- any lexical item recognized as a proper
+                            name e.g. <q>Siegfried Sassoon</q> , <q>Calais</q>, <q>John
+                                Doe</q> ...</item>
+                        <item><gi>persName</gi>, <gi>placeName</gi>, <gi>orgName</gi>:
+                                <soCalled>syntactic sugar</soCalled> for <gi>name
+                                type="person"</gi> etc.</item>
+                        <item>A rich set of proposals for the <emph>components</emph> of
+                            such nominal expressions, e.g. <gi>surname</gi>,
+                                <gi>forename</gi>, <gi>geogName</gi>, <gi>geogFeat</gi>
+                            etc.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Entities</head>
+                <p>Before P5 the TEI was reluctant to stray into the territory of
+                    prosopography, while recognising the need to distinguish clearly the
+                    encoding of references from the encoding of referenced entities. It
+                    now provides:</p>
+                <list>
+                    <item><gi>person</gi> corresponding with <gi>persName</gi></item>
+                    <item><gi>place</gi> corresponding with <gi>placeName</gi></item>
+                    <item><gi>org</gi> corresponding with <gi>orgName</gi></item>
+                    <item>and in addition <gi>relation</gi>, <gi>event</gi> ... </item>
+                </list>
+            </div>
+            <div>
+                <head>Why?</head>
+                <list>
+                    <item>To facilitate a more detailed and explicit encoding source
+                        documents (historical materials for example) which are primarily
+                        of interest because they concern objects in the real world </item>
+                    <item>To support the encoding of "data-centric" documents, such as
+                        authority files, biographical or geographical dictionaries and
+                        gazeteers etc.</item>
+                    <item>To represent and model in a uniform way data which is only
+                        implicit in readings of many different documents</item>
+                </list>
+            </div>
+            <div>
+                <head>Reference theory</head>
+                <p><term>Reference</term> is a fundamental semiotic concept <list>
+                        <item>We can talk about the real world using natural languages
+                            because we know that some types of word are closely associated
+                            with real, specific, objects </item>
+                        <item>Proper names and technical terms are canonical examples of
+                            this kind of word</item>
+                        <item><q>Wilfred Owen</q> refers to a single real world entity;
+                                <q>Lyon</q> and <q>River Thames</q> to others: a specific
+                            place, a specific river respectively </item>
+                        <item>When we translate between natural languages, usually the
+                            proper names don't change, or are conventionally equivalent
+                        </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>How do we represent this association?</head>
+                <p>Every element which is a member of the <ident>att.naming</ident> class
+                    inherits two attributes from the <ident>att.canonical</ident> class:
+                        <list type="gloss">
+                        <label>
+                            <att>key</att>
+                        </label>
+                        <item> provides an externally-defined means of identifying the
+                            entity (or entities) being named, using a coded value of some
+                            kind.</item>
+                        <label>
+                            <att>ref</att>
+                        </label>
+                        <item> provides an explicit means of locating a full definition
+                            for the entity being named by means of one or more
+                            URIs.</item>
+                    </list>
+                </p>
+                <p rend="box">Arguably, <att>key</att> is redundant, since <att>ref</att>
+                    is defined as <code>anyURI</code>, this can point from the name
+                    instance to the <att>xml:id</att> of metadata about the entity,
+                    prefixing it with a '#' if in the same file.</p>
+            </div>
+
+            <div>
+                <head>Other attributes</head>
+                <p>There are other attributes as well: <list type="gloss">
+                        <label><att>role</att></label>
+                        <item>may be used to specify further information about the entity
+                            referenced by this name, for example the occupation of a
+                            person, or the status of a place.</item>
+                        <label><att>nymRef</att></label>
+                        <item>provides a means of locating the canonical form
+                                (<gi>nym</gi>) of the <hi>names</hi> associated with the
+                            object named by the element bearing it.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Examples</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>... <name ref="#jsbach" type="person">Johann Sebastian Bach </name> the German composer was born in 1685... </p></egXML>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>... <name ref="grove:jsbach" type="person">Johann Sebastian Bach </name>the German composer was born in  1685... </p></egXML>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>... <name role="composer">Engelbert Humperdinck</name> was born in 1854... </p> <p>... <name role="singer">Engelbert Humperdinck</name>was born in 1936... </p></egXML>
+            </div>
+            <div>
+                <head>References take many forms</head>
+                <p>Even within a single language, in a single document, there may be many
+                    ways of referencing the same person:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"> ...
+                        <persName>Leslie Gunston</persName>.... <persName>Leslie</persName> ....<rs>Wilfred's cousin</rs> </egXML>
+                    The <att>ref</att> can be used simply to combine all references to a
+                    specified person:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"> ....
+            <persName ref="#LG">Leslie Gunston</persName>.... 
+            <persName ref="#LG">Leslie</persName> ....
+            <rs ref="#LG">Wilfred's cousin</rs>
+            <!-- ... elsewhere -->
+            <person xml:id="LG">
+              <persName>Leslie Gunston</persName>
+                <!-- everything we want to say about Leslie -->
+            </person>
+          </egXML>
+                </p>
+            </div>
+            <div>
+                <head>References are also ambiguous</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes <name ref="#NN123">Nancy</name></s></egXML>
+                <p>Using a more precise element (<gi>persName</gi> or <gi>placeName</gi>)
+                    is one way of resolving the ambiguity; another is to follow the
+                    pointer:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><person xml:id="NN123">
+<persName><forename>Nancy</forename>
+<surname>Ide</surname>
+</persName>
+<!-- ... -->
+</person></egXML>
+                    or...
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<place xml:id="NN123">
+  <placeName notBefore="1400">Nancy</placeName>
+  <placeName notAfter="0056">Nantium</placeName>
+<!-- ... -->
+</place></egXML>
+                </p>
+            </div>
+            <div>
+                <head>Components of <gi>persName</gi> elements</head>
+                <p>
+                    <!-- 
+                     <person xml:id="WO">
+            <persName>
+              <forename>Wilfred</forename>
+              <forename>Edward</forename>
+              <forename>Salter</forename>
+              <surname>Owen</surname>
+            </persName>
+            <birth when="1893-03-18"><placeName>Oswestry</placeName>, 18th March 1893</birth>
+            <death when="1918-11-04"><placeName>Ors</placeName>, 4th November 1918</death>
+          </person>
+                    -->
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <p><persName>
+                            <forename>Wilfred</forename>
+                            <forename>Edward</forename>
+                            <forename>Salter</forename>
+                            <surname>Owen</surname>
+                        </persName> did not know 
+            <persName ref="#jsbach" xml:lang="fr">
+              <forename type="composé">Jean-Sébastien</forename>
+              <surname>Bach</surname>
+            </persName></p></egXML>
+                    Not to mention... <gi>roleName</gi> (e.g. <q>Emperor</q>),
+                        <gi>genName</gi> (eg <q>the Elder</q>) <gi>addName</gi> (e.g.
+                        <q>Hammer of the Scots</q>), <gi>nameLink</gi> a link between
+                    components (e.g. <q>van</q>) ...</p>
+            </div>
+            <div>
+                <head>Components of place names</head>
+                <list>
+                    <item><gi>placeName</gi> (names can be made up of other names)</item>
+                    <item><gi>geogName</gi> a name associated with some geographical
+                        feature such as a mountain or river</item>
+                    <item><gi>geogFeat</gi> a term for some particular kind of
+                        geographical feature e.g. <q>Mount</q>, <q>Lake</q></item>
+                </list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<placeName><geogFeat>Mont</geogFeat>
+<geogName>Blanc</geogName>
+</placeName></egXML>
+            </div>
+            <div>
+                <head>Place names generally fall into a kind of hierarchy</head>
+                <p>
+                    <graphic url="../../../Talks/Graphics/geop_inclusion.jpg"
+                        height="90%"/>
+                </p>
+            </div>
+            <div>
+                <head>What can we say about named entities? </head>
+                <p>Potentially, quite a lot...
+                    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+              <person xml:id="VM1893">
+                <persName xml:lang="ru">Владимир Владимирович Маяковский</persName>
+                <persName xml:lang="fr">Wladimir Maïakowski</persName>
+                <birth when="1893-07-19">7 July (OS) 1893, <placeName ref="#BGDT" xml:lang="en">Baghdati, Georgia</placeName></birth>
+                <death when="1930-04-14"/>
+                <occupation>Poet and playwright</occupation>
+                  <note>Among the foremost representatives of early-20th century Russian Futurism.</note>
+                </person>
+            </egXML></p>
+                <p rend="box">What elements should the TEI provide for such a
+                    purposes?</p>
+            </div>
+
+            <div>
+                <head>Another basic <gi>person</gi></head>
+                <p><egXML xmlns="http://www.tei-c.org/ns/Examples">
+<person xml:id="WO">
+    <persName>
+        <forename>Wilfred</forename>
+        <forename>Edward</forename>
+        <forename>Salter</forename>
+        <surname>Owen</surname>
+    </persName>
+    <birth when="1893-03-18"> <placeName>Oswestry</placeName>, 18th March 1893</birth>
+    <death when="1918-11-04"> <placeName>Ors</placeName>, 4th November 1918</death>
+    <bibl type="wikipedia"> <ptr target="http://en.wikipedia.org/wiki/Wilfred_Owen"/> </bibl>
+</person>                        
+                    </egXML>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Traits, States, and Events</head>
+                <p>Inside entities there are generally three <term>classes</term> of
+                    information: <list>
+                        <item><gi>state</gi>: more general-purpose, but usually a
+                            time-related property (e.g. occupation for a person,
+                            population for a place)</item>
+                        <item><gi>trait</gi>: if you want to a distinguish between
+                            time-bound and static, use this for properties that (usually)
+                            don't change over time (e.g. eye colour for a person, location
+                            for a place)</item>
+                        <item><gi>event</gi>: an independent event in the real world which
+                            may lead to a change in state or trait (e.g. birth for a
+                            person, a war for a place) </item>
+                    </list>
+                </p>
+                <p rend="box">Additionally, all these elements are members of the
+                        <soCalled>datable</soCalled> class so can have time/dating
+                    attributes.</p>
+            </div>
+            <div>
+                <head>Traits</head>
+                <p>Some typical traits of a person <list>
+                        <item><gi>faith</gi>: faith, belief system, religion etc. of a
+                            person </item>
+                        <item><gi>langKnowledge</gi>: linguistic knowledge of a
+                            person</item>
+                        <item><gi>nationality</gi>: nationality (socio-politico
+                            status)</item>
+                        <item><gi>sex</gi>: sex</item>
+                        <item><gi>socecStatus</gi>: socio-economic status</item>
+                    </list>
+                </p>
+                <p>Some typical traits of a place: <list>
+                        <item><gi>climate</gi>: describes the climate </item>
+                        <item><gi>location</gi>: describes where a place is (see
+                            later)</item>
+                        <item><gi>population</gi>: describes its population</item>
+                        <item><gi>terrain</gi>: describes its terrain</item>
+                    </list>
+                </p>
+                <p>Some of these (e.g. sex) have normalised attributes, but mostly they
+                    contain free text descriptions.</p>
+            </div>
+            <div>
+                <head>States</head>
+                <p>Some typical states for a person <list>
+                        <item><gi>occupation</gi> an informal description of a person's
+                            trade, profession or occupation </item>
+                        <item><gi>residence</gi> (residence) a person's present or past
+                            places of residence </item>
+                        <item><gi>affiliation</gi> an informal description of a person's
+                            present or past affiliation with some
+                            organization<!--, for example an employer or sponsor --></item>
+                        <item><gi>education</gi> a description of the educational
+                            experience of a person </item>
+                        <item><gi>floruit</gi> contains information about a person's
+                            period of activity </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>A place is defined by its location</head>
+                <p>The <gi>location</gi> element can contain<list>
+                        <item>a more or less well-structured description using the
+                            hierarchy of place name components mentioned earlier (a
+                            politico-geographical location)</item>
+                        <item>a set of geographical co-ordinates</item>
+                    </list>
+                </p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <place xml:id="craiglockhart">
+                        <placeName>Craiglockhart War Hospital</placeName>
+                        <settlement>Edinburgh</settlement>
+                        <region>Scotland</region>
+                        <country key="UK">United Kingdom</country>
+                        <location>
+                            <geo>55.91812, -3.24019</geo>
+                        </location>
+                    </place>
+                </egXML>
+            </div>
+            <div>
+                <head>A place can be fictional</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <place type="imaginary">
+              <placeName>Atlantis</placeName>
+              <location>
+                <offset>fifty leagues beyond</offset>
+                <placeName>Pillars of <persName>Hercules</persName></placeName>
+              </location>
+            </place>
+          </egXML>
+            </div>
+            <div>
+                <head>Places can self-nest </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<place type="soverignState">
+    <placeName>United Kingdom</placeName>
+    <placeName type="full">United Kingdom of Great Britain and
+        Northern Ireland</placeName>
+    <place type="country">
+        <placeName>Scotland</placeName>
+        <place xml:id="edinburgh" type="city">
+            <placeName>Edinburgh</placeName>
+            <place xml:id="craiglockhart">
+                <placeName>Craiglockhart War Hospital</placeName>
+                <location>
+                    <geo>55.91812, -3.24019</geo>
+                </location>
+            </place>
+        </place>
+    </place>
+</place>
+          </egXML>
+            </div>
+
+            <div>
+                <head>Organizational names</head>
+                <p>Organizations have names as well. These are any named collection of
+                    people regarded as a single unit. An <gi>orgName</gi> can point back
+                    to an <gi>org</gi> in the header. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <p>On <date when="1915-10-21">21 October 1915</date> Owen enlisted in the <orgName ref="#AROTC">Artists' Rifles Officers' Training Corps</orgName>.</p>
+    </egXML>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<org xml:id="AROTC">
+    <!-- Information about the organization -->
+</org>    
+</egXML>
+                </p>
+
+            </div>
+
+            <div>
+                <head>Events</head>
+                <p>For persons, only two specific event elements are defined:
+                        <gi>birth</gi> and <gi>death</gi>. Anything else must be defined
+                    using the generic <gi>event</gi> element and its <att>type</att>
+                    attribute.</p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <person xml:id="SS">
+                        <persName>Siegfried Loraine Sassoon</persName>
+                        <birth when="1886-09-08">
+                            <placeName>
+                                <placeName>Weirleigh Mansion</placeName>
+                                <settlement>Matfield</settlement>
+                                <region>Kent</region>
+                            </placeName>
+                        </birth>
+                        <death when="1967-09-01"/>
+                        <event when="1914-08-04" type="military">
+                            <desc>In service with Sussex Yeomanry on the day the United
+                                Kingdom declared war</desc>
+                        </event>
+                        <event when="1933-12" type="marriage">
+                            <desc>Married Hester Gatty in December 1933</desc>
+                        </event>
+                        <event when="1945" type="separation">
+                            <desc>Seperated from his wife in 1945</desc>
+                        </event>
+                    </person>
+          </egXML>
+            </div>
+            <div>
+                <head>W3C Date Formats</head>
+                <p>All these events are 'datable' and so can be associated with a more or
+                    less exact date or date range using any combination of the following
+                    attributes: <list type="gloss">
+                        <label>
+                            <att>when</att>
+                        </label>
+                        <item>supplies the value of a date or time in a standard
+                            form</item>
+                        <label>
+                            <att>notBefore</att>
+                        </label>
+                        <item>specifies the earliest possible date for the event in
+                            standard form</item>
+                        <label>
+                            <att>notAfter</att>
+                        </label>
+                        <item>specifies the latest possible date for the event in standard
+                            form</item>
+                        <label>
+                            <att>from</att>
+                        </label>
+                        <item>indicates the starting point of the period in standard
+                            form</item>
+                        <label>
+                            <att>to</att>
+                        </label>
+                        <item>indicates the ending point of the period in standard
+                            form</item>
+                    </list>
+                </p>
+                <p>The <soCalled> standard form</soCalled> is that defined by
+                    W3C<!--; a parallel set of attributes is provided for ISO format dates-->.
+                    All dates are normalised to the Gregorian calendar.</p>
+            </div>
+            <div>
+                <head>Personal Relationships</head>
+                <p>The <gi>relation</gi> (relationship) element describes any kind of
+                    relationship or linkage amongst other entities</p>
+                <p>We distinguish <soCalled>mutual</soCalled> relationships (e.g. sibling)
+                    from non-mutual or directed relationships (e.g. parent-of). </p>
+                <p>The following attributes are available: <list type="gloss">
+                        <label>
+                            <att>name</att>
+                        </label>
+                        <item>supplies a name for the kind of relationship of which this
+                            is an instance</item>
+                        <label>
+                            <att>active</att>
+                        </label>
+                        <item>identifies the 'active' participants in a non-mutual
+                            relationship, or all the participants in a mutual one</item>
+                        <label>
+                            <att>mutual</att>
+                        </label>
+                        <item>supplies a list of participants amongst all of whom the
+                            relationship holds equally</item>
+                        <label>
+                            <att>passive</att>
+                        </label>
+                        <item>identifies the ‘passive’ participants in a non-mutual
+                            relationship</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Example</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <person xml:id="SS">
+                <persName>Siegfried Loraine Sassoon</persName>
+            </person>
+            <person xml:id="HG">
+              <persName>Hester Gatty</persName>
+            </person>
+            <person xml:id="GS">
+              <persName>George Sassoon</persName>
+            </person>
+            <!--….-->
+            <relationGrp type="children">
+              <relation name="parent" active="#SS" passive="#GS"/>
+              <!--….-->
+            </relationGrp>
+          </egXML>
+            </div>
+            <div>
+                <head>Nyms</head>
+                <p>The elements <gi>listNym</gi> and <gi>nym</gi> are used to document the
+                    canonical form of a name or name-component.<list>
+                        <item>
+                            <gi>nym</gi>
+                            <list type="simple">
+                                <item>can contain <ident>model.entryParts</ident> (e.g.
+                                        <gi>form</gi>, <gi>orth</gi>, <gi>etym</gi>) and
+                                    may also include a number of other
+                                    <gi>nym</gi>s</item>
+                                <item>in addition to global attributes and att.typed, it
+                                    includes the attribute <att>parts</att> to point to
+                                    constituent <gi>nym</gi>s </item>
+                            </list>
+                        </item>
+                        <item><gi>listNym</gi> a list of canonical names</item>
+                        <item><att>nymRef</att> has been added to the attribute class
+                            att.naming to refer to the canonical name</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Example</head>
+                <egXML xml:lang="und" xmlns="http://www.tei-c.org/ns/Examples"><nym xml:id="J45">
+  <form xml:lang="la">Iohannes</form>
+   <nym xml:id="J450">
+     <form xml:lang="en">John</form>
+     <nym xml:id="J4501">
+       <form>Johnny</form>
+     </nym>
+     <nym xml:id="J4502">
+       <form>Jon</form>
+     </nym>
+   </nym>
+   <nym xml:id="J455">
+     <form xml:lang="ru">Ivan</form>
+   </nym>
+   <nym xml:id="J453">
+    <form xml:lang="fr">Jean</form>
+   </nym>
+</nym></egXML>
+            </div>
+
+            <div>
+                <head>Next</head>
+                <p>That is a quick overview of names, named entities, and how they relate
+                    to each other. </p>
+                <p>Now let's do an exercise where we make an existing <gi>teiHeader</gi>
+                    element better by marking <gi>names</gi> and creating <gi>person</gi>
+                    and <gi>place</gi> elements!</p>
+            </div>
+
+        </body>
+    </text>
+</TEI>

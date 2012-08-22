@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 2: Create a TEI Document</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+        <div>
+            <head>Exercise 2: Create a TEI Document</head>
+      <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item> discern the elements and attributes needed for a minimum valid TEI XML file </item>
+            <item>associate a TEI XML file with a schema </item>
+            <item>have used the TEI namespace</item>
+            <item>create a minimum TEI header and text body </item>
+            <item>check for both validity and well-formedness</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>This exercise will walk you through creating a TEI XML file and inserting the work you
+          did previously into it. You'll learn about the required aspects of the <gi>teiHeader</gi>
+          and the basic structure of a TEI file. </p>
+      </div>
+      <div>
+        <head>Start a New XML File</head>
+        <p>Follow the same steps you did for the first exercise to start a new blank XML file.
+          Although we could start a file with a TEI P5 template, for this particular exercise that
+          would be cheating! <list type="bulleted">
+            <item>Load up the oXygen XML Editor if it isn't already loaded by using the Windows
+              Start Menu, or double-clicking the icon on the desktop. </item>
+            <item>Once the editor has fully loaded from the 'File' menu select 'New' and under 'New
+              Document' select 'XML Document'. This should open up a blank file with an XML
+              Declaration added.</item>
+            <item>An XML Declaration looks like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                &lt;?xml version="1.0" encoding="UTF-8"?> 
+              </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Inserting a <gi>TEI</gi> Element</head>
+        <p>All TEI files start either with a <gi>TEI</gi> element or a <gi>teiCorpus</gi> element.
+          In most cases you'll want a <gi>TEI</gi> element. These elements have a special
+          psuedo-attribute called 'xmlns' that indicates the namespace a set of elements are from.
+          This is inherited by any elements inside it (unless overridden). This is how we can be
+          sure we're talking about, say, a <gi>title</gi> element from the TEI rather than any other
+          schema. <list type="bulleted">
+            <item> Add a <gi>TEI</gi> element and then add it to the TEI namespace
+              (http://www.tei-c.org/ns/1.0). Maybe add a few blanks line between the starting and
+              closing tag. Your file should look like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples" valid="false">
+                  &lt;?xml version="1.0" encoding="UTF-8"?> 
+                  &lt;TEI xmlns="http://www.tei-c.org/ns/1.0">
+                    
+                  
+                  &lt;/TEI>
+              </egXML>
+            </item>
+            <item>Notice what happens in oXygen and how it helps you input this. Also notice that
+              your file may now have an angry red square rather than a happy green one! Is your file
+              well-formed? (yes, it is!) Why is this red then? </item>
+            <item> If it is red it is because your version of oXygen is prepackaged with all sorts
+              of TEI goodness, and in this case it recognises that files starting with <gi>TEI</gi>
+              in the TEI namespace are to be associated automatically with a TEI schema that it has
+              stored. It is complaining that you do not have a <gi>teiHeader</gi> in your file
+              because all valid TEI files must have this.</item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Adding a <gi>teiHeader</gi></head>
+        <p> Inside the <gi>TEI</gi> element we need to add a <gi>teiHeader</gi> element. <list
+            type="bulleted">
+            <item>Put the cursor between the starting and closing <gi>TEI</gi> element and type in a
+                <gi>teiHeader</gi> element. Notice that oXygen provides the closing
+                <gi>/teiHeader</gi> element. If the correct option is set in oXygen, it understands
+              the TEI schema and knows that certain content is required inside a
+              <gi>teiHeader</gi>. It can automatically provide that markup. If not, you'll have to
+              type it in. The resulting file should look like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples" valid="false">
+                  &lt;?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title> </title>
+            </titleStmt>
+            <publicationStmt> </publicationStmt>
+            <sourceDesc> </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+</TEI>
+             </egXML>
+            </item>
+            <item> Notice that your file still has an angry red square rather than a happy green
+              square. This is because there is still stuff needed even though you've added some
+              markup. First, add a title of something like "My 'Strange Meeting' document" by adding this
+              text between the starting and closing <gi>title</gi> tags. There are other elements
+              which are allowed here in <gi>titleStmt</gi> such as <gi>author</gi> (Wilfred Owen),
+                <gi>editor</gi> (Jon Stallworthy), that you could add but aren't really required for
+              this exercise. You could use the more general <gi>respStmt</gi> (with a <gi>name</gi>
+              element with your name and a <gi>resp</gi> element with something like 'TEI P5
+              Encoding' in it) to record your own work if you wish, but as with the other
+              embellishments this isn't necessary for this exercise. </item>
+            <item> Then add a paragraph <gi>p</gi> inside the <gi>publicationStmt</gi> with some
+              text to record what this file is for, perhaps something like "An exercise for learning
+              TEI." </item>
+            <item>Inside sourceDesc we should add a <gi>p</gi> with some text like: "The primary
+              resource of this file is Strange Meeting from Jon Stallworthy's edition, available on
+              the First World War Poetry Digital Archive." To make this even better, we might
+              surround the title 'Strange Meeting' with a <gi>ref</gi> element with a
+                <att>target</att> attribute with a value of
+              'http://www.oucs.ox.ac.uk/ww1lit/collections/item/3350' because that is URL from which
+              we got this text.</item>
+            <item> Your <gi>teiHeader</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+       <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>My 'Strange Meeting' document</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>An exercise for learning TEI.</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p> The primary resource of this file is <ref target="http://www.oucs.ox.ac.uk/ww1lit/collections/item/3350">Strange
+                        Meeting</ref> from Jon Stallworthy's edition, available on the First World
+                    War Poetry Digital Archive. </p>
+
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+              </egXML>
+            </item>
+            <item>Notice that even though this is a complete <gi>teiHeader</gi> with all the
+              required aspects, our file as a whole isn't valid.</item>
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Add a <gi>text</gi></head>
+        <p>All TEI files, in addition to a <gi>teiHeader</gi> with <gi>fileDesc</gi> containing a
+            <gi>titleStmt</gi>, <gi>publicationStmt</gi>, and <gi>sourceDesc</gi>, need to follow
+          the header with at least one of: <gi>sourceDoc</gi>, <gi>facsimile</gi>, or <gi>text</gi>.
+          In our case we're going to add a <gi>text</gi> element. To do this: <list type="bulleted">
+            <item>Add a couple of blank lines after the closing <gi>/teiHeader</gi>.
+            </item>
+            <item> Insert a <gi>text</gi> element and inside that a <gi>body</gi> element. (The
+                <gi>text</gi> element requires a <gi>body</gi> element because if you don't have a
+              text body, what are you encoding?)</item>
+            <item> The <gi>text</gi> section of the file should look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <text>
+        <body>     
+         <!--We will put our poem here  -->      
+              
+        </body>
+        
+    </text>
+              </egXML>
+            </item>
+
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Adding Our Poem</head>
+        <p>This is a good start but we need to put something inside the body. Luckily, we have already
+          encoded a poem in the previous exercise, so we can use that! <list type="bulleted">
+            <item>With the cursor in between the opening and closing <gi>body</gi> tags go to the
+              'Document' menu on the menu bar, and select 'File', and 'Insert File'. Select the file
+              you saved earlier if you finished the first exercise. If you didn't then in the
+              spoilers directory there is a file called 'ex01.xml' which has the completed first
+              exercise.</item>
+            <item> But wait, as soon as you've added this we get a bit of a problem! oXygen will
+              complain that we've got an XML declaration in the middle of our file. Delete this
+              redundant XML declaration!</item>
+            <item> Your document should now be valid and have a happy green square in the upper
+              right-hand corner! If it isn't, try to solve the problem by looking at the error
+              message that is provided.</item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Have you formatted and indented your work automatically? </item>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like an
+              old-style 3.5" disk)</item>
+            <item>Save the file using the name 'exercise02.xml' or another name of your
+              choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions: <list>
+            <item> Which elements and attributes do you need for a minimum valid TEI XML document? </item>
+            <item>What three parts of the <gi>teiHeader</gi> are required in all TEI conformant
+              documents?</item>
+            <item>Where are these elements and attributes allowed? </item>
+            <item>What is the function of each element and attribute you've used? </item>
+            <item>Why do you think these elements and attributes are required in TEI XML? </item>
+
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next and More Reading</head>
+        <p> This exercise and the previous one should have given you some experience editing XML and
+          making a valid TEI file. Next time we'll get an more in-depth introduction to various
+          other TEI modules and learn more about the <gi>teiHeader</gi>. <list>
+            <item>If you are finished early you may wish to
+              browse through the TEI Guidelines online at <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index-toc.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index-toc.html</ref>.</item>
+            <item>In particular you might want to look at the Elements appendix of reference pages for individual
+              elements. Consider looking up all the elements you've used in this file to see how they
+              are defined.</item>
+            <item>What other elements are allowed inside the <gi>text</gi> element? What would you use them for?</item>
+            <item>What other parts of the <gi>teiHeader</gi> are there? What are they for?</item>
+            <item>You may wish to read the chapters on Default Text Structure <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/DS.html">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/DS.html</ref>
+              or Elements Available to All TEI Doccuments <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/CO.html</ref>.
+            </item>
+          </list>
+        </p>
+      </div>
+        </div>
+    </body>
+  </text>
+</TEI>

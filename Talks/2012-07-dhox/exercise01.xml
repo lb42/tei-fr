@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 1: Create an XML Document</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+        <div>
+            <head>Exercise 1: Create an XML Document</head>
+      <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item>mark up an XML declaration</item>
+            <item>insert a text file into an XML editor</item>
+            <item>mark up basic features of a poem</item>
+            <item>create a well-formed XML document</item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>This exercise will walk you through creating an XML document in the oXygen editor and
+          introduce a variety of ways to mark this document up. You will first start a new document,
+          then insert some unmarked up text into the editor, and then mark up the stanzas or
+          line-groups (lg) and lines (l). You will learn to check that your document is well-formed
+          or not. </p>
+      </div>
+
+      <div>
+        <head>Starting A New XML File</head>
+        <p> Let's start a new XML file by following the following steps: <list type="bulleted">
+            <item>Load up the oXygen XML Editor if it isn't already loaded by using the Windows Start Menu, or double-clicking
+              the icon on the desktop. </item>
+            <item>Once the editor has fully loaded from the 'File' menu select 'New' and under 'New
+              Document' select 'XML Document'. This should open up a blank document with an XML
+              Declaration added.</item>
+            <item>An XML Declaration looks like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                &lt;?xml version="1.0" encoding="UTF-8"?> 
+              </egXML>
+              and The XML declaration in the element tells anything processing your XML file, including
+              the editor, that this is an XML file and what version of XML you are using through the
+              @version attribute. It also conveys which characters the program may expect in
+              attribute @encoding. XML version 1.0 is a W3C recommendation from 2008. UTF-8
+              (Universal Character Set Transformation Format - 8 bit) contains most characters from
+              all human writing systems. The XML declaration needs no closing tag as it takes the
+              form of a special processing-instruction that starts and ends with an angle-bracket
+              and a question mark. </item>
+          </list></p>
+      </div>
+
+      <div>
+        <head>Creating a Division</head>
+        <p>Let's create a division of a text using the <gi>div</gi> element. This is a generic
+          division or section element. <list type="bulleted">
+            <item>On the line below the XML declaration type: <gi>div</gi>.</item>
+            <item>Notice what happens when you type the final '&gt;'. oXygen is trying to help you
+              and inserts in the closing <gi>/div</gi> tag. This is because it knows the rules of
+              XML, and knows that if you type an opening <gi>div</gi> you are required to have a
+              closing <gi>/div</gi> sooner or later.</item>
+            <item>We haven't said what type of division this is, so lets categorise it as 'verse' by
+              adding a @type attribute. Move the cursor back until your just after the letter 'v' in
+              the opening tag. Press space, and then type: <code>type="</code> and notice what
+              happens when you type the quotation mark. oXygen is again trying to help you by
+              putting the closing quotation mark, because it knows that attribute values must always
+              be quoted.</item>
+            <item>In between the quotation marks type '<code>verse</code>' to categorise our division
+              as being verse.</item>
+            <item>Move back until you are directly in between the opening <gi>div</gi> and closing
+                <gi>/div</gi>. Press 'enter' a couple times to give yourself some space inside the
+              element.</item>
+          </list>
+        </p>
+      </div>
+
+      <div>
+        <head>Inserting Some Text</head>
+        <p>We are going to use the Wilfred Owen poem <title>Strange Meeting</title> as an example
+          for this exercise. But it would waste a lot of time if we asked you to type the whole poem
+          in, so we've done that for you. <list type="bulleted">
+            <item>Make sure your cursor is in-between the opening <gi>div</gi> and the closing
+                <gi>/div</gi> and go to the <hi>Document</hi> menu and select 'File' and from there
+              then 'Insert File'. <hi>Note: This is from the 'Document' menu on the menu bar, not
+                the 'File' one.</hi></item>
+            <item>Select 'strange-meeting.txt' as the file to insert.</item>
+            <item>The start of your document should look like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+                &lt;?xml version="1.0" encoding="UTF-8"?>
+                  <div type="verse"> 
+                    STRANGE MEETING 
+                    
+                    It seemed that out of battle I escaped
+                    Down some profound dull tunnel, long since scooped
+                    Through granites which titanic wars had groined. 
+                    
+                    [...a lot more text...] 
+                  </div>
+              </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Encoding the Heading (using 'Surround with Tags')</head>
+        <p>The text 'STRANGE MEETING' at the top of the poem is obviously a heading. The TEI
+            <gi>head</gi> element should be used to mark this. To mark this do the following: <list
+            type="bulleted">
+            <item>Highlight the text 'STRANGE MEETING' with the mouse.</item>
+            <item>Either press control-e as a shortcut key, or right-click and under 'Refactoring'
+              select 'Surround with Tags'. A box should pop up and type <code>head</code> into it.
+              Notice how oXygen helps you again by putting the opening tag before what you had
+              highlighted and the close tag afterwards.</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Marking Stanzas (using both 'Surround with Tags' and 'Split Element')</head>
+        <p> Let's mark the stanzas that appear doing the following steps: <list type="bulleted">
+            <item>Highlight the first stanza, from "It seemed" to "had groined".</item>
+            <item>Using control-e, or the menus, as you did above, mark this stanza as an
+                <gi>lg</gi> element.</item>
+            <item>Add a @type attribute with a value of 'stanza' to the <gi>lg</gi> element so it
+              looks like: <gi>lg type="stanza"</gi>.</item>
+            <item>The start of your document should now look like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+             &lt;?xml version="1.0" encoding="UTF-8"?>
+                <div type="verse">
+                  <head>STRANGE MEETING</head>
+                  <lg type="stanza">
+                    It seemed that out of battle I escaped
+                    Down some profound dull tunnel, long since scooped
+                    Through granites which titanic wars had groined.
+                  </lg>
+    
+                  [...a lot more text...] 
+                  </div>
+            </egXML>
+            </item>
+            <item>But if we have lots of stanzas, marking each one of them seems a lot of work, but
+              there is a (possibly) easier way.</item>
+            <item> Highlight the entire rest of the poem, from "Yet also there" to "Let us sleep
+              now....'", and then surround all of it in an <gi>lg</gi> element (by pressing
+              control-e)</item>
+            <item>Of course it is silly to have the entire rest of the poem marked as a single
+              line-group, but go and add a type="stanza" attribute to the opening tag. </item>
+            <item>If you move the cursor to just before the start of each stanza, e.g. just before
+              where it says "With a thousand pains", and press alt-shift-d (or select Refactoring ->
+              Split Element from the right-click menu), oXygen should split the <gi>lg</gi> element,
+              ending it here and starting it just before where there cursor is located. </item>
+            <item>Do this for other stanzas that are not marked yet.</item>
+
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Marking Lines</head>
+        <p> We've marked all the stanzas but we've not marked the lines. <list type="bulleted">
+            <item>Highlight the first line in the first stanza, press control-e to surround with a
+              tag, and type 'l' as the element name. (<gi>l</gi> is the line element, meaning a line
+              of metrical verse). </item>
+            <item>It might be a bit painful to mark up each and every line this way, you could try
+              using the split-element technique above, but there is another shortcut to try as well.
+              Highlight the second line and press control-/ and notice that oXygen has wrapped the
+              line in a <gi>l</gi> element. The reason for this is that control-/ is the 'surround
+              with the last element I surrounded something with' shortcut key.</item>
+            <item>Using this technique, quickly mark all the remaining lines.</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Format and Indent</head>
+        <p>Our poem is marked up, but some of the markup might be a bit messy. <list type="bulleted">
+            <item>Make sure that your file is 'well-formed'. You'll be able to tell it is
+              well-formed because oXygen will have a happy green square in the upper right-hand
+              corner. If it is red, you better find the problem (where a red bar on the right-hand
+              side is) and correct the mistake! </item>
+            <item>Now let's format and indent our file. This tidies up some of the whitespace and
+              indents elements based on their place in the hierarchy. Either select the 'Format and
+              Indent' icon from the toolbar (it looks like some indented lines), or go to the menus:
+              'Document' -> 'Source' -> 'Format and Indent'.</item>
+            <item>Formatting and indenting your markup is not necessary, it could all be on one big
+              long line, but it makes it much easier for other people to read. </item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Saving Your Work -->
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like an
+              old-style 3.5" disk)</item>
+            <item>Save the file using the name 'exercise01.xml' or another name of your
+              choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions to yourself: <list>
+            <item>How do you start a new XML document in oXygen?</item>
+            <item>What is an XML declaration?</item>
+            <item>What is a well-formed document?</item>
+            <item>How do I 'Surround with tag' and repeat that action quickly?</item>
+            <item>Why might using the 'Split element' approach be useful?</item>
+            <item>What is the function of each element and attribute in your current file? </item>
+            <item>What is the advantage of formatting and indenting your markup? </item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next?</head>
+        <p> Your XML file may be well-formed but it is not yet <hi rend="bold">valid</hi> because it
+          doesn't validate against a particular schema (such as those which are customisations of
+          the TEI). Next we will have a short introduction to the structure of TEI documents and
+          some of the most frequently used elements. If you are finished early you may wish to
+          browse through the TEI Guidelines online at <ref
+            target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index-toc.html"
+            >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index-toc.html</ref>. In particular
+          you might want to look at the Elements appendix of reference pages for individual
+          elements. Consider looking up all the elements you've used in this file to see how they
+          are defined. </p>
+      </div>
+        </div>
+    </body>
+  </text>
+</TEI>
