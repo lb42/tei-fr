@@ -2,9 +2,9 @@ ECHO=
 
 TALKS= \
 	talk-01-intro.xml \
-#	talk-tei.xml \
-#	talk-guidelines.xml \
-#	talk-editing.xml \
+	talk-02-lite.xml \
+	talk-03-overview.xml \
+	talk-04-transcr.xml \
 #	talk-customizing.xml \
 #	talk-xslt.xml \
 #	talk-hdr.xml \
