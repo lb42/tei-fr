@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Transcription des Sources Manuscrites (2)</title>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>septembre 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>2012-01-24</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change><date>$LastChangedDate: $.</date>
+        <name>$LastChangedBy: lou $</name>
+        <note>$LastChangedRevision: $</note></change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+<div><head>Encodage documentaire</head>
+<p>Nous avons deja evoque les problemes associes a l'encodage des
+<list>
+<item>l'apparence physique d'un document</item>
+<item>la disposition des unites structurant d'un text sur les pages physique d'un document </item>
+<item>la sequence de composition des morceaux d'un document</item>
+<item>les indications <q>meta</q> d'un ecrivain sur la lecture voulue de ses ecritures</item>
+</list></p>
+<p>La TEI d'aujourd'hui propose des mecanismes plus ou moins elabores pour l'encodage de ces questions... </p>
+
+
+</div>
+
+      <div>
+        <head> Qu'est-ce qu'un "facsimilé numérique"?</head>
+        <list>
+          <item>Au plus simple, un inventaire de fichiers images, qui reproduisent le document décrit
+            par l'en-tête associé. </item>
+          <item> mais peut également définir des espaces visuels plus petits, comme les
+              <emph>surfaces</emph> ou <emph>zones d'intérêt</emph> sur ces surfaces </item>
+          <item> Tous peuvent être alignés, à un niveau approprié, avec les parties d'une
+            transcription </item>
+        </list>
+
+
+      </div>
+      <div>
+        <head> La solution la plus simple pour supporter un "facsimilé numérique"</head>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <TEI>
+            <teiHeader>
+              <!--...--></teiHeader>
+            <text>
+              <pb facs="page1.png"/>
+              <!-- texte de la  page 1 facultativement transcrit ici -->
+              <pb facs="page2.png"/>
+              <!-- texte de la  page 2 facultativement transcrit ici-->
+            </text>
+          </TEI>
+        </egXML>
+
+        <p>Inconvénients... <list>
+            <item>difficile de supporter des relations plus compliquées </item>
+            <item>maintien difficile d'informations propres à l'image </item>
+            <item>nécessite donc l'intégration avec d'autres fichiers (typiquement METS) </item>
+          </list></p>
+      </div>
+
+      <div>
+        <head>Solution un peu moins simple </head>
+
+        <p>Regrouper les données à un seul endroit: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <facsimile xml:base="http://mylibrary.wibble.fr/blah/blah/blah">
+              <graphic url="page1.png"/>
+              <graphic url="page2.png"/>
+              <graphic url="page3.png"/>
+              <graphic url="page4.png"/>
+            </facsimile>
+          </egXML></p>
+
+        <p>(On pourrait également se servir de <gi>binaryObject</gi>)</p>
+
+      </div>
+      <div>
+        <head>Et si on disposait de versions alternatives d'une même image?</head>
+
+        <p>Se servir de <gi>surface</gi>pour grouper les images équivalentes: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <facsimile>
+              <graphic url="page1.png"/>
+              <surface>
+                <graphic url="page2-highRes.png"/>
+                <graphic url="page2-lowRes.png"/>
+              </surface>
+              <graphic url="page3.png"/>
+              <graphic url="page4.png"/>
+            </facsimile>
+          </egXML></p>
+      </div>
+
+      <div>
+        <head>Lier l'image à la transcription</head>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
+            <graphic xml:id="page1" url="page1.png"/>
+            <graphic xml:id="page2" url="page2.png"/>
+            <graphic xml:id="page3" url="page3.png"/>
+            <graphic xml:id="page4" url="page4.png"/>
+          </facsimile>
+          <!-- ... -->
+          <text>
+            <pb facs="#page1"/>
+            <!-- texte de la  page 1 facultativement transcrit ici -->
+            <pb facs="#page2"/>
+            <!-- texte de la  page 1 facultativement transcrit ici -->
+          </text>
+        </egXML>
+
+      </div>
+
+      <div>
+        <head>Lier deux parties d'une image</head>
+        <list>
+          <item>on se sert de <gi>surface</gi> pour définir un systeme un système abstrait de
+            coordonnées </item>
+          <item>on se sert de <gi>zone</gi> pour définir une zone d'intérêt </item>
+          <item>on se sert de <gi>graphic</gi> pour fournir une image de la zone ou surface qui le
+            contient </item>
+        </list>
+      </div>
+
+      <div>
+        <head> Bovelles-49r.png</head>
+
+        <figure>
+          <graphic url="../../Graphics/facs-fig1.png" height="250px"/>
+        </figure>
+
+      </div>
+
+      <div>
+        <head>Encodage pour cette image</head>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
+            <surface ulx="0" uly="0" lrx="200" lry="300">
+              <zone xml:id="B49r" ulx="0" uly="0" lrx="200" lry="300">
+                <graphic url="Bovelles-49r.png"/>
+              </zone>
+              <zone ulx="105" uly="76" lrx="175" lry="160">
+                <graphic url="Bovelles49r-detail.png"/>
+              </zone>
+              <zone xml:id="B49rHead" ulx="25" uly="25" lrx="180" lry="60"/>
+              <!-- contient le titre -->
+              <zone xml:id="B49rPara2" ulx="28" uly="75" lrx="175" lry="178"/>
+              <!-- contient le paragraphe en italique  -->
+              <zone xml:id="B49rFig1" ulx="105" uly="76" lrx="175" lry="160"/>
+              <!-- contient l'image de cloche  -->
+              <zone xml:id="B49rW457" ulx="45" uly="125" lrx="60" lry="130"/>
+              <!-- contient le mot "pendans" -->
+            </surface>
+          </facsimile></egXML>
+        <p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
+
+      </div>
+      <div>
+        <head>La transcription</head>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><pb facs="#B49r"/>
+          <fw>De Geometrie 49</fw><head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET <lb/> des
+            alleures des chevaulx, chariotz &amp; charges, des fontaines:&amp; <lb/> encyclie du
+            monde, &amp; de la dimension du corps humain.</head>
+          <head>Chapitre septiesme</head>
+          <div n="1">
+            <p>Le son &amp; accord des cloches pendans en ung mesme <lb/> axe, est faict en
+              contraires parties.</p>
+            <p rend="it" facs="#B49rPara2">LEs cloches ont quasi fi<lb/>gures de rondes
+              pyra<lb/>mides imperfaictes &amp; <lb/> irregulieres: &amp; leur accord se <lb/> fait
+              par reigle geometrique. Com<lb/>me si les deux cloches C &amp; D <lb/> sont <w
+                facs="#B49rW457">pendans</w> à ung mesme axe <lb/> ou essieu A B: je dis que leur
+              ac<lb/>cord se fera en co<ex>n</ex>traires parties<lb/> co<ex>m</ex>me voyez icy
+              figuré. Car qua<ex>n</ex>d <lb/> lune sera en hault, laultre declinera embas.
+              Aultrement si elles decli<lb/>nent toutes deux ensembles en une mesme partie, elles
+              seront discord, <lb/> &amp; sera leur sonnerie mal plaisante à oyr.<figure
+                facs="#B49rFig1"/>
+            </p>
+          </div></egXML>
+      </div>
+
+<div><head>Comment combiner transcription et images?</head>
+        <p>On peut se servir de l' élément <gi>sourceDoc</gi>... </p>
+        <list type="unordered">
+          <item>au même niveau que <gi>text</gi> et <gi>teiHeader</gi>
+          </item>
+          <item>représente la <hi>structure physique</hi> du document</item>
+          <item>rassemble un ou plusieurs éléments <gi>surface</gi> écrites, éventuellement divisées
+            en <gi>zone</gi>s d'intérêt </item>
+          <item>ou en  <gi>line</gi>s      topographiques </item>
+        </list>
+      </div>
+
+      <div>
+        <figure>
+          <graphic url="../../Graphics/feed.png"/>
+        </figure>
+      </div>
+      <div>
+        <figure>
+          <graphic url="../../Graphics/feed-zoned.png"/>
+        </figure>
+      </div>
+      <div>
+        <head>"Textual" encoding</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <text>
+            <body>
+              <div type="diary-entry">
+                <dateline>
+                  <date value="2009-04-01">1 april 2009</date>
+                </dateline>
+                <p><lb/>Fed Birds in the park today. <lb/> Might write an article about <lb/>the
+                  Thick-billed Warbler.</p>
+              </div>
+              <div type="note" rend="rotated">
+                <p><lb/>Samaria is a Greek<lb/>brand of water that<lb/>comes from the
+                  natural<lb/>springs of Stilos, in <lb/>Crete.</p>
+              </div>
+            </body>
+          </text>
+        </egXML>
+      </div>
+      <div>
+        <head>"Documentary" encoding</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <sourceDoc>
+            <surface ulx="0" uly="0" lrx="200" lry="300">
+              <zone ulx="10" uly="43" lrx="185" lry="84">
+                <line rend="right">1 April 2009</line>
+              </zone>
+              <zone><line>Fed Birds in the park today.</line><line>Might write an article
+                  about</line><line>the Thick-billed Warbler.</line>
+              </zone>
+              <zone ulx="9" uly="20" lrx="70" lry="60" rotate="90"><line>Samaria is a
+                  Greek</line><line>brand of water that </line><line>comes from the natural
+                  </line><line>springs of Stilos, in </line><line>Crete.</line></zone>
+            </surface>
+          </sourceDoc>
+        </egXML>
+      </div>
+
+      <div>
+        <head>Les surfaces et les zones... </head>
+        <p>La relation surface / zone peut être assez complexe :</p>
+        <figure>
+          <graphic url="../../Graphics/prpost-zone.png"/>
+        </figure>
+      </div>
+
+
+      <div>
+        <head>Multi-part surfaces</head>
+        <p>... <emph>tres</emph>complexe </p>
+        <figure>
+          <graphic url="../../Graphics/lebrave-finale.png"/>
+        </figure>
+      </div>
+
+      <div>
+        <head>Balisage des informations "meta" ...</head>
+        <list>
+          <label><gi>metamark</gi></label>
+          <item>une marque quelconque déterminant la lecture du document </item>
+
+          <label><gi>mod</gi> et <gi>modSpan</gi></label>
+          <item>indiquent, de manière générique, le lieu d'une modification dans le document, sans
+            spécifier sa fonction</item>
+
+          <label><gi>undo</gi>
+            <gi>redo</gi>, <gi>retrace</gi></label>
+          <item>indications respectivement de : corrections supprimées, corrections réaffirmées,
+            réécritures</item>
+          <label><gi>transpose</gi> et <gi>transposeGrp</gi></label>
+          <item>transpositions</item>
+        </list>
+      </div>
+      <div>
+        <head>Metamark exemple</head>
+
+        <p><graphic url="../../Graphics/whitman-02.jpg"/></p>
+      </div>
+
+
+      <div>
+        <head>Metamark exemple encodé </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <surface>
+            <metamark function="used" rend="line" target="#X2"/>
+            <zone xml:id="X2">
+              <line>I am that halfgrown <add>angry</add> boy, fallen asleep</line>
+              <line>The tears of foolish passion yet undried</line>
+              <line>upon my cheeks.</line>
+              <!-- ... -->
+              <line>I pass through <add>the</add> travels and <del>fortunes</del> of
+                  <retrace>thirty</retrace></line>
+              <line>years and become old,</line>
+              <line>Each in its due order comes and goes,</line>
+              <line>And thus a message for me comes.</line>
+              <line>The</line>
+            </zone>
+            <metamark function="used" target="#X2">Entered - Yes</metamark>
+          </surface>
+        </egXML>
+      </div>
+      <div>
+        <head><gi>transposition</gi> exemple</head>
+        <figure>
+          <graphic url="../../Graphics/ibsen01.jpg" width="300px"/>
+          <head>Extrait de <ref>http://www.emunch.no/tei-mm-2008/ms.html</ref></head>
+        </figure>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xmlns:ge="http://www.nontei">
+          <line><seg xml:id="ib01">bör</seg><metamark rend="underline" function="transposition"
+              target="#ib1" place="above">2.</metamark> og <seg xml:id="ib02">hör</seg>
+            <metamark rend="underline" function="transposition" target="#ib02" place="above">1.
+            </metamark></line>
+        </egXML>
+
+      </div>
+      <div>
+        <head>Transposition : exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xmlns:ge="http://www.nontei">
+          <transposeGrp>
+            <transpose>
+              <ptr target="#ib02"/>
+              <ptr target="#ib01"/>
+            </transpose>
+          </transposeGrp>
+        </egXML>
+      </div>
+
+      <div>
+        <head>Distinction des étapes d'écriture</head>
+        <p>L'attribut <att>change</att> sert a associer n'importe quel élément de la
+          transcription avec une étape identifiée dans l'évolution du document</p>
+        <p>L'identification d'une étape est au coeur de la problématique génétique: on ne peut pas
+          vous aider là!</p>
+        <p>Les étapes elles-mêmes sont à documenter dans l'élément <gi>profileDesc</gi> de l'en-tête
+          TEI.</p>
+      </div>
+
+
+      <div>
+        <head>Example... </head>
+        <figure>
+          <graphic url="../../Graphics/etapes-1.png" width="200px"/>
+        </figure>
+        <p rend="box">Ex  hypothese, les couleurs d'encre sont a associer avec des niveaux distincts d'ecriture</p>
+      </div>
+
+      <div>
+        <head>Documentation des etapes</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <profileDesc>
+            <creation>
+              <listChange ordered="true">
+                <change xml:id="ST-1">Premier brouillon, à l'encre noire </change>
+                <change xml:id="ST-2">Corrections et révisions en rouge</change>
+                <change xml:id="ST-3">Corrections et révisions en bleu</change>
+                <change xml:id="ST-4">Ratures et indications d'usage en vert</change>
+              </listChange>
+            </creation>
+          </profileDesc>
+        </egXML>
+
+      </div>
+
+      <div>
+        <head>Association transcription/documentation</head>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><zone xml:id="zone1"
+            change="#ST-1">
+            <line> 28) le court de tennis. Les tribunes sont ... Deux joueurs</line>
+            <!-- ... -->
+            <line>30) l’un des joueurs de tennis se tient ... trois</line>
+            <line>fois sur le sol</line>
+            <zone change="#ST-2"><line>31) </line>
+              <line>Vue de face</line><line> à contre jour</line>
+              <metamark function="add"/>
+              <line>la vieille dame ... dans le vestibule (contre-jour)</line></zone>
+            <line>3<subst change="#ST-2"><del>1</del><add>2</add></subst>)Le groupe de cavaliers
+              ...</line>
+            <!-- ... -->
+            <line>... Le mot FIN apparaît sur l’écran.</line>
+          </zone>
+          <zone change="#ST-3"><line>Dans ce cas...</line>
+          </zone>
+        </egXML>
+      </div>
+
+
+    </body>
+
+  </text>
+</TEI>
+<!--
+
+
+
+
+
+
+
+      <div>
+        <head>Additions and deletions crossing element boundaries</head>
+        <p> When additions and deletions are not conveniently well-nested within other parts of the
+          structure, we can use spanning techniques. </p>
+        <p>The elements <gi>addSpan</gi> and <gi>delSpan</gi> delimit a span of text by pointing
+          mechanisms rather than by enclosing it.</p>
+        <p><att>spanTo</att> indicates the end of a span initiated by the element bearing this
+          attribute.</p>
+        <p>
+        </p>
+      </div>
+-->
