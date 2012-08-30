@@ -16,6 +16,7 @@ TALKS= \
 DOCS= \
 	tp-1 \
 	tp-2 \
+	tp-3 \
 #	tp-oxygen \
 #	tp-styling \
 #	tp-editing 
