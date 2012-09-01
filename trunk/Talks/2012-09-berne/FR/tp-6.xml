@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP6 : encodage des apparences physiques</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution license.</p>
+        </availability>
+        <date>Aug 2012</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>From CS german, from Elena's Italian into my French?</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+
+  <text>
+    <body>
+
+      <div>
+        <head>Objets de l'exercice</head>
+        <p>Dans cet exercice nous allons explorer : <list>
+            <item>l'encodage TEI des aspects spatiales d'un manuscrit </item>
+            <item>l'encodage du déroulement temporaire de son écriture </item>
+            <item>la liaison des informations spatiales et textuelles </item>
+          </list></p>
+      </div>
+      <div>
+        <head>Sommaire</head>
+        <p>Nous allons travailler sur l'image numérique d'une page manuscrite ou tapuscrite, sur laquelle on va
+          identifier des zones d'interet, selon l'ordre des écritures sur la page. Ensuite nous allonsfaire la liason
+          entre ces zones et une transcription diplomatique du texte contenu. </p>
+        <p>Nous allons nous servir des éléments suivant, du chapitre 11 “Transcription of Primary Sources” des
+          Guidelines, <gi>surface</gi>, <gi>zone</gi>
+          <gi>line</gi>, et <gi>change</gi>.</p>
+        <p>Vous aurez besoin des fichiers fournis dans votre dossier Travaux, du logiciel Oxygen, et aussi de l'editeur
+          graphique <ident>Inkscape</ident>.</p>
+      </div>
+      <div>
+        <head>Import d'un image numerique dans Inkscape</head>
+        <p>Les images numériques sont produits dans de formats tres variés (tiff, png, jpg...). Le format SVG (Scalable
+          Vector Graphics) se harmonise très bien avec TEI -- c'est un format qui s'exprime en XML ! Mais, puisque les
+          images numériques sont stockés dans d'autres formats, nous allons commencer par l'import et la transformation
+          d'un fichier JPG. </p>
+        <list>
+          <item>Lancez le logiciel <ident>Inkscape.</ident>
+          </item>
+          <item>Séléctionnez la commande “File > Import” pour importer le fichier “<ident>Durrenmatt.jpg</ident>” que
+            vous trouverez dans votre dossier <ident>Travaux</ident></item>
+          <item>Choissisez “link” dans le dialog qui s'affiche </item>
+          <item>Séléctionnez la commande “File > Document Properties”: Dans ce dialog; cliquez sur “Resize page to
+            content” et puis sur le bouton “Resize page to drawing or selection”. Fermez ce dialog.</item>
+          <item>Séléctionnez la commande “File > Inkscape Preferences” et scrollez le liste qui s'affiche jusqu'a
+              <val>SVG Output ;</val> enlever la coche pour “Allow relative coordinates” et fermez ce dialog.</item>
+        </list>
+      </div>
+      <div>
+        <head> Distinguer et marquer les régions; noter leur coordinées</head>
+
+        <p>Dans le fac-similé numérique, vous verrez  une partie tapuscrite, des modifications manuscrites, un (ou
+          deux?) dessins, et peut-être d'autres choses.</p>
+        <p>Nous vous proposons de distinguer au moins quatre parties <list type="ordered">
+            <item> le bloc de texte tapuscrit avec ses ajouts</item>
+            <item> les ajouts ou corrections manuscrites sur le bord droit</item>
+            <item> les additions manuscrites en dessous du bloc de texte</item>
+            <item> le dessin (comme une unité) dans la moitié inférieure de la page</item>
+          </list></p>
+        <p>Notre but est de marquer ces zones avec Inkscape et puis d'insérer leur coordonnées dans un document TEI.  </p>
+        <list>
+          <item> Séléctionnez la commande “View> Zoom Import > Zoom In” pour zoomer sur l'image afin de travailler avec
+            plus de précision: </item>
+          <item>Dans la barre à outils  à gauche; séléctionnez l'outil "Create rectangles and squares" (F4) et creez un
+            rectangle autour du bloc de texte tapuscrit. </item>
+          <item>Par défaut le rectangle que vous définissez ainsi est rempli de couleur: Pour modifier cela cliquer avec
+            le bouton droit pour afficher le dialog <ident>Fill and Stroke</ident> et selectionnez ici <val>No
+              Fill</val></item>
+        </list>
+      </div>
+      <div>
+        <head>Addition des coordonnées à un document TEI</head>
+        <p>Nous avons maintenant besoin d'insérer les coordonnées de ce bloc de texte dans un document TEI. Lancez
+          oXygen et ouvrez le fichier "Durrenmatt-start.xml". Ce fichier contient un petit document TEI  minimale. Nous
+          allons ajouter à son élément sourceDoc de l'information concernant les zones de l'image</p>
+        <p>Ce document décrit la structure de notre source au niveau minimal. Il fournit des metadonnees pour
+          l'identifier, et il definit les dimensions du surface physique sur lequel le texte est inscrit.   Les
+          coordonnées de ce surface sont definies par quatre attributs de l'élément <gi>surface</gi>
+        </p>
+        <list>
+          <item>ulx définit la valeur X du coin supérieur gauche (0px distance horizontale entre le bord de
+            l'image)</item>
+          <item>uly définit la valeur Y du coin supérieur gauche (0px distance verticale de l'écran)</item>
+          <item>lrx définit la largeur de l'image (800px)</item>
+          <item>lry définit le hauteur de l'image (1220px)</item>
+        </list>
+        <p>En outre, le <gi>surface</gi> est fourni d'un identifiant, <val>surface-1</val>, de sorte que nous pouvons
+          clairement l'identifier plus tard. </p>
+        <p>Maintenant, nous pouvons enregistrer la première zone :</p>
+        <list>
+          <item> Insérez un nouveau élément <gi>zone</gi> dans le document, apres l'élément <gi>graphic</gi>, mais
+            toujours au sein  du <gi>surface.</gi>
+          </item>
+          <item> Cet élément devrait avoir un identifiant, ajoutez donc une valeur comme “zone-1” pour son attribut
+              <att>xml:id</att></item>
+          <item>Les coordonnées d'un zone sont specifiés par les attributs ulx, lrx etc, de la meme manière que les
+            coordonnées d'une surface. Pour savoir les valeurs à ajouter, il faut revenir sur Inkscape. Selectionnez la
+              commande<ident> Edit> XML Editor</ident> et un nouveau perspective sur votre fichier s'affiche, qui
+            ressemble beaucoup à la vue structurée que vous avez deja vue dans oXygen. Cliquez le dernier objet
+              <gi>svg:rect</gi> dans la liste, et le panneau à droite vous propose les attributs associés avec ce
+            rectangle</item>
+          <item> Notez bien les valeurs pour <att>x</att>, <att>y</att>, <att>height</att>, et <att>width</att>: nous
+            allons nous en servir dans notre document TEI: Ces valeurs sont à transférer directement dans notre document
+            TEI : ils servent comme valeurs des attributs <att>ulx</att>
+            <att>uly</att>
+            <att>height</att> et <att>width</att> respectivement: </item>
+          <item>Dans notre <gi>zone</gi> vous n'avez donc qu'à transférer la valeur de x a l'attribut <att>ulx</att>
+            etcetera</item>
+        </list>
+      </div>
+      <div>
+        <head> Addition d'une transcription</head>
+        <p>Natürlich wollen wir auch dokumentieren, welcher Text zu dem bisher kodierten Bereich auf der Seite gehört.
+          Auch das geschieht nun in einem eher topographischen als logischen Sinn, d.h. nicht als Absatz <gi>p</gi>,
+          sondern als Zeilen, <gi>lines</gi>.</p>
+        <list>
+          <item> Klicken Sie in Oxygen auf “Strg+Shift+P”, um eine Standard-Formatierung zu erhalten</item>
+          <item> Löschen Sie am Ende des <gi>zone</gi> éléments den Schrägstrich “/”; das leere élément wird wieder in
+            Anfangs- und End-Tag getrennt. Fügen Sie zwischen die beiden <gi>zone</gi>-Tags eine <gi>line</gi> ein. </item>
+          <item>Öffnen Sie nun mit Oxygen die Datei “Durrenmatt-Text.txt”; sie enthält die Transkription des Texts, der
+            sich auf unserer Bilddatei befindet. (Die Feinheiten der Kodierung, um die sich zweifelsohne zu kümmern
+            wäre, lassen wir hier einmal beiseite.) Kopieren Sie den Text, der der bisher definierten <gi>zone</gi>
+            entspricht, zwischen die beiden <gi>line</gi>-Tags; klicken Sie auf “Strg+Shift+P”. </item>
+          <item>Trennen Sie nun den Text jeweils in die topographischen Zeilen auf dem Faksimile. Gehen Sie dazu an die
+            passende Stelle und Wählen Sie “Alt+Shift+D”, sodass die vorhandene <gi>line</gi> dort in zwei
+            <gi>line</gi>s getrennt wird. Wiederholen Sie dies für den gesamten Text.</item>
+          <item> Sie können an jeder Grenze zwischen zwei <gi>line</gi>s einmal “return” drücken, und dann noch einmal
+            mit “Strg+Shift+P” formatieren, damit das Ganze übersichtlicher wird.</item>
+        </list>
+      </div>
+      <div>
+        <head>Text und Bild zusammenführen</head>
+        <p>Für den ersten Bildbereich haben wir nun die Kodierung abgeschlossen und können das digitale Faksimile
+          selbst, das definierte Rechteck, und den kodierten Text zusammenführen. Das machen wir mit einer
+          Transformation, die auf XSLT beruht. Dabei werden die drei Komponenten in eine SVG- Datei, also eine
+          Bilddatei, umgewandelt.</p>
+        <list>
+          <item> Richten Sie eine Transformationsroutine ein; im Menü “Document > Transformation > Configure
+            Transformation Scenario” </item>
+          <item> Im Dialog wählen Sie “New”, wählen dann eine “XML Transformation with XSLT” aus Im Reiter XSLT behalten
+            Sie die “XML URL” bei; in der Zeile “XSL URL” klicken Sie auf das kleine Ordnersymbol rechts, und wählen
+            dann die Datei “xml2svg.xsl” aus (im Ordner “Übung 06) </item>
+          <item>Wählen Sie im Dropdown-Menü für “Transformer” den Eintrag “Saxon EE 9.4.0.3” (evtl. auch eine andere
+            Versionsnummer) aus. Bestätigen Sie das Ganze mit “OK”. </item>
+          <item> Klicken Sie nun im Dialogfenster ganz unten auf “Apply Associated”, um die Transformation auszulösen.
+            Fertig! </item>
+        </list>
+        <p>Im Ordner “Übung 06” finden Sie nun einen neuen Ordner, “out” (für “output”), dort wiederum einen Ordner
+          “time”. In diesem Ordner befindet sich die von der Transformation generierte SVG-Datei.</p>
+        <list>
+          <item> Öffnen Sie diese Datei mit dem Browser (am Besten: mit Safari oder Chrome), und kontrollieren Sie, ob
+            das Faksimile mit der Zone und dem dazugehörigen Text angezeigt wird.</item>
+        </list>
+      </div>
+      <div>
+        <head> Weitere <gi>zones</gi> anlegen</head>
+        <p>Wir belassen das Dokument vorerst so, wie es ist, und üben das Anlegen der <gi>zone</gi>s noch ein Wenig! Es
+          gibt ja noch mindestens drei weitere Bereiche in dem digitalen Faksimile, von denen wir zumindest einen noch
+          kodieren sollten.</p>
+        <p> Wiederholen Sie also die vorhergegangenen Schritte für einen weiteren Bereich, vielleicht den kleinen
+          Bereich am rechten Rand. </p>
+        <list>
+          <item> Markieren Sie den Bereich in Inkscape (wie in Abschnitt 4 beschrieben)</item>
+          <item> Tragen Sie die Koordinaten in das TEI-Dokument ein (siehe Abschnitt 5) </item>
+          <item> Fügen Sie die Transkription des Bereichs ein (siehe Abschnitt 6) </item>
+          <item> Führen Sie erneut die Transformation durch (siehe Abschnitt 7).</item>
+        </list>
+      </div>
+      <div>
+        <head>Schon fertig? Weitere <gi>zone</gi>s anlegen (optional)</head>
+        <p>Wer schon fertig ist, kann weitere zones nach dem gleichen Prinzip anlegen, und erneut die SVG- Datei
+          generieren. </p>
+      </div>
+
+      <div>
+        <head> Die Schreibsequenz definieren</head>
+        <p>Die SVG-Datei, wie wir sie nun generiert haben, ist eine statische Datei, d.h. man kann das Rechteck und den
+          Text nicht interaktiv ein- und ausblenden. Dafür hat Elena ein Javascript-Modul programmiert, das Sie uns ja
+          am Mittwoch gezeigt hat, und das an dem Proust-Beispiel ja auch online verfügbar ist, unter der URL:
+          http://research.cch.kcl.ac.uk/proust_prototype/index.html. Diese JavaScript- Erweiterung ist relativ komplex,
+          und wir werden Sie in dieser Übung nicht anwenden können.</p>
+        <p> Wir können aber zumindest eine (hypothetische) Schreibsequenz für die verschiedenen Bild-/Textbereiche
+          definieren. Welche Schreibsequenz könnte man denn annehmen? Auf welche Informationen im Text könnte man sich
+          stützen? </p>
+        <list type="ordered">
+          <item> Relativ sicher ist, dass in einem ersten Schritt die maschinengeschriebenen Teile des Textes vorhanden
+            waren, d.h. der zentrale Textblock und der kleine Bereich mit der Seitenzahl. Welche der beiden Teil zuerst
+            kam, lässt sich wohl nicht festlegen. </item>
+          <item> Vermutlich sind dann die handschriftlichen Streichungen im Textblock und die Ergänzungen am rechten
+            Rand und unterhalb des Textblocks gemacht worden. Ob dies eine Überarbeitungsphase war, oder ob zu
+            unterscheiden ist zwischen den (früheren) Ergänzungen am rechten Rand und den (späteren?) Ergänzungen
+            unterhalb des Textblocks, ist sicherlich schwer zu entscheiden. </item>
+          <item>Man kann es nur annehmen, aber vermutlich sind die Zeichnungen in der unteren Bildhälfte anschließend
+            angefertigt worden. (Als klar war, dass der Platz für keine weiteren Überarbeitungen oder Notizen benötigt
+            wird.)</item>
+        </list>
+        <p>Um diese drei Schritte im Entstehungsprozess im TEI-Dokument festzuhalten, verwenden wir den Mechanismus, den
+          das élément <gi>change</gi> bereitstellt.</p>
+        <list>
+          <item> Damit wir alle wieder auf dem gleichen Stand sind, öffnen Sie bitte das Dokument “Durrenmatt-
+            change.xml” mit Oxygen. Sie finden dort das TEI-Dokument, wie es am Ende des Schritts 9 aussehen sollte;
+            zusätzlich sind dort einige der mikrostrukturellen Phänomene kodiert (mit <gi>del</gi> und <gi>add</gi>),
+            und die Zählung der <gi>zones</gi> kann evtl. abweichen. Nehmen Sie sich ruhig einen Moment Zeit, um sich
+            das alles anzuschauen. </item>
+          <item> Gehen Sie dann im <gi>teiHeader</gi> ans Ende der <gi>fileDesc</gi>. Nach der <gi>fileDesc</gi> fügen
+            wir einen neuen Bereich ein: eine <gi>profileDesc</gi>, die der Dokumentation nicht-bibliographischer
+            Aspekte eines Manuskripts dient. Wir nutzen Sie, um die vermutete Schreibsequenz zu dokumentieren.</item>
+          <item> In diese <gi>profileDesc</gi> sollten Sie das élément <gi>listChange</gi> einfügen. Das élément dient
+            dafür, eine Liste aller Überarbeitungsschritte (Ergänzungen, Löschungen) im Schreibprozess, d.h. eine Liste
+            jedes identifizierbaren <gi>change</gi> anzuführen. </item>
+          <item> Das élément <gi>listChange</gi> sollte zwei Attribute bekommen: @ordered mit Wert “true”, und @n mit
+            Wert “writing”. Damit dokumentieren wir, dass wir von einer definierbaren zeitlichen Abfolge der
+            verschiedenen Zonen bzw. Textpassagen ausgehen, und dass wir den Schreibprozess dokumentieren, nicht die
+            Abfolge der Textpassagen bei der (idealisierten) Lektüre des Textes (das ist aber auch möglich!). </item>
+        </list>
+        <p>Jetzt sind wir soweit, dass wir die eigentlichen <gi>change</gi>s eintragen können.</p>
+        <list>
+          <item> Fügen nun Sie also im élément <gi>listChange</gi> das erste élément <gi>change</gi> ein. Es steht für
+            den ersten Schritt in der Entstehung des nun auf dem Blatt vorhandenen Textes; geben wir ihm also für das
+            Attribut @xml:id den Wert “stage-1”.</item>
+          <item> Sie sollten kurz beschreiben, was diese erste Schreibphase beinhaltet; schreiben Sie eine kurze
+            Charakterisierung in den Inhalt des éléments: bspw. “Maschinengeschriebener Text liegt vor, einschließlich
+            der Seitenzahl.”</item>
+        </list>
+        <p>So sollte Ihr erster <gi>change</gi> aussehen: <eg><![CDATA[
+<profileDesc>
+<creation>
+<listChange ordered="true" n="writing">
+<change xml:id="stage-1">Maschinengeschriebener Text liegt vor,
+einschließlich der Seitenzahl.</change>
+</listChange>
+</creation>
+</profileDesc>
+]]></eg>
+        </p>
+        <p>Fügen Sie nun zwei weitere <gi>change</gi>-élément ein, für die handschriftlichen Löschungen und Ergänzungen,
+          sowie für die Zeichnungen. <list>
+            <item> Geben Sie jedem <gi>change</gi> wieder eine @xml:id (“stage-2” bzw. “stage-3”) und eine kurze Beschreibung<list>
+                <item> Zweiter Schritt: “Streichungen im maschinengeschriebenen Text, Ergänzungen am rechten Rand, sowie
+                  nicht direkt verbundene Ergänzungen unterhalb des Textblocks. Dritter Schritt: “Zeichnungen in der
+                  unteren Hälfte des Blatts; unklarer Zeitpunkt.”</item>
+              </list></item>
+          </list></p>
+        <p>Jetzt müssen wir die verschiedenen Zonen noch mit diesen drei Phasen assoziieren: <list>
+            <item>Fügen Sie jeder der fünf <gi>zone</gi>-élémente nach den vier räumlichen Attributen noch ein weiteres
+              Attribut hinzu, nämlich @change mit dem Wert, der den gerade definierten <gi>change</gi>s entspricht. <list>
+                <item> “zone-1” und “zone-2” müssen als Wert für das Attribut @change “stage-1” bekommen “zone-3” und
+                  “zone-4” bekommen “stage-2” “zone-5” bekommt “stage-3”</item>
+              </list></item>
+          </list></p>
+        <p>Damit ist dokumentiert, in welcher Reihenfolge die topographisch definierten Bildbereiche mit dem Text oder
+          den Zeichnungen, die mit ihnen assoziiert wurden, entstanden sind. Mit ein paar weiteren Tricks könnte Elenas
+          Javascript daraus nun eine per Klick interaktive Grafik zaubern.</p>
+        <trailer>Ende der Übung.</trailer>
+
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -17,6 +17,8 @@ DOCS= \
 	tp-1 \
 	tp-2 \
 	tp-3 \
+	tp-4 \
+	tp-6 
 #	tp-oxygen \
 #	tp-styling \
 #	tp-editing 
