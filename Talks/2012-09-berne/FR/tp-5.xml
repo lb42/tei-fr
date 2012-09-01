@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exercise 5: Creating a Manuscript Description</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+        <div>
+            <head>Exercise 5: Creating a Manuscript Description</head>
+      <!-- Learning Outcomes -->
+      <div>
+        <head>Learning Outcomes</head>
+        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
+            <item>Modify a basic manuscript description to provide more structure</item>
+            <item>Understand the general categories of manuscript description </item>
+            <item>Have more experience editing a complex <gi>teiHeader</gi></item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <div>
+        <head>Summary</head>
+        <p>In this exercises you will add a manuscript description to the file you finished in the previous exercise. You'll modify an existing 
+        <gi>msDesc</gi> element with a basic structure to categorise manuscript description information into a more detailed structure.</p>
+      </div>
+
+      <div>
+        <head>Starting Up</head>
+        <p>Load up the completed file from the previous exercise. If you did not complete the
+          exercise you can cheat by loading up 'spoilers/ex04.xml' and saving it under a new name
+          (perhaps 'exercise04.xml').</p>
+      </div>
+
+
+      <div>
+        <head>Inserting a basic <gi>msDesc</gi></head>
+        <p>The information for our manuscript description will basically be taken from the document
+          description at <ref target="http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243"
+            >http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243</ref>. But let's pretend that
+          we already have a basic manuscript description. There is no requirement with TEI
+            <gi>msDesc</gi> to divide it into all the possible categories of information, instead
+          all it requires is at least a <gi>msIdentifier</gi>, other information could be stored in
+          a few accompanying paragraphs. This is useful for the retrospective conversion of
+          catalogues in other legacy formats to TEI XML.<list>
+            <item>Move the cursor to immediately following the closing <gi>/listOrg</gi> tag. At
+              this point either cut and paste or insert (with the 'Document' -> 'File' -> 'Insert
+              File') the file 'msDesc.xml'.</item>
+            <item>As you'll notice, this contains a very basic <gi>msDesc</gi> with a minimal
+                <gi>msIdentifier</gi>.</item>
+          </list>
+        </p>
+      </div>
+
+
+
+      <div>
+        <head>Filling out a <gi>msIdentifier</gi></head>
+        <p>Let's expand the <gi>msIdentifier</gi>. As you have a lot more experience editing XML
+          files in oXygen now, the steps will sometimes be given in less detail. <list>
+            <item>Notice that the first paragraph mostly contains information that tells us where
+              the manuscript is, in other words it identifies it and so this text could go in a
+                <gi>msIdentifier</gi>.</item>
+            <item>Take the information in this paragraph and expand the <gi>msIdentifier</gi> until it looks
+              something like this:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <msIdentifier>
+            <country>United States of America</country>
+            <region>Texas</region>
+            <settlement>Austin</settlement>
+            <institution> The University of Texas at Austin </institution>
+            <repository>Harry Ransom Centre</repository>
+            <collection>Wilfred Owen Collected Letters</collection>
+            <idno type="folio">ff504</idno>
+            <altIdentifier>
+              <idno>Letter no. 535 Ed. 'Wilfred Owen Collected Letters'</idno>
+            </altIdentifier>
+            <msName>Letter to Leslie Gunston</msName>
+          </msIdentifier>
+              
+            </egXML>
+            </item>
+            <item>Note how elements are prescribed to appear in a particular order (from greatest
+              level of granularity to more specific). Notice that most elements cannot be repeated
+              (some like <gi>collection</gi> and <gi>altIdentifier</gi> can be). </item>
+            <item>When you've finished creating the <gi>msIdentifier</gi> delete the remains of the
+              first <gi>p</gi> from the basic manuscript description.</item>
+
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Providing some <gi>msContents</gi></head>
+        <p>The second paragraph contains information that will be useful in compiling an
+            <gi>msContents</gi>. This acts as a place to store structured information concerning the
+          intellectual contents of a manuscript. It gives a place for a summary of the contents of
+          the manuscript and multiple <gi>msItem</gi> elements form something like a table of
+          contents of works in the document. <list>
+            <item>Rename the second paragraph element as <gi>msContents</gi> (your document will now
+              not be valid)</item>
+            <item>Highlight the text inside from the start to the end of "Collected Letters'.",
+              press control-e to 'surround with element' and wrap this in a <gi>summary</gi>. This
+              acts as a summary for the intellectual content </item>
+            <item> Highlight the remaining text and surround it with a <gi>msItem</gi> element. </item>
+            <item>Delete the 'Authored by' and surround 'Wilfred Owen (1893-1918).' with an
+                <gi>author</gi> element. </item>
+            <item>Surround 'English.' with a <gi>textLang</gi> element. </item>
+            <item>Add an <att>mainLang</att> with a value of 'en' (the ISO language code for
+              'English') </item>
+            <item>Add a <att>ref</att> to the <gi>author</gi> and point to your <gi>person</gi> for
+              Wilfred Owen. </item>
+            <item>As this <gi>msItem</gi> is recording information for this particular item we also
+              want to give it a <gi>title</gi>. Create an empty <gi>title</gi> element and cut and
+              paste "Letter To Leslie Gunston / The Wrestlers." into it. </item>
+            <item>Your <gi>msContents</gi> should now look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <msContents>
+  <summary>"Letter To Leslie Gunston / The Wrestlers". Talks about forthcoming address to the 'Field Club'. Includes a partial draft of 'The Wrestlers'. This is letter no. 535     in Ed. 'Wilfred Owen Collected Letters'.</summary>
+  <msItem>
+    <author>Wilfred Owen (1893-1918).</author>
+    <textLang mainLang="en"> English. </textLang>
+  </msItem>
+</msContents>
+            </egXML>
+            </item>
+
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Giving a <gi>physDesc</gi></head>
+        <p>The next paragraph has a lot of information about the physical aspects of the manuscript.
+          Let's turn it into a <gi>physDesc</gi>
+          <list>
+            <item>Rename the <gi>p</gi> to be a <gi>physDesc</gi></item>
+            <item>Immediately inside this create an <gi>objectDesc</gi> with a <gi>supportDesc</gi>
+              inside that.</item>
+            <item>Inside that <gi>supportDesc</gi> add a <gi>support</gi>, and inside this put the
+              text "A single folio of paper in the collection as ff504 recto and verso" </item>
+            <item>You could wrap the element <gi>material</gi> around the word 'paper', but also you
+              could add a <att>material</att> attribute to <gi>supportDesc</gi> with a value of
+              'paper'. </item>
+            <item>You could also categorise the object's form by adding a <att>form</att> attribute
+              on <gi>objectDesc</gi> with a value of 'folio'.</item>
+            <item>After the closing <gi>/supportDesc</gi> tag add a <gi>layoutDesc</gi> with a
+                <gi>layout</gi> to record information about the physical layout. In this case
+              "Written full width as a single column, with approximately 20 lines per page" </item>
+            <item>To the <gi>layout</gi> element add a <att>columns</att> attribute of '1', and a
+                <att>writtenLines</att> of '20'. </item>
+            <item>After the closing <gi>/objectDesc</gi> add a <gi>handDesc</gi> with a
+                <att>hands</att> attribute with a value of '1'. </item>
+            <item>Inside the <gi>handDesc</gi> add a <gi>handNote</gi> with the remaining text
+              "Written in Wilfred Owen's handin pen.". You might want to mark Wilfred Owen as a
+                <gi>persName</gi> with a <att>ref</att> pointing back to the <gi>person</gi> for
+              Wilfred Owen. </item>
+            <item> Your <gi>physDesc</gi> now might look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+
+<physDesc>
+  <objectDesc form="folio">
+    <supportDesc material="paper">
+      <support>A single folio of <material>paper</material> in the collection as ff504 recto and verso</support>
+    </supportDesc>
+    <layoutDesc>
+      <layout columns="1" writtenLines="20">Written full width as a single column, with approximately 20 lines per page</layout>
+    </layoutDesc>
+  </objectDesc>
+  <handDesc hands="1">
+    <handNote>Written in <persName ref="#WO">Wilfred Owen's</persName> hand in pen.</handNote>
+  </handDesc>
+</physDesc>
+</egXML>
+            </item>
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Detailing a <gi>history</gi></head>
+        <p>The <gi>history</gi> element gives a place to detail the <gi>origin</gi>,
+            <gi>provenance</gi>, and <gi>acquisition</gi> of the manuscript if available. In this
+          case we have some minimal information about the origin of the manuscript <list>
+            <item>Rename the second-last paragraph to a <gi>history</gi> element. </item>
+
+            <item>Select all the text of "This letter was written by Wilfred Owen in July 1917 at
+              Craiglockhart War Hospital." and surround it with a <gi>origin</gi> element. </item>
+            <item>Inside this mark 'July 1917' as an <gi>origDate</gi> element. This is like the
+                <gi>date</gi> element, but is specific to recording the origin date of the
+              manuscript being described. Provide a <att>when</att> attribute of '1917-07'. </item>
+            <item>Similarly mark the 'Craiglockhart War Hospital' as an <gi>origPlace</gi> with a
+                <att>ref</att> of '#craiglockhart' to point to the <gi>place</gi> you made earlier.
+              You could also surround the text with an <gi>orgName</gi> if you want to indicate that
+              this is an organizational name. As before you could mark Wilfred Owen's name.</item>
+            <item>Your <gi>history</gi> element should look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <history>
+    <origin>This letter was written by <persName ref="#WO">Wilfred Owen</persName> in
+     <origDate when="1917-07">July 1917</origDate> at <origPlace ref="#craiglockhart">
+       <orgName>Craiglockhart War Hospital</orgName></origPlace>
+  </origin>
+ </history>                
+                
+                
+              </egXML>
+            </item>
+
+          </list>
+        </p>
+      </div>
+
+
+      <div>
+        <head>Noting <gi>additional</gi> Information</head>
+        <p>At the end of your <gi>msDesc</gi> you can include an <gi>additional</gi> element which
+          stores other information such as <gi>adminInfo</gi> (for recording administrative events
+          of the object), <gi>listBibl</gi> (for listing bibliographic citations about the object),
+          and <gi>surrogates</gi> (for listing additional representations of the object).<list>
+            <item>Change the final paragraph to an <gi>additional</gi> element with a
+                <gi>surrogates</gi> inside that containing all the text.</item>
+            <item>Modify the URL given to be a <gi>ptr</gi> with a <att>target</att>
+              attribute.</item>
+            <item> Your <gi>additional</gi> element should look something like:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<additional>
+    <surrogates>A digital image is available from the First World War Poetry Digital Archive
+          at <ptr target="http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243/4770"/>.
+    </surrogates>
+</additional>                
+</egXML>
+            </item>
+
+          </list>
+        </p>
+      </div>
+
+      <!-- Saving Your Work -->
+      <div>
+        <head>Saving Your Work</head>
+        <p> Let's save our work: <list>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red
+              one?</item>
+            <item>Have you formatted and indented your work automatically? </item>
+            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like a
+              old-style 3.5" disk).</item>
+            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file using
+              the name 'exercise05.xml' or another name of your choice.</item>
+          </list></p>
+      </div>
+
+      <!-- Self-Assessment -->
+      <div>
+        <head>Self-Assessment</head>
+        <p>Check if you understand some of the core principles of this exercise by answering the
+          following questions: <list>
+            <item>What is the only required aspect of a TEI manuscript description?</item>
+            <item>How does one record the separate works of intellectual content present in the
+              manuscript? </item>
+            <item>Where does one describe the support which forms the object, or its layout?</item>
+            <item>How does one record the origin, provenance, and acquisition of the object?</item>
+            <item>Where might you record </item>
+          </list>
+        </p>
+      </div>
+
+      <!-- Next  -->
+      <div>
+        <head>Next and More Reading</head>
+        <p> Next we'll be looking at more encoding one can add to manuscripts, particularly for
+          transcriptions. However, before that if you have time you may wish to:<list>
+            <item>Look up the reference pages for each of the new elements you've used.</item>
+            <item>Read some of the chapter on Manuscript Description: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html</ref>.</item>
+          </list>
+        </p>
+      </div>
+        </div>
+    </body>
+  </text>
+</TEI>
