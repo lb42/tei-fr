@@ -18,10 +18,9 @@ DOCS= \
 	tp-2 \
 	tp-3 \
 	tp-4 \
+	tp-5 \
 	tp-6 
-#	tp-oxygen \
-#	tp-styling \
-#	tp-editing 
+
 
 
 default: pdfslides
