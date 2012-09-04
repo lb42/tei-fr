@@ -3,14 +3,10 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Exercise 5: Creating a Manuscript Description</title>
-        <author>TEI @ Oxford</author>
+        <title>Création d'une description de manuscrit</title>
+        <author/>
       </titleStmt>
-      <editionStmt>
-        <edition>
-          <date>July 2012</date>
-        </edition>
-      </editionStmt>
+    
       <publicationStmt>
         <publisher>University of Oxford</publisher>
         <availability>
@@ -32,7 +28,6 @@
   </teiHeader>
   <text>
     <body>
-      <!-- Learning Outcomes -->
       <div>
         <head>Objectifs de l'exercice</head>
         <p>
@@ -40,7 +35,7 @@
             <item>modification et enrichissement d'une description de manuscrit basique</item>
             <item>compréhension de structuration d'une description de manuscrit et ses
               composants</item>
-            <item>experience pratique d'édition d'un <gi>teiHeader</gi>
+            <item>expérience pratique d'édition d'un <gi>teiHeader</gi>
             </item>
           </list>
         </p>
@@ -48,42 +43,42 @@
       <!-- Summary -->
       <div>
         <head>Sommaire</head>
-        <p>Nous allons  <gi>msDesc</gi> element with a basic structure to categorise manuscript
-          description information into a more detailed structure.</p>
-      </div>
-      <div>
+        <p>Nous allons prendre un <gi>msDesc</gi> basique et l'enrichir. Pour cet exercice on va
+          profiter de l'existence d'un encodage déjà prepare pour le seminaire de Digital Humanities
+          à Oxford. Cet encodage s'applique à une lettre manuscrite du poète anglais Wilfred Owen,
+          conservé au Centre Harry Ransome, de l'université de Texas aux Etats Unis, et numerisé a
+          l'Universite de Oxford. </p>
         <head>Starting Up</head>
-        <p>Load up the completed file from the previous exercise. If you did not complete the
-          exercise you can cheat by loading up 'spoilers/ex04.xml' and saving it under a new name
-          (perhaps 'exercise04.xml').</p>
+        <p>Lancez oXygen, et chargez le fichier <ident>msdesc-start.xml</ident>, que vous trouverez
+          dans votre dossier Travaux. Ce fichier contient une numérisation de manuscrit, mais son
+          entete manque une description formelle. Nous allons intégrer cela et l'améliorer.</p>
       </div>
       <div>
-        <head>Inserting a basic <gi>msDesc</gi></head>
-        <p>The information for our manuscript description will basically be taken from the document
-          description at <ref target="http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243"
-            >http://www.oucs.ox.ac.uk/ww1lit/collections/document/5243</ref>. But let's pretend that
-          we already have a basic manuscript description. There is no requirement with TEI
-            <gi>msDesc</gi> to divide it into all the possible categories of information, instead
-          all it requires is at least a <gi>msIdentifier</gi>, other information could be stored in
-          a few accompanying paragraphs. This is useful for the retrospective conversion of
-          catalogues in other legacy formats to TEI XML.<list>
-            <item>Move the cursor to immediately following the closing <gi>/listOrg</gi> tag. At
-              this point either cut and paste or insert (with the 'Document' -> 'File' -> 'Insert
-              File') the file 'msDesc.xml'.</item>
-            <item>As you'll notice, this contains a very basic <gi>msDesc</gi> with a minimal
-                <gi>msIdentifier</gi>.</item>
-          </list>
-        </p>
+        <head>Addition d'un <gi>msDesc</gi> basique</head>
+        <p>L'élément <gi>msDesc</gi> contient une description d'un manuscrit. Il peut etre plus ou
+          moins structuré selon les besoins d'un projet. Par exemple, si on avait des milliers de
+          déscriptions à créer ou à convertir en TEI, c'est probable qu'on ne pourraient pas les
+          décrire au meme niveau de detail que si on n'en avait que quelques douzaines. Pour cette
+          raison, l'élément TEI envisage la possibilité d'une déscription simple ne contenant qu'un
+          identifiant <gi>msIdentifier</gi>, accompagné par de la prose descriptive. C'est notre cas
+          initial. <list>
+            <item>Mettez le curseur a la fin du <gi>sourceDesc</gi>
+            </item>
+            <item>Selectionnez la commande 'Document' -> 'Fichier' -> 'Inserer fichier' et ajouter à
+              ce point le contenu du fichier '<ident>msdesc-simple.xml</ident> que vous trouverez
+              dans votre dossier Travaux.</item>
+          </list></p>
       </div>
       <div>
-        <head>Filling out a <gi>msIdentifier</gi></head>
-        <p>Let's expand the <gi>msIdentifier</gi>. As you have a lot more experience editing XML
-          files in oXygen now, the steps will sometimes be given in less detail. <list>
-            <item>Notice that the first paragraph mostly contains information that tells us where
-              the manuscript is, in other words it identifies it and so this text could go in a
-                <gi>msIdentifier</gi>.</item>
-            <item>Take the information in this paragraph and expand the <gi>msIdentifier</gi> until
-              it looks something like this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <head>Elargissement du <gi>msIdentifier</gi></head>
+        <p>Le but principal de cet élément est de fournir toute l'information nécessaire pour
+          localiser un manuscrit -- comment il est identifié dans quelle collection, au sein de
+          quelle institution, dans quelle ville de quel pays.<list>
+            <item>Le paragraphe initial de notre description fournit toutes ces informations, et on
+              peut donc l'intégrer dans le <gi>msIdentifier</gi> existant, en se servant des
+              éléments appropriés.</item>
+            <item>Nous vous proposons un encodage comme ceci : <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
                 <msIdentifier>
                   <country>United States of America</country>
                   <region>Texas</region>
@@ -99,47 +94,46 @@
                 </msIdentifier>
               </egXML>
             </item>
-            <item>Note how elements are prescribed to appear in a particular order (from greatest
-              level of granularity to more specific). Notice that most elements cannot be repeated
-              (some like <gi>collection</gi> and <gi>altIdentifier</gi> can be). </item>
-            <item>When you've finished creating the <gi>msIdentifier</gi> delete the remains of the
-              first <gi>p</gi> from the basic manuscript description.</item>
-          </list>
-        </p>
+            <item>Notez que notre schéma impose une séquence definie des éléments permissible. </item>
+            <item>Quand vous aurez fini votre <gi>msIdentifier</gi>, supprimez le premier <gi>p</gi>
+              (ou ce qui en reste) dans le fichier. </item>
+          </list></p>
       </div>
       <div>
-        <head>Providing some <gi>msContents</gi></head>
-        <p>The second paragraph contains information that will be useful in compiling an
-            <gi>msContents</gi>. This acts as a place to store structured information concerning the
-          intellectual contents of a manuscript. It gives a place for a summary of the contents of
-          the manuscript and multiple <gi>msItem</gi> elements form something like a table of
-          contents of works in the document. <list>
-            <item>Rename the second paragraph element as <gi>msContents</gi> (your document will now
-              not be valid)</item>
-            <item>Highlight the text inside from the start to the end of "Collected Letters'.",
-              press control-e to 'surround with element' and wrap this in a <gi>summary</gi>. This
-              acts as a summary for the intellectual content </item>
-            <item> Highlight the remaining text and surround it with a <gi>msItem</gi> element. </item>
-            <item>Delete the 'Authored by' and surround 'Wilfred Owen (1893-1918).' with an
-                <gi>author</gi> element. </item>
-            <item>Surround 'English.' with a <gi>textLang</gi> element. </item>
-            <item>Add an <att>mainLang</att> with a value of 'en' (the ISO language code for
-              'English') </item>
-            <item>Add a <att>ref</att> to the <gi>author</gi> and point to your <gi>person</gi> for
-              Wilfred Owen. </item>
-            <item>As this <gi>msItem</gi> is recording information for this particular item we also
-              want to give it a <gi>title</gi>. Create an empty <gi>title</gi> element and cut and
-              paste "Letter To Leslie Gunston / The Wrestlers." into it. </item>
-            <item>Your <gi>msContents</gi> should now look something like: <egXML
+        <head>Ajout du <gi>msContents</gi></head>
+        <p>Le deuxième paragraphe fournit des informations sur le contenu intellectuel du manuscrit,
+          pour lequel l'élément <gi>msContents</gi> est proposé dans notre schéma. <list>
+            <item>Renommez le deuxième élément <gi>p</gi> en <gi>msContents</gi> Votre document
+              devient invalide -- ne vous inquiétez pas!</item>
+            <item>Selectionnez la partie initiale du texte "Letter To Leslie ... Collected Letters'.
+              Avec CTRL-E, entourez ces mots avec un élément <gi>summary</gi>. (sommaire)</item>
+            <item>Selectionnez les mots qui restent, et les entourez dans un élément <gi>msItem</gi>
+            </item>
+            <item>Supprimez les mots 'Authored by' ; entourez les mots 'Wilfred Owen (1893-1918).'
+              d'un élément <gi>author</gi>
+            </item>
+            <item>Entourez le mot 'English d'un élément <gi>textLang</gi>
+            </item>
+            <item>Ajoutez à cet élément l'attribut <att>mainLang</att> avec le valeur
+                '<code>en</code>' </item>
+            <item>Dans ce manuscrit il y a effectivement deux parties: une esquisse de l'oeuvre "The
+              Wrestlers", et la lettre. On pourrait donc proposer deux <gi>msItem</gi> distincts
+              pour ces deux parties, avec deux <gi>title</gi> éléments distincts. </item>
+            <item>Voici notre proposition pour l'élément <gi>msContents</gi> : <egXML
                 xmlns="http://www.tei-c.org/ns/Examples">
                 <msContents>
                   <summary>"Letter To Leslie Gunston / The Wrestlers". Talks about forthcoming
                     address to the 'Field Club'. Includes a partial draft of 'The Wrestlers'. This
                     is letter no. 535 in Ed. 'Wilfred Owen Collected Letters'.</summary>
                   <msItem>
+                    <title>Lettre a Leslie Gunston </title>
                     <author>Wilfred Owen (1893-1918).</author>
-                    <textLang mainLang="en"> English. </textLang>
                   </msItem>
+                  <msItem>
+                    <title>Esquisse de "The Wrestlers" </title>
+                    <author>Wilfred Owen (1893-1918).</author>
+                  </msItem>
+                  <textLang mainLang="en"> English. </textLang>
                 </msContents>
               </egXML>
             </item>
@@ -147,32 +141,29 @@
         </p>
       </div>
       <div>
-        <head>Giving a <gi>physDesc</gi></head>
-        <p>The next paragraph has a lot of information about the physical aspects of the manuscript.
-          Let's turn it into a <gi>physDesc</gi>
+        <head>Ajout d'un <gi>physDesc</gi></head>
+        <p>Le paragraph suivant regroupe des informations au sujet des aspects physiques du
+          manuscrit. On va le transformer donc en <gi>physDesc</gi>
           <list>
-            <item>Rename the <gi>p</gi> to be a <gi>physDesc</gi></item>
-            <item>Immediately inside this create an <gi>objectDesc</gi> with a <gi>supportDesc</gi>
-              inside that.</item>
-            <item>Inside that <gi>supportDesc</gi> add a <gi>support</gi>, and inside this put the
-              text "A single folio of paper in the collection as ff504 recto and verso" </item>
-            <item>You could wrap the element <gi>material</gi> around the word 'paper', but also you
-              could add a <att>material</att> attribute to <gi>supportDesc</gi> with a value of
-              'paper'. </item>
-            <item>You could also categorise the object's form by adding a <att>form</att> attribute
-              on <gi>objectDesc</gi> with a value of 'folio'.</item>
-            <item>After the closing <gi>/supportDesc</gi> tag add a <gi>layoutDesc</gi> with a
-                <gi>layout</gi> to record information about the physical layout. In this case
-              "Written full width as a single column, with approximately 20 lines per page" </item>
-            <item>To the <gi>layout</gi> element add a <att>columns</att> attribute of '1', and a
-                <att>writtenLines</att> of '20'. </item>
-            <item>After the closing <gi>/objectDesc</gi> add a <gi>handDesc</gi> with a
-                <att>hands</att> attribute with a value of '1'. </item>
-            <item>Inside the <gi>handDesc</gi> add a <gi>handNote</gi> with the remaining text
-              "Written in Wilfred Owen's handin pen.". You might want to mark Wilfred Owen as a
-                <gi>persName</gi> with a <att>ref</att> pointing back to the <gi>person</gi> for
-              Wilfred Owen. </item>
-            <item> Your <gi>physDesc</gi> now might look something like: <egXML
+            <item>Renommez <gi>p</gi> en <gi>physDesc</gi></item>
+            <item>Ajoutez un <gi>objectDesc</gi> qui contient un <gi>supportDesc</gi></item>
+            <item>A l'interieur du <gi>supportDesc</gi> ajoute un <gi>support</gi> qui contient le
+              texte "A single folio of paper in the collection as ff504 recto and verso" </item>
+            <item>Pour etre plus precis(e) vous pourriez baliser le mot "paper" avec la balise
+                <gi>material</gi>; ou bien vous pourriez ajouter un attribut <att>material</att> au
+                <gi>supportDesc</gi> avec la valeur "paper"</item>
+            <item>Vous pourriez aussi ajouter un attribut <att>form</att> au <gi>objectDesc</gi>
+              avec la valeur 'folio'.</item>
+            <item>Apres le <gi>/supportDesc</gi> ajoutez un <gi>layoutDesc</gi> contenant un
+                <gi>layout</gi> pour décrire la mise en forme du document, en l'occurrence: "Written
+              full width as a single column, with approximately 20 lines per page" </item>
+            <item>L'élément <gi>layout</gi> peut porter un attribut <att>columns</att> avec la
+              valeur '1', et un attribut <att>writtenLines</att> avec la valeur '20'. </item>
+            <item>Apres le <gi>/objectDesc</gi> ajoutez un <gi>handDesc</gi>qui porte un attribut
+                <att>hands</att> avec la valeur'1'. </item>
+            <item>Dans l'élément <gi>handDesc</gi> ajoutez un <gi>handNote</gi> qui contiendra les
+              mots qui restent "Written in Wilfred Owen's hand in pen."</item>
+            <item> Voici notre proposition pour le <gi>physDesc</gi> : <egXML
                 xmlns="http://www.tei-c.org/ns/Examples">
                 <physDesc>
                   <objectDesc form="folio">
@@ -196,21 +187,20 @@
         </p>
       </div>
       <div>
-        <head>Detailing a <gi>history</gi></head>
-        <p>The <gi>history</gi> element gives a place to detail the <gi>origin</gi>,
-            <gi>provenance</gi>, and <gi>acquisition</gi> of the manuscript if available. In this
-          case we have some minimal information about the origin of the manuscript <list>
-            <item>Rename the second-last paragraph to a <gi>history</gi> element. </item>
-            <item>Select all the text of "This letter was written by Wilfred Owen in July 1917 at
-              Craiglockhart War Hospital." and surround it with a <gi>origin</gi> element. </item>
-            <item>Inside this mark 'July 1917' as an <gi>origDate</gi> element. This is like the
-                <gi>date</gi> element, but is specific to recording the origin date of the
-              manuscript being described. Provide a <att>when</att> attribute of '1917-07'. </item>
-            <item>Similarly mark the 'Craiglockhart War Hospital' as an <gi>origPlace</gi> with a
-                <att>ref</att> of '#craiglockhart' to point to the <gi>place</gi> you made earlier.
-              You could also surround the text with an <gi>orgName</gi> if you want to indicate that
-              this is an organizational name. As before you could mark Wilfred Owen's name.</item>
-            <item>Your <gi>history</gi> element should look something like: <egXML
+        <head>Ajout d'un  <gi>history</gi></head>
+        <p>Pour les manuscrits qui ont une longue histoire, cet élément <gi>history</gi> pourrais
+          fournir beacoup sur son origine <gi>origin</gi>, sa provenance (<gi>provenance</gi>), et
+          son acquisition par son possesseur actuel (<gi>acquisition</gi>). En notre cas nous
+          n'avons pas grand chose à detailler:<list>
+            <item>Renommez l'avant-dernier paragraphe en <gi>history</gi> . </item>
+            <item>Séléctionnez le texte "This letter was written by Wilfred Owen in July 1917 at
+              Craiglockhart War Hospital." et l'entourez d'une balise <gi>origin</gi> . </item>
+            <item>Dans ce texte, balisez 'July 1917' comme élément <gi>origDate</gi> . Ajoutez un
+              attribut <att>when</att> pour normaliser la date en "1917-07".</item>
+            <item>Balisez également la phrase 'Craiglockhart War Hospital' comme élément
+                <gi>origPlace</gi>
+            </item>
+            <item>Voici notre proposition pour le <gi>history</gi> : <egXML
                 xmlns="http://www.tei-c.org/ns/Examples">
                 <history>
                   <origin>This letter was written by <persName ref="#WO">Wilfred Owen</persName> in
@@ -225,16 +215,18 @@
         </p>
       </div>
       <div>
-        <head>Noting <gi>additional</gi> Information</head>
-        <p>At the end of your <gi>msDesc</gi> you can include an <gi>additional</gi> element which
-          stores other information such as <gi>adminInfo</gi> (for recording administrative events
-          of the object), <gi>listBibl</gi> (for listing bibliographic citations about the object),
-          and <gi>surrogates</gi> (for listing additional representations of the object).<list>
-            <item>Change the final paragraph to an <gi>additional</gi> element with a
-                <gi>surrogates</gi> inside that containing all the text.</item>
-            <item>Modify the URL given to be a <gi>ptr</gi> with a <att>target</att>
-              attribute.</item>
-            <item> Your <gi>additional</gi> element should look something like: <egXML
+        <head>Ajout des informations supplémentaires</head>
+        <p>L'élément <gi>additional</gi> regroupe des informations supplémentaires, par exemple
+            <gi>adminInfo</gi> (propositions concernant l'administration de l'objet décrit),
+            <gi>listBibl</gi> (pour citer des références bibliographiques concernant l'objet), et
+            <gi>surrogates</gi> (pour documenter d'autres représentations éventuelles de l'objet).<list>
+            <item>Renommez le dernier paragraphe en élément <gi>additional</gi>, contenant
+                <gi>surrogates</gi>
+            </item>
+            <item>Déplacer l'URL qui est fourni dans la valeur d'un attribut <att>target</att> d'un
+              élément <gi>ptr</gi>
+            </item>
+            <item>Et voici notre proposition pour le <gi>additional</gi> : <egXML
                 xmlns="http://www.tei-c.org/ns/Examples">
                 <additional>
                   <surrogates>A digital image is available from the First World War Poetry Digital
@@ -246,45 +238,7 @@
             </item>
           </list>
         </p>
-      </div>
-      <!-- Saving Your Work -->
-      <div>
-        <head>Saving Your Work</head>
-        <p> Let's save our work: <list>
-            <item>Is your work well-formed? Do you have a happy green square or an angry red
-              one?</item>
-            <item>Have you formatted and indented your work automatically? </item>
-            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like a
-              old-style 3.5" disk).</item>
-            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file using
-              the name 'exercise05.xml' or another name of your choice.</item>
-          </list></p>
-      </div>
-      <!-- Self-Assessment -->
-      <div>
-        <head>Self-Assessment</head>
-        <p>Check if you understand some of the core principles of this exercise by answering the
-          following questions: <list>
-            <item>What is the only required aspect of a TEI manuscript description?</item>
-            <item>How does one record the separate works of intellectual content present in the
-              manuscript? </item>
-            <item>Where does one describe the support which forms the object, or its layout?</item>
-            <item>How does one record the origin, provenance, and acquisition of the object?</item>
-            <item>Where might you record </item>
-          </list>
-        </p>
-      </div>
-      <!-- Next  -->
-      <div>
-        <head>Next and More Reading</head>
-        <p> Next we'll be looking at more encoding one can add to manuscripts, particularly for
-          transcriptions. However, before that if you have time you may wish to:<list>
-            <item>Look up the reference pages for each of the new elements you've used.</item>
-            <item>Read some of the chapter on Manuscript Description: <ref
-                target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html"
-                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html</ref>.</item>
-          </list>
-        </p>
+        <p>N'oubliez pas d'enregistrer votre travail quand vous aurez fini!</p>
       </div>
     </body>
   </text>
