@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TEI pour les cartes postales</title>
+        <author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <availability status="free">
+          <p>This template file is freely available and you are hereby
+            authorised to copy, modify, and redistribute it in any way without
+            further reference or permissions.</p>
+          <p>When making such modifications, you are strongly recommended to
+            change the present text to include an accurate statement of the
+            licencing conditions applicable to your modified text.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Initially created on <date when="2011-01-24">24 Jan 2011</date> at
+      Gare Montparnasse, Paris</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>On propose une personalisation minimale de la TEI pour le
+      balisage des cartes postales.</p>
+
+<div><head>Structuration basique</head>
+
+<p>Chaque carte postale sera traite comme un texte independant. 
+
+<specList>
+<specDesc key="text"/>
+<specDesc key="body"/>
+<specDesc key="div"/>
+<specDesc key="list"/>
+<specDesc key="item"/>
+<specDesc key="p"/>
+</specList>
+</p>
+<p>
+
+<specGrp xml:id="bodyIncludes">
+<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
+<moduleRef key="core" include="list item p"/>
+</specGrp>
+</p>
+</div>
+
+
+<div><head>Header structure</head>
+<p>On propose une version tres simplifiee du TEI Header. Pour validite, on exige que un <gi>fileDesc</gi>, qui ne peut contenir que les elements suivants:
+<specList>
+<specDesc key="titleStmt"/>
+<specDesc key="publicationStmt"/>
+<specDesc key="sourceDesc"/>
+<specDesc key="revisionDesc"/>
+</specList>
+</p>
+<p>Le  <gi>titleStmt</gi> ne permet qu'un <gi>title</gi>;
+les deux autres qu'une sequence d'au moins un <gi>p</gi>. </p>
+</div>
+
+<div><head>Class modifications</head>
+<p>Finally three of  the TEI attribute
+classes are simplified. The attributes xml:space, rendition, and xml:base
+are removed from the att.global class, so that this now makes
+available to all elements only the following attributes:
+<att>xml:id</att>, <att>n</att>, and
+<att>xml:lang</att>.
+</p>
+<p>Three un-needed attributes are removed from the  att.divLike class so that
+the <gi>div</gi> element inherits from it only
+the following attributes: <att>xml:id</att>,
+<att>n</att>,
+<att>xml:lang</att>.</p>
+<p>The attribute class <ident>att.declaring</ident> is deleted
+completely, so that none of its members inherit the <att>decls</att>
+attribute defined in the unmodified TEI.</p>
+<p>The attribute class <ident>att.ranging</ident> is deleted
+completely, so that none of its members inherit the
+<att>atLeast</att>, <att>atMost</att>, <att>min</att> or
+<att>max</att>
+attributes defined in the unmodified TEI.</p>
+
+<specGrp xml:id="classmods">
+        <classSpec ident="att.global" mode="change" module="tei" type="atts">
+          <attList>
+            <attDef ident="xml:space" mode="delete"/>
+            <attDef ident="rendition" mode="delete"/>
+            <attDef ident="xml:base" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.divLike" mode="change" module="tei" type="atts">
+          <attList>
+            <attDef ident="org" mode="delete"/>
+            <attDef ident="sample" mode="delete"/>
+            <attDef ident="part" mode="delete"/>
+          </attList>
+        </classSpec>
+     <classSpec ident="att.datable.w3c" mode="change" module="tei" type="atts">
+      <!-- only @when @notBefore @notAfter required, so...  -->
+      <attList>
+       <attDef ident="period" mode="delete"/>
+       <attDef ident="from" mode="delete"/>
+       <attDef ident="to" mode="delete"/>
+      </attList>
+     </classSpec>
+     <classSpec ident="att.typed" mode="change" module="tei" type="atts">
+      <!-- only @type required, so...  -->
+      <attList>
+       <attDef ident="subtype" mode="delete"/>
+</attList></classSpec>
+
+
+<moduleRef key="tei" except="att.ascribed att.breaking att.canonical
+  att.datable.iso att.declaring att.dimensions att.duration
+  att.internetMedia att.naming att.placement att.ranging
+  att.responsibility att.sourced att.spanning att.translatable
+  att.divLike att.editLike"/>
+
+<!--
+<classSpec ident="att.declaring" mode="delete" module="tei" type="atts"/>
+<classSpec ident="att.ranging" mode="delete" module="tei" type="atts"/>
+-->
+</specGrp></div>
+
+<div><head>Schema specification</head>
+      <schemaSpec ident="tei_cartes" xml:lang="fr">
+   
+<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
+<moduleRef key="core" include="date list item p address addrLine  del add
+			       title reg lb hi figure graphic"/>
+<moduleRef key="namesdates" include="persName placeName"/>
+<moduleRef key="header" include="fileDesc titleStmt  publicationStmt
+				 sourceDesc revisionDesc" />
+     <moduleRef key="transcr" include="att.global.facs"/>
+
+
+
+	<specGrpRef target="#classmods"/>
+
+      </schemaSpec>
+</div>
+    </body>
+  </text>
+</TEI>
