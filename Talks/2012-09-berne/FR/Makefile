@@ -7,6 +7,7 @@ TALKS= \
 	talk-04-transcr.xml \
 	talk-05-hdr.xml \
 	talk-06-transcr.xml \
+	talk-07-cartes.xml
 #	talk-customizing.xml \
 #	talk-xslt.xml \
 
