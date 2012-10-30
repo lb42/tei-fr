@@ -69,3 +69,24 @@ xelatex xxx.tex
 Here, "xxx.tex" is the input file, and Xelatex will produce an output file called "xxx.pdf" and write it into the same folder. 
 
 If your XML file contained any cross references you will need to repeat the "xelatex" command to get them properly resolved in the PDF output. Otherwise, you're done! 
+
+= MacOSX process =
+
+1/ Download mactex (http://www.tug.org/mactex/) and install the pkg
+
+2/ Update the latex package with 
+{{{
+tlmgr update --all
+}}}
+3/ See above for XSLT package and installation
+
+4/ Write your xml
+
+5/ Transform your xml file into tex file
+{{{
+java -jar saxon -o:xxx.tex -s:xxx.xml -xsl:teilatex-slides.xsl
+}}}
+6/ Transform your tex file into pdf :
+{{{
+pdflatex xxx.tex
+}}}
