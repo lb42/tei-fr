@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TP-3 Personnalisation de schéma avec Roma</title>
+                <author>TEI @ Oxford</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>July 2012</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>University of Oxford</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a
+                        Creative Commons Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date when="2012-08-30"/>revised and translated into French by
+                Lou Burnard </change>
+            <change>
+                <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+                <name>$LastChangedBy: lou$</name>
+                <note>$LastChangedRevision: 10412 $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+
+
+            <div>
+                <head>Objectifs de cet exercice</head>
+                <list type="bulleted">
+                    <item>comment sélectionner entre les modules TEI</item>
+                    <item>comment combiner les modules TEI pour créer un schéma
+                        personnel </item>
+                    <item>comment sélectionner un sous-ensemble des éléments
+                        d'un module TEI</item>
+                    <item>comment associer un schéma personalisé avec un
+                        document TEI-XML en oXygen</item>
+                    <item>comment modifier les valeurs légales des attributs
+                        disponibles dans un schéma</item>
+                    <item>comment générer automatiquement de la documentation de
+                        schéma avec Roma </item>
+                    <item>avoir une connaissance du format TEI ODD XML
+                        sousjacent</item>
+                </list>
+
+            </div>
+            <div>
+                <head>Création d'un document maximal</head>
+                <list>
+                    <item>Démarrer oXygen.</item>
+                    <item>Cliquez sur l'icône Nouveau en haut à gauche (ou
+                        sélectionnez Nouveau du menu Fichier, ou tapez CTRL-N)
+                        pour ouvrir la boîte de dialogue Nouveau</item>
+                    <item>Choisissez <ident>Cadre des modèles</ident>, ensuite
+                            <ident>TEI P5</ident>, puis <ident>TEI-All</ident>,
+                        pour sélectionnez un schéma maximale TEI. </item>
+                    <item>Cliquez sur le bouton <ident>Créer</ident> en bas.
+                        oXygen affiche un document TEI.</item>
+                    <item>Enregistrer ce fichier dans votre dossier
+                            <ident>Travaux</ident> sous le nom
+                            <ident>myTest.xml</ident>.</item>
+                </list>
+            </div>
+            <div>
+                <head>ALL n'est pas une solution idéal</head>
+                <p>Comme vouz avez déjà vu, oXygen connait tres bien la TEI dans
+                    toutes ces variétés. <list>
+                        <item>Dans le document que vous venez de créer, mettez
+                            le curseur au sein du <gi>p</gi>.</item>
+                        <item>Tapez '&lt;'. Comme vous avez déjà vu, oXygen vous
+                            offre un menu de tous les éléments disponibles à ce
+                            point. </item>
+                        <item>Passez en revue la liste des noms d'élément : un
+                            "pop-up" apparait pour expliquer la fonction de
+                            chacun. Notez par example <gi>address</gi>,
+                                <gi>camera</gi>, <gi>incident</gi>,
+                                <gi>metamark</gi>, ou
+                            <gi>notatedMusic</gi>.</item>
+                        <item>Tapez ESC pour sortir du menu ; supprimez le
+                            '&lt;' que vous avez ajouté.</item>
+                        <item>On est gaté de choix ... mais dans un projet
+                            particulier il n'est guère probable qu'on ait besoin
+                            de tous ces éléments. Avec autant de possibilités,
+                            l'opportunité d'incohérence ou d'une choix fautive
+                            est fortement augmentée. La complexité de traiter
+                            les documents XML que nous allons créer d'une
+                            manière cohérente est aussi augmentée. </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Creation d'un schéma avec Roma</head>
+                <p>Le logiciel Roma vous permet de créer votre propre schéma
+                    TEI. <list>
+                        <item>Avec votre browser visitez <ref
+                                target="http://www.tei-c.org/Roma/"
+                                >http://www.tei-c.org/Roma/</ref>. La page vous
+                            propose quatre options: <list type="ordered">
+                                <item><hi>Build up:</hi> on crée une
+                                    personalisation en ajoutant petit à petit ce
+                                    qu'on souhaite avoir sur une base minimale </item>
+                                <item><hi>Reduce:</hi> on fait l'invers: c'est à
+                                    dire, on crée une personalisation en
+                                    retirant petit à petit ce qu'on ne souhaite
+                                    pas avoir sur une base maximale </item>
+                                <item><hi>Template:</hi> on part d'une des
+                                    personalisations déjà proposes par la
+                                    TEI</item>
+                                <item><hi>Open:</hi> on retravaille une
+                                    personalisation qu'on a déjà enregistre.
+                                </item>
+                            </list>
+                        </item>
+                        <item>Dans cet exercice, nous prenons le deuxième cas.
+                            Choisissez 'reduce' et cliquez sur le bouton rouge
+                            'start'. </item>
+                        <item>Pour régler les paramètres on vous propose : <list>
+                                <item><hi>Title:</hi> Changez 'TEI with maximal
+                                    setup' en (par exemple) "TEI pour les
+                                    manuscrits modernes". </item>
+                                <item><hi>Filename:</hi> Change 'tei_all' en
+                                    (par exemple) "monTEI" (c'est un
+                                    identifiant, et donc ne devrait pas inclure
+                                    de blancs) </item>
+                                <item><hi>Language: </hi> Vous pouvez continuer
+                                    en anglais, mais ce tutoriel assume que vous
+                                    preferiez travailler en francais. Cliquez
+                                    donc le bouton devant le mot
+                                    "francais".</item>
+                                <item><hi>Author name:</hi> Entrez votre propre
+                                    nom (ou celui de votre avatar si vous le
+                                    préfériez) </item>
+                                <item>Ne changez pas la déscription pour
+                                    l'instant. </item>
+                            </list>
+                        </item>
+                        <item>Cliquez le bouton<ident> Save</ident> en bas de
+                            page. Les effets de vos changement deviennent
+                            evidents. L'interface est maintenqnt en francais, et
+                            en haut à droit, le nom de la personalisation sur
+                            laquelle vous travaillez est affiché.</item>
+                        <item>Roma est un logiciel internationalisé (plus ou
+                            moins). Séléctionnez l'onglet
+                            <ident>Langage</ident>, et cliquez sur le bouton
+                                <ident>Francais</ident> pour assurer que la
+                            francisation de cet exercice soit maximale! </item>
+                        <item>Encore une fois, <hi>Cliquez 'Save' en bas de
+                                page.</hi></item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Séléction de modules</head>
+                <p>Un <term>module</term> est un regroupement d'éléments TEI.
+                    Tout élément TEI est declaré dans un module spécifique. Par
+                    exemple, pour encoder un dictionnaire vous aurez besoin des
+                    éléments specialisés pour les dicos. Mais ces éléments ne
+                    sont pas forcément d'interet pour l'encodage d'autres types
+                    de documents. </p>
+                      <p>Dans Roma, <list>
+                        <item>Cliquez sur l'onglet 'Modules' pour controller
+                            quelles modules constitueront votre schéma</item>
+                        <item>Nous avons commencé avec le schéma maximale. Donc,
+                            la liste des modules sélectionnés, affichée à droite
+                            , correspond exactement à la liste des modules
+                            disponibles, affichée à gauche. </item>
+                        <item>Cliquez sur 'remove' pres de 'analysis' sur la
+                            liste affichée à droite. Le module disparait de
+                            cette liste, mais reste toujours disponible dans la
+                            liste à gauche. Vous pourriez le remettre si besoin
+                            est.</item>
+                        <item>Enlever 'analysis', 'certainty', 'corpus',
+                            'dictionaries', 'drama', 'figures', 'gaiji',
+                            'iso-fs', 'linking', 'nets', 'spoken', 'textcrit',
+                            'verse', et 'tagdocs'! </item>
+                        <item>Vous avez maintenant un schéma construit à part
+                            des modules : 'tei' (Roma ne vous permet pas
+                            d'enlever ce module infrastructurel), 'core',
+                            'header', 'msdescription', 'namesdates',
+                            'textstructure', et 'transcr'. Ces modules nous
+                            semblent les plus pertinents pour travailler avec
+                            les manuscrits modernes. </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Inclusion et exclusion des éléments</head>
+                <p>Dans ce petit ensemble de modules, il reste quand meme
+                    plusieurs éléments sans interet pour notre projet. <list>
+                        <item>Cliquez sur le mot 'core' à droite (nota: non pas
+                            sur le mot 'remove' mais sur le nom du module). Un
+                            liste de tous les éléments du module 'core'
+                            s'affiche. </item>
+                        <item>Chaque rang de cette table contient : <list>
+                                <item>le nom canonique d'un élément</item>
+                                <item>une indication de son Inclusion ou
+                                    Exclusion</item>
+                                <item>le nom de cet élément dans le schéma
+                                    actuel (normalement c'est le nom canonique
+                                    i.e. anglais)</item>
+                                <item>un point d'interrogation fournissant un
+                                    lien vers la page de référence pour cet
+                                    élément</item>
+                                <item>une description brève des fonctions de cet
+                                    élément</item>
+                                <item>un lien qui permet de modifier les
+                                    attributs de cet élément</item>
+                            </list>
+                        </item>
+                        <item>Vous pouvez Inclure ou Exclure tous les éléments
+                            dans un module. Cliquez sur le mot Exclure dans le
+                            titre de la table, et tous les éléments sont exclus
+                            par defaut. Puis cliquez de nouveau Inclure. </item>
+                        <item>Du module 'core' on va exclure les éléments
+                            suivants : 'addrLine', 'address', 'analytic',
+                            'biblStruct', 'binaryObject', 'distinct', 'divGen',
+                            'gb', 'headItem', 'headLabel', 'imprint', 'index',
+                            'listBibl', 'measure', 'measureGrp', 'meeting',
+                            'mentioned', 'monogr', 'postBox', 'postCode',
+                            'relatedItem', 'rs', 'said', 'series', 'sp',
+                            'speaker', 'stage', 'street', 'teiCorpus', 'term',
+                            'textLang', and 'time'. </item>
+                        <item>Notre schéma devient un peu plus gérable....
+                                <hi>N'oubliez pas de cliquer sur le bouton rouge
+                                'Save' en bas de page!</hi></item>
+                        <item>Dans un projet réel, bien sur, on continuerait de
+                            la meme manière pour chacun des modules, à fin de
+                            définir un sous ensemble d'éléments correspondant
+                            exactement aux besoins de notre projet. Plus le
+                            schéma est constraint, plus consistentes seront nos
+                            données! </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Création de schéma</head>
+                <p>
+                    <list>
+                        <item>Cliquez sur l'onglet 'Schéma'. Vouz pouvez
+                            sélectionner entre plusieurs langues de schéma : la
+                            TEI se définit independamment de toute langue, à fin
+                            de pouvoir générer tous ces formats. </item>
+                        <item>Nous vous conseillons de générer un schéma ou bien
+                            en Relax NG Compact Syntax, ou en Relax NG XML
+                            Syntax. </item>
+                        <item>Cliquez 'générer' et votre browser vous envoie un
+                            fichier de schéma. Vous devez enregistrer ce fichier
+                            dans le meme dossier que le fichier
+                                <ident>myTest.xml</ident> que vous avez créé au
+                            debut de cet exercise. </item>
+                        <item rend="bold">Ne fermez pas votre browser : vous en
+                            aurez besoin momentanément.</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Association de schéma et fichier en oXygen</head>
+                <p>Jusqu'a présent, oXygen associe le schéma tei_all avec votre
+                    fichier <ident>myTest.xml</ident> (il reconnait cela à cause
+                    de la présence d'un élément TEI dans l'espace de noms TEI). <list>
+                        <item>Revenez dans oXygen et ouvrez votre fichier si
+                            besoin est </item>
+                        <item>Dans le menu 'Document' ouvrir le menu 'Schéma' et
+                            selectionnez 'Associer un schéma'. (Notez l'icone
+                            pour cette action qui devrait également apparaitre
+                            sur la barre à outils) </item>
+                        <item>Dans le dialog qui s'affiche, cliquez sur le petit
+                            icone de dossier à cote de 'URL' pour naviguer vers
+                            le fichier de schéma que vous venez de créer avec
+                            avec Roma. Cliquez 'OK'.</item>
+                        <item>Dans votre fichier XML-TEI, vous devrez maintenant
+                            voir un ligne qui ressemble à ceci: <egXML
+                                xmlns="http://www.tei-c.org/ns/Examples">
+                                &lt;?xml-model href="myTEI.rng"
+                                type="application/xml"
+                                ns="http://relaxng.org/ns/structure/1.0"?></egXML>
+                            . S'il y a d'autres lignes du meme type, enlevez-les
+                            pour etre sur!</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Confirmation</head>
+                <p>Vous vous souvenez de ces bizarres éléments 'address' ,
+                    'camera', 'musicNotation' etc. qui étaient disponibles au
+                    sein d'un paragraphe? <list>
+                        <item>Mettez le curseur apres une balise ouvrante
+                                <gi>p</gi>, et tapez '&lt;' pour voir de nouveau
+                            la liste des éléments disponibles.</item>
+                        <item>Tous les éléments que vous avez supprimés sont
+                            disparus? C'est bien! Si non, peut-etre vous avez
+                            oublié de cliquer le bouton 'Save' apres les avoir
+                            inclus/exclus... essayez encore!</item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Comment limiter les valeurs de l'attribut <att>type</att>
+                    de l'élément <gi>div</gi></head>
+                <p>C'est tres utile de supprimer tel ou tel élément de notre
+                    schéma. Qu'est-ce qu'on peut faire pour limiter les valeurs
+                    légales de ses attributs? (Notez qu'en général les attributs
+                    TEI sont definis d'une manière tres permissive: vous pouvez
+                    taper n'importe quoi). Supposons que nous désirons limiter
+                    les valeurs possibles pour l'attribut <att>type</att> sur
+                        <gi>div</gi>. <list>
+                        <item>Revenez dans Roma </item>
+                        <item>Cliquez sur l'onglet 'Modules'</item>
+                        <item>Cliquez sur le module 'textstructure' </item>
+                        <item>Trouvez le rang ou est défini l'élément 'div' et
+                            cliquer sur 'Changer les Attributs' à l'extrème
+                            droite. </item>
+                        <item>Une table des attributs disponibles pour cet
+                            élément s'affiche. Vous pouvez inclure ou exclure
+                            des attributs si cela vous interesse. Pour le moment
+                            on essaie quelque chose différente. </item>
+                        <item>Scrollez jusqu'a <att>type</att> and cliquez sur
+                            ceci. Une page s'affiche, qui vous permet de
+                            controler plusieures options pour cet attribut: <list>
+                                <item><hi>Facultatif?</hi> Est-ce qu'il faut
+                                    fournir une valeur pour cet attribut ou est
+                                    il facultatif? Supposons que nous désirons
+                                    un schéma dans lequel la présence d'une
+                                    valeur de <att>type</att> sur <gi>div</gi>
+                                    soit obligatoire: en ce cas selectionnez
+                                        <val>no</val>.</item>
+                                <item><hi>Contenu</hi> Combien de valeurs (un ou
+                                    plusieures) sont permises pour cet attribut,
+                                    et de quelle type (text, numero, date...) ?
+                                    Restons avec une seul valeur de type
+                                        <val>text</val>. </item>
+                                <item><hi>Valeur par defaut</hi> nous permet de
+                                    proposer une valeur par defaut pour
+                                    l'attribut, dans le cas où aucun valeur
+                                    n'est fourni dans le document. Laissez cela
+                                    vide, puisque nous avons déjà decidé de
+                                    rendre obligatoire la presence d'une
+                                    valeur.</item>
+                                <item><hi>Liste fermee</hi> nous permet de
+                                    préciser si la liste de valeurs proposées
+                                    est une liste fixe impossible d'augmenter ou
+                                    non. Dans notre schéma, c'est une liste
+                                    fermée, donc répondez <val>Yes</val>!</item>
+                                <item><hi>Liste de valeurs</hi> nous permet de
+                                    specifier les valeurs permises pour cet
+                                    attribut dans notre schéma. Les valeurs sont
+                                    proposées en forme d'un seul ligne, chaque
+                                    valeur separée par une virgule. Entrez donc
+                                    la phrase suivante (<hi>sans blancs</hi>)
+                                        <code>prose,verse,drama,chapitre,volume,autre,inconnu</code>. </item>
+                                <item><hi>Description</hi> nous permit de
+                                    modifier la description de cet attribut.
+                                    Vous pouvez la changer comme bien il vous
+                                    semble: par example, changer "n'importe quel
+                                    système ou typologie de classification
+                                    approprié" en "le système de classement
+                                    proposé pour notre projet".</item>
+                            </list>
+                        </item>
+                        <item rend="bold">Cliquez sur le bouton
+                                '<ident>Save</ident>' en bas de la page! </item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Essayons de nouveau...</head>
+                <p>Est-ce que nous avons réussi? Vous connaissez maintenant la
+                    demarche...: <list>
+                        <item>Cliquer sur l'onglet 'Schéma' </item>
+                        <item>Choissisez l'un des formats schéma </item>
+                        <item>Cliquer 'Generer' </item>
+                        <item>Trouvez le fichier généré et téléchargé; copiez-le
+                            sur l'ancienne version pour la remplacer</item>
+                        <item rend="bold">Ne fermez pas votre Browser
+                            Internet!</item>
+                        <item>Revenez dans votre fichier
+                                <ident>myTest.xml</ident> en oXygen; choisir
+                            'Document' -> 'Validate' -> 'Reset Cache and
+                            Validate' </item>
+                        <item>Si tout va bien, votre document reste valide: il y
+                            a un petit carré vert. </item>
+                        <item>Maintenant il faut ajouter un <gi>div</gi>. Comme
+                            vouz avez fait avant, selectionnez le premier
+                                <gi>p</gi> dans ce document, et l'entourez d'une
+                            balise <gi>div</gi> en tapant CTRL-E.</item>
+                        <item>Votre document n'est plus valide: il y a un carré
+                            rouge en haut! En bas vous voyez le message
+                                <code>Element 'div' missing required attribute
+                                'type'</code>
+                        </item>
+                        <item>Mettez le curseur à l'interieure de la balise
+                            ouvrante du <gi>div</gi>, juste avant le &gt; et
+                            tapez un blanc. oXygen propose une liste des
+                            attributs disponibles. Scrollez-la jusqu'a
+                                <att>type</att> and notez que cet attribut est
+                            affiché en gras, pour signaller que sa présence est
+                            obligatoire.</item>
+                        <item>Selectionnez <att>type</att> and notez que oXygen
+                            vous propose une liste des valeurs que nous avions
+                            prédéfinies dans notre schéma. </item>
+                        <item>Choisissez l'une de ces valeurs, p.ex. 'prose', et
+                            votre document devient valide, avec un petit carré
+                            vert.</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>Generation de documentation</head>
+                <p>Tout projet aura besoin de sa documentation interne, qui ne
+                    sera pas forcément optimale s'il est en RelaxNG ! Roma vous
+                    permet de générer automiquement des specifications
+                    compréhensible, ressemblant à la doc de référence de la TEI. <list>
+                        <item>Retournez dans votre browser et cliquez sur
+                            l'onglet 'Documentation'. </item>
+                        <item>Choissisez 'HTML web page' et cliquez 'Generate'. </item>
+                        <item>Apres un bref delai, votre browser va recevoir un
+                            fichier HTML que vous pouvez lire avec le browser.
+                            Au début il y a un table des matières, avec un lien
+                            pour chaque élément de votre schéma. Scrollez
+                            jusqu'au lien pour <gi>div</gi> et
+                            cliquez-le.</item>
+                        <item>Notez que la description de son attribut
+                                <att>type</att> est modifiée selon vos
+                            propositions. (Mais notez aussi que d'autres
+                            détails, notamment les exemples d'usage, ne sont pas
+                            modifiés) .</item>
+                        <item>Si vous le préférez, vous pouvez également générer
+                            ce document en format PDF. </item>
+                    </list>
+                </p>
+            </div>
+
+
+            <div>
+                <head>Enregistrement de la personalisation</head>
+                <p>Nous esperons que vous aurez maintenant une idée des
+                    capacités de ce système de personalisation. Bien sur, vous
+                    n'allez pas faire tout ce qui est souhaitable pour votre
+                    projet dans une seule session. On a besoin donc d'une
+                    manière d'enregistrer la spécification, pour revenir la
+                    dessus dans une session posterieur. <list>
+                        <item>Revenez dans votre browser et cliquez sur l'onglet
+                            'Enregistrer'. </item>
+                        <item>Votre browser vous envoie un fichier TEI-XML file,
+                            avec le meme nom que votre schéma, donc
+                                <ident>myTEI.xml</ident>. Il. Enregistrer ce
+                            fichier dans votre dossier <ident>Travaux</ident>. </item>
+                        <item>Ouvrez ce fichier XML avec oXygen et lisez-le
+                            (mais avec les balises: en mode Auteur il ya des
+                            details signifiants qui sont caches!) . </item>
+                        <item>D'abord notez que votre manuel hèrite des
+                            propositions relatives au schéma TEI All duquel vous
+                            l'avez dérivé. Vous pouvez bien sur modifier ces
+                            propositions, en décrivant les objets de votre
+                            projet, vos procédures eventuels de définition de
+                            schéma, vos règles maison de balisage etc etc --
+                            juste comme un manuel d'encodage classique. </item>
+                        <item>Ensuite, regardez l'élément <gi>schémaSpec</gi>.
+                            Cet élément contient l'essentiel de votre
+                            personalisation. Notez qu'il rassemble un
+                                <gi>moduleRef</gi> pour chacun des modules que
+                            vous avez selectionnés, et que le module 'core' est
+                            complété avec une liste des éléments que vous avez
+                            voulu exclure de ce module.</item>
+                        <item>Regardez la specification pour div (dans un
+                            élément <gi>élémentSpec</gi>) pour voir comment nous
+                            l'avons modifié.</item>
+                        <item>Ce fichier est un document TEI XML comme tous les
+                            autres. Vous pouvez donc faire des modifications,
+                            par exemple au début, pour ameliorer votre manuel.
+                            Pour recharger votre document dans Roma, il faut
+                            choisir la quatrième option 'Open existing
+                            customisation' sur la page d'acceuil de Roma. S'il
+                            vous reste du temps, experimentez cela!</item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head>Limitations de Roma</head>
+                <p>En effet, Roma n'est qu'une interface web sur une système de
+                    transformation TEI beaucoup plus complexe, que vous avez
+                    déjà rencontrée avec oxGarage. C'est bien possible de créer
+                    son fichier de personalisation sans se servir de Roma : une
+                    démarche qui permet, d'ailleurs, de faire beacoup de choses
+                    pas possible dans l'interface Roma. Par exemple, Roma vous
+                    permet de limiter les valeurs légales d'un attribut, comme
+                    vous l'avez déjà vu, mais il ne vous permet pas de définir
+                    et de documenter la portée de ces valeurs ; chose qui est
+                    simple à faire en manipulant directement le format TEI XML
+                    de votre personalisation (votre 'ODD'). </p>
+
+            </div>
+            <!-- Self-Assessment 
+            <div>
+                <head>Self-Assessment</head>
+                <p>Check if you understand some of the core principles of this exercise by answering
+                    the following questions: <list>
+                        <item>What is Roma?</item>
+                        <item>How do you add and remove TEI modules using Roma?</item>
+                        <item>How do you include/exclude individual éléments using Roma? </item>
+                        <item>How can you change attributes using Roma? </item>
+                        <item>Is it possible to save your customisation in Roma? </item>
+                        <item>What kinds of documentation can you generate in Roma? </item>
+                        <item>What kinds of schémas can you generate in Roma? </item>
+                        <item>What does an underlying TEI ODD customisation file look like? Is it a
+                            TEI file like the ones you've been working with?</item>
+                    </list>
+                </p>
+            </div>-->
+            <!-- Next  -->
+            <div>
+                <head>Pour en savoir plus</head>
+                <p> Voici quelques lectures interessant à ce sujet : <list
+                        type="gloss">
+                        <label>Documentation de reference (dans les
+                            Guidelines)</label>
+                        <item>
+                            <list>
+                                <item> Description complete de langage ODD: <ref
+                                        target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html"
+                                        >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html</ref>.</item>
+                                <item>Description de traitement des fichiers
+                                        ODD<ref
+                                        target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM"
+                                        >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM</ref></item>
+                            </list>
+                        </item>
+                        <label>Autres documents tutoriels</label>
+                        <item>
+                            <list>
+                                <item>
+                                    <ref
+                                        target="http://tbe.kantl.be/TBE/modules/TBED08v00.htm"
+                                        >http://tbe.kantl.be/TBE/modules/TBED08v00.htm</ref>.</item>
+                                <item><ref
+                                        target="http://www.tei-c.org/Guidelines/Customization/odds.xml"
+                                        >http://www.tei-c.org/Guidelines/Customization/odds.xml</ref></item>
+                            </list>
+                        </item>
+                        <!--<label>Articles et presentations</label>
+
+<list>
+<item>Burnard and Rahtz <title>RelaxNG with Son of ODD</title> (Extreme Markup 2004) <ptr target="http://conferences.idealliance.org/extreme/html/2004/Burnard01/EML2004Burnard01.html/"></item>
+
+</list>
+</item>-->
+                    </list>
+                </p>
+            </div>
+
+        </body>
+    </text>
+</TEI>
