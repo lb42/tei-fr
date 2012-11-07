@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP 3 : Génération d'un ODD et personnalisation</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>Novembre 2012</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Exercice créé par Lou Burnard et Lauranne Bertrand</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2012-11-07">
+        <name>Lauranne Bertrand</name> 
+        Création de l'exercice
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Objectifs de l'exercice</head>
+        <list>
+          <item>Générer un ODD à partir d'un corpus XML-TEI</item>
+          <item>Comprendre la structure d'un fichier ODD</item>
+          <item>Adapter l'ODD généré en fonction de ses besoins</item>
+        </list>
+      </div>
+      <div>
+        <head>Package XSLT</head>
+        <list>
+          <item>Stockez vos sources TEI dans un dossier que nous nommerons <ident>sources</ident></item>
+          <item>Téléchargez le dernier package XSLT sur sourceforce : 
+            <ref target="http://sourceforge.net/projects/tei/files/Stylesheets/">http://sourceforge.net/projects/tei/files/Stylesheets/</ref>
+          </item>
+          <item>Décompressez le dossier téléchargé dans votre répertoire de travail</item>
+          <item>Le package contient plusieurs dossiers. Naviguez jusqu'à : xml > tei > stylesheet > tools</item>
+          <item>La feuille <ident>oddbyexample.xsl</ident> est celle que nous utiliserons pour générer l'ODD</item>
+          <item>Collez le dossier <ident>sources</ident> à côté de la feuille XSLT (donc dans tools)</item>
+        </list>
+      </div>
+      <div>
+        <head>Paramétrer la feuille oddbyexample.xsl</head>
+        <list>
+          <item>Ouvrez dans oXygen la feuille <ident>oddbyexample.xsl</ident></item>
+          <item>Après les commentaires, vous verrez toute une liste de paramètres :
+            <list>
+              <item>Vous pouvez changer le nom du schéma, remplacez oddbyexample par "monODD" (par ex)</item>
+              <item>Pointez sur le dossier contenant votre corpus, remplacez "./" par "sources/./"</item>
+              <item>Pour le moment laissez les autres paramètres, nous y reviendrons plus tard</item>
+            </list>
+          </item>
+        </list>
+      </div>
+      <div>
+        <head>Générer son premier ODD</head>
+        <list>
+          <item>Ouvrez le Terminal de votre ordinateur (tapez "cmd" dans <ident>Exécuter</ident> sous Windows)</item>
+          <item>Placez vous dans le dossier tools :
+            <eg>cd REPERTOIREXSL/xml/tei/stylesheet/tools</eg>
+          </item>
+          <item>Lancez la transformation :
+            <eg>java -jar /CHEMIN/VERS/SAXON -o:monODD.xml -it:main oddbyexample.xsl</eg>
+          </item>
+          <item>Si tout s'est bien passé, le fichier <ident>monODD.xml</ident> devrait être apparu dans le dossier <ident>tools</ident></item>
+          <item>Vous pouvez l'ouvrir dans oXygen : le fichier devrait vous dire quelque chose car il ressemble à la personnalisation effectuée dans Roma</item>
+        </list>
+      </div>
+      <div>
+        <head>Utiliser l'ODD</head>
+        <list>
+          <item>Tout ça c'est bien, mais qu'en faire à présent ?</item>
+          <item>En fait, votre ODD définit les éléments, attributs voire valeurs que vous utilisez. Il définit également les modules
+            et les classes qui sont utilisées au sein du corpus</item>
+          <item>En l'état, ce n'est pas très lisible mais grâce à Roma, on peut générer à partir de son ODD : un schéma RNG, une DTD voire
+            une documentation ! (d'où le "One Document Does It All")</item>
+          <item>Essayons de générer la documentation correspondant à votre projet : si vous vous souvenez de l'exercice sur Roma, vous savez
+          comment faire...</item>
+        </list>
+      </div>
+      <div>
+        <head>Générer une documentation dans Roma</head>
+        <list>
+          <item>Ouvrez votre navigateur et rendez-vous sur <ref target="http://www.tei-c.org/Roma/">http://www.tei-c.org/Roma/</ref></item>
+          <item>Cochez <ident>Upload a customization</ident> et naviguez jusqu'à votre odd via <ident>Choisissez un fichier</ident></item>
+          <item>Cliquez sur <ident>Start</ident></item>
+          <item>Comme précedemment, vous pouvez choisir le nom de votre personnalisation, la langue, le nom de l'auteur etc.
+            Remplissez-les si vous le souhaitez et appuyez sur <ident>Save</ident></item>
+          <item>Cliquez sur l'onglet <ident>Documentation</ident>, laissez dans le menu déroulant "HTML web page" et cliquez sur
+            <ident>Generate</ident></item>
+          <item>Enregistrez le fichier ou ouvrez-le directement dans le navigateur</item>
+          <item>Vous reconnaissez la documentation générée via Roma : une liste de liens sur chaque élément. Mais cette fois-ci,
+            seuls les éléments que vous utilisez au sein de votre corpus sont présents.</item>
+          <item>Cliquez sur un élément où vous avez l'habitude d'utiliser <att>type</att> ou <att>rend</att>. La liste des valeurs
+            utilisées dans votre projet n'apparaissent pas normalement. Il faut paramétrer cette option dans la feuille 
+            <ident>oddbyexample.xsl</ident></item>
+        </list>
+      </div>
+      <div>
+        <head>Faire apparaître la liste des valeurs de <att>rend</att> et <att>type</att></head>
+        <list>
+          <item>Retournez dans oXygen et ouvre la feuille <ident>oddbyexample.xsl</ident></item>
+          <item>Cette fois-ci, répondez "true" pour les paramètres <ident>enumerateRend</ident> et <ident>enumerateType</ident></item>
+          <item>Lancez de nouveau votre transformation :
+            <eg>java -jar /CHEMIN/VERS/SAXON -o:monODD.xml -it:main oddbyexample.xsl</eg></item>
+          <item>Retournez dans Roma, refaites les étapes précédentes pour regénérer votre documentation</item>
+          <item>Rendez-vous sur un élément comportant des <att>type</att> ou des <att>rend</att> : voilà votre liste de valeurs !</item>
+        </list>
+      </div>
+      <div>
+        <head>Personnaliser votre ODD</head>
+        <p>...</p>
+      </div>
+    </body>
+  </text>
+</TEI>
+
+
