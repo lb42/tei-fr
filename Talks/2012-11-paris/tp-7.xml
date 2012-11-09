@@ -14,6 +14,7 @@
         <date>Aug 2012</date>
       </publicationStmt>
       <sourceDesc>
+        <p>Adaptation de la présentation de Lou Burnard: <ref target="http://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-09-berne/FR/tp-6.xml">tp-6.xml</ref></p>
         <p>Translated from Christof's German version of Elena's Italian version into my French(ish)
           version...</p>
       </sourceDesc>
@@ -21,18 +22,21 @@
     <revisionDesc>
       <change when="2012-11-06">
         <name>Lauranne Bertrand</name> 
-        Correction des coquilles et adaptation pour la formation TEI ++
+        <note>Correction des coquilles et adaptation pour la formation TEI ++</note>
       </change>
+      <change when="2012-11-09">
+        <name>Alexei Lavrentiev</name>
+        <note>Relecture et corrections mineures</note>
+      </change>      
     </revisionDesc>
   </teiHeader>
-  <text>
+  <text xml:lang="fr">
     <body>
       <div>
         <head>Objectifs de l'exercice</head>
-        <p>Dans cet exercice nous allons explorer : 
-          <list>
+        <p>Dans cet exercice nous allons explorer&#xa0;: <list>
             <item>l'encodage TEI des aspects spatiaux d'un manuscrit </item>
-            <item>l'encodage de la diachronie de son écriture </item>
+            <item>l'encodage de la "diachronie" de son écriture </item>
             <item>la liaison des informations spatiales et textuelles </item>
           </list>
         </p>
@@ -44,17 +48,17 @@
           d'intérêt, selon l'ordre des écritures sur la page. Ensuite nous allons faire la liaison
           entre ces zones et une transcription diplomatique du texte contenu. </p>
         <p>Nous allons nous servir des éléments suivants, du chapitre 11 “Transcription of Primary
-          Sources” des Guidelines, <gi>surface</gi>, <gi>zone</gi>
+          Sources” des Guidelines&#xa0;: <gi>surface</gi>, <gi>zone</gi>
           <gi>line</gi>, et <gi>change</gi>.</p>
         <p>Vous aurez besoin des fichiers fournis dans votre dossier Travaux, du logiciel Oxygen, et
-          aussi de l'editeur graphique <ident>Inkscape</ident>.</p>
+          aussi de l'éditeur graphique <ident>Inkscape</ident>.</p>
       </div>
       <div>
         <head>Import d'une image numérique dans Inkscape</head>
         <p>Les images numériques sont produites dans des formats très variés (tiff, png, jpg...). Le
           format SVG (Scalable Vector Graphics) s'harmonise très bien avec la TEI -- c'est un format
-          XML ! Mais, puisque les images numériques sont stockées dans d'autres
-          formats, nous allons commencer par l'import et la transformation d'un fichier JPG. </p>
+          XML&#xa0;! Mais, puisque les images numériques sont stockées dans d'autres formats, nous allons
+          commencer par l'import et la transformation d'un fichier JPG. </p>
         <list>
           <item>Lancez le logiciel <ident>Inkscape.</ident>
           </item>
@@ -62,10 +66,10 @@
               <ident>Durrenmatt.jpg</ident> que vous trouverez dans votre dossier
               <ident>Travaux</ident></item>
           <item>Choisissez “lier” dans la boîte de dialogue qui s'affiche </item>
-          <item>Séléctionnez la commande “Fichier > Propriétés du Document”: Dans cette boîte de
+          <item>Sélectionnez la commande “Fichier > Propriétés du Document”&#xa0;: Dans cette boîte de
             dialogue, cliquez sur “Redimensionner la page au contenu...” puis sur le bouton “Ajuster
             la page au dessin ou à la sélection”. Fermez la boîte de dialogue.</item>
-          <item>Séléctionnez la commande “Fichier > Préférences d'Inkscape” et scrollez la liste qui
+          <item>Sélectionnez la commande “Fichier > Préférences d'Inkscape” et scrollez la liste qui
             s'affiche jusqu'à Sortie SVG, enlevez la coche pour “Autorise les coordonnées relatives”
             et fermez la boîte de dialogue.</item>
         </list>
@@ -73,9 +77,8 @@
       <div>
         <head>Distinguer et marquer les régions ; noter leur coordonnées</head>
         <p>Dans le fac-similé numérique, vous verrez une partie tapuscrite, des modifications
-          manuscrites, un (ou deux?) dessins, et peut-être d'autres choses.</p>
-        <p>Nous vous proposons de distinguer au moins quatre parties 
-          <list type="ordered">
+          manuscrites, un (ou deux&#xa0;?) dessins, et peut-être d'autres choses.</p>
+        <p>Nous vous proposons de distinguer au moins quatre parties <list type="ordered">
             <item> le bloc de texte tapuscrit avec ses ajouts</item>
             <item> les ajouts ou corrections manuscrites sur le bord droit</item>
             <item> les additions manuscrites en dessous du bloc de texte</item>
@@ -84,7 +87,7 @@
         <p>Notre but est de marquer ces zones avec Inkscape, puis d'insérer leurs coordonnées dans
           un document TEI. </p>
         <list>
-          <item>Séléctionnez la commande “Affichage > Zoom > Zoomer” pour zoomer sur l'image afin de
+          <item>Sélectionnez la commande “Affichage > Zoom > Zoomer” pour zoomer sur l'image afin de
             travailler avec plus de précision : </item>
           <item>Dans la barre d'outils à gauche, sélectionnez l'outil "Créer des rectangles et des
             carrés" (F4) et créez un rectangle autour du bloc de texte tapuscrit. </item>
@@ -97,13 +100,13 @@
       <div>
         <head>Addition des coordonnées à un document TEI</head>
         <p>Nous avons maintenant besoin d'insérer les coordonnées de ce bloc de texte dans un
-          document TEI. Lancez oXygen et ouvrez le fichier <ident>Durrenmatt-start.xml.</ident> Ce
+          document TEI. Lancez oXygen et ouvrez le fichier <ident>Durrenmatt-start.xml</ident>. Ce
           fichier contient un petit document TEI minimal. Nous allons ajouter à son élément
             <gi>sourceDoc</gi> des informations concernant les zones de l'image</p>
         <p>Ce document décrit la structure de notre source au niveau minimal. Il fournit des
-          métadonnées pour l'identifier et il définit les dimensions de la surface physique sur laquelle
-          le texte est inscrit. Les coordonnées de cette surface sont définies par quatre attributs de
-          l'élément <gi>surface</gi>
+          métadonnées pour l'identifier et il définit les dimensions de la surface physique sur
+          laquelle le texte est inscrit. Les coordonnées de cette surface sont définies par quatre
+          attributs de l'élément <gi>surface</gi>
         </p>
         <list>
           <item><att>ulx</att> définit la valeur X du coin supérieur gauche (0px distance
@@ -113,16 +116,16 @@
           <item><att>lrx</att> définit la largeur de l'image (800px)</item>
           <item><att>lry </att>définit le hauteur de l'image (1220px)</item>
         </list>
-        <p>En outre, le <gi>surface</gi> est assorti d'un identifiant, <val>surface-1</val>, de sorte
-          que nous puissions clairement l'identifier plus tard. </p>
-        <p>Maintenant, nous pouvons enregistrer la première zone :</p>
+        <p>En outre, le <gi>surface</gi> est assorti d'un identifiant, <val>surface-1</val>, de
+          sorte que nous puissions clairement l'identifier plus tard. </p>
+        <p>Maintenant, nous pouvons enregistrer la première zone&#xa0;:</p>
         <list>
           <item>Insérez un nouvel élément <gi>zone</gi> dans le document, après l'élément
               <gi>graphic</gi>, mais toujours au sein de <gi>surface.</gi>
           </item>
           <item>Cet élément devrait avoir un identifiant, ajoutez donc une valeur comme “zone-1”
             pour son attribut <att>xml:id</att></item>
-          <item>Les coordonnées d'une zone sont specifiées par les attributs <att>ulx</att>,
+          <item>Les coordonnées d'une zone sont spécifiées par les attributs <att>ulx</att>,
               <att>lrx </att>etc, de la même manière que les coordonnées d'une surface. Pour
             connaître les valeurs à ajouter, il faut revenir dans Inkscape. Sélectionnez la commande
               <ident>Édition > Éditeur XML</ident> et une nouvelle perspective s'affiche sur votre
@@ -130,57 +133,55 @@
             dernier objet <gi>svg:rect</gi> dans la liste et le panneau à droite vous propose les
             attributs associés avec ce rectangle</item>
           <item>Notez bien les valeurs pour <att>x</att>, <att>y</att>, <att>height</att>, et
-              <att>width</att>: nous allons nous en servir dans notre document TEI : ces valeurs sont
-            à transférer directement dans notre document TEI : elles servent respectivement comme valeurs des
-            attributs <att>ulx</att>
+            <att>width</att>: nous allons nous en servir dans notre document TEI&#xa0;: ces valeurs
+            sont à transférer directement dans notre document TEI&#xa0;: elles servent respectivement
+            comme valeurs des attributs <att>ulx</att>
             <att>uly</att>
             <att>height</att> et <att>width</att> : </item>
           <item>Dans notre <gi>zone</gi> vous n'avez donc qu'à transférer la valeur de x à
-            l'attribut <att>ulx</att> etc...</item>
+            l'attribut <att>ulx</att>, etc.</item>
         </list>
       </div>
       <div>
-        <head>Addition d'une transcription</head>
-        <p>Bien sûr, nous voudrions compléter cette description topographique du document avec une
+        <head>Ajout d'une transcription</head>
+        <p>Bien sûr, nous voudrions compléter cette description topographique du document par une
           transcription des mots qui constituent chacune de ses zones. Nous allons traiter chaque
-          zone comme une serie de <gi>line</gi>
+          zone comme une série de <gi>line</gi>
         </p>
         <list>
           <item> Tapez “Ctrl + Maj + P” dans oXygen pour voir plus clairement la structure de votre
             fichier actuel. Actuellement, notre élément <gi>zone</gi> est vide, et donc oXygen
-            l'affiche d'une manière abrégée. Nous allons y ajouter du contenu, donc il faut
-            le développer.</item>
-          <item> Supprimez le slash à la fin de l'élément <code>&lt;zone/&gt;</code>, et inserez un
+            l'affiche d'une manière abrégée. Nous allons y ajouter du contenu, donc il faut le
+            développer.</item>
+          <item> Supprimez le slash à la fin de l'élément <code>&lt;zone/&gt;</code>, et insérez un
             élément <gi>line</gi> entre la balise ouvrante du <gi>zone</gi> et sa balise
             fermante.</item>
           <item>Ouvrez dans oXygen le fichier <ident>Durrenmatt-Text.txt</ident> qui se trouve dans
             votre dossier Travaux. Vous verrez une transcription très basique du contenu de ce
             manuscrit. Nous allons laisser de coté toutes ses complexités pour l'instant !
-            Sélectionnez tout le texte contenu dans la zone en question et le copier avec
-            Ctrl + C </item>
-          <item>Revenez au document "Durrenmatt-start.xml" et coller ce texte au bon endroit.
-            Cliquez avec Ctrl + Maj + D à la fin de chacune des lignes pour diviser l'élément <gi>line</gi>
-            en plusieurs. </item>
+            Sélectionnez tout le texte contenu dans la zone en question et le copier avec Ctrl + C </item>
+          <item>Revenez au document "Durrenmatt-start.xml" et collez ce texte au bon endroit.
+            Cliquez avec Ctrl + Maj + D à la fin de chacune des lignes pour diviser l'élément
+              <gi>line</gi> en plusieurs. </item>
         </list>
       </div>
       <div>
         <head>Combinaison de transcription et image</head>
         <p>Un des aspects important de SVG comme format est le fait qu'il s'exprime en XML, comme la
-          TEI. Donc, il est possible de "fusionner" notre transcription TEI-XML avec la version
-          SVG de l'image numérique ; c'est-à-dire, de créer un nouveau document
-          XML qui contiendra les deux. Ce document intégré aura des possibilités de traitement
-          intéressant. </p>
+          TEI. Donc, il est possible de "fusionner" notre transcription TEI-XML avec la version SVG
+          de l'image numérique ; c'est-à-dire, de créer un nouveau document XML qui contiendra les
+          deux. Ce document intégré aura des possibilités de traitement intéressant. </p>
         <p>Pour effectuer cette intégration, nous allons nous servir d'une feuille de style XSLT. On
-          peut configurer oXygen pour faire la transformation automatiquement :</p>
+          peut configurer oXygen pour faire la transformation automatiquement&#xa0;:</p>
         <list>
-          <item> Séléctionnez la commande “Document > Transformation > Configurer les scénarios de
+          <item> Sélectionnez la commande “Document > Transformation > Configurer les scénarios de
             Transformation” </item>
-          <item> Dans la boîte de dialogue qui s'affiche, cliquez sur “Nouveau” et séléctionnez “XML
-            Transformation with XSLT” ; ensuite, cliquez sur la petite icone en forme de dossier à droite de
-            la fenêtre labellisée “XSL URL” et naviguer jusqu'au fichier <ident>xml2svg.xsl</ident>
-            qui se trouve dans votre dossier Travaux. </item>
-          <item>Contrôlez que l'option selectionnée pour “Transformateur” soit bien “Saxon EE 9.4.0.3”
-            et cliquez sur “OK”. </item>
+          <item> Dans la boîte de dialogue qui s'affiche, cliquez sur “Nouveau” et sélectionnez “XML
+            Transformation with XSLT” ; ensuite, cliquez sur la petite icone en forme de dossier à
+            droite de la fenêtre labellisée “XSL URL” et naviguer jusqu'au fichier
+              <ident>xml2svg.xsl</ident> qui se trouve dans votre dossier Travaux. </item>
+          <item>Vérifiez que l'option sélectionnée pour le “Transformateur” soit bien “Saxon EE
+            9.4.0.3” et cliquez sur “OK”. </item>
           <item> Pour faire la transformation, il faut cliquer sur "Appliquer Associés" (ou cliquez
             sur le triangle rouge dans la barre d'outils). Si tout va bien un petit carré vert
             apparait en bas de l'écran avec le message <ident>Transformation réussie.</ident></item>
@@ -189,17 +190,18 @@
           “output”), dans lequel se trouve un autre dossier “time” ... et dans ce dossier vous allez
           trouver un document SVG intéressant... </p>
         <list>
-          <item> Ouvrez ce fichier avec Safari ou Chrome et contrôlez que vous voyez bien une
-            représentation de la zone que vous venez d'identifier et du fac-similé de la page. </item>
+          <item> Ouvrez ce fichier avec Firefox,<!-- ?--> Safari ou Chrome et vérifiez que vous voyez bien une
+            représentation de la zone que vous venez d'identifier et du fac-similé de la page.
+          </item>
         </list>
       </div>
       <div>
-        <head> Ajouter encore des <gi>zones</gi>
+        <head> Ajouter de nouvelles <gi>zone</gi>s
         </head>
-        <p>OK, laissons ce document pour l'instant, et on revenons sur le document TEI-XML pour y
-          créer encore des <gi>zone</gi>s !  Il y a au moins trois autres parties à distinguer dans
+        <p>OK, laissons ce document pour l'instant, et revenons sur le document TEI-XML pour y
+          créer encore des <gi>zone</gi>s&#xa0;! Il y a au moins trois autres parties à distinguer dans
           le fac-similé numérique... Nous vous proposons d'ajouter encore trois éléments
-            <gi>zone</gi> en suivant la même procédure qu'auparavant : </p>
+          <gi>zone</gi> en suivant la même procédure qu'auparavant&#xa0;: </p>
         <list>
           <item>Délimitez la zone dans Inkscape (voir section 4)</item>
           <item>Entrez ses coordonnées dans le document TEI (voir section 5)</item>
@@ -209,49 +211,50 @@
       </div>
       <div>
         <head> Définition de la séquence d'écriture</head>
-        <p> Sur http://research.cch.kcl.ac.uk/proust_prototype/index.html vous verrez un affichage
-          très joli d'une analyse temporelle de l'évolution de l'oeuvre de Proust, effectué à partir
-          d'un balisage TEI semblable à ce que vous venez de faire. Il n'y a qu'une chose
-          à ajouter : des indications de la séquence de production de ces morceaux d'écriture.</p>
-        <p>Bien sûr, l'identification de telles "étapes" dans la production d'un document est
-          en général un sujet de recherche controversé, et parfois non vérifiable. Il n'empêche
-          que l'explicitation des hypothèses de recherche (ce qui est, n'oublions pas, l'un des buts
+        <p> Sur <ref target="http://research.cch.kcl.ac.uk/proust_prototype/index.html">http://research.cch.kcl.ac.uk/proust_prototype/index.html</ref> 
+          vous verrez un affichage
+          très joli d'une analyse temporelle de l'évolution de l'œuvre de Proust, effectué à partir
+          d'un balisage TEI semblable à ce que vous venez de faire. Il n'y a qu'une chose à ajouter&#xa0;: 
+          des indications de la séquence de production de ces morceaux d'écriture.</p>
+        <p>Bien sûr, l'identification de telles "étapes" dans la production d'un document est en
+          général un sujet de recherche controversé, et parfois non vérifiable. Il n'empêche que
+          l'explicitation des hypothèses de recherche (ce qui est, n'oublions pas, l'un des buts
           primaires de l'encodage) à ce sujet peut contribuer aux avancées scientifiques en ce
           domaine, comme dans d'autres.</p>
-        <p>Nous posons donc les propositions suivantes au sujet de la séquence d'écriture pour
-          notre texte. </p>
+        <p>Nous posons donc les hypothèses suivantes au sujet de la séquence d'écriture pour notre
+          texte. </p>
         <list type="ordered">
           <item> La partie tapuscrite doit précéder les annotations et corrections faites à la main
             par dessus</item>
           <item>Dans les parties manuscrites on peut distinguer au moins deux épisodes, mais à part
             le fait qu'ils suivent forcément la partie tapée à la machine, leur succession n'est pas
             évidente</item>
-          <item>On peut présumer que les graphies en bas de page ont étés ajoutées plus tard</item>
+          <item>On peut supposer que les graphies en bas de page ont été ajoutées plus tard</item>
         </list>
         <p>Pour documenter ces trois étapes, il faut d'abord définir des éléments <gi>change</gi>
           dans l'entête du fichier TEI. </p>
         <list>
           <item> Si vous avez réussi à définir toutes les zones du document, vous pouvez continuer
             avec votre propre version du fichier TEI XML. Sinon, pour s'assurer que nous travaillons
-            tous sur la même version, nous vous proposons de prendre la version corrigée que vous trouverez
-            dans le fichier <ident>Durrenmatt- change.xml </ident>dans votre dossier Travaux. Vous
-            allez noter que ce fichier contient un balisage de quelques ratures ou
+            tous sur la même version, nous vous proposons de prendre la version corrigée que vous
+            trouverez dans le fichier <ident>Durrenmatt-change.xml</ident> dans votre dossier
+            Travaux. Vous allez noter que ce fichier contient un balisage de quelques ratures ou
             d'additions (balisages <gi>del</gi> ou <gi>add</gi>) pour compléter le marquage des
             zones. Prenez un petit moment pour vous assurer que vous êtes d'accord avec le balisage
-            proposé ! </item>
+            proposé&#xa0;! </item>
           <item> Regardez dans l'élément <gi>teiHeader</gi> à la fin du <gi>fileDesc</gi>. Il faut
             ajouter un élément <gi>profileDesc</gi> pour documenter les aspects non-bibliographiques
             du document, notamment la séquence d'écriture.</item>
           <item> Dans le <gi>profileDesc</gi> ajoutez donc un <gi>listChange</gi>. Cet élément va
-            contenir une liste des évenements ou étapes que nous désirons distinguer dans la
-            séquence d'écriture, chacun étant décrit par un élément <gi>change</gi> , portant un
+            contenir une liste des évènements ou étapes que nous désirons distinguer dans la
+            séquence d'écriture, chacun étant décrit par un élément <gi>change</gi> portant un
             identifiant unique.</item>
-          <item>L'élément <gi>listChange</gi> porte aussi deux attributs: @ordered, avec la valeur
-            “true”, et @n avec la valeur “writing”. Nous indiquons d'abord que la séquence
-            des éléments n'est pas aléatoire, et ensuite que c'est la séquence d'écriture que nous
+          <item>L'élément <gi>listChange</gi> porte aussi deux attributs&#xa0;: <att>ordered</att>, avec la valeur
+            “true”, et <att>n</att> avec la valeur “writing”. Nous indiquons d'abord que la séquence des
+            éléments n'est pas aléatoire, et ensuite que c'est la séquence d'écriture que nous
             documentons, et non pas (par exemple) la séquence d'une lecture idéale. </item>
-          <item>Allez donc ajouter un <gi>listChange</gi>; contenant un <gi>change</gi> pour cette
-            première étape</item>
+          <item>Allez donc ajouter un <gi>listChange</gi>&#xa0;; contenant un <gi>change</gi> 
+            pour cette première étape</item>
         </list>
         <p>
           <eg><![CDATA[
@@ -267,10 +270,10 @@
         </p>
         <p>
           <list>
-            <item>Ajoutez (au moins) deux éléments <gi>change</gi> supplementaires, pour documenter
+            <item>Ajoutez (au moins) deux éléments <gi>change</gi> supplémentaires, pour documenter
               les étapes que vous identifiez. </item>
-            <item>N'oubliez pas d'ajouter à chacun de vos <gi>change</gi>s un @xml:id
-              (“stage-2”, “stage-3”... ) et une brève description. Par exemple : <list>
+            <item>N'oubliez pas d'ajouter à chacun de vos <gi>change</gi>s un <att>xml:id</att> (“stage-2”,
+              “stage-3”... ) et une brève description. Par exemple : <list>
                 <item>stage-2 : “corrections de texte dactylographié, ajout des notes
                   manuscrites"</item>
                 <item>stage-3 : “dessins en bas de page"</item>
@@ -278,19 +281,20 @@
           </list>
         </p>
         <p>Maintenant, nous allons associer des éléments dans notre transcription TEI-XML avec
-          l'étape définissant sa position dans la sequence d'écriture. Pour cela vous allez vous servir de
-          l'attribut <att>change</att>, qui peut s'attacher à n'importe quel élément, et dont la
-          valeur indique l'identifiant de l'élément <gi>change</gi> qui lui correspond.<list>
+          l'étape définissant sa position dans la séquence d'écriture. Pour cela vous allez vous
+          servir de l'attribut <att>change</att>, qui peut s'attacher à n'importe quel élément, et
+          dont la valeur indique l'identifiant de l'élément <gi>change</gi> qui lui correspond.<list>
             <item>Regardez d'abord les cinq éléments <gi>zone</gi>. Ex : hypothèse, “zone-1” et
-              “zone-2” sont associés à la même étape, celle que nous avons décrite dans l'élément
-              <gi>change</gi> qui porte l'identifiant “stage-1”. Ajoutez donc à ces deux
-              éléments un <hi>attribut</hi>
+              “zone-2” sont associées à la même étape, celle que nous avons décrite dans l'élément
+                <gi>change</gi> qui porte l'identifiant “stage-1”. Ajoutez donc à ces deux éléments
+              un <hi>attribut</hi>
               <att>change</att> avec la valeur "#stage-1" (le dièse indique qu'il s'agit d'un
               pointeur)</item>
             <item>Associez de la même manière les zones “zone-3” et “zone-4” avec l'étape “stage-2”,
               et la zone “zone-5” avec l'étape “stage-3”</item>
             <item>Bien sûr, vous pourriez associer d'autres éléments de votre encodage (par ex. les
-              ajouts) avec d'autre étapes. C'est à vous d'éviter les incohérences éventuelles!</item>
+              ajouts) avec d'autre étapes. C'est à vous d'éviter les incohérences
+              éventuelles&#xa0;!</item>
           </list></p>
       </div>
     </body>
