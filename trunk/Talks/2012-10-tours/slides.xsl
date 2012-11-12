@@ -33,12 +33,12 @@
 \usepackage{fontspec}
 \usepackage{colortbl}
 \usepackage{xunicode}
-\setmonofont{Junicode}
+%\setmonofont{Junicode}
 %\setmonofont[Scale=0.86]{Lucida Sans Typewriter}
 %\setmonofont[Scale=0.86]{Andale Mono}
 %\setmonofont[Scale=0.8]{DejaVu Sans Mono}
-%\setromanfont{Minion Pro}
-%\setsansfont{Myriad Pro}
+\setromanfont{Minion Pro}
+\setsansfont{Myriad Pro}
 \usetheme{<xsl:value-of select="$beamerClass"/>}
 \useinnertheme[shadow=true]{rounded}
 \usecolortheme{orchid}
