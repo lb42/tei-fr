@@ -123,7 +123,7 @@ valList
   <xsl:key name="changedE" match="elementSpec[@mode='replace']" use="@ident"/>
 
 
-  <xsl:template name="main" match="/">
+  <xsl:template name="main">
       <xsl:variable name="pathlist">
          <xsl:choose>
 	   <xsl:when test="$corpusList=''">
