@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <?oxygen NVDLSchema="../teitalks.nvdl"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="fr">
 
   <teiHeader>
     <fileDesc>
@@ -29,7 +29,11 @@
   <text>
     <body>
 
-
+<div>
+<figure>
+<graphic url="../Graphics/theGuidelines.jpg"/>
+</figure>
+</div>
       <div>
         <head>The TEI Guidelines</head>
         <p>Un tour d'horizon très rapide du contenu des TEI <title>Guidelines</title>... </p>
@@ -48,6 +52,10 @@
         </p>
       </div>
 
+<div><head>I18n</head>
+<p>Suite à un effort financé par le ALLC (entre autres), les définitions, les glosses, et quelques exemples sont traduits en plusieurs langues, notamment le francais: </p>
+<p>... mais les chapitres des Guidelines actuels restent jusqu'à présent anglophone.</p>
+</div>
 
       <div>
         <head>La liste des chapitres (1)</head>
@@ -85,6 +93,20 @@
           </list></p>
       </div>
 
+<div><head>Et, en matières annexes ...</head>
+<list>
+<item>une bibliographie</item>
+<item>définition de référence pour tout
+<list>
+<item>élément, plus ses attributs locals</item>
+<item>classe d'attribut, avec les attributs qu'elle fournit</item>
+<item>macro (patron)</item>
+<item>macro (datatype)</item>
+</list>
+</item>
+</list>
+<p rend="box">http://www.tei-c.org/Guidelines/REFTAG.html"</p>
+</div>
 
       <div>
         <head>v. A Gentle Introduction to XML</head>
@@ -181,25 +203,35 @@
 
       <div>
         <head>8. Transcriptions of Speech</head>
-        <p>Ceci est un module spécialisé pour les transcriptions de discours oraux : <list>
+        <p>Module spécialisé pour les transcriptions de discours oraux : <list>
             <item>il fournit des éléments supplémentaires pour le Header (<gi>broadcast</gi>,
                 <gi>equipment</gi>, <gi>recording</gi>, <gi>recordingStmt</gi>,
               <gi>scriptStmt</gi>)</item>
             <item>des éléments pour la transcription ( <gi>incident</gi>, <gi>kinesic</gi>,
                 <gi>pause</gi>, <gi>shift</gi>, <gi>u</gi>, <gi>vocal</gi>, <gi>writing</gi>)
             </item>
-          </list>
+	    <item>des éléments pour la structuration des enonces, notamment par rapport a un <q>time line</q> : ligne de temps</item>
+        </list>
         </p>
+</div>
+<div><head>Exemple de text oral</head>
+
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <vocal iterated="true">
             <desc>sifflements intermittents</desc>
           </vocal>
-          <u who="#spkr1">si tu te déplaçais</u>
-          <u trans="latching" who="#spkr2">Joe et moi l'aurions mis entre nous</u>
-          <list type="speakers">
-            <item xml:id="spkr1"/>
-            <item xml:id="spkr2"/>
-          </list>
+          <u who="#spkr1" sync="#T1">si tu te déplaçais</u>
+          <u who="#spkr2" sync="#T2">Joe et moi l'aurions mis entre nous</u>
+<!-- ... -->
+          <listPerson>
+	    <person xml:id="spkr1"><persName>Jules</persName></person>
+            <person xml:id="spkr2">><persName>Jim</persName></person>
+</listPerson>
+<!-- ... -->
+<timeLine>
+<when xml:id="T1" absolute="12:34:45"/>
+<when xml:id="T2" absolute="12:35:05"/>
+</timeLine>
         </egXML>
       </div>
 
@@ -248,6 +280,9 @@
           <item>Ses composants peuvent contenir des paragraphes en prose, ou encore des éléments
             plus spécifiques.</item>
         </list>
+</div>
+<div><head>Exemple de manscript description</head>
+
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <msDesc>
             <msIdentifier>
@@ -269,6 +304,7 @@
           </msDesc>
         </egXML>
       </div>
+
       <div>
         <head>10. Manuscript Description (contd.)</head>
         <p>Composants spécialisés : <gi>accMat</gi>, <gi>acquisition</gi>, <gi>additions</gi>,
@@ -297,21 +333,50 @@
           <item>éléments de transcription: <gi>addSpan</gi>, <gi>am</gi>, <gi>damage</gi>,
               <gi>damageSpan</gi>, <gi>delSpan</gi>, <gi>ex</gi>, <gi>fw</gi>, <gi>handNotes</gi>,
               <gi>handShift</gi>, <gi>restore</gi>, <gi>space</gi>, <gi>subst</gi>,
-              <gi>supplied</gi>
+              <gi>supplied</gi>, <gi>am</gi>, <gi>ex</gi> ...
           </item>
-          <item>éléments pour textes numérisés en mode-image: <gi>facsimile</gi>, <gi>surface</gi>,
-              <gi>zone</gi></item>
+          <item>éléments pour textes numérisés en mode-image : <gi>facsimile</gi>, <gi>surface</gi>, <gi>surfaceGrp</gi>,
+              <gi>zone</gi> </item>
+	      <item>éléments pour l'édition génétique : <gi>sourceDoc</gi>. <gi>change</gi>, <gi>metamark</gi>, 
+</item>
+<item>et des attributs supplementaires notamment : <att>facs</att>, <att>ulx</att>, <att>uly</att>, <att>lrx</att>, <att>lry</att>, <att>change</att>, <att>resp</att>, <att>cert</att>
+...</item>
+ 
         </list>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<!--
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
           <facsimile>
             <graphic url="page1.png"/>
             <graphic url="page2.png"/>
             <graphic url="page3.png"/>
             <graphic url="page4.png"/>
           </facsimile>
-        </egXML>
+        </egXML>-->
+
       </div>
 
+<div><head>Exemple de transcription d'un manuscrit</head>
+<figure>
+  <graphic url="../Graphics/beowulf-ms.png" height="30%"/>
+</figure>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <facsimile>
+            <surface xml:id="p1">
+	      <graphic url="page1.png"/>
+	      <graphic url="page1.tiff"/>
+	      </surface>
+	    </facsimile>
+<text>
+<ab facs="#p1"><lb/><hi rend="lettrine">H</hi><g ref="#wynn">W</g>ÆT WE GARDE 
+<lb/>na in gear-dagum þeod-cyninga 
+<lb/>þrym gefrunon, hu ða æþelingas
+<lb/>ellen fremedon. oft scyld scefing sceaþe<add>na</add>
+<lb/>þreatum, moneg<ex>um</ex> mægþum meodo-setl<add>a</add>
+<lb/>of<damage><desc>tache d'encre</desc></damage>teah ...
+</ab>
+</text></egXML>
+
+</div>
       <div>
         <head>12. Critical Apparatus</head>
         <p>Éléments spécialisés pour la représentation de l'apparat critique classique :
@@ -350,7 +415,7 @@
         </list>
       </div>
       <div>
-        <head>13. Names, Dates, People, Places</head>
+        <head>Exemple de balisage des infos personnels</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <person xml:id="Ovi01" sex="1" role="poet">
             <persName xml:lang="la">Publius Ovidius Naso</persName>
@@ -593,7 +658,7 @@
             envers l'encodage : <gi>certainty</gi>,<gi>respons</gi> and <gi>precision</gi>
           </item>
         </list>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">Elisabeth aimait bien <persName xml:id="ESX"
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">Elizabeth loved <persName xml:id="ESX"
             >Essex</persName>
           <!-- ... -->
           <certainty target="#ESX" locus="gi" degree="0.6">
@@ -640,24 +705,17 @@
         </p>
       </div>
 
-      <!--
+
 
       <div>
-        <head>Live Demos</head>
-        <p>Now if I have time, and an internet connection, I'll do some
-          live demos looking around the Guidelines, Référence Material,
-          Roma, etc. <list>
+        <head>Des liens utils</head>
+<list>
             <item>Guidelines: <ref
                 target="http://www.tei-c.org/Guidelines/P5/"
                 >http://www.tei-c.org/Guidelines/P5/</ref></item>
             <item>Référence: <ref
                 target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ÉLÉMENTS.html"
-                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ÉLÉMENTS.html</ref></item>
-            <item>Roma: <ref target="http://www.tei-c.org/Roma/"
-                >http://www.tei-c.org/Roma/</ref></item>
-            <item>Stylesheets: <ref
-                target="http://www.tei-c.org/Tools/Stylesheets/"
-                >http://www.tei-c.org/Tools/Stylesheets/</ref></item>
+                >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/REF-ELEMENTS.html</ref></item>
             <item>Badges: <ref target="http://www.tei-c.org/About/Badges/"
                 >http://www.tei-c.org/About/Badges/</ref></item>
             <item>Wiki: <ref target="http://wiki.tei-c.org/"
@@ -666,9 +724,8 @@
                 target="http://sourceforge.net/projects/tei/"
                 >http://sourceforge.net/projects/tei/</ref></item>
           </list>
-        </p>
       </div>
--->
+
     </body>
   </text>
 </TEI>
