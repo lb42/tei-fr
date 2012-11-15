@@ -600,7 +600,7 @@ in some existing TEI class.</p-->
 
 <!-- aaargh, there is no @key on attRef. It is done in a disgusting
 dirty way using @name to point to the relaxng thingie -->
-</div>
+
 
 
 
@@ -728,10 +728,11 @@ this class provides, among others: <list type="gloss"><label><att>xml:id</att></
     -->  <div>
         <head>Les classes modelisantes (Model Classes)</head>
         <list>
-          <item>Ces classes portent des noms qui commence en "model." et rassemblent des elements qui sont permis a une position specifique dans l'arborescence defini par un schema. Par exemple, si on desire ajouter un  element qui devrait etre permis aux meme endroits qu'un <gi>bibl</gi>, vous n'avez que l'ajoputer dans la classe <hi>model.biblLike</hi></item>
+          <item>Ces classes portent des noms qui commence en "model." et rassemblent des elements qui sont permis a une position specifique dans l'arborescence defini par un schema. Par exemple, si on desire ajouter un  element qui devrait etre permis aux meme endroits qu'un <gi>bibl</gi>, vous n'avez que l'ajouter dans la classe <hi>model.biblLike</hi></item>
           <item>Pour la plupart, ces classes portent un nom qui contient le mot <hi>Like</hi> ou <hi>Part</hi>
               : <list><item>les membres de la classe <hi>model.pLike</hi> sont des elements qui se comportent comme les <gi>p</gi> (paragraphs), et sont permis aux meme locations dans l'arborescence du schema</item><item>les membres de la classe <hi>model.pPart</hi> sont des elements qui sont permis a l'interieur des elements <gi>p</gi> (paragraphs)</item>
 </list></item>
+
 <item>En l'occurrence, les classes sont souvent sous-divises. Par ex, <hi>model.pPart</hi> comporte:
 		<list><item><hi>model.pPart.edit</hi>  elements representants les interventions editoriales par ex <gi>corr</gi>, <gi>del</gi> etc. </item>
 <item><hi>model.pPart.data</hi><q>data-like</q> elements par ex
@@ -765,16 +766,13 @@ this class provides, among others: <list type="gloss"><label><att>xml:id</att></
 <list>
 <item>L'element <gi>classSpec</gi> sert a declarer une classe. Son attribut 
 <att>type</att> attribute indique s'il s'agit d'une classe attrib utive (type="att") ou modelisante (type="model")</item>
-<item>Un element indique les classes auxquelles il appartient en se servant d'un ou plusieurs <gi>memberOf</gi>  elements, regroupes dans un   element <gi>classes</gi> dans son 
-<gi>elementSpec</gi>.</item>
-<item>Une classe indique les classes dont elle est sous-classe de la meme maniere.</item>
-</list>
+<item>Le <gi>classSpec</gi> pour une classe modelisante ne contient que sa description et son identifiant; celui d'une classe attributive contient aussi un <gi>attList</gi>
+</item></list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <classSpec ident="model.foo" type="model">
 <desc>classe contenant  tous les  elements avec noms idiots, inventes par raison pedagogiques </desc>
 </classSpec>
 	</egXML>
-
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <classSpec ident="att.foo" type="atts">
 <desc>classe fournissant l'attribut <att>bar</att></desc>
@@ -782,9 +780,15 @@ this class provides, among others: <list type="gloss"><label><att>xml:id</att></
 <attDef ident="bar"><!-- ... --></attDef></attList></classSpec>
 	</egXML>
 
+<div><head>Selection des classes</head>
+<list>
+<item>Un element indique les classes auxquelles il appartient en se servant d'un ou plusieurs <gi>memberOf</gi>  elements, regroupes dans un   element <gi>classes</gi> dans son 
+<gi>elementSpec</gi>.</item>
+<item>Une classe indique les classes dont elle est sous-classe de la meme maniere.</item>
+</list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <elementSpec ident="bidule" >
-<desc>Element nouveau que j'invente par motif pedagogique</desc>
+<desc>Element nouveau invente purement par motivation  pedagogique</desc>
 <classes>
 <memberOf key="model.foo"/>
 <memberOf key="att.foo"/>
