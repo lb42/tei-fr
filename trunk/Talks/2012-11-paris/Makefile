@@ -1,6 +1,7 @@
 ECHO=
 
 TALKS= \
+	talk-odd.xml \
 	talk-03-overview.xml \
 	talk-05-hdr.xml 
 
@@ -10,6 +11,8 @@ TALKS= \
 DOCS= \
 	tp-1 \
 	tp-2 \
+	tp-mstranscr \
+	tp-msdesc \
 	tp-3 \
 	tp-7 
 
