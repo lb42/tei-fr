@@ -626,58 +626,56 @@ dirty way using @name to point to the relaxng thingie -->
 
 
 <div><head>Datatypes</head>
-<p>Typically used to constrain attribute values:
+<p>Servent a constraindre les valeurs legales d'un attribut :
     <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <attDef ident="status">
 <datatype><rng:ref name="data.enumerated"/></datatype>
-<!-- ... implies that a vallist is supplied  -->
+<!-- ... implique l'existence d'un vallist  -->
 </attDef>
 <attDef ident="lastUpdated">
 <datatype><rng:ref name="data.temporalExpr.w3c"/></datatype>
 </attDef>
     </egXML>
 </p>
-<p>TEI defined datatypes are actually patterns, defined by a
-<gi>macroSpec</gi></p>
+<p>Les  datatypes definis par TEI sont, pour la plupart, mappes sur des definitions W3C, en se servant d'un <gi>macroSpec</gi>
+</p>
 </div>
 
-<div><head>Specifying a pattern</head>
-<p>The <gi>macroSpec</gi> element is an identifiable element used to
-associate a name with any string. It has two typical uses in the TEI
-scheme:
+<div><head>Specification des patron s</head>
+<p>L'element <gi>macroSpec</gi> sert a associer un nom et une xhaine de caracteres.
+On s'en sert typiquement pour
 <list>
-<item>defining common content models</item>
-<item>defining TEI-specific datatypes</item>
+<item>la definition de quelques modeles de contenu tres repandus</item>
+<item>la definition des  datatypes</item>
 </list></p>
 <p>    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<macroSpec ident="macro.foo">
+<desc>a content model i plan to reuse often</desc>
+<content>
+<!-- patron RELAXNG definissant la modele -->
+</content></macroSpec>
 <macroSpec ident="data.foo">
 <desc>a new datatype i just invented</desc>
 <content>
 <!-- RELAXNG pattern defining the datatype -->
 </content></macroSpec>
-<macroSpec ident="macro.foo">
-<desc>a content model i plan to reuse often</desc>
-<content>
-<!-- RELAXNG pattern defining the content model -->
-</content></macroSpec>
     </egXML>
 </p>
-<p>(DTD generation needs some extra fluff: the <att>type</att>
+<!--<p>(DTD generation needs some extra fluff: the <att>type</att>
 attribute distinguishes the two cases). </p>
 <p>A macro can be referenced explicitly, using the
 <gi>rng:ref</gi> syntax, or embedded in the usual way, using <gi>macroRef</gi>
-</p>
+</p>-->
 </div>
 
-
+ 
       <div>
-        <head>Schematron constraints</head>
+        <head>Constraints Schematron</head>
         <list>
-          <item>An element specification can also contain a
-<gi>constraintSpec</gi> element which contains rules about its content
-expressed as ISO Schematron <term>constraints</term></item>
+          <item>Une specification d'element peut aussi contenir un element
+<gi>constraintSpec</gi> element rassemblant des regles exprimes en  ISO Schematron</item>
         </list>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
+        <egXML ns="http://www.tei-c.org/ns/Examples" rend="full">
           <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div" module="teistructure" mode="change">
             <constraintSpec ident="cartoon" scheme="isoschematron">
               <constraint>
@@ -688,12 +686,10 @@ expressed as ISO Schematron <term>constraints</term></item>
             </constraintSpec>
           </elementSpec>
         </egXML>
-        <p>However...
+        <p>Attention :
 	<list>
-	  <item>You can only add such rules by editing your ODD file: Roma doesn't
-  know about them.</item>
-	<item>Not all schema languages can implement these
-	constraints.</item>
+	  <item>traitement de ces regles necessitent une etape additionnel dans la validation des documents</item>
+	<item>ces regles ne sont pas forcement traitable par toute langue de schema</item>
 	</list>
 	</p>
       </div>
@@ -701,29 +697,27 @@ expressed as ISO Schematron <term>constraints</term></item>
 
 
       <div>
-        <head>Using the TEI Class System</head>
-        <p>When defining a new element, we need to consider
-<list><item>its name and description</item><item>what attributes it can carry</item><item>what it can contain</item><item>where it can appear in a document</item></list>
+        <head>Le systeme de classe de la TEI: mode d'emploi</head>
+        <p>En definissant un nouveau element on a besoin de  considerer :
+<list><item>son nom, sa description, etc.</item><item>ses attributs</item><item>son contenu</item><item>sa contexte</item></list>
 </p>
-        <p>The TEI class system helps us answer all these questions (except
-the first).</p>
+        <p>Le systeme de classe de la TEI facilite  toutes ses considerations (sauf la premiere).</p>
       </div>
       <div>
-        <head> Attribute Classes</head>
+        <head>Les classes attributives ("Attribute Classes")</head>
         <list>
-          <item>Attribute classes are given (usually adjectival) names beginning
-	  with <hi>att.</hi>; e.g. <term>att.naming</term>,
+          <item>Ces classes portent des noms commenceant par
+	  <hi>att.</hi>; ex. <term>att.naming</term>,
 	  <term>att.typed</term></item>
-          <item>all members of <code>att.naming</code> inherit from it
-attributes <att>key</att> and <att>ref</att>; all members of
-<code>att.typed</code> inherit from it <att>type</att> and
-<att>subtype</att></item>
-          <item>If we want an element to carry the <att>type</att>
-attribute, therefore, we add the element to the  <code>att.typed</code> class, rather than
-define those attributes explicitly.</item>
+          <item>Chacun de ces classes contient un ensemble de declarations d'attributs, qui sont herites par les membres de la classe. Par ex, tous les membres de <code>att.naming</code> en heritent  les
+attributs <att>key</att> et <att>ref</att>; tous les membres de classe
+<code>att.typed</code> en heritent  <att>type</att> et
+<att>subtype</att> et ainsi de suite</item>
+          <item>Pour qu'un element porte l'attribut  <att>type</att>, donc, nous ajoutons cet element a la classe  <code>att.typed</code>.</item>
+	  <item>(Il reste possible de definir des attributs "locaux" avec l'element independemment, bien sur)</item>
         </list>
       </div>
-      <div>
+<!--      <div>
         <head>A very important attribute class: att.global </head>
         <p> All elements are a member of <hi>att.global</hi>;
 this class provides, among others: <list type="gloss"><label><att>xml:id</att></label><item>a unique identifier</item><label><att>xml:lang</att></label><item>the language of the element content</item><label><att>n</att></label><item>a number or name for an element</item><label><att>rend</att></label><item>how the element in question was rendered or presented in the source
@@ -731,27 +725,22 @@ this class provides, among others: <list type="gloss"><label><att>xml:id</att></
 	</p>
         <p>All TEI elements are members of  this class by default.</p>
       </div>
-      <div>
-        <head> Model Classes</head>
+    -->  <div>
+        <head>Les classes modelisantes (Model Classes)</head>
         <list>
-          <item>Model classes contain groups of elements which are allowed in
-            the same place. e.g.
-            if you are adding an element which is wanted wherever the
-              <gi>bibl</gi> is allowed, add it to the <hi>model.biblLike</hi> class</item>
-          <item>Model classes are usually named with a <hi>Like</hi> or <hi>Part</hi>
-              suffix: <list><item>members of <hi>model.pLike</hi> are all things
-		which <q>behave like</q> paragraphs, and are permitted
-		in the same places as paragraphs
-		</item><item>members of <hi>model.pPart</hi> are all things
-		which can appear <emph>within</emph> paragraphs. This class is subdivided into 
-		<list><item><hi>model.pPart.edit</hi>  elements for simple editorial
-intervention such as <gi>corr</gi>, <gi>del</gi> etc. </item><item><hi>model.pPart.data</hi><q>data-like</q> elements such as
-<gi>name</gi>, <gi>num</gi>, <gi>date</gi> etc.</item><item><hi>model.pPart.msdesc</hi> extra elements for
-manuscript description such as <gi>seal</gi> or <gi>origPlace</gi> </item></list></item></list>
-            </item>
-        </list>
-      </div>
+          <item>Ces classes portent des noms qui commence en "model." et rassemblent des elements qui sont permis a une position specifique dans l'arborescence defini par un schema. Par exemple, si on desire ajouter un  element qui devrait etre permis aux meme endroits qu'un <gi>bibl</gi>, vous n'avez que l'ajoputer dans la classe <hi>model.biblLike</hi></item>
+          <item>Pour la plupart, ces classes portent un nom qui contient le mot <hi>Like</hi> ou <hi>Part</hi>
+              : <list><item>les membres de la classe <hi>model.pLike</hi> sont des elements qui se comportent comme les <gi>p</gi> (paragraphs), et sont permis aux meme locations dans l'arborescence du schema</item><item>les membres de la classe <hi>model.pPart</hi> sont des elements qui sont permis a l'interieur des elements <gi>p</gi> (paragraphs)</item>
+</list></item>
+<item>En l'occurrence, les classes sont souvent sous-divises. Par ex, <hi>model.pPart</hi> comporte:
+		<list><item><hi>model.pPart.edit</hi>  elements representants les interventions editoriales par ex <gi>corr</gi>, <gi>del</gi> etc. </item>
+<item><hi>model.pPart.data</hi><q>data-like</q> elements par ex
+<gi>name</gi>, <gi>num</gi>, <gi>date</gi> etc.</item>
+<item><hi>model.pPart.msdesc</hi> des elements sous-paragraphe qui sont specifiques aux descriptions des manuscrits par ex
+ <gi>seal</gi> ou <gi>origPlace</gi> </item></list></item></list>
 
+      </div>
+<!--
       <div>
         <head> Basic Model Class Structure</head>
         <p>Simplifying wildly, one may say that the TEI recognises
@@ -771,31 +760,39 @@ manuscript description such as <gi>seal</gi> or <gi>origPlace</gi> </item></list
 	  elements that can appear <emph>anywhere</emph> — at any
 	  hierarchic level.</p>
       </div>
-
-<div><head>Specifying a class</head>
-<p>The <gi>classSpec</gi> element is used to declare a class. Its
-<att>type</att> attribute indicates whether this is an attribute or a
-model class</p>
-<p>For a model class, the class specification is purely
-documentary. For an attribute class it contains an <gi>attList</gi>,
-which specifies the attributes it provides.</p>
-<p>Elements are classified (i.e. classes are referenced) by means of
-the <gi>memberOf</gi>  child of the <gi>classes</gi> element inside an
-<gi>elementSpec</gi> (and Classes can also be <term>members-of</term> other classes</p>
-
+-->
+<div><head>Specification des classes</head>
+<list>
+<item>L'element <gi>classSpec</gi> sert a declarer une classe. Son attribut 
+<att>type</att> attribute indique s'il s'agit d'une classe attrib utive (type="att") ou modelisante (type="model")</item>
+<item>Un element indique les classes auxquelles il appartient en se servant d'un ou plusieurs <gi>memberOf</gi>  elements, regroupes dans un   element <gi>classes</gi> dans son 
+<gi>elementSpec</gi>.</item>
+<item>Une classe indique les classes dont elle est sous-classe de la meme maniere.</item>
+</list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <classSpec ident="model.foo" type="model">
-<desc>The foo class consists solely of elements with silly names made
-up for didactic purposes</desc>
+<desc>classe contenant  tous les  elements avec noms idiots, inventes par raison pedagogiques </desc>
 </classSpec>
 	</egXML>
 
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <classSpec ident="att.foo" type="atts">
-<desc>The foo class provides the attribute <att>bar</att></desc>
+<desc>classe fournissant l'attribut <att>bar</att></desc>
 <attList>
 <attDef ident="bar"><!-- ... --></attDef></attList></classSpec>
 	</egXML>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<elementSpec ident="bidule" >
+<desc>Element nouveau que j'invente par motif pedagogique</desc>
+<classes>
+<memberOf key="model.foo"/>
+<memberOf key="att.foo"/>
+</classes>
+<!-- ... -->
+</elementSpec>	</egXML>
+
+
 </div>
 
 
