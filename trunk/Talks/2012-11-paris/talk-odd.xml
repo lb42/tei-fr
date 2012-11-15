@@ -38,8 +38,6 @@
 
     <body>
 
-
-
 <div rend="slide">
 <head>L'application d'une balisage  <soCalled>intelligente</soCalled> </head>
 <p>La  TEI s'applique a l'encodage des ...
@@ -119,13 +117,12 @@ documentaire classique</p>
 </div>
  
 <div><head>Premier exemple simplissime</head>
-<p rend="box">Nous avons besoin de  <gi>stuff</gi>, qui contient un  melange des  <gi>bit</gi>s et de <gi>bob</gi>s. Nous ne connaissons rien au sujet de la TEI, et n'en ayona pas envie. Pareil pour les espaces de noms.</p>
+<p rend="box">Nous avons besoin de  <gi>stuff</gi>, qui contient un  melange des  <gi>bit</gi>s et de <gi>bob</gi>s. Nous ne connaissons rien au sujet de la TEI, et n'en avons pas envie. Pareil pour les espaces de noms.</p>
 
       <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
       <schemaSpec  ns="" start="stuff" ident="simpleS">
 	<elementSpec ident="stuff">
-	  <desc xml:lang="fr">Element racine d'un schema simplissime</desc>
-	  <desc xml:lang="en">Root element for a very simple schema</desc>
+	  <desc>Element racine d'un schema simplissime</desc>
 	  <content>
 	    <rng:oneOrMore>
 	      <rng:choice>
@@ -188,22 +185,19 @@ des elements and des attributs</item>
 <item>element textuel de schema simplissime (peut contenir des  bobs)
 </item><label><gi>bob</gi></label>
 <item>Element pointeur du schema simplissime</item></list></egXML>
-inside our running text</p>
+dans le document XML de sortie</p>
 </div>
 
-<div><head>What else might you want to say about your elements?</head>
+<div><head>Qu'est-ce qu'on pourrait souhaiter dire a propos des  elements?</head>
 <list>
-<item>alternative <gi>desc</gi>s or <gi>gloss</gi>es in different
-languages maybe?</item>
-<item>some reference usage examples</item>
-<item>schematron constraints</item>
-<item>value lists</item>
-<item>class memberships</item>
+<item><gi>desc</gi>s ou <gi>gloss</gi> en differentes langues</item>
+<item>exemples d'usage</item>
+<item>constraints additionels (schematron)</item>
+<item>documentation des listes closes des valeurs</item>
+<item>association avec TEI classes</item>
 </list></div>
 
-<div><head>Alternative descriptions</head>
-
-
+<div><head>Exemple de  descriptions alternatives</head>
 
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="core" ident="p">
@@ -223,17 +217,15 @@ languages maybe?</item>
 <!--<figure><graphic url="../2010-05-lrec/p-desc.png"/></figure>-->
 </div>
 
-<div><head>Usage examples</head>
+<div><head>Exemples d'usage</head>
 
-<p>The <gi>exemplum</gi> element combines an XML example with some
-discussion of it...
+<p>L'element <gi>exemplum</gi> contient un exemple de son usage et une note la-dessus...
     <egXML xmlns="http://www.tei-c.org/ns/Examples"><exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples">
       <egXML>
         <langUsage>
           <language ident="en">English</language>
-        </langUsage>
-      </egXML>
+        </langUsage>      </egXML>
     </egXML>
     <p>In the source of the TEI Guidelines, this element declares itself and its content as
       belonging to the namespace <ident type="ns">http://www.tei-c.org/ns/Examples</ident>. This
@@ -241,43 +233,27 @@ discussion of it...
   </exemplum>
     </egXML></p></div>
 
-<div><head>Defining the content of an element</head>
+<div><head>Defininition du contenu d'un element</head>
 <list>
-<item>We use RELAXNG directly to define content for elements and
-attributes</item>
-<item>(rather than re-invent an equally expressive language)</item>
-<item>Generated patterns are uniquified by means of an automatic
-prefix, which can be switched on or off</item>
-<item>Content can be constrained by means of a <gi>valList</gi>
+<item>Actuellement, la TEI se sert du langage  RELAXNG pour definir le contenu ("content model") des elements et des attributs
+</item>
+<item>(mais on a propose de modifier cela) </item>
+</list>
+<p>Les constraints sont donc exprimables de plusieurs manieres :
+<list>
+<item>par reference a un  <gi>valList</gi>
 element ... </item>
-<item>... or by means of a <gi>datatype</gi> element (which also uses
-RDELAXNG) </item>
-<item>Generic  constraints can be expressed by means of <gi>constraint</gi>
-elements (which uses e.g. ISO Schematron) </item>
+<item>par reference a un element <gi>datatype</gi> element (s'applique uniquement aux attributs) </item>
+<item>par inclusion des  <gi>constraintSpec</gi> 
+elements (expression en  ISO Schematron) </item>
 </list>
-</div>
+</p></div>
 
 
-<div><head>The Durand Conundrum</head>
-<p>Why do you bother to embed all this in a special XML language, rather
-than just use some standard schema language?
 
-<list>
-<item>TEI is the framework that holds everything together</item>
-<item>A single language for documentation and schema generation</item>
-<item>Independence of any one schema language</item>
-<item>A well tested and standard method</item>
-<item>Keeping you honest</item>
-</list>
+<div><head>OK, on revient sur la roue <!-- About this wheel of yours... --></head>
 
-</p>
-</div>
-
-
-<div><head>About this wheel of yours...</head>
-
-<p>The TEI does actually define elements very like yours. Why not just
-use them? 
+<p>Effectivement, la TEI definit des elements qui ressemblent beaucoup auux votres. Pourquois pas s'en servir?
       <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec
 	  source="/usr/share/xml/tei/odd/Source/Guidelines/en/guidelines-en.xml"
 	  start="div" ident="simpleS-2" >
@@ -288,24 +264,23 @@ use them?
       
       </egXML>
 </p>
-<p>The <att>source</att> attribute is a URI of any kind, from which
-specifications are available. It could be a file name, a URL, a DOI...</p>
+<p>(L'attribut <att>source</att> indique ou trouver les definitions standardisees des elements qu'on souhaute inclure)</p>
 
 </div>
-<div><head>Why use the TEI definitions?</head>
+<div><head>Pourquoi se servir des definitions existantes?</head>
 <list>
-<item>Principle of least effort</item>
-<item>Your resources now have a standard semantics attached to
-them</item>
-<item>(And you can explain how you've interpreted them in your own
+<item>Principe du moindre effort</item>
+<item>Vous ressources sont maintenant dotees d'une semantique plus ou moin standardises</item>
+<item>(Mais vos propres interpretations restent disponibles dans votre propre
 documentation)</item>
 </list>
-<p>And (if you like) you can mix and match:
+<p>Et rien n'empeche le "mix and match" :
       <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec	  source="/usr/share/xml/tei/odd/Source/Guidelines/en/guidelines-en.xml"
 	  start="stuff" ident="simpleS-3" >
 
 	<elementSpec ns="" ident="stuff">
-	  <desc>Root element for a very simple schema</desc>
+	  <desc>Element racine d'un schema simplissime</desc>
+	  <desc xml:lang="en">Root element for a very simple schema</desc>
 	  <content>
 	 <!-- as before -->
 	  </content>
@@ -317,10 +292,10 @@ documentation)</item>
 </p>
 </div>
 
-<div><head>In the real world, elements come in packs</head>
-<p>A <term>module</term> is a named collection of elements. The TEI
-provides 22 such. To include one of them in a schema, use the
-<gi>moduleRef</gi> element:
+<div><head>Dans le monde reel, les elements se deplacent en groupes</head>
+<p>Un <term>module</term> est une collection d'elements nommee.. La TEI
+en fournit 22. Pour inclure l'une de ces collections, il suffit de la faire reference avec l'element
+<gi>moduleRef</gi> :
 
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
 	<schemaSpec
@@ -332,31 +307,33 @@ provides 22 such. To include one of them in a schema, use the
       </egXML>
 
 </p>
-<p>Every TEI element belongs to a single module and
-has a unique name.</p>
+<p>Tout element  TEI appartient a un seul module et possede un nom unique.</p>
 </div>
 
 
       <div>
         <head>Recap</head>
         <list>
-          <item> The TEI encoding scheme consists of a number of <term>modules</term></item>
-          <item> Each module contains a number of <term>element
-	  specifications</term> </item>
-          <item> Each element specification contains:
-<list><item>a canonical name (<gi>gi</gi>) for the element, and optionally
-other names in other languages</item><item>a canonical description (also possibly translated) of its
-function</item><item>a declaration of the  <term>classes</term> to which it
-belongs</item><item>a definition for each of its <term>attribute</term>s</item><item>a definition of its <term>content model</term></item><item>usage examples and notes</item></list>
+          <item>La TEI propose plusieurs <term>modules</term></item>
+          <item> Chaque module propose plusiers  <term>specifications d'element</term> </item>
+          <item> Chaque specification contient 
+<list><item>un nom canonique (<gi>gi</gi>)</item>
+<item>(facultativement) des noms equivalents en plusieurs langues</item>
+<item>une description de sa fonction (egalement disponible en plusieurs langues) </item>
+<item>une indication des   <term>classes</term> auxquels il appartient</item>
+<item>une definition our chacun de ses  <term>attribut</term>s</item>
+<item>une de son contenu (<term>content model</term>)</item>
+<item>exemples  d'usage ; notes</item></list>
 	  </item>
-          <item>a TEI <term>schema</term> specification (<gi>schemaSpec</gi>) can
-contain
+          <item>une  specification <term>schema</term>  (<gi>schemaSpec</gi>)  TEI contient 
+
 <list>
-<item> references to modules or elements</item>
-<item>(re)declarations for elements, classes, or macros</item>
+<item> des references
+aux modules et/ou aux elements</item>
+<item>des (re)declarations d' element, classe, ou macro</item>
 </list>
 	  </item>
-          <item> a TEI document  containing a schema specification is called an
+          <item> Un document TEI document  contenant une specification de schema s'applle un 
 <term>ODD</term> (One Document Does it all)</item>
         </list>
       </div>
@@ -376,7 +353,7 @@ contain
       </div>
 -->
 <div>
-<head>The TEI modules</head><table xmlns:tei="http://www.tei-c.org/ns/1.0" rend="rules" xml:id="tab_modlist">
+<head>Liste des TEI modules</head><table xmlns:tei="http://www.tei-c.org/ns/1.0" rend="rules" xml:id="tab_modlist">
 
   <row>
     <cell>analysis</cell>
@@ -480,9 +457,8 @@ text structure</cell>
 </div>
 
 
-<div><head>Picking and choosing (1)</head>
-<p>You can specify elements to be excluded from those provided
-by a module:
+<div><head>Choisir selectivement (1)</head>
+<p>Vous pouvez specifier les elements que vous souhaitez supprimer parmi ceux qui sont proposes par un module:
       
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
       <schemaSpec
@@ -492,7 +468,7 @@ by a module:
 	<moduleRef key="textstructure"/>
       </schemaSpec>
       </egXML></p>
-<p>This is equivalent to the following:    
+<p>ou egalement :    
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
       <schemaSpec
 	  start="TEI" ident="testSchema-4b" >
@@ -506,13 +482,12 @@ by a module:
       </schemaSpec>
 	    </egXML>
 </p>
-<p>The <att>mode</att> parameter instructs an ODD processor how to 
-resolve multiple declarations. </p>
+<p>(L'attribut <att>mode</att> parameter controle la resolution de declarations multipless)</p>
 </div>
 
 
-<div><head>Picking and choosing (2)</head>
-<p>You can specify just the elements you want to include:
+<div><head>Choisir selectivement (1)</head>
+<p>Vous pouvez specifier les elements que vous souhaitez inclure parmi ceux qui sont proposes par un module:
 
 
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -524,7 +499,7 @@ resolve multiple declarations. </p>
       </schemaSpec>
       </egXML>
 </p>
-<p>This is equivalent to the following:    
+<p>ou egalement :    
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
       <schemaSpec
 	  start="TEI" ident="testSchema-4b" >
@@ -533,89 +508,64 @@ resolve multiple declarations. </p>
 	<elementRef key="div"/>
 	<elementRef key="body" />
       </schemaSpec></egXML></p>
-<p>(Sadly not yet fully implemented in web Roma)</p>
+
 </div>
 
 
-<div><head>Unifying multiple declarations</head>
-<p>As noted above, the <att>mode</att> attribute controls what an ODD
-processor should do when it find multiple instances of some
-component.</p>
-<p>Supposing that we have found one existing declaration, what should be done
-with a subsequent one for the same object? 
-</p>
+<div><head>Unifications de declarations  multiples</head>
+<p>Comme note ci-dessus , l'attribut <att>mode</att> sert a controller les actions d'un processeur ODD qui decouvre des declarations multiple pour un seul composant. </p>
+
 <table  rend="rules" >
 <row role="label">
-<cell>mode value</cell>
-<cell>existing declaration</cell>
-<cell>effect</cell>
+<cell>valeur de <att>mode</att></cell>
+<cell>au premier rencontre</cell>
+<cell>au rencontre suivant</cell>
 </row>
 <row>
 <cell>add</cell>
-<cell>no</cell>
-<cell>add new declaration to schema; process its children in add mode</cell>
-</row>
-<row>
-<cell>add</cell>
-<cell>yes</cell>
-<cell>raise error</cell>
+<cell>ajouter declaration a la schema; traiter enfants dans mode add </cell>
+<cell>signaler erreur</cell>
 </row>
 <row>
 <cell>replace</cell>
-<cell>no</cell>
-<cell>raise error</cell>
-</row>
-<row>
-<cell>replace</cell>
-<cell>yes</cell>
-<cell>retain existing declaration; process new children in replace
-mode; ignore existing children</cell>
+<cell>signaler erreur</cell>
+<cell>ajouter declaration; traiter nouveaux enfants en mode replace; supprimer enfants existants
+</cell>
 </row>
 <row>
 <cell>change</cell>
-<cell>no</cell>
-<cell>raise error</cell>
-</row>
-<row>
-<cell>change</cell>
-<cell>yes</cell>
-<cell>process identifiable children according to their modes;
-process unidentifiable children in replace mode; 
-retain existing children where no replacement or change
-is provided </cell>
+<cell>signaler erreur</cell>
+<cell>traiter enfants identifiables (i.e. portant un identifiant) selon leur mode; traiter enfants non-identifiables en mode replace; retenir par defauit enfants existants
+ </cell>
 </row>
 <row>
 <cell>delete</cell>
-<cell>no</cell>
-<cell>raise error</cell>
-</row>
-<row>
-<cell>delete</cell>
-<cell>yes</cell>
-<cell>ignore existing declaration and its children</cell>
+<cell>signaler erreur</cell>
+<cell>supprimer declaration existante, et ses enfants</cell>
 </row>
 </table>
 </div>
 
-<div><head>Specifying elements and modules</head>
-<p>The <soCalled>*-spec</soCalled> elements are all members of a class
-<ident>att.identifiable</ident> which provides an attribute
-<att>ident</att> that is used (rather than <att>xml:id</att>) as a
-unique identifier for them. </p>
-<p>To reference such a declaration, we use the <att>key</att>
-attribute:
+<div><head>Elements "identifiables"</head>
+<p>Les elements <soCalled>*-spec</soCalled> sont tous membres d'un classe
+<ident>att.identifiable</ident> qui les fournit un attribut
+<att>ident</att> equivalent a l'attribut global <att>xml:id</att>; on s'en sert pour  identifier la declaration. </p>
+<p>Pour faire reference a une telle declaration, nous nous servons du <att>key</att>
+attribut:
 <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <elementRef key="bar"/>
-<!-- implies the presence elsewhere of ... -->
+<!-- implique l'existence ailleurs de ... -->
 <elementSpec ident="bar" ><!-- .... --></elementSpec>
 </egXML></p>
 <p>Similarly:
 <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <moduleRef key="foo"/>
-<!-- implies the presence elsewhere of ... -->
+<!-- implique l'existence ailleurs de ... -->
 <moduleSpec ident="foo" />
-</egXML>
-But note that elements indicate the module they belong to by
+</egXML></p>
+<p>Pour les attributs et les valeurs, <gi>attDef</gi> et <gi>valItem</gi> sont pareilles.</p>
+
+<!--But note that elements indicate the module they belong to by
 means of their <att>module</att> attribute:<egXML
 xmlns="http://www.tei-c.org/ns/Examples"><elementSpec ident="bar"
 module="foo" >.... </elementSpec>
@@ -623,8 +573,9 @@ module="foo" >.... </elementSpec>
 so the <gi>moduleSpec</gi> is largely documentary.</p>
 <p>Elements not declared by the TEI can be assigned to a user-define
 module; its name is defaulted.</p>
+-->
 </div>
-
+<!--
 <div><head>Specification of attributes</head>
 <p>For reasons lost in the mists of time, the element <gi>attSpec</gi>
 is actually spelled <gi>attDef</gi>, but otherwise, it's just the
@@ -635,7 +586,7 @@ can supply an <gi>attList</gi> containing of  bunch of <gi>attDef</gi> elements,
 <attDef ident="bax">....</attDef>
 </attList>
 </egXML></p>
-
+-->
 <!-- p>There is also an <gi>attRef</gi> element which can be used to
 select a specific attribute:
 <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -654,25 +605,19 @@ dirty way using @name to point to the relaxng thingie -->
 
 
 
+<div rend="slide"><head>Specification des listes de valeurs</head>
 
-<div rend="slide"><head>Specifying value lists and datatypes</head>
-
-<p>In general, the legal values for an attribute are defined by means
-of a <gi>datatype</gi> element, see later. </p>
-<p>A common case, however, is to supply an <term>enumeration</term> (a
-list, open or closed, of legal values. This is done using the
-<gi>valList</gi> element, which groups a bunch of identifiable
-<gi>valItem</gi> elements: like this
+<p>Les valeurs legales d'un attribut peuvent etre specifies par un <gi>datatype</gi> et/ou par <gi>valList</gi>. </p>
+<p>Un besoin assez commun  est de specifier une <term>enumeration</term> (une liste -- ouverte ou fermee -- des valeurs)
     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <attDef ident="status">
-<desc>indicates the state of the system using a predefined set
-of colour codes</desc>
+<desc>indique l'etat courant du systeme selon un code de coleur</desc>
 <defaultVal>green</defaultVal>
 <valList type="closed">
-<valItem ident="red"><desc>all systems shut down</desc></valItem>
-<valItem ident="orange"><desc>systems shut-down imminent</desc></valItem>
-<valItem ident="green"><desc>system status normal</desc></valItem>
-<valItem ident="white"><desc>system status unrecorded</desc></valItem>
+<valItem ident="red"><desc>fermeture du systeme complete</desc></valItem>
+<valItem ident="orange"><desc>fermeture du systeme imminent</desc></valItem>
+<valItem ident="green"><desc>etat du systeme normal</desc></valItem>
+<valItem ident="white"><desc>etat du systeme inconnu</desc></valItem>
 </valList>
 </attDef>
     </egXML></p>
