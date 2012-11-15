@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP-4 : transcription de manuscrit</title>
+        <author>TEI @ Oxford</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>July 2012</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>University of Oxford</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: 2012-05-28 10:23:52 +0100 $.</date>
+        <name>$LastChangedBy: jamesc$</name>
+        <note>$LastChangedRevision: 10412 $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+      <!-- Learning Outcomes -->
+
+      <div>
+        <head>Objets de l'exercice</head>
+        <p>Dans cet exercice nous allons explorer : <list>
+            <item>comment effectuer une transcription d'un manuscrit </item>
+            <item>l'application des balises <gi>add</gi>, <gi>del</gi> and <gi>subst</gi>
+            </item>
+            <item>comment se servir de l'element <gi>choice</gi> pour traiter les abbreviations </item>
+            <item>comment se servir de l'element <gi>unclear</gi> pour les morceaux de texte peu
+              lisible </item>
+          </list></p>
+      </div>
+      <div>
+        <head>Sommaire</head>
+        <p>Nous allons prendre une transcription déjà faite, mais sans balisage et l'enrichir avec
+          des indications de <list>
+            <item>ajouts, ratures, substitution</item>
+            <item>abbréviations et leur expansions</item>
+            <item>passages difficule ou impossible de lire </item>
+          </list></p>
+        <p>Vous aurez besoin du logiciel oXygen, et des fichiers <ident>preface-ms.xml</ident> et
+            <ident>preface-ms.jpg</ident> dans votre dossier <ident>Travaux</ident></p>
+      </div>
+
+      <div>
+        <head>Pour commencer...</head>
+        <p>Lancez oXygen, et ouvrez le fichier <ident>preface-ms.xml</ident>. Vous verrez un
+          document balisé au minimum, avec un entete minimale.</p>
+
+        <p>Visualisez le fichier image <ident>preface-ms.jpg</ident></p>
+        <p>Nous allons attirer votre intention sur les différences entre les deux, et proposer des
+          améliorations du balisage...</p>
+      </div>
+
+
+      <div>
+        <head>Usage de <att>rend</att></head>
+        <p> Le premier mot du manuscrit est souligné pour indiquer que c'est le titre. Notre
+          encodage le représente comme un <gi>head</gi>, mais n'indique pas qu'il est souligné. </p>
+        <list>
+          <item>En oXygen, mettez le curseur à la fin de la balise ouvrante <gi>head</gi> (juste
+            avant le &gt;) et tapez un blanc</item>
+          <item>un liste des attributs disponibles s'affiche. Selectionnez <att>rend</att> et
+            fournissez la valeur <val>underline</val></item>
+          <item>Changez en mode auteur et regardez l'effet.</item>
+
+        </list>
+
+      </div>
+
+      <div>
+        <head>Deuxieme paragraphe</head>
+        <p>Comparez la deuxieme paragraphe dans l'image avec la version XML. <list>
+            <item>Apres le mot <q>it</q>, le petit v indique que les mots <q>about glory, honour</q>
+              au-dessus sont ajoutés àce point. Donc on insert <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <add place="below">about glory, honour</add>
+              </egXML> apres ce mot. </item>
+            <item>Ensuite il y a une <term>substitution</term>, c'est à dire, une rature (des mots
+                <q>battles, and glory of battles</q>) et un ajout (<q>deeds or lands</q>) qui
+              constituent un seul acte:  suivi d'une rature (de <q>or land,</q>). On peut
+              representer ces actions ainsi: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <subst>
+                  <del rend="stroked">battles, and glory of battles</del>
+                  <add place="above">deeds or lands</add>
+                </subst>
+                <del rend="stroked">or land,</del>
+              </egXML>
+            </item>
+            <item>Le mot <q>or</q> est raturé et les mots <q>or anything about</q> sont ajoutés au
+              dessous du ligne. On represente cela ainsi: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <subst>
+                  <del rend="stroked">or</del>
+                  <add place="below">or anything about</add>
+                </subst>
+              </egXML>
+            </item>
+            <item>Le mot <q>majesty</q> n'est pas tres lisible, et pourrait etre erroné. On peut
+              signaler cela avec l'élément <gi>unclear</gi> ainsi: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <unclear reason="scribbled">majesty</unclear>
+              </egXML>
+            </item>
+            <item>Le mot <q>dominion</q> n'est pas présent dans le manuscrit: Owen ecrivait
+              simplement <q>domin</q>. On peut traiter cela comme une abbréviation ainsi: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <choice>
+                  <abbr>domin</abbr>
+                  <expan>domin<ex>ion</ex></expan>
+                </choice>
+              </egXML>
+            </item>
+            <item>The mot <q>whatever</q> a été raturé à la fin de la phrase: encodez cela ainsi:
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <del rend="stroked">whatever</del>
+              </egXML>
+            </item>
+            <item>Votre représentation de ce deuxième paragraphe devrait ressembler à ceci: </item>
+          </list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <p> Nor is it <add place="below">about glory, honour,</add> about <subst>
+                <del rend="stroked">battles, and glory of battles</del>
+                <add place="above">deeds or lands</add>
+              </subst>
+              <del rend="stroked">or land,</del>
+              <subst>
+                <del rend="stroked">or</del>
+                <add place="below">or anything about</add>
+              </subst> any might, <unclear reason="scribbled">majesty</unclear>, <choice>
+                <abbr>domin</abbr>
+                <expan>domin<ex>ion</ex></expan>
+              </choice> or power <lb/>
+              <del rend="stroked">whatever</del> except War. </p>
+          </egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Troisième paragraphe</head>
+        <list>
+          <item>Au debut du 3ème para, il y a un ajout (Above all its), dans lequel le dernier mot
+            (its) a été raturé. Ceci est suivi d'une substitution : <q>This book</q> a été remplacé
+            par <q>I am</q>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <add place="left">Above all </add>
+              <del rend="stroked">Its </del>
+              <subst>
+                <add place="above">I am </add>
+                <del rend="stroked">This book</del>
+              </subst>
+            </egXML>
+          </item>
+          <item>Il y a un autre ajout, au dessus du ligne, qui a été raturé, et qui contient un mot
+            guère lisible mais qui pourrait etre lu <q>certainly</q> : <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">
+              <add place="above">
+                <del rend="stroked"><unclear>certainly</unclear></del>
+              </add>
+            </egXML>
+          </item>
+          <item>Le mot <q>My</q> a été ajouté à gauche, le mot <q>Its</q> a été raturé, le mot
+              <q>The</q> a été ajouté et raturé : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <subst>
+                <add place="left">My </add>
+                <del rend="stroked">It's </del>
+              </subst>
+              <add place="above">
+                <del rend="stroked">The </del>
+              </add>
+            </egXML>
+          </item>
+
+          <item>Les mots <q>of</q> et <q>it</q> ont également été raturés. </item>
+        </list>
+        <p>Voila notre proposition pour l'encodage de ce 3eme paragraphe: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <add place="left">Above all </add>
+            <del rend="stroked">Its </del>
+            <subst>
+              <add place="above">I am </add>
+              <del rend="stroked">This book</del>
+            </subst> is <add place="above">
+              <del rend="stroked"><unclear>center</unclear></del>
+            </add> not concerned with Poetry. <lb/>
+            <subst>
+              <add place="left">My </add>
+              <del rend="stroked">It's </del>
+            </subst>
+            <add place="above">
+              <del rend="stroked">The </del>
+            </add> subject <del rend="stroked">of</del> is War, and the pity of <del rend="stroked"
+              >it</del> War. <lb/> The Poetry is in the pity. </egXML>
+        </p>
+      </div>
+
+      <div>
+        <head>Quatrieme et cinquième paragraphes</head>
+        <p>Le quatrième para commence avec plusieurs ratures indépendents, et une substitution.
+          Ensuite il y a un ajout (<q>to this generation</q>) contenant un autre ajout <q>past</q>,
+          qui est ratureé..</p>
+        <p>Mais sans doute vous arrivez à comprendre le jeu, donc nous vous laissons jouer!
+          N'oubliez pas que vous avez la possibilite à tout moment de visualiser l'effet de votre
+          balisage, en vous servant du mode Author, mais nous vous conseillons de rester en mode
+          Text pour effectuer votre balisage. </p>
+        <p>Le fichier <ident>preface-final.xml</ident> contient une version complète si vous vous
+          renoncez à le completer vous meme! </p>
+      </div>
+    </body>
+  </text>
+</TEI>
