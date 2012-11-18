@@ -45,6 +45,7 @@
           <item>Veillez à ne pas mettre trop de fichiers XML afin de ne pas faire planter oXygen lors de la transformation.
             Mettez les documents les plus représentatifs de votre encodage.</item>
           <item>La feuille <ident>oddbyexample.xsl</ident> est celle que nous utiliserons pour générer l'ODD. Vous la trouverez dans le dossier <ident>Travaux</ident></item>
+<!-- it's also available in the Oxygen framework -->
         </list>
       </div>      
       <div>
@@ -64,6 +65,7 @@
           <item>Paramètres : Dans le menu qui s'affiche il faut vérifier : 
             <list>
                 <item>corpus : normalement, "source/./" doit apparaître</item>
+<!-- is that right ? -->
                 <item>schema : vous pouvez changer le nom de l'ODD généré</item>
             </list>
           </item>
@@ -107,6 +109,7 @@
           <item>Cliquez sur un élément où vous avez l'habitude d'utiliser <att>type</att> ou <att>rend</att>. La liste des valeurs
             utilisées dans votre projet n'apparaissent pas normalement. Il faut paramétrer cette option dans la feuille 
             <ident>oddbyexample.xsl</ident></item>
+<!-- not necessary : you can do it in Oxygen -->
         </list>
       </div>
       <div>
@@ -158,9 +161,44 @@
             </list>
           </item>
         </list>
+<!-- we need to add an example of creating a new element -->
       </div>
     </body>
   </text>
 </TEI>
+<!--
 
+
+<div><head>Expanding the schema (1)</head>
+<p>Now return to the source of your ODD file in oXygen. We won't go
+into the full details, but you should now know enough about using
+oXygen to be able to do the following:
+<list>
+<item>Add a completely new attribute called <att>revision</att> to the
+<gi>div</gi> element. You will need to insert an <gi>attDef</gi>
+element inside the existing <gi>attList</gi>, supplying it with
+appropriate values for its <att>ident</att>, <att>mode</att> and
+<att>usage</att> attributes. </item>
+<item>We suggest using this attribute to hold a revision date for
+the division. You will need to supply an appropriate <gi>desc</gi>
+element and also an appropriate <gi>datatype</gi>.</item>
+<item>Like that of <gi>content</gi>, the value of the <gi>datatype</gi>
+element is expressed using the RELAX NG XML vocabulary. You will therefore
+need to add an appropriate declaration for the Relaxng namespace to
+your new <gi>datatype</gi> element, in the same way as Roma has done
+for the <gi>content</gi> element it created for the new
+<gi>citComm</gi> element in your ODD.</item>
+<item>With that namespace declaration in place, you can limit possible
+values for the new attribute to valid temporal expressions (as
+defined by the TEI) by supplying as content for the new
+<gi>datatype</gi> <gi>rng:ref name="data.temporal.w3c"/</gi>.
+</item>
+<item>If that seemed too easy, try adding a second new attribute
+called <att>pageRange</att>, which can be used to supply exactly  two
+ numbers, no more and no less. Hint: use the attributes
+ <att>minOccurs</att> and <att>maxOccurs</att> on <gi>datatype</gi>,
+ and the TEI datatype  <val>data.count</val>.</item>
+</list></p></div>
+
+-->
 
