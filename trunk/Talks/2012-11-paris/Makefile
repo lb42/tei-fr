@@ -1,7 +1,7 @@
 ECHO=
 
 TALKS= \
-	talk-04-names.xml \
+	talk-04-name.xml \
 	index.xml \
 	talk-odd.xml \
 	talk-03-overview.xml \
