@@ -1,6 +1,8 @@
 ECHO=
 
 TALKS= \
+	talk-outillage.xml \
+	tp-1-cartes.xml \
 	talk-04-name.xml \
 	index.xml \
 	talk-odd.xml \
