@@ -7,7 +7,7 @@ TALKS= \
 	2012-11-oral.xml \
 	2012-11-overview.xml \
 	2012-11-tools.xml \
-	2012-11-tp-cartes.xml \
+	2012-11-cartes.xml \
 	2012-11-transcr.xml \
 	2012-11-index.xml 
 
