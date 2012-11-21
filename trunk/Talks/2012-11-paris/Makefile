@@ -1,26 +1,24 @@
 ECHO=
 
 TALKS= \
-	talk-outillage.xml \
-	tp-1-cartes.xml \
-	talk-04-name.xml \
-	index.xml \
-	talk-odd.xml \
-	talk-03-overview.xml \
-	talk-05-hdr.xml \
-	talk-07-transcr.xml 
-
-
-
-
+	2012-11-anal.xml \
+	2012-11-hdr.xml \
+	2012-11-odd.xml \
+	2012-11-oral.xml \
+	2012-11-overview.xml \
+	2012-11-tools.xml \
+	2012-11-tp-cartes.xml \
+	2012-11-transcr.xml \
+	2012-11-index.xml 
 
 DOCS= \
-	tp-1 \
-	tp-2 \
-	tp-mstranscr \
-	tp-msdesc \
-	tp-3 \
-	tp-7 
+	2012-11-tp-genetic \
+	2012-11-tp-intro \
+	2012-11-tp-msdesc \
+	2012-11-tp-odd \
+	2012-11-tp-roma \
+	2012-11-tp-transcr \
+	2012-11-tp-txm 
 
 
 
