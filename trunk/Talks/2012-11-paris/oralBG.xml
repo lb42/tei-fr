@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Les propositions de la TEI pour l'oral</title>
+               
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>Novembre 2011</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <!-- <date when="2011-04">avril 2011</date>
+                <publisher>University of Oxford</publisher> -->
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+                <availability xml:lang="fre">
+                    <p>Ce texte est mis à disposition de tous selon les termes de la licence
+                        Creative Commons « Paternité - Pas d’Utilisation Commerciale - Pas de
+                        Modification ; 2.0 France ». Cette licence est disponible <ref
+                            target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en
+                            ligne</ref> ou par courrier postal à Creative Commons, 171 Second
+                        Street, Suite 300, San Francisco, California 94105, USA.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: $.</date>
+                <name>$LastChangedBy: jamesc $</name>
+                <note>$LastChangedRevision: $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+
+
+<text><body>
+
+
+<div>
+  <head>Approchons-nous, petit à petit de l'<emph>oral</emph></head>
+
+  <p>
+    L'oral peut correspondre (du point de vue de la transcription, à des choses diverses...
+    <list>
+      <item>des transcription de discours</item>
+      <item>des transcription d'interview (dans une revue par exemple)</item>
+      <item>des dialogues dans un roman</item>
+      <item>du théatre</item>
+      <item>du <emph>vrai</emph> oral</item>
+    </list>
+  </p>
+  <p>Je vous propose qu'on s'approche progressivement de ce <soCalled>vrai</soCalled> oral.</p>
+</div>
+
+<div>
+  <head>Un discours politique</head>
+  <p> <title>Discours du Président de la République à l'occasion de la cérémonie de remise de décorations du 11 novembre 2012</title></p>
+|
+
+<p>Mesdames, Messieurs,</p>
+
+<p>C'est un moment exceptionnel que nous allons vivre aujourd'hui à l'occasion du 11 novembre 2012. Exceptionnel, non pas parce que c'est la première fois que je préside cette cérémonie mais parce qu'il y a devant moi cinq éminentes personnalités. <gap/>.</p>
+
+<p>Ces personnalités, c'est Mme Marie-José CHOMBART DE LAUWE, ensuite M. Pierre DAIX, M. Daniel CORDIER, Mme Andrée GROS et M. Jean-François GUTHMANN.</p>
+
+
+<p>Remise des insignes de Grand'Croix de la Légion d'Honneur à Yvonne (dite Marie-José) CHOMBART DE LAUWE.</p>
+
+<gap/>
+</div>
+
+<div>
+  <head>Encodage de ce type de discours</head>
+
+  <list>
+  <item>Pas de problème particulier ; 
+  <list>
+    <item><gi>title</gi></item>
+    <item><gi>p</gi></item>
+    <item><gi>div</gi></item>
+  </list>
+  </item>
+  <item>A l'exception peut-être de la description d'une action (remise des insignes...) en plein milieu du discours.</item>
+  <item>Et à l'exception aussi des méta-données ; on a probablement envie de mettre un <gi>settingDesc</gi> dans le header du fichier</item>
+  </list>
+</div>
+
+<div>
+  <head>On s'approche de l'oral : la description de la situation</head>
+
+  <p>Attention : module <emph>corpus</emph> (language corpora)</p>
+  <p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <setting>
+	<date>11 novembre 2012</date>
+	<locale>palais de l'élysée</locale>
+	<activity>Remise de décorations</activity>
+      </setting>
+    </egXML>
+  </p>
+  <p>On décrit ici la situation dans laquelle s'effectue le discours ; on est dans <gi>profileDesc</gi>/<gi>settingDesc</gi></p>.
+</div>
+
+
+
+
+
+<div>
+  <head>On continue de s'approcher de l'oral : une interview publiée</head>
+  <p><hi rend="bold">Le Figaro Magazine</hi> - Le moment est-il venu pour vous d'annoncer votre candidature?</p>
+
+<p><hi rend="bold">Nicolas Sarkozy</hi> - J'ai dit que le rendez-vous approchait: il approche. Sous la Ve République, de tous les candidats potentiels à l'élection présidentielle, il en est un qui a plus de devoirs et moins de droits, c'est le Président.<gap/>.</p>
+
+<p><hi rend="bold">-</hi>Savez-vous quand vous annoncerez votre décision?</p>
+
+<p><hi rend="bold">-</hi>Si la question est de savoir si j'ai réfléchi, sur le fond et sur la forme, ma réponse est oui. Comme pour toutes les décisions importantes, je prends le temps d'une réflexion longue et approfondie.
+  </p>
+</div>
+
+<div>
+  <head>Encodage de cette interview</head>
+  <list>
+<item>On a (probablement) envie de repérer qui dit quoi.</item>
+<item>On n'a toujours pas de l'<emph>oral</emph>, mais on souhaite pouvoir attribuer des segments à des locuteurs.
+<list>
+  <item>Il nous faudra donc une description des participants</item>
+  <item>Un repérage parmi ces participants</item>
+</list>
+  </item>
+  </list>
+</div>
+
+<div><head>Décrire des participants</head>
+<p>A la surprise générale : <gi>particDesc</gi> (on est toujours dans <emph>corpus</emph></p>
+<p>Et, toujours à la surprise générale, les participants sont des <gi>person</gi>, de préférence dans un <gi>listPerson</gi></p>
+<p>Exemple :
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <particDesc>
+    <person xml:id="NS">
+      <persName>
+	<forename>Nicolas</forename>
+	<surname>Sarkozy</surname>
+      </persName>
+    </person>
+    <org xml:id="FM">
+      <orgName>Le figaro magazine</orgName>
+      <desc>Ou plus probablement un journaliste de la rédaction</desc>
+    </org>
+  </particDesc>
+</egXML>
+</p>
+</div>
+
+<div><head>On peut maintenant repérer nos participants</head>
+<list>
+  <item>Attribut : <val>who</val> qui pointera à l'intérieur du <gi>particDesc</gi>
+  </item>
+  <item>Comme on n'a toujours pas du <emph>vrai</emph> oral, ça pourrait être <gi>sp</gi> + <gi>speaker</gi> (module <val>core</val>).
+  </item>
+</list>
+  <p>Exemple :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <sp who="#NS"><speaker>Nicolas Sarkozy</speaker><p>- J'ai dit que le rendez-vous approchait: il approche. Sous la Ve République, de tous les candidats potentiels à l'élection présidentielle, il en est un qui a plus de devoirs et moins de droits, c'est le Président.<gap/>.</p></sp>
+  </egXML>
+  </p>
+</div>
+
+<div><head>Attribut <val>who</val></head>
+<p>Classe d'attributs <val>att.ascribed</val></p>
+<p>Les membres de cette classe d'attribut :
+<list>
+  <item>Des éléments pour l'oral</item>
+  <item>L'élement <gi>change</gi> (cf révisions)</item>
+  <item><gi>sp</gi> (théatre, discours rapporté direct</item>
+  <item><gi>move</gi> (théatre)</item>
+</list>
+</p>
+</div>
+
+<div>
+  <head>Ce qui nous manque pour avoir du <emph>vrai</emph> oral :</head>
+  <p>Jusqu'à présent, on a vu des exemples avec:
+    <list>
+      <item>des locuteurs</item>
+      <item>une situation</item>
+    </list>
+  mais on n'a pas encore vraiment de l'oral. On aurait pu regarder du théatre (on aurait eu des <hi rend="italic">didascali</hi>) mais on n'aurait toujours pas eu de <emph>vrai</emph> oral.
+  </p>
+  <p>Le <emph>vrai</emph> oral correspond aux cas où on <emph>transcrit</emph> de l'oral !</p>
+  <p>D'où le nom du module <val>spoken</val> : <emph>transcription of speech</emph>.</p>
+</div>
+
+
+<div>
+  <head>Transcriptions d'oral</head>
+
+  <p>Quand on transcrit de l'oral, on souhaite que le contenu textuel soit la transcription de l'oral !</p>
+
+  <p>Ainsi, des descriptions d'évènements annexes (cf: le discours de Hollande et la remise des médailles) seront décrits (si on le souhaite), mais seront contenus dans des descriptions (<gi>desc</gi>). </p>
+
+  <p>Si on avait fait une transcription (à partir d'un enregistrement) du discours de Hollande, on aurait alors transcrit cette partie par :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <kinesic who="#HO"><desc>Remise des insignes de Grand'Croix de la Légion d'Honneur à Yvonne (dite Marie-José) CHOMBART DE LAUWE.</desc></kinesic>
+  </egXML>
+  </p>
+</div>
+
+<div>
+  <head>Quelques particularité de l'oral</head>
+  <list>
+    <item>Contrairement aux exemples précédents, la notion de paragraphe n'a pas grand sens</item>
+    <item>En revanche, la notion de <gi>div</gi> peut parfaitement faire sens</item>
+    <item>techniquement, il faut quelque chose qui puisse aller dans une <gi>div</gi> et qui :
+    <list>
+      <item>puisse être attribué à un locuteur</item>
+      <item>soit connexe dans le temps (on veut pouvoir lire la transcription)</item>
+    </list>
+    </item>
+    <item>Le quelque chose en question s'appelle <gi>u</gi></item>
+  </list>
+</div>
+
+<div>
+  <head>Un exemple minimal</head>
+  <p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <u who="#LB">Bertrand tu es en retard</u>
+      <u who="#BG">comme d'habitude</u>
+      <u who="#LB">Oui comme d'habitude</u>
+    </egXML>
+  </p>
+  <list>
+    <item>le plus souvent, les transcriptions sont sans ponctuation (c'est un choix)</item>
+    <item>il y aura besoin d'annotation supplémentaires (propres à la transcription de l'oral) qui seraient l'équivalent ; par exemple :
+      <list>
+         <item>u de type <val>interrogatif</val></item>
+	 <item><gi>pause</gi></item>
+	 <item>etc.</item>
+      </list>
+    </item>
+  </list>
+</div>
+
+<div><head>Qu'est-ce qu'un <gi>u</gi></head>
+<p>
+Il n'y a pas forcément de consensus, parmi les (théories/transcripteurs/chercheurs) quand à ce que seraient des <emph>tours de parole</emph>, <emph>interventions</emph>, etc. La TEI est agnostique de ce point de vue.
+</p>
+<p>un <gi>u</gi> est donc <list>
+<item>attribuable à un locuteur</item>
+<item>connexe (un début et une fin)</item>
+</list>
+</p>
+<p>Une (mauvaise) transcription :
+ <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <u who="#LB">Bertrand tu es en retard <anchor xml:id="a1"/><anchor xml:id="a2"/>Oui comme d'habitude</u>
+      <u who="#BG" start="#a1" end="#a2">comme d'habitude</u>
+    </egXML>
+</p>
+</div>
+
+
+
+<div>
+  <head>Introduction, remarques préliminaires et évidences</head>
+  <p>Particularités de l'oral :
+  <list>
+    <item>organisé dans le temps</item>
+    <item>des phénomènes particuliers à l'oral 
+       <list>
+         <item>(reprises, hésitations, etc.)</item>
+         <item>des annotations propres à l'oral (pauses, évènements vocaux (rires), gestes éventuels, etc.)</item>
+       </list>
+    </item>
+  </list>
+  </p>
+</div>
+
+<div>
+  <head>Oral et TEI</head>
+
+<list>
+  <item>
+    Première constation : la TEI n'est actuellement que très peu utilisée par les communautés qui travaillent sur l'oral !
+
+  <p>
+Une raison essentielle : 
+<list>
+    <item>les outils </item>
+</list>
+  </p>
+<p>
+<emph>Travailler sur l'oral impose d'utiliser un outil pour la transcription. Aucun des outils courament utilisé ne donne de TEI directement en sortie.</emph>
+</p>
+</item>
+<item>
+Deuxième constation : le module TEI consacré à l'oral date !
+</item>
+</list>
+</div>
+
+
+<div>
+  <head> Pourquoi s'intéresser à la TEI et l'oral ?</head>
+   <p>
+     (on y reviendra !)
+   <list>
+   <item>Interopérabilité !!!!
+   <list>
+        <item>travail sur le texte de la transcription
+	 (avec l'éternelle question de qu'est-ce que le texte !)</item>
+	<item>en particulier, travail sur une transcription annotée !</item>
+   </list>
+   </item>
+  
+   <item>De plus en plus, on a envie d'un format pivot dans lequel on accumule des annotations.</item>
+    </list>
+   </p>
+</div>
+
+<div>
+  <head>le temps, et le reste...</head>
+<p>
+Thomas Schmidt (journal TEI) propose de différentier :
+<list>
+     <item>la macrostructure (i.e. l'alignement temporel)</item>
+     <item>la micro-structure (le reste)</item>
+</list>
+Je vais suivre plus ou moins ce plan, mais avant d'aligner temporellement, il faut savoir ce qu'on aligne !
+<list>
+   <item>des points situés dans le temps (<gi>anchor</gi> en TEI)</item>
+   <item>des intervalles</item>
+ </list>
+  </p>
+</div>
+
+<div>
+<head>la balise <gi>u</gi></head>
+<p>
+    Dans de l'oral, des locuteurs produisent des segments de parole.
+
+    La caractérisation de ces segments n'est pas consensuelle !
+<list>
+         <item>énoncés ?</item>
+	 <item>tours de parole ?</item>
+	 <item>propositions, actes illocutoire, etc.</item>
+</list>
+    comme (presque) toujours, la TEI est agnostique !
+       -> balise <gi>u</gi> à laquelle on n'impose formellement que :
+       <list>
+          <item>la connexité dans le temps (un <gi>u</gi> a un debut et une fin)</item>
+	  <item>l'attribution à un (parfois des) locuteurs</item>
+	  <item>en général... séparé du reste par du silence (mais ce n'est pas une nécessité absolue)</item>
+       </list>
+   <!-- donc <gi>u</gi> a un début et une fin (supposées)
+      un locuteur (ou un groupe de locuteurs qui disent la même chose)
+      contient quelque chose de locutoire (pas uniquement un geste par exemple)
+
+  morale : <gi>u</gi> peut faire penser à "utterance", mais certainement pas en surchangeant "utterance" d'un contenu théorique qu'elle en prétend pas avoir !-->
+</p>
+</div>
+
+<div>
+  <head><gi>u</gi> suite</head>
+<p>donc <gi>u</gi> a :
+<list><item>un début et une fin (supposées)</item>
+      <item>un locuteur (ou un groupe de locuteurs qui disent la même chose)</item>
+      <item>contient quelque chose de locutoire (pas uniquement un geste par exemple)</item>
+</list>
+  morale : <gi>u</gi> peut faire penser à "utterance", mais certainement pas en surchangeant "utterance" d'un contenu théorique qu'elle ne prétend pas avoir
+
+</p>
+<p>
+  Si on souhaite faire dire plus à <gi>u</gi>, il faudra être explicite via une autre annotation, ou éventuellement dans le <gi>encodingDesc</gi>
+</p>
+</div>
+
+
+<div>
+  <head>Un élément "ponctuel" <gi>anchor</gi></head>
+<list>
+  <item><gi>u</gi> Désigne un segment temporel (un intervalle). Pour aborder la question de l'alignement temporel, on a également besoin d'un élement ponctuel.
+  </item>
+<item>
+  On a un tel élement en TEI : <gi>anchor</gi>. Evidemment, le modèle de contenu de <gi>anchor</gi> est <emph>empty</emph></item>
+</list>
+</div>
+
+<div><head>L'alignement temporel</head>
+<list>
+<item>La TEI permet de représenter aussi bien des corpus alignés sur un signal sonore que de simples transcriptions.</item>
+
+<item>Une simple transcription pose déjà des problèmes d'alignement (chevauchements de parole)</item>
+
+<item>Le modèle permet donc la synchronisation au niveau de la transcription d'une part, et l'alignement sur le signal d'autre part (nécessite un outil de transcription).</item>
+</list>
+<p>Exemple (synchro):
+</p>
+
+<p>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+   <u who="#L1">Je pense que ça fait <anchor xml:id="over"/> beaucoup</u>
+   <u who="#L2" start="#over">pas mal</u>
+  </egXML>
+</p>
+
+</div>
+
+
+<div>
+  <head>Deux types de transcriptions de parole</head>
+
+<p>Globalement, on a donc deux types possibles de transcription :</p>
+  <list>
+    <item>des transcriptions "faites à la main"</item>
+    <item>des transcriptions alignées (temporellement) sur le signal. Concrètement, on sait dans ce cas qu'un énoncé donné se trouve à un temps précis dans le signal de parole</item>
+  </list>
+<p>Ces deux types de transcription on en commun :
+<list>
+  <item>Des annotations spécifiques à la parole (micro-structure)</item>
+  <item>Une part de synchronisation (macro-structure)</item>
+</list>
+</p>
+</div>
+
+<div>
+  <head>D'un point de vue pratico-pratique</head>
+
+  <list>
+    <item>La synchronisation sur le signal de parole se traduit dans le modèle tei via des scripts</item>
+    <item>Les conventions de transcription sont souvent une autre histoire...</item>
+  </list>
+
+<p>En Résumé :
+<list>
+  <item>La plupart des outils, synchro temporelle OK et traduisible, conventions de transcription = problème</item>
+  <item><emph>à la main</emph>, conventions de transcription : OK, synchronisation = problème</item>
+</list>
+</p>
+</div>
+
+<div>
+  <head>Alignement temporel sur un signal</head>
+  <p>L'idée est d'avoir une <gi>timeline</gi> contenant des instants (<gi>when</gi>) sur laquelle on aligne des instants (start et end sur <gi>u</gi> et synch sur <gi>anchor</gi>)
+  </p>
+
+  <p>Exemple :</p>
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <timeline>
+      <when xml:id="I1"/>
+      <when xml:id="I2"/>
+      <when xml:id="I3"/>
+    </timeline>
+
+    <u who="#L1" start="#I1" end="#I2">   </u>
+    <u who="#L1"> <anchor synch="#I3"/>   </u>
+  </egXML>
+</div>
+
+
+
+
+
+<div>
+  <head>Organisation en TEI</head>
+
+<p>
+  Elements de la classe att.timed (ex : <gi>u</gi>). Ont un attribut <val>start</val> et un attribut <val>end</val>.
+</p>
+<p>Ce sont les éléments :
+<list>
+  <item><gi>u</gi></item>
+  <item><gi>pause</gi></item>
+  <item><gi>kinesic</gi></item>
+  <item><gi>incident</gi></item>
+  <item><gi>writing</gi></item>
+</list>
+</p>
+<p>Remarque : <val>synch</val> est défini dans Linking, segmentation and alignment (module linking) de même que <gi>seg</gi>, <gi>timeline</gi> et <gi>when</gi>.
+</p>
+</div>
+
+
+
+<div>
+  <head>Les modules pour l'oral</head>
+<p>
+  <list>
+    <item>spoken (broadcast, equipment, incident, kinesic, pause, recording, recordingStmt, scriptStmt, shift, u, vocal,  writing)</item>
+    <item>linking (anchor, timeline, when + att.global.linking -> synch)</item>
+    <item>corpus pour définir le <gi>setting</gi> et <gi>settingDesc</gi></item>
+  </list>
+</p>
+<!-- <p>Possiblité de centrer toute la présentation la-dessus !
+   + la classe d'attributs att.timed (qui est dans le module tei)
+
+   Rq : faire le lien avec la partition proposée par Thomas Schmidt.
+</p> -->
+</div>
+
+<div>
+  <head>Eléments ponctuels vs intervales</head>
+  <p>
+   ponctuels :
+   <list>
+     <item><gi>shift</gi></item>
+     <item><gi>anchor</gi></item>
+   </list>
+  </p>
+  <p>intervalles :
+  <list>
+    <item><gi>u</gi></item>
+    <item><gi>pause</gi></item>
+    <item><gi>kinesic</gi></item>
+    <item><gi>incident</gi></item>
+    <item><gi>vocal</gi></item>
+  </list>
+  </p>
+</div>
+
+<div>
+  <head>Les façons de faire...</head>
+<p>
+  Il y a beaucoup de possibilité de transcrire les corpus oraux, et ce à différents niveaux de finesse. cf. prop de Thomas d'aller vers une proposition commune TEI et ISO d'un sous-ensemble (une personalisation) de la TEI qui permette une interopérabilité plus facile entre formats de sortie d'outils.
+</p>
+</div>
+
+<div>
+  <head>Les éléments supplémentaires à la transcription</head>
+  <p>
+    <gi>u</gi> contient la transcription elle-même. Pour autant, d'autres élements peuvent être transcrits :
+    <list>
+      <item>Des bruits produits à l'aide de l'apareil phonatoire : rire, toux, etc. Element : <gi>vocal</gi></item>
+      <item>Des bruits autres : <gi>incident</gi></item>
+      <item>Des gestes en général : <gi>kinesic</gi></item>
+      <item>Le fait de montrer un texte imprimé : <gi>writing</gi></item>
+    </list>
+  </p>
+  <p>De plus, on peut noter les <gi>pause</gi></p>
+  <p>Remarque : on obtient la transcription en ne considérant que les <gi>u</gi>, les autres élements contiennent (en général) un sous-élément <gi>desc</gi>
+  </p>
+</div>
+
+<div>
+  <head>Faux départs, reprises, etc.</head>
+
+  <p>
+    Beaucoup de systèmes de transcription adoptent des conventions relatives aux mots incomplets, aux faux départs, etc.
+  </p>
+  <p>
+    Dans un cadre TEI, ce type de phénomènes peut tomber sous le coup de deux types d'analyses :
+    <list>
+      <item>Déclarer explicitement si quelque chose est un mot ou pas</item>
+      <item>Régulariser</item>
+    </list>
+  </p>
+</div>
+
+<div>
+  <head>Régularisations</head>
+  <p>
+    L'élément TEI correspondant est <gi>choice</gi>. On peut y faire entrer typiquement <gi>orig</gi> et <gi>reg</gi>. Evidemment, rien n'empêche de typer les <gi>orig</gi> et <gi>reg</gi>. Rien n'empêche non plus de proposer une transcription phonètique.
+  </p>
+  <p>Exemple :
+  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <u><choice><orig>Y</orig><reg>il</reg></choice> m'a dit <choice><orig>qui</orig><reg>qu'il</reg></choice> voulait venir</u>
+  </egXML>
+RQ : on peut se servir de <gi>orig</gi> et <gi>reg</gi> sans utiliser <gi>choice</gi>
+  </p>
+<!-- <p>Par ailleurs, les faux départs peuvent faire l'objet d'une opération d'édition : on les enlève (sans les enlever !). <gi>del</gi>
+Exemple :
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+  <u><del>tu</del> tu crois qu'il viendra</u>
+</egXML>
+</p> -->
+</div>
+
+
+<div>
+    <head>Les faux départs, hésitations, etc.</head>
+
+    <p>La question est de savoir exactement ce qu'on veut en faire</p>
+    <p>En général on peut vouloir :
+    <list>
+      <item>les marquer (les annoter comme des faux départs</item>
+      <item>les régulariser pour faciliter le passage d'outils</item>
+    </list>
+    </p>
+    <p>La solution (habituelle en TEI), les supprimer... sans les supprimer ! On les marque donc par une opération d'édition.</p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <u who="#BG">je <del cause="repetition">je</del> me demande ce qu'il en est</u>
+    </egXML>
+    
+</div>
+
+
+<!-- <div>
+  <head>Motivation de ce type d'encodage</head>
+  <p>En général, les opérations d'édition et de régularisation sont motivées par le fait d'utiliser des outils de traitement qui ont besoin de travailler sur la forme régularisée. (mettre ça en introduction des opérations d'édition)
+  </p>
+  <p>Récupérer les conventions "DELIC" et les traduire en TEI ?</p>
+</div> -->
+
+<div><head>Les conventions de transcription</head>
+
+<p>
+  La plupart des outils de transcription gèrent essentiellement l'alignement temporel ; Du coup, des convenstion de trnscription orthographiques se sont développées.
+</p>
+<p>
+  Exemples :
+</p>
+<p><list>
+  <item>En France, conventions DELIC (exemple : pause = +, ++ ou +++</item>
+  <item>Conventions HIAT</item>
+  <item> etc. </item>
+</list>
+</p>
+<p>Problème : il n'est pas toujours simple (ni même possible) de traduire automatiquement en TEI (ou de passer automatiquement des unes aux autres).
+</p>
+</div>
+
+
+<!-- <div><head>Un mot sur les modèles en couche</head></div> -->
+
+
+<!-- <div><head>Rappel quand aux modules nécessaires (en général)</head></div> -->
+
+
+
+
+
+<div>
+  <head>Exercices</head>
+  <p>Prendre la version texte du débat Royal/Sarkozy (corpus de démo d'Exmaralda) et l'encoder en TEI</p>
+  <p>Au choix : prendre la version TEI et la mettre en TEI !
+  </p>
+</div>
+
+
+<div>
+  <head>Autre exercice</head>
+  <p>Aller chercher un corpus sur TCOF ; on a les méta données (en html) -> les encoder en TEI, on peut aussi récupérer la version transcriber, le wav et les conventions de transcription</p>
+</div>
+
+<!-- <div>
+  <head>Parler quelque part du modèle en couches (tiers)</head>
+
+  <p>Dire aussi que c'est alors une bonne idée de dédier des couches aux diféfrents types d'annotation (u, vocal, kinesic)</p>
+  <p>Couches liées à locuteurs et couches indépendantes du locuteur</p>
+  <p>Couches synchro avec le contenu de <gi>u</gi> (ex. vocal) vs. désynchronisées par rapport au contenu de <gi>u</gi> (ex : <gi>kinesic</gi>).
+  </p>
+</div> -->
+
+<!-- <div><head>Exercices possibles</head>
+  <list>
+    <item>Encoder le débat Royal/Sarkozy en TEI (suppose de comprendre les convenstions HIAT)</item>
+    <item>Récupérer une transcription TCOF et l'encoder en TEI (suppose de comprendre les conventions DELIC</item>
+
+  </list>
+</div> -->
+
+
+
+<!-- <particDesc
+        <listPerson>
+	  <person>....
+	  <person>....
+	  <listRelation>
+	     <relation type="personal" name="nomrelation" mutual="i1 i2 ..."/>
+	     ou bien
+	     <relation type="..." name="...." active="i1" passive="i2"/>
+	     </listPerson>
+	</listPerson>
+
+Important pour la description des participants....
+
+
+De plus, dans person on a @role (en plus de @sex et @age) avec des valeurs typiques :
+   interviewer et interviewee !
+
+on aussi dans "person" occupation (avec possible @notBefore, @notAfter et @when)
+
+On peut aussi laisser libre le contenu de person (<p>)
+
+-->
+
+<!-- Exercice :  encoder en TEI (header) les méta données d'un des corpus TCOF -->
+
+
+</body>
+</text>
+
+</TEI>
