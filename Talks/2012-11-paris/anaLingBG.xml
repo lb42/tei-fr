@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TEI et analyse linguistique</title>
+               
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>Novembre 2011</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <!-- <date when="2011-04">avril 2011</date>
+                <publisher>University of Oxford</publisher> -->
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative
+                        Commons Attribution license.</p>
+                </availability>
+                <availability xml:lang="fre">
+                    <p>Ce texte est mis à disposition de tous selon les termes de la licence
+                        Creative Commons « Paternité - Pas d’Utilisation Commerciale - Pas de
+                        Modification ; 2.0 France ». Cette licence est disponible <ref
+                            target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en
+                            ligne</ref> ou par courrier postal à Creative Commons, 171 Second
+                        Street, Suite 300, San Francisco, California 94105, USA.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change>
+                <date>$LastChangedDate: $.</date>
+                <name>$LastChangedBy: jamesc $</name>
+                <note>$LastChangedRevision: $</note>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+      <body>
+	<div>
+	  <head>Quelques éléments TEI</head>
+	  <list>
+	    <item><gi>s</gi> (phrase)</item>
+	    <item><gi>cl</gi> (proposition)</item>
+	    <item><gi>ph</gi> (syntagme)</item>
+	    <item><gi>w</gi> (mot, token)</item>
+	    <item><gi>m</gi> (morphème)</item>
+	    <item><gi>c</gi> (caractère)</item>
+	    <item><gi>pc</gi> (symbole de ponsctuation)</item>
+	  </list>
+	</div>
+
+	<div>
+	  <head>Le cas particulier de l'oral</head>
+
+	  <p>La notion de phrase n'est pas forcément très pertinente...</p>
+	  <p>La notion de symbole de ponctuation pas forcément non plus</p>
+	  <p>On risque donc d'en reveir souvent à des <gi>seg</gi> ou des <gi>span</gi> auquels on donnera une interprétation et dans certains cas à des <gi>div</gi></p>
+	</div>
+
+	<div>
+	  <head>Un point de repère</head>
+
+	  <p>Je n'entrerai pas dans des choses très compliquées !</p>
+	  <p>Un (bon) exemple de corpus annoté linguistiquement en TEI : NKJP (corpus national du polonais)</p>
+
+	  <p>Références :
+	  <list>
+	    <item>Stand-off TEI Annotation: the case of the National Corpus of Polish (proc. ling. annot. workshop, ACL-IJCNLP 2009)</item>
+	    <item><ref target="http://nlp.ipipan.waw.pl/TEI4NKJP/">http://nlp.ipipan.waw.pl/TEI4NKJP/</ref></item>
+	  </list>
+	  </p>
+
+	</div>
+
+	<div>
+	  <head>Segmentation en mots</head>
+
+	  <list>
+	    <item>on utilise <gi>w</gi></item>
+	    <item>éventuellement, <gi>w</gi> dans <gi>w</gi> (pomme de terre)</item>
+	  </list>
+
+	  <p>Attributs de <gi>w</gi> :
+	  <list>
+	    <item><val>lemma</val></item>
+	    <item><val>lemmaRef</val> (pointe vers une définition)</item>
+	  </list>
+	  </p>
+
+	</div>
+
+	<div>
+	  <head>L'annotation en parties du discours</head>
+
+	  <p>La plus courament pratiquée (peu coûteuse) et bénéfices immédiats !
+	  </p>
+
+	  <p>Ce qui semblerait simple :
+	  <list>
+	    <item>un attribut <val>pos</val> sur <gi>w</gi></item>
+	  </list>
+	  n'est pas autorisé !
+	  </p>
+	</div>
+
+	<div>
+	  <head>L'attribut <val>ana</val></head>
+
+	  <p>Ce qui est autorisé, c'est l'attribut <val>ana</val> (analyse), du module <val>analysis</val></p>
+	  <list>
+	  <item>Attention : cet attribut peut-être porté par un (très) grand nombre d'éléments et peut donc potentiellement avoir des interprétations (très) diverses !</item>
+
+	  <item>remarque : le type de <val>ana</val> est un indice ! 
+	  <val>ana</val> est de type data.pointer.
+	  </item>
+	  </list>
+	</div>
+
+	<div>
+	  <head>La (ma ?) philosophie TEI</head>
+	  <p>On essaie de garder le maximum d'information à l'intérieur du fichier TEI</p>
+	  <list>
+	    <item>Si on a un jeu d'étiquettes morphologiques, il est probablement défini quelque part !</item>
+	    <item>pourquoi pas dans le fichier TEI ?</item>
+	    <item>evidemment, <emph>dans</emph> veut seulement dire, on se donne l'accès vers...</item>
+	  </list>
+
+
+	</div>
+
+	<div>
+	  <head><gi>interp</gi> et <gi>interpGrp</gi></head>
+
+	  <p>
+	    <gi>interp</gi> permet de donner le sens d'une interprétation. <gi>interpGrp</gi> permet de regrouper de telles interprétations.
+	  </p>
+	  <p>Exemple :
+	  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	    <interpGrp>
+	      <desc>Etiquettes morphosyntaxiques</desc>
+	      <interp xml:id="ART">Articles</interp>
+	      <interp xml:id="N">Noms communs</interp>
+	      <interp xml:id="ADJ">Adjectifs</interp>
+	    </interpGrp>
+	  </egXML>
+	  </p>
+	</div>
+	
+	<div><head>On peut maintenant faire le lien !</head>
+	<egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <w ana="#ART">le</w> <w ana="#ADJ">petit</w> <w ana="#N">chat</w>
+
+	  <interpGrp>
+	      <desc>Etiquettes morphosyntaxiques</desc>
+	      <interp xml:id="ART">Articles</interp>
+	      <interp xml:id="N">Noms communs</interp>
+	      <interp xml:id="ADJ">Adjectifs</interp>
+	    </interpGrp>
+	</egXML>
+	</div>
+
+	<div><head>Et si on veut être encore plus précis</head>
+	<p>On peut faire le lien avec une base terminologique comme ISOCAT</p>
+	<p>On utilise alors l'attribut <val>sameAs</val></p>
+	<egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <interp xml:id="ART" 
+		  sameAs="http://www.isocat.org/datcat/DC-1892">
+	  Articles</interp>
+	</egXML>
+	</div>
+
+	<div><head>Annotation linguitique ?</head>
+
+	<p>Beaucoup d'élements TEI peuvent correspondre à une analyse linguistique !
+	</p>
+	<p>par exemple :
+	<list>
+	  <item><gi>name</gi></item>
+	  <item><gi>rs</gi></item>
+	  <item><gi>date</gi></item>
+	  <item>etc.</item>
+	</list>
+	Pas besoin donc de se demander comment annoter des entités nommées !
+	</p>
+	</div>
+
+	<div>
+	  <head>Exemple : coréférence</head>
+	  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	    <p><name key="P">Pierre</name> <rs key="P">se</rs> demanda si <rs key="P">il</rs>...</p>
+	  </egXML>
+	  <p>Remarque, on aurait pu également utiliser <val>xml:id</val> et <val>ref</val></p>
+	</div>
+
+
+	<div><head>Un mot sur les structures de traits</head>
+	<p>
+	  Il y a en TEI un module <val>iso-fs</val>, commun entre la TEI et l'ISO pour définir des structures de traits. Un des intérêts est de pouvoir définir de façon modulaire des jeux d'étiquettes.
+	</p>
+	<p>Exemple, on voudrait annoter en morpho-syntaxe en descendant jusqu'aux genres, nombres, temps, personnes, etc.</p>
+	<egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <f xml:id="pluriel"><binary value="true"/></f>
+	  <f xml:id="nomCommun" name="cat"><string>Nom commun</string></f>
+	  <fs xml:id="N:p" feats="#nomCommun #pluriel"/>
+	</egXML>
+	<egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <w ana="#N:p">chaises</w>
+	</egXML>
+	</div>
+
+	<div>
+	  <head>Concrètement</head>
+	  <list>
+	    <item>Les structures de traits se définissent dans un <gi>fDecl</gi>, lui-même dans un <gi>fsDecl</gi>, le tout dans <gi>fsdDecl</gi>
+	    </item>
+	    <item>et enfin, tout ça va dans le <gi>teiHeader</gi>/<gi>encodingDesc</gi></item>
+	  </list>
+	</div>
+
+	<div><head>L'éternel problème des structures concurentes</head>
+	<p>
+	  Quand on commence à multiplier les annotations, il y a toute chance qu'on finisse par tomber sur les hiérarchies multiples
+	</p>
+	<p>
+	  Le sujet a fait couler des <emph>litres</emph> d'encre (électronique ou non).
+	</p>
+	<p>D'un point de vue pratique, <gi>span</gi> permet souvent de s'en sortir</p>
+	<egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <span xml:id="s1" to="#a1" interp="#qqchose"/>du texte<anchor xml:id="a1"/>
+	</egXML>
+	</div>
+
+	<div><head>Inconvénient du <gi>span</gi></head>
+
+	<p><gi>span</gi> est aussi peu informatif que <gi>seg</gi> !
+	On peut (il faut) préciser son sens via :
+<list>
+  <item><val>type</val></item>
+  <item><gi>interp</gi></item>
+  <item><gi>join</gi> (apparement déprécié et servirait plutôt à joindre des <gi>seg</gi>)</item>
+</list>
+	</p>
+	</div>
+
+	<div>
+	  <head>Autres niveaux d'analyse linguistique</head>
+	  <p>A ma connaissance, peu de corpus annotés en syntaxe, désambiguïsation de sens ou sémantique encodés en TEI</p>
+	  <p>Une exception notable : NKJP</p>
+	  <list>
+	    <item>Annotation "stand-off", astucieuse (via xi:include)</item>
+	    <item>A ce niveau de complexité, le stand-off est probablement la seule solution viable</item>
+	    <item>Séparation de la structure habituelle (<gi>div</gi>, <gi>p</gi>, etc..) pour annoter commodément le contenu textuel</item>
+	  </list>
+	  <p>Utilisation extensive des <gi>seg</gi>, et des <gi>link</gi></p>
+	  <p>exemple :
+	    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	      <link xml:id="link17" type="subject" targets="ann_morphosyntax.xml#seg78 #group43"/>
+	    </egXML>
+	  </p>
+	</div>
+
+	<div>
+	  <head>Remarques NKJP</head>
+	  <list>
+	    <item>Les niveaux d'analyse s'incluent les uns les autres</item>
+	    <item>gestion des disjonctions (ex morphosyntaxe) via des <gi>choice</gi></item>
+	    <item>éventuellement, le niveau d'analyse suivant, ne reprend que l'un des termes du choix</item>
+	  </list>
+	</div>
+
+
+	<div>
+	  <head>En pratique</head>
+	  <list>
+	  <item>On n'annote pas (entièrement) à la main ce genre de choses !
+	  </item>
+	  <item>Il faut des outils (ex : treetagger), et des scripts</item>
+	  <item>cas particulier de treetagger, mode <val>sgml</val> permet d'ignorer le balisage (et donc en fait de le conserver).</item>
+	  <item>Autre solution : TXM</item>
+	  </list>
+	</div>
+
+	<div>
+	  <head>Exercice</head>
+	  <list>
+	    <item>Encoder à ma main en parties du discours un petit bout d'un de vos fichiers TEI</item>
+	    <item>Si possible, expliciter les parties du discours par :
+	       <list>
+		 <item>soit : un <gi>interpGrp</gi></item>
+		 <item>soit des structures de traits</item>
+	       </list>
+	    </item>
+	  </list>
+	</div>
+
+      </body>
+    </text>
+</TEI>
