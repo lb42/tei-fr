@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"
+xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+    version="2.0">
+
+<xsl:template match="/">
+<body><div>
+<xsl:apply-templates select="//tei:row/tei:cell[2]"/>
+</div></body>
+</xsl:template>
+
+    <xsl:template match="tei:cell">
+        <p><xsl:apply-templates/></p>
+    </xsl:template>
+    <xsl:template match="tei:cell[@role='label']">
+        <head><xsl:apply-templates/></head>
+    </xsl:template>
+    
+<xsl:template match="tei:*">
+<xsl:copy-of select="."/>
+</xsl:template>
+
+</xsl:stylesheet>
