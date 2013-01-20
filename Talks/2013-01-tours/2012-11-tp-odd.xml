@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TP 3 : Génération d'un ODD et personnalisation</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>Novembre 2012</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Exercice créé par Lou Burnard et Lauranne Bertrand</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2012-11-07">
+        <name>Lauranne Bertrand</name> 
+        Création de l'exercice
+      </change>
+      <change when="2012-11-15">
+        <name>Lauranne Bertrand</name> 
+        Ajout de la manipulation au niveau des valList
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Objectifs de l'exercice</head>
+        <list>
+          <item>Générer un ODD à partir d'un corpus XML-TEI</item>
+          <item>Comprendre la structure d'un fichier ODD</item>
+          <item>Adapter l'ODD généré en fonction de ses besoins</item>
+        </list>
+      </div>
+      <div>
+        <head>Sources et XSLT</head>
+        <list>
+          <item>Stockez vos sources TEI dans le dossier <ident>sources</ident> de votre dossier <ident>Travaux</ident></item>
+          <item>Veillez à ne pas mettre trop de fichiers XML afin de ne pas faire planter oXygen lors de la transformation.
+            Mettez les documents les plus représentatifs de votre encodage.</item>
+          <item>La feuille <ident>oddbyexample.xsl</ident> est celle que nous utiliserons pour générer l'ODD. Vous la trouverez dans le dossier <ident>Travaux</ident></item>
+<!-- it's also available in the Oxygen framework -->
+        </list>
+      </div>      
+      <div>
+        <head>Générer son premier ODD</head>
+        <list>
+          <item>Ouvrez l'un des fichiers XML de votre dossier source dans oXygen</item>
+          <item>Cliquez sur Document > Transformation > Configurer les scénarios de transformation</item>
+          <item>Cliquez sur <ident>Nouveau</ident> et choisir dans le menu "XML Transformation with XSLT"</item>
+          <item>Nommez votre transformation ("oddbyexample" par ex)</item>
+          <item>Laissez XML URL tel quel et cliquez sur le petit dossier à côté du champ XSL URL pour pointer vers <ident>oddbyexample.xsl</ident></item>
+          <item>Choisissez le transformateur : <ident>Saxon-PE 9.4.0.4</ident></item>
+          <item>Cliquez sur la petite roue jaune pour ajouter les options avanceés: 
+            <list>
+                <item>Template("-it"): main</item>
+              </list>
+          </item>
+          <item>Paramètres : Dans le menu qui s'affiche il faut vérifier : 
+            <list>
+                <item>corpus : normalement, "source/./" doit apparaître</item>
+<!-- is that right ? -->
+                <item>schema : vous pouvez changer le nom de l'ODD généré</item>
+            </list>
+          </item>
+        <item>Sur l'onglet Sortie : 
+          <list>
+            <item>Selectionnez "Enregistrer sous" : ../monODD.xml (par ex)</item>
+            <item>Cochez "Ouvrir dans un éditeur"</item>
+            <item>Cochez "Afficher comme :  XML"</item>
+          </list>
+        </item>
+          <item>Lancez la transformation en cliquant sur <ident>Accepter</ident> puis <ident>Appliquer Associés</ident></item>
+          <item>Si tout s'est bien passé, le fichier <ident>monODD.xml</ident> devrait être apparu dans le dossier <ident>Travaux</ident> et s'ouvrir dans oXygen.</item>
+        </list>
+      </div>
+      <div>
+        <head>Utiliser l'ODD</head>
+        <list>
+          <item>Tout ça c'est bien, mais qu'en faire à présent ?</item>
+          <item>En fait, votre ODD définit les éléments, attributs voire valeurs que vous utilisez.
+            Il définit également les modules et les classes qui sont utilisés au sein du
+            corpus</item>
+          <item>En l'état, ce n'est pas très lisible mais grâce à Roma, on peut générer à partir de son ODD : un schéma RNG, une DTD voire
+            une documentation ! (d'où le "One Document Does It All")</item>
+          <item>Essayons de générer la documentation correspondant à votre projet : si vous vous souvenez de l'exercice sur Roma, vous savez
+          comment faire...</item>
+        </list>
+      </div>
+      <div>
+        <head>Générer une documentation dans Roma</head>
+        <list>
+          <item>Ouvrez votre navigateur et rendez-vous sur <ref target="http://www.tei-c.org/Roma/">http://www.tei-c.org/Roma/</ref></item>
+          <item>Cochez <ident>Upload a customization</ident> et naviguez jusqu'à votre odd via <ident>Choisissez un fichier</ident></item>
+          <item>Cliquez sur <ident>Start</ident></item>
+          <item>Comme précedemment, vous pouvez choisir le nom de votre personnalisation, la langue, le nom de l'auteur etc.
+            Remplissez-les si vous le souhaitez et appuyez sur <ident>Save</ident></item>
+          <item>Cliquez sur l'onglet <ident>Documentation</ident>, laissez dans le menu déroulant "HTML web page" et cliquez sur
+            <ident>Generate</ident></item>
+          <item>Enregistrez le fichier ou ouvrez-le directement dans le navigateur</item>
+          <item>Vous reconnaissez la documentation générée via Roma : une liste de liens sur chaque élément. Mais cette fois-ci,
+            seuls les éléments que vous utilisez au sein de votre corpus sont présents.</item>
+          <item>Cliquez sur un élément où vous avez l'habitude d'utiliser <att>type</att> ou <att>rend</att>. La liste des valeurs
+            utilisées dans votre projet n'apparaissent pas normalement. Il faut paramétrer cette option dans la feuille 
+            <ident>oddbyexample.xsl</ident></item>
+<!-- not necessary : you can do it in Oxygen -->
+        </list>
+      </div>
+      <div>
+        <head>Faire apparaître la liste des valeurs de <att>rend</att> et <att>type</att></head>
+        <list>
+          <item>Retournez dans oXygen et ouvrez la feuille <ident>oddbyexample.xsl</ident></item>
+          <item>Cette fois-ci, répondez "true" pour les paramètres <ident>enumerateRend</ident> et <ident>enumerateType</ident></item>
+          <item>Lancez de nouveau votre transformation sur le premier fichier XML de votre dossier.</item>
+          <item>Retournez dans Roma, refaites les étapes précédentes pour regénérer votre documentation</item>
+          <item>Rendez-vous sur un élément comportant des <att>type</att> ou des <att>rend</att> : voilà votre liste de valeurs !</item>
+        </list>
+      </div>
+      <div>
+        <head>Personnaliser votre ODD</head>
+        <list>
+          <item>Nous allons à présent ajouter une description correspondant à certaines valeurs d'attributs :
+            <list>
+              <item>Cherchez la balise <gi>elementSpec</gi> concernant les "div".</item>
+              <item>Dans <gi>attList</gi>, il y a un <gi>attDef</gi> pour l'attribut <att>type</att></item>
+              <item>Donnons donc une définition pour une valeur de <att>type</att>. Développez un <gi>valItem/</gi>.
+                À l'intérieur, ouvrez un élément <gi>desc</gi> et entrez la définition de votre valeur :
+                par exemple pour la valeur "destinataire" <![CDATA[<desc>références du destinataire de la carte postale</desc>]]></item>
+              <item>Réitérez l'opération pour d'autres valeurs puis enregistrez votre ODD</item>
+              <item>Si vous générez dans Roma un RNG, vous pourrez constater qu'oXygen vous proposera une liste fermée de valeurs
+                mais également les défintions que vous avez ajoutées.</item>
+            </list>
+          </item>
+        </list>
+        <list>
+          <item>Vous pouvez également proposer une version multilingue de votre ODD. Pour cela, il faut proposer différents éléments
+            <gi>desc</gi> avec des <att>xml:lang</att> associés :
+            <list>
+              <item>Allons donner une définition française à l'élément <gi>div</gi>. Cherchez dans votre ODD <![CDATA[<elementSpec ident="div" mode="change">]]></item>
+              <item>Dans l'élément <gi>elementSpec</gi>, ajouter un élément <gi>desc</gi> et donnezune définition française, par ex : 
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <![CDATA[
+                  <elementSpec ident="div" mode="change">
+                      <desc xml:lang="fr">division de texte correspondant souvent à un chapitre, un acte ou un article...</desc>
+                      ...
+                  ]]>
+                </egXML>
+              </item>
+              <item>Notez la présence de <att>xml:lang</att> qui exprime que cette définition est en français</item>
+              <item>Remontez tout en haut de votre ODD et spécifiez l'attribut <att>docLang</att>="fr" sur la balise <gi>schemaSpec</gi></item>
+              <item>Enregistrez votre fichier et générez dans Roma un nouveau RNG : si vous associez ce schéma à un fichier TEI, la définition
+              de <gi>div</gi> sera proposée en français et non en anglais comme tout à l'heure</item>
+              <item>Si vous le souhaitez, ajouter une définition dans une autre langue pour la division, par exemple en allemand :
+                "Textgliedering, die oft einem Kapitel, einem Akt oder einem Artikel entspricht..." (n'oubliez pas le <att>xml:lang</att>="de" sur <gi>desc</gi> et de changer le <att>docLang</att> sur <gi>schemaSpec</gi></item>
+            </list>
+          </item>
+        </list>
+<!-- we need to add an example of creating a new element -->
+      </div>
+    </body>
+  </text>
+</TEI>
+<!--
+
+
+<div><head>Expanding the schema (1)</head>
+<p>Now return to the source of your ODD file in oXygen. We won't go
+into the full details, but you should now know enough about using
+oXygen to be able to do the following:
+<list>
+<item>Add a completely new attribute called <att>revision</att> to the
+<gi>div</gi> element. You will need to insert an <gi>attDef</gi>
+element inside the existing <gi>attList</gi>, supplying it with
+appropriate values for its <att>ident</att>, <att>mode</att> and
+<att>usage</att> attributes. </item>
+<item>We suggest using this attribute to hold a revision date for
+the division. You will need to supply an appropriate <gi>desc</gi>
+element and also an appropriate <gi>datatype</gi>.</item>
+<item>Like that of <gi>content</gi>, the value of the <gi>datatype</gi>
+element is expressed using the RELAX NG XML vocabulary. You will therefore
+need to add an appropriate declaration for the Relaxng namespace to
+your new <gi>datatype</gi> element, in the same way as Roma has done
+for the <gi>content</gi> element it created for the new
+<gi>citComm</gi> element in your ODD.</item>
+<item>With that namespace declaration in place, you can limit possible
+values for the new attribute to valid temporal expressions (as
+defined by the TEI) by supplying as content for the new
+<gi>datatype</gi> <gi>rng:ref name="data.temporal.w3c"/</gi>.
+</item>
+<item>If that seemed too easy, try adding a second new attribute
+called <att>pageRange</att>, which can be used to supply exactly  two
+ numbers, no more and no less. Hint: use the attributes
+ <att>minOccurs</att> and <att>maxOccurs</att> on <gi>datatype</gi>,
+ and the TEI datatype  <val>data.count</val>.</item>
+</list></p></div>
+
+-->
+
