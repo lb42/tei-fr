@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/teilite.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TEI a la carte</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Publication information</p>        
+      </publicationStmt>
+      <sourceDesc>
+        <p>Information about the source</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>    
+
+
+
+      <div rend="slide">
+        <head>La TEI facilite le balisage <soCalled>intelligent</soCalled>
+        </head>
+        <p>La TEI s'applique à l'encodage des ... <list type="bulleted">
+            <item>composants structuraux et fonctionnels d'un texte </item>
+            <item>transcriptions diplomatiques des sources historiques, des images, des
+              annotations</item>
+            <item>lien, correspondances, alignements</item>
+            <item>données et entités : par ex temps, personnes, lieux, événements</item>
+            <item>annotations peritextuelles et metatextuelles (correction, suppression,
+              ajouts)</item>
+            <item>analyses linguistiques</item>
+            <item>metadonnées de plusieurs types</item>
+            <item>... et des définitions formelles de schéma XML !</item>
+          </list></p>
+        <p rend="box">Cette intervention concerne (en partie) le dernier point.</p>
+      </div>
+
+
+      <div>
+        <head>Pourquoi ODD?</head>
+        <list>
+          <item>Vous avez besoin d'un schéma XML pour définir vos ressources XML</item>
+          <item>Vous désirez fournir :<list>
+              <item>une documentation de la sémantique de son schéma XML </item>
+              <item>des notices des contraintes appliquées, des notes d'usage, des exemples</item>
+            </list></item>
+          <item>Vous devez les maintenir en parallel !</item><!-- LBe : je ne comprends pas cette phrase ? -->
+          <item>Vous souhaitez partager cette documentation <list>
+              <item>avec d'autres personnes</item>
+              <item>avec vous-meme, à long terme</item>
+            </list></item>
+          <item>Et vous préférez ne pas réinventer la roue...</item>
+        </list>
+      </div>
+
+
+      
+      <div><head>Un cas d'étude: la carte postale</head>
+      <p>La TEI - la <emph>texte</emph> encoding initiative - s'applique quotidiennement aux livres et manuscrits, aux corpus literaires et linguistiques.  </p>  <p>Supposons qu'on a proposé un ANR pour la numérisation et
+          transcription d'une collection gigantesque de cartes postales. Comment
+          on va créer un systeme TEI apte à gérer des centaines de choses comme celles-ci?</p>
+      </div>
+      
+      <div>
+        <head>Une carte (recto)</head>
+        <figure>
+          <graphic url="../Graphics/Cartes/19800726_001r.jpg"/>
+        </figure>
+      </div>
+      <div>
+        <head>Une carte (verso)</head>
+        <figure>
+          <graphic url="../Graphics/Cartes/19800726_001v.jpg"/>
+        </figure>
+      </div>
+      
+      <div>
+        <head>Encore une carte</head>
+        <figure>
+          <graphic url="../Graphics/carte-2.png"/>
+          <p>NB : la structuration n'est pas toujours pareille...</p>
+        </figure>
+      </div>
+      
+      <div><head>Quelles sont les éléments significatifs, qu'il faut
+        absolument distinguer dans notre encodage?</head>
+        
+        <list rend="pause">
+          <item>image</item>
+          <item>oblitération</item>
+          <item>partie imprimée</item>
+          <item>message(s) écrit(s)</item>
+          <item>destinataire(s)</item>
+          <item>le(s) sujet(s) représenté(s) sur la carte</item>
+          <item>infos sur l'édition, impression, circulation de la carte ... metadonnées à
+            volonté</item>
+          <item>...</item>
+        </list>
+      </div>   
+      
+      
+      <div><head>Propositions</head>
+        <p>Nous commenceons en structurant chaque carte en divisions de type
+          variés:</p>
+        <p>Physiquement :   <list>
+            <item><hi>recto</hi> : la surface qui porte l'image
+              (normalement)</item>
+            <item><hi>verso</hi> : la surface qui porte  (normalement) le message
+            </item></list></p>
+        <p>Ensuite, nous constatons la possibilite d'avoir indifférement sur ces
+          deux surfaces d'autres sous-divisions telles:
+          <list>
+            <item>le message</item>
+           <item>les evidences de transmission, notamment :<list>
+                <item>le destinataire</item>
+                <item>les oblitérations</item>
+              </list></item>
+<item>des infos sur l'édition, la vente, la collection etc. de la carte</item></list>
+        </p></div><div><head>Première proposition d'encodage</head>
+          <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+            <![CDATA[<carte n="0010">
+<recto url="Sables-olonne_recto_v.jpg"/>
+<verso url="Sables-olonne_verso_v.jpg">
+<obliteration>
+<date>26-07-1967</date>
+<lieu>Les Sables d'Olonne, Vendée</lieu>
+</obliteration>
+<message>
+<p>Bientôt sur le chemin du retour avons eu du beau temps, tout le
+mois de juillet. Vous souhaite à tous la même chose. J'espère que vous
+êtes tous en bonne santé – A chacun son tour, le bon temps et le
+repos. Avec d'affectueuses pensées et bons baises à tous. Marcelle
+</p>
+</message>
+<destinataire>
+Mme Veyssade Lucienne 
+31, rue du Président Kennedy 
+ALFORTVILLE 
+Val de Marne
+</destinataire>
+</verso>
+</carte>
+    ]]></egXML>
+        </div>
+      <div><head>Commentaire</head>
+        <list>
+          <item>On ne s'est pas servi du vocabulaire TEI: donc on aura de mal à
+            expliquer cet encodage à des non francophones, ou de partager nos
+            travaux avec des autres.</item>
+          <item>On n'a pas mis en evidence tout ce qui pourrait nous interesser de
+            point de vue patrimoniale,
+            par exemple les ratures, les retours à ligne, les noms de personnes ou
+            de lieux, les aspects linguistiques, les metadonnées ... </item>
+          <item>On n'a pas structuré (par exemple) le destinataire, qui va nous
+            embêter pour faire des recherches efficaces... </item>
+          <item>Pour ajouter de telles choses on doit inventer encore de
+            vocabulaire... ce qui gaspille un peu notre temps, vue que la TEI l'a
+            déjà fait...</item>
+        </list></div>
+      
+      <div><head>Proposition TEI initiale</head>
+      <list> <item>On traite chaque carte comme un <gi>text</gi> </item>
+        <item>On traite chaque division comme  un <gi>div type="[fonction]"</gi>, facultativement divisé en <gi>p</gi> </item>
+        <item>Les noms de lieux seront balisés avec <gi>placeName</gi>, les noms de
+          personnes avec <gi>persName</gi>, et les dates avec <gi>date</gi> </item>
+      
+        <item>On va structurer les composants du destinataire en
+          <gi>address</gi>, qui regroupe un <gi>persName</gi> et des <gi>addrLine</gi></item>
+        <item>On aura également besoin de l'attribut <att>facs</att> pour associer une partie de
+            texte avec son image numerisé</item>
+        <item>Nous nous servons de l'élément <gi>stamp</gi>  pour toute timbrage, obliteration, etc
+            ; et de l'élément <gi>bibl</gi>  pour les metadonnées concernant l'édition de la carte
+            avant son usage</item>
+        <item>Facultativement, nous pourrions nous servir de <gi>del</gi>(pour les ratures),
+              <gi>add</gi> (pour les ajouts), <gi>reg</gi> (pour les régularisations), <gi>hi</gi>
+            pour les mots ou phrases mises en evidence, <gi>lb/</gi> pour les retours de ligne.... </item></list>
+        <p rend="box">Est-ce que cela nous servira?</p>
+      </div>
+      <div><head>Premiere proposition d'encodage TEI -- l'entete</head>
+        <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+          <teiHeader>
+            <fileDesc>
+              <titleStmt>
+                <title>San Antonio River : digital edition of card 19800726_001 from the Virgolos
+                  collection</title>
+              </titleStmt>
+              <publicationStmt>
+                <p>Demonstration a la Formation TEI++, 2012</p>
+              </publicationStmt>
+              <sourceDesc>
+                <bibl><title level="m">San Antonio River (postcard)</title>
+                  <publisher>School Mart</publisher>
+                  <pubPlace>1812 South Press, San Antonio, Texas 70210</pubPlace>
+                  <idno>SA-146-C</idno>
+                  <note resp="#ed">The San Antonio river, often called the Venice of Texas," winds its way
+                    through the business section of San Antonio. It is very picturesque with its many
+                    bridges and beautifully landscaped banks.</note></bibl>
+              </sourceDesc>
+            </fileDesc>
+          </teiHeader>
+        </egXML>
+      </div>
+      <div><head>Premiere proposition d'encodage TEI -- le texte</head>
+        <egXML  xmlns="http://www.tei-c.org/ns/Examples"> <text>
+          <body>
+            <div type="recto">
+              <figure>
+                <graphic url="../../Graphics/Cartes/19800726_001r.jpg"/>
+                <figDesc>Vue d'un cours d'eau avec un pont en pierre et des petites maisons de style
+                  mexicain. Un homme et une femme navigue un pédalo en premier plan.</figDesc>
+                <head>San Antonio River</head>
+              </figure>
+            </div>
+            <div facs="../../Graphics/Cartes/19800726_001v.jpg" type="verso">
+              <div type="message">
+            <!-- ... -->
+              </div>
+              <div type="envoi">
+                <ab type="evidences">
+                  <!-- ... -->
+                </ab>
+                <ab type="destinataire">
+                  <address>
+             <!-- ... -->
+            </address>
+                </ab>
+              </div>
+            </div>
+          </body>
+        </text></egXML> </div>
+      <div><head>Premiere proposition d'encodage TEI -- le message</head>   
+        <egXML  xmlns="http://www.tei-c.org/ns/Examples"> 
+          <div type="message">
+            <p><date when="1980-07-26">26 juill 80</date></p>
+            <p>Chère Madame , après New-York et Washington dont le gigantisme m'a beaucoup séduite,
+              nous avons commencé notre conquête de l'Ouest par New Orleans, ville folle en fête
+              perpétuelle. Il fait une chaleur torride au Texas mais le coca-cola permet de résister –
+              l'Amérique m'enchante ! Bientôt, le grand Canyon, le Colorado et San Francisco... </p>
+            <p> En espérant que vous passez de bonnes vacances, affectueusement. </p>
+            <signed> Sylvie </signed>
+            <signed>François </signed>
+          </div></egXML>
+      </div>
+      <div><head>Premiere proposition d'encodage TEI -- l'envoi</head>   
+        <egXML  xmlns="http://www.tei-c.org/ns/Examples"> 
+          <div type="envoi">
+            <ab type="evidences">
+              <stamp type="cachetPoste">
+                <placeName>El Paso</placeName> - TX 799 -<date when="1933-08-18">18-08-1933</date>
+              </stamp>
+              <stamp type="timbrePoste">
+                <figure>
+                  <figDesc>Portrait masculin de profil, avec un avion ou un radar au second
+                    plan</figDesc>
+                </figure>
+                <seg>US Airmail 21 c.</seg>
+              </stamp>
+            </ab>
+            <ab type="destinataire">
+              <address>
+              <addrLine><persName>Madame <surname>Lefrère</surname></persName></addrLine>
+              <addrLine>4, allée George Rouault</addrLine>
+              <addrLine>75020 Paris</addrLine>
+              <addrLine>France</addrLine> 
+            </address>
+            </ab>
+          </div></egXML>
+      </div>
+
+<div><head>Comment effectuer cette choix de balises?</head>
+<p>Nous aurons besoins de plusieures choses:
+<list>
+<item>un schéma formel (en langue informatique tel que DTD, RELAXNG, W3C Schema, Schematron) qui peut controller :
+<list>
+<item>quels balises sont disponibles?</item>
+<item>dans quelles contextes?</item>
+<item>avec quels attributs?</item>
+<item>avec quels valeurs?</item>
+<item>sous quelles contraintes?</item>
+</list>
+</item>
+<item>de documentation pour expliquer nos principes éditoriaux, nos principes de  choix de balises etc. aux utilisateurs/ developpeurs :
+<list>
+<item>en plusieurs langues naturelles</item>
+<item>en plusieurs formats bureautique (PDF, Word, HTML, epub...) </item>
+</list></item>
+<item>des outils informatiques pour transformer et gèrer nos données XML</item>
+</list></p>
+
+</div>
+<div><head>Propositions de la TEI</head>
+<p>Ayant  elle-meme ces mêmes besoins, la TEI vous propose:
+<list type="gloss">
+<label>ODD</label>
+<item>Un vocabulaire XML  pour  définir les vocabulaires XML</item>
+<label>Roma</label>
+<item>Un logiciel pour traiter des documents exprimés dans ce vocabulaire, pour en faire ressortir
+<list>
+<item>des schémas RELAXNG, DTD, etc. </item>
+<item>des manuels "mode d'emploi" en HTML, PDF etc.</item>
+</list></item>
+<label>OxGarage</label>
+<item>Un outil web pour effectuer plusieures transformations documentaires, par ex 
+<list><item>de DOCX en TEI, et l'inverse</item>
+<item>de HTML en TEI, et l'inverse</item>
+</list>
+</item>
+<label>Stylesheets</label>
+<item>Un ensemble de feuilles de style XSLT très générique pour la conversion des documents XML TEI</item>
+</list></p>
+</div>
+
+<div><head>Comment définir un vocabulaire XML ?</head>
+<p>Il faut
+<list>
+<item>spécifier les elements XML et leurs attributs</item>
+<item>préciser leurs contenus</item>
+<item>documenter leur significations/règles d'usage</item>
+</list></p>
+<p rend="box">ODD nous permet de faire cela à partir des définitions TEI éxistantes.</p> 
+</div>
+
+<div><head>Extrait d'un ODD pour documenter les cartes postales </head>
+ <egXML xmlns="http://www.tei-c.org/ns/Examples"><schemaSpec ident="tei_cartes">
+<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
+<moduleRef key="core" include="date list item p address addrLine  del add
+			       title reg lb hi figure graphic"/>
+<moduleRef key="namesdates" include="persName placeName"/>
+<moduleRef key="header" include="fileDesc titleStmt  publicationStmt
+				 sourceDesc revisionDesc" />
+<moduleRef key="transcr" include="att.global.facs"/>
+</schemaSpec>
+</egXML>
+<p>Cette spécification de schéma  est à compléter avec de la documentation, bien sûr... </p>
+</div>
+      
+<div><head>ODD et Roma</head>
+  <p>Dans le TP précédent vous avez créé un ODD ex nihilo. Il est aussi bien-sûr possible de charger un ODD déjà existant, comme celui qu'on vous propose ici. </p>
+<list>
+<item>Avec oXygen, ouvrez le fichier <ident type="file">tei_cartes.odd</ident> dans votre dossier Travaux</item>
+<item>Regardez (et modifiez si vous le souhaitez) les parties documentaires et les parties ODD de ce fichier.</item>
+<item>Chargez ce meme fichier dans Roma et voir comment Roma s'en sert</item>
+</list>
+<p rend="box">Il est aussi possible de générer automatiquement un ODD à partir d'un ensemble de documents XML. Nous allons ensuite experimenter  cela ... </p>.
+</div>
+
+
+     </body>
+  </text>
+</TEI>
