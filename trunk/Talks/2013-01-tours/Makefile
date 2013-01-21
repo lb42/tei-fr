@@ -2,8 +2,8 @@ ECHO=
 
 TALKS= \
 	talk-01-intro.xml \
-	talk-overview.xml
-
+	talk-02-overview.xml \
+	talk-03-cartes.xml
 
 
 DOCS= \
