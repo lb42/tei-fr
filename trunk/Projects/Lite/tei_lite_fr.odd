@@ -231,7 +231,7 @@
       </div>
       <div xml:id="U5-eg">
         <head>Un court exemple</head>
-        <p>Nous commençons par un bref exemple<note place="foot">La version originelle de ce tutoriel contient a ce point un exemple du roman <title>Jane Eyre</title> dans une edition anglaise du 19eme siecle ; nous presentons le meme passage retrouve dans une traduction francaise du meme periode (<ref target="">Wikisource</ref>).  Pour la plupart des autres exemplaires, par contre, nous avons tente  de retrouver un texte d'origine francais. </note>
+        <p>Nous commençons par un bref exemple<note place="foot">La version originelle de ce tutoriel contient à ce point un exemple du roman <title>Jane Eyre</title> dans une édition anglaise du 19ème siecle ; nous présentons ce même passage retrouvé dans <ref target="http://fr.wikisource.org/wiki/Jane_Eyre">une traduction francaise du même période</ref>.  Pour la plupart des autres exemplaires, par contre, nous avons tenté  de retrouver un texte d'origine francaise. </note>
 Son but est d’illustrer ce qui se passe quand un
           passage en prose est saisi sur ordinateur par une personne qui n’est pas au fait du
           balisage ou du potentiel des textes électroniques. Dans un monde idéal, un tel résultat
@@ -309,7 +309,7 @@ sur votre tombe ou sur la mienne. »
               à la ligne ont été insérés à la fin de chaque ligne. Tout changement dans la taille de
               la police, entrainera <foreign>de facto</foreign> des problèmes de mise en
               page.</item>
- <item> les guillemets ont ete retenus, mais ils n’identifient pas précisément les passages au discours direct. Par exemple la mention   « John était un vieux serviteur etc. » n'est pas prononce par John, bien qu'entoure de guillemets  ;</item>
+ <item> les guillemets ont ete retenus, mais ils n’identifient pas précisément les passages au discours direct. Par exemple la mention   « John était un vieux serviteur etc. » n'est pas prononcé par John, bien qu'entouré de guillemets  ;</item>
           </list>
         </p>
         <p>Nous présentons maintenant le même passage, avec un encodage conforme aux
@@ -326,16 +326,15 @@ sur votre tombe ou sur la mienne. »
               supprimées, sans qu’il y ait de commentaire.</item>
             <item>Pour faciliter la correction, une nouvelle ligne a été insérée au début de chaque
               paragraphe, et l’alinéa a été supprimé.</item>
-	      <item>les mots en discours direct sont balises explicitement.</item>
+	      <item>les mots faisant partie d'un discours direct sont balisés explicitement.</item>
+	      <item>l'usage d'une police différente pour le titre du chapitre est indiqué; par contre, les titres courants ont ete supprimés. </item>
           </list>
         </p>
 
 <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
-
-<pb n="239"/>
+            xmlns="http://www.tei-c.org/ns/Examples"><pb n="239"/>
 <div n="XXXVIII" type="chapitre">
-<head rend="sc">conclusion.</head>
+<head rend="petitMajuscules">conclusion.</head>
 <p>J’ai enfin épousé M. Rochester. Notre mariage se fit sans bruit;
 lui, moi, le ministre et le clerc, étions seuls présents. Quand nous
 revînmes de l’église, j’entrai dans la cuisine, où Marie préparait le
@@ -385,10 +384,10 @@ dit M. Rochester, lorsque je lui lus la lettre ; <q>car la lune de
 miel brillera sur toute notre vie, et ses rayons ne s’éteindront que
 sur votre tombe ou sur la mienne.</q> » </p><p>...</p></div></egXML>
         <p>Cet encodage particulier constitue un ensemble de choix ou de priorités. Un exemple
-          trivial est celui de la suppression du tiret de césure dans le second exemple, sans que
+          trivial est celui de la suppression du tiret de césure, sans que
           cela ait été marqué. <!--On peut toujours penser que Brontë (ou son éditeur) souhaitait que la
           deuxième occurrence de ‘honeymoon’ soit écrit ‘honey-moon’, mais cela paraît improbable :-->
-          Nous nous sommes décide de nous concentrer sur le texte de Brontë, plutôt que sur l’impression de
+          Nous nous sommes décidé de concentrer sur le texte de Brontë, plutôt que sur l’impression de
           cette édition particulière. Encoder, c’est toujours faire des
           choix. Un encodage explicite seulement les caractéristiques textuelles qui importent à
           l’encodeur. Et il est facile d’imaginer différentes manières d’étendre l’encodage d’un
@@ -796,8 +795,18 @@ sur votre tombe ou sur la mienne.</q> » </p><p>...</p></div></egXML>
           <p>On peut également utiliser l’élément <gi>sp</gi> pour le dialogue en prose, comme s’il
             s’agissait de théâtre. Voir l’exemple ci-dessous, qui fait usage de l’attribut
               <att>who</att>. Cet attribut porte un code permettant d’identifier le locuteur dans le
-              dialogue.<egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples"><div>
-                <sp who="#OPI">
+              dialogue.<egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples"><p>
+Peu à peu les voix du salon s’affaiblirent ; la comtesse resta seule avec une de ses amies, mademoiselle Fanny B***. Toutes deux se trouvèrent bientôt dans la chambre et devant mes yeux.</p>
+<sp who="#FAN"><speaker>FANNY.</speaker>
+<p>Quel fâcheux contretemps ! La pluie tombe à torrents, et pas une voiture !</p></sp>
+<sp who="#GAM"><speaker>GAMIANI.</speaker>
+<p>Je suis désolée comme vous ; par malencontre, ma voiture est chez le sellier.</p></sp>
+<sp  who="#FAN"><speaker>FANNY.</speaker>
+<p>Ma mère sera inquiète.</p></sp>
+<sp who="#GAM"><speaker>GAMIANI.</speaker>
+<p>Soyez sans crainte, ma chère Fanny, votre mère est prévenue ; elle sait que vous passez la nuit chez moi. Je vous donne l’hospitalité.</p>
+</sp></egXML>
+<!--                <sp who="#OPI">
                   <speaker>The reverend Doctor Opimian</speaker>
                   <p>I do not think I have named a single unpresentable fish.</p>
                 </sp>
@@ -809,19 +818,21 @@ sur votre tombe ou sur la mienne.</q> » </p><p>...</p></div></egXML>
                   <speaker>The Reverend Doctor Opimian</speaker>
                   <p>On the contrary, sir, I think there is much to be said for him. In the first
                     place....</p>
-                  <p>Fish, Miss Gryll -- I could discourse to you on fish by the hour: but for the
+                  <p>Fish, Miss Gryll - I could discourse to you on fish by the hour: but for the
                     present I will forbear.</p>
-                </sp>
-              </div></egXML> Dans ce cas, les valeurs de l'attribut <att>who</att> (#OPI) etc,
+                </sp>-->
+
+<!-- Alfred de Musset <title>Gamiani ou Deux nuits d’excès</title> (1833) -->
+<!-- http://fr.wikisource.org/wiki/Gamiani -->
+          Dans ce cas, les valeurs de l'attribut <att>who</att> (#OPI) etc,
             pointer sur une liste des personnages du roman, chacun ayant un identifiant unique
             correspondant: <egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">
               <list>
-                <head>Characters in the novel</head>
-                <item xml:id="OPI"><name>Dr Opimian</name> : named for the famous Roman fine
-                  wine</item>
-                <item xml:id="GRM"><name>Mr Gryll</name> : named for the mythical Gryllus, one of
-                  Ulysses' sailors transformed by Circe into a pig, who argues that he was happier
-                  in that state than as a man</item>
+                <head>Caracteres du roman</head>
+                <item xml:id="FAN"><name>Fanny</name> B. : jeune victime fictive
+               </item>
+                <item xml:id="GAM">La comtesse <name>Gamiani</name> : heroine du roman, pretendument une representation  de l'ecrivain
+		Amantine Dudevant ("George Sand")</item>
               </list></egXML></p>
 
         </div>
@@ -848,7 +859,7 @@ sur votre tombe ou sur la mienne.</q> » </p><p>...</p></div></egXML>
 <p><q>Il <pb n="240" ed="ED1" facs="p240.png"/> y en a de plus jolies, mais elle est bonne et n’a
 pas de défauts.  Du reste, il est facile de voir qu’elle lui semble
 bien belle.</q> » </p>
-<p> J’écrivis immédiatement à Moor-House, <pb n="240" ed="ED2" facs="http://p240.png"/> pour annoncer ce que j’avais
+<p> J’écrivis immédiatement à Moor-House, <pb n="240" ed="ED2" /> pour annoncer ce que j’avais
 fait. Je donnai toutes les explications nécessaires dans ma...</p>
 </egXML></p>
 <p>On utilise l’attribut <att>break</att> pour indiquer si cet élément vide doit ou non être
@@ -1732,6 +1743,7 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
             <specDesc key="row"/>
             <specDesc key="cell"/>
           </specList></p>
+<!--
         <p>Par exemple, Defoe utilise des tableaux de mortalité (cf. tableau ci-dessous), extrait du
           Journal of the Plague Year, pour montrer le pic et le reflux de l’épidémie :<egXML
             xmlns="http://www.tei-c.org/ns/Examples"><p>It was indeed coming on amain, for the
@@ -1758,6 +1770,25 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
               </table></p><p>This shutting up of houses was at first counted a very cruel and
               unchristian method, and the poor people so confined made bitter lamentations. ...
             </p></egXML></p>
+-->
+<p>Comme exemple, prenons ce tableau demontrant les pentes moyennes de plusieurs aqueducs antiques, retrouve dans <ref  target="http://fr.wikisource.org/wiki/Page%3AGermain_de_Montauzan_-_Les_Aqueducs_antiques%2C_1908.djvu/215"><title>Les aqueducs antiques</title> de Germain de Montauzan (1908)</ref>. Notez l'usage de l'attribute <att>role</att> pour indiquer que tout cellule du premier rang contient un label, et non pas une donnee.</p>
+<egXML      xmlns="http://www.tei-c.org/ns/Examples"><p>Voici quelques exemples de pentes moyennes observées à des aqueducs antiques, en France, autres que ceux de Lyon :
+<table>
+<row role="label">
+<cell>Aqueduc</cell>
+<cell>pente par kil.</cell>
+<cell>pente par m.</cell>
+</row>
+<row>
+<cell>de Vienne </cell><cell>1m,16 </cell><cell>0,0016 </cell></row>
+<row><cell>d’Arcueil</cell><cell>1m,00 </cell><cell>0,0010 </cell></row>
+<row><cell>d’Evreux</cell><cell>0m,834</cell><cell>0,0008 </cell></row>
+<row><cell> de Rodez</cell><cell>0m,50</cell><cell>0,0005 </cell></row>
+<row><cell> d’Antibes</cell><cell>0m,41</cell><cell> 0,0004 </cell></row>
+<row><cell> de Nîmes</cell><cell>0m,342 </cell><cell>0,0003 </cell></row>
+<row><cell>(minimum)</cell><cell>0m,071</cell><cell>0,00007 </cell></row>
+</table>
+</p></egXML>
       </div>
       <div xml:id="U5-figs">
         <head>Les figures et les graphiques</head>
@@ -1852,15 +1883,15 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
           <p>Comme son nom l’indique, l’élément <gi>s</gi> est l’élément le plus couramment utilisé
             (dans les applications linguistiques du moins) pour indiquer les phrases
             « orthographiques », i.e. définies par des traits orthographiques, tels que la
-            ponctuation. Par exemple, le passage de <title>Jane Eyre</title>, présenté plus haut,
-            peut être divisé en s-units : <egXML xmlns="http://www.tei-c.org/ns/Examples"><pb
+            ponctuation. Par exemple, le debut du passage de <title>Jane Eyre</title>, présenté plus haut,
+            peut être divisé en de telles unités : <egXML xmlns="http://www.tei-c.org/ns/Examples"><pb
                 n="474"/><div type="chapter" n="38">
-                <p><s n="001">Reader, I married him.</s><s n="002">A quiet wedding we had:</s><s
-                    n="003">he and I, the parson and clerk, were alone present.</s><s n="004">When
-                    we got back from church, I went into the kitchen of the manor-house, where Mary
-                    was cooking the dinner, and John cleaning the knives, and I said —</s></p>
-                <p><q><s n="005">Mary, I have been married to Mr Rochester this morning.</s></q> ...
-                </p>
+<p><s n="001">J’ai enfin épousé M. Rochester.</s><s n="002">Notre mariage se fit sans bruit; </s>
+<s n="003">lui, moi, le ministre et le clerc, étions seuls présents.</s> <s n="004">Quand 
+nous revînmes de l’église, j’entrai dans la cuisine, où Marie pré-
+parait le dîner, tandis que John nettoyait les couteaux.</s>
+</p><p><s n="003"> «<q>Marie</q>, dis-je, <q>j’ai été mariée ce matin à
+M. Rochester.</q> »</s> </p> ...
               </div></egXML></p>
 
           <p>Notons que les éléments <gi>s</gi> ne peuvent être emboîtés : le début d’un <gi>s</gi>
@@ -1881,7 +1912,7 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
               <specDesc key="w"/>
               <specDesc key="pc"/>
             </specList></p>
-          <p>Par exemple, l’ouput d’un catégoriseur pourrait être encodé en TEI Lite comme suit :
+          <p>Par exemple, la sortie d’un catégoriseur pourrait être encodé en TEI Lite comme suit :
               <egXML xmlns="http://www.tei-c.org/ns/Examples">
               <s n="1">
                 <w ana="#NP0">Marley</w>
@@ -1922,11 +1953,17 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
             ces apostrophes comme des instances de l’élément <gi>q</gi>, que l’on distinguerait des
             autres en choisissant une valeur appropriée pour l’attribut <att>who</att>. Une autre
             solution, plus simple et certainement plus générale, consiste à utiliser l’élément
-              <gi>seg</gi> comme suit : <egXML xmlns="http://www.tei-c.org/ns/Examples"><div
+              <gi>seg</gi> comme suit : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<l>Tu le connais, lecteur, ce monstre délicat,</l>
+<l><seg type="apostrophe">— Hypocrite lecteur, — mon semblable, — mon frère!</seg></l>
+</egXML>
+<!--<div
                 type="chapter" n="38">
                 <p><seg type="apostrophe">Reader, I married him.</seg> A quiet wedding we had:
                   ...</p>
-              </div></egXML></p>
+              </div></egXML>-->
+
+</p>
 
           <p>L’attribut <att>type</att> de l’élément <gi>seg</gi> peut prendre n’importe quelle
             valeur, et peut donc servir à marquer des phénomènes de toutes sortes ; il est de bonne
@@ -1966,46 +2003,43 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
             endroit (par exemple, dans une section séparée des Parties liminaires et des Annexes),
             comme dans l’exemple suivant : <egXML xmlns="http://www.tei-c.org/ns/Examples"
                   ><back><div type="Interpretations">
-                  <p><interp xml:id="fig-apos-1" resp="#LB-MSM" type="figureOfSpeech"
-                      >apostrophe</interp><interp xml:id="fig-hyp-1" resp="#LB-MSM"
-                      type="figureOfSpeech">hyperbole</interp><interp xml:id="set-church-1"
-                      resp="#LB-MSM" type="setting">church</interp><interp xml:id="ref-church-1"
-                      resp="#LB-MSM" type="reference">church</interp><interp xml:id="ref-serv-1"
-                      resp="#LB-MSM" type="reference">servants</interp></p>
-                </div></back></egXML></p>
+                  <p><interp xml:id="set-church-1"
+                      resp="#LB-MSM" type="emplacement">church</interp>
+<interp xml:id="set-kitch-1"
+                      resp="#LB-MSM" type="emplacement">cuisine</interp>
+<interp xml:id="set-unspec-1"
+                      resp="#LB-MSM" type="emplacement">ailleurs</interp>
+</p>            </div></back></egXML></p>
 
           <p>La redondance manifeste de cet encodage peut être largement réduite en utilisant
             l’élément <gi>interGrp</gi> pour regrouper tous les éléments <gi>interp</gi> qui ont des
             valeurs d’attribut identiques : <egXML xmlns="http://www.tei-c.org/ns/Examples"
                   ><back><div type="Interpretations">
-                  <p><interpGrp type="figureOfSpeech" resp="#LB-MSM"><interp xml:id="fig-apos"
-                        >apostrophe</interp><interp xml:id="fig-hyp">hyperbole</interp><interp
-                        xml:id="fig-meta">metaphor</interp></interpGrp><interpGrp
-                      type="scene-setting" resp="#LB-MSM"><interp xml:id="set-church"
-                        >church</interp><interp xml:id="set-kitch">kitchen</interp><interp
-                        xml:id="set-unspec">unspecified</interp></interpGrp><interpGrp
-                      type="reference" resp="#LB-MSM"><interp xml:id="ref-church"
-                        >church</interp><interp xml:id="ref-serv">servants</interp><interp
-                        xml:id="ref-cook">cooking</interp></interpGrp></p>
+<interpGrp
+                      type="emplacement" resp="#LB-MSM"><interp xml:id="set-church"
+                        >eglise</interp><interp xml:id="set-kitch">cuisine</interp><interp
+                        xml:id="set-unspec">ailleurs</interp></interpGrp>
+<!-- d'autres analyses -->
                 </div></back></egXML></p>
 
           <p>Une fois ces éléments d’interprétation définis, ils peuvent être liés aux parties
-            auxquelles ils s’appliquent, et ce de deux manières différentes. a) L’attribut
-              <att>ana</att> peut être utilisé avec n’importe quel élément adéquat : <egXML
+            auxquelles ils s’appliquent, et ce de deux manières différentes : ils peuvent servir comme cibles de l’attribut
+              <att>ana</att> attache aux instances, ou bien ils peuvent eux-memes pointer sur les instances.  Par exemple, en se servant de l'attribut global <att>ana</att>, on pointe du texte vers on/ses analyses: <egXML
               xmlns="http://www.tei-c.org/ns/Examples"><div type="chapter" n="38">
-                <p xml:id="P38.1" ana="#set-church #set-kitch"><s xml:id="P38.1.1" ana="#fig-apos"
-                    >Reader, I married him.</s></p>
+                <p xml:id="P38.1" ana="#set-church #set-kitch">
+                 J’ai enfin épousé M. Rochester. Notre mariage se fit sans bruit; 
+lui, moi, le ministre et le clerc, étions seuls présents. Quand 
+nous revînmes de l’église, j’entrai dans la cuisine, où Marie pré-
+parait le dîner, tandis que John nettoyait les couteaux.</p>
               </div></egXML>
-          </p>
-
-          <p>Notons, dans cet exemple, que, comme le paragraphe comporte deux lieux (l’église et la
-            cuisine), les deux identifiants ont été fournis. Les éléments <gi>interp</gi> peuvent
-            pointer sur toutes les parties auxquelles ils s’appliquent, en utilisant l’attribut
-              <att>inst</att> : <egXML xmlns="http://www.tei-c.org/ns/Examples"><interp
-                xml:id="fig-apos-2" type="figureOfSpeech" resp="#LB-MSM" inst="#P38.1.1"
-                >apostrophe</interp><interp xml:id="set-church-2" type="scene-setting" inst="#P38.1"
-                resp="#LB-MSM">church</interp><interp xml:id="set-kitchen-2" type="scene-setting"
-                inst="#P38.1" resp="#LB-MSM">kitchen</interp></egXML></p>
+          Notons, dans cet exemple, que, comme le paragraphe comporte deux lieux (l’église et la
+            cuisine), les deux identifiants ont été fournis. 
+</p>
+<p>Ou, pour pointer dans l'autre sens, de l'analyse vers le texte, on peut utiliser  l’attribut
+              <att>inst</att> de l'éléments <gi>interp</gi> ainsi : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<interpGrp type="emplacement" resp="#LB-MSM">
+  <interp inst="#P38.1">eglise</interp><interp  inst="#P38.1" resp="#LB-MSM">cuisine</interp>
+</interpGrp></egXML></p>
 
           <p>L’élément <gi>interp</gi> n’est pas limité à un certain type d’analyse. L’analyse
             littéraire ci-dessus en est une parmi d’autres ; on pourrait également utiliser
@@ -2045,13 +2079,14 @@ fait. Je donnai toutes les explications nécessaires dans ma...</p>
             </specList></p>
           <p>L’exemple suivant montre comment ces éléments pourraient être utilisés pour encoder le
             passage d’un tutoriel, qui constitue une introduction au langage de programmation
-            Fortran : <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>It is traditional to
-                introduce a language with a program like the following: <eg> CHAR*12 GRTG GRTG =
-                  'HELLO WORLD' PRINT *, GRTG END </eg></p><p>This simple example first declares a
-                variable <ident>GRTG</ident>, in the line <code>CHAR*12 GRTG</code>, which
-                identifies <ident>GRTG</ident> as consisting of 12 bytes of type
-                <ident>CHAR</ident>. To this variable, the value <val>HELLO WORLD</val> is then
-                assigned.</p></egXML></p>
+            Fortran : <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>Par tradition, on introduit une langue de programmation avec cet exemple classique: <eg><![CDATA[   CHAR*12 GRTG
+GRTG='HELLO WORLD' 
+PRINT *, GRTG 
+END]]> </eg></p><p>Dans ce code, on voit la déclaration d'un
+                variable <ident>GRTG</ident>:  <code>CHAR*12 GRTG</code>, qui indique que l'object
+                 <ident>GRTG</ident> contient 12 octets de type
+                <ident>CHAR</ident>. La valeur <val>HELLO WORLD</val> est ensuite attribuée à ce variable.
+                </p></egXML></p>
           <p>On peut paramétrer une application pour qu’un texte, tel que celui présenté ci-dessus,
             soit correctement formaté (par exemple, en conservant les fins de ligne, en utilisant
             une police particulière). De même, l’utilisation de balises telles que <gi>ident</gi>
