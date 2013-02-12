@@ -4,6 +4,7 @@
     <fileDesc>
       <titleStmt>
         <title>Encoder pour échanger : une introduction à la TEI </title>
+	<author>Lou Burnard et C.M. Sperberg-McQueen</author>
         <respStmt>
           <resp>traduction francaise</resp>
           <name>Sophie David</name>
@@ -771,17 +772,17 @@ sur votre tombe ou sur la mienne. »
           <p>Le même mécanisme peut être appliqué à des strophes qui sont divisées entre deux
             locuteurs : <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><div>
                 <sp>
-                  <speaker>First voice</speaker>
+                  <speaker>PREMIERE VOIX</speaker>
                   <lg type="stanza" part="I">
-                    <l>But why drives on that ship so fast</l>
-                    <l>Withouten wave or wind?</l>
+<l>« Mais qu’est-ce qui fait filer ce bateau</l>
+<l>Sans vague, sans un souffle d’air ? »</l>
                   </lg>
                 </sp>
                 <sp>
-                  <speaker>Second Voice</speaker>
+                  <speaker>SECONDE VOIX</speaker>
                   <lg part="F">
-                    <l>The air is cut away before.</l>
-                    <l>And closes from behind.</l>
+<l>« L’air se fend devant lui à son approche,</l>
+<l>Et puis se referme derrière.</l>
                   </lg>
                 </sp>
                 <!-- ... -->
@@ -822,7 +823,7 @@ sur votre tombe ou sur la mienne. »
                 </sp>-->
             <!-- Alfred de Musset <title>Gamiani ou Deux nuits d’excès</title> (1833) -->
             <!-- http://fr.wikisource.org/wiki/Gamiani --> Dans ce cas, les valeurs de l'attribut
-              <att>who</att> (#OPI) etc, pointer sur une liste des personnages du roman, chacun
+              <att>who</att> (#GAM) etc, pointent sur une liste des personnages du roman, chacun
             ayant un identifiant unique correspondant: <egXML xml:lang="en"
               xmlns="http://www.tei-c.org/ns/Examples">
               <list>
@@ -851,17 +852,18 @@ sur votre tombe ou sur la mienne. »
           question en utilisant l’attribut <att>ed</att>, et fournir toutes les balises nécessaires.
           Par exemple, dans le passage suivant, nous indiquons où se trouvent les debuts de page
           dans deux éditions différentes (ED1 et ED2). Nous indiquons également qu'un image
-          facsimilé de la page 475 dans l'édition ED1 est disponible dans le fichier
-            <ident>p475.png</ident> : <egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">
+          facsimilé de la page 240 dans l'édition ED1 est disponible dans le fichier
+            <ident>p240.png</ident> : <egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">
             <p><q>Il <pb n="240" ed="ED1" facs="p240.png"/> y en a de plus jolies, mais elle est
                 bonne et n’a pas de défauts. Du reste, il est facile de voir qu’elle lui semble bien
                 belle.</q> » </p>
             <p> J’écrivis immédiatement à Moor-House, <pb n="240" ed="ED2"/> pour annoncer ce que
               j’avais fait. Je donnai toutes les explications nécessaires dans ma...</p>
           </egXML></p>
-        <p>On utilise l’attribut <att>break</att> pour indiquer si cet élément vide doit ou non être
+<!--        <p>On utilise l’attribut <att>break</att> pour indiquer si cet élément vide doit ou non être
           considéré comme signalant la fin d'un mot, indépendamment des espaces adjacents. Par
-          exemple, dans l’extrait suivant :</p>
+          exemple, dans l’extrait suivant :</p>-->
+
         <p>Les éléments <gi>pb</gi> et <gi>lb</gi> appartiennent à la classe générale des éléments
             <term>milestone</term>, qui permet d’indiquer des points de référence dans un texte.
           L’élément générique <gi>milestone</gi> sert à indiquer n’importe quel point de référence :
@@ -901,9 +903,8 @@ sur votre tombe ou sur la mienne. »
           <p>Dans l’exemple suivant, le fait d’utiliser une police de caractères différente pour le
             nom présent dans le sous-titre et pour le sous-titre lui-même, est enregistré mais non
               interprété.<egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples"><p><hi
-                  rend="gothic">And this Indenture further witnesseth</hi> that the said <hi
-                  rend="italic">Walter Shandy</hi>, merchant, in consideration of the said intended
-                marriage ...</p></egXML></p>
+                  rend="gothic">Item; il est attesté par le présent acte</hi>, que ledit  <hi
+                  rend="italic">Walter Shandy</hi>, négociant, en considération dudit futur mariage ...</p></egXML></p>
           <p>De manière alternative, quand on sait interpréter la mise en valeur, un certain nombre
             d’autres éléments spécifiques sont disponibles : <specList>
               <specDesc key="emph"/>
@@ -977,10 +978,9 @@ sur votre tombe ou sur la mienne. »
           <p>On peut associer aux citations des références (par exemple la source, le nom du
             personnage, etc.), en utilisant l’attribut <att>who</att>, que ces informations soient
             ou non explicitées dans le texte. Par exemple : <egXML
-              xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><q who="#Wilson">Spaulding, he
-                came down into the office just this day eight weeks with this very paper in his
-                hand, and he says:—<q who="#Spaulding">I wish to the Lord, Mr. Wilson, that I was a
-                  red-headed man.</q></q></egXML> Cet exemple montre aussi comment les citations
+              xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><q who="#Wilson">
+Spaulding arriva au bureau, je me rappelle que ce fut précisément il y a aujourd’hui huit jours, avec ce même journal à la main et s’écria :
+<q who="#Spaulding">— Quel malheur, monsieur Wilson ! que je ne sois pas roux.</q></q></egXML> Cet exemple montre aussi comment les citations
             peuvent être imbriquées dans d’autres citations : un personnage (Wilson) cite un autre
             personnage (Spaulding). Le créateur du texte électronique doit décider si les guillemets
             seront remplacés par des balises, ou si des balises seront ajoutées et les guillemets
@@ -1089,11 +1089,15 @@ sur votre tombe ou sur la mienne. »
                   <mentioned>aggregate</mentioned> of many mathematical writings and to the sense of
                   <mentioned>class</mentioned> found in older logical writings. </note> The elements
               ...</p></egXML-->
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><lg xml:id="RAM609"><note
-                place="margin">The curse is finally expiated</note><l>And now this spell was snapt:
-                once more</l><l>I viewed the ocean green,</l><l>And looked far forth, yet little
-                saw</l><l>Of what had else been seen —</l></lg></egXML></p>
-      </div>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><lg>
+<note place="marge"> Le sortilège commence à se rompre.</note>
+<l>Au même instant je pus enfin prier ;</l>
+<l>Et de mon cou se libérant,</l>
+<l>L’Albatros vint à tomber, et coula</l>
+<l>Comme du plomb dans l’océan.</l>
+</lg>
+</egXML></p>
+ </div>
       <div xml:id="U5-ptrs">
         <head>Les références croisées et les liens</head>
         <p>Des références croisées explicites et des liens d’un endroit du texte à un autre, que ce
