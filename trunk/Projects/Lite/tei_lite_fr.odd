@@ -1236,20 +1236,24 @@ Spaulding arriva au bureau, je me rappelle que ce fut précisément il y a aujou
                 >John loves Nancy</seg></egXML></p>
 
           <p>On peut utiliser ce même mécanisme dans plusieurs cadres divers. Dans l’exemple qui
-            suit, on l’utilise pour représenter la relation anaphorique entre « the show » et
-            « Shirley », et entre « NBC » et « the network »<egXML xml:lang="en"
-              xmlns="http://www.tei-c.org/ns/Examples"><p><title xml:id="shirley">Shirley</title>,
+            suit, on l’utilise pour représenter la relation anaphorique entre « le village » et
+            « Châteauvillain », et entre « la fête foraine » et « la fête de la Trinité »<egXML 
+              xmlns="http://www.tei-c.org/ns/Examples"><p>
+<placeName xml:id="CVN">Châteauvillain</placeName> renouvelle avec une vieille tradition de la localité qui avait
+                     été un peu oubliée depuis quelques années : <seg xml:id="feteTrin">la fête de la Trinité</seg>. Autrefois,
+                     il s'agissait des grandes réjouissances annuelles de la commune. Pour ce retour
+                     attendu, <rs corresp="#feteTrin">la fête foraine</rs> s'installera dans <rs corresp="#CVN">le village</rs> les 29 et 30 mai.
+</p></egXML><!-- L'est Republican 1999-05-19 -->
+<!--
+<title xml:id="shirley">Shirley</title>,
                 which made its Friday night debut only a month ago, was not listed on <name
                   xml:id="nbc">NBC</name>'s new schedule, although <seg xml:id="network"
                   corresp="#nbc">the network</seg> says <seg xml:id="show" corresp="#shirley">the
                   show</seg> still is being considered.</p></egXML></p>
-
+-->
           <p>Les attributs <att>prev</att> et <att>next</att> permettent de relier de manière simple
             des constituants discontinus, comme dans l’exemple suivant :<egXML xml:lang="en"
-              xmlns="http://www.tei-c.org/ns/Examples"><q xml:id="Q1a" next="#Q1b">Who-e debel
-                you?</q> — he at last said — <q xml:id="Q1b" prev="#Q1a">you no speak-e, damme, I
-                kill-e.</q> And so saying, the lighted tomahawk began flourishing about me in the
-              dark.</egXML></p>
+              xmlns="http://www.tei-c.org/ns/Examples"><p> «<q xml:id="Q1a" next="#Q1b">Marie</q>, dis-je, <q xml:id="Q1b" prev="#Q1a">j’ai été mariée ce matin à M. Rochester.</q> » </p>.</egXML></p>
 
         </div>
       </div>
@@ -1376,31 +1380,28 @@ Spaulding arriva au bureau, je me rappelle que ce fut précisément il y a aujou
           <p>A nouveau, le code #DHL pointe sur un autre endroit du texte, où l’on dispose de plus
             d’informations. De manière similaire, on utilise les éléments <gi>unclear</gi> et
               <gi>gap</gi> pour indiquer l’omission d’un matériel illisible ; l’exemple suivant
-            montre également l’utilisation de <gi>add</gi> pour des corrections conjecturales.<egXML
-              xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">One hundred &amp; twenty good
-              regulars joined to me <unclear><gap reason="indecipherable"/></unclear> &amp;
-              instantly, would aid me signally <add hand="#ed">in?</add> an enterprise against
-              Wilmington.</egXML></p>
-
-          <p>L’élément <gi>del</gi> indique que le matériel transcrit est, sur l’original, marqué
-            comme supprimé, tandis que l’élément <gi>gap</gi> indique l’endroit où se trouve le
-            matériel omis, que cette décision soit considérée comme opportune ou pas. Un corpus
-            linguistique, par exemple, pourrait omettre les longues citations en langue étrangère :
-              <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:lang="en"><p> ... An example of a
-                list appearing in a fief ledger of <name type="place">Koldinghus</name>
-                <date>1611/12</date> is given below. It shows cash income from a sale of
-                  honey.</p><gap><desc>quotation from ledger (in Danish)</desc></gap><p>A
-                description of the overall structure of the account is once again ...
-            </p></egXML></p>
-
-          <p>D’autres corpus (en particulier ceux qui ont été construits avant l’utilisation de
-            scanners) omettent systématiquement les figures, et les formules mathématiques : <egXML
-              xmlns="http://www.tei-c.org/ns/Examples"><p>Dans de tels puzzles les pièces se
-                divisent en quelques grandes classes dont les plus connues sont : les bonshommes
-                    <gap><desc>figure representant plusieurs pieces de puzzle du ce
-                  type</desc></gap>; les croix de Lorraine <gap><desc>figure representant plusieurs
-                    pieces de puzzle du ce type</desc></gap>; et les croix <gap><desc>figure
-                    representant plusieurs pieces de puzzle du ce type</desc></gap></p></egXML>
+            montre également l’utilisation de <gi>add</gi> pour un ajout fait d'une autre main : <egXML
+              xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples"> <add hand="#EPR" place="inspace">Envoyez-moi une épreuve <unclear
+        cert="medium">W</unclear><gap reason="non-dechiffrable"/></add></egXML>
+</p>
+          <p>L’élément <gi>del</gi> indique que le matériel transcrit
+          est, sur l’original, marqué comme supprimé, tandis que
+          l’élément <gi>gap</gi> indique l’endroit où se trouve le
+          matériel omis, que cette décision soit considérée comme
+          opportune ou pas. Un corpus linguistique, par exemple,
+          pourrait omettre les longues citations en langue étrangère,
+          ou bien omettre
+          systématiquement les figures, et les formules
+          mathématiques : <egXML
+          xmlns="http://www.tei-c.org/ns/Examples"><p>Dans de tels
+          puzzles les pièces se divisent en quelques grandes classes
+          dont les plus connues sont : les bonshommes
+          <gap><desc>figure representant plusieurs pieces de puzzle du
+          ce type</desc></gap>; les croix de Lorraine
+          <gap><desc>figure representant plusieurs pieces de puzzle du
+          ce type</desc></gap>; et les croix <gap><desc>figure
+          representant plusieurs pieces de puzzle du ce
+          type</desc></gap></p></egXML>
             <!--         <p>The full TEI scheme provides more precise ways of capturing different aspects of a
             transcription, distinguishing for example between text added or supplied by the encoder
             and text indicated as supplied or deleted in the source. TEI Lite does not provide
@@ -1691,22 +1692,21 @@ Spaulding arriva au bureau, je me rappelle que ce fut précisément il y a aujou
           </egXML></p>
 
         <p>Une liste peut ne pas être présentée sous forme de liste. Par exemple : <egXML
-            xmlns="http://www.tei-c.org/ns/Examples"><p>On those remote pages it is written that
-              animals are divided into <list rend="run-on">
-                <item n="a">those that belong to the Emperor,</item>
-                <item n="b"> embalmed ones, </item>
-                <item n="c"> those that are trained, </item>
-                <item n="d"> suckling pigs, </item>
-                <item n="e"> mermaids, </item>
-                <item n="f"> fabulous ones, </item>
-                <item n="g"> stray dogs, </item>
-                <item n="h"> those that are included in this classification, </item>
-                <item n="i"> those that tremble as if they were mad, </item>
-                <item n="j"> innumerable ones, </item>
-                <item n="k"> those drawn with a very fine camel's-hair brush, </item>
-                <item n="l"> others, </item>
-                <item n="m"> those that have just broken a flower vase, </item>
-                <item n="n"> those that resemble flies from a distance.</item>
+            xmlns="http://www.tei-c.org/ns/Examples"><p>Dans les pages lointaines de ce livre, il est écrit que les animaux se divisent en  <list rend="run-on">
+                <item n="a"> appartenant à l'Empereur,</item>
+                <item n="b"> embaumés, </item>
+                <item n="c"> apprivoisés, </item>
+                <item n="d"> cochons de lait, </item>
+                <item n="e"> sirènes, </item>
+                <item n="f"> fabuleux, </item>
+                <item n="g"> chiens en liberté, </item>
+                <item n="h"> inclus dans la présente classification, </item>
+                <item n="i"> qui s'agit comme des fous, </item>
+                <item n="j"> innombrables, </item>
+                <item n="k"> dessinés avec un très fin pinceau, </item>
+                <item n="l"> et caetera, </item>
+                <item n="m"> qui viennent de casser la cruche, </item>
+                <item n="n"> qui de loin semblent des mouches.</item>
               </list></p></egXML></p>
 
         <p>Les listes de références bibliographiques doivent être balisées par l’élément
