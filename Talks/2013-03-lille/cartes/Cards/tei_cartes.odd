@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TEI pour les cartes postales</title>
+        <author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <availability status="free">
+          <p>This template file is freely available and you are hereby
+            authorised to copy, modify, and redistribute it in any way without
+            further reference or permissions.</p>
+          <p>When making such modifications, you are strongly recommended to
+            change the present text to include an accurate statement of the
+            licencing conditions applicable to your modified text.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Initially created on <date when="2011-01-24">24 Jan 2011</date> at
+      Gare Montparnasse, Paris</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>On propose une personalisation minimale de la TEI pour le
+      balisage des cartes postales.</p>
+
+<div><head>Structuration basique</head>
+
+<p>Chaque carte postale sera traite comme un texte independant. 
+
+<specList>
+<specDesc key="text"/>
+<specDesc key="body"/>
+<specDesc key="div"/>
+<specDesc key="list"/>
+<specDesc key="item"/>
+<specDesc key="p"/>
+</specList>
+</p>
+<p>
+
+<specGrp xml:id="bodyIncludes">
+<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
+<moduleRef key="core" include="list item p"/>
+</specGrp>
+</p>
+
+<p>Pour baliser les ajouts, les suppressions, et les regularisations editoriales  dans la partie ecrite, on se servira des balises suivantes:
+<specList>
+<specDesc key="add"/>
+<specDesc key="del"/>
+<specDesc key="reg"/>
+</specList>
+</p>
+
+<p>Pour les changements de mise-en-valeur (par ex. ecriture en couleur ou de taille remarquable) on se servira de la balise suivante: 
+<specList>
+<specDesc key="hi"/>
+</specList></p>
+
+<p>Nous desirons distinguer nettement les dates, et les noms des lieux et des personnes, en nous servant des balises suivantes:
+<specList>
+<specDesc key="date"/>
+<specDesc key="persName"/>
+<specDesc key="placeName"/>
+</specList></p>
+
+</div>
+
+
+<div><head>Metadonnees</head>
+<p>D'abord nous proposons une version tres simplifiee du TEI Header. Pour validite, on exige que un <gi>fileDesc</gi>, qui ne peut contenir que les elements suivants:
+<specList>
+<specDesc key="titleStmt"/>
+<specDesc key="publicationStmt"/>
+<specDesc key="sourceDesc"/>
+</specList>
+</p>
+<p>Le  <gi>titleStmt</gi> ne permet qu'un <gi>title</gi>;
+les deux autres qu'une sequence d'au moins un <gi>p</gi>. </p>
+<p>
+<specGrp xml:id="hdrIncludes">
+<moduleRef key="header" include="teiHeader fileDesc titleStmt  publicationStmt sourceDesc"/>
+</specGrp>
+</p>
+</div>
+
+<div><head>Integration image/texte</head>
+<p>Pour nous permettre d'integrer des images numerises avec le texte, il nous faut quelques parties du module <ident type="module">transcr</ident>, au moins l'attribut <att>facs</att>. Nous incluons aussi les elements <gi>facsimile</gi>, <gi>surface</gi>, et <gi>zone</gi>.
+</p>
+</div>
+<div><head>Suppression des attributs</head> <p>Pour reduire la taille
+du schema, nous supprimons plusieurs attributs. Cet objectif implique des modification des classes d'ou ces
+attributs sont derives; a savoir, <att>xml:space, rendition</att>, et
+<att>xml:base</att> sont supprimes dans la classe <ident
+type="class">att.global</ident>, qui va donc ne proposer que les
+attributs <att>xml:id</att>, <att>n</att> et <att>xml:lang</att>.
+</p>
+<p>Egalement, nous modifions la classe  <ident type="class">att.divLike</ident> de sort que l'element  <gi>div</gi> herite que les attributs <att>xml:id</att>,
+<att>n</att>, et
+<att>xml:lang</att>.
+La classe  <ident>att.declaring</ident> est aussi supprimee.</p>
+<specGrp xml:id="classmods">
+      
+</specGrp></div>
+
+<div><head>Specification du schema</head>
+      <schemaSpec ident="tei_cartes" xml:lang="fr">
+        <moduleRef key="tei"/>
+<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
+<moduleRef key="core" include=" date list item p address addrLine del add
+			       hi title reg graphic"/>
+<moduleRef key="transcr" include="att.global.facs"/>
+<moduleRef key="namesdates" include="persName placeName"/>
+        <classSpec ident="att.global" mode="change" module="tei" type="atts">
+          <attList>
+            <attDef ident="xml:space" mode="delete"/>
+            <attDef ident="rendition" mode="delete"/>
+            <attDef ident="xml:base" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.divLike" mode="change" module="tei" type="atts">
+          <attList>
+            <attDef ident="org" mode="delete"/>
+            <attDef ident="sample" mode="delete"/>
+            <attDef ident="part" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.declaring" mode="delete" module="tei" type="atts"/>
+	<specGrpRef target="#hdrIncludes"/>
+      </schemaSpec>
+</div>
+    </body>
+  </text>
+</TEI>
