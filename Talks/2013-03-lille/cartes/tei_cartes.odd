@@ -29,9 +29,11 @@
 
 <div><head>Structuration basique</head>
 
-<p>Chaque carte postale sera traitée comme un texte indépendant. 
+<p>Chaque carte postale sera traitée comme un texte indépendant, represente par un <gi>TEI</gi>. Un ensemble de cartes sera donc traite comme un <gi>teiCorpus</gi>
 
 <specList>
+<specDesc key="teiCorpus"/>
+<specDesc key="TEI"/>
 <specDesc key="text"/>
 <specDesc key="body"/>
 <specDesc key="div"/>
@@ -40,19 +42,15 @@
 <specDesc key="p"/>
 </specList>
 </p>
-<p>
 
-<specGrp xml:id="bodyIncludes">
-<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
-<moduleRef key="core" include="list item p"/>
-</specGrp>
-</p>
 
-<p>Pour baliser les ajouts, les suppressions, et les régularisations editoriales  dans la partie écrite, on se servira des balises suivantes:
+
+<p>Pour baliser les ajouts, les suppressions,les régularisations editoriales, et les mots incertains  dans la partie écrite, on se servira des balises suivantes:
 <specList>
 <specDesc key="add"/>
 <specDesc key="del"/>
 <specDesc key="reg"/>
+<specDesc key="unclear"/>
 </specList>
 </p>
 
@@ -61,11 +59,14 @@
 <specDesc key="hi"/>
 </specList></p>
 
-<p>Nous désirons distinguer nettement les dates, et les noms des lieux et des personnes, en nous servant des balises suivantes:
+<p>Nous désirons distinguer nettement les dates, les noms des lieux et des personnes, et les adresses, en nous servant des balises suivantes:
 <specList>
+
+<specDesc key="address"/>
+<specDesc key="addrLine"/>
 <specDesc key="date"/>
-<specDesc key="persName"/>
-<specDesc key="placeName"/>
+<specDesc key="name"/>
+<specDesc key="street"/>
 </specList></p>
 
 </div>
@@ -80,16 +81,19 @@
 </specList>
 </p>
 <p>Le  <gi>titleStmt</gi> ne permet qu'un <gi>title</gi>;
-les deux autres qu'une séquence d'au moins un <gi>p</gi>. </p>
-<p>
-<specGrp xml:id="hdrIncludes">
-<moduleRef key="header" include="teiHeader fileDesc titleStmt  publicationStmt sourceDesc"/>
-</specGrp>
-</p>
+les deux autres qu'une séquence d'au moins un <gi>p</gi>, qui peut d'ailleurs inclure un <gi>bibl</gi>. </p>
+
 </div>
 
 <div><head>Integration image/texte</head>
-<p>Pour nous permettre d'intégrer des images numérisés avec le texte, il nous faut quelques parties du module <ident type="module">transcr</ident>, au moins l'attribut <att>facs</att>. Nous incluons aussi les elements <gi>facsimile</gi>, <gi>surface</gi>, et <gi>zone</gi>.
+<p>Pour nous permettre d'intégrer des images numérisés avec le texte, il nous faut quelques parties du module <ident type="module">transcr</ident>, au moins l'attribut <att>facs</att>. Pour les images de recto nous allons nous servir des elements suivants:
+<specList>
+<specDesc key="figure"/>
+<specDesc key="figDesc"/>
+<specDesc key="graphic"/>
+</specList>
+
+<!--Nous incluons aussi les elements <gi>facsimile</gi>, <gi>surface</gi>, et <gi>zone</gi>.-->
 </p>
 </div>
 <div><head>Suppréssion des attributs</head> <p>Pour reduire la taille
@@ -106,13 +110,74 @@ La classe  <ident>att.declaring</ident> est aussi supprimée.</p>
 </div>
 
 <div><head>Spécification du schéma</head>
-      <schemaSpec ident="tei_cartes" xml:lang="fr">
+      <schemaSpec ident="tei_cartes" xml:lang="fr" start="TEI teiCorpus">
         <moduleRef key="tei"/>
-<moduleRef key="textstructure" include="TEI teiHeader text body div"/>
-<moduleRef key="core" include=" date list item p address addrLine del add
-			       hi title reg graphic"/>
+<moduleRef key="textstructure" include="TEI body dateline div postscript salute signed text"/>
+<moduleRef key="core" include=" add addrLine address bibl date del foreign graphic head hi item lb list name p 
+			        publisher q reg resp respStmt street title unclear"/>
+
+<moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
+<!--moduleRef key="header"
+                    include="availability catDesc category change classDecl extent fileDesc idno keywords langUsage language licence profileDesc projectDesc publicationStmt revisionDesc sourceDesc teiHeader titleStmt"/-->
+
+<moduleRef key="figures" include="figure figDesc"/>
+<moduleRef key="msdescription" include="stamp"/>
 <moduleRef key="transcr" include="att.global.facs"/>
 <moduleRef key="namesdates" include="persName placeName"/>
+
+                <elementSpec ident="div" mode="change" module="textstructure">
+
+
+<classes>
+<memberOf key="att.global"/>
+<memberOf key="att.typed"/>
+<memberOf key="model.divLike"/>
+</classes>
+                    <attList >
+                        <attDef ident="type" mode="replace" usage="req" >
+                            <valList type="closed">
+                                <valItem ident="recto">
+                                    <desc>the front side of the card usually containing a
+                                        picture</desc>
+                                </valItem>
+                                <valItem ident="verso">
+                                    <desc>the back side of the card usually containing the message
+                                        and the addressee</desc>
+                                </valItem>
+                                <valItem ident="message">
+                                    <desc>a part of the card containing a message</desc>
+                                </valItem>
+                                <valItem ident="destination">
+                                    <desc>the part of the card containing the address and other
+                                        information about its sending e.g. stamps or
+                                        postmarks</desc>
+                                </valItem>
+
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                
+                <elementSpec ident="stamp" mode="change" module="textstructure">
+                    <attList>
+                        <attDef ident="type" mode="replace">
+                            <valList type="closed">
+                                <valItem ident="postmark">
+                                    <desc>information in the postmark</desc>
+                                </valItem>
+                                <valItem ident="publicity">
+                                    <desc>slogan or publicity stamped when card was posted</desc>
+                                </valItem>
+                                <valItem ident="postage">
+                                    <desc>description of any postage stamp or seal affixed to the
+                                        card</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+
+
         <classSpec ident="att.global" mode="change" module="tei" type="atts">
           <attList>
             <attDef ident="xml:space" mode="delete"/>
@@ -120,15 +185,7 @@ La classe  <ident>att.declaring</ident> est aussi supprimée.</p>
             <attDef ident="xml:base" mode="delete"/>
           </attList>
         </classSpec>
-        <classSpec ident="att.divLike" mode="change" module="tei" type="atts">
-          <attList>
-            <attDef ident="org" mode="delete"/>
-            <attDef ident="sample" mode="delete"/>
-            <attDef ident="part" mode="delete"/>
-          </attList>
-        </classSpec>
-        <classSpec ident="att.declaring" mode="delete" module="tei" type="atts"/>
-	<specGrpRef target="#hdrIncludes"/>
+
       </schemaSpec>
 </div>
     </body>
