@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TEI à la carte: travaux pratiques</title>
+        <author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under à Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>July 2012</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Expanded version of material prepared for previous workshops at Aussois, Tours, Lyon and
+          elsewhere</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2013-03-12">LB trad francaise trop rapide pour Lille</change>
+      <change when="2012-07-03">LB finalising version for DHOXSS</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+
+      <head>Avant propos</head>
+
+      <p>Cet exercice vous permet d'expérimenter quelques uns des outils disponibles pour la
+        création et le traîtement des fichiers TEI-XML. Nous allons faire beacoup avec oXygen, mais
+        nous allons aussi regarder quelques autres. Vous aurez aussi besoin de quelques fichiers qui
+        sont téléchargeable en format zip de l'adresse <ref target="http://bit.ly/Nj0yce"
+          >http://bit.ly/Nj0yce</ref>. Vous êtes invité de télécharger cet archive et de le dézipper
+        avant de commencer l'exercice: Il va créer un dossier <ident>Travaux</ident> avec tous ce
+        qui est nécessaire pour suivre cet exercice</p>
+
+      <p>En deux heures ce n'est guère possible de tout faire. Mais nous espérons vous fournir
+        quelques idee sur les possibilités affordées par TEI-XML dans le domaine d'un projet de
+        recherche notamment : <list>
+          <item>l'utilisation d'une personnalisation TEI pour le balisage d'un fichier "plain
+            text"</item>
+          <item>l'utilisation de OxGarage pour la transformation et manipulation d'un document
+            "bureatique"</item>
+          <item>l'affichage des fichiers TEI XML en HTML, PDF, ePub etc.</item>
+          <item>l'utilité du balisage pour des recherches dans un fonds textuel</item>
+        </list>
+      </p>
+
+
+      <div>
+        <head>TEI à la carte : personnalisation</head>
+        <p>Vous l'ignorez peut-être, mais le feu Marcel Virgolos est mondialement reconnu comme l'un
+          des pionniers des études carte-postaliques. Suite à sa regrettable disparition, nous avons
+          été invités par ses exécuteurs testa,entaires de transformer sa collection personelle de
+          100,000 cartes postales en archive numérique, pour promouvoir l'étude de ce forme
+          d'expression culturelle peu connu. Vous trouverez un tout tout petit échantillon de ce
+          fonds patrimoniale dans votre dossier <ident>Travaux/Cartes</ident>.</p>
+
+        <div>
+          <head>Première carte</head>
+          <p>Nous allons travailler sur une seule carte d'abord. La voici, au recto :</p>
+          <p>
+            <figure>
+              <graphic url="Cartes/19701026_0004r.jpg" width="70%"/>
+            </figure>
+          </p>
+          <p> Et voila son verso : <figure>
+              <graphic url="Cartes/19701026_0004v.jpg" width="70%"/>
+            </figure></p>
+          <p>Nous avons deja discuté de la nécessité de bien choisir les balises qu'il nous faut, et
+            comment nous servir de Roma pour créer un schéma qui reflet ces discussions. </p>
+        </div>
+
+        <div>
+          <head>Création de document nouveau</head>
+          <p>On va d'abord créer un nouveau document XML qui sera conforme à notre schéma
+            tei_cartes. <list>
+              <item>Démarrez oXygen.</item>
+              <item>Cliquez sur l'icône <ident>Nouveau</ident> en haut à gauche (ou sélectionnez
+                  <ident>Nouveau</ident> du menu <ident> Fichier</ident>, ou tapez CTRL-N) pour
+                ouvrir la boîte de dialogue Nouveau</item>
+              <item>Choisissez <ident>Nouveau document</ident>, ensuite <ident>Document
+                XML</ident></item>
+
+              <item> Cliquez sur le bouton <ident>Personnaliser</ident> en bas. Le dialog
+                  <ident>Customize Editor</ident> s'affiche</item>
+
+              <item>Cliquez sur le petit triangle jaune à l'extreme droite du champs <ident>URL de
+                  schéma</ident>. Un sous-menu s'affiche.</item>
+              <item>Sélectionnez <ident>Parcourir les fichiers locaux</ident> et naviguer jusqu'au
+                fichier <ident>tei_cartes.rnc</ident> dans votre dossier <ident>Travaux</ident>.
+                Sélectionnez ce fichier, et cliquez sur Ouvrir </item>
+              <item>Vous revenez dans le dialog Nouveau. Cliquer sur <ident>Créer</ident> en
+                bas.</item>
+            </list></p>
+
+          <p>oXygen vous propose un gabarit à compléter. Commencons avec les métadonnées : <list>
+              <item>Nous vous proposons comme titre (<gi>title</gi>) <q>The Bathing Beach, Brighton,
+                  1846 : édition numérisée de la carte 19701026_0004 du fonds Virgolos</q>. Pour le
+                publication statement, une phrase comnme <q>Echantillon inédit créé à l'atelier TEI,
+                  Lille 2013</q> servira. </item>
+              <item> Pour le source description, nous vous proposons d'inclure tous les
+                renseignments bibliographiques du verso, de cette manière :</item>
+            </list>
+          </p>
+          <p><graphic url="../Graphics/sourcedesc.png" width="60%"/></p>
+
+        </div>
+
+        <div>
+          <head>Ajout de texte au document</head>
+
+          <p>Rien ne vous empêche de taper à la main toute la carte directement. Mais pour gagner du
+            temps on vous propose la démarche suivante : <list>
+              <item>Assurez-vous que le curseur soit toujours entre les deux balises <gi>body</gi>
+                et <tag>&lt;/body&gt;</tag> de votre document vide</item>
+              <item>Dans le menu <ident>Document</ident>, sélectionnez <ident>Fichier</ident>, et
+                ensuite <ident>Insèrer un fichier</ident>
+              </item>
+              <item>Naviguez jusqu'au fichier <ident>card-0004.txt</ident> dans votre dossier
+                  <ident>Cards</ident>, et sélectionnez-le. Cliquez sur Open. </item>
+              <item> Votre document est rempli de taches rouges! Pas de panique... on va régler ça
+                petit à petit.</item>
+            </list>
+          </p>
+        </div>
+
+
+        <div>
+          <head>Structuration du document</head>
+          <p>Il est possible d'identifier dans ce document plusieurs sous-parties. En particulier,
+            il contient : <list>
+              <item>deux divisions physiques : à baliser <tag>&lt;div type="recto"></tag> and
+                  <tag>&lt;div type="verso"></tag> réspectivement</item>
+              <item>au verso (en ce cas) on peut aussi distinguer deux parties: l'une contenant le
+                message, l'autre contenant des information relatives à l'envoi de la carte
+                (l'addresse du déstinataire, le timbre, l'oblitération etc.)</item>
+              <item>Pour notre projet il nous semble utile de distinguer ces choses. Notons que nous
+                ne tenons pas autant à encoder l'apparence physique de la carte: pour cela, l'image
+                sert mieux. </item>
+            </list> Allons-y !</p>
+
+          <list>
+            <item>Avec la souris, sélectionnez tout le texte que vous venez d'insérez, y compris la
+              balise <gi>graphic</gi> au début.</item>
+            <item>Tapez CTRL-E (ou sélectionnez <ident> XML Refactoring</ident> et ensuite
+                <ident>Entourer des balises</ident> dans le menu <ident>Document</ident>)</item>
+            <item>oXygen vous propose toutes les balises disponibles à cet emplacement :
+              sélectionnez <gi>div</gi> et cliquez <ident>Accepter</ident>.</item>
+            <item>Il faut ajouter des attributs au <gi>div</gi> : avec le cursor juste avant le &gt;
+              de sa balise ouvrante, tapez un blanc pour voir la liste des attributs disponible, et
+              choisissez <ident>type</ident> (il est en gras parce qu'il est obligatoire). Tapez
+              RETOUR pour l'insérer</item>
+            <item>Une liste des valeurs possibles pour cet attribut s'affiche. Choissisez
+                <code>recto</code> et tapez RETOUR pour l'inserer.</item>
+            <item>Déplacez le curseur juste apres le mot <q>1846</q> and tapez ALT-MAJ-D (ou
+              sélectionnez <ident>XML Refactoring</ident> et ensuite <ident>Élément de
+                division</ident> dans le menu <ident>Document</ident>) pour effectuer une
+              division.</item>
+            <item>Les mots <q>Beach view...and mats</q> fournissent une description de l'image ; ils
+              ne figurent pas sur la carte. La balise prévue pour cela est <gi>figDesc</gi>.
+              Sélectionnez cet empan, et tapez CTRL-E pour l'emballer dans un <gi>figDesc</gi>. </item>
+            <item>Les mots <q>The Bathing ... 1846</q> constituent le titre du graphie. La balise
+              prévue pour cela est<gi>head</gi>. Sélectionnez cet empan, et tapez CTRL-E pour
+              l'emballer dans un <gi>head</gi>. </item>
+            <item>Ces trois éléments (<gi>graphic</gi>
+              <gi>figDesc</gi>
+              <gi>head</gi>) ensemble constituent un élément <gi>figure</gi>. Sélectionnez tous les
+              trois, et entourez-les d'une balise <gi>figure</gi>. Plusieurs lignes rouges
+              disparaissent ... on fait du progrès!</item>
+          </list>
+          <p>Procédons au verso ... Notre but initial est de séparer la partie contenant le message
+              (<tag>div type="message"</tag>) de la partie concernant l'envoi de la carte (<tag>div
+              type="destination"</tag>) ; nous allons nous servir des éléments <gi>p</gi> pour des
+            paragraphes de texte, <gi>stamp</gi> pour les timbres, et <gi>address</gi> et
+              <gi>addrLine</gi> pour l'adresse et ses lignes. D'autres balises supplémentaires sont
+            envisageables, mais nous commençons simple. </p>
+          <p>Notons d'abord que nous disposons de deux versions du verso: une version en mode image,
+            et également une version transcrite. Nous allons nous servir d'un attribut <gi>facs</gi>
+            pour indiquer la correspondence entre les deux. Cet attribut est disponible pour tout
+            élément dans une transcription pour le lier à sa représentation numérique en mode image. <list>
+              <item>Changez en <code>verso</code> la valeur <code>recto</code> à l'interieur de
+                notre deuxième <gi>div</gi>. Puis tapez un blanc pour voir les autres attributs
+                disponibles.</item>
+              <item>Choisissez <ident>facs</ident> dans cette liste. Sa valeur devrait être la
+                chaine de caractères <code>197001026_004v.jpg</code>, actuellement présente comme
+                valeur de l'attribut <att>url</att> du deuxième <gi>graphic </gi>. Transférez cette
+                chaine au bon endroit avec copier-coller, et puis supprimez ce qui reste de
+                l'élément <gi>graphic</gi> ; nous n'en avons plus besoin.</item>
+              <item> Avec la souris, sélectionnez tout le texte (i.e. de "You" jusqu'a "OXFORD") et
+                tapez CTRL-E pour l'entourer d'un seul élément <gi>p</gi>. Répétez cette
+                manipulation pour entourez ce <gi>p</gi> d'un <gi>div</gi>. </item>
+              <item>Tapez un blanc à l'interieur de la balise ouvrante du <gi>div</gi>, et
+                sélectionnez <att>type</att> dans la liste d'attributs disponible qui s'affiche.
+                Cette fois ci, specifier <code>message</code> comme valeur pour cet attribut.</item>
+              <item>Presque tous les lignes rouges disparaissent. Est-ce que vous comprenez pourquoi
+                ces esperluettes nous posent toujours une problème? Regardez le message en bas.
+                Effectivement, dans un document XML les caracteres &lt; et &amp; doivent être
+                représentés indirectement. Vous n'avez qu'à remplacer chaque esperluette avec la
+                séquence <code>&amp;amp;</code> : par exemple <code>Brighton &amp;amp; Hove</code>
+              </item>
+              <item>Le petit carré vert apparaît ! Avons-nous terminé ? Hélas non : un document peut
+                être valide, tout en contenant des mensonges ! Voyez-vous des mensonges ? Cliquez
+                sur le bouton Indentation (ou tapez CTRL-MAJ-P). </item>
+            </list>
+          </p>
+          <p>Parce qu'elles ne sont pas explicitées par le balisage, plusieurs distinctions
+            implicites dans la mise en forme de l'originel ne sont plus affichées. Il faut donc les
+            baliser. </p>
+          <p>Nous devons d'abord separer les paragraphes au sein du message et sa signature. <list>
+              <item>Ré-établissez l'affichage originel en tapant CTRL-Z. </item>
+              <item>Diviser le paragraph en plusieurs, en tapant ALT-MAJ-D quand le curseur est
+                positionné après <q>is</q>, <q>Fitzherbert</q>, <q>Mama</q>, et
+                <q>vermilion</q></item>
+              <item>Pour diviser le <gi>div</gi> il faut mettre le curseur entre la fin d'un
+                paragraphe et le debut du paragraphe suivant, i.e. <emph>entre</emph> le
+                  <code>&lt;/p></code> apres <q>Mama</q> et le <code>&lt;p></code> qui le suit. </item>
+              <item>Le mot <q>Mama</q> n'est pas strictement une partie du message -- c'est une
+                signature, pour laquelle nous préferons utiliser l'élément <gi>signed</gi>. Vous
+                pourriez retaper les balises, ou bien mettre le curseur à l'intérieur de la balise
+                ouvrante du <gi>p</gi>, et puis tapez ALT-MAJ-R (<ident>Document - XML refactoring -
+                  Rename élément</ident>) pour renommer l'élément.</item>
+
+              <item>Le <gi>div</gi> que vous venez de créer contient trois descriptions de timbre,
+                et une addresse. Selon notre schéma son attribut <att>type</att> devrait avoir la
+                valeur <code>destination</code> : faites en sorte! </item>
+              <item>Balisez chacune des descriptions de timbre en utilisant l'élément
+                <gi>stamp</gi>. à vous de decider si vous le faites en sélectionnant le texte de
+                chaque description et l'entourant d'un <gi>stamp</gi> l'une apres l'autre, ou bien
+                en faisant cette manipulation qu'une fois, et ensuite en divisant l'élément en
+                trois. </item>
+              <item>Il ne nous reste qu'à traîter le destinataire. Sélectionnez le texte de
+                l'adresse, tapez CTRL-E, et sélectionnez <gi>address</gi>. Les lignes rouge
+                retournent parce qu'il faut baliser aussi les composants d'une adresse, en se
+                servant des balises <gi>name</gi>, <gi>street</gi> ou <gi>addrLine</gi> selon votre
+                gout.
+                <!--
+            components of an <gi>address</gi> must be distinguished :
+            you cannot have just plain text inside this tag. You could
+            markup those components of the address which are names
+            (using <gi>name</gi>) and those which make up à street
+            address (using <gi>street</gi>); or you could just tag
+            each line of the address separately using
+            <gi>addrLine</gi>. You could even do both (put the names
+            etc.<hi rend="italic"> inside</hi> the address lines, if
+            you do)... As is often the way in the TEI, it's Up To
+            You. --></item>
+            </list></p>
+        </div>
+
+        <div>
+          <head>Epreuve de la realité</head>
+          <p>oXygen peut afficher la structure hiérarchique du document que vous êtes en train de
+            créer. Regardez dans la fenetre <ident>sommaire</ident> à gauche. Vous devrez voir
+            quelque chose qui ressemble à ceci : </p>
+          <p><graphic height="14cm" url="card-structure.png"/>. </p>
+          <p>Avons nous fini de baliser? </p>
+
+          <p>Malheureusement, il n'existe aucune réponse certaine à une telle question. Nous avons
+            balisé la structure essentielle du document pour faciliter l'affichage et la
+            manipulation de ces composants en plusieures manières (nous allons voir cela un peu plus
+            tard). Mais nous n'avons pas balisé <emph>tout</emph> les objets d'interêt sur cette
+            carte. Nous revenons sur ce point à la fin de l'exercice.</p>
+        </div>
+
+        <div>
+          <head>Transformation d'un fichier Word</head>
+          <p>Vous savez maintenant comment créer un document TEI XML ex nihilo, ou à partir d'un
+            document <code>.txt</code>. En réalité la plupart des documents sont créés avec un outil
+            bureautique, comme Word ou Libre Office. Est-ce que nous pourrons travailler avec cette
+            sorte de document aussi? </p>
+          <p>Dans votre dossier <ident>Cards</ident>, vous trouverez un petit document Word nommé
+              <ident>Les deux soeurs.docx</ident>. Il contient une transcription jolie d'une carte
+            postale : vous aimerez peut etre l'ouvrir avec Word pour vous assurez qu'il s'agit d'un
+            véritable fichier Word, bien formatté, sans aucun chevron visible. </p>
+          <p>Quoi faire pour transformer ce joli fichier en TEI-XML et travailler la-dessus avec
+            oXygen? </p>
+          <p>Nous pourrions l'exporter au format « plein text ». Nous pourrions aussi faire
+            copier-coller. Mais dans chaque cas, nous risquons la perte du formatage qui distingue
+            (par exemple) l'adresse des parties qui la précedent. </p>
+          <p>Si le fichier Word est bien stylé, on peut le transformer en XML, sans perte
+            d’information. L'outil OxGarage nous aidera.</p>
+          <list>
+            <item>Ouvrez votre Internet browser (Firefox de préférence), et allez sur le site
+                <ref>http://www.tei-c.org/ege-webclient/</ref></item>
+            <item>Cliquez sur <ident>Text Documents</ident>. Dans la liste des formats de saisi
+              proposée, cochez la case pour <ident>Microsoft Word Document(.docx)</ident>.</item>
+            <item>Une liste des formats cibles proposés apparaît. Cochez la case pour TEI P5
+              XML.</item>
+            <item>En haut de l'écran un bouton <ident>Browse</ident> apparaît. Cliquez sur ceci, et
+              naviguez jusqu'au fichier <ident>Les deux soeurs.docx</ident> dans votre dossier
+                <ident>cartes</ident>.</item>
+            <item>Cliquez sur le grand bouton <ident>Convert</ident> et patientez. </item>
+            <item>Le site vous renvoie (après un bref délai) un archive nommé <ident>Les deux
+                soeurs.zip</ident></item>
+            <item>Retrouver cet archive et cliquez là dessus pour le dézipper. Il contient un
+              dossier <ident>Media</ident> et un fichier <ident>tei.xml</ident>. Ce dernier
+              représente le contenu du fichier docx transformé en TEI XML.</item>
+          </list>
+
+        </div>
+        <div>
+          <div>
+            <head>Traduction des balises</head>
+            <p>Voyons ce que le Garage aura fait de notre fichier Word. En tout cas, il est devenu
+              un document TEI valide, même s'il pourrait etre amélioré. </p>
+            <list>
+              <item>Relancez oXygen (si nécessaire), et ouvrez le fichier <ident>tei.xml</ident> que
+                vous venez de recevoir du garage. </item>
+              <item>oXygen vous avertit que ce fichier ne contient pas de retours à la ligne : ce
+                n'est pas grave. Cliquez sur "format".</item>
+            </list>
+            <p>Ne regardez pas le TEI Header pour l'instant. La conversion à pu distinguer les trois
+              composants du verso de la carte (le message, les timbres, et l'addresse) parce qu'ils
+              étaient formattés différemment dans le fichier Word, en se servant des stylages word
+              divers. Ce fait nous aide beaucoup. </p>
+            <p>Par exemple, l'adresse à ete transformé en tableau, avec un rang contenant une seul
+              cellule pour chaque ligne. </p>
+            <list>
+              <item>Mettez le curseur à <emph>l'interieur</emph> d'un des éléments <gi>cell</gi>
+              </item>
+              <item>Tapez ALT-MAJ-R ( <ident>Document -> XML-Refactoring -> Renommer l'élément
+                </ident>) et changez <code>cell</code> en <code>addrLine</code></item>
+              <item>Cochez la case <ident>Renommer tous les éléments ayant le même nom</ident> et
+                cliquez <ident>OK</ident>. </item>
+              <item>Tous les <gi>cell</gi> deviennent des <gi>addrLine</gi>s. (Le document n'est
+                plus valide, mais il devient plus honnet!)</item>
+              <item>Il faut enlever toutes les balises <gi>row</gi> et <gi>table</gi>. Vous pouvez
+                faire cela en les supprimant comme n'importe quel autre caractère. Ou, d'une manière
+                plus fiable, mettez le curseur sur une des balises <gi>row</gi>, et sélectionnez la
+                commande <ident>Document -> XML-Refactoring -> Effacer les balises des éléments
+                </ident>.</item>
+              <item>Pour terminer, emballer votre séquence de <gi>addrLine</gi> avec un
+                  <gi>address</gi> et votre document sera de nouveau (presque) valide.</item>
+
+              <item>Les descriptions de timbre sont convertis dans une liste, plutot qu'un table,
+                mais la démarche est pareille. Renommer tous les éléments <gi>item</gi> en
+                  <gi>stamp</gi>s et emballez les dans un élément <gi>p</gi> comme
+                auparavant.</item>
+            </list>
+            <p>Nous vous laissons compléter le balisage de cette carte. N'oubliez pas d'introduire
+              des <gi>div</gi> éléments de bon type au bon endroit, ni de transférer des
+              informations dans l'entête. La carte déjà faite peut vous servir comme modèle. Si il
+              vous reste du temps, essayez de transcrire d'autres cartes : vous en trouverez encore
+              trois exemplaires dans le dossier <ident>Cards</ident>. </p>
+            <p>Vous trouverez notre suggestion pour toutes les cartes dans le fichier
+                <ident>postcard-archive.xml</ident>! </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <head>A quoi sert le balisage?</head>
+
+        <p>Le balisage qu'on introduit si soigneusement et avec tant d'effort n'est pas là juste
+          pour le plaisir. On espère en profiter. Parce que nous aimons tous la lecture, il y a une
+          tendence naturelle de se limiter a la production des choses simples (même agréables) à
+          lire à partir de ce document balisé Mais on peut aussi profiter du balisage pour faire
+          l'analyse des traits ou de la structure du document, pour faire des recherches
+          intelligentes à travers plusiueurs documents, ou simplement pour les indexer.</p>
+        <div>
+          <head>Transformation pour l'affichage</head>
+
+          <p>Vous le saurez peut être déjà : en mode Auteur oXygen transforme votre document pour
+            l'afficher sans balises, sous controle d'un feuille de style CSS. Il est également
+            possible de le transformer en HTML ou en PDF. <list>
+              <item>En oXygen, ouvrez n'importe quel fichier XML TEI contenant une seule carte
+                postale</item>
+              <item>Cliquez sur le bouton à droite de la grande flèche rouge (ou tapez CTRL-MAJ-C, ou sélectionnez
+                  <ident>Document -> Transformation -> Configurer Scénario(s) de
+                  Transformation</ident>) </item>
+              <item>Le terme <q>Scénario de Transformation</q> en oXygen s'applique à une association
+                prédéfinie entre un document et une feuille de style pour le traîter. Quelques
+                scénarios sont fournis pour des formats souvent utilisés, notamment
+                  <code>TEI P5 XHTML</code> , <code>TEI P5 EPUB</code>, <code>TEI P5 PDF</code>,
+                  <code>TEI P5 DOCX</code>. </item>
+              <item>Sélectionnez l'un de ces scénarios. Cliquez sur le bouton <ident>Appliquer associes
+                </ident> button. Qu'est-ce qui se passe?</item>
+
+              <item>Bien sur, on peut configurer ces transformations à volonté, et en créer des
+                nouveaux. Pour vous en donner le goût, nous proposons une transformation qui n'a
+                rien à faire avec la visualisation.</item>
+
+            </list></p>
+
+          <p>La feuille de style qui controle une transformation s'écrit dans un autre langage XML,
+            qui s'appelle XSLT : sujet fascinant, mais peut être pas pour les débutants. Vous
+            trouverez quelques exemplaires de feuilles de styles XSLT dans votre dossier. Pour en
+            servir, il faut créer une nouvelle transformation en oXygen <list>
+              <item>Configurez un scénario (CTRL-MAJ-C) de nouveau</item>
+              <item>Cliquez cette fois le bouton <ident>Nouveau</ident> et choisir <ident>XML transformation with XSLT</ident> pour ouvrir la fenetre Nouveau
+                Scenario. Dans cette fenêtre : <list>
+                  <item>choisir un nom pour le scénario : on vous propose "texte-brut"</item>
+                  <item>specifier la location du fichier XSL souhaité, en cliquant sur le petit
+                    icone dossier jaune à droite du champs <ident>XSL URL</ident>. Ceci vous permet
+                    de naviguer au dossier <ident>Travaux</ident> : sélectionner le fichier
+                      <ident>texte-brut.xsl</ident> et cliquer <ident>Ouvrir</ident>.</item>
+                  <item>sélectionnez <ident>Saxon HE 9</ident> du menu <ident>Transformateur</ident>
+                  </item>
+                  <item>Cliquer <ident>Accepter</ident> pour terminer, et <ident>Transformer
+                      Maintenant</ident> pour voir le résultat. </item>
+                </list></item>
+            </list></p>
+          <p>Comme vous voyez, c'est possible de transformer notre document XML ou bien dans un
+            format d'affichage, ou bien dans un format d'analyse simplifié. </p>
+
+        </div>
+        <div>
+          <head>Recherches dans la structure</head>
+          <p>Une des motivations importantes pour l'application du balisage est la possibilité
+            d'identifier et donc de retrouver les composants individuels d'un document
+            independemment du document lui même. Par exemple, on souhaite avoir une liste des
+            timbres, ou rechercher les lieux d'où ont été expédié un ensemble de cartes postales 
+            à une date precise. Voici quelques exemples tres simples pour vous donner un peu l'idée
+            de ces possibilités, toujours en nous servant d'oXygen.</p>
+          <p>A gauche en haut, il y à une petite fenetre labelisée <ident>XPath 2.0</ident>. XPath
+            c'est un standard W3C qui permet d'identifier des parties d'une structuration XML. Nous
+            n'entrons pas dans les détails, mais nous démontrons quelques exemples. </p>
+          <list>
+            <item>Ouvrez le fichier <ident>postcard-archive.xml</ident> en oXygen. Ce fichier
+              contient cing cartes postales déjà balisés.</item>
+            <item>Tapez <code>//salute</code> dans la fenêtre XPath, et tapez RETOUR. Au fonds de
+              l'écran, un tableau s'affiche contenant un rang par occurence d'élément
+                <gi>salute</gi> dans le document: chaque rang indique d'abord la location exacte de 
+              l'occurrence, et ensuite son contenu. Par example, la premiere ligne nous informe que le
+              texte <q>Love Kath.</q> se trouve dans le premier <gi>salute</gi> contenu par le
+              premier <gi>div</gi> contenu par le deuxieme <gi>div</gi> contenu par le premier
+                <gi>body</gi>contenu par le premier <gi>TEI</gi> contenu par l'élément racine
+                <gi>TEIcorpus</gi>. </item>
+            <item>Essayons de voir tous les titres des cartes. Tapez <code>//title</code>dans la
+              fenêtre XPath, et tapez RETOUR. </item>
+            <item>Hmm. On voit le titre de la collection, le titre d'une source bibliographique, le
+              titre de la carte elle-même. Essayons d'être plus précis en tapant plutot
+                <code>//TEI//titleStmt/title</code>, c'est-a-dire <q>retrouvez les <gi>title</gi>s
+                  qui sont directement  contenus par un <gi>titleStmt</gi> qui sont eux-memes
+                directement contenu par un <gi>TEI</gi></q>, ce qui est plus exacte. Vous ne devrez
+              voir que cinq rangs de resultats.</item>
+            <item>Maintenant tapez <code>//stamp</code> pour voir tous les éléments
+              <gi>stamp</gi>.</item>
+            <item>On peut sélectionner selon la valeur des attributs. Essayez donc
+                <code>stamp[@type='postage']</code> pour n'afficher que les timbres postes, excluant les
+              oblitérations. Qu'est-ce qu'on ferait pour l'invers? </item>
+            <item>Enfin, sauriez vous comment extraire les messages? </item>
+          </list>
+        </div>
+        <div>
+          <head>Avons nous fini <emph>maintenant</emph>? </head>
+          <p>Voici quelques propositions supplémentares, supposant que vous souhaitez continuer de
+            travailler avec de tels documents : <list>
+              <item>Comme tout objet manuscrit, la carte postale peut comprendre des erreurs, des
+                ajouts, des corrections, des passages illegibles etc. La TEI propose des balises
+                pour tous ces cas, et d'autres. </item>
+              <item>Une carte postale souvent fait référence à de vraies personnages, et à des lieux
+                existants. Nous pourrions indiquer ces <q>entités nommés</q> (comme on dit) en les
+                balisant avec <gi>name</gi>, distinguant par ex nom de personne, nom de lieu, nom
+                d'evenements etc. avec l'attribut <att>type</att></item>
+              <item>Nous pourrions enricher la ressource avec une normalisation et des explications
+                sur les entités nommés eux meme. Par ex. qui était <q>Mrs FitzHerbert</q>? il y a un
+                petit jeu de mots à commenter à son egard.</item>
+              <item>Notre balisage n'a pas tenté d'indiquer la mise en page originelle, par ex
+                l'orientation de l'écriture. Cela pourrait être intéressant en quelques cas. </item>
+              <item>Les entités nommés que nous trouvons sont également réferenciés par d'autres
+                ressources numériques (ou pas) : des catalogues de timbres, des index géographiques
+                ou onomastiques, des listes d'entreprises commerciales, de maisons d'édition etc. Il
+                serait tres utile d'ajouter des liens vers de telles informations.</item>
+              <item>La carte elle même pourrait être d'interêt : les metadonnées à ajouter
+                pourraient traiter par exemple le genre d'image, ou bien les moyens de production,
+                combien de cette carte ont été imprimés, sa valeur pour les collecteurs actuels ou
+                anciens, d'autres exemplaires conservés dans d'autre collections etc...</item>
+              <item>Ou nous pourrions etre intéréssés par la carte comme objet linguistique. Son
+                texte est d'habitude bref, informel, et formulaique, ces formules auront donc
+                d'interet de point de vu analyse discours et semiotique (on pourrait les comparer
+                avec des tweets par exemple)... </item>
+              <item>... and so on!</item>
+            </list>
+          </p>
+          <p>Prenant position sur toutes ses possibilités est évidemment une tache à completer avant
+            d'investir beacoup d'effort dans la saisie de nos documents XML et la definition de
+            notre schéma. Heureusement, ils sont tous prévus dans la TEI, donc on peut s'offrir la
+            possibilité d'enricher notre archive sans trop de perturbation à l'avenir... </p>
+        </div>
+      </div>
+    </body>
+  </text>
+</TEI>
