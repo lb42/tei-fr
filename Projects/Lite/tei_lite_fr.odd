@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -82,9 +80,11 @@
           <titlePart type="main">La TEI Lite : encoder pour échanger : une introduction à la TEI </titlePart>
           <titlePart type="sub">Edition finale révisée pour la TEI P5</titlePart>
         </docTitle>
-        <docAuthor>Lou Burnard</docAuthor>
-        <docAuthor>C. M. Sperberg-McQueen</docAuthor>
-        <docDate>August 2012</docDate>
+        <docAuthor>Lou Burnard et C. M. Sperberg-McQueen</docAuthor>
+        <docTitle>
+          <titlePart>traduction francaise de Sophie David</titlePart>
+        </docTitle>
+        <docDate>Paris, avril 2013</docDate>
       </titlePage>
 
       <div xml:id="U5-pref">
@@ -390,15 +390,16 @@ sur votre tombe ou sur la mienne. »
             <p>...</p>
           </div>
         </egXML>
-        <p>Cet encodage particulier constitue un ensemble de choix ou de priorités. Un exemple
-          trivial est celui de la suppression du tiret de césure, sans que cela ait été marqué.
+        <p>L’encodage ci-dessus a été construit sur un ensemble de choix et de priorités : nous
+          avons ici considéré que le texte de Brontë en tant que tel était plus important que son
+          édition. Nous avons ainsi supprimé le tiret de césure, sans pour autant l’avoir marqué
+          (cf. par exemple « de de-vant » dans l’édition, « de devant » dans l’encodage). Encoder
+          c’est donc toujours faire des choix.
           <!--On peut toujours penser que Brontë (ou son éditeur) souhaitait que la
           deuxième occurrence de ‘honeymoon’ soit écrit ‘honey-moon’, mais cela paraît improbable :-->
-          Nous nous sommes décidé de concentrer sur le texte de Brontë, plutôt que sur l’impression
-          de cette édition particulière. Encoder, c’est toujours faire des choix. Un encodage
-          explicite seulement les caractéristiques textuelles qui importent à l’encodeur. Et il est
-          facile d’imaginer différentes manières d’étendre l’encodage d’un passage même aussi court.
-          Par exemple : <list>
+          Un encodage explicite seulement les caractéristiques textuelles qui importent à
+          l’encodeur. Et il est facile d’imaginer différentes manières d’étendre l’encodage d’un
+          passage même aussi court. Par exemple : <list>
             <!--            <item>écrits en dialecte pourraient être traduits ;</item>-->
             <item>des gloses ou des commentaires en notes de bas de page pourraient être
               ajoutés ;</item>
@@ -834,8 +835,8 @@ sur votre tombe ou sur la mienne. »
                 </sp>-->
             <!-- Alfred de Musset <title>Gamiani ou Deux nuits d’excès</title> (1833) -->
             <!-- http://fr.wikisource.org/wiki/Gamiani --> Dans ce cas, les valeurs de l'attribut
-              <att>who</att> (#GAM par exemple) pointent sur une liste des personnages du roman, chacun
-            ayant un identifiant unique correspondant: <egXML xml:lang="en"
+              <att>who</att> (#GAM par exemple) pointent sur une liste des personnages du roman,
+            chacun ayant un identifiant unique correspondant: <egXML xml:lang="en"
               xmlns="http://www.tei-c.org/ns/Examples">
               <list>
                 <head>Caractères du roman</head>
@@ -862,9 +863,9 @@ sur votre tombe ou sur la mienne. »
         <p> Si la pagination est différente selon les éditions, il faut spécifier l’édition en
           question en utilisant l’attribut <att>ed</att>, et fournir toutes les balises nécessaires.
           Par exemple, dans le passage suivant, nous indiquons où se trouvent les débuts de page
-          dans deux éditions différentes (ED1 et ED2). Nous indiquons également qu'un
-          fac-similé de la page 240 dans l'édition ED1 est disponible dans le fichier
-            <ident>p240.png</ident> : <egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">
+          dans deux éditions différentes (ED1 et ED2). Nous indiquons également qu'un fac-similé de
+          la page 240 dans l'édition ED1 est disponible dans le fichier <ident>p240.png</ident> :
+            <egXML xml:lang="en" xmlns="http://www.tei-c.org/ns/Examples">
             <p><q>Il <pb n="240" ed="ED1" facs="p240.png"/> y en a de plus jolies, mais elle est
                 bonne et n’a pas de défauts. Du reste, il est facile de voir qu’elle lui semble bien
                 belle.</q> » </p>
@@ -1037,8 +1038,8 @@ sur votre tombe ou sur la mienne. »
               <att>xml:lang</att> peut être associé à n’importe quel élément pour exprimer que son
             contenu n’est pas dans la même langue que celle qui l’entoure.</p>
           <p>Les codes utilisés pour identifier les langues, indiquées dans l’attribut
-              <att>xml:lang</att>, doivent se conformer aux standards internet<note place="foot"
-              >La norme pertinente est <title>Best Current Practice 47</title> (<ptr
+              <att>xml:lang</att>, doivent se conformer aux standards internet<note place="foot">La
+              norme pertinente est <title>Best Current Practice 47</title> (<ptr
                 target="http://tools.ietf.org/html/bcp47"/>). La liste faisant autorité des
               sous-étiquettes est maintenue par IANA et est disponible à : <ptr
                 target="http://www.iana.org/assignments/language-subtag-registry"/>.Pour un panorama
@@ -1205,11 +1206,12 @@ sur votre tombe ou sur la mienne. »
               <gi>ptr</gi> et <gi>ref</gi> pour établir des références croisées ou des liens, dont
             les cibles se situent dans le même texte. Cependant, on peut aussi utiliser ces deux
             éléments pour renvoyer à des éléments de n’importe quel autre document ou ressource XML,
-            tel qu’un document sur le web, une partie d’une base de données. Ceci est possible si l’attribut <att>target</att> porte comme valeur n’importe quelle
-              <term>URI</term><note place="foot">Une explication complète de ce terme, défini par le
-              W3C (le consortium qui gère le développement et la maintenance du web), excède les
-              objectifs de ce tutoriel. Cependant, la forme d’URI la plus fréquemment rencontrée
-              est celle familière de l’URL, utilisée pour identifier une page web, telle que
+            tel qu’un document sur le web, une partie d’une base de données. Ceci est possible si
+            l’attribut <att>target</att> porte comme valeur n’importe quelle <term>URI</term><note
+              place="foot">Une explication complète de ce terme, défini par le W3C (le consortium
+              qui gère le développement et la maintenance du web), excède les objectifs de ce
+              tutoriel. Cependant, la forme d’URI la plus fréquemment rencontrée est celle familière
+              de l’URL, utilisée pour identifier une page web, telle que
                 <code>http://www.tei-c.org/index.xml</code>.</note> valide.</p>
           <p>Un URI peut renvoyer à une page web, ou seulement à une partie de cette page. Par
             exemple : dans <code>http://www.tei-c.org/index.xml#SEC2"</code>, le signe # indique que
@@ -1260,9 +1262,9 @@ sur votre tombe ou sur la mienne. »
                 corresp="#EN1">Jean aime Nancy</seg><seg xml:lang="en" xml:id="EN1" corresp="#FR1"
                 >John loves Nancy</seg></egXML></p>
 
-          <p>On peut utiliser ce même mécanisme dans divers cadres. Dans l’exemple<note
-              place="foot">La phrase est prise du journal <title>L'est Republican</title> (edition
-              de 1999-05-19)</note> qui suit, on l’utilise pour représenter la relation anaphorique
+          <p>On peut utiliser ce même mécanisme dans divers cadres. Dans l’exemple<note place="foot"
+              >La phrase est prise du journal <title>L'est Republican</title> (edition de
+              1999-05-19)</note> qui suit, on l’utilise pour représenter la relation anaphorique
             entre « le village » et « Châteauvillain », et entre « la fête foraine » et « la fête de
             la Trinité » <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>
                 <placeName xml:id="CVN">Châteauvillain</placeName> renouvelle avec une vieille
@@ -1396,10 +1398,10 @@ Que vous estes joly! que vous me semblez beau:</eg>
             utilisée pour pointer sur l’identification de ceux qui sont responsables de la
             correction (typiquement dans un élément <gi>respStmt</gi>).</p>
           <p>Soit la source suivante :<eg>Ces éléments servent à indiquer changements opérés par un
-              éditeur.</eg> L'article a été supprimé par inadvertanc. Le texte
-            corrigé pourrait alors être encodé de la manière suivante : 
-            <egXML xmlns="http://www.tei-c.org/ns/Examples">Ces éléments servent à indiquer <add resp="#LB">les</add> changements opérés par un
-              éditeur.</egXML></p>
+              éditeur.</eg> L'article a été supprimé par inadvertanc. Le texte corrigé pourrait
+            alors être encodé de la manière suivante : <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">Ces éléments servent à indiquer <add
+                resp="#LB">les</add> changements opérés par un éditeur.</egXML></p>
 
           <p>Ces éléments ne se limitent pas à indiquer les changements opérés par un éditeur. Ils
             peuvent être aussi utilisés pour conserver des changements opérés par l’auteur. Un
@@ -1563,8 +1565,9 @@ Que vous estes joly! que vous me semblez beau:</eg>
           <p>Bien qu’elles soient pertinentes pour des applications simples, ces méthodes présentent
             deux inconvénients : il faut répéter la régularisation pour chaque occurrence du même
             nom ; et le poids de l’encodage supplémentaire XML dans le corps du texte peut devenir
-            difficile à maintenir et compliqué à traiter. En onomastique ou en histoire par
-            exemple, on est concerné par les personnes ou les lieux nommés, plutôt que par les noms eux-mêmes. En ce cas ou bien si l’on souhaite faire une analyse détaillée des
+            difficile à maintenir et compliqué à traiter. En onomastique ou en histoire par exemple,
+            on est concerné par les personnes ou les lieux nommés, plutôt que par les noms
+            eux-mêmes. En ce cas ou bien si l’on souhaite faire une analyse détaillée des
             constituants du nom, on se reportera aux <title>Recommandations</title>, qui fournissent
             un large éventail de solutions.</p>
         </div>
@@ -1678,11 +1681,10 @@ Que vous estes joly! que vous me semblez beau:</eg>
             </list>
           </egXML></p>
         <p>Notons ici que le contenu des éléments <gi>item</gi> peut être assez riche : dans le cas
-          précèdant, on s'est servi de l'élément <gi>cit</gi> pour fournir l'exemple cité pour 
-          chaque définition. Si la structure interne d’un item dans une liste est très
-          complexe, il pourrait être préférable de considérer la liste comme un tableau, pour
-          laquelle un encodage spécifique peut être défini. Voir ci-dessous <ptr target="#U5-tables"
-          />.</p>
+          précèdant, on s'est servi de l'élément <gi>cit</gi> pour fournir l'exemple cité pour
+          chaque définition. Si la structure interne d’un item dans une liste est très complexe, il
+          pourrait être préférable de considérer la liste comme un tableau, pour laquelle un
+          encodage spécifique peut être défini. Voir ci-dessous <ptr target="#U5-tables"/>.</p>
         <p>Des listes de toutes sortes peuvent, bien sûr, être enchâssées dans d’autres listes à
           n’importe quel niveau de profondeur. Ici, par exemple, une liste des vins<note
             place="foot">Extrait de <title>La vie mode d'emploi</title> de Georges Perec
@@ -1771,7 +1773,8 @@ Que vous estes joly! que vous me semblez beau:</eg>
           </specList></p>
         <p>Par exemple, la note éditoriale à la fin de cette phrase<note place="foot">Extrait d'une
             notice sur Eugene Ionesco <ptr target="http://fr.wikipedia.org/wiki/Eug%C3%A8ne_Ionesco"
-            /></note>    <q>En février 1989, il ouvre la session publique organisée par le Parlement européen au
+            /></note>
+          <q>En février 1989, il ouvre la session publique organisée par le Parlement européen au
             sujet des violations des droits de l'Homme commises par le régime communiste roumain
             (François Fetjö, Ewa Kulesza-Mietkowski, <hi>La Fin des démocraties populaires</hi>,
             Seuil, 1992, page 319). pourrait être transcrite de la manière suivante : <egXML
@@ -1781,10 +1784,10 @@ Que vous estes joly! que vous me semblez beau:</eg>
                   populaires</title>, <publisher>Seuil</publisher>, <date>1992</date>,
                   <biblScope>page 319</biblScope></bibl>).</egXML></q>
         </p>
-        <p>La référence bibliographique peutt également être séparée du texte, par exemple quand elle figure
-          dans une note en bas de page, ou dans une liste de références balisée avec
-          l’élément <gi>listBibl</gi> ; dans ce cas, le renvoi à la référence dans le texte
-          sera balisée avec un <gi>ref</gi> ou un <gi>ptr</gi>. </p>
+        <p>La référence bibliographique peutt également être séparée du texte, par exemple quand
+          elle figure dans une note en bas de page, ou dans une liste de références balisée avec
+          l’élément <gi>listBibl</gi> ; dans ce cas, le renvoi à la référence dans le texte sera
+          balisée avec un <gi>ref</gi> ou un <gi>ptr</gi>. </p>
       </div>
       <div xml:id="U5-tables">
         <head>Les tableaux</head>
@@ -1824,8 +1827,8 @@ Que vous estes joly! que vous me semblez beau:</eg>
               unchristian method, and the poor people so confined made bitter lamentations. ...
             </p></egXML></p>
 -->
-        <p>Prenons ce tableau indiquant les pentes moyennes de plusieurs aqueducs
-          antiques, retrouvé dans <ref
+        <p>Prenons ce tableau indiquant les pentes moyennes de plusieurs aqueducs antiques, retrouvé
+          dans <ref
             target="http://fr.wikisource.org/wiki/Page%3AGermain_de_Montauzan_-_Les_Aqueducs_antiques%2C_1908.djvu/215"
               ><title>Les aqueducs antiques</title> de Germain de Montauzan (1908)</ref>. Notons
           l'usage de l'attribut <att>role</att> pour indiquer que toute cellule du premier rang
@@ -1906,11 +1909,10 @@ Que vous estes joly! que vous me semblez beau:</eg>
         </p>
 
         <p>On a indiqué ici que le graphique est le fichier <ident>p412fig.png</ident> et qu’il
-          apparaît entre les pages 412 et 413. L’élément <gi>graphic</gi> peut être utilisé
-          partout où il y a un contenu textuel, i.e. dans un paragraphe, un titre, mais pas entre
-          eux. Dans l’exemple suivant, l’encodeur a décidé de traiter les ornements d’une édition
-          particulière comme un titre : <egXML xmlns="http://www.tei-c.org/ns/Examples"
-                ><head><graphic
+          apparaît entre les pages 412 et 413. L’élément <gi>graphic</gi> peut être utilisé partout
+          où il y a un contenu textuel, i.e. dans un paragraphe, un titre, mais pas entre eux. Dans
+          l’exemple suivant, l’encodeur a décidé de traiter les ornements d’une édition particulière
+          comme un titre : <egXML xmlns="http://www.tei-c.org/ns/Examples"><head><graphic
                 url="http://www.iath.virginia.edu/gants/Ornaments/Heads/hp-ral02.gif"
             /></head></egXML></p>
 
@@ -1986,20 +1988,22 @@ Que vous estes joly! que vous me semblez beau:</eg>
                 </p> ... </div></egXML></p>
 
           <p>Notons que les éléments <gi>s</gi> ne peuvent être emboîtés : le début d’un <gi>s</gi>
-            implique que le précédent est terminé. Quand des unités de type <gi>s</gi> sont balisées comme ci-dessus,
-            il est conseillé de baliser la totalité du texte, de telle sorte que chaque mot du texte
-            analysé appartiendra à un seul élément <gi>s</gi>, dont l’identifiant peut alors servir
-            à spécifier les référence uniques à chacun de ces mots. Si les identifiants sont uniques
-            dans le document, alors il est préférable d’utiliser l’attribut <att>xml:id</att> plutôt
-            que l’attribut <att>n</att> (cf. exemple ci-dessus).</p>
+            implique que le précédent est terminé. Quand des unités de type <gi>s</gi> sont balisées
+            comme ci-dessus, il est conseillé de baliser la totalité du texte, de telle sorte que
+            chaque mot du texte analysé appartiendra à un seul élément <gi>s</gi>, dont
+            l’identifiant peut alors servir à spécifier les référence uniques à chacun de ces mots.
+            Si les identifiants sont uniques dans le document, alors il est préférable d’utiliser
+            l’attribut <att>xml:id</att> plutôt que l’attribut <att>n</att> (cf. exemple
+            ci-dessus).</p>
         </div>
         <div>
           <head>Les mots et la ponctuation</head>
           <p>La segmentation du texte en mots lexicaux et non lexicaux est une opération très
             courante dans tous les types d’analyse textuelle, mais pas complètement triviale. Par
-            exemple, la décision de traiter <foreign>can’t</foreign> en anglais ou <hi rend='it'>du</hi> en français comme un ou deux mots
-            n’est pas simple. En conséquence, il est souvent utile de rendre explicite la
-            segmentation souhaitée. On utilise alors les éléments suivants : <specList>
+            exemple, la décision de traiter <foreign>can’t</foreign> en anglais ou <hi rend="it"
+              >du</hi> en français comme un ou deux mots n’est pas simple. En conséquence, il est
+            souvent utile de rendre explicite la segmentation souhaitée. On utilise alors les
+            éléments suivants : <specList>
               <specDesc key="w"/>
               <specDesc key="pc"/>
             </specList></p>
@@ -2021,7 +2025,7 @@ Que vous estes joly! que vous me semblez beau:</eg>
               <att>lemmaRef</att>, comme dans l’exemple qui suit :<egXML
               xmlns="http://www.tei-c.org/ns/Examples">...<w ana="#VBD" lemma="be"
                 lemmaRef="http://www.myLexicon.com/be">was</w> ... </egXML></p>
-          
+
         </div>
         <div>
           <head>Les éléments généraux d’interprétation</head>
@@ -2318,10 +2322,10 @@ END]]>
           utilisés dans tous les documents, la plupart des problèmes qui se posaient précédemment
           pour représenter la diversité des langues et des systèmes d’écriture ont été grandement
           réduits. Pour ceux qui travaillent avec les formes standards des langues européennes
-          notamment, il n’y a presque rien à faire : tout éditeur XML permet de saisir
-          directement des caractères accentués ou d’autres caractères « non ASCII ». Ces caractères
-          doivent être stockés dans le fichier final de manière à ce qu’ils soient directement
-          transférables entre des systèmes différents.</p>
+          notamment, il n’y a presque rien à faire : tout éditeur XML permet de saisir directement
+          des caractères accentués ou d’autres caractères « non ASCII ». Ces caractères doivent être
+          stockés dans le fichier final de manière à ce qu’ils soient directement transférables
+          entre des systèmes différents.</p>
         <p>Dans un document XML, il y a deux exceptions importantes : les caractères &amp; et &lt;
           ne peuvent être saisis directement, car ils ont une signification particulière, celle de
           balise de début. Ils doivent toujours être représentés comme des <term>références
@@ -2419,8 +2423,8 @@ END]]>
             <p>Comme dans n’importe quelle division textuelle, les Parties liminaires peuvent
               contenir des éléments structurels de bas niveau ou des éléments non structurels (cf.
               ci-dessus). Elles commencent généralement par un titre, qui doit être balisé au moyen
-              de l’élément <gi>head</gi>. Les éléments suivants sont aussi disponibles pour
-              baliser les contenus: <specList>
+              de l’élément <gi>head</gi>. Les éléments suivants sont aussi disponibles pour baliser
+              les contenus: <specList>
                 <specDesc key="salute"/>
                 <specDesc key="signed"/>
                 <specDesc key="byline"/>
@@ -2432,9 +2436,9 @@ END]]>
               </specList></p>
             <p>Les messages qui apparaissent ailleurs dans le texte, contiendront naturellement les
               mêmes éléments.</p>
-            <p>A titre d’exemple, prenons la préface des
-                <title>Essais</title> de Michel de Montaigne (édition de 1600) ; elle pourrait être
-              balisée comme suit :<egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <p>A titre d’exemple, prenons la préface des <title>Essais</title> de Michel de
+              Montaigne (édition de 1600) ; elle pourrait être balisée comme suit :<egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
                 <div type="préface">
                   <head>Au Lecteur</head>
                   <p>C'EST icy un Livre de bonne foy, Lecteur. Il t'advertit dès l'entrée, que je ne
@@ -2497,10 +2501,9 @@ END]]>
             <specDesc key="revisionDesc"/>
           </specList></p>
         <p>Un corpus, ou un recueil de textes, qui partagent beaucoup de caractéristiques, peuvent
-          avoir un en-tête pour le corpus, et des en-têtes individuels pour chacun des 
-          composants. Dans ce cas, l’attribut <att>type</att> indique le type de l’en-tête. Et
-          l’élément &lt;teiHeader type="corpus"&gt; présente les informations relatives au
-          corpus.</p>
+          avoir un en-tête pour le corpus, et des en-têtes individuels pour chacun des composants.
+          Dans ce cas, l’attribut <att>type</att> indique le type de l’en-tête. Et l’élément
+          &lt;teiHeader type="corpus"&gt; présente les informations relatives au corpus.</p>
         <p>Certains des éléments de l’en-tête contiennent du texte libre, encodé sous la forme d’un
           ou plusieurs <gi>p</gi>. D’autres sont regroupés :</p>
         <p>
@@ -2576,9 +2579,9 @@ END]]>
                 <specDesc key="respStmt"/>
               </specList></p>
             <p>Par exemple: <egXML xmlns="http://www.tei-c.org/ns/Examples"><editionStmt><edition
-                    n="U2">Troisième version, avec des révisions substantives <date>1987</date>
+                    n="U2">Troisième version, avec des révisions substantielles <date>1987</date>
                   </edition></editionStmt></egXML></p>
-            <p>La détermination de ce qui implique l'existence d'une nouvelle édition reste la
+            <p>La détermination de ce qui implique l'existence d'une nouvelle édition reste de la
               responsabilité de l'encodeur.</p>
           </div>
           <div>
@@ -2706,7 +2709,7 @@ END]]>
             </list>
             <p>Exemple : <egXML xmlns="http://www.tei-c.org/ns/Examples"><editorialDecl><p>L'analyse
                     morpho-syntaxique trouvée dans la section 4 a été ajoutée manuellement, et n'a
-                    pas encore été controllée.</p><p>Controle des erreurs d'orthographe effectué par
+                    pas encore été contrôllée.</p><p>Contrôle des erreurs d'orthographe effectué par
                     le systeme WordPerfect. </p><p>Orthographe normalisée et modernisée selon
                     dictionnaire Le Grand Robert.</p></editorialDecl></egXML></p>
 
