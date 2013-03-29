@@ -120,7 +120,7 @@
           les éléments qui sont à inclure dans un schéma (et non plus ceux qui sont à exclure). Il
           est ainsi probable qu'elle resiste mieux que les versions précédentes aux évolutions
           futures de la TEI . </p>
-        <trailer>Lou Burnard, août 2012</trailer>
+        <signed>Lou Burnard, août 2012</signed>
       </div>
     </front>
 
@@ -237,7 +237,7 @@
         <head>Un court exemple</head>
         <p>Nous commençons par un bref exemple<note place="foot">La version originelle de ce
             tutoriel contient un exemple du roman <title>Jane Eyre</title> dans une édition anglaise
-            du 19ème siecle ; nous présentons ce même passage retrouvé dans <ref
+            du XIXème siecle ; nous présentons ce même passage retrouvé dans <ref
               target="http://fr.wikisource.org/wiki/Jane_Eyre">une traduction francaise de la même
               période</ref>. Pour la plupart des autres exemplaires, par contre, nous avons tenté de
             retrouver un texte d'origine française. </note> Son but est d’illustrer ce qui se passe
@@ -446,15 +446,17 @@ sur votre tombe ou sur la mienne. »
             vocabulaire à partir duquel un ensemble d’éléments sont conçus. Pour ce faire, on
             utilise un identifiant standard, qui ressemble à une adresse web. L’espace de noms pour
             tous les éléments TEI est : <val>http://www.tei-c.org/ns/1.0</val>.</note>. </p>
-        <p>L’en-tête TEI fournit des informations analogues à celles de la page titre d’un texte
+        <p>L’en-tête TEI fournit des informations analogues à celles
+	de la page de titre d’un texte
           imprimé. Il comporte au plus 4 parties : <list>
             <item>une description bibliographique </item>
-            <item>une description portant sur la manière dont il a été encodé </item>
+            <item>une description portant sur la manière dont il a été
+	    encodé (traîtement des césures, guillemets, etc.) </item>
             <item>une description « non-bibliographique » du texte (un <term>text profile</term>) </item>
             <item>l’historique des modifications et révisions</item>
           </list> L’en-tête est décrit de manière détaillée dans la section <ptr target="#U5-header"
           />. </p>
-        <p>Un texte TEI peut être <term>unitaire</term> (une œuvre) ou <term>composite</term> (un
+        <p>Un document TEI peut être <term>unitaire</term> (une œuvre) ou <term>composite</term> (un
           recueil d’œuvres, comme une anthologie). Dans les deux cas, le texte peut comporter des
           Parties liminaires ou des Annexes. Entre les deux, se trouve le <term>corps</term> du
           texte. Dans un texte composite, le corps peut rassembler des <term>groupes</term>, chaque
@@ -463,7 +465,7 @@ sur votre tombe ou sur la mienne. »
             xmlns="http://www.tei-c.org/ns/Examples"><TEI>
               <teiHeader><!-- [ en-tête ]  --></teiHeader>
               <text>
-                <front><!-- [ partie préfatoire ... ] -->
+                <front><!-- [ partie préliminaire ... ] -->
                 </front>
                 <body>
                   <!-- [ corps du texte ... ]  -->
@@ -482,12 +484,12 @@ sur votre tombe ou sur la mienne. »
               </teiHeader>
               <text>
                 <front>
-                  <!--[ partie préfatoire du texte composite  ]-->
+                  <!--[ partie préliminaire du texte composite  ]-->
                 </front>
                 <group>
                   <text>
                     <front>
-                      <!--[ partie préfatoire du premier texte ]-->
+                      <!--[ partie préliminaire du premier texte ]-->
                     </front>
                     <body>
                       <!--[ corps  du premier texte ]-->
@@ -498,19 +500,19 @@ sur votre tombe ou sur la mienne. »
                   </text>
                   <text>
                     <front>
-                      <!--[ partie préfatoire du deuxième texte ]-->
+                      <!--[ partie préliminaire du deuxième texte ]-->
                     </front>
                     <body>
                       <!--[ corps du deuxième texte ]-->
                     </body>
                     <back>
-                      <!--[ annex du deuxième texte ]-->
+                      <!--[ annexe du deuxième texte ]-->
                     </back>
                   </text>
                   <!--[ encore de textes, simples ou composites  ]-->
                 </group>
                 <back>
-                  <!--[ annex du texte composite  ]-->
+                  <!--[ annexe du texte composite  ]-->
                 </back>
               </text>
             </TEI></egXML></p>
@@ -550,7 +552,7 @@ sur votre tombe ou sur la mienne. »
       </div>
       <div xml:id="U5-body">
         <head>L’encodage du corps du texte</head>
-        <p>Comme nous l’avons indiqué ci-dessus, un document TEI simple rassemble les éléments
+        <p>Comme nous l’avons indiqué, un document TEI simple rassemble les éléments
           suivants : <specList>
             <specDesc key="front"/>
             <specDesc key="group"/>
@@ -856,12 +858,19 @@ sur votre tombe ou sur la mienne. »
           </specList> Ces éléments indiquent un endroit précis dans le texte et non un empan. On
           utilise l’attribut global <att>n</att> pour enregistrer le numéro de la page ou de la
           ligne commençant à la balise.</p>
-        <p>Quand on travaille à partir d’un original paginé, il est souvent utile d’enregistrer sa
-          pagination, si cela simplifie la correction ultérieure. C’est aussi utile pour
-          synchroniser le texte encodé avec un ensemble d’images de pages (fac-similés). Enregistrer
-          les fins de ligne peut être utile pour les mêmes raisons. </p>
-        <p> Si la pagination est différente selon les éditions, il faut spécifier l’édition en
-          question en utilisant l’attribut <att>ed</att>, et fournir toutes les balises nécessaires.
+        <p>Pour l'encodage des sources paginées, comme des imprimés ou
+	des manuscrits, il peut être utile d’enregistrer les sauts de
+	page ou de feuillet au point d'apparition dans le flux du
+	texte, afin notamment de lier le texte aux images de pages
+	(fac-similés), de générer automatiquement une référence
+	bibliographique à la page, etc. Enregistrer
+          les sauts de ligne peut aussi être utile à fin de référence,
+	par exemple pour une édition critique avec des notes qui se
+	réfèrent à des numéros de ligne. </p>
+        <p>On peut enregistrer plusieurs paginations, par exemple
+	celle d'un manuscrit original et celle d'une édition imprimée
+	de référence, en distinguant les sauts de pages grâce à
+	l'attribut  <att>ed</att>.
           Par exemple, dans le passage suivant, nous indiquons où se trouvent les débuts de page
           dans deux éditions différentes (ED1 et ED2). Nous indiquons également qu'un fac-similé de
           la page 240 dans l'édition ED1 est disponible dans le fichier <ident>p240.png</ident> :
@@ -894,7 +903,13 @@ sur votre tombe ou sur la mienne. »
           <head>Les changements de police de caractères, etc.</head>
           <p>Les mots ou les expressions mis en valeur sont ceux qui sont visuellement différents du
             reste du texte ; il s’agit typiquement d’un changement de police, de style d’écriture,
-            de couleur, etc., dont le but est d’attirer l’attention du lecteur.</p>
+            de couleur, etc., dont le but est d’attirer l’attention du
+	  lecteur. On peut se servir de la balise suivante pour signaler de
+	  tels changements:
+<specList>
+<specDesc key="hi"/>
+</specList>
+</p>
           <p>L’attribut global <att>rend</att> peut être associé à n’importe quel autre élément, et
             utilisé chaque fois que nécessaire pour spécifier la mise en valeur. Par exemple, un
             titre en gras peut être balisé par &lt;head rend="bold"&gt; et un titre en italiques par
@@ -2926,6 +2941,13 @@ END]]>
               <attDef ident="to" mode="delete"/>
             </attList>
           </classSpec>
+
+<!-- various other classes we don't want -->
+
+          <classSpec type="atts" ident="att.internetMedia" module="tei" mode="delete"/>
+          <classSpec type="atts" ident="att.datcat" module="tei" mode="delete"/>
+          <classSpec type="atts" ident="att.docStatus" module="tei" mode="delete"/>
+
           <classSpec type="atts" ident="att.internetMedia" module="tei" mode="delete"/>
           <classSpec type="model" ident="model.msItemPart" module="tei" mode="delete"/>
           <!-- ??? -->
