@@ -939,7 +939,7 @@ sur votre tombe ou sur la mienne. »
               <specDesc key="foreign"/>
               <specDesc key="gloss"/>
               <specDesc key="label"/>
-              <specDesc key="mentioned"/>
+              <!--specDesc key="mentioned"/-->
               <specDesc key="term"/>
               <specDesc key="title"/>
             </specList></p>
@@ -1038,10 +1038,11 @@ sur votre tombe ou sur la mienne. »
             raison quelconque par un élément, on associe à ce dernier l’attribut global
               <att>xml:lang</att>, dont on spécifie la valeur (i.e. de quelle langue il s’agit) ;
             ii) sinon on utilise l’élément <gi>foreign</gi>, toujours avec l’attribut
-              <att>xml:lang</att>. Par exemple : <egXML xmlns="http://www.tei-c.org/ns/Examples"
-              corresp="#fr-ex-Queneau_Journ">
-              <p>Pendant ce temps-là, dans le bureau du rez-de-chaussée, les secrétaires faisaient
-                du <foreign xml:lang="en">hulla-hoop</foreign>.</p>
+              <att>xml:lang</att>. Par exemple : 
+
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#fr-ex-garg">
+<foreign xml:lang="la">Et vobis</foreign> messieurs, 
+Ce ne seroyt que bon que nous rendissiez noz cloches...
               <p>Avez-vous lu <title xml:lang="de">Die Dreigroschenoper</title>?</p>
               <p>On parle des <mentioned xml:lang="en">people</mentioned> dans ce journal</p>
               <p>Le <term xml:lang="la">quaternio terminorum</term>, expression venant du latin,
@@ -1260,9 +1261,8 @@ sur votre tombe ou sur la mienne. »
             rassemblant des analyses abstraites ou des interprétations ont été définis quelque part
             dans le document. Cf. <ptr target="#U5-anal"/>. Par exemple, une analyse linguistique de
             « Jean aime Nancy » pourrait être encodée comme suit : <egXML
-              xmlns="http://www.tei-c.org/ns/Examples"><seg type="sentence" ana="SVO"><seg
-                  type="lex" ana="#NP1">Jean</seg><seg type="lex" ana="#VVI">aime</seg><seg
-                  type="lex" ana="#NP1">Nancy</seg></seg></egXML>
+              xmlns="http://www.tei-c.org/ns/Examples"><seg type="sentence" ana="SVO"><w
+                  ana="#NP1">Jean</w><w ana="#VVI">aime</w><w ana="#NP1">Nancy</w></seg></egXML>
           </p>
 
           <p>Cet encodage implique l’existence quelque part dans le document d’éléments avec les
@@ -1270,9 +1270,10 @@ sur votre tombe ou sur la mienne. »
             ces codes particuliers est explicitée. Notons ici l’utilisation de l’élément
               <gi>seg</gi> pour marquer les composants particuliers d’une analyse, qui sont
             distingués par l’attribut <att>type</att>.</p>
-          <p>On utilise l’attribut <att>corresp</att> (correspondant) pour indiquer de manière
+          <p>On utilise l’attribut <att>corresp</att> (correspondant) pour indiquer d'une manière
             simple tout type de correspondance entre deux éléments. Par exemple, dans un texte
-            multilingue, il peut servir à lier ensemble les phrases équivalentes: <egXML
+            multilingue, il peut servir à lier ensemble les phrases
+	    équivalentes : <egXML
               xmlns="http://www.tei-c.org/ns/Examples"><seg xml:lang="fr" xml:id="FR1"
                 corresp="#EN1">Jean aime Nancy</seg><seg xml:lang="en" xml:id="EN1" corresp="#FR1"
                 >John loves Nancy</seg></egXML></p>
@@ -1311,7 +1312,7 @@ sur votre tombe ou sur la mienne. »
           changements qu’il a opérés. Pour ce faire, on utilisera les éléments décrits dans cette
           section et dans la section suivante,</p>
         <div>
-          <head>La correction et la standardisation</head>
+          <head>La correction et la normalisation</head>
           <p>On utilise les éléments suivants pour indiquer une <term>correction</term>, soit des
             changements éditoriaux introduits par l’éditeur, qui pense que l’original présente des erreurs :<specList>
               <specDesc key="corr"/>
@@ -1352,7 +1353,7 @@ sur votre tombe ou sur la mienne. »
             </egXML>.</p>
 -->
 
-          <p>Par exemple, considérons la fable de La Fontaine, qui, dans sa première version
+          <p>Par exemple, considérons cette fable de La Fontaine, qui, dans sa première version
             imprimée, commence ainsi:
             <eg xml:space="preserve">Maistre Corbeau sur un arbre perché
 Tenoit en son bec un fromage.
@@ -1499,20 +1500,22 @@ Que vous estes joly! que vous me semblez beau:</eg>
         </div>
       </div>
       <div xml:id="U5-names">
-        <head>Les dénominations, les dates et les nombres</head>
-        <p>Le schéma TEI définit des éléments pour un nombre important de caractéristiques
-          « data-like », qui peuvent apparaître à peu près partout dans presque tous les types de
-          textes. Ces caractéristiques peuvent intéresser bon nombre de disciplines ; elles sont
-          toutes associées à des objets externes au texte lui-même, tels que les noms de personnes
-          et les noms de lieux, les nombres et les dates. Elles posent également des problèmes
-          particuliers à beaucoup d’applications TAL (traitement automatique des langues) du fait de
-          la diversité de leurs modes de représentation dans les textes. Les éléments décrits ici,
+        <head>Les noms, les dates, et les nombres</head>
+        <p>Le schéma TEI permet de distinguer et d'identifier toutes
+	sortes d'entités nommées, comme  les noms de personnes
+          et les noms de lieux, de marques, d'organisations, mais
+	  aussi des nombres ou des dates, autant d'informations
+	  précises qui produisent ou accrochent le texte à un
+	  contexte. Ces infomations factuelles  rendent le text utile
+	  à de nombreuses disciplines, par exemple l'histoire ou la
+	  sociologie. Elles interessent aussi les applications
+	  linguistiques, en permettant par exemple d'isoler tous les
+	  mots qui ne figurent pas dans un dictionnaire de langue.  Les éléments décrits ici,
           en rendant ces caractéristiques explicites, réduisent la complexité des traitements
           automatiques des textes.</p>
         <div xml:id="nomen">
           <head>Les dénominations et les expressions référentielles</head>
-
-          <p>Une expression référentielle est une expression qui réfère à une personne, un endroit,
+          <p>Une expression référentielle est une expression qui réfère à une personne, un lieu,
             un objet. Deux éléments permettent de caractériser une telle expression : <specList>
               <specDesc key="rs"/>
               <specDesc key="name"/>
@@ -1639,8 +1642,7 @@ Que vous estes joly! que vous me semblez beau:</eg>
       <div xml:id="U5-lists">
         <head>Les listes</head>
         <p>L’élément <gi>list</gi> sert à baliser n’importe quelle sorte de liste. Une liste est un
-          glossaire ou bien une séquence d’items textuels, qui peuvent être ordonnés ou non
-          ordonnés. Chaque item peut être précédé par une étiquette (dans un glossaire, cette
+          glossaire ou bien une séquence d’items textuels, qui peuvent être numérotées ou non. Chaque item peut être précédé par une étiquette (dans un glossaire, cette
           étiquette est le terme qui est défini).</p>
         <p>Les items d’une liste sont balisés par l’élément <gi>item</gi>. Le premier <gi>item</gi>
           peut être précédé de <gi>head</gi>, qui indique qu’il est le premier élément de la liste.
@@ -1683,16 +1685,16 @@ Que vous estes joly! que vous me semblez beau:</eg>
               <label>ENGRANDEUILLER(s’)</label>
               <item><p>v. p. - Se mettre en grand deuil. </p>
                 <cit><q>L'automne s’engrandeuille au bois de Boulogne.</q>
-                  <bibl><title>Complaintes. </title> Jules Laforgue. </bibl></cit></item>
+                  <bibl><title>Complaintes.</title> Jules Laforgue. </bibl></cit></item>
               <label>ENJAUNI.</label>
-              <item><p>Adj. — Rendu jaune. </p>
+              <item><p>Adj. — Rendu jaune.</p>
                 <cit><q>La bâtisse de l'Opéra aux baies enjaunies de lumière où des ombres se
                     heurtent. </q>
-                  <bibl><title>Thé chez Miranda. </title> Paul Adam. </bibl></cit></item>
+                  <bibl><title>Thé chez Miranda.</title> Paul Adam. </bibl></cit></item>
               <label>ENVOL</label>
-              <item><p>s. M. — Vol elliptique. </p>
+              <item><p>s. M. — Vol elliptique.</p>
                 <cit><q>Un envol de pigeons écarlates tonne autour de ma pensée. </q>
-                  <bibl><title>Illuminations. </title>A. Rimbaud.</bibl></cit></item>
+                  <bibl><title>Illuminations.</title> A. Rimbaud.</bibl></cit></item>
             </list>
           </egXML></p>
         <p>Notons ici que le contenu des éléments <gi>item</gi> peut être assez riche : dans le cas
@@ -1748,20 +1750,20 @@ Que vous estes joly! que vous me semblez beau:</eg>
             chinoise», dans <title>Les Mots et les choses</title> (1966).</note> : <egXML
             xmlns="http://www.tei-c.org/ns/Examples"><p>Dans les pages lointaines de ce livre, il
               est écrit que les animaux se divisent en <list rend="run-on">
-                <item n="a"> appartenant à l'Empereur,</item>
-                <item n="b"> embaumés, </item>
-                <item n="c"> apprivoisés, </item>
-                <item n="d"> cochons de lait, </item>
-                <item n="e"> sirènes, </item>
-                <item n="f"> fabuleux, </item>
-                <item n="g"> chiens en liberté, </item>
-                <item n="h"> inclus dans la présente classification, </item>
-                <item n="i"> qui s'agit comme des fous, </item>
-                <item n="j"> innombrables, </item>
-                <item n="k"> dessinés avec un très fin pinceau, </item>
-                <item n="l"> et caetera, </item>
-                <item n="m"> qui viennent de casser la cruche, </item>
-                <item n="n"> qui de loin semblent des mouches.</item>
+                <item n="a">appartenant à l'Empereur,</item>
+                <item n="b">embaumés, </item>
+                <item n="c">apprivoisés, </item>
+                <item n="d">cochons de lait, </item>
+                <item n="e">sirènes, </item>
+                <item n="f">fabuleux, </item>
+                <item n="g">chiens en liberté, </item>
+                <item n="h">inclus dans la présente classification, </item>
+                <item n="i">qui s'agit comme des fous, </item>
+                <item n="j">innombrables, </item>
+                <item n="k">dessinés avec un très fin pinceau, </item>
+                <item n="l">et caetera, </item>
+                <item n="m">qui viennent de casser la cruche, </item>
+                <item n="n">qui de loin semblent des mouches.</item>
               </list></p></egXML></p>
 
         <p>Les listes de références bibliographiques doivent être balisées par l’élément
@@ -1872,17 +1874,17 @@ Que vous estes joly! que vous me semblez beau:</eg>
                 <cell>0,0008 </cell>
               </row>
               <row>
-                <cell> de Rodez</cell>
+                <cell>de Rodez</cell>
                 <cell>0m,50</cell>
                 <cell>0,0005 </cell>
               </row>
               <row>
-                <cell> d’Antibes</cell>
+                <cell>d’Antibes</cell>
                 <cell>0m,41</cell>
                 <cell> 0,0004 </cell>
               </row>
               <row>
-                <cell> de Nîmes</cell>
+                <cell>de Nîmes</cell>
                 <cell>0m,342 </cell>
                 <cell>0,0003 </cell>
               </row>
@@ -2024,23 +2026,23 @@ Que vous estes joly! que vous me semblez beau:</eg>
             </specList></p>
           <p>Par exemple, la sortie d’un catégoriseur pourrait être encodé en TEI Lite comme suit :
               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-              <s n="1">
-                <w ana="#NP0">Marley</w>
-                <w ana="#VBD">was</w>
-                <w ana="#AJ0">dead</w><pc>:</pc>
-                <w ana="#TO0">to</w>
-                <w ana="#VBB">begin</w>
-                <w ana="#PRP">with</w><pc>. </pc>
-              </s></egXML></p>
+            <s>
+<w ana="#NAM">TreeTagger</w>
+<w ana="#VER_pres">permet</w>
+<w ana="#PRP">d'</w>
+<w ana="#VER_infi">annoter</w>
+<w ana="#PRO_IND">plusieurs</w>
+<w ana="#NOM">langues</w>
+<pc>. </pc>              </s></egXML></p>
 
           <p>Dans cet exemple, chaque mot a été pourvu automatiquement d’une catégorie, en utilisant
-            l’attribut <att>ana</att> (cf. section ci-dessus). L’élément <gi>w</gi> permet de noter
+             l’attribut <att>ana</att> (cf. section
+	     ci-dessus). L’élément <gi>w</gi> permet aussi de noter
             pour chaque mot sa racine ou son lemme, soit de manière explicite, en utilisant
             l’attribut <att>lemma</att>, soit par référence, en utilisant l’attribut
               <att>lemmaRef</att>, comme dans l’exemple qui suit :<egXML
-              xmlns="http://www.tei-c.org/ns/Examples">...<w ana="#VBD" lemma="be"
-                lemmaRef="http://www.myLexicon.com/be">was</w> ... </egXML></p>
-
+              xmlns="http://www.tei-c.org/ns/Examples">...<w ana="#VER_pres" lemma="permettre"
+                lemmaRef="http://www.myLexicon.com/permettre">permet</w> ... </egXML></p>
         </div>
         <div>
           <head>Les éléments généraux d’interprétation</head>
@@ -2173,12 +2175,12 @@ Que vous estes joly! que vous me semblez beau:</eg>
           <head>Les éléments supplémentaires pour les documents techniques</head>
           <p>On peut utiliser les éléments suivants pour marquer les caractéristiques particulières
             de documents techniques : <specList>
-              <specDesc key="eg"/>
-              <specDesc key="code"/>
-              <specDesc key="ident"/>
-              <specDesc key="gi"/>
               <specDesc key="att"/>
+              <specDesc key="code"/>
+              <specDesc key="eg"/>
               <specDesc key="formula"/>
+              <specDesc key="gi"/>
+              <specDesc key="ident"/>
               <specDesc key="val"/>
             </specList></p>
           <p>L’exemple suivant montre comment ces éléments pourraient être utilisés pour encoder le
@@ -2229,7 +2231,7 @@ END]]>
         </div>
         <div>
           <head>Les sections générées</head>
-          <p>Les systèmes de production de documents les plus modernes offrent la possibilité de
+          <p>Les systèmes de production de documents actuelles offrent la possibilité de
             générer automatiquement des sections telles que la table des matières, l'index etc. Le
             schéma TEI Lite propose un élément pour marquer l’endroit où une telle section doit se
             trouver.</p>
@@ -2344,10 +2346,10 @@ END]]>
         <p>Dans un document XML, il y a deux exceptions importantes : les caractères &amp; et &lt;
           ne peuvent être saisis directement, car ils ont une signification particulière, celle de
           balise de début. Ils doivent toujours être représentés comme des <term>références
-            d’entité</term> : &amp;amp; ou &amp;lt;. Si cela s’avère nécessaire, d’autres caractères
+            d’entité</term> : &amp;amp; ou &amp;lt;. <!--Si cela s’avère nécessaire, d’autres caractères
           peuvent aussi être représentés comme des références d’entité. Par exemple, dans le cas où
           l’on souhaite conserver une compatibilité avec des systèmes de traitement qui n’utilisent
-          pas l’Unicode.</p>
+          pas l’Unicode.--></p>
       </div>
       <div xml:id="U5-fronbac">
         <head>Les Parties liminaires et les Annexes</head>
@@ -2415,22 +2417,22 @@ END]]>
                 <gi>div</gi> ; pour distinguer les différents liminaires, l’attribut <att>type</att>
               pourra avoir l’une des valeurs suivantes : <list type="gloss">
                 <label>preface</label>
-                <item> Un avant-propos ou une préface qui s’adresse au lecteur, dans lequel l’auteur
+                <item>Un avant-propos ou une préface qui s’adresse au lecteur, dans lequel l’auteur
                   ou l’éditeur expose le contenu, les objectifs, l’origine du texte </item>
                 <label>dedication</label>
-                <item> Une adresse formelle ou une dédicace de l’auteur du texte à une ou plusieurs
+                <item>Une adresse formelle ou une dédicace de l’auteur du texte à une ou plusieurs
                   personnes ou institutions </item>
-                <label> abstract</label>
-                <item> Un résumé du contenu du texte, sous la forme d’un texte libre </item>
+                <label>abstract</label>
+                <item>Un résumé du contenu du texte, sous la forme d’un texte libre </item>
                 <label>ack</label>
-                <item> Les remerciements de l’auteur pour des personnes et des institutions qui ont
+                <item>Les remerciements de l’auteur pour des personnes et des institutions qui ont
                   contribué à la création du texte </item>
                 <label>contents</label>
-                <item> Une table des matières spécifiant la structure du travail et listant ses
+                <item>Une table des matières spécifiant la structure du travail et listant ses
                   constituants. On doit utiliser l’élément <gi>list</gi> pour spécifier sa
                   structure. </item>
-                <label> frontispiece</label>
-                <item> Un frontispice illustré, qui comprend éventuellement du texte. </item>
+                <label>frontispiece</label>
+                <item>Un frontispice illustré, qui comprend éventuellement du texte. </item>
               </list>
             </p>
             <p>Pour d’autres types de liminaires, l’encodeur peut spécifier à sa guise les autres
@@ -2485,20 +2487,20 @@ END]]>
               <item>Une section auxiliaire indépendante d’un travail, qui propose souvent un texte
                 additionnel d’une certaine manière non canonique.</item>
               <label>glossary</label>
-              <item> Une liste de termes associés chacun à une définition (glose) : elle doit être
+              <item>Une liste de termes associés chacun à une définition (glose) : elle doit être
                 encodée avec l’élément <tag>list type="gloss"</tag>. </item>
               <label>notes</label>
-              <item> Une section dans laquelle des notes de toutes sortes, y compris textuelles,
+              <item>Une section dans laquelle des notes de toutes sortes, y compris textuelles,
                 sont regroupées. </item>
               <label>bibliogr</label>
               <item> Une liste de références bibliographiques : elle doit être encodée comme une
                   <gi>listBibl</gi>
               </item>
               <label>index</label>
-              <item> Toute forme d’index préexistant au travail. (Un index peut aussi être généré
+              <item>Toute forme d’index préexistant au travail. (Un index peut aussi être généré
                 pour un document. On utilise alors l’élément <gi>index</gi> décrit plus haut). </item>
               <label>colophon</label>
-              <item> Une déclaration qui apparaît à la fin d’un livre décrivant les conditions de sa
+              <item>Une déclaration qui apparaît à la fin d’un livre décrivant les conditions de sa
                 production physique.</item>
             </list>
 
@@ -2853,9 +2855,10 @@ END]]>
 
           <p>L’élément <gi>keywords</gi> contient la liste des mots clés ou des expressions qui
             identifient les thèmes ou la nature du texte. Comme précédemment, l’attribut
-              <att>scheme</att> identifie la source de laquelle ces termes ont été extraits. Par
-            exemple, si on utilise des LC Subject Headings, en se conformant à la déclaration de ce
-            système de classification dans un élément <gi>taxonomy</gi>, tel que cela été présenté
+              <att>scheme</att> identifie la source de laquelle ces
+	      termes ont été extraits, par exemple du système RAMEAU,
+	      ou ailleurs. Les mots clés utilisés peuvent également être
+	      répertorié dans  élément <gi>taxonomy</gi>, tel que cela été présenté
             ci-dessus : <egXML xmlns="http://www.tei-c.org/ns/Examples"><textClass><keywords
                   scheme="#fr_RAMEAU">
                   <term>Littérature française -- 20ème siècle -- Histoire et critique</term>
