@@ -3,107 +3,120 @@
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_lite.rng" type="application/xml"
 	schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
+   <teiHeader>
       <fileDesc>
          <titleStmt>
             <title>TEI as an archival format</title>
+            <author>Lou Burnard</author>
+            <author>Nicolas Larousse</author>
          </titleStmt>
          <publicationStmt>
-            <p>Publication information</p>        
+            <p>Unpublished draft prepared for submission to TEI MM 2013</p>
          </publicationStmt>
          <sourceDesc>
-            <p>Information about the source</p>
+            <p>Original work created in digital form</p>
          </sourceDesc>
       </fileDesc>
-  </teiHeader>
-  <text>
+      <revisionDesc>
+         <change when="2013-03-30">Complete first draft</change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+
+      <front>
+         <div type="abstract">
+            <p>We discuss the feasibility of long term archival preservation of digital resources in
+               TEI format. As increasing numbers of digital resources are prepared using TEI, it
+               becomes likely that their creators will wish to deposit them in that format. The
+               digital archival community however has its own acceptability criteria some of which
+               may require considerable additional effort for small scale pure TEI projects. We
+               report on a pilot project, undertaken in conjunction with the CINES (the French
+               National Digital Archive service), which aims to identify the technical requirements
+               associated with the goal of long term preservation of TEI corpora. </p>
+         </div>
+      </front>
       <body>
-   
 
-
-<p>The adoption of the TEI as a common storage format for digital resources in the Humanities has many consequences for those wishing to interchange, integrate, or process such resources. The TEI community is highly divers, but there is a general feeling that all of its members share an understanding of the best way to use the TEI Guidelines, and that those Guidelines express a common understanding of how text formats should be documented and defined. There is also (usually) a general willingness to make resources encoded according to the TEI Guidelines available in that format, as well as in whatever other publishing or distribution format has been adopted by the project. The question arises as whether such TEI-encoded resources are also suitable for long term preservation purposes : more specifically, if a project wishes to ensure long term preservation of its resources, should it archive them in a TEI format? And if so, what other components (schema files, stylesheets, etc.) should accompany the primary resource files when submitting them for long term preservation in a digital archive? TEI encoded resources typically contain mostly XML-encoded text, possibly with links to files expressed using other commonly encountered web formats for graphics or audio; is there any advantage to be gained in treating them any differently from any other such XML encoded resource?
-</p><p>
-This is not an entirely theoretical question : as more and more digitization projects seek to go beyond simply archiving digital page images,  the quantity of richly encoded TEI XML resources representing primary print or manuscript sources continues to increase.  In France alone, we may cite projects such as the ATILF, OpenEditions, BVH, BFM, Obvil and many more for all of which the TEI format is likely to be seen as the basic storage format, enabling the project to represent a usefully organised structural representation of the texts, either to complement the digital page images, or even to replace them for such purposes as the production of open online editions.  When such resources are  deposited in a digital archive, how should the archivist ensure that they are valid TEI and will continue to be usable ? One possibility might be to require that such resources are first converted to some other commonly recognised display format such as PDF or XHTML; and indeed for projects where the TEI form is considered only as a means to the end of disolaying the texts, this may well be adequte. But since TEI to HTML or TEI to PDF are lossy transformations, in whioch the added value consititured by TEI structural annotation is systematiocaly removedm this seems to us in general a less than desirable solution. We would like to be able to preserve our digital resources without loss of information, so as to facilitate future use of that information by means of technologies not yet in existence. Such data-independence was, after all, one of the promises  XML (and before it SGML) offered.</p><p>
- 
-The data archivist needs to be able to test the coherence and correctness of the resources entereung the archive, and also to monitor their continued usability. For an XML-based format, this is a relatively simple exercise. An XML file must be expressed using one of a small number of standard character encodings, and must use a tagging system the syntactic rules of which can be written on the back of a not particularly large envelope. The algorithm by which an XML document can be shown to be syntactically correct, (”well formed”) is expressible within the same scope and producing a piece of software able to determe that correctness is consequently equally trivial.  
-
-
-
-
-</p><p>
-
-
-
- 
-<!--
-Réunion au CINES du 15/02/2013
-Présents :
-Olivier Rouchon et Philippe Prat (CINES)
-Lou Burnard et Nicolas Larrousse  (TGE-Adonis)
-
-Le but de la réunion est d'envisager la prise en compte  du format TEI au CINES pour l'archivage à long terme et d'évaluer les difficultés techniques de vérification que cela représente.
-
-
-Introduction
-**************
-Le format TEI est un format XML utilisé pour la description et l'échange de textes électroniques .
-Il  comporte environ 500 balises mais une personnalisation plus fine du format est toujours  possible : on peut utiliser un sous ensemble des balises existantes et en définir de nouvelles.
-
-Un changement de version important a eu lieu en 2001 lors du passage de la version P4 à la version P5 puisque la technologie est passée de SGML vers XML.
-Le passage de P4 vers P5  a également facilité la personnalisation qui devient automatisable en grande partie. 
-La version P4 n'est plus supportée depuis fin 2012, et des outils de migration existent.
-
-Depuis la version P5, le document ODD contient la description d'un ensemble de documents  : il décrit les balises employées dans une collection ou un ensemble de documents  et la manière de les employer.
-L'idée, pour l'archivage, serait donc d'imposer a minima une version P5 pour les documents associés à un document ODD.
-
-
-Processus d'évolution de la TEI
-************************************
-La communauté TEI est composée :
-- Des utilisateurs de la TEI, dont le nombre est difficile à évaluer
-- Du consortium TEI qui finance le fonctionnement de la TEI et dispose de  droits de vote
-- Du TEI  Board qui s'occupe de l'administration
-- Du Conseil scientifique qui est élu pour 2 ans et s'occupe de l'évolution technique de la TEI
-
-Les "guidelines" sont mises à jour environ deux fois par an.
-Les "guidelines" contiennent les définitions des schémas de la TEI ainsi que la description du contexte d'utilisation. 
-Les "guidelines" sont exprimés en format ODD, qui est lui même une personnalisation de la TEI.
-Tout comme un doucement TEI, un fichier ODD fait donc lui aussi référence à une version de "guidelines".
-
-La TEI intègre également les propositions de groupes extérieurs travaillant sur des sujets particuliers :  les "Special Interest Groups"  (e.g. édition génétique)
-
-Une partie de la TEI a été 
-
-
-Proposition de méthodes de validation
-******************************************
-Plusieurs niveaux de validation sont proposés pour tester un document :
-- Vérification des balises du document TEI, classiquement en utilisant le schéma XML de la version de TEI utilisée (basée sur une version de guideline)
-- Vérification de la validité du schéma XML du document ODD en utilisant le schéma XML de la version de l'ODD utilisée (basée sur une version de guideline)
-- Comparaison de l'ODD généré à partir du document par rapport  à l'ODD fourni
-- Utilisation de feuilles de style pour effectuer une transformation "standard" (à définir) du document TEI
-
-D'autres pistes de validation sont envisageables :
-- L'évaluation du contenu des attributs n'est pas réalisé de manière systématique dans  la TEI,  mais le type de ces attributs peut être défini dans  le document ODD, ce qui permettrait d'envisager une validation de ce type.
-- Les balises sont regroupées dans des classes. Ces classes permettent de définir à quel niveau dans la structure du document cette balise doit se situer (e.g. dans un paragraphe). Les classes et sous classes permettent  également de qualifier cette balise en l'associant à des balises de même type/signification (e.g. appartient à l'ensemble des balises contenant une description bibliographique). Il serait donc possible d'utiliser les classes pour effectuer des vérifications plus fines.
-
-Enfin, il est à noter que la plupart des projets utilisent l'un des odd pré-existants qui sont  fournis par la TEI.
-
-
-Les outils disponibles
-************************
-Des outils de validation sont déjà disponibles dans la communauté TEI, il reste à les évaluer dans le contexte d'utilisation du CINES.
-En ce qui concerne les documents de type ODD, le logiciel ROMA est un outil d'aide à la définition de ODD
-D'autres outils, basés sur les technologies standard associées à XML (XSLT/CSS) seront peut être à développer en fonction des besoins.
-
-
-Migration éventuelle du format
-*********************************
-Le CINES mène une veille pour disposer des éléments de décision pour la migration des formats stockés dans leur système.
-Parmi les critères retenus, la disponibilité des outils nécessaires à la restitution des documents ainsi que la péremption de la version employée (e.g. version plus utilisée, plus d'outils disponibles, alertes de type "économique" pour les outils qui deviennent commerciaux …)
-Il sera utile de préciser les aspects à surveiller pour le format TEI dans cette optique.
--->
-</p>   
-</body>
-  </text>
+         <p>The adoption of the TEI as a common storage format for digital resources in the
+            Humanities has many consequences for those wishing to interchange, integrate, or process
+            such resources. The TEI community is highly divers, but there is a general feeling that
+            all of its members share an understanding of the best way to use the TEI Guidelines, and
+            that those Guidelines express a common understanding of how text formats should be
+            documented and defined. There is also (usually) a general willingness to make resources
+            encoded according to the TEI Guidelines available in that format, as well as in whatever
+            other publishing or distribution format has been adopted by the project. The question
+            arises as whether such TEI-encoded resources are also suitable for long term
+            preservation purposes : more specifically, if a project wishes to ensure long term
+            preservation of its resources, should it archive them in a TEI format? And if so, what
+            other components (schema files, stylesheets, etc.) should accompany the primary resource
+            files when submitting them for long term preservation in a digital archive? TEI encoded
+            resources typically contain mostly XML-encoded text, possibly with links to files
+            expressed using other commonly encountered web formats for graphics or audio; is there
+            any advantage to be gained in treating them any differently from any other such XML
+            encoded resource? </p>
+         <p> This is not an entirely theoretical question : as more and more digitization projects
+            seek to go beyond simply archiving digital page images, the quantity of richly encoded
+            TEI XML resources representing primary print or manuscript sources continues to
+            increase. In France alone, we may cite projects such as the ATILF, OpenEditions, BVH,
+            BFM, Obvil and many more for all of which the TEI format is likely to be seen as the
+            basic storage format, enabling the project to represent a usefully organised structural
+            representation of the texts, either to complement the digital page images, or even to
+            replace them for such purposes as the production of open online editions. When such
+            resources are deposited in a digital archive, how should the archivist ensure that they
+            are valid TEI and will continue to be usable ? One possibility might be to require that
+            such resources are first converted to some other commonly recognised display format such
+            as PDF or XHTML; and indeed for projects where the TEI form is considered only as a
+            means to the end of displaying the texts, this may well be adequate. But since TEI to
+            HTML or TEI to PDF are lossy transformations, in which the added value constituted by
+            TEI structural annotation is systematically removed this seems to us in general a less
+            than desirable solution. We would like to be able to preserve our digital resources
+            without loss of information, so as to facilitate future use of that information by means
+            of technologies not yet in existence. Such data-independence was, after all, one of the
+            promises XML (and before it SGML) offered.</p>
+         <p> The data archivist needs to be able to test the coherence and correctness of the
+            resources entering the archive, and also to monitor their continued usability. For an
+            XML-based format, this is a relatively simple exercise. An XML file must be expressed
+            using one of a small number of standard character encodings, and must use a tagging
+            system the syntactic rules of which can be written on the back of a not particularly
+            large envelope. The algorithm by which an XML document can be shown to be syntactically
+            correct, (”well formed”) is expressible within the same scope and producing a piece of
+            software able to determe that correctness is consequently equally trivial. The XML
+            Recommendation adds a layer of "syntactic validation" to this, according to which the
+            use of XML tags within a set of documents can be strictly controlled by means of an
+            additional document known  as a schema, defining for example the names of all permitted
+            XML elements and attributes, together with contextual rules about their valid
+            deployment. Syntactic validation of an XML resource against its schema is also a
+            comparatively simple and automatic procedure, rerquiring only access to the schema and
+            an appropriate piece of software. (Given the  dominant position enjoyed by  XML as a
+            data format, the current wide availability of reliable open-source validators for it
+            seems unlikely to change, even in the long term) </p>
+         <p>However, the notion of "TEI Conformance" as it is defined in the current Guidelines goes
+            considerably beyond the simple notion of syntactic validity. An archivist concerned to
+            ensure the coherence and correctness of a new resource at this further level needs
+            several additional tools and procedures, and a goal of our project is to determine to
+            what extent the goal of ensuring such conformance is quixotic or impractical.  In
+            particular, we  will investigate the usefulness of the TEI's ODD documentation format as
+            a means of extending the scope of what is possible in this respect when using a
+            conventional XML schema language such as RELAX NG or ISO Schematron. </p>
+         <p>Our initial recommended approach for ingest of a conformant TEI resource might include :<list>
+               <item>syntactic validation of each document against the most appropriate TEI schema;
+                  for documents containing textual data this would naturally include TEI All, but
+                  also any project-supplied XML schema, and also (for any ODD document supplied) the
+                  standard TEI ODD schema;</item>
+               <item>creation of a TEI schema from the supplied ODD and validation of the documents
+                  against that in order to validate any project-specific constraints such as
+                  attribute values; </item>
+               <item>comparison of the ODD supplied with an ODD generated automatically from the
+                  document set;</item>
+               <item>definition and usage of a set of stylesheets to convert the resource into a
+                  "lowest common denominator" TEI format</item>
+            </list></p>
+         <p>Such an approach suggests that the "submission information package" for a TEI resource
+            will contain a number of ancillary documents or references to documents, notably to a
+            TEI P5-conformant ODD from which a tailored set of syntactic and semantic validators can
+            be generated using standard transformations. We hope to report on this and on the
+            results of our initial experiments with some major French-language resources at the
+            Conference.</p></body>
+            
+   </text>
 </TEI>
