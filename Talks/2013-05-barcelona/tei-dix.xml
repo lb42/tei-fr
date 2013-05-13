@@ -19,6 +19,8 @@
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
+      <change when="2013-05-13">Revised for Barcelona
+      </change>
       <change when="2013-03-02">As used for Lille, and Paris
       </change>
     </revisionDesc>
@@ -233,7 +235,8 @@ que la TEI est 100% standard XML</item>
 <item>definitions for the entry</item>
 <item>etymological information</item>
 <item>grammatical information</item>
-<item>homonyms  regarded as distinct entries</item>
+<item>examples of usage, real or imaginary</item>
+<item>references to other entries</item>
 </list>
 </p>
 <p rend="box">or a disorganized sequence of any of these</p>
@@ -286,7 +289,7 @@ que la TEI est 100% standard XML</item>
 
 <div><head>(Of course, life's not as simple as that...)</head>
 <p>Particularly in old dictionaries, we will find all sorts of other material that needs distinguishing and does not necessarily fit into these neat categories.</p>
-<p>The dictionary module provides some useful elements:
+<p>The dictionary module provides :
 <list>
             <item><gi>cit</gi> contains an example of usage </item>
             <item><gi>usg</gi> contains usage information</item>
@@ -299,7 +302,7 @@ que la TEI est 100% standard XML</item>
 <div>
           <head>Inside <gi>form</gi></head>
           <list>
-            <item><gi>orth</gi> gives the orthographic form</item>
+            <item><gi>orth</gi> contains the orthographic form</item>
             <item><gi>pron</gi> contains the pronunciation(s)</item>
             <item><gi>hyph</gi> contains a hyphenated form</item>
             <item><gi>syll</gi> contains the syllabification</item>
@@ -308,9 +311,9 @@ que la TEI est 100% standard XML</item>
               translation, or other piece of information</item>
           </list>
         </div>
-<!--
+
         <div>
-          <head><gi>entry</gi> example</head>
+          <head>For example</head>
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <entry>
               <form>
@@ -326,27 +329,35 @@ que la TEI est 100% standard XML</item>
           </egXML>
         </div>
 
--->
 
         <div>
           <head>Inside <gi>gramGrp</gi></head>
-<p>Linguistic (usually morphological)  information about a form or an entry, or one of its components, can be supplied using the generic <gi>gram</gi> element, or by any member of the <ident>model.morphLike</ident> class (<gi>pos</gi>; <gi>gen</gi>(gender) ; <gi>number</gi>; <gi>case</gi>; <gi>per</gi> (person); <gi>tns</gi> (tense); <gi>subc</gi> (subcategory); <gi>colloc</gi> (collocate);  <gi>mood</gi>; <gi>iType</gi> (inflectional class).. </p>
-<p>For example,<q>médire v.t. ind. (de) …</q> could be marked up in either of the following ways: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<p>Linguistic (usually morphological)  information about a form or an entry, or one of its components, can be supplied in several ways:
+<list>
+<item>using the generic <gi>gram</gi> element, with its <att>type</att> attribute</item>
+<item>using a member of the <ident>model.morphLike</ident> class (<gi>pos</gi>; <gi>gen</gi>(gender) ; <gi>number</gi>; <gi>case</gi>; <gi>per</gi> (person); <gi>tns</gi> (tense); <gi>subc</gi> (subcategory); <gi>colloc</gi> (collocate);  <gi>mood</gi>; <gi>iType</gi> (inflectional class) ... </item>
+<item>with or without normalizing attributes</item>
+</list></p></div>
+<div><head>For example</head>
+
+<p><graphic url="medire.png"/></p>
+
+ <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <form> <orth>médire</orth></form>
 <gramGrp>
- <pos>v</pos>
- <subc>t ind</subc>
  <colloc type="prep">de</colloc>
+ <pos>v. </pos>
+ <subc>t. ind.</subc>
 </gramGrp>
 </egXML>
  <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <form> <orth>médire</orth></form>
 <gramGrp>
+ <gram type="collocPrep">de</gram>
  <gram type="pos">v</gram>
  <gram type="subc">t ind</gram>
- <gram type="collocPrep">de</gram>
 </gramGrp>
-</egXML></p>
+</egXML>
 
         </div>
 
@@ -365,6 +376,34 @@ que la TEI est 100% standard XML</item>
 dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
 </egXML>
 </p></div>
+
+<div><head>Johnson's Apple</head>
+
+<cb/>
+<p><graphic url="apple-johnson.png"/></p>
+<cb/>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples"><entry>
+              <form type="lemma">
+                <orth rend="ALLCAPS">A'PPLE</orth>. <gramGrp><pos norm="noun">n.s.</pos></gramGrp>
+              </form>
+              <etym>[<foreign xml:lang="ang">æppel</foreign>, <lang>Saxon</lang>.] </etym>
+              <sense n="1">
+                <def>The fruit of the apple tree.</def>
+                <cit>
+                  <quote><l>Tall thriving trees confess'd the fruitful mold;</l>
+                    <l>The red'ning <hi>apple</hi> ripens here to gold.</l></quote>
+                  <bibl>Pope's <title>Odyssey</title>.</bibl>
+                </cit>
+              </sense>
+              <sense n="2">
+                <def>The pupil of the eye.</def>
+                <cit>
+                  <quote> He instructed him; he kept him as the apple of his eye.</quote>
+                  <bibl>Deut. xxxii. 10.</bibl>
+                </cit>
+              </sense></entry>
+          </egXML>
+</div>
 
         <div>
           <head><gi>form</gi> example</head>
