@@ -167,7 +167,7 @@
 <list>
         <item>Il faut se méfier : la TEI ne vous propose aucune solution toute faite ("out of the box")</item>
 <item>Mais les utilisateurs de la TEI sont partout dans le monde scientifique, et ils parlent (à peu près) la même langue... </item>
-<item>Vous trouverez donc sans probleme des instances de personalisation TEI dans plusieurs domaines: y compris les dictionnaires </item>
+<item>Vous trouverez donc sans probleme des instances de personalisation TEI dans plusieurs domaines : y compris les dictionnaires </item>
 <item>Et on peut se servir de n'importe quelle outillage XML -- parce
 que la TEI est 100% standard XML</item>
 </list>
@@ -182,7 +182,7 @@ que la TEI est 100% standard XML</item>
 </div>
 
 <div><head>A three headed beast</head>
-<p><graphic url="cerberus.jpg"/></p>
+<p><graphic height="60%" url="cerberus.jpg"/></p>
 <list>
 <item>typographic view : page layout, font usage, visual appearance </item>
 <item>textual view : sequence of words and punctuation in reading order</item>
@@ -231,7 +231,7 @@ que la TEI est 100% standard XML</item>
 <div><head>Within an entry...</head>
 <p>We may find
 <list>
-<item>the  orthographic form used as headword for the entry</item>
+<item>the orthographic form used as headword for the entry</item>
 <item>definitions for the entry</item>
 <item>etymological information</item>
 <item>grammatical information</item>
@@ -239,12 +239,12 @@ que la TEI est 100% standard XML</item>
 <item>references to other entries</item>
 </list>
 </p>
-<p rend="box">or a disorganized sequence of any of these</p>
 <p>Or we may find
 <list>
 <item>information about different homographs</item>
 <item>information about distinct senses</item>
 </list></p>
+<p rend="box">or a disorganized sequence of any of these</p>
 </div>
 
         <div>
@@ -302,12 +302,12 @@ que la TEI est 100% standard XML</item>
 <div>
           <head>Inside <gi>form</gi></head>
           <list>
-            <item><gi>orth</gi> contains the orthographic form</item>
-            <item><gi>pron</gi> contains the pronunciation(s)</item>
-            <item><gi>hyph</gi> contains a hyphenated form</item>
-            <item><gi>syll</gi> contains the syllabification</item>
-            <item><gi>stress</gi> contains the stress pattern</item>
-            <item><gi>lbl</gi> contains a label for a form, example,
+            <item><gi>orth</gi> contains the orthographic form as given</item>
+            <item><gi>pron</gi> contains the pronunciation(s) as given</item>
+            <item><gi>hyph</gi> contains a version of the form with hyphenation points marked</item>
+            <item><gi>syll</gi> contains a version in which syllable divisions are marked</item>
+            <item><gi>stress</gi> contains a representation of the stress (intonation) pattern</item>
+            <item><gi>lbl</gi> contains a linguistic label for a form, example,
               translation, or other piece of information</item>
           </list>
         </div>
@@ -329,6 +329,22 @@ que la TEI est 100% standard XML</item>
           </egXML>
         </div>
 
+        <div>
+          <head>Different inflected forms may be grouped together under <gi>form</gi></head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <form>
+              <orth>brag</orth>
+            </form>
+            <gramGrp>
+              <pos>vb</pos>
+            </gramGrp>
+            <form type="infl">
+              <orth>brags</orth>
+              <orth>bragging</orth>
+              <orth>bragged</orth>
+            </form>
+          </egXML>
+        </div>
 
         <div>
           <head>Inside <gi>gramGrp</gi></head>
@@ -342,7 +358,7 @@ que la TEI est 100% standard XML</item>
 
 <p><graphic url="medire.png"/></p>
 
- <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <form> <orth>médire</orth></form>
 <gramGrp>
  <colloc type="prep">de</colloc>
@@ -350,7 +366,7 @@ que la TEI est 100% standard XML</item>
  <subc>t. ind.</subc>
 </gramGrp>
 </egXML>
- <egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
 <form> <orth>médire</orth></form>
 <gramGrp>
  <gram type="collocPrep">de</gram>
@@ -363,10 +379,10 @@ que la TEI est 100% standard XML</item>
 
 <div><head>Knowing your "n" from your "sb"</head>
 <p rend="box">Dictionaries all use their own idiosyncratic codes for linguistic annotation.</p>
-<p>To normalize the values represented in a dictionary:
+<p>Two methods of normalizing the coded values presented anywhere (almost) in a dictionary :
 <list>
-<item>the <att>norm</att> or <att>expand</att> attributes can be used to supply standardised values</item>
-<item> <att>dcr:datCat</att> and <att>dcr:datCatValue</att> can be used to select categories and values from the  ISO Data Category Registry (www.isocat.org) </item>
+<item>the <att>norm</att> or <att>expand</att> attributes supplies (your own) standardised values</item>
+<item> <att>dcr:datCat</att> and <att>dcr:datCatValue</att> can be used to select categories and values from the  ISO Data Category Registry (http://www.isocat.org) </item>
 </list>
  <egXML xmlns="http://www.tei-c.org/ns/Examples">
 <pos norm="noun" expand="substantive">sb</pos>
@@ -375,12 +391,20 @@ que la TEI est 100% standard XML</item>
 <pos dcr:datcat="http://www.isocat.org/datcat/DC-1345" 
 dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
 </egXML>
+
 </p></div>
 
-<div><head>Johnson's Apple</head>
 
+<div><head>The <gi>sense</gi>s of an entry</head>
+<list>
+<item>groups other elements used to express a single <q>meaning</q> or <q>sense</q> for the wordform</item>
+<item>typically  contains a definition (<gi>def</gi>) plus one or more  citations (<gi>cit</gi>) possibly with usage labels (<gi>usg</gi>) </item>
+<item>may also contain a nested <gi>sense</gi>, to represent sense hierarchies</item>
+<item>... as well as other posssible children from the <ident>model.entryPart.top</ident> class such as <gi>dictScrap</gi> <gi>etym</gi> <gi>xr</gi>, etc.</item>
+</list></div>
 
-<p><graphic url="apple-johnson.png"/></p>
+<div><head>Example: Dr Johnson's Apple</head>
+<p><graphic url="apple-johnson.png" height="20%"/></p>
 
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><entry>
               <form type="lemma">
@@ -405,73 +429,20 @@ dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
           </egXML>
 </div>
 
-        <div>
-          <head><gi>form</gi> example</head>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <form>
-              <orth>brag</orth>
-            </form>
-            <gramGrp>
-              <pos>vb</pos>
-            </gramGrp>
-            <form type="infl">
-              <orth>brags</orth>
-              <orth>bragging</orth>
-              <orth>bragged</orth>
-            </form>
-          </egXML>
-        </div>
-
-
-        <div>
-          <head>Multiple Forms</head>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <entry>
-              <form type="abbrev">
-                <orth>MTBF</orth>
-              </form>
-              <form type="full">
-                <lbl>abbrev. for</lbl>
-                <orth>mean time between failures</orth>
-              </form>
-            </entry>
-          </egXML>
-        </div>
-
-        <div>
-          <head>Multiple senses</head>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <entry>
-              <form>
-                <orth>disproof</orth>
-                <pron>dIs"pru:f</pron>
-              </form>
-              <gramGrp>
-                <pos>n</pos>
-              </gramGrp>
-              <sense n="1">
-                <def>facts that disprove something.</def>
-              </sense>
-              <sense n="2">
-                <def>the act of disproving.</def>
-              </sense>
-            </entry>
-          </egXML>
-        </div>
-
-
-
-        <div>
-          <head>Another tasty <gi>entry</gi></head>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<div><head>The <gi>cit</gi> element</head>
+<list>
+<item>useful in any context where a fragment of text is being cited as an example, translation, etc.</item>
+<item>often but not always in association with some sort of bibliographic reference</item>
+<item> originally intended for use in running text</item>
+</list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <entry>
               <form>
                 <orth>rémoulade</orth>
                 <pron>Remulad</pron>
               </form>
               <gramGrp>
-                <pos>n</pos>
-                <gen>f</gen>
+                <pos>n</pos><gen>f</gen>
               </gramGrp>
               <cit type="translation" xml:lang="en">
                 <quote>remoulade</quote>
@@ -482,6 +453,147 @@ dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
           </egXML>
         </div>
 
+<div><head>Short cuts</head>
+<list>
+<item>Dictionaries love abbreviations, pointers, and other means of avoiding repetition</item>
+<item>TEI already provides generic <gi>abbr</gi> and <gi>expan</gi>, as well as <gi>ptr</gi> and <gi>ref</gi></item>
+<item>For dictionaries some additional specialised pointers are provided:
+<list>
+<item><gi>oRef</gi> : represents any symbol standing in for the preceding <gi>orth</gi> element
+<list><item>The <att>type</att> attribute indicates how an <gi>oRef</gi> is realised : as a swung dash, as an initial abbreviation, etc.</item>
+<item>The <att>target</att> attribute indicates which <gi>orth</gi> is intended (if necessary) </item></list></item>
+<item><gi>oVar</gi> : contains a variant form of the (preceding) <gi>orth</gi> element</item>
+<item><gi>pVar</gi> and <gi>pRef</gi> work in a similar way  for <gi>pron</gi></item>
+</list>
+</item></list>    
+</div>
+<div><head>Examples</head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+      <entry>
+        <form><orth>academy</orth></form>
+        <cit type="example">
+          <quote>The Royal <oRef type="cap"/> of Arts</quote>
+        </cit>
+      </entry>
+    </egXML>
+<p><graphic url="apple-hachette-1.png"/></p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+        <re type="compound">
+          <form>
+            <orth><oRef/>tree</orth>
+          </form>
+          <gramGrp>
+            <pos>n</pos>
+          </gramGrp>
+          <cit type="translation">
+            <form>
+              <orth>pommier</orth>
+              <gramGrp>
+                <gen>m</gen>
+              </gramGrp>
+            </form>
+          </cit>
+        </re>
+</egXML>
+</div>
 
+<div><head>A slightly more complex example</head>
+<p><graphic url="apple-hachette.png"/></p>
+</div>
 
+<div><head>A slightly more complex example</head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+      <entry>
+        <form>
+          <orth>apple</orth>
+          <pron>'æpl</pron>
+        </form>
+        <sense n="I">
+          <gramGrp><pos>n</pos></gramGrp>
+          <cit type="translation">
+            <q xml:lang="fr">pomme</q>
+            <gramGrp><gen>f</gen></gramGrp>
+          </cit>
+          <cit type="example">
+            <q>the (Big) Apple</q>
+            <def>New York</def>
+          </cit>
+        </sense>
+        <sense n="II">
+          <gramGrp>
+            <pos>noun modifier</pos>
+          </gramGrp>
+          <usg type="colloc">juice, peel</usg>
+          <cit type="translation">
+            <q xml:lang="fr">de pomme</q>
+          </cit>
+	  <usg type="colloc">tart</usg>
+          <cit type="translation">
+            <q xml:lang="fr">aux pommes</q>
+          </cit>
+        </sense>
+        <re type="idioms">
+          <cit type="example">
+            <q>he is the <oRef/> of her eyes</q>
+            <cit type="translation">
+              <q>c'est la prunelle de ses yeux</q>
+            </cit>
+          </cit>
+        </re>
+        <re type="compound">
+          <form>
+            <orth><oRef/>core</orth>
+          </form><orth> 
+          <gramGrp>
+            <pos>n</pos>
+          </gramGrp>
+          <cit type="translation">
+            <form>
+              <form>
+                <orth>trognon</orth>
+                <gramGrp>
+                  <gen>m</gen>
+                </gramGrp>
+              </form>
+              <form>
+                <orth>de pomme</orth>
+              </form>
+            </form>
+          </cit>
+        </orth></re>
+        <re type="compound">
+          <form>
+            <orth><oRef/>orchard</orth>
+          </form>
+          <gramGrp>
+            <pos>n</pos>
+          </gramGrp>
+          <cit type="translation">
+            <form>
+              <orth>pommeraie</orth>
+              <gramGrp>
+                <gen>f</gen>
+              </gramGrp>
+            </form>
+          </cit>
+        </re>
+        <re type="compound">
+          <form>
+            <orth><oRef/>tree</orth>
+          </form>
+          <gramGrp>
+            <pos>n</pos>
+          </gramGrp>
+          <cit type="translation">
+            <form>
+              <orth>pommier</orth>
+              <gramGrp>
+                <gen>m</gen>
+              </gramGrp>
+            </form>
+          </cit>
+        </re>
+      </entry>
+</egXML>
+</div>
 </body></text></TEI>
