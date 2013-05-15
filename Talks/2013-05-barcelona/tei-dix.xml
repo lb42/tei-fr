@@ -5,7 +5,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>TEI-XML : une methode de structurer les dictionnaires anciens pour des usages nouveaux ?</title>
+        <title>TEI-XML : une methode de structurer les dictionnaires anciens<lb/>pour des usages nouveaux ?</title>
       </titleStmt>
       <publicationStmt>
         <publisher>MEET</publisher>
@@ -173,15 +173,16 @@ que la TEI est 100% standard XML</item>
 </list>
 </div>
 
-<div><head>Dictionaries</head>
-<p>The early print dictionary poses in acute form the fundamental ontological problem of all encoding endeavour: what exactly are we encoding?</p>
+<div><head>Dictionnaires</head>
+<p>La dictionnaire ancienne nous pose d'une maniere tres pointue les questionnemenets fondamentaux autour de l'encodage... essentiellement, qu'est-ce que c'est que nous allons baliser?
+<!-- The early print dictionary poses in acute form the fundamental ontological problem of all encoding endeavour: what exactly are we encoding?--></p>
 </div>
 
 <div><head>dictionnaire de l'Academie francoise, I, 47 (1762)</head>
 <p><graphic url="dicAcFrI.jpg"/></p>
 </div>
 
-<div><head>A three headed beast</head>
+<div><head>Une bete a trois tetes!</head>
 <p><graphic height="60%" url="cerberus.jpg"/></p>
 <list>
 <item>typographic view : page layout, font usage, visual appearance </item>
@@ -194,13 +195,14 @@ que la TEI est 100% standard XML</item>
 
  <div>
  <head>Varieties of dictionary</head>
+<p>En plus, les dictionnaires ne sont pas toutes pareilles...
 <list>
 <item>monolingual or multilingual</item>
 <item>glossary (word + gloss)</item>
 <item>historical (word, plus changing use patterns)</item>
 <item>thesaurus (ordered by sense)</item>
 <item>for human or machine use</item>
-</list>
+</list></p>
 <p rend="block">The TEI proposals prefer semasiology to onomasiology, and (arguably) dictionaries for human rather than machine usage.</p>   
 </div>
 
@@ -288,15 +290,17 @@ que la TEI est 100% standard XML</item>
 </egXML></div>
 
 <div><head>(Of course, life's not as simple as that...)</head>
-<p>Particularly in old dictionaries, we will find all sorts of other material that needs distinguishing and does not necessarily fit into these neat categories.</p>
+<p>Particularly in old dictionaries, we will find all sorts of other material that needs distinguishing but can appear almost anywhere.</p>
 <p>The dictionary module provides :
 <list>
             <item><gi>cit</gi> contains an example of usage </item>
-            <item><gi>usg</gi> contains usage information</item>
-            <item><gi>xr</gi> contains a cross-reference</item>
-            <item><gi>re</gi> contains a related entry</item>
+	    <item><gi>lbl</gi> contains metacommentary or labelling</item>
+            <item><gi>usg</gi> a special label containing usage information</item>
+            <item><gi>xr</gi> contains a cross-reference to another entry</item>
+            <item><gi>re</gi> contains a nested related entry</item>
             <item><gi>note</gi> contains a note or annotation.</item>
 </list></p>
+<p rend="box">The TEI notion of <term>element classes</term> is very useful here</p>
 </div>
     
 <div>
@@ -307,10 +311,10 @@ que la TEI est 100% standard XML</item>
             <item><gi>hyph</gi> contains a version of the form with hyphenation points marked</item>
             <item><gi>syll</gi> contains a version in which syllable divisions are marked</item>
             <item><gi>stress</gi> contains a representation of the stress (intonation) pattern</item>
-            <item><gi>lbl</gi> contains a linguistic label for a form, example,
-              translation, or other piece of information</item>
           </list>
-        </div>
+    
+    </div>
+
 
         <div>
           <head>For example</head>
@@ -321,12 +325,18 @@ que la TEI est 100% standard XML</item>
                 <hyph>com|peti|tor</hyph>
                 <pron>k@m"petit@(r)</pron>
               </form>
-              <gramGrp>
-                <pos>n</pos>
-              </gramGrp>
-              <def>person who competes.</def>
-            </entry>
+             </entry>
           </egXML>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry>
+              <form>
+                <orth>area</orth>
+                 <hyph>ar|ea</hyph>
+		 <syll>ar|e|a</syll>
+              </form>
+             </entry>
+          </egXML>
+<!-- W7 according to P5 -->
         </div>
 
         <div>
@@ -344,9 +354,46 @@ que la TEI est 100% standard XML</item>
               <orth>bragged</orth>
             </form>
           </egXML>
-        </div>
+<!-- CED in P5 -->
+<p>Or they may perhaps better be given as distinct forms </p>
+         </div>
 
-        <div>
+<div><head>Forms may be nested if necessary</head>
+
+<eg><![CDATA[ hospitaller or U.S. hospitaler ("hQspIt@l@) ]]></eg>
+  <p>To show that the same pronunciation is associated with both spellings we nest the US spelling within the British one:
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<form>
+ <orth>hospitaller</orth>
+ <form>
+  <usg type="geo">U.S.</usg>
+  <orth>hospitaler</orth>
+ </form>
+ <pron>"hQspIt@l@</pron>
+</form>
+</egXML>
+   </p></div>
+
+<div><head>Forms are usually associated with grammatical information</head>
+
+<p><graphic url="ascendance-1.png"/></p>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<entry xml:id="ascendance">
+<form>
+<orth>ASCENDANCE</orth>
+<pron>a-ssan-dan-s'</pron>
+</form>
+<gramGrp>
+<pos>s.</pos>
+<gen>f.</gen>
+</gramGrp>
+</entry>
+</egXML>
+
+<p rend="box">The <gi>gramGrp</gi> element is a <term>crystal</term> which can appear within a <gi>form</gi>, or as its sibling, as appropriate</p>
+</div>
+     <div>
           <head>Inside <gi>gramGrp</gi></head>
 <p>Linguistic (usually morphological)  information about a form or an entry, or one of its components, can be supplied in several ways:
 <list>
@@ -354,6 +401,7 @@ que la TEI est 100% standard XML</item>
 <item>using a member of the <ident>model.morphLike</ident> class (<gi>pos</gi>; <gi>gen</gi>(gender) ; <gi>number</gi>; <gi>case</gi>; <gi>per</gi> (person); <gi>tns</gi> (tense); <gi>subc</gi> (subcategory); <gi>colloc</gi> (collocate);  <gi>mood</gi>; <gi>iType</gi> (inflectional class) ... </item>
 <item>with or without normalizing attributes</item>
 </list></p></div>
+
 <div><head>For example</head>
 
 <p><graphic url="medire.png"/></p>
@@ -467,7 +515,29 @@ dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
 </list>
 </item></list>    
 </div>
-<div><head>Examples</head>
+
+<div><head>Verbosity</head>
+<list>
+<item>Dictionaries (especially modern printed ones) abbreviate for good financial and intellectual reasons</item>
+<item>However extra bytes of encoding cost nothing and may improve usability</item>
+<item>(Though care may be necessary if preserving the original appearance is a desideratum)</item>
+</list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <gramGrp>
+	    <pos>s.</pos>
+	    <gen>f.</gen>
+	  </gramGrp>
+</egXML>
+is more explicit and easier to process than
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+	  <gramGrp><gram>s. f.</gram></gramGrp>
+</egXML>
+</div>
+
+
+<div><head>Examples : using <gi>oRef</gi></head>
+
+<eg><![CDATA[The Royal A. of Arts]]></eg>
 <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
       <entry>
         <form><orth>academy</orth></form>
@@ -482,26 +552,37 @@ dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
           <form>
             <orth><oRef/>tree</orth>
           </form>
-          <gramGrp>
-            <pos>n</pos>
-          </gramGrp>
+          <gramGrp> <pos>n</pos> </gramGrp>
           <cit type="translation">
             <form>
               <orth>pommier</orth>
-              <gramGrp>
-                <gen>m</gen>
-              </gramGrp>
+              <gramGrp><gen>m</gen></gramGrp>
             </form>
           </cit>
         </re>
 </egXML>
 </div>
+<div><head>A multilingual dictionary has senses in different languages</head>
+<p><graphic url="cotgrave-1.png"/></p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<entry>
+<form><orth>Pomme</orth></form>
+<gramGrp><gen>m.</gen></gramGrp>
+<sense>
+<cit type="translation" xml:lang="en">Cyder</cit>;
+<def xml:lang="en">drinke made of apples.</def>
+</sense>
+</entry>
+</egXML>
+</div>
 
-<div><head>A slightly more complex example</head>
+
+<div><head>Different senses are common in multilingual dictionaries</head>
+
 <p><graphic url="apple-hachette.png"/></p>
 </div>
 
-<div><head>A slightly more complex example</head>
+<div><head>Two translations for <q>apple</q>  </head>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
       <entry>
         <form>
@@ -532,68 +613,42 @@ dcr:valueDatCat="http://www.isocat.org/datcat/DC-1256">sb</pos>
             <q xml:lang="fr">aux pommes</q>
           </cit>
         </sense>
-        <re type="idioms">
-          <cit type="example">
-            <q>he is the <oRef/> of her eyes</q>
-            <cit type="translation">
-              <q>c'est la prunelle de ses yeux</q>
-            </cit>
-          </cit>
-        </re>
-        <re type="compound">
-          <form>
-            <orth><oRef/>core</orth>
-          </form><orth> 
-          <gramGrp>
-            <pos>n</pos>
-          </gramGrp>
-          <cit type="translation">
-            <form>
-              <form>
-                <orth>trognon</orth>
-                <gramGrp>
-                  <gen>m</gen>
-                </gramGrp>
-              </form>
-              <form>
-                <orth>de pomme</orth>
-              </form>
-            </form>
-          </cit>
-        </orth></re>
-        <re type="compound">
-          <form>
-            <orth><oRef/>orchard</orth>
-          </form>
-          <gramGrp>
-            <pos>n</pos>
-          </gramGrp>
-          <cit type="translation">
-            <form>
-              <orth>pommeraie</orth>
-              <gramGrp>
-                <gen>f</gen>
-              </gramGrp>
-            </form>
-          </cit>
-        </re>
-        <re type="compound">
-          <form>
-            <orth><oRef/>tree</orth>
-          </form>
-          <gramGrp>
-            <pos>n</pos>
-          </gramGrp>
-          <cit type="translation">
-            <form>
-              <orth>pommier</orth>
-              <gramGrp>
-                <gen>m</gen>
-              </gramGrp>
-            </form>
-          </cit>
-        </re>
-      </entry>
-</egXML>
+</entry></egXML></div>
+
+<div><head>How do we use the markup?</head>
+
+<list>
+<item>The typographic view may be all librarians care about ... </item>
+<item>The textual view is really of interest only to lexicologists ...</item>
+<item>The lexical view enables many more uses. For example
+<list>
+<item>intelligent queries</item>
+<item>integration of different sources</item>
+</list>
+</item>
+<item>The TEI gives us a vocabulary to express all these views</item>
+</list>
 </div>
+
+      <div>
+        <head>Quelques liens utiles</head>
+<list>
+            <item>Guidelines: <ref
+                target="http://www.tei-c.org/Guidelines/P5/"
+                >http://www.tei-c.org/Guidelines/P5/</ref></item>
+            <item>Référence: <ref
+                target="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/REF-ELEMENTS.html"
+                >http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/REF-ELEMENTS.html</ref></item>
+<!--            <item>Badges: <ref target="http://www.tei-c.org/About/Badges/"
+                >http://www.tei-c.org/About/Badges/</ref></item>-->
+            <item>Wiki: <ref target="http://wiki.tei-c.org/"
+                >http://wiki.tei-c.org/</ref></item>
+            <item>Sourceforge: <ref
+                target="http://sourceforge.net/projects/tei/"
+                >http://sourceforge.net/projects/tei/</ref></item>
+          </list>
+      </div>
+
+
+
 </body></text></TEI>
