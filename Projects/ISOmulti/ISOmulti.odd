@@ -5,7 +5,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>TEI ISO Multimodal Transcription</title>
+        <title>TEI-ISO Transcription of Spoken Language</title>
       </titleStmt>
       <publicationStmt>
         <availability status="free">
@@ -25,21 +25,162 @@
   </teiHeader>
   <text>
     <body>
-      <p>This schema is intended to support the proposals for
-      Transcription of Multimodal Corpora. It uses the folowing TEI modules:
+      <div>
+
+<p>In this section we provide an ODD which defines a schema to support
+the proposals described in this document. It supplies elements from the following TEI modules:
  <list>
           <item>transcriptions of speech</item>
           <item>linking, segmentation, and alignment</item>
+	  <item>analysis</item>
           <item>language corpora</item>
-        </list>.</p>
-      <schemaSpec ident="ISOmulti" start="TEI teiCorpus">
-        <moduleRef key="header"/>
-        <moduleRef key="core"/>
-        <moduleRef key="textstructure" include="div body"/>
-        <moduleRef key="spoken"/>
-        <moduleRef key="linking"/>
+        </list>
+but by no means all of them. It also implements some of the
+restrictions proposed in the remainder of this document, specifically:
+<list>
+<item><att>xml:id</att> is made mandatory for <gi>when</gi> and for <gi>w</gi>
+</item>
+<item><att>trans</att> is removed from <gi>u</gi></item>
+<item><att>start</att> and <att>end</att> are made mandatory for
+<gi>kinesic</gi> and <gi>incident</gi> </item>
+
+</list></p>
+<p>
+An alphabetical list of elements used is provided below.
+</p>
+      <schemaSpec ident="ISOspoken" start="TEI teiCorpus">
+	<moduleRef key="tei"/>
+        <moduleRef key="header" except="biblFull"/>
+        <moduleRef key="core" include="media abbr desc unclear choice ab teiCorpus" />
+        <moduleRef key="textstructure" include="TEI text div body"/>
+        <moduleRef key="namesdates" include="persName"/>
+        <moduleRef key="spoken" include="pause vocal kinesic incident
+					 u shift writing"/>
+        <moduleRef key="linking" include="ab seg when timeline anchor"/>
+        <moduleRef key="analysis" include="pc span spanGrp w"/>
         <moduleRef key="corpus"/>
-      </schemaSpec>
-    </body>
+
+<!-- new element for documenting transcription conventions -->
+<elementSpec ident="transcriptionDesc"
+	     ns="http://iso-tei-spoken.org/ns/1.0" >
+<desc>describes the set of transcription conventions used</desc>
+   <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.encodingDescPart"/>
+  </classes>
+   <content>
+      <group xmlns="http://relaxng.org/ns/structure/1.0">
+         <oneOrMore>
+            <ref name="model.labelLike"/>
+         </oneOrMore>
+         <choice>
+            <zeroOrMore>
+               <ref name="model.ptrLike"/>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="model.pLike"/>
+            </zeroOrMore>
+         </choice>
+      </group>
+  </content>
+   <attList>
+      <attDef ident="ident" usage="req">
+         <desc>supplies an identifier for the encoding convention,  independent of any version number.</desc>
+         <datatype>
+            <ref xmlns="http://relaxng.org/ns/structure/1.0" name="data.name"/>
+         </datatype>
+      </attDef>
+      <attDef ident="version" usage="opt">
+         <desc>supplies a version number for the encoding conventions
+	 used, if any.</desc>
+         <datatype>
+            <ref xmlns="http://relaxng.org/ns/structure/1.0" name="data.versionNumber"/>
+         </datatype>
+      </attDef>
+  </attList>
+   <exemplum xml:lang="en">
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<transcriptionDesc ident="HIAT" version="2004"/>
+      </egXML>
+  </exemplum>
+</elementSpec>
+
+<!-- new element for grouping annotation and utterance -->
+
+<elementSpec ident="annotatedU" ns="http://iso-tei-spoken.org/ns/1.0">
+<desc>groups an utterance with the  annotation layers associated with
+it</desc>
+<classes>
+<memberOf key="model.divPart.spoken"/>
+</classes>
+<content>
+      <group xmlns="http://relaxng.org/ns/structure/1.0">
+	<ref name="u"/>
+	<oneOrMore>
+	  <ref name="spanGrp"/>
+	</oneOrMore>
+      </group>
+</content>     
+</elementSpec>
+
+<!-- attributes for synchronization -->
+
+<elementSpec ident="when" module="linking" mode="change">
+<attList>
+<attDef ident="xml:id" mode="change" usage="req"/>
+</attList>
+<!-- a schematron constraint shd be added to ensure values for
+@absolute are monotonically increasing -->
+</elementSpec>
+
+
+<!-- remove @trans from <u> -->
+<elementSpec ident="u" module="spoken" mode="change">
+<attList>
+<attDef ident="trans" mode="delete"/>
+</attList>
+<!-- need constraint to say that if @start and @end are missing then
+     nested <anchor>s must be present -->
+</elementSpec>
+
+
+<!-- make @start and @end obligatory on <kinesic> and <incident> -->
+<elementSpec ident="kinesic" module="spoken" mode="change">
+<attList>
+<attDef ident="start" mode="change" usage="req"/>
+<attDef ident="end" mode="change" usage="req"/>
+</attList>
+</elementSpec>
+
+<elementSpec ident="incident" module="spoken" mode="change">
+<attList>
+<attDef ident="start" mode="change" usage="req"/>
+<attDef ident="end" mode="change" usage="req"/>
+</attList>
+</elementSpec>
+
+
+<!-- simplify global attributes -->
+<classSpec ident="att.global.linking" type="atts" mode="change">
+<attList>
+<attDef ident="corresp" mode="delete"/>
+<attDef ident="sameAs" mode="delete"/>
+<attDef ident="copyOf" mode="delete"/>
+<attDef ident="next" mode="delete"/>
+<attDef ident="prev" mode="delete"/>
+<attDef ident="exclude" mode="delete"/>
+<attDef ident="select" mode="delete"/>
+</attList></classSpec>
+      
+<classSpec ident="att.global.analytic" type="atts" mode="delete"/>
+<classSpec ident="att.global.facs" type="atts" mode="delete"/>
+<classSpec ident="att.global.change" type="atts" mode="delete"/>
+
+<!-- and remove some other attribute classes too -->
+
+<classSpec ident="att.declaring" type="atts" mode="delete"/>
+<classSpec ident="att.datable" type="atts" mode="delete"/>
+</schemaSpec>
+</div>    </body>
   </text>
 </TEI>
