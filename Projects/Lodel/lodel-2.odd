@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Lodel ODD-2</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+  </teiHeader>
+  <text>
+      <body>
+<p>In this version, we start by specifying just the elements which
+appear in the lodel schema, according to the list provided at <ptr target="http:/lodel.org/715"/>
+</p>
+<p>We supply an <gi>elementRef</gi> for each element required. In
+addition, we must supply the module <ident>tei</ident> since this
+provides declarations for the model classes used in element content
+models (without these, most of our elements will wind up with no
+attributes and with an EMPTY content model).</p>
+<p>We suppress from this module those attribute classes which provide
+attributes that don't appear to be used in the Lodel schema.</p>
+<p>We modify the att.global element class to provide only
+attributes xml:id, xml:lang, and rend.</p>
+
+<schemaSpec ident="lodel" start="TEI">
+<moduleRef key="tei" except="att.ascribed att.canonical att.declarable
+			     att.declaring att.ranging att.dimensions 
+			     att.breaking att.cReferencing att.datable
+			     att.datcat att.fragmentable att.divLike
+			     att.docStatus att.responsibility
+			     att.editLike  att.internetMedia att.media
+			     att.naming 
+			     att.segLike att.source
+			     att.sortable att.edition att.spanning
+			     att.translatable"/>
+
+
+<elementRef key="TEI"/>
+<elementRef key="ab"/>
+<elementRef key="abbr"/>
+<elementRef key="affiliation"/>
+<elementRef key="anchor"/>
+<elementRef key="appInfo"/>
+<elementRef key="application"/>
+<elementRef key="author"/>
+<elementRef key="availability"/>
+<elementRef key="back"/>
+<elementRef key="bibl"/>
+<elementRef key="biblFull"/>
+<elementRef key="biblScope"/>
+<elementRef key="body"/>
+<elementRef key="cell"/>
+<elementRef key="code"/>
+<elementRef key="date"/>
+<elementRef key="desc"/>
+<elementRef key="div"/>
+<elementRef key="edition"/>
+<elementRef key="editor"/>
+<elementRef key="email"/>
+<elementRef key="encodingDesc"/>
+<elementRef key="extent"/>
+<elementRef key="figure"/>
+<elementRef key="fileDesc"/>
+<elementRef key="forename"/>
+<elementRef key="front"/>
+<elementRef key="graphic"/>
+<elementRef key="head"/>
+<elementRef key="hi"/>
+<elementRef key="idno"/>
+<elementRef key="item"/>
+<elementRef key="keywords"/>
+<elementRef key="label"/>
+<elementRef key="langUsage"/>
+<elementRef key="language"/>
+<elementRef key="lb"/>
+<elementRef key="list"/>
+<elementRef key="listBibl"/>
+<elementRef key="meeting"/>
+<elementRef key="name"/>
+<elementRef key="note"/>
+<elementRef key="notesStmt"/>
+<elementRef key="orgName"/>
+<elementRef key="p"/>
+<elementRef key="pb"/>
+<elementRef key="persName"/>
+<elementRef key="profileDesc"/>
+<elementRef key="projectDesc"/>
+<elementRef key="ptr"/>
+<elementRef key="pubPlace"/>
+<elementRef key="publicationStmt"/>
+<elementRef key="publisher"/>
+<elementRef key="q"/>
+<elementRef key="ref"/>
+<elementRef key="relatedItem"/>
+<elementRef key="rendition"/>
+<elementRef key="resp"/>
+<elementRef key="respStmt"/>
+<elementRef key="roleName"/>
+<elementRef key="row"/>
+<elementRef key="s"/>
+<elementRef key="sourceDesc"/>
+<elementRef key="surname"/>
+<elementRef key="table"/>
+<elementRef key="tagsDecl"/>
+<elementRef key="teiHeader"/>
+<elementRef key="text"/>
+<elementRef key="textClass"/>
+<elementRef key="title"/>
+<elementRef key="titleStmt"/>
+
+<!-- Delete unwanted attributes from some attribute classes -->
+
+<classSpec ident="att.global" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="n" mode="delete"/>
+<attDef ident="rendition" mode="delete"/>
+<attDef ident="style" mode="delete"/>
+<attDef ident="xml:base" mode="delete"/>
+<attDef ident="xml:space" mode="delete"/>
+</attList>
+</classSpec>
+
+
+<classSpec ident="att.tableDecoration" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="role" mode="delete"/>
+</attList>
+</classSpec><!-- biimho-->
+
+<classSpec ident="att.pointing" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="targetLang" mode="delete"/>
+<attDef ident="evaluate" mode="delete"/>
+</attList>
+</classSpec><!-- giimho-->
+
+<classSpec ident="att.personal" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="sort" mode="delete"/>
+</attList>
+</classSpec><!-- giimho-->
+
+
+<!-- Some local attributes are also to be deleted -->
+
+<elementSpec ident="biblScope" mode="change">
+<attList>
+<attDef ident="type" mode="delete"/>
+<attDef ident="from" mode="delete"/>
+<attDef ident="to" mode="delete"/>
+</attList>
+</elementSpec>
+
+<elementSpec ident="language" mode="change">
+<attList>
+<attDef ident="usage" mode="delete"/>
+</attList>
+</elementSpec>
+
+<elementSpec ident="list" mode="change">
+<attList>
+<attDef ident="type" mode="change">
+<defaultVal/>
+<valList type="closed" mode="replace"><valItem ident="ordered"/><valItem ident="unordered"/></valList></attDef>
+</attList></elementSpec>
+
+<elementSpec ident="note" mode="change">
+<attList>
+<attDef ident="anchored" mode="delete"/>
+<attDef ident="targetEnd" mode="delete"/>
+</attList></elementSpec>
+
+<elementSpec ident="q" mode="change">
+<attList>
+<attDef ident="type" mode="delete"/>
+</attList></elementSpec>
+
+<elementSpec ident="relatedItem" mode="change">
+<attList>
+<attDef ident="target" mode="delete"/>
+</attList></elementSpec>
+
+<elementSpec ident="teiHeader" mode="change">
+<attList>
+<attDef ident="type" mode="delete"/>
+</attList></elementSpec>
+
+<elementSpec ident="TEI" mode="change">
+<attList>
+<attDef ident="version" mode="delete"/> <!-- biimho-->
+</attList></elementSpec>
+
+</schemaSpec>
+
+</body></text></TEI>
+
+<!-- Remainimg inconsistencies :
+
+@type and @subtype are provided by att.typed
+ these elements want both: ab bibl
+ * these elements want neither: abbr application date figure forename
+         label lb listBibl name orgName pb persName ptr surname text
+ * these elements want just @type : anchor div idno list note ref 
+        relatedItem roleName
+ * these elements want just @subtype : head 
+
+@rend and @rendition (and maybe @style) are provided by att.global
+ these elements want just @rend : ab
+ these elements want just @rendition : bibl cell s title
+ these elements want both : hi p q table
+
+@xml:id and xml:lang are also provided by att.global
+ * these elements want just xml:id : anchor appInfo, application, biblFull
+   author, availability bibl cell code date desc edition editor email
+   encodingDesc extent figure fileDesc forename graphic head idno item
+   label langUsage language lb list listBibl meeting note notesStmt
+   orgName pb profileDesc projectDesc ptr publicationStmt publisher
+   pubPlace q ref relatedItem rendition resp respStmt roleName row
+   sourceDesc surname table tagsDecl textClass titleStmt TEI
+ * these want both: ab abbr affiliation back body code div front hi
+    keywords name p persName s teiHeader text title
+
+
+-->
