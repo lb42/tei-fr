@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Intéropérabilité des projets TEI: chimère ou apothéose?</title>
+	<author>Lou Burnard</author>
+</titleStmt>
+      <publicationStmt>
+        <p>Publication information</p>        
+      </publicationStmt>
+      <sourceDesc>
+        <p>Information about the source</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>    
+
+
+
+      <div rend="slide">
+        <head>La TEI facilite un balisage <soCalled>intelligent</soCalled>
+        </head>
+        <p>La TEI s'applique à l'encodage des... <list type="bulleted">
+            <item>composants structuraux et fonctionnels d'un texte </item>
+            <item>transcriptions diplomatiques des sources historiques, des images, des
+              annotations</item>
+            <item>liens, correspondances, alignements</item>
+            <item>données et entités : par exemple de temps, personnes, lieux ou événements</item>
+            <item>annotations peritextuelles et métatextuelles (correction, suppression,
+              ajouts)</item>
+            <item>analyses linguistiques</item>
+            <item>métadonnées de plusieurs types</item>
+            <item>... et définitions formelles de schéma XML !</item>
+          </list></p>
+        <p rend="box">On est vraiment gâté de choix ....</p>
+      </div>
+
+      <div>
+        <head>Les TEI Guidelines</head>
+        <p>Dans ses 1 400 pp imprimées, vous trouverez : <list type="gloss">
+            <label>un lexique</label>
+            <item>521 éléments, regroupés en 146 classes, et 22 modules</item>
+            <label>des règles d'usage</label>
+            <item>7 185 lignes de règles syntaxiques en RELAXNG </item>
+            <label>des contraintes formalisées</label>
+            <item>21 types de données, plusieurs règles formalisées en Schematron</item>
+            <label>des règles / conventions d'utilisation</label>
+            <item><emph>beaucoup</emph> de prose</item>
+            <label>plusieurs exemples d'utilisation</label>
+            <item>dont au moins un par élément</item>
+          </list>
+        </p>
+<p rend="box">comment régler ses richesses?</p>
+
+      </div>
+
+<div><head>Le cornucopia de balises TEI</head>
+<p><graphic url="sweeties.jpg"/></p>
+</div>
+
+
+      <div>
+        <head>Liste des modules TEI</head>
+        <table xmlns:tei="http://www.tei-c.org/ns/1.0" rend="rules" xml:id="tab_modlist">
+
+          <row>
+            <cell>analysis</cell>
+            <cell>Simple analytic mechanisms</cell>
+          </row>
+          <row>
+            <cell>certainty</cell>
+            <cell>Certainty and uncertainty</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>core</hi>
+            </cell>
+            <cell>éléments common to all TEI documents</cell>
+          </row>
+          <row>
+            <cell>corpus</cell>
+            <cell>Header extensions for corpus texts</cell>
+          </row>
+          <row>
+            <cell>declarefs</cell>
+            <cell>Feature system déclarations</cell>
+          </row>
+          <row>
+            <cell>dictionaries</cell>
+            <cell>Printed dictionaries</cell>
+          </row>
+          <row>
+            <cell>drama</cell>
+            <cell>Performance texts</cell>
+          </row>
+          <row>
+            <cell>figures</cell>
+            <cell>Tables, formulae, and figures</cell>
+          </row>
+          <row>
+            <cell>gaiji</cell>
+            <cell>Character and glyph documentation</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>header</hi>
+            </cell>
+            <cell>The TEI Header</cell>
+          </row>
+          <row>
+            <cell>iso-fs</cell>
+            <cell>Feature structures</cell>
+          </row>
+          <row>
+            <cell>linking</cell>
+            <cell>Linking, segmentation and alignment</cell>
+          </row>
+          <row>
+            <cell>msdescription</cell>
+            <cell>Manuscript Description</cell>
+          </row>
+          <row>
+            <cell>namesdates</cell>
+            <cell>Names and dates</cell>
+          </row>
+          <row>
+            <cell>nets</cell>
+            <cell>Graphs, networks and trees</cell>
+          </row>
+          <row>
+            <cell>spoken</cell>
+            <cell>Transcribed Speech</cell>
+          </row>
+          <row>
+            <cell>tagdocs</cell>
+            <cell>Documentation of TEI modules</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>tei</hi>
+            </cell>
+            <cell>déclarations for datatypes, classes, and macros available to all TEI
+              modules</cell>
+          </row>
+          <row>
+            <cell>textcrit</cell>
+            <cell>Text criticism</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>textstructure</hi>
+            </cell>
+            <cell>Default text structure</cell>
+          </row>
+          <row>
+            <cell>transcr</cell>
+            <cell>Transcription of primary sources</cell>
+          </row>
+          <row>
+            <cell>verse</cell>
+            <cell>Verse structures</cell>
+          </row>
+        </table>
+      </div>
+
+
+
+<div><head>Comment effectuer notre choix de balises?</head>
+<p>Nous aurons besoins de plusieurs choses :
+<list>
+<item>un schéma formel (en langue informatique tel que DTD, RELAXNG, W3C Schema, Schematron) qui peut contrôler :
+<list>
+<item>quelles balises sont disponibles ?</item>
+<item>dans quels contextes ?</item>
+<item>avec quels attributs ?</item>
+<item>avec quelles valeurs ?</item>
+<item>en respectant quelles contraintes ?</item>
+</list>
+</item>
+<item>une documentation pour expliquer nos principes éditoriaux, nos principes de choix de balises, etc. aux utilisateurs/ developpeurs :
+<list>
+<item>en plusieurs langues naturelles</item>
+<item>en plusieurs formats bureautiques (PDF, Word, HTML, epub...) </item>
+</list></item>
+<item>des outils informatiques pour transformer et gèrer nos données XML</item>
+</list></p>
+
+
+</div>
+<div><head>Propositions de la TEI</head>
+<p>Ayant elle-même ces mêmes besoins, la TEI vous propose :
+<list type="gloss">
+<label>ODD</label>
+<item>Un vocabulaire XML  pour  définir les vocabulaires XML</item>
+<label>Roma</label>
+<item>Un logiciel pour traiter des documents exprimés dans ce vocabulaire, pour en faire ressortir
+<list>
+<item>des schémas RELAXNG, DTD, etc. </item>
+<item>des manuels "mode d'emploi" en HTML, PDF etc.</item>
+</list></item>
+<label>OxGarage</label>
+<item>Un outil web pour effectuer plusieurs transformations documentaires, par ex 
+<list><item>de DOCX en TEI, et l'inverse</item>
+<item>de HTML en TEI, et l'inverse</item>
+</list>
+</item>
+<label>Stylesheets</label>
+<item>Un ensemble de feuilles de style XSLT très générique pour la conversion des documents XML TEI</item>
+</list></p>
+</div>
+
+
+<div><head>I18n</head>
+<list>
+<item>Suite à un effort financé par le ALLC (entre autres), les définitions, les gloses, et quelques exemples sont traduits en plusieurs langues, notamment le français, mais aussi:
+<list><item>espagnol, portugais, allemand, chinois, koreen, japonais...</item></list></item>
+<item>Les chapitres des Guidelines actuels restent jusqu'à présent en anglais.</item>
+<item>Mais on a mis en place une architecture pour faciliter sa traduction...</item>
+</list>
+</div>
+
+
+
+      <div>
+        <head>L'idée essentielle de ODD</head>
+<p rend="box"><hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it all</p>
+        <p>Un vocabulaire spécialisé pour la définition <list>
+            <item>des schémas</item>
+            <item>des types d'élément XML, indépendant des schémas</item>
+            <item>des regroupements de tels éléments, publics ou privés </item>
+            <item>des patrons (MLE macros) </item>
+            <item>des classes (et sous-classes) d'éléments</item>
+          </list>
+        </p>
+
+        <p>Pour la définition des références également, qui permettront de réunir dans un schéma <list>
+            <item>des objets identifiables (dans la liste ci-dessus)</item>
+            <item>des objets appartenant à d'autres espaces de nom</item>
+          </list></p>
+
+        <p rend="box">et qui serait intégrable à un système de balisage documentaire
+          classique</p>
+      </div>
+
+      <div>
+        <head>Traitement des ODD</head>
+
+        <p>Un processeur ODD : <list>
+            <item>rassemble les composants référencés ou fournis</item>
+            <item>résoud les incohérences ou duplications éventuelles</item>
+            <item>peut contrôler ou valider les résultats </item>
+            <item>émet un schéma exprimé en langue formelle (RELAXNG, DTD, WSD...)</item>
+            <item>émet un document XML "pur" avec les composants documentaires</item>
+          </list></p>
+        <p rend="box">http://www.tei-c.org/Roma</p>
+      </div>
+
+      <div>
+        <head>Choisir sélectivement (1)</head>
+        <p>Vous pouvez spécifier les éléments que vous souhaitez supprimer parmi ceux qui sont
+          proposés par un module: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec start="TEI" ident="testschéma-4a">
+              <moduleRef key="core" except="mentioned quote said"/>
+              <moduleRef key="header"/>
+              <moduleRef key="textstructure"/>
+              <moduleRef key="dictionaries" except="oRef"/>
+            </schemaSpec>
+          </egXML></p>
+        <p>ou egalement : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec start="TEI" ident="testschéma-4b">
+              <moduleRef key="core"/>
+              <moduleRef key="header"/>
+              <moduleRef key="textstructure"/> <elementSpec ident="mentioned" mode="delete"/>
+              <elementSpec ident="quote" mode="delete"/>
+              <elementSpec ident="said" mode="delete"/>
+            </schemaSpec>
+          </egXML>
+        </p>
+        <p>(L'attribut <att>mode</att> contrôle la résolution de déclarations multiples)</p>
+      </div>
+
+
+      <div>
+        <head>Choisir sélectivement (2)</head>
+        <p>Vous pouvez spécifier les éléments que vous souhaitez inclure parmi ceux qui sont
+          proposés par un module: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec start="TEI" ident="testschéma-4b">
+              <moduleRef key="core"/>
+              <moduleRef key="header"/>
+              <moduleRef key="textstructure" include="body div"/>
+            </schemaSpec>
+          </egXML>
+        </p>
+        <p>ou également : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec start="TEI" ident="testschéma-4b">
+              <moduleRef key="core"/>
+              <moduleRef key="header"/>
+              <elementRef key="div"/>
+              <elementRef key="body"/>
+            </schemaSpec></egXML></p>
+
+      </div>
+
+
+
+      <div rend="slide">
+        <head>Spécification des listes de valeurs</head>
+
+        <p>Les valeurs légales d'un attribut peuvent être specifiées par un <gi>datatype</gi> et/ou
+          par <gi>valList</gi>. </p>
+        <p>Un besoin assez commun est de spécifier une <term>énumération</term> (une liste --
+          ouverte ou fermée -- des valeurs) <egXML xmlns="http://www.tei-c.org/ns/Examples"
+            rend="tiny">
+            <attDef ident="status">
+              <desc>indique l'état courant du système selon un code de couleur</desc>
+              <defaultVal>green</defaultVal>
+              <valList type="closed">
+                <valItem ident="red"><desc>fermeture complète du système</desc></valItem>
+                <valItem ident="orange"><desc>fermeture imminente du système</desc></valItem>
+                <valItem ident="green"><desc>état normal du système</desc></valItem>
+                <valItem ident="white"><desc>état inconnu du système</desc></valItem>
+              </valList>
+            </attDef>
+          </egXML></p>
+
+      </div>
+
+<div><head>Les classes TEI</head>
+<p rend="att">Pour modifier un schéma, il faut comprendre la système de classes TEI.</p>
+<list>
+<item>une classe d'attribut comme <ident>att.xxxx</ident> est un fournisseur d'attributs</item>
+<item>une classe de modélisation comme <ident>model.xxx</ident> regroupe des elements selon leur sémantique, ou leur possibilités d'emplacement :
+<list>
+<item>model.xxxLike : pareille à xxx</item>
+<item>model.xxxPart : constituant un xxx</item>
+</list>
+</item>
+</list>
+</div>
+
+<div><head>par exemple</head>
+
+<p><graphic url="grampart.png" height="100%"/></p>
+
+</div>
+
+
+
+      <div>
+        <head>http://www.tei-c.org/Roma/</head>
+<graphic url="../Graphics/Roma-new.png" height="60%"/>
+
+ <list>
+          <item>Build up : ajouter ce qu'il vous faut à un schéma minimale</item>
+	  <item>Reduce : prenez tout ce qui existe et enlever ce qui ne vous interesse pas</item>
+          <item>Utilisez un template ou un schema prédéfini</item>
+	  <item>Retravailler une personalisation déjà faite </item>
+        </list>
+
+      </div>
+
+
+
+      <div>
+        <head>Contraintes schématron</head>
+        <list>
+          <item>Une spécification d'élément peut aussi contenir un élément <gi>constraintSpec</gi>,
+            rassemblant des règles exprimées en ISO schématron</item>
+        </list>
+        <egXML ns="http://www.tei-c.org/ns/Examples" rend="full">
+<![CDATA[          <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schématron" ident="div"
+            module="teistructure" mode="change">
+            <constraintSpec ident="cartoon" scheme="isoschématron">
+              <constraint>
+                <s:assert test="@type='cartoon' and .//tei:graphic"> un cartoon doit inclure une
+                  graphie </s:assert>
+              </constraint>
+            </constraintSpec>
+          </elementSpec>
+        ]]></egXML>
+        <p>Attention : <list>
+            <item>le traitement de ces règles nécessite une étape additionnelle dans la validation des
+              documents</item>
+            <item>ces règles ne sont pas forcément traitables par toute langue de schéma</item>
+          </list>
+        </p>
+      </div>
+
+<div><head>Etre conforme à la TEI veut dire quoi?</head>
+
+<list>
+<item><label>être honnet</label> : Les éléments XML qui se déclarent comme appartenant au namespace TEI doivent respecter les définitions TEI de ces elements</item>
+<item><label>être explicite</label> : Pour valider un document TEI, un ODD est fortement conseillé, parce que cela mettra en évidence toutes les modifications effectuées</item>
+<item>Tout document valide TEI est valide par rapport au schéma TEI-ALL</item>
+<item>Un document TEI peut contenir des elements de plusieurs namespaces, mais les elements dans le TEI namespace doivent respecter la semantique definie pour ces elements par la TEI</item>
+</list>
+
+<p rend="box">L'objet de ces règles est de faciliter le "blind interchange" des documents.</p>
+</div>
+
+
+<div><head>Recherche et analyse des documents TEI XML</head>
+<list>
+<item>Au delà de l'édition ou de l'affichage des textes...</item>
+<item>Systèmes de indexation et de recherche: BD XML</item>
+<item>Systèmes d'intégration et d'acces "non-linéaire" aux ressources XML</item>
+</list>
+<p rend="box">XML (et donc TEI) comme composant du Web des Données</p>
+</div>
+<div><head>Les technologies incontournables </head>
+<list>
+                  <item>XHTML : standard XML  pour les pages Web</item>
+                  <item>CSS : standard pour les règles de mise en forme des pages Web</item>
+                  <item>JavaScript et son sous-ensemble AJAX : langage de script pour animer des pages Web</item>
+                  <item>PHP : langage de script pour création dynamique des pageas web </item>
+                  <item>bases de donnees XML (par ex. eXist, BaseX) </item>
+                  <item>XQuery : langage de requête pour documents XML </item>
+               <item> moteurs de recherche (par ex. Lucene)</item>
+                  <item>serveurs HTTP comme Apache</item>
+                  <item>etc.</item>
+               </list>
+</div>
+
+<div><head>Où sont les outils <hi>TEI</hi>-XML?</head>
+<list>
+<item>La TEI elle-même ne vous fournit ni usine à gaz, ni boîte d'outils.. </item>
+<item>Dès le début, elle essaie de se distinguer nettement de la production
+des outils, pour mieux garantir son indépendence </item>
+<item>Les <hi>Guidelines</hi> sont conçus comme expression concrète d'un modèle
+abstraite des objets -- pour la plupart textuels -- qui sont d'interêt
+scientifique dans les SHS...</item>
+<item>Mais c'est réservé aux communautés d'utilisateurs de se décider comment traiter ces objets, et
+donc de construire les outils pour en profiter.</item>      
+</list></div>
+
+
+
+<div><head>OK, mais quand même...</head>
+<p>Les TEI Guidelines  s'expriment en XML, comme toute application TEI</p>
+<list>
+<item>en principe, alors, n'importe quel logiciel conforme au norme
+XML nous suffirait</item>
+<item>mais il faut le construire! </item>
+</list>
+<p>La TEI a construit, pour ses propres besoins, un ensemble de
+feuilles de style XSLT, qui permet:
+<list>
+<item>la génération et la documentation des schémas  TEI personalisées
+("ODD")</item>
+<item>la visualisation des documents TEI, à travers les formats
+actuellement les
+plus répandus (XHTML, PDF, Word, Open Office, ePUB...)</item>
+<item>une architecture générique pour la transformation entre documents
+TEI et d'autres formats (Word, OO, Docbook etc.)</item>
+</list></p>
+</div>
+
+<div><head>Les Stylesheets de Sebastian Rahtz</head>
+<p>(Il faut trouver un nom plus sexy...)</p>
+<p>Disponible sous licence ouverte LGPL, ils se trouvent partout:
+<list>      
+<item>emballés avec oXygen, par défaut</item>
+            <item>téléchargeables en form de "package" pour Debian/Ubuntu, sur
+	    sourceforge</item>
+            <item>à l'interieur du web service EGE (on va voir cela)</item>
+<item>soujacent plusieurs applications indépendentes de la TEI </item>
+          </list>
+        </p>
+      </div>
+
+      <div><head>Pourquoi s'en servir</head>
+	<list>
+	  <item>ils  proposent des solutions aux difficultés que
+	  vous n'auriez pas (peut être) encore envisagés </item>
+	  <item>mieux vaut participer à un projet open source que
+	  de réinventer (plusieurs) roues </item>
+<item>ils sont maintenus en tandem avec les Guidelines</item>
+<item>ils sont modulaires, extensibles, bien "architecturés"</item>
+	</list>
+      </div>
+      <div>
+        <head>Pourquoi ne pas s'en servir</head>
+
+        <p>Ils ont des objectifs génériques, mais avec des limites! <list>
+            <item>Ils ne traitent  pas  tout élément TEI!</item>
+            <item>Ils ne traitent pas tous les valeurs possibles des
+	    attributs TEI (surtout ceux qui ne sont pas specifiés par
+	    la TEI)</item>
+</list></p>
+<p>Pour en profiter, il faut:
+<list>
+<item>savoir se débrouiller en XSLT (un peu)</item>
+<item>ajouter une couche de personalisation propre à son propre projet (probablement).</item></list></p></div>
+
+
+<div>
+  <head>OxGarage</head>
+  <p>Un outil web qui permet une gamme
+  de transformations à double sens
+  <list>
+    <item>OpenOffice XML (ODT) vers TEI (et l'inverse) </item>
+    <item>Word 2007 XML (DOCX) vers TEI (et l'inverse) </item>
+    <item>WordPerfect vers TEI (et l'inverse) </item>
+    <item>Docbook vers TEI</item>
+ <item>TEI vers ePub</item>
+    <item>TEI P4 vers TEI P5</item>
+<item> ... </item>
+  </list>
+  </p>
+<p rend="box">Disponible à <ptr target="http://www.tei-c.org/ege-webclient/"/></p>
+</div>
+<!-- demo de OxGarage -->
+
+
+<div rend="slide"><head>Open TEI </head>
+<list><item>La TEI n'est pas un projet de recherche mais une infrastructure de recherche </item>
+<item>Ses produits sont distribués sous licence GPL </item>
+<item>Sa gestion et son évolution se font en publique, sur
+Sourceforge  cf http://tei.sf.net et ses composants sont disponibles sous Debian Linux (etc.) </item>
+<item>La TEI est une initiative communautaire, gerée par et pour les membres de cette communauté.</item>
+<item>Inscription à la TEI reste et restera facultative – l'essentiel, c'est la participation.</item>
+<item>This means you!</item>
+</list>
+</div>
+
+    </body>
+  </text>
+</TEI>
