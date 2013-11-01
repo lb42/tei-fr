@@ -29,20 +29,20 @@
     </code>
 </p>
     </xsl:template>
-<!--
+
 
     <xsl:template match="tei:emph">
-        <tei:hi><xsl:apply-templates/>
+        <tei:hi rend="emph"><xsl:apply-templates/>
         </tei:hi>
     </xsl:template>
     
     <xsl:template match="tei:q">
-        <hi><xsl:apply-templates/>
+        <hi rend="q"><xsl:apply-templates/>
         </hi>
     </xsl:template>
     
     <xsl:template match="tei:term">
-        <hi><xsl:apply-templates/>
+        <hi rend="it"><xsl:apply-templates/>
         </hi>
     </xsl:template>
     
@@ -67,7 +67,6 @@
     </xsl:template>
     
 
--->
     <xsl:template match="tei:p/tei:list">
     <!-- not allowed -->
     </xsl:template>
