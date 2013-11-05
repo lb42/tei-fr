@@ -90,6 +90,14 @@
                and other resources available to the depositor (and the archive). We provide some
                technical background on the technologies concerned in section <ptr target="#tech"/>
                below.</p>
+            
+            <!--
+               A voir dans l’introduction ???
+Références à d’autres pratiques et formats de fichiers 
+Contextualisation exemple avec la Data Preservation Coalition  (UK) 
+Prendre contact avec Text-Grid & Deutche Text Archive
+-->
+            
          </div>
          <div xml:id="rex">
             <head>Recommendations</head>
@@ -283,13 +291,52 @@
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
-            <p>.</p>
+            <p>A TEI XML object, for the purposes of accessioning, should contain the whole of the root TEI or teiCorpus element. If portions of this document are embedded by means of xInclude statements or other URI reference, resolving these should be as simple as possible. For that reason, we recommend that before the object is archived its components should be moved to a simple directory structure, in which each xIncluded file is at the same level, and each embedded graphic or other media file is moved to a single <q>Media</q> directory at the same level. This in turn will require some modification of the existing source files, to ensure that URIs continue to be valid. </p>
+            <p>For example consider the following imaginary TEI XML fragment:
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
+                 <body><include xmlns="http://www.w3.org/2001/XInclude" href="../part1.xml"/>
+                  <p>
+                     This is some text containing a pointer <ptr target="http://www.tei-c.org"/>
+                  </p>
+                    <include  xmlns="http://www.w3.org/2001/XInclude" href="/home/demo/TEIstuff/part2.xml"/>
+                  <figure><graphic url="pic.png"/></figure>
+                  <media
+                     mimeType="video/mp4"
+                     url="media/clip45.mp4"
+                     dur="PT45M"
+                     width="500px">
+                     <desc>A 45 minute video clip to be displayed in a window 500
+                        px wide </desc>
+                  </media>
+<p>               <name ref="http://wikipedia.org/whoever">John Brown</name></p>
+               
+               ]]></egXML>
+               In this fragment, the contents of the files <ident>../part1.xml</ident> and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained <hi>before archiving is carried out</hi> and inserted at the appropriate place in the source. If this is not appropriate (perhaps because the resulting file would be too large), the files concerned should be included within the archival package at the same level in the filestructure as the file containing the fragment quoted here, and the <att>href</att> values modified accordingly. </p>
+            <p>The values of each of the attributes <att>target</att>, <att>url</att>, and <att>ref</att> should be checked during accession to ensure that the resource indicated by the URI is accessible. This can be done for XML content by means of an XSLT2 stylesheet, using the doc-available() and resolve-uri() built-in functions. In the general case however the only reliable way of checking a URI seems to be to follow it, using a tool such as <ident>curl</ident> to access the HTTP header for the indicated URL and then processing that. 
+               </p>
          </div>
          <div xml:id="tech">
             <head>Technical background</head>
          </div>
          <div xml:id="pilot">
             <head>Pilot Implementation</head>
+   <p>To perform the validation tasks suggested above, the following software components are required:
+   <list>
+      <item>An XML validator</item>
+      <item>An XSLT processor</item>
+      <item>The required version of the TEI Guidelines
+      </item><item>TEI Stylesheets to process ODD files</item><item>An XSLT stylesheet to check availability of XML resources referenced by URI</item><item>XML processor to resolve XIncluded document fragments</item>
+   </list></p>
+            
+            
+            <!--Quels outils ?
+Proposer un environnement logiciel en annexe 
+Problème de vérification des URIs (images, sons vidéos  et SVG  Balise TEI « media » 
+Existe t-il des validateurs d’URIs 
+Prise en compte des Name-Space 
+
+
+-->
          </div>
          <div xml:id="further">
             <head>Future work</head>
