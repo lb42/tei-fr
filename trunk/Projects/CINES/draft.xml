@@ -126,12 +126,165 @@
                such as graphics or audio. And a TEI XML document frequently references other XML
                documents, without however implying that they should be included in the source
                itself. </p>
-         </div><div xml:id="rex1"><head>Provision of Metadata</head>
-         <p>A <gi>teiHeader</gi> element must be provided for each distinct <gi>TEI</gi> element.</p></div>
-         <div xml:id="rex2"><head>Validation of the Source</head>
-            <p>Each TEI resource archived (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) must be accompanied by a formal specification of its schema and documentation of the semantics of  the elements, attributes, datatypes defined by the schema. For the most part, of course, those semantics are as defined in the version of the TEI Guidelines specified by the <att>version</att> attribute on the root element, but since the TEI offers many overlapping ways of doing the same tjhing, it may be necessary to supplement and make more precise the default documentation by means of user-specific documentation. This is provided by means of a free-standing document, referred to here as an ODD.</p></div>
-         <div xml:id="rex3"><head>Physical Organization</head>
-            <p>.</p></div>
+         </div>
+         <div xml:id="rex1">
+            <head>Provision of Metadata</head>
+            <p>A <gi>teiHeader</gi> element must be provided for each distinct <gi>TEI</gi> or
+                  <gi>teiCorpus</gi> element in a resource. We recommend the following steps as part
+               of the accession process: <list>
+                  <item>Each header should be validated against a strict schema (to be supplied)
+                     which will check the existence of required components listed below;</item>
+                  <item>Each header will be modified, as a minimum to indicate that the header has
+                     been validated for accession, and possibly also to indicate any significant
+                     gaps found, as indicated below.</item>
+               </list>
+            </p>
+            <p>Multiple <term>levels</term> of metadata may be provided in the case of a
+                  <gi>teiCorpus</gi>. For example, some information may relate to the corpus as a
+               whole (for example, its title, the purpose for which it was created, its distributor,
+               etc); other information may relate only to individual components of it (for example,
+               the bibliographic description of an individual source text), or to groups of such
+               components (for example, a taxonomic classification).</p>
+            <div xml:id="D1iden">
+               <head>Corpus identification</head>
+               <p>Under this heading we group information that identifies the resource, and
+                  specifies the agencies responsible for its creation and distribution. <list>
+                     <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>)
+                        [required]</item>
+                     <item>producer (<gi>respStmt</gi> within <gi>titleStmt</gi>). The agency
+                        (individuals, research group, "principle investigator", company, institution
+                        etc.) responsible for the intellectual content of the resource must be
+                        specified. [required] </item>
+                     <item>Information about any funding body or sponsor involved may also be
+                        supplied using the <gi>funder</gi> element.</item>
+                     <item> A <gi>publicationStmt</gi> is also required within the
+                        <gi>fileDesc</gi>. If the resource has been formally published or
+                        distributed, this will contain details of the agency (individual, research
+                        group, company, institution etc) concerned; if not, it will contain text
+                        stating that the resource has not been formally published. The following
+                        elements may be used: <list>
+                           <item>name of agency <gi>publisher</gi>, <gi>distributor</gi>
+                           </item>
+                           <item>contact details (postal address, email, telephone, fax)
+                                 (<gi>pubPlace</gi>)</item>
+                           <item>date first made available by this agency (<gi>date</gi>)</item>
+                           <item>any specific identifier (e.g. a PURL or ISBN ) used for the
+                              published version (<gi>idno</gi>)</item>
+                           <item>information about access rights should be supplied within the
+                              required <gi>availability</gi> element. This should explicitly
+                              reference all applicable licences using the <gi>licence</gi> element
+                              and may also indicate additional restrictions, e.g. where the corpus
+                              may not be distributed in some geographic zones, or for some specific
+                              purposes. </item>
+                        </list></item>
+                  </list></p>
+            </div>
+            <div xml:id="D1srce">
+               <head>Source derivation</head>
+               <p>Under this heading we group information that describes the sources from which the
+                  resource was derived. </p>
+               <p>TEI-XML resources may be derived from many different kinds of object. A
+                     <gi>sourceDescription</gi> is required for each distinct source. Depending on
+                  its nature, this will contain one of the following : <list>
+                     <item><gi>bibl</gi> or <gi>biblStruct</gi> for books, newspapers, pamphlets
+                        etc. originally printed; </item>
+                     <item><gi>msDesc</gi> for unique manuscript archival documents or inscriptions; </item>
+                     <item><gi>p</gi> or <gi>note</gi> for unpublished
+                           <soCalled>born-digital</soCalled> materials;</item>
+                     <item><gi>bibl</gi> or <gi>ref</gi> for web pages or other digitally
+                        distributed materials</item>
+                     <item><gi>recording</gi> for recorded or broadcast speech or video</item>
+                  </list>
+               </p>
+               <p>All of these elements have their own detailed substructure, concerning which we
+                  make no particular recommendations, since their use will be highly
+                  project-specific. For archival purposes, it is required only that at least one of
+                  the elements listed above appear. In the case of conventionally printed and
+                  published material, a standard bibliographic description should be supplied or
+                  referenced, using the usual conventions (author, title, publisher, date, ISBN,
+                  etc.), and using a standard citation format. For other kinds of material,
+                  different data is appropriate: for example, in transcripts of spoken data it is
+                  customary to supply demographic information about each speaker, and the context in
+                  which the speech interaction occurs. Standards defining the range of such
+                  information for the use of particular research communities should be followed (for
+                  example, defined by CLARIN) where appropriate. </p>
+               <p>Other components of the <gi>fileDesc</gi> element such as <gi>extent</gi> may be
+                  used, but are not required.</p>
+            </div>
+            <div xml:id="D1enc">
+               <head>Encoding description</head>
+               <p>The second major subdivision of the TEI header is contained by an optional
+                     <gi>encodingDesc</gi> element, and may potentially contain a very large number
+                  of semi-structured metadata elements covering most aspects of the process by which
+                  a source has been encoded. Its function thus overlaps with that of the ODD file
+                  discussed in section <ptr target="#rec2"/>. Components of this element specify the
+                  methods and editorial principles which governed the transcription or encoding of
+                  the resource and may also include sets of coded definitions used by other
+                  components. The following elements, many of which have quite extensive
+                  substructure, are potentially available: <list>
+                     <item>Project goals and research agenda (<gi>projectDesc</gi>); </item>
+                     <item>Sampling principles and methods employed (<gi>samplingDecl</gi>);</item>
+                     <item>Editorial principles and practices (<gi>editorialDecl</gi>); </item>
+                     <item>XML tagging used (<gi>tagsDecl</gi>, <gi>styleDefDecl</gi>,
+                           <gi>schemaSpec</gi>); </item>
+                     <item>Reference schemes applied (<gi>refsDecl</gi> ; <gi>geoDecl</gi>) </item>
+                     <item>Classification scheme used (<gi>classDecl</gi>)</item>
+                  </list>
+               </p>
+               <p> Although such information will be of considerable importance and usefulness for
+                  the correct usage of a resource, there is as yet very little agreement or common
+                  practice in the way it should be recorded in the header, some projects providing
+                  extensive documentation, and others none at all. For our purposes, therefore, we
+                  recommend only that the <gi>projectDesc</gi> element be supplied. This element is
+                  used to state explicitly the project goals and research agenda associated with the
+                  creation of the resource. The persons or agencies directly responsible will
+                  already have been mentioned as a part of identifying the resource; the purpose of
+                  this section is to provide further background on such matters as the purposes for
+                  which the corpus was created, its design goals, its theoretical framework or
+                  context, its intended usage, target audience etc. Although such information is of
+                  necessity impressionistic and anecdotal, it can be very helpful to the user
+                  seeking to determine the potential relevance of the resource to their own needs. </p>
+               <p>If other descriptive elements are supplied, they will be archived along with the
+                  rest of the Header, and may be harvested to provide a richer description of the
+                  resource but their presence is not required. </p>
+            </div>
+            <div>
+               <head>Profile Description</head>
+               <p>The TEI Header permits a number of other <soCalled>non-bibliographic</soCalled>
+                  metadata components within the <gi>profileDesc</gi> element. These include, for
+                  example, information about the natural language or languages represented in a
+                  resource (<gi>langUsage</gi>), ways in which it may be classified
+                     (<gi>textClass</gi>, <gi>keywords</gi>, etc.) </p>
+               <p>If any of these descriptive elements are supplied, they will be archived along
+                  with the rest of the Header, and may be harvested to provide a richer description
+                  of the resource but their presence is not required. </p>
+            </div>
+            <div>
+               <head>Revision Description</head>
+               <p>This optional element is used to record significant stages in the evolution of a
+                  resource. It should contain a series of <gi>change</gi> elements, in reverse
+                  chronological order, most recent first. We recommend that at least one such
+                     <gi>change</gi> element be supplied in order to record the date of archiving of
+                  the source. If this is not present, then it should be added during the
+                  accessioning process.</p>
+            </div>
+         </div>
+         <div xml:id="rex2">
+            <head>Validation of the Source</head>
+            <p>Each TEI resource archived (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) must be
+               accompanied by a formal specification of its schema and documentation of the
+               semantics of the elements, attributes, datatypes defined by the schema. For the most
+               part, of course, those semantics are as defined in the version of the TEI Guidelines
+               specified by the <att>version</att> attribute on the root element, but since the TEI
+               offers many overlapping ways of doing the same thing, it may be necessary to
+               supplement and make more precise the default documentation by means of user-specific
+               documentation. This is provided by means of a free-standing document, referred to
+               here as an ODD.</p>
+         </div>
+         <div xml:id="rex3">
+            <head>Physical Organization</head>
+            <p>.</p>
+         </div>
          <div xml:id="tech">
             <head>Technical background</head>
          </div>
