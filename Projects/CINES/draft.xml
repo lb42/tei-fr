@@ -27,18 +27,19 @@
             <p>This document arises out of a study commissioned by the TGIR Huma Num in
                collaboration with the CINES. <!-- more bumf expanding these acronyms -->
             </p>
-            <p>The object of the study was to identify and then to promote best practice amongst the
+            <p>The object of the study was to identify to promote best practice amongst the
                community of researchers wishing to deposit textual resources encoded using TEI XML
-               with the CINES for long term preservation. Although the CINES already has extensive
-               experience and expertise in the long term preservation of resources which are conformant
-               with generic standards such as XML and PDF, it was recognised that the increasing use
-               of TEI-XML in the French research community offered both an additional opportunity and a
+               with the CINES for long term preservation by formulating a series of precise
+               recommendations, a Guide to Good Practice. Although the CINES already has extensive
+               experience and expertise in the long term preservation of resources respecting
+               generic standards such as XML and PDF, it was recognised that the increasing use of
+               TEI-XML in the French research community offered both an additional opportunity and a
                challenge. On the one hand, as a more expressive and richer formalism than generic
-               XML, TEI offered the possibility for the CINES of ensuring the preservation of more
-               contextual and semantic data forming part of a resource; on the other hand, the ways
-               in which TEI XML is applied in practice varies quite widely amongst different
-               researchers, and so simply to say that a document is "TEI-conformant" may leave
-               unspecified a great deal of useful contextual information about it. </p>
+               XML, TEI offers the possibility of ensuring the preservation of more contextual and
+               semantic data forming part of a resource; on the other hand, the ways in which TEI
+               XML is applied in practice varies quite widely amongst different researchers, and so
+               simply to say that a document is "TEI-conformant" may leave unspecified a great deal
+               of useful contextual information about it. </p>
             <p>Although the community of TEI users is highly divers, its members share an
                understanding of the best way to use the TEI Guidelines, just as those Guidelines
                express a common understanding of how the structure and metadata associated with a
@@ -92,43 +93,67 @@
          </div>
          <div xml:id="rex">
             <head>Recommendations</head>
-            <!-- outcomes of this study -->
-            <p>Our first recommendation is that depositors should as
-               far as possible ensure that TEI-XML resources are accompanied by a file which
-               accurately describes their encoding practices and purposes. The most appropriate
-               format for this description would be the TEI-XML vocabulary commonly known as ODD,
-               although producing documentation in this format is not as yet as well-understood or
-               widely practiced within the TEI community as might be desired; a point to which we
-               return below. Documentation in other forms, accompanied by validation schemas, are
-               also useful, but they do not necessarily guarantee that the resources concerned will
-               be TEI conformant. For this, an ODD is required. </p>
+            <p>Our first recommendation concerns the <hi>provision of metadata</hi> about the
+               source. All TEI-XML files include a component known as the <term>TEI Header</term>,
+               which may be very elaborate and detailed, or entirely minimalist. For archival
+               purposes, however, we think it may be helpful to propose a specific subset of
+               information that should be supplied by the Header for every kind of language
+               resource. A project may well supply more metadata than is suggested here; if it
+               supplies less, then the description of the resource will be correspondingly weaker
+               and less useful. The Archive will be expected to use only the elements specified here
+               as the basis of its cataloguing of the resource. </p>
+            <p>Our second recommendation concerns the <hi>validation of the source</hi>. We propose
+               that depositors should as far as possible ensure that TEI-XML resources are
+               accompanied by a file which accurately describes their encoding practices and
+               purposes. The most appropriate format for this description would be the TEI-XML
+               vocabulary commonly known as ODD, although producing documentation in this format is
+               not as yet as well-understood or widely practiced within the TEI community as might
+               be desired; a point to which we return below. Documentation in other forms,
+               accompanied by validation schemas, are also useful, but they do not necessarily
+               guarantee that the resources concerned will be TEI conformant. For this, an ODD is
+               necessary. </p>
             <p>In the absence of ODD documentation from which a more appropriate schema may be
                derived, the only validation check possible before a resource can be accepted into
-               the Archive will be against the generic TEI_All schema. According to the TEI
-               definition, those parts of a document using the TEI namespace most be valid against
-               this schema, which includes declarations for all possible TEI elements and
-               attributes. </p>
-         </div>
+               the Archive will be against the generic TEI_All schema. According to the definition
+               of TEI conformance, those parts of a document using the TEI namespace most be valid
+               against the TEI All schema, which includes declarations for all possible TEI elements
+               and attributes. </p>
+            <p>Our third recommendation concerns the <hi>physical organization of the source</hi>. A
+               TEI-XML resource is an XML document, the root element of which is either TEI or
+               teiCorpus. However, that resource may well be stored in one or more files. Any XML
+               document may embed or transclude other XML resources, for example, by use of the
+               xInclude standard. A TEI-XML document may also transclude other non-XML documents
+               such as graphics or audio. And a TEI XML document frequently references other XML
+               documents, without however implying that they should be included in the source
+               itself. </p>
+         </div><div xml:id="rex1"><head>Provision of Metadata</head>
+         <p>A <gi>teiHeader</gi> element must be provided for each distinct <gi>TEI</gi> element.</p></div>
+         <div xml:id="rex2"><head>Validation of the Source</head>
+            <p>Each TEI resource archived (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) must be accompanied by a formal specification of its schema and documentation of the semantics of  the elements, attributes, datatypes defined by the schema. For the most part, of course, those semantics are as defined in the version of the TEI Guidelines specified by the <att>version</att> attribute on the root element, but since the TEI offers many overlapping ways of doing the same tjhing, it may be necessary to supplement and make more precise the default documentation by means of user-specific documentation. This is provided by means of a free-standing document, referred to here as an ODD.</p></div>
+         <div xml:id="rex3"><head>Physical Organization</head>
+            <p>.</p></div>
          <div xml:id="tech">
             <head>Technical background</head>
-            
          </div>
-
-<div xml:id="pilot"><head>Pilot Implementation</head>
-
-</div>
-
-<div xml:id="further"><head>Future work</head>
-
-</div>
-
-
+         <div xml:id="pilot">
+            <head>Pilot Implementation</head>
+         </div>
+         <div xml:id="further">
+            <head>Future work</head>
+         </div>
          <div xml:id="gloss">
             <head>Glossary</head>
             <list type="gloss">
-               <label>TEI</label><item></item>
-               <label>schema</label><item>a set of rules expressed using a formal language (examples include RELAXNG, W3C Schema, and DTD) which can be used to validate the tagging of an XML document</item>
-               <label>ODD</label><item>("One Document Does it all") a format defined by the TEI which documents the schema applicable to a set of TEI XML documents; also, a document in that format</item>
+               <label>TEI</label>
+               <item/>
+               <label>schema</label>
+               <item>a set of rules expressed using a formal language (examples include RELAXNG, W3C
+                  Schema, and DTD) which can be used to validate the tagging of an XML
+                  document.</item>
+               <label>ODD</label>
+               <item>("One Document Does it all") a format defined by the TEI which documents the
+                  schema applicable to a set of TEI XML documents; also, a document in that
+                  format.</item>
             </list>
          </div>
          <div xml:id="bibl">
@@ -145,9 +170,11 @@
                <bibl>
                   <ref target="http://www.tei-c.org/Support/Learn/odds.xml">Getting started with P5
                      ODDs</ref>
+                  <note>Article discursif (P5)</note></bibl>
+               <bibl>
                   <ref target="http://tbe.kantl.be/TBE/modules/TBED08v00.htm"
                      >http://tbe.kantl.be/TBE/modules/TBED08v00.htm</ref>
-                  <note>Introduction tutoriel </note></bibl>
+                  <note>Introduction tutoriel (P4)</note></bibl>
                <bibl><ref target="http://www.tei-c.org/Guidelines/Customization/odds.xml"
                      >http://www.tei-c.org/Guidelines/Customization/odds.xml</ref>
                   <note>Introduction tutoriel</note></bibl>
@@ -164,6 +191,13 @@
                      target="http://conferences.idealliance.org/extreme/html/2004/Burnard01/EML2004Burnard01.html"/>
                   <title level="m">Proceedings of Extreme Markup Languages 2004</title>
                   <note>Technical description of the new ODD system developed for TEI P5.</note>
+               </bibl>
+               <bibl><author><forename>James</forename>
+                     <surname>Cummings</surname></author>
+                  <title level="m">ODDly Pragmatic: Documenting encoding practices in Digital
+                     Humanities projects</title><ref
+                     target="http://blogs.it.ox.ac.uk/jamesc/2013/09/21/oddly-pragmatic/">[Blog
+                     entry summarizing talk given at JADH 2013]</ref>
                </bibl>
             </listBibl>
          </div>
