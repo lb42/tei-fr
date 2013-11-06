@@ -25,7 +25,7 @@
          <div xml:id="intro">
             <head>Introduction</head>
             <p>This document arises out of a study commissioned by the TGIR Huma Num in
-               collaboration with the CINES. <!-- more bumf expanding these acronyms -->
+               collaboration with the CINES. <!-- expand these acronyms and add details -->
             </p>
             <p>The object of the study was to identify to promote best practice amongst the
                community of researchers wishing to deposit textual resources encoded using TEI XML
@@ -90,14 +90,12 @@
                and other resources available to the depositor (and the archive). We provide some
                technical background on the technologies concerned in section <ptr target="#tech"/>
                below.</p>
-            
             <!--
                A voir dans l’introduction ???
 Références à d’autres pratiques et formats de fichiers 
 Contextualisation exemple avec la Data Preservation Coalition  (UK) 
 Prendre contact avec Text-Grid & Deutche Text Archive
 -->
-            
          </div>
          <div xml:id="rex">
             <head>Recommendations</head>
@@ -286,56 +284,123 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                specified by the <att>version</att> attribute on the root element, but since the TEI
                offers many overlapping ways of doing the same thing, it may be necessary to
                supplement and make more precise the default documentation by means of user-specific
-               documentation. This is provided by means of a free-standing document, referred to
-               here as an ODD.</p>
+               documentation. This is provided by means of a free-standing document, referred to as
+               an ODD.</p>
+            <p>The ODD (<q>One Document Does it all</q>) format is defined in the TEI Guidelines,
+               and has also been the subject of a small number of introductory guides and tutorials
+               (see the bibliography). Nevertheless it is not as well known or understood within the
+               broad TEI community as other parts of the TEI and hence not as widely used as it
+               might be. Its importance to our project lies in the mechanisms it offers for
+               validation and documentation of a TEI-XML resource beyond simple validity against the
+               generic TEI All schema. </p>
+            <p>An ODD document is a TEI-conformant XML resource which describes a tagging system
+               informally, in the same way as a typical project encoding manual, by listing the
+               elements used, describing the cirucumstances in which they are applicable, providing
+               examples of their usage, etc. It also contains a formally expressed specification of
+               exactly which parts of the TEI architecture have been used, and how these have been
+               modified. This is expressed by means of a <gi>schemaSpec</gi> element for "schema
+               specification". </p>
+            <p>A schema specification expressed the components which are to be combined to form a
+               schema in any of the following ways : <list>
+                  <item>a list of <term>TEI modules</term> to be included by reference; </item>
+                  <item>a list of TEI elements to be included by reference;</item>
+                  <item>a subset of declarations from a named module, defined either by inclusion
+                     ("select only x y and z from module a") or by exclusion ("select everything
+                     except x y and z from module a") </item>
+                  <item>modifications of certain parts of an existing specification, for example to
+                     change class memberships, add a new usage example, suppress one or more
+                     attributes, change lists of legal attribute values, etc. </item>
+               </list></p>
+            <p>An ODD may be written from scratch, like any other TEI XML document. It is more
+               usually created (initially at least) by software such as the TEI applications
+                  <ident>Roma</ident> or <ident>Byzantium</ident>, which allow the user to construct
+               a new ODD using a relatively simple interface to the full TEI specifications. The
+               user can start from an existing schema and add or remove components, save an ODD
+               specification for futurre manipulation and so on. These interfaces also provide
+               simple access to the XSLT Stylesheets to process the ODD being constructed,
+               generating from it either formal schemas in RELAXNG, DTD or W3C Schema or
+               documentation files in HTML or PDF. An ODD can also be generated automatically by
+               applying the <ident>ODD By Example</ident> stylesheet to a body of existing valid TEI
+               XML files. </p>
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
-            <p>A TEI XML object, for the purposes of accessioning, should contain the whole of the root TEI or teiCorpus element. If portions of this document are embedded by means of xInclude statements or other URI reference, resolving these should be as simple as possible. For that reason, we recommend that before the object is archived its components should be moved to a simple directory structure, in which each xIncluded file is at the same level, and each embedded graphic or other media file is moved to a single <q>Media</q> directory at the same level. This in turn will require some modification of the existing source files, to ensure that URIs continue to be valid. </p>
-            <p>For example consider the following imaginary TEI XML fragment:
-               <egXML xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
+            <p>A TEI XML object, for the purposes of accessioning, should contain the whole of the
+               root TEI or teiCorpus element. If portions of this document are embedded by means of
+               x Include statements or other URI reference, resolving these should be as simple as
+               possible. For that reason, we recommend that before the object is archived its
+               components should be moved to a simple directory structure, in which each x Included
+               file is at the same level, and each embedded graphic or other media file is moved to
+               a single <q>Media</q> directory at the same level. This in turn will require some
+               modification of the existing source files, to ensure that Ur Is continue to be valid. </p>
+            <p>For example consider the following imaginary TEI XML fragment: <egXML
+                  xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
                  <body><include xmlns="http://www.w3.org/2001/XInclude" href="../part1.xml"/>
                   <p>
-                     This is some text containing a pointer <ptr target="http://www.tei-c.org"/>
+                     This text contains a local pointer <ptr target="#section34"/> and a remote one <ptr target="http://www.tei-c.org"/>
                   </p>
                     <include  xmlns="http://www.w3.org/2001/XInclude" href="/home/demo/TEIstuff/part2.xml"/>
+                  <p>This paragraph contains different kinds of media
                   <figure><graphic url="pic.png"/></figure>
                   <media
-                     mimeType="video/mp4"
+                     mime Type="video/mp4"
                      url="media/clip45.mp4"
                      dur="PT45M"
                      width="500px">
                      <desc>A 45 minute video clip to be displayed in a window 500
                         px wide </desc>
                   </media>
-<p>               <name ref="http://wikipedia.org/whoever">John Brown</name></p>
+<p>               This paragraph also contains a remote reference 
+<name ref="http://wikipedia.org/whoever">John Brown</name></p>
                
-               ]]></egXML>
-               In this fragment, the contents of the files <ident>../part1.xml</ident> and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained <hi>before archiving is carried out</hi> and inserted at the appropriate place in the source. If this is not appropriate (perhaps because the resulting file would be too large), the files concerned should be included within the archival package at the same level in the filestructure as the file containing the fragment quoted here, and the <att>href</att> values modified accordingly. </p>
-            <p>The values of each of the attributes <att>target</att>, <att>url</att>, and <att>ref</att> should be checked during accession to ensure that the resource indicated by the URI is accessible. This can be done for XML content by means of an XSLT2 stylesheet, using the doc-available() and resolve-uri() built-in functions. In the general case however the only reliable way of checking a URI seems to be to follow it, using a tool such as <ident>curl</ident> to access the HTTP header for the indicated URL and then processing that. 
-               </p>
+               ]]></egXML> In this fragment, the contents of the files <ident>../part1.xml</ident>
+               and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
+                  <hi>before archiving is carried out</hi> and inserted at the appropriate place in
+               the source. If this is not possible (perhaps because the resulting file would be too
+               large), the files concerned should be included within the archival package at the
+               same level in the file structure as the file containing the fragment quoted here, and
+               the <att>href</att> values modified, to point to "part1.xml" and "part2.xml"
+               respectively. </p>
+            <p>The values of each of the attributes <att>target</att>, <att>url</att>, and
+                  <att>ref</att> should be checked during accession to ensure that the resource
+               indicated by the URI is accessible. This can be done for XML content by means of an
+               XSLT2 style sheet, using the <ident>doc-available()</ident> and
+                  <ident>resolve-Uri()</ident> built-in functions. When the resource indicated by
+               the <att>url</att> attribute is available, but is not stored in a local
+                  <ident>media</ident> directory at the same level as the rest of the resource, we
+               recommend that it should be obtained and copied to such a directory, and the source
+               modified accordingly. </p>
+            <p>Ur Is within a TEI-XML document which do not imply transclusion of text or media may
+               be left unmodified in the source, although they should be checked for validity,
+               particularly those which point locally (i.e. links of the form
+                  <code>url="xxxx"</code> or <code>url="#xxx"</code>). In the general case however
+               the only reliable way of checking a URI is to follow it, using a tool such as
+                  <ident>curl</ident> to access the HTTP header for the indicated URL and then
+               processing that. Such checking could be done automatically during the process of
+               ingesting the source into the Archive. It is probably unreasonable, however, to
+               expect all such links to be accessible all the time, particularly those pointing to
+               arbitrary web sites outside the scope of the Archive's concerns.</p>
          </div>
          <div xml:id="tech">
             <head>Technical background</head>
          </div>
          <div xml:id="pilot">
             <head>Pilot Implementation</head>
-   <p>To perform the validation tasks suggested above, the following software components are required:
-   <list>
-      <item>An XML validator</item>
-      <item>An XSLT processor</item>
-      <item>The required version of the TEI Guidelines
-      </item><item>TEI Stylesheets to process ODD files</item><item>An XSLT stylesheet to check availability of XML resources referenced by URI</item><item>XML processor to resolve XIncluded document fragments</item>
-   </list></p>
-            
-            
+            <p>To perform the validation tasks suggested above, the following software components
+               are required: <list>
+                  <item>An XML validator</item>
+                  <item>An XSLT processor</item>
+                  <item>The required version of the TEI Guidelines</item>
+                  <item>TEI Stylesheets to process ODD files</item>
+                  <item>An XSLT style sheet to check availability of XML resources referenced by
+                     URI</item>
+                  <item>An XML processor to resolve X Included document fragments</item>
+               </list></p>
             <!--Quels outils ?
 Proposer un environnement logiciel en annexe 
 Problème de vérification des URIs (images, sons vidéos  et SVG  Balise TEI « media » 
 Existe t-il des validateurs d’URIs 
 Prise en compte des Name-Space 
-
-
 -->
          </div>
          <div xml:id="further">
@@ -354,6 +419,12 @@ Prise en compte des Name-Space
                <item>("One Document Does it all") a format defined by the TEI which documents the
                   schema applicable to a set of TEI XML documents; also, a document in that
                   format.</item>
+               <label>TEI module</label>
+               <item>One of the 14 groups of declarations making up the TEI system. Each module
+                  contains declarations for a varying number of elements and their attributes. Some
+                  modules also declare classes , macros, or datatypes, although the bulk of these
+                  infrastructural declarations are collected in a single module called
+                     <ident>tei</ident>. </item>
             </list>
          </div>
          <div xml:id="bibl">
