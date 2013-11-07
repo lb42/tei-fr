@@ -24,22 +24,22 @@
       <body>
          <div xml:id="intro">
             <head>Introduction</head>
-            <p>This document arises out of a study commissioned by the TGIR Huma Num in
+            <p>This document arises out of a study commissioned by the TGIR Huma-Num in
                collaboration with the CINES. <!-- expand these acronyms and add details -->
             </p>
-            <p>The object of the study was to identify to promote best practice amongst the
-               community of researchers wishing to deposit textual resources encoded using TEI XML
-               with the CINES for long term preservation by formulating a series of precise
-               recommendations, a Guide to Good Practice. Although the CINES already has extensive
-               experience and expertise in the long term preservation of resources respecting
-               generic standards such as XML and PDF, it was recognised that the increasing use of
-               TEI-XML in the French research community offered both an additional opportunity and a
-               challenge. On the one hand, as a more expressive and richer formalism than generic
-               XML, TEI offers the possibility of ensuring the preservation of more contextual and
-               semantic data forming part of a resource; on the other hand, the ways in which TEI
-               XML is applied in practice varies quite widely amongst different researchers, and so
-               simply to say that a document is "TEI-conformant" may leave unspecified a great deal
-               of useful contextual information about it. </p>
+            <p>The object of the study was to assist the community of researchers wishing to deposit
+               textual resources encoded using TEI XML with the CINES for long term preservation by
+               formulating a series of precise recommendations, a Guide to Good Practice. Although
+               the CINES already has extensive experience and expertise in the long term
+               preservation of resources respecting generic standards such as XML and PDF, it was
+               recognised that the increasing use of TEI-XML in the French research community
+               offered both an additional opportunity and a challenge. On the one hand, as a more
+               expressive and richer formalism than generic XML, TEI offers the possibility of
+               ensuring the preservation of more contextual and semantic data forming part of a
+               resource; on the other hand, the ways in which TEI XML is applied in practice varies
+               quite widely amongst different researchers, and so simply to say that a document is
+               "TEI-conformant" may leave unspecified a great deal of useful contextual information
+               about it. </p>
             <p>Although the community of TEI users is highly divers, its members share an
                understanding of the best way to use the TEI Guidelines, just as those Guidelines
                express a common understanding of how the structure and metadata associated with a
@@ -131,7 +131,10 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                xInclude standard. A TEI-XML document may also transclude other non-XML documents
                such as graphics or audio. And a TEI XML document frequently references other XML
                documents, without however implying that they should be included in the source
-               itself. </p>
+               itself.</p>
+            <p>The METS standard addresses this problem in the general case, and it may be that an
+               additional METS layer would be beneficial also as a way of combining ODD and resource
+               in a single container. </p>
          </div>
          <div xml:id="rex1">
             <head>Provision of Metadata</head>
@@ -152,7 +155,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                the bibliographic description of an individual source text), or to groups of such
                components (for example, a taxonomic classification).</p>
             <div xml:id="D1iden">
-               <head>Corpus identification</head>
+               <head>Identification</head>
                <p>Under this heading we group information that identifies the resource, and
                   specifies the agencies responsible for its creation and distribution. <list>
                      <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>)
@@ -237,19 +240,29 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                      <item>Classification scheme used (<gi>classDecl</gi>)</item>
                   </list>
                </p>
-               <p> Although such information will be of considerable importance and usefulness for
-                  the correct usage of a resource, there is as yet very little agreement or common
-                  practice in the way it should be recorded in the header, some projects providing
-                  extensive documentation, and others none at all. For our purposes, therefore, we
-                  recommend only that the <gi>projectDesc</gi> element be supplied. This element is
-                  used to state explicitly the project goals and research agenda associated with the
-                  creation of the resource. The persons or agencies directly responsible will
-                  already have been mentioned as a part of identifying the resource; the purpose of
-                  this section is to provide further background on such matters as the purposes for
-                  which the corpus was created, its design goals, its theoretical framework or
-                  context, its intended usage, target audience etc. Although such information is of
-                  necessity impressionistic and anecdotal, it can be very helpful to the user
-                  seeking to determine the potential relevance of the resource to their own needs. </p>
+               <p> There is little agreement or common practice in the way these elements are used,
+                  some projects providing extensive documentation, and others none at all. For our
+                  purposes, therefore, we recommend only that the <gi>projectDesc</gi> element be
+                  supplied. This element is used to state explicitly the project goals and research
+                  agenda associated with the creation of the resource. The persons or agencies
+                  directly responsible will already have been mentioned as a part of identifying the
+                  resource; the purpose of this section is to provide further background on such
+                  matters as the purposes for which the corpus was created, its design goals, its
+                  theoretical framework or context, its intended usage, target audience etc.
+                  Although of necessity impressionistic and anecdotal, such information can be very
+                  helpful to the user seeking to determine the potential relevance of the resource
+                  to their own needs. </p>
+               <p>Note that the <gi>schemaSpec</gi> discussed in section <ptr target="#rex2"/> may
+                  also appear within the <gi>encodingDesc</gi> of a particular document. We do not
+                  however recommend this for the following reasons: <list>
+                     <item>full documentation of a schema requires more than simply a schema
+                        specification;</item>
+                     <item>an ODD usually applies to more than one TEI document;</item>
+                     <item>if a document has both an associated ODD and a <gi>schemaSpec</gi> in its
+                        header it is not clear which takes precedence in the case of disagreement
+                        between them.</item>
+                  </list>. If therefore a <gi>schemaSpec</gi> is present, it will only be used to
+                  validate the document in the case where no other ODD is available. </p>
                <p>If other descriptive elements are supplied, they will be archived along with the
                   rest of the Header, and may be harvested to provide a richer description of the
                   resource but their presence is not required. </p>
@@ -295,12 +308,12 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                generic TEI All schema. </p>
             <p>An ODD document is a TEI-conformant XML resource which describes a tagging system
                informally, in the same way as a typical project encoding manual, by listing the
-               elements used, describing the cirucumstances in which they are applicable, providing
+               elements used, describing the circumstances in which they are applicable, providing
                examples of their usage, etc. It also contains a formally expressed specification of
                exactly which parts of the TEI architecture have been used, and how these have been
-               modified. This is expressed by means of a <gi>schemaSpec</gi> element for "schema
-               specification". </p>
-            <p>A schema specification expressed the components which are to be combined to form a
+               modified. This is expressed by means of a <gi>schemaSpec</gi> ("schema
+               specification") and also optionally in running prose. </p>
+            <p>A schema specification may express the components which are to be combined to form a
                schema in any of the following ways : <list>
                   <item>a list of <term>TEI modules</term> to be included by reference; </item>
                   <item>a list of TEI elements to be included by reference;</item>
@@ -322,6 +335,12 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                documentation files in HTML or PDF. An ODD can also be generated automatically by
                applying the <ident>ODD By Example</ident> stylesheet to a body of existing valid TEI
                XML files. </p>
+            <p>For the purposes of our project, the form of the ODD supplied is of little
+               importance, provided that the <att>source</att> attribute is used to tie it to a
+               specific version of the TEI Guidelines. (If this is not the case, the meaning of an
+               ODD defined by exclusion may well change over time). However, for most purposes we
+               consider that an ODD defined by inclusion is easier to understand and may therefore
+               be preferred. </p>
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
@@ -351,7 +370,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                         px wide </desc>
                   </media>
 <p>               This paragraph also contains a remote reference 
-<name ref="http://wikipedia.org/whoever">John Brown</name></p>
+<name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name></p>
                
                ]]></egXML> In this fragment, the contents of the files <ident>../part1.xml</ident>
                and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
@@ -390,7 +409,8 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                are required: <list>
                   <item>An XML validator</item>
                   <item>An XSLT processor</item>
-                  <item>The required version of the TEI Guidelines</item>
+                  <item>The version of the TEI Guidelines indicated by the <att>source</att>
+                     attribute on the supplied <gi>schemaSpec</gi></item>
                   <item>TEI Stylesheets to process ODD files</item>
                   <item>An XSLT style sheet to check availability of XML resources referenced by
                      URI</item>
@@ -405,6 +425,16 @@ Prise en compte des Name-Space
          </div>
          <div xml:id="further">
             <head>Future work</head>
+         </div>
+         <div xml:id="ack">
+            <head>Acknowledgments</head>
+            <p>The first draft of this report was produced in English by Lou Burnard. The French
+               translation was prepared by Nicolas Larrousse. The content of the report was
+               discussed initially with a small working group of members from Open Editions press,
+               the French National Archives, and the CNRTL. Some of the ideas presented here were
+               also the subject of a poster presented at the TEI's Annual Conference in Rome in
+               October 2013. The report in its current shape owes much to the helpful comments
+               received from .... ? </p>
          </div>
          <div xml:id="gloss">
             <head>Glossary</head>
