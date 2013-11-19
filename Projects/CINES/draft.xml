@@ -40,7 +40,7 @@
                quite widely amongst different researchers, and so simply to say that a document is
                "TEI-conformant" may leave unspecified a great deal of useful contextual information
                about it. </p>
-            <p>Although the community of TEI users is highly divers, its members share an
+            <p>Although the community of TEI users is highly diverse, its members share an
                understanding of the best way to use the TEI Guidelines, just as those Guidelines
                express a common understanding of how the structure and metadata associated with a
                textual resource should be documented and defined. This community of practice has
@@ -58,7 +58,7 @@
                <!-- some more examples here? --></p>
             <p>The usefulness of TEI-XML as a format for scholarly analysis and interchange is
                widely accepted. However the question arises as whether TEI-encoded resources are
-               also suitable for long term preservation purposes : more specifically, if a project
+               also suitable for long term preservation purposes. More specifically, if a project
                wishes to ensure long term preservation of its resources, should it archive them in a
                TEI format, or should it regard the TEI format simply as a means to an end, archiving
                only a processed form of the TEI source as HTML or PDF, for example? For projects
@@ -72,13 +72,14 @@
                it SGML) offered.</p>
             <p>If then it is decided to preserve the original TEI XML sources, what other components
                (schema files, stylesheets, etc.) should accompany them when submitting them for long
-               term preservation in a digital archive? TEI encoded resources typically contain
-               mostly XML-encoded text, possibly with links to files expressed using other commonly
-               encountered web formats for graphics or audio; is there advantage to be gained by
-               treating them differently from any other XML encoded resource? When such resources
-               are deposited in a digital archive, what tools and expertise will the archivist need
-               to have available in order to ensure that they are valid and will continue to be
-               usable? </p>
+               term preservation in a digital archive? Should derived versions of the source (in
+               such formats as HTML or PDF) also be preserved? TEI encoded resources typically
+               contain mostly XML-encoded text, possibly with links to files expressed using other
+               commonly encountered web formats for graphics or audio; is there advantage to be
+               gained by treating them differently from any other XML encoded resource? When such
+               resources are deposited in a digital archive, what tools and expertise will the
+               archivist need to have available in order to ensure that they are valid and will
+               continue to be usable? </p>
             <p> This study attempts to address these questions by providing (in section <ptr
                   target="#rex"/>) <list>
                   <item>recommendations for the data depositor, specifically about what documents
@@ -90,6 +91,18 @@
                and other resources available to the depositor (and the archive). We provide some
                technical background on the technologies concerned in section <ptr target="#tech"/>
                below.</p>
+            <p>Our study concerns primarily resources encoded using TEI-XML, though its
+               recommendations may easily be generalised to cover comparable XML vocabularies such
+               as Docbook or even other markup languages entirely. We do not consider other file
+               formats, except where resources using them are likely to form part of a TEI-XML
+               resource. We assume a basic knowledge of the TEI Recommendations, and also of the
+               principles of long term archiving of digital resources, notably as practiced within
+               the library community. A good overview covering most organisational aspects of this
+               area is provided (in English) in the UK's Digital Preservation Coalition's online
+               handbook at and we do not
+               attempt to duplicate its recommendations here.
+               <!--Comparable recommendations have been
+               provided by other European agencies such as Minerva (?)--></p>
             <!--
                A voir dans l’introduction ???
 Références à d’autres pratiques et formats de fichiers 
@@ -158,11 +171,12 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                <head>Identification</head>
                <p>Under this heading we group information that identifies the resource, and
                   specifies the agencies responsible for its creation and distribution. <list>
-                     <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>)
-                        [required]</item>
+                     <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>) [required]; </item>
+                     <item>author and/or editor of the original from which the resource is derived
+                           (<gi>author</gi> or <gi>editor</gi> within <gi>titleStmt</gi> as necessary) [required where applicable] </item>
                      <item>producer (<gi>respStmt</gi> within <gi>titleStmt</gi>). The agency
                         (individuals, research group, "principle investigator", company, institution
-                        etc.) responsible for the intellectual content of the resource must be
+                        etc.) responsible for the creation and form of the resource must be
                         specified. [required] </item>
                      <item>Information about any funding body or sponsor involved may also be
                         supplied using the <gi>funder</gi> element.</item>
@@ -203,8 +217,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                      <item><gi>bibl</gi> or <gi>ref</gi> for web pages or other digitally
                         distributed materials</item>
                      <item><gi>recording</gi> for recorded or broadcast speech or video</item>
-                  </list>
-               </p>
+                  </list></p>
                <p>All of these elements have their own detailed substructure, concerning which we
                   make no particular recommendations, since their use will be highly
                   project-specific. For archival purposes, it is required only that at least one of
@@ -242,16 +255,16 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                </p>
                <p> There is little agreement or common practice in the way these elements are used,
                   some projects providing extensive documentation, and others none at all. For our
-                  purposes, therefore, we recommend only that the <gi>projectDesc</gi> element be
-                  supplied. This element is used to state explicitly the project goals and research
-                  agenda associated with the creation of the resource. The persons or agencies
-                  directly responsible will already have been mentioned as a part of identifying the
-                  resource; the purpose of this section is to provide further background on such
-                  matters as the purposes for which the corpus was created, its design goals, its
-                  theoretical framework or context, its intended usage, target audience etc.
-                  Although of necessity impressionistic and anecdotal, such information can be very
-                  helpful to the user seeking to determine the potential relevance of the resource
-                  to their own needs. </p>
+                  purposes, therefore, we recommend only that as a minimum the <gi>projectDesc</gi>
+                  element be supplied. This element is used to state explicitly the project goals
+                  and research agenda associated with the creation of the resource. The persons or
+                  agencies directly responsible will already have been mentioned as a part of
+                  identifying the resource; the purpose of this section is to provide further
+                  background on such matters as the purposes for which the corpus was created, its
+                  design goals, its theoretical framework or context, its intended usage, target
+                  audience etc. Although of necessity impressionistic and anecdotal, such
+                  information can be very helpful to the user seeking to determine the potential
+                  relevance of the resource to their own needs. </p>
                <p>Note that the <gi>schemaSpec</gi> discussed in section <ptr target="#rex2"/> may
                   also appear within the <gi>encodingDesc</gi> of a particular document. We do not
                   however recommend this for the following reasons: <list>
@@ -329,12 +342,11 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                   <ident>Roma</ident> or <ident>Byzantium</ident>, which allow the user to construct
                a new ODD using a relatively simple interface to the full TEI specifications. The
                user can start from an existing schema and add or remove components, save an ODD
-               specification for futurre manipulation and so on. These interfaces also provide
-               simple access to the XSLT Stylesheets to process the ODD being constructed,
-               generating from it either formal schemas in RELAXNG, DTD or W3C Schema or
-               documentation files in HTML or PDF. An ODD can also be generated automatically by
-               applying the <ident>ODD By Example</ident> stylesheet to a body of existing valid TEI
-               XML files. </p>
+               specification for future manipulation and so on. These interfaces also provide simple
+               access to the XSLT Stylesheets to process the ODD being constructed, generating from
+               it either formal schemas in RELAXNG, DTD or W3C Schema or documentation files in HTML
+               or PDF. An ODD can also be generated automatically by applying the <ident>ODD By
+                  Example</ident> stylesheet to a body of existing valid TEI XML files. </p>
             <p>For the purposes of our project, the form of the ODD supplied is of little
                importance, provided that the <att>source</att> attribute is used to tie it to a
                specific version of the TEI Guidelines. (If this is not the case, the meaning of an
@@ -389,7 +401,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                   <ident>media</ident> directory at the same level as the rest of the resource, we
                recommend that it should be obtained and copied to such a directory, and the source
                modified accordingly. </p>
-            <p>Ur Is within a TEI-XML document which do not imply transclusion of text or media may
+            <p>URIs within a TEI-XML document which do not imply transclusion of text or media may
                be left unmodified in the source, although they should be checked for validity,
                particularly those which point locally (i.e. links of the form
                   <code>url="xxxx"</code> or <code>url="#xxx"</code>). In the general case however
@@ -501,6 +513,10 @@ Prise en compte des Name-Space
                      entry summarizing talk given at JADH 2013]</ref>
                </bibl>
             </listBibl>
+            <listBibl><head>Digital Preservation</head>
+               <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>  <ptr target="http://www.dpconline.org/advice/preservationhandbook"/></bibl>
+               <bibl>Hathi Trust <title>Digital Object Specifications (METS and PREMIS)</title> <ptr target="http://www.hathitrust.org/digital_object_specifications"/>
+                  </bibl></listBibl>
          </div>
       </body>
    </text>
