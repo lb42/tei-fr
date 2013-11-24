@@ -306,15 +306,32 @@ Prendre contact avec Text-Grid & Deutche Text Archive
          </div>
          <div xml:id="rex2">
             <head>Validation of the Source</head>
-            <p>Each TEI resource archived (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) must be
-               accompanied by a formal specification of its schema and documentation of the
-               semantics of the elements, attributes, datatypes defined by the schema. For the most
-               part, of course, those semantics are as defined in the version of the TEI Guidelines
-               specified by the <att>version</att> attribute on the root element, but since the TEI
-               offers many overlapping ways of doing the same thing, it may be necessary to
-               supplement and make more precise the default documentation by means of user-specific
-               documentation. This is provided by means of a free-standing document, referred to as
-               an ODD.</p>
+            <p>The idea of <soCalled>TEI Conformance</soCalled> goes beyond simple syntactic
+               validity, i.e. conformance to the rules of XML. The TEI Guidelines now define quite
+               explicitly the properties of a TEI-conformant document, and suggest ways in which
+               those properties may be checked. They state that : <list>
+                  <item>a TEI conformant document must be valid with respect to a schema called TEI
+                     All (at least, as far as those parts of it which are taken from the TEI
+                     namespace are concerned);</item>
+                  <item>a TEI conformant document must be accompanied by an ODD documenting its
+                     specific TEI usage; </item>
+                  <item>a TEI document must respect the TEI conceptual model: that is, it must
+                     respect the semantics of the TEI elements it contains. Clearly this constraint
+                     is hard or impossible to validate entirely automatically, though some
+                     indicative procedures can be identified.</item>
+               </list></p>
+            <p>The schema TEI All is distributed as part of the TEI Guidelines. We recommend, as a
+               minimum, that every TEI resource (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) to be
+               archived should be validated against it. </p>
+            <p>We also recommend that each TEI resource archived should be accompanied by an
+               additional free-standing document called an ODD. This is a formal specification of a
+               TEI schema documenting the semantics of the elements, attributes, datatypes it
+               contains. For the most part, of course, those semantics are as defined in the TEI
+               Guidelines (more exactly, in a particular version of them, as specified by the
+                  <att>version</att> attribute on the root element), but since the TEI offers many
+               overlapping ways of doing the same thing, it may be necessary to supplement and make
+               more precise the default documentation by means of additional user-supplied
+               documentation. </p>
             <p>The ODD (<q>One Document Does it all</q>) format is defined in the TEI Guidelines,
                and has also been the subject of a small number of introductory guides and tutorials
                (see the bibliography). Nevertheless it is not as well known or understood within the
@@ -322,13 +339,13 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                might be. Its importance to our project lies in the mechanisms it offers for
                validation and documentation of a TEI-XML resource beyond simple validity against the
                generic TEI All schema. </p>
-            <p>An ODD document is a TEI-conformant XML resource which describes a tagging system
+            <p>An ODD document is a TEI-conformant XML document which describes a tagging system
                informally, in the same way as a typical project encoding manual, by listing the
                elements used, describing the circumstances in which they are applicable, providing
                examples of their usage, etc. It also contains a formally expressed specification of
                exactly which parts of the TEI architecture have been used, and how these have been
                modified. This is expressed by means of a <gi>schemaSpec</gi> ("schema
-               specification") and also optionally in running prose. </p>
+               specification") element and also optionally in running prose. </p>
             <p>A schema specification may express the components which are to be combined to form a
                schema in any of the following ways : <list>
                   <item>a list of <term>TEI modules</term> to be included by reference; </item>
@@ -343,7 +360,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
             <p>An ODD may be written from scratch, like any other TEI XML document. It is more
                usually created (initially at least) by software such as the TEI applications
                   <ident>Roma</ident> or <ident>Byzantium</ident>, which allow the user to construct
-               a new ODD using a relatively simple interface to the full TEI specifications. The
+               a new ODD using a relatively simple web interface to the full TEI specifications. The
                user can start from an existing schema and add or remove components, save an ODD
                specification for future manipulation and so on. These interfaces also provide simple
                access to the XSLT Stylesheets to process the ODD being constructed, generating from
@@ -356,6 +373,24 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                ODD defined by exclusion may well change over time). However, for most purposes we
                consider that an ODD defined by inclusion is easier to understand and may therefore
                be preferred. </p>
+
+            <p>We make the following recommendations for formal validation : <list>
+                  <item>Is the document valid against TEI All?</item>
+                  <item>If an ODD is supplied <list>
+                        <item>is the ODD valid against TEI All?</item>
+                        <item>Can a schema in RELAXNG, WSD, or DTD language be generated from the
+                           ODD?</item>
+                        <item>Is the document valid against each of the schemas generated in the
+                           previous step?</item>
+                     </list></item>
+                  <item>Whether or not an ODD is supplied, an <soCalled>instance ODD</soCalled>
+                     should be generated automatically from the set of documents being
+                     archived?</item>
+               </list>
+            </p>
+
+            <p>The schemas generated from an instance ODD may be used to validate and document
+               related XML resources in the absence of a supplied ODD. </p>
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
@@ -415,39 +450,12 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                expect all such links to be accessible all the time, particularly those pointing to
                arbitrary web sites outside the scope of the Archive's concerns.</p>
          </div>
-         <div xml:id="tech">
-            <head>Technical background</head>
-         </div>
+        
          <div xml:id="pilot">
-            <note/>
+           
             <head>Pilot Implementation</head>
-            <p>The idea of <soCalled>TEI Conformance</soCalled> goes beyond simple syntactic
-               validity. The TEI Guidelines now define quite explicitly the properties of a
-               TEI-conformant document, and suggest ways in which those properties may be checked.
-               For example: <list>
-                  <item>a TEI conformant document must be valid with respect to a schema called TEI
-                     All (at least, as far as those parts of it which are taken from the TEI
-                     namespace are concerned);</item>
-                  <item>a TEI conformant document must be accompanied by an ODD documenting its
-                     specific TEI usage; </item>
-                  <item>a TEI document must respect the TEI conceptual model: that is, it must
-                     respect the semantics of the TEI elements it contains. Clearly this constraint
-                     is hard or impossible to validate entirely automatically, though some
-                     indicative procedures can be identified.</item>
-               </list></p>
-            <p>To meet these constraints, we suggest the following procedures: <list>
-                  <item>syntactic validation of each document against the most appropriate TEI
-                     schema; for documents containing textual data this would naturally include TEI
-                     All, but also any project-supplied XML schema, and also (for any ODD document
-                     supplied) the standard TEI ODD schema;</item>
-                  <item> creation of a TEI schema from the supplied ODD and validation of the
-                     documents against that in order to validate any project-specific constraints
-                     such as attribute values;</item>
-                  <item> comparison of the ODD supplied with an ODD generated automatically from the
-                     document set;</item>
-                
-               </list>.</p>
-            <p>To perform the validation tasks suggested above, the following software components
+
+            <p>To perform the validation tasks suggested in section <ptr target="#rex2"/> above, the following software components
                are required: <list>
                   <item/>
                   <item>An XML validator</item>
@@ -471,7 +479,7 @@ Prise en compte des Name-Space
             <p>If the recommendations made in the present report are accepted, it is clear that work
                is needed on several fronts: <list>
                   <item>a tool kit to carry out the procedures outlined in section <ptr
-                        target="#tools"/> needs to be assembled, and tested against a substantial
+                        target="#pilot"/> needs to be assembled, and tested against a substantial
                      body of TEI documents;</item>
                   <item>cost-effective ways of enhancing and correcting existing TEI documents to
                      meet the proposed level of description need to be determined;</item>
