@@ -99,8 +99,7 @@
                principles of long term archiving of digital resources, notably as practiced within
                the library community. A good overview covering most organisational aspects of this
                area is provided (in English) in the UK's Digital Preservation Coalition's online
-               handbook at and we do not
-               attempt to duplicate its recommendations here.
+               handbook at and we do not attempt to duplicate their recommendations here.
                <!--Comparable recommendations have been
                provided by other European agencies such as Minerva (?)--></p>
             <!--
@@ -147,7 +146,10 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                itself.</p>
             <p>The METS standard addresses this problem in the general case, and it may be that an
                additional METS layer would be beneficial also as a way of combining ODD and resource
-               in a single container. </p>
+               in a single container. METS is widely used in the library community as a means of
+               combining arbitrary components to form an archival object: see further <ref>Hathi
+                  Trust Digital Object Specifications (METS and PREMIS)</ref>
+            </p>
          </div>
          <div xml:id="rex1">
             <head>Provision of Metadata</head>
@@ -173,7 +175,8 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                   specifies the agencies responsible for its creation and distribution. <list>
                      <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>) [required]; </item>
                      <item>author and/or editor of the original from which the resource is derived
-                           (<gi>author</gi> or <gi>editor</gi> within <gi>titleStmt</gi> as necessary) [required where applicable] </item>
+                           (<gi>author</gi> or <gi>editor</gi> within <gi>titleStmt</gi> as
+                        necessary) [required where applicable] </item>
                      <item>producer (<gi>respStmt</gi> within <gi>titleStmt</gi>). The agency
                         (individuals, research group, "principle investigator", company, institution
                         etc.) responsible for the creation and form of the resource must be
@@ -416,9 +419,37 @@ Prendre contact avec Text-Grid & Deutche Text Archive
             <head>Technical background</head>
          </div>
          <div xml:id="pilot">
+            <note/>
             <head>Pilot Implementation</head>
+            <p>The idea of <soCalled>TEI Conformance</soCalled> goes beyond simple syntactic
+               validity. The TEI Guidelines now define quite explicitly the properties of a
+               TEI-conformant document, and suggest ways in which those properties may be checked.
+               For example: <list>
+                  <item>a TEI conformant document must be valid with respect to a schema called TEI
+                     All (at least, as far as those parts of it which are taken from the TEI
+                     namespace are concerned);</item>
+                  <item>a TEI conformant document must be accompanied by an ODD documenting its
+                     specific TEI usage; </item>
+                  <item>a TEI document must respect the TEI conceptual model: that is, it must
+                     respect the semantics of the TEI elements it contains. Clearly this constraint
+                     is hard or impossible to validate entirely automatically, though some
+                     indicative procedures can be identified.</item>
+               </list></p>
+            <p>To meet these constraints, we suggest the following procedures: <list>
+                  <item>syntactic validation of each document against the most appropriate TEI
+                     schema; for documents containing textual data this would naturally include TEI
+                     All, but also any project-supplied XML schema, and also (for any ODD document
+                     supplied) the standard TEI ODD schema;</item>
+                  <item> creation of a TEI schema from the supplied ODD and validation of the
+                     documents against that in order to validate any project-specific constraints
+                     such as attribute values;</item>
+                  <item> comparison of the ODD supplied with an ODD generated automatically from the
+                     document set;</item>
+                
+               </list>.</p>
             <p>To perform the validation tasks suggested above, the following software components
                are required: <list>
+                  <item/>
                   <item>An XML validator</item>
                   <item>An XSLT processor</item>
                   <item>The version of the TEI Guidelines indicated by the <att>source</att>
@@ -437,6 +468,18 @@ Prise en compte des Name-Space
          </div>
          <div xml:id="further">
             <head>Future work</head>
+            <p>If the recommendations made in the present report are accepted, it is clear that work
+               is needed on several fronts: <list>
+                  <item>a tool kit to carry out the procedures outlined in section <ptr
+                        target="#tools"/> needs to be assembled, and tested against a substantial
+                     body of TEI documents;</item>
+                  <item>cost-effective ways of enhancing and correcting existing TEI documents to
+                     meet the proposed level of description need to be determined;</item>
+                  <item>the potential user community needs better guidance on how to document their
+                     resources. For example, better documentation of the ODD system is needed: a
+                     simple user guide or <foreign>antisèche</foreign>
+                     <title>How To Write an ODD</title> would be very useful. </item>
+               </list></p>
          </div>
          <div xml:id="ack">
             <head>Acknowledgments</head>
@@ -452,7 +495,11 @@ Prise en compte des Name-Space
             <head>Glossary</head>
             <list type="gloss">
                <label>TEI</label>
-               <item/>
+               <item>Text Encoding Initiative: an international membership consortium which manages
+                  and maintains a set of recommendations for the encoding of textual and other
+                  materials, initially in SGML, and now in XML. The TEI Guidelines are the de facto
+                  standard for this kind of work within the arts and humanities research
+                  community.</item>
                <label>schema</label>
                <item>a set of rules expressed using a formal language (examples include RELAXNG, W3C
                   Schema, and DTD) which can be used to validate the tagging of an XML
@@ -513,10 +560,14 @@ Prise en compte des Name-Space
                      entry summarizing talk given at JADH 2013]</ref>
                </bibl>
             </listBibl>
-            <listBibl><head>Digital Preservation</head>
-               <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>  <ptr target="http://www.dpconline.org/advice/preservationhandbook"/></bibl>
-               <bibl>Hathi Trust <title>Digital Object Specifications (METS and PREMIS)</title> <ptr target="http://www.hathitrust.org/digital_object_specifications"/>
-                  </bibl></listBibl>
+            <listBibl>
+               <head>Digital Preservation</head>
+               <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>: <ptr
+                     target="http://www.dpconline.org/advice/preservationhandbook"/></bibl>
+               <bibl>Hathi Trust <title>Digital Object Specifications (METS and PREMIS)</title>:
+                     <ptr target="http://www.hathitrust.org/digital_object_specifications"/>
+               </bibl>
+            </listBibl>
          </div>
       </body>
    </text>
