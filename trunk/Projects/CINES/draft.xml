@@ -302,6 +302,7 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                      <gi>change</gi> element be supplied in order to record the date of archiving of
                   the source. If this is not present, then it should be added during the
                   accessioning process.</p>
+          <!-- but it cant be the archiving date : it's the date of finishing -->
             </div>
          </div>
          <div xml:id="rex2">
@@ -394,14 +395,15 @@ Prendre contact avec Text-Grid & Deutche Text Archive
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
+            <!-- generate sip.xml from document !! -->
             <p>A TEI XML object, for the purposes of accessioning, should contain the whole of the
                root TEI or teiCorpus element. If portions of this document are embedded by means of
-               x Include statements or other URI reference, resolving these should be as simple as
+               xInclude statements or other URI reference, resolving these should be as simple as
                possible. For that reason, we recommend that before the object is archived its
                components should be moved to a simple directory structure, in which each x Included
                file is at the same level, and each embedded graphic or other media file is moved to
                a single <q>Media</q> directory at the same level. This in turn will require some
-               modification of the existing source files, to ensure that Ur Is continue to be valid. </p>
+               modification of the existing source files, to ensure that URIs continue to be valid. </p>
             <p>For example consider the following imaginary TEI XML fragment: <egXML
                   xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
                  <body><include xmlns="http://www.w3.org/2001/XInclude" href="../part1.xml"/>
@@ -419,9 +421,9 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                      <desc>A 45 minute video clip to be displayed in a window 500
                         px wide </desc>
                   </media>
-<p>               This paragraph also contains a remote reference 
-<name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name></p>
-               
+<p>               This paragraph contains a remote reference 
+<name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name> and also to a video 
+stream <ref target="http://www.youtube.com/watch?v=aV25VdEMiBM">A video about Diderot</ref></p>              
                ]]></egXML> In this fragment, the contents of the files <ident>../part1.xml</ident>
                and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
                   <hi>before archiving is carried out</hi> and inserted at the appropriate place in
@@ -450,14 +452,14 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                expect all such links to be accessible all the time, particularly those pointing to
                arbitrary web sites outside the scope of the Archive's concerns.</p>
          </div>
-        
+
          <div xml:id="pilot">
-           
+
             <head>Pilot Implementation</head>
 
-            <p>To perform the validation tasks suggested in section <ptr target="#rex2"/> above, the following software components
-               are required: <list>
-                  
+            <p>To perform the validation tasks suggested in section <ptr target="#rex2"/> above, the
+               following software components are required: <list>
+
                   <item>An XML validator</item>
                   <item>An XSLT processor</item>
                   <item>The version of the TEI Guidelines indicated by the <att>source</att>
@@ -569,7 +571,10 @@ Prise en compte des Name-Space
                </bibl>
             </listBibl>
             <listBibl>
+               
                <head>Digital Preservation</head>
+               
+               <bibl><title>CINES Recommandations, liste de formats etc.</title><ref target="http://facile.cines.fr/">FACILE</ref></bibl>
                <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>: <ptr
                      target="http://www.dpconline.org/advice/preservationhandbook"/></bibl>
                <bibl>Hathi Trust <title>Digital Object Specifications (METS and PREMIS)</title>:
