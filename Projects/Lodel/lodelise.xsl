@@ -19,13 +19,13 @@
     <xsl:output indent="yes"/>
     
     <xsl:template match="/">
-    
+        
+   <!-- This stylesheet does not yet deal with the fact that Lodel 1.1 does not allow <list> or <egXML> within <p> -->
+     
     <TEI>
-
-<teiHeader>
-    <xsl:apply-templates select="TEI/teiHeader"/>
-</teiHeader>
-<text>
+   <xsl:apply-templates select="TEI/teiHeader"/>
+        
+ <text>
     <xsl:if test='TEI/text/front'>
         <front>
             <xsl:for-each select="TEI/text/front/div">
@@ -46,7 +46,7 @@
                 </xsl:for-each>
                 
                 <xsl:result-document href="{$filename}" >
-                    <div xml:id="{concat('div-',$part)}"  >
+                    <div xml:id="{concat('div-front-',$part)}"  >
                         <xsl:apply-templates/>
                     </div>
                 </xsl:result-document>
@@ -101,7 +101,7 @@
                 </xsl:for-each>
                 
                 <xsl:result-document href="{$filename}" >
-                    <div xml:id="{concat('div-',$part)}"  >
+                    <div xml:id="{concat('div-back-',$part)}"  >
                         <xsl:apply-templates/>
                     </div>
                 </xsl:result-document>
