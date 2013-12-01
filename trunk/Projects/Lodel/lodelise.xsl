@@ -78,7 +78,7 @@
                     <xsl:apply-templates/>
                 </div>
             </xsl:result-document>
-        </xsl:for-each>-->
+        </xsl:for-each>
     
 </body>
     
@@ -158,14 +158,6 @@
       <xsl:apply-templates select="@* | node()"/>
     </xsl:element>
   </xsl:template>
-    
-    
-<xsl:template match="TEI">
-        <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       >     <xsl:apply-templates/> 
-        </TEI>
-    </xsl:template>
-
 
 <xsl:template match="revisionDesc"/>
     <!-- suppress revisionDesc :-( -->
