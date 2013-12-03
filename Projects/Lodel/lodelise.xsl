@@ -46,9 +46,13 @@
                 </xsl:for-each>
                 
                 <xsl:result-document href="{$filename}" >
-                    <div xml:id="{concat('div-front-',$part)}"  >
+                  <!--  <div xml:id="{concat('div-front-',$part)}"  >
                         <xsl:apply-templates/>
-                    </div>
+                    </div>-->
+                    <xsl:copy>
+                        <xsl:apply-templates select="@*" />
+                        <xsl:apply-templates/>
+                    </xsl:copy>
                 </xsl:result-document>
             </xsl:for-each>
         </front>
@@ -74,9 +78,10 @@
             </xsl:for-each>
             
             <xsl:result-document href="{$filename}" >
-                <div xml:id="{concat('div-',$part)}"  >
+                <xsl:copy>
+                    <xsl:apply-templates select="@*" />
                     <xsl:apply-templates/>
-                </div>
+                </xsl:copy>
             </xsl:result-document>
         </xsl:for-each>
     
@@ -101,9 +106,10 @@
                 </xsl:for-each>
                 
                 <xsl:result-document href="{$filename}" >
-                    <div xml:id="{concat('div-back-',$part)}"  >
+                    <xsl:copy>
+                        <xsl:apply-templates select="@*" />
                         <xsl:apply-templates/>
-                    </div>
+                    </xsl:copy>
                 </xsl:result-document>
             </xsl:for-each>
         </back>
@@ -224,7 +230,7 @@
     </xsl:template>
     
     <xsl:template match="gi">
-        &lt;<xsl:apply-templates/>&gt;
+      <xsl:text>&lt;</xsl:text><xsl:apply-templates/><xsl:text>&gt;</xsl:text>
     </xsl:template>
     
     <xsl:template match="tag">
@@ -242,7 +248,7 @@
     
     
     <xsl:template match="soCalled|mentioned">
-        `<xsl:apply-templates/>'
+       <xsl:text> `</xsl:text><xsl:apply-templates/><xsl:text>' </xsl:text>
     </xsl:template>
     
     <xsl:template match="title">
@@ -252,12 +258,39 @@
     <xsl:template match="val">
         <hi rendition="#val"><xsl:apply-templates/></hi>
     </xsl:template>
-    
-    
+   
 
-<xsl:template match="figure/head">
-    <!-- not allowed -->
-</xsl:template>
+    <xsl:template match="list">
+        <xsl:if test="parent::p">
+            <xsl:message>list inside p! panic!</xsl:message>
+        </xsl:if>
+        <xsl:variable name="listType">
+            <xsl:choose>
+                <xsl:when test="@type">ordered</xsl:when>
+                <xsl:otherwise>unordered</xsl:otherwise>
+            </xsl:choose> 
+        </xsl:variable>
+        <list type="{$listType}">
+        <xsl:apply-templates />
+        </list>
+    </xsl:template>
+    
+    <xsl:template match="figure/head">
+        <xsl:message>panic! head not allowed inside figure</xsl:message>
+    </xsl:template>
+    
+    <xsl:template match="head">
+        <xsl:variable name="level">
+            <xsl:value-of select="count(ancestor-or-self::div)"/>
+        </xsl:variable>
+        <xsl:message>head level <xsl:value-of select="$level"/></xsl:message>
+        <xsl:element name="head">
+            <xsl:attribute name="subtype">
+                <xsl:value-of select="concat('level',$level)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </xsl:element> 
+    </xsl:template>
     
     <xsl:template match="graphic/@width">
         <!-- not allowed -->
