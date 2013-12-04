@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <xsl:stylesheet 
     xmlns="http://www.tei-c.org/ns/1.0"
     xmlns:teix="http://www.tei-c.org/ns/Examples"
@@ -20,11 +19,8 @@
     
     <xsl:template match="/">
         
-   <!-- This stylesheet does not yet deal with the fact that Lodel 1.1 does not allow <list> or <egXML> within <p> -->
-     
-    <TEI>
-   <xsl:apply-templates select="TEI/teiHeader"/>
-        
+   <TEI>
+   <xsl:apply-templates select="TEI/teiHeader"/>     
  <text>
     <xsl:if test='TEI/text/front'>
         <front>
@@ -78,6 +74,7 @@
             </xsl:for-each>
             
             <xsl:result-document href="{$filename}" >
+
                 <xsl:copy>
                     <xsl:apply-templates select="@*" />
                     <xsl:apply-templates/>
