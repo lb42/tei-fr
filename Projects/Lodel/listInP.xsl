@@ -18,6 +18,28 @@
         </xsl:element>
     </xsl:template>
     
+<xsl:template match="p">
+        <xsl:variable name="element" select="local-name()"/>
+        <xsl:for-each-group select="node()" 		
+            group-adjacent="if (self::list or
+            self::figure or
+            self::egXML or       
+            self::quote) then 1
+            else 2">
+            <xsl:choose>
+                <xsl:when test="current-grouping-key()=1">
+                    <xsl:copy-of select="current-group()"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:element name="{$element}">
+                        <xsl:copy-of select="current-group()"/>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each-group>
+    </xsl:template>
+    
+    
     <xsl:template match="div">
   <xsl:copy>
             <xsl:apply-templates select="@*" />
