@@ -51,10 +51,12 @@
                purposes of this project we approached initially only a small number of projects,
                selecting those which were known to be engaged in the creation of significant amounts
                of TEI-XML material likely to be of long-term interest in the scholarly research
-               community. Examples included the Open Edition project (CLEO), which will publishes
+               community. Examples included the Open Edition project (CLEO), which will publish
                several hundred scholarly books in a TEI format over the next few years; the CNRTL,
                which has long been responsible for creation and distribution of a wide range of
-               TEI-encoded language corpora and is a major French partner in CLARIN;
+               TEI-encoded language corpora and is a major French partner in CLARIN; and many
+               ANR-funded projects, notably the Consortium CAHIER which aims to make available
+               sizeable corpora representing the works of many major French authors.
                <!-- some more examples here? --></p>
             <p>The usefulness of TEI-XML as a format for scholarly analysis and interchange is
                widely accepted. However the question arises as whether TEI-encoded resources are
@@ -299,10 +301,8 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                <p>This optional element is used to record significant stages in the evolution of a
                   resource. It should contain a series of <gi>change</gi> elements, in reverse
                   chronological order, most recent first. We recommend that at least one such
-                     <gi>change</gi> element be supplied in order to record the date of archiving of
-                  the source. If this is not present, then it should be added during the
-                  accessioning process.</p>
-          <!-- but it cant be the archiving date : it's the date of finishing -->
+                     <gi>change</gi> element be supplied, record the date at which work on the
+                  resource stopped, prior to its being submitted to the archive. </p>
             </div>
          </div>
          <div xml:id="rex2">
@@ -377,6 +377,9 @@ Prendre contact avec Text-Grid & Deutche Text Archive
 
             <p>We make the following recommendations for formal validation : <list>
                   <item>Is the document valid against TEI All?</item>
+                  <item>Whether or not an ODD is supplied, an <soCalled>instance ODD</soCalled>
+                     should be generated automatically from the set of documents being
+                     archived.</item>
                   <item>If an ODD is supplied <list>
                         <item>is the ODD valid against TEI All?</item>
                         <item>Can a schema in RELAXNG, WSD, or DTD language be generated from the
@@ -384,14 +387,10 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                         <item>Is the document valid against each of the schemas generated in the
                            previous step?</item>
                      </list></item>
-                  <item>Whether or not an ODD is supplied, an <soCalled>instance ODD</soCalled>
-                     should be generated automatically from the set of documents being
-                     archived.</item>
-               </list>
-            </p>
-
-            <p>The schemas generated from an instance ODD may be used to validate and document
-               related XML resources in the absence of a supplied ODD. </p>
+               </list></p>
+            <p>The schemas generated from an instance ODD may be used to validate related XML
+               resources in the absence of a supplied ODD, though this is not strictly necessary;
+               its primary purpose being to document TEI usage in the resources. </p>
          </div>
          <div xml:id="rex3">
             <head>Physical Organization</head>
@@ -402,8 +401,8 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                possible. For that reason, we recommend that before the object is archived its
                components should be moved to a simple directory structure, in which each x Included
                file is at the same level, and each embedded graphic or other media file is moved to
-               a single <q>Media</q> directory at the same level. This in turn will require some
-               modification of the existing source files, to ensure that URIs continue to be valid. </p>
+               a single <q>Media</q> directory at the same level. This may require some modification
+               of the existing source files, to ensure that URIs continue to be valid. </p>
             <p>For example consider the following imaginary TEI XML fragment: <egXML
                   xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
                  <body><include xmlns="http://www.w3.org/2001/XInclude" href="../part1.xml"/>
@@ -421,8 +420,8 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                      <desc>A 45 minute video clip to be displayed in a window 500
                         px wide </desc>
                   </media>
-<p>               This paragraph contains a remote reference 
-<name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name> and also to a video 
+<p>               This paragraph associates the name
+<name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name> with his entry on Wikipedia and also to a video 
 stream <ref target="http://www.youtube.com/watch?v=aV25VdEMiBM">A video about Diderot</ref></p>              
                ]]></egXML> In this fragment, the contents of the files <ident>../part1.xml</ident>
                and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
@@ -451,28 +450,46 @@ stream <ref target="http://www.youtube.com/watch?v=aV25VdEMiBM">A video about Di
                ingesting the source into the Archive. It is probably unreasonable, however, to
                expect all such links to be accessible all the time, particularly those pointing to
                arbitrary web sites outside the scope of the Archive's concerns.</p>
+            <p>As part of the accession process, a SIP (Submission Information Package) will be
+               automatically generated from the XML resource, which will specify locations for each
+               of the components to be archived. The recommendations of this section are intended to
+               make that specification as simple as possible.</p>
          </div>
 
          <div xml:id="pilot">
 
             <head>Pilot Implementation</head>
 
-            <p>To perform the validation tasks suggested in section <ptr target="#rex2"/> above, the
-               following software components are required: <list>
+            <p>To perform the validation tasks proposed in section <ptr target="#rex2"/> above, the
+               following software components are required: <list type="ordered">
 
                   <item>An XML validator</item>
                   <item>An XSLT processor</item>
+                  <item>(Optionally) an XML processor to resolve X Included document fragments</item>
                   <item>The version of the TEI Guidelines indicated by the <att>source</att>
                      attribute on the supplied <gi>schemaSpec</gi></item>
                   <item>TEI Stylesheets to process ODD files</item>
                   <item>An XSLT style sheet to check availability of XML resources referenced by
                      URI</item>
-                  <item>An XML processor to resolve X Included document fragments</item>
+                  <item>An XSLT style sheet to generate a SIP (Submission Information Package)
+                     conformant to the XSD schema supplied by CINES, on the basis of data extracted
+                     from the TEI resource.</item>
                </list></p>
+            <p>Items 1, 2, and 3 in the above list are readily available, many of them open source,
+               and are also of course needed for any kind of XML document. We note however that
+               correct validation of documents deploying multiple namespaces requires a validator
+               supporting the Namespace-based Validation Dispatching Language  defined in Part 4 of
+               ISO/IEC 19757 DSDL (Document Schema Definition Languages). At this writing, the
+               validator oNVDL included with the commercial Oxygen XML editor and also the open
+               source jing package provides this functionality. </p>
+            <p>Items 4 and 5 in the above list are provided and maintained by the TEI Consortium as
+               an integral part of the TEI Guidelines.</p>
+            <p>Items 6 and 7 are to be provided to CINES. </p>
+            <p> </p>
             <!--Quels outils ?
 Proposer un environnement logiciel en annexe 
 Problème de vérification des URIs (images, sons vidéos  et SVG  Balise TEI « media » 
-Existe t-il des validateurs d’URIs 
+Existe t-il des validateurs d’URIs  multiple namespaces
 Prise en compte des Name-Space 
 -->
          </div>
@@ -480,11 +497,12 @@ Prise en compte des Name-Space
             <head>Future work</head>
             <p>If the recommendations made in the present report are accepted, it is clear that work
                is needed on several fronts: <list>
-                  <item>a tool kit to carry out the procedures outlined in section <ptr
+                  <item>a tool kit to carry out the work flow outlined in section <ptr
                         target="#pilot"/> needs to be assembled, and tested against a substantial
                      body of TEI documents;</item>
-                  <item>cost-effective ways of enhancing and correcting existing TEI documents to
-                     meet the proposed level of description need to be determined;</item>
+                  <item>cost-effective ways of enhancing and correcting existing TEI XML resources
+                     to meet the proposed level of description need to be determined and
+                     implemented;</item>
                   <item>the potential user community needs better guidance on how to document their
                      resources. For example, better documentation of the ODD system is needed: a
                      simple user guide or <foreign>antisèche</foreign>
@@ -499,7 +517,8 @@ Prise en compte des Name-Space
                the French National Archives, and the CNRTL. Some of the ideas presented here were
                also the subject of a poster presented at the TEI's Annual Conference in Rome in
                October 2013. The report in its current shape owes much to the helpful comments
-               received from .... ? </p>
+               received from the members of the working group, in particular Bertrand Gaiffe,
+               Jean-Francois Riviere, Michel Jacobsen, and Marion Massel. </p>
          </div>
          <div xml:id="gloss">
             <head>Glossary</head>
@@ -571,10 +590,11 @@ Prise en compte des Name-Space
                </bibl>
             </listBibl>
             <listBibl>
-               
+
                <head>Digital Preservation</head>
-               
-               <bibl><title>CINES Recommandations, liste de formats etc.</title><ref target="http://facile.cines.fr/">FACILE</ref></bibl>
+
+               <bibl><title>CINES Recommandations, liste de formats etc.</title><ref
+                     target="http://facile.cines.fr/">FACILE</ref></bibl>
                <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>: <ptr
                      target="http://www.dpconline.org/advice/preservationhandbook"/></bibl>
                <bibl>Hathi Trust <title>Digital Object Specifications (METS and PREMIS)</title>:
