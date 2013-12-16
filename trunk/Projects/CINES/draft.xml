@@ -10,13 +10,31 @@
             <funder>TGIR Huma-Num</funder>
          </titleStmt>
          <publicationStmt>
-            <p>Unpublished draft circulated for comment</p>
+            <publisher>Huma Num</publisher>
+            <pubPlace>Paris</pubPlace>
+            <date>2013-12-11</date>
+            <availability>
+               <licence target="http://creativecommons.org/licenses/by/3.0/"/>
+            </availability>
          </publicationStmt>
          <sourceDesc>
-            <p>An original work: no pre-existing source</p>
+            <p>An original work with no pre-existing source</p>
          </sourceDesc>
       </fileDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en"/>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term>digital archiving</term>
+               <term>CINES</term>
+               <term>TEI</term>
+            </keywords>
+         </textClass>
+      </profileDesc>
       <revisionDesc>
+         <change who="#lou" when="2013-12-30">Packaged for archiving</change>
          <change who="#lou" when="2013-10-20">Started draft</change>
       </revisionDesc>
    </teiHeader>
@@ -112,16 +130,14 @@ Prendre contact avec Text-Grid & Deutche Text Archive
 -->
          </div>
          <div xml:id="rex">
-            <head>Recommendations</head>
+            <head>Recommendations for the data provider</head>
             <p>Our first recommendation concerns the <hi>provision of metadata</hi> about the
                source. All TEI-XML files include a component known as the <term>TEI Header</term>,
-               which may be very elaborate and detailed, or entirely minimalist. For archival
-               purposes, however, we think it may be helpful to propose a specific subset of
-               information that should be supplied by the Header for every kind of language
-               resource. A project may well supply more metadata than is suggested here; if it
-               supplies less, then the description of the resource will be correspondingly weaker
-               and less useful. The Archive will be expected to use only the elements specified here
-               as the basis of its cataloguing of the resource. </p>
+               which may be very elaborate and detailed, or entirely minimalist. We propose that
+               this should always include, as a minimum, sufficient information to meet the metadata
+               requirements proposed by the CINES in their SIP schema. A project may well supply
+               more metadata than is suggested here; if it supplies less, then an automatically
+               generated SIP will need to be enhanced by hand. </p>
             <p>Our second recommendation concerns the <hi>validation of the source</hi>. We propose
                that depositors should as far as possible ensure that TEI-XML resources are
                accompanied by a file which accurately describes their encoding practices and
@@ -150,127 +166,268 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                additional METS layer would be beneficial also as a way of combining ODD and resource
                in a single container. METS is widely used in the library community as a means of
                combining arbitrary components to form an archival object: see further <ref>Hathi
-                  Trust Digital Object Specifications (METS and PREMIS)</ref>
-            </p>
-         </div>
-         <div xml:id="rex1">
-            <head>Provision of Metadata</head>
-            <p>A <gi>teiHeader</gi> element must be provided for each distinct <gi>TEI</gi> or
-                  <gi>teiCorpus</gi> element in a resource. We recommend the following steps as part
-               of the accession process: <list>
-                  <item>Each header should be validated against a strict schema (to be supplied)
-                     which will check the existence of required components listed below;</item>
-                  <item>Each header will be modified, as a minimum to indicate that the header has
-                     been validated for accession, and possibly also to indicate any significant
-                     gaps found, as indicated below.</item>
-               </list>
-            </p>
-            <p>Multiple <term>levels</term> of metadata may be provided in the case of a
-                  <gi>teiCorpus</gi>. For example, some information may relate to the corpus as a
-               whole (for example, its title, the purpose for which it was created, its distributor,
-               etc); other information may relate only to individual components of it (for example,
-               the bibliographic description of an individual source text), or to groups of such
-               components (for example, a taxonomic classification).</p>
-            <div xml:id="D1iden">
-               <head>Identification</head>
-               <p>Under this heading we group information that identifies the resource, and
-                  specifies the agencies responsible for its creation and distribution. <list>
-                     <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>) [required]; </item>
-                     <item>author and/or editor of the original from which the resource is derived
-                           (<gi>author</gi> or <gi>editor</gi> within <gi>titleStmt</gi> as
-                        necessary) [required where applicable] </item>
-                     <item>producer (<gi>respStmt</gi> within <gi>titleStmt</gi>). The agency
-                        (individuals, research group, "principle investigator", company, institution
-                        etc.) responsible for the creation and form of the resource must be
-                        specified. [required] </item>
-                     <item>Information about any funding body or sponsor involved may also be
-                        supplied using the <gi>funder</gi> element.</item>
-                     <item> A <gi>publicationStmt</gi> is also required within the
-                        <gi>fileDesc</gi>. If the resource has been formally published or
-                        distributed, this will contain details of the agency (individual, research
-                        group, company, institution etc) concerned; if not, it will contain text
-                        stating that the resource has not been formally published. The following
-                        elements may be used: <list>
-                           <item>name of agency <gi>publisher</gi>, <gi>distributor</gi>
-                           </item>
-                           <item>contact details (postal address, email, telephone, fax)
-                                 (<gi>pubPlace</gi>)</item>
-                           <item>date first made available by this agency (<gi>date</gi>)</item>
-                           <item>any specific identifier (e.g. a PURL or ISBN ) used for the
-                              published version (<gi>idno</gi>)</item>
-                           <item>information about access rights should be supplied within the
-                              required <gi>availability</gi> element. This should explicitly
-                              reference all applicable licences using the <gi>licence</gi> element
-                              and may also indicate additional restrictions, e.g. where the corpus
-                              may not be distributed in some geographic zones, or for some specific
-                              purposes. </item>
-                        </list></item>
-                  </list></p>
-            </div>
-            <div xml:id="D1srce">
-               <head>Source derivation</head>
-               <p>Under this heading we group information that describes the sources from which the
-                  resource was derived. </p>
-               <p>TEI-XML resources may be derived from many different kinds of object. A
-                     <gi>sourceDescription</gi> is required for each distinct source. Depending on
-                  its nature, this will contain one of the following : <list>
-                     <item><gi>bibl</gi> or <gi>biblStruct</gi> for books, newspapers, pamphlets
-                        etc. originally printed; </item>
-                     <item><gi>msDesc</gi> for unique manuscript archival documents or inscriptions; </item>
-                     <item><gi>p</gi> or <gi>note</gi> for unpublished
-                           <soCalled>born-digital</soCalled> materials;</item>
-                     <item><gi>bibl</gi> or <gi>ref</gi> for web pages or other digitally
-                        distributed materials</item>
-                     <item><gi>recording</gi> for recorded or broadcast speech or video</item>
-                  </list></p>
-               <p>All of these elements have their own detailed substructure, concerning which we
-                  make no particular recommendations, since their use will be highly
-                  project-specific. For archival purposes, it is required only that at least one of
-                  the elements listed above appear. In the case of conventionally printed and
-                  published material, a standard bibliographic description should be supplied or
-                  referenced, using the usual conventions (author, title, publisher, date, ISBN,
-                  etc.), and using a standard citation format. For other kinds of material,
-                  different data is appropriate: for example, in transcripts of spoken data it is
-                  customary to supply demographic information about each speaker, and the context in
-                  which the speech interaction occurs. Standards defining the range of such
-                  information for the use of particular research communities should be followed (for
-                  example, defined by CLARIN) where appropriate. </p>
-               <p>Other components of the <gi>fileDesc</gi> element such as <gi>extent</gi> may be
-                  used, but are not required.</p>
-            </div>
-            <div xml:id="D1enc">
-               <head>Encoding description</head>
-               <p>The second major subdivision of the TEI header is contained by an optional
-                     <gi>encodingDesc</gi> element, and may potentially contain a very large number
-                  of semi-structured metadata elements covering most aspects of the process by which
-                  a source has been encoded. Its function thus overlaps with that of the ODD file
-                  discussed in section <ptr target="#rec2"/>. Components of this element specify the
-                  methods and editorial principles which governed the transcription or encoding of
-                  the resource and may also include sets of coded definitions used by other
-                  components. The following elements, many of which have quite extensive
-                  substructure, are potentially available: <list>
-                     <item>Project goals and research agenda (<gi>projectDesc</gi>); </item>
-                     <item>Sampling principles and methods employed (<gi>samplingDecl</gi>);</item>
-                     <item>Editorial principles and practices (<gi>editorialDecl</gi>); </item>
-                     <item>XML tagging used (<gi>tagsDecl</gi>, <gi>styleDefDecl</gi>,
-                           <gi>schemaSpec</gi>); </item>
-                     <item>Reference schemes applied (<gi>refsDecl</gi> ; <gi>geoDecl</gi>) </item>
-                     <item>Classification scheme used (<gi>classDecl</gi>)</item>
-                  </list>
-               </p>
-               <p> There is little agreement or common practice in the way these elements are used,
-                  some projects providing extensive documentation, and others none at all. For our
-                  purposes, therefore, we recommend only that as a minimum the <gi>projectDesc</gi>
-                  element be supplied. This element is used to state explicitly the project goals
-                  and research agenda associated with the creation of the resource. The persons or
-                  agencies directly responsible will already have been mentioned as a part of
-                  identifying the resource; the purpose of this section is to provide further
-                  background on such matters as the purposes for which the corpus was created, its
-                  design goals, its theoretical framework or context, its intended usage, target
-                  audience etc. Although of necessity impressionistic and anecdotal, such
-                  information can be very helpful to the user seeking to determine the potential
-                  relevance of the resource to their own needs. </p>
-               <p>Note that the <gi>schemaSpec</gi> discussed in section <ptr target="#rex2"/> may
+                  Trust Digital Object Specifications (METS and PREMIS)</ref>. In the SIP proposed
+               by CINES, however, the various components making up a digital object are explicitly
+               listed, along with filenames and checksums. The person preparing the resource for
+               submission to the Archive needs to generate this information manually. </p>
+            <div xml:id="rex1">
+               <head>Provision of Metadata</head>
+               <p>A <gi>teiHeader</gi> element must be provided for each distinct <gi>TEI</gi> or
+                     <gi>teiCorpus</gi> element in a resource. During the accession process: <list>
+                     <item>each header will be validated to check the existence of the required
+                        components listed below;</item>
+                     <item>each header will be transformed, using an XSLT stylesheet to be supplied,
+                        to generate the SIP required by the CINES. </item>
+                  </list> It is the responsibility of the data provider to ensure that all the
+                  metadata required by CINES is provided in the TEI Header according to the
+                  specification below. </p>
+               <p>Multiple <term>levels</term> of metadata may be provided in the case of a
+                     <gi>teiCorpus</gi>. For example, some information may relate to the corpus as a
+                  whole (for example, its title, the purpose for which it was created, its
+                  distributor, etc); other information may relate only to individual components of
+                  it (for example, the bibliographic description of an individual source text), or
+                  to groups of such components (for example, a taxonomic classification). Even when
+                  these features of the TEI architecture have been used, it remains the
+                  responsibility of the data provider to ensure that all the required metadata for
+                  the object being archived is available in a single header, whether this is
+                  attached to a <gi>teiCorpus</gi> or a <gi>TEI</gi> document. </p>
+               <div xml:id="DCmapping">
+                  <head>Required metadata</head>
+                  <p>The following table lists the components of the CINES SIP which must be
+                     supplied by the data provider, and shows for each an xPath expression which
+                     will be used to recover the corresponding information from a TEI Header. The
+                     names preceded by <code>dc:</code> are Dublin Core metadata; the others are
+                     specific to the CINES SIP. Except for <gi>dc:date</gi>, which may only be
+                     provided once, all of these items may be repeated as necessary. </p>
+                  <table>
+                     <row role="label">
+                        <cell> dc:element</cell>
+                        <cell>TEI or teiCorpus location</cell>
+                        <cell>optionality</cell>
+                     </row>
+                     <row>
+                        <cell>dc:title </cell>
+                        <cell>TEI/teiHeader/fileDesc/titleStmt/title </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:creator </cell>
+                        <cell>TEI/teiHeader/fileDesc/titleStmt/author </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:subject </cell>
+                        <cell>TEI/teiHeader/profileDesc/textClass/keywords/list/item </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:description</cell>
+                        <cell> TEI/teiHeader/encodingDesc/projectDesc
+                           TEI/teiHeader/encodingDesc/editorialDesc
+                           TEI/teiHeader/encodingDesc/refsDecl Others? </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:publisher </cell>
+                        <cell>TEI/teiHeader/fileDesc/publicationStmt/publisher and pubplace </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell> dc:contributor</cell>
+                        <cell> TEI/teiHeader/fileDesc/titleStmt/editor, funder, sponsor, or
+                           principle<lb/> TEI/teiHeader/fileDesc/respStmt/name/@key </cell>
+                        <cell>optional</cell>
+                     </row>
+                     <row>
+                        <cell>dc:date </cell>
+                        <cell>TEI/teiHeader/fileDesc/publicationStmt/date </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:type </cell>
+                        <cell>TEI/teiHeader/@type </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell> dc:format</cell>
+                        <cell> text/xml </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:identifier </cell>
+                        <cell>TEI/teiHeader/fileDesc/publicationStmt/idno/@type="ARK" </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:source </cell>
+                        <cell>TEI/teiHeader/sourceDesc</cell>
+                        <cell>optional</cell>
+                     </row>
+                     <row>
+                        <cell>dc:language </cell>
+                        <cell>TEI/teiHeader/profileDesc/langUsage/language/@ident </cell>
+                        <cell>required</cell>
+                     </row>
+                     <row>
+                        <cell>dc:relation </cell>
+                        <cell>[not used] TEI/teiHeader/fileDesc/seriesStmt/title OR
+                           title/xref/@href="url" </cell>
+                        <cell>optional</cell>
+                     </row>
+                     <row>
+                        <cell>dc:coverage </cell>
+                        <cell>[not used]</cell>
+                        <cell>optional</cell>
+                     </row>
+                     <row>
+                        <cell>dc:rights </cell>
+                        <cell>TEI/teiheader/fileDesc/publicationStmt/availability/p and
+                           licence</cell>
+                        <cell>required</cell>
+                     </row>
+                  </table>
+                  <p>Here, as an example, is the header of the present document, with all the
+                     required components mentioned above: <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples">
+                        <teiHeader>
+                           <fileDesc>
+                              <titleStmt>
+                                 <title>Best practice recommendations for long term archiving of TEI
+                                    XML resources</title>
+                                 <author xml:id="lou">Lou Burnard</author>
+                                 <author>Nicolas Larrousse</author>
+                                 <funder>TGIR Huma-Num</funder>
+                              </titleStmt>
+                              <publicationStmt>
+                                 <publisher>Huma Num</publisher>
+                                 <pubPlace>Paris</pubPlace>
+                                 <date>2013-12-11</date>
+                                 <availability>
+                                    <licence target="http://creativecommons.org/licenses/by/3.0/"/>
+                                 </availability>
+                              </publicationStmt>
+                              <sourceDesc>
+                                 <p>An original work with no pre-existing source</p>
+                              </sourceDesc>
+                           </fileDesc>
+                           <profileDesc>
+                              <langUsage>
+                                 <language ident="en"/>
+                              </langUsage>
+                              <textClass>
+                                 <keywords>
+                                    <term>digital archiving</term>
+                                    <term>CINES</term>
+                                    <term>TEI</term>
+                                 </keywords>
+                              </textClass>
+                           </profileDesc>
+                           <revisionDesc>
+                              <change who="#lou" when="2013-12-30">Packaged for archiving</change>
+                              <change who="#lou" when="2013-10-20">Started draft</change>
+                           </revisionDesc>
+                        </teiHeader>
+                     </egXML></p>
+                  <p>This provides the following components : <list>
+                        <item>name of resource (<gi>title</gi> within <gi>titleStmt</gi>) </item>
+                        <item>names of persons primarily responsible for the intellectual content of
+                           the resource (<gi>author</gi> or <gi>editor</gi> within
+                              <gi>titleStmt</gi>) </item>
+                        <item>optionally, names of other agencies (individuals, research group,
+                           "principle investigator", company, institution, funding body or sponsor
+                           etc.) who have contributed to the creation of the work (<gi>respStmt</gi>
+                           or <gi>funder</gi> within <gi>titleStmt</gi>) </item>
+                        <item> information about the publication of the resource, grouped within a
+                              <gi>publicationStmt</gi> within the <gi>fileDesc</gi> The following
+                           order is required: <list type="ordered">
+                              <item>name of publisher using <gi>publisher</gi> or
+                                    <gi>distributor</gi>
+                              </item>
+                              <item> (optional) contact details (postal address, email, telephone,
+                                 fax) (<gi>pubPlace</gi>)</item>
+                              <item>date first made available by this agency (<gi>date</gi>)</item>
+                              <item>any specific identifier (e.g. a PURL or ISBN) used for the
+                                 published version (<gi>idno</gi>)</item>
+                              <item>information about access rights (<gi>availability</gi>). This
+                                 should explicitly reference all applicable licences using the
+                                    <gi>licence</gi> element and may also indicate additional
+                                 restrictions, e.g. where the corpus may not be distributed in some
+                                 geographic zones, or for some specific purposes. </item>
+                           </list></item>
+                        <item>A summary notice above the source from which the resource was derived.
+                           In this case, the work is born digital, and therefore this contains
+                           little detail. For other possibilities, see section <ptr target="#D1srce"
+                           /> below.</item>
+                        <item>Information about the main natural language used by a resource
+                           (encoded following ISO 639 by the <att>ident</att> attribute of the
+                              <gi>language </gi> element within <gi>langUsage</gi> within
+                              <gi>profileDesc</gi>)</item>
+                        <item>Information about the subject matter of the resource (given as one or
+                           more <gi>term</gi> elements grouped within <gi>keywords</gi> within
+                              <gi>textDesc</gi> within <gi>profileDesc</gi>) </item>
+                        <item>Information about the date and agency responsible for submitting the
+                           resource for archiving. (<gi>change</gi> within <gi>revisionDesc</gi>).
+                        </item>
+                     </list></p>
+               </div>
+               <div xml:id="D1srce">
+                  <head>Source description</head>
+                  <p>TEI-XML resources may be derived from many different kinds of object. A
+                        <gi>sourceDescription</gi> is required for each distinct source. Depending
+                     on the nature of the resource, this might contain one of the following : <list>
+                        <item><gi>bibl</gi> or <gi>biblStruct</gi> for books, newspapers, pamphlets
+                           etc. originally printed; </item>
+                        <item><gi>msDesc</gi> for unique manuscript archival documents or
+                           inscriptions; </item>
+                        <item><gi>p</gi> or <gi>note</gi> for unpublished
+                              <soCalled>born-digital</soCalled> materials;</item>
+                        <item><gi>bibl</gi> or <gi>ref</gi> for web pages or other digitally
+                           distributed materials</item>
+                        <item><gi>recording</gi> for recorded or broadcast speech or video</item>
+                     </list></p>
+                  <p>All of these elements have their own detailed substructure, concerning which we
+                     make no particular recommendations, since their use will be highly
+                     project-specific. For archival purposes, it is required only that at least one
+                     of the elements listed above appear. In the case of conventionally printed and
+                     published material, a standard bibliographic description should be supplied or
+                     referenced, using the usual conventions (author, title, publisher, date, ISBN,
+                     etc.), and using a standard citation format. For other kinds of material,
+                     different data is appropriate: for example, in transcripts of spoken data it is
+                     customary to supply demographic information about each speaker, and the context
+                     in which the speech interaction occurs. Standards defining the range of such
+                     information for the use of particular research communities should be followed
+                     (for example, defined by CLARIN) where appropriate. </p>
+                  <p>The content of the <gi>sourceDesc</gi> will be copied to the <gi>dc:source</gi>
+                     field, with any TEI structural tagging retained in the TEI namespace. (or
+                     removed?) </p>
+               </div>
+               <div xml:id="D1enc">
+                  <head>Other components of the TEI Header</head>
+                  <p>The TEI header may potentially contain a very large number of structured and
+                     semi-structured metadata elements covering most aspects of the process by which
+                     a source has been encoded (<gi>encodingDesc</gi>), may be described
+                        (<gi>profileDesc</gi>), or has been updated (<gi>revisionDesc</gi>). With
+                     the exception of those specifically mentioned above, these are not considered
+                     during the process of creating the archival record, although they obviously are
+                     of major importance when making use of the associated resource. Components of
+                     the <gi>encodingDesc</gi>, for example, specify the methods and editorial
+                     principles which governed the transcription or encoding of the resource and may
+                     also include sets of coded definitions used by other components. Examples
+                     include: <list>
+                        <item>Project goals and research agenda (<gi>projectDesc</gi>); </item>
+                        <item>Sampling principles and methods employed
+                           (<gi>samplingDecl</gi>);</item>
+                        <item>Editorial principles and practices (<gi>editorialDecl</gi>); </item>
+                        <item>XML tagging used (<gi>tagsDecl</gi>, <gi>styleDefDecl</gi>,
+                              <gi>schemaSpec</gi>); </item>
+                        <item>Reference schemes applied (<gi>refsDecl</gi> ; <gi>geoDecl</gi>) </item>
+                        <item>Classification scheme used (<gi>classDecl</gi>)</item>
+                     </list>
+                  </p>
+                  <p>There is however little agreement or common practice in the way these elements
+                     are used, some projects providing extensive documentation, and others none at
+                     all. </p>
+                  <!--<p>Note that the <gi>schemaSpec</gi> discussed in section <ptr target="#rex2"/> may
                   also appear within the <gi>encodingDesc</gi> of a particular document. We do not
                   however recommend this for the following reasons: <list>
                      <item>full documentation of a schema requires more than simply a schema
@@ -303,108 +460,110 @@ Prendre contact avec Text-Grid & Deutche Text Archive
                   chronological order, most recent first. We recommend that at least one such
                      <gi>change</gi> element be supplied, record the date at which work on the
                   resource stopped, prior to its being submitted to the archive. </p>
+            </div>-->
+               </div>
             </div>
-         </div>
-         <div xml:id="rex2">
-            <head>Validation of the Source</head>
-            <p>The idea of <soCalled>TEI Conformance</soCalled> goes beyond simple syntactic
-               validity, i.e. conformance to the rules of XML. The TEI Guidelines now define quite
-               explicitly the properties of a TEI-conformant document, and suggest ways in which
-               those properties may be checked. They state that : <list>
-                  <item>a TEI conformant document must be valid with respect to a schema called TEI
-                     All (at least, as far as those parts of it which are taken from the TEI
-                     namespace are concerned);</item>
-                  <item>a TEI conformant document must be accompanied by an ODD documenting its
-                     specific TEI usage; </item>
-                  <item>a TEI document must respect the TEI conceptual model: that is, it must
-                     respect the semantics of the TEI elements it contains. Clearly this constraint
-                     is hard or impossible to validate entirely automatically, though some
-                     indicative procedures can be identified.</item>
-               </list></p>
-            <p>The schema TEI All is distributed as part of the TEI Guidelines. We recommend, as a
-               minimum, that every TEI resource (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>) to be
-               archived should be validated against it. </p>
-            <p>We also recommend that each TEI resource archived should be accompanied by an
-               additional free-standing document called an ODD. This is a formal specification of a
-               TEI schema documenting the semantics of the elements, attributes, datatypes it
-               contains. For the most part, of course, those semantics are as defined in the TEI
-               Guidelines (more exactly, in a particular version of them, as specified by the
-                  <att>version</att> attribute on the root element), but since the TEI offers many
-               overlapping ways of doing the same thing, it may be necessary to supplement and make
-               more precise the default documentation by means of additional user-supplied
-               documentation. </p>
-            <p>The ODD (<q>One Document Does it all</q>) format is defined in the TEI Guidelines,
-               and has also been the subject of a small number of introductory guides and tutorials
-               (see the bibliography). Nevertheless it is not as well known or understood within the
-               broad TEI community as other parts of the TEI and hence not as widely used as it
-               might be. Its importance to our project lies in the mechanisms it offers for
-               validation and documentation of a TEI-XML resource beyond simple validity against the
-               generic TEI All schema. </p>
-            <p>An ODD document is a TEI-conformant XML document which describes a tagging system
-               informally, in the same way as a typical project encoding manual, by listing the
-               elements used, describing the circumstances in which they are applicable, providing
-               examples of their usage, etc. It also contains a formally expressed specification of
-               exactly which parts of the TEI architecture have been used, and how these have been
-               modified. This is expressed by means of a <gi>schemaSpec</gi> ("schema
-               specification") element and also optionally in running prose. </p>
-            <p>A schema specification may express the components which are to be combined to form a
-               schema in any of the following ways : <list>
-                  <item>a list of <term>TEI modules</term> to be included by reference; </item>
-                  <item>a list of TEI elements to be included by reference;</item>
-                  <item>a subset of declarations from a named module, defined either by inclusion
-                     ("select only x y and z from module a") or by exclusion ("select everything
-                     except x y and z from module a") </item>
-                  <item>modifications of certain parts of an existing specification, for example to
-                     change class memberships, add a new usage example, suppress one or more
-                     attributes, change lists of legal attribute values, etc. </item>
-               </list></p>
-            <p>An ODD may be written from scratch, like any other TEI XML document. It is more
-               usually created (initially at least) by software such as the TEI applications
-                  <ident>Roma</ident> or <ident>Byzantium</ident>, which allow the user to construct
-               a new ODD using a relatively simple web interface to the full TEI specifications. The
-               user can start from an existing schema and add or remove components, save an ODD
-               specification for future manipulation and so on. These interfaces also provide simple
-               access to the XSLT Stylesheets to process the ODD being constructed, generating from
-               it either formal schemas in RELAXNG, DTD or W3C Schema or documentation files in HTML
-               or PDF. An ODD can also be generated automatically by applying the <ident>ODD By
-                  Example</ident> stylesheet to a body of existing valid TEI XML files. </p>
-            <p>For the purposes of our project, the form of the ODD supplied is of little
-               importance, provided that the <att>source</att> attribute is used to tie it to a
-               specific version of the TEI Guidelines. (If this is not the case, the meaning of an
-               ODD defined by exclusion may well change over time). However, for most purposes we
-               consider that an ODD defined by inclusion is easier to understand and may therefore
-               be preferred. </p>
-
-            <p>We make the following recommendations for formal validation : <list>
-                  <item>Is the document valid against TEI All?</item>
-                  <item>Whether or not an ODD is supplied, an <soCalled>instance ODD</soCalled>
-                     should be generated automatically from the set of documents being
-                     archived.</item>
-                  <item>If an ODD is supplied <list>
-                        <item>is the ODD valid against TEI All?</item>
-                        <item>Can a schema in RELAXNG, WSD, or DTD language be generated from the
-                           ODD?</item>
-                        <item>Is the document valid against each of the schemas generated in the
-                           previous step?</item>
-                     </list></item>
-               </list></p>
-            <p>The schemas generated from an instance ODD may be used to validate related XML
-               resources in the absence of a supplied ODD, though this is not strictly necessary;
-               its primary purpose being to document TEI usage in the resources. </p>
-         </div>
-         <div xml:id="rex3">
-            <head>Physical Organization</head>
-            <!-- generate sip.xml from document !! -->
-            <p>A TEI XML object, for the purposes of accessioning, should contain the whole of the
-               root TEI or teiCorpus element. If portions of this document are embedded by means of
-               xInclude statements or other URI reference, resolving these should be as simple as
-               possible. For that reason, we recommend that before the object is archived its
-               components should be moved to a simple directory structure, in which each x Included
-               file is at the same level, and each embedded graphic or other media file is moved to
-               a single <q>Media</q> directory at the same level. This may require some modification
-               of the existing source files, to ensure that URIs continue to be valid. </p>
-            <p>For example consider the following imaginary TEI XML fragment: <egXML
-                  xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
+            <div xml:id="rex2">
+               <head>Validation of the Source</head>
+               <p>The idea of <soCalled>TEI Conformance</soCalled> goes beyond simple syntactic
+                  validity, i.e. conformance to the rules of XML. The TEI Guidelines now define
+                  quite explicitly the properties of a TEI-conformant document, and suggest ways in
+                  which those properties may be checked. They state that : <list>
+                     <item>a TEI conformant document must be valid with respect to a schema called
+                        TEI All (at least, as far as those parts of it which are taken from the TEI
+                        namespace are concerned);</item>
+                     <item>a TEI conformant document must be accompanied by an ODD documenting its
+                        specific TEI usage; </item>
+                     <item>a TEI document must respect the TEI conceptual model: that is, it must
+                        respect the semantics of the TEI elements it contains. Clearly this
+                        constraint is hard or impossible to validate entirely automatically, though
+                        some indicative procedures can be identified.</item>
+                  </list></p>
+               <p>The schema TEI All is distributed as part of the TEI Guidelines. We recommend, as
+                  a minimum, that every TEI resource (i.e. each <gi>TEI</gi> or <gi>teiCorpus</gi>)
+                  to be archived should be validated against it. </p>
+               <p>We also recommend that each TEI resource archived should be accompanied by an
+                  additional free-standing document called an ODD. This is a formal specification of
+                  a TEI schema documenting the semantics of the elements, attributes, datatypes it
+                  contains. For the most part, of course, those semantics are as defined in the TEI
+                  Guidelines (more exactly, in a particular version of them, as specified by the
+                     <att>version</att> attribute on the root element), but since the TEI offers
+                  many overlapping ways of doing the same thing, it may be necessary to supplement
+                  and make more precise the default documentation by means of additional
+                  user-supplied documentation. </p>
+               <p>The ODD (<q>One Document Does it all</q>) format is defined in the TEI Guidelines,
+                  and has also been the subject of a small number of introductory guides and
+                  tutorials (see the bibliography). Nevertheless it is not as well known or
+                  understood within the broad TEI community as other parts of the TEI and hence not
+                  as widely used as it might be. Its importance to our project lies in the
+                  mechanisms it offers for validation and documentation of a TEI-XML resource beyond
+                  simple validity against the generic TEI All schema. </p>
+               <p>An ODD document is a TEI-conformant XML document which describes a tagging system
+                  informally, in the same way as a typical project encoding manual, by listing the
+                  elements used, describing the circumstances in which they are applicable,
+                  providing examples of their usage, etc. It also contains a formally expressed
+                  specification of exactly which parts of the TEI architecture have been used, and
+                  how these have been modified. This is expressed by means of a <gi>schemaSpec</gi>
+                  ("schema specification") element and also optionally in running prose. </p>
+               <p>A schema specification may express the components which are to be combined to form
+                  a schema in any of the following ways : <list>
+                     <item>a list of <term>TEI modules</term> to be included by reference; </item>
+                     <item>a list of TEI elements to be included by reference;</item>
+                     <item>a subset of declarations from a named module, defined either by inclusion
+                        ("select only x y and z from module a") or by exclusion ("select everything
+                        except x y and z from module a") </item>
+                     <item>modifications of certain parts of an existing specification, for example
+                        to change class memberships, add a new usage example, suppress one or more
+                        attributes, change lists of legal attribute values, etc. </item>
+                  </list></p>
+               <p>An ODD may be written from scratch, like any other TEI XML document. It is more
+                  usually created (initially at least) by software such as the TEI applications
+                     <ident>Roma</ident> or <ident>Byzantium</ident>, which allow the user to
+                  construct a new ODD using a relatively simple web interface to the full TEI
+                  specifications. The user can start from an existing schema and add or remove
+                  components, save an ODD specification for future manipulation and so on. These
+                  interfaces also provide simple access to the XSLT Stylesheets to process the ODD
+                  being constructed, generating from it either formal schemas in RELAXNG, DTD or W3C
+                  Schema or documentation files in HTML or PDF. An ODD can also be generated
+                  automatically by applying the <ident>ODD By Example</ident> stylesheet to a body
+                  of existing valid TEI XML files. </p>
+               <p>For the purposes of our project, the form of the ODD supplied is of little
+                  importance, provided that the <att>source</att> attribute is used to tie it to a
+                  specific version of the TEI Guidelines. (If this is not the case, the meaning of
+                  an ODD defined by exclusion may well change over time). However, for most purposes
+                  we consider that an ODD defined by inclusion is easier to understand and may
+                  therefore be preferred. </p>
+               <p>We make the following recommendations for formal validation : <list>
+                     <item>Is the document valid against TEI All?</item>
+                     <item>Whether or not an ODD is supplied, an <soCalled>instance ODD</soCalled>
+                        should be generated automatically from the set of documents being
+                        archived.</item>
+                     <item>If an ODD is supplied <list>
+                           <item>is the ODD valid against TEI All?</item>
+                           <item>Can a schema in RELAXNG, WSD, or DTD language be generated from the
+                              ODD?</item>
+                           <item>Is the document valid against each of the schemas generated in the
+                              previous step?</item>
+                        </list></item>
+                  </list></p>
+               <p>The schemas generated from an instance ODD may be used to validate related XML
+                  resources in the absence of a supplied ODD, though this is not strictly necessary;
+                  its primary purpose being to document TEI usage in the resources. </p>
+            </div>
+            <div xml:id="rex3">
+               <head>Physical Organization</head>
+               <!-- generate sip.xml from document !! -->
+               <p>A TEI XML object, for the purposes of accessioning, should contain the whole of
+                  the root TEI or teiCorpus element. If portions of this document are embedded by
+                  means of xInclude statements or other URI reference, resolving these should be as
+                  simple as possible. For that reason, we recommend that before the object is
+                  archived its components should be moved to a simple directory structure, in which
+                  each x Included file is at the same level, and each embedded graphic or other
+                  media file is moved to a single <q>Media</q> directory at the same level. This may
+                  require some modification of the existing source files, to ensure that URIs
+                  continue to be valid. </p>
+               <p>For example consider the following imaginary TEI XML fragment: <egXML
+                     xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
                  <body><include xmlns="http://www.w3.org/2001/XInclude" href="../part1.xml"/>
                   <p>
                      This text contains a local pointer <ptr target="#section34"/> and a remote one <ptr target="http://www.tei-c.org"/>
@@ -424,74 +583,91 @@ Prendre contact avec Text-Grid & Deutche Text Archive
 <name ref="http://en.wikipedia.org/wiki/Denis_Diderot">Denis Diderot</name> with his entry on Wikipedia and also to a video 
 stream <ref target="http://www.youtube.com/watch?v=aV25VdEMiBM">A video about Diderot</ref></p>              
                ]]></egXML> In this fragment, the contents of the files <ident>../part1.xml</ident>
-               and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
-                  <hi>before archiving is carried out</hi> and inserted at the appropriate place in
-               the source. If this is not possible (perhaps because the resulting file would be too
-               large), the files concerned should be included within the archival package at the
-               same level in the file structure as the file containing the fragment quoted here, and
-               the <att>href</att> values modified, to point to "part1.xml" and "part2.xml"
-               respectively. </p>
-            <p>The values of each of the attributes <att>target</att>, <att>url</att>, and
-                  <att>ref</att> should be checked during accession to ensure that the resource
-               indicated by the URI is accessible. This can be done for XML content by means of an
-               XSLT2 style sheet, using the <ident>doc-available()</ident> and
-                  <ident>resolve-Uri()</ident> built-in functions. When the resource indicated by
-               the <att>url</att> attribute is available, but is not stored in a local
-                  <ident>media</ident> directory at the same level as the rest of the resource, we
-               recommend that it should be obtained and copied to such a directory, and the source
-               modified accordingly. </p>
-            <p>URIs within a TEI-XML document which do not imply transclusion of text or media may
-               be left unmodified in the source, although they should be checked for validity,
-               particularly those which point locally (i.e. links of the form
-                  <code>url="xxxx"</code> or <code>url="#xxx"</code>). In the general case however
-               the only reliable way of checking a URI is to follow it, using a tool such as
-                  <ident>curl</ident> to access the HTTP header for the indicated URL and then
-               processing that. Such checking could be done automatically during the process of
-               ingesting the source into the Archive. It is probably unreasonable, however, to
-               expect all such links to be accessible all the time, particularly those pointing to
-               arbitrary web sites outside the scope of the Archive's concerns.</p>
-            <p>As part of the accession process, a SIP (Submission Information Package) will be
-               automatically generated from the XML resource, which will specify locations for each
-               of the components to be archived. The recommendations of this section are intended to
-               make that specification as simple as possible.</p>
+                  and <ident>/home/demo/TEIstuff/part2.xml</ident> should preferably be obtained
+                     <hi>before archiving is carried out</hi> and inserted at the appropriate place
+                  in the source. If this is not possible (perhaps because the resulting file would
+                  be too large), the files concerned should be included within the archival package
+                  at the same level in the file structure as the file containing the fragment quoted
+                  here, and the <att>href</att> values modified, to point to "part1.xml" and
+                  "part2.xml" respectively. </p>
+               <p>The values of each of the attributes <att>target</att>, <att>url</att>, and
+                     <att>ref</att> should be checked during accession to ensure that the resource
+                  indicated by the URI is accessible. This can be done for XML content by means of
+                  an XSLT2 style sheet, using the <ident>doc-available()</ident> and
+                     <ident>resolve-Uri()</ident> built-in functions. When the resource indicated by
+                  the <att>url</att> attribute is available, but is not stored in a local
+                     <ident>media</ident> directory at the same level as the rest of the resource,
+                  we recommend that it should be obtained and copied to such a directory, and the
+                  source modified accordingly. </p>
+               <p>URIs within a TEI-XML document which do not imply transclusion of text or media
+                  may be left unmodified in the source, although they should be checked for
+                  validity, particularly those which point locally (i.e. links of the form
+                     <code>url="xxxx"</code> or <code>url="#xxx"</code>). In the general case
+                  however the only reliable way of checking a URI is to follow it, using a tool such
+                  as <ident>curl</ident> to access the HTTP header for the indicated URL and then
+                  processing that. Such checking could be done automatically during the process of
+                  ingesting the source into the Archive. It is probably unreasonable, however, to
+                  expect all such links to be accessible all the time, particularly those pointing
+                  to arbitrary web sites outside the scope of the Archive's concerns.</p>
+               <p>As part of the accession process, a SIP (Submission Information Package) will be
+                  automatically generated from the XML resource, which will specify locations for
+                  each of the components to be archived. The recommendations of this section are
+                  intended to make that specification as simple as possible.</p>
+            </div>
          </div>
-
-         <div xml:id="pilot">
-
-            <head>Pilot Implementation</head>
-
-            <p>To perform the validation tasks proposed in section <ptr target="#rex2"/> above, the
-               following software components are required: <list type="ordered">
-
-                  <item>An XML validator</item>
-                  <item>An XSLT processor</item>
-                  <item>(Optionally) an XML processor to resolve X Included document fragments</item>
-                  <item>The version of the TEI Guidelines indicated by the <att>source</att>
-                     attribute on the supplied <gi>schemaSpec</gi></item>
-                  <item>TEI Stylesheets to process ODD files</item>
-                  <item>An XSLT style sheet to check availability of XML resources referenced by
-                     URI</item>
-                  <item>An XSLT style sheet to generate a SIP (Submission Information Package)
-                     conformant to the XSD schema supplied by CINES, on the basis of data extracted
-                     from the TEI resource.</item>
+         <div>
+            <head>Recommendations for the Archiving Agency (CINES)</head>
+            <p>The following workflow should be followed during accessioning of a new resource into
+               the Archive. <list type="ordered">
+                  <item>Validate the TEI XML resource against the TEI P5 schema <ident>TEI
+                        All</ident> using a namespace-aware parser such as NVDL. Reject if the
+                     resource is not valid.</item>
+                  <item>Validate the TEI Header against the schema <ident>TEI SIP</ident></item>
+                  <item>Generate a SIP document from the TEI Header of the TEI XML Resource and
+                     validate the SIP document against the CINES schema <ident>sip.xsd</ident>.
+                     Enhance or correct the SIP if necessary.</item>
+                  <item>Validate the supplied ODD against the schema <ident>TEI ODD</ident></item>
+                  <item>Generate schemas in DTD, RelaxNG and XSD from the ODD using standard TEI
+                     stylesheets. Validate the TEI XML resource against these schemas. </item>
+                  <item>Generate an "instance ODD" from the TEI XML resource (or from a group of
+                     related resources) using the <ident>Odd By Example</ident> stylesheet. Generate
+                     documentation from this. </item>
                </list></p>
-            <p>Items 1, 2, and 3 in the above list are readily available, many of them open source,
-               and are also of course needed for any kind of XML document. We note however that
-               correct validation of documents deploying multiple namespaces requires a validator
-               supporting the Namespace-based Validation Dispatching Language  defined in Part 4 of
-               ISO/IEC 19757 DSDL (Document Schema Definition Languages). At this writing, the
-               validator oNVDL included with the commercial Oxygen XML editor and also the open
-               source jing package provides this functionality. </p>
-            <p>Items 4 and 5 in the above list are provided and maintained by the TEI Consortium as
-               an integral part of the TEI Guidelines.</p>
-            <p>Items 6 and 7 are to be provided to CINES. </p>
-            <p> </p>
-            <!--Quels outils ?
+            <div xml:id="pilot">
+               <head>Pilot Implementation</head>
+               <p>To perform these validation tasks, the following software components are required:
+                     <list type="ordered">
+                     <item>An XML validator</item>
+                     <item>An XSLT processor</item>
+                     <item>(Optionally) an XML processor to resolve X Included document
+                        fragments</item>
+                     <item>The version of the TEI Guidelines indicated by the <att>source</att>
+                        attribute on the supplied <gi>schemaSpec</gi></item>
+                     <item>TEI Stylesheets to process ODD files</item>
+                     <item>An XSLT style sheet to check availability of XML resources referenced by
+                        URI</item>
+                     <item>An XSLT style sheet to generate a SIP (Submission Information Package)
+                        conformant to the XSD schema supplied by CINES, on the basis of data
+                        extracted from the TEI resource.</item>
+                  </list></p>
+               <p>Items 1, 2, and 3 in the above list are readily available, many of them open
+                  source, and are also of course needed for any kind of XML document. We note
+                  however that correct validation of documents deploying multiple namespaces
+                  requires a validator supporting the Namespace-based Validation Dispatching
+                  Language defined in Part 4 of ISO/IEC 19757 DSDL (Document Schema Definition
+                  Languages). At this writing, the validator oNVDL included with the commercial
+                  Oxygen XML editor and also the open source jing package provides this
+                  functionality. </p>
+               <p>Items 4 and 5 in the above list are provided and maintained by the TEI Consortium
+                  as an integral part of the TEI Guidelines.</p>
+               <p>Items 6 and 7 are to be provided to CINES. </p>
+               <!--Quels outils ?
 Proposer un environnement logiciel en annexe 
 Problème de vérification des URIs (images, sons vidéos  et SVG  Balise TEI « media » 
 Existe t-il des validateurs d’URIs  multiple namespaces
 Prise en compte des Name-Space 
 -->
+            </div>
          </div>
          <div xml:id="further">
             <head>Future work</head>
@@ -543,6 +719,15 @@ Prise en compte des Name-Space
                   modules also declare classes , macros, or datatypes, although the bulk of these
                   infrastructural declarations are collected in a single module called
                      <ident>tei</ident>. </item>
+               <label>SIP</label>
+               <item>In the OAIS reference model, a Submission Information Package comprises the set
+                  of materials presented to an archive for <term>ingest</term>. A formal
+                  specification of the items making up a SIP is provided by the CINES in the form of
+                  an XSD schema for its archival platform.</item>
+               <label>OAIS</label>
+               <item>Open Archival Information System : the ISO reference model for archival
+                  storage, or an archive using that model, formally defined in ISO 14721:2003.
+               </item>
             </list>
          </div>
          <div xml:id="bibl">
@@ -590,9 +775,7 @@ Prise en compte des Name-Space
                </bibl>
             </listBibl>
             <listBibl>
-
                <head>Digital Preservation</head>
-
                <bibl><title>CINES Recommandations, liste de formats etc.</title><ref
                      target="http://facile.cines.fr/">FACILE</ref></bibl>
                <bibl>Digital Preservation Coalition <title>Preservation Handbook</title>: <ptr
