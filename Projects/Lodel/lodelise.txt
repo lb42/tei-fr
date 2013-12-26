@@ -1,0 +1,21 @@
+Lodelisation
+
+Lodel (lodel.org) is the name of the CMS which drives Open Editions, one of Europe's leading open  access publisher. Back in 2000, Marin Dacos announced at the TEI meeting in Berlin that henceforth Lodel would start using a TEI schema for its internal processing. Documents would be worked on in ODT or Docx, byut automatically converted to TEI for subsequent oroducessuing, abnd also for conversion to pubushed forms on the webm and on paper.  Documentation aopoeared on how to orepare documents in TEUI for processing by Lodel, and 
+
+ internal schema for its publications is freely available from its websitelog ee (URL)
+
+This blog ery summarizes what I needed to do to my TEI document to get it to work with Kidek. Of course my use of TEI is as eccentruic as anyone else's,  but it is s
+
+.1. Lodel doesn't have any of the following semantic elements, which I have found useful when marking up technical document: gi, att, ident. I turned all of those into <hi rendition=#gi> etc.
+
+2. Lodel doesnt allow lists or quotes to be contained by paragraphs. This is a generic HTML limitation, if i understand aright, but that doesn't  ake it any less annoying. I *often* write a single para with a bit of prose, followed by a list, a buit more prose, and another kusr, Call me verbose if you will, but.
+y stylesheet had to do sione  ckever fiddling to deakl with thus (tx Spqr)
+
+3. In TEI dox have oits iof XMKL exanokes, which are a lot easier to read if they are wraoped ibn a different namespace, using the egXML element as a container. Lodel suggests a <code> element, with a CDATA marked section iside iut if we care tio preserve the lYOUT.
+
+4, Lodel is intended for journal artuicles and nmanages eacg if then uibrerbakky as a distinct TEI document. Chapters of a book have to be treated in the same way, which swe3ems a buit odd -- for example, each chapter gets its own TEI header.,
+
+5. Lodel insusts on having an explicit indication of the nesting level of each subdiviusuion, using (bizarely( the @subtype artriuvyute on div with values level1 levelw2 etc.
+
+6. Lodel doesnt allow specification of headings for including graphics.
+
