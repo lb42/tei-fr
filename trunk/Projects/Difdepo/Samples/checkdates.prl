@@ -1,0 +1,23 @@
+while (<>) { 
+chop;
+$date=$_;
+if (/^(\d\d\d\d\d\d\d\d)_(\d)\.jpg/) {
+  $date=$1;
+  $seq=$1; 
+  $imaged{$date} ++ 
+} elsif (/^(\d\d\d\d\d\d\d\d)_CR(R|X)?\.doc/) {
+  $date=$1;
+  $transcribed{$date} ++ 
+} elsif (/^(\d\d\d\d\d\d\d\d)\.doc/) {
+  $f = "$1\.doc";
+  `mv $f Covers`;
+} else {
+ print "?? $_ ??\n";
+}}
+
+print "Date\tTranscripts\tGraphics\n";
+foreach $k (sort keys %imaged) {
+  print "$k\t$transcribed{$k}\t$imaged{$k}\t";
+  print "*"   unless (($transcribed{$k}) && ($imaged{$k})) ;
+  print "\n";
+}
