@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Comment se servir de la TEI
+                    pour l' édition génétique </title>
+                <author>Elena Pierazzo</author>
+                <author>Lou Burnard</author>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>TEI</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under à Creative Commons
+                        Attribution license.</p>
+                </availability>
+                <date>2010-11</date>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text xml:lang="fra">
+        <body>
+            <div>
+                <head>La TEI n'est jamais complète...</head>
+		<p>La problème originale: est-ce que TEI suffira pour
+		l'encodage detaillé des manuscrits dits "modernes"?</p>
+<list>
+<item>le manuscrit mediéval a une fonction publique et un format donc
+considéré, conventionalisé</item>
+<item>le brouillon moderne porte souvent des traces d' activités privés 
+et n'a pas de format standardisé</item>
+</list>
+</div>
+
+<div><head>Par exemple...</head>
+                 <figure>
+                    <graphic url="../Graphics/Genetic/anc-mod.png"/>
+                </figure>
+            </div>
+
+<!--
+           <list type="bulleted">
+                    <item>Documents et textes </item>
+                    <item>Faits et interprétation </item>
+                    <item>État et processus </item>
+                    <item>Genèse: critique génétique, éditions génétiques </item>
+                    <item>Les actes d'écriture et les étapes du texte </item>
+                </list>
+            </div>
+-->
+            <div>
+                <head>Le document et le texte</head>
+<p>Ancien ou moderne, il faut distinguer les deux</p>
+<p>On peut aussi identifier quelques problèmes de représentation qui n'ont
+pas de tout changés....
+</p>
+
+            </div>
+
+
+<div><head>Par exemple...</head>
+                 <figure>
+                    <graphic url="../Graphics/Genetic/anc-mod-2.png"/>
+                </figure>
+            </div>
+
+
+            <div>
+                <head>TEI fournit un moyen d'encoder des <hi>textes</hi>, mais
+		.. </head>
+                <list type="bulleted">
+                    <item>Le processus de création du <hi>document</hi> est au moins aussi important que le
+                        texte qu'il contient </item>
+                    <item>Le texte n'a pas de sens independent du
+		    document : que ca soit parce que
+<list>
+                    <item>Le texte est présenté graphiquement </item>
+                    <item>Le texte est non-linéaires, aleatoire,
+		    combinatoire....</item>
+</list></item>
+</list>
+<p rend="box">Les textes non-linéaires sont des non-textes (Daniel
+                        Ferrer)</p>
+            </div>
+
+            <div>
+                <head>Que est-ce qu'on  voit ici?</head>
+                <figure>
+                    <graphic url="../Graphics/Genetic/pleasing.png" width="75%"/>
+                </figure>
+                <list type="ordered" rend="pause">
+                    <item>«agreable» a une ligne au dessus, «pleasing» est écrit en haut dans
+                        l'espace interlinéaire.</item>
+                    <item>«agreable» est supprimé et remplacé par «pleasing»</item>
+                    <item>La première version du texte contient «agreable», puis en un second moment
+                        le mot est supprimé et contextuellement «pleasing» est écrit dans l'espace
+                        interlinéaire.</item>
+                </list>
+            </div>
+            <div>
+                <head>Hypothese : on peut distinguer deux niveaux</head>
+                <list type="unordered">
+                    <item>Le document :  (déchirures, coupures, taches ...)</item>
+                    <item>Le texte : (corrections, modifications, ajouts, suppressions,
+                        transpositions ...)</item>
+                </list>
+                <p rend="box">En distinguant les deux, on peut les integrer!</p>
+            </div>
+
+
+<div><head>Que propose la TEI à cet égard?</head>
+<list>
+<item><gi>text</gi> : contient la lecture structuree du contenu
+intellectuel d'un document</item>
+<item><gi>facsimile</gi> : contient des images du format physique du
+document </item>
+<item><gi>teiHeader</gi> : fournit des metadonnees decrivant
+l'ensemble du texte et du document, a plusieurs niveaux</item>
+</list>
+<p rend="box">Mais où representer le document lui-meme?</p>
+</div>
+
+<div><head> Qu'est-ce qu'un facsimilé?</head>
+<list>
+<item>Au plus simple, une inventaire des fichiers graphiques, qui
+representent le texte décrit par l'en-tête associé.
+</item><item>
+mais peut également définir des espaces visuels plus petits, comme
+les <emph>surfaces</emph> ou <emph>zones d'interet</emph> sur ces surfaces
+</item><item>
+Tous peuvent etre alignés, à un niveau approprié, avec les parties
+d'une transcription
+</item></list>
+
+
+</div>
+<div><head> La solution la plus simple pour supporter un "digital facsimile"</head>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<TEI>
+<teiHeader> <!--...--></teiHeader>
+<text>
+  <pb facs="page1.png"/>
+    <!-- texte de la  page 1 facultativement transcrit ici -->
+  <pb facs="page2.png"/>
+    <!-- texte de la  page 2 facultativement transcrit ici-->
+</text>
+</TEI>  
+</egXML>
+
+<p>Inconvenients...
+<list><item>difficile de supporter un linkage plus compliqué
+</item><item>maintien difficile d'information
+pertinent à l'image </item>
+<item>necessite donc l'integration avec quelque supplément
+(typiquement METS)
+</item></list></p>
+</div>
+
+<div><head>Solution un peu moins simple </head>
+
+<p>Localiser les données dans un seul endroit:
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<facsimile xml:base="http://mylibrary.wibble.fr/blah/blah/blah">
+  <graphic  url="page1.png"/>
+  <graphic  url="page2.png"/>
+  <graphic  url="page3.png"/>
+  <graphic  url="page4.png"/>
+</facsimile>
+</egXML></p>
+
+<p>(On pourrait également se servir de <gi>binaryObject</gi>)</p>
+
+</div>
+<div><head>Et si on disposait de versions alternatives d'un même image?</head>
+
+<p>Se servir de <gi>surface</gi>pour  grouper les images equivalents:
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<facsimile>
+  <graphic url="page1.png"/>
+  <surface>
+   <graphic url="page2-highRes.png"/>
+   <graphic url="page2-lowRes.png"/>
+  </surface>
+  <graphic url="page3.png"/>
+  <graphic url="page4.png"/>
+</facsimile>
+</egXML></p>
+</div>
+
+<div><head>Lier la  page-image à la transcription</head>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
+  <graphic xml:id="page1" url="page1.png"/>
+  <graphic xml:id="page2" url="page2.png"/>
+  <graphic xml:id="page3" url="page3.png"/>
+  <graphic xml:id="page4" url="page4.png"/>
+</facsimile>
+
+<!-- ... -->
+
+<text>
+  <pb facs="#page1"/>
+    <!-- texte de la  page 1 facultativement transcrit ici -->
+  <pb facs="#page2"/>
+    <!-- texte de la  page 1 facultativement transcrit ici -->
+</text>
+</egXML>
+
+</div>
+
+<div><head>Lier deux parties d'une image</head>
+<list><item>on se sert de  <gi>surface</gi> pour definir un systeme un système abstrait coordonné
+</item><item>on se sert de <gi>zone</gi> pour définir une zone d'intérêt
+</item><item>on se sert de <gi>graphic</gi> pour fournir une image du
+zone ou surface qui le contient
+</item></list>
+</div>
+
+<div><head> Bovelles-49r.png</head>
+
+<figure><graphic url="../Graphics/facs-fig1.png" height="250px"/></figure>
+
+</div>
+
+<div><head>Encodage pour cette page-image</head>
+
+ <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
+<surface ulx="0" uly="0" lrx="200" lry="300">
+	<zone xml:id="B49r" ulx="0" uly="0" lrx="200" lry="300">
+		<graphic url="Bovelles-49r.png"/>
+	</zone>
+	<zone ulx="105" uly="76" lrx="175" lry="160"> 
+		<graphic url="Bovelles49r-detail.png"/>
+	</zone>
+	<zone xml:id="B49rHead" ulx="25" uly="25" lrx="180" lry="60"/> 
+	<!-- contient le titre -->
+	<zone xml:id="B49rPara2" ulx="28" uly="75" lrx="175" lry="178"/> 
+	<!-- contient le paragraphe en italique  -->
+	<zone xml:id="B49rFig1" ulx="105" uly="76" lrx="175" lry="160"/> 
+	<!-- contient l'image de cloche  -->
+	<zone xml:id="B49rW457" ulx="45" uly="125" lrx="60" lry="130"/>
+	<!-- contient le mot "pendans" -->
+</surface>
+</facsimile></egXML> 
+<p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
+
+</div>
+<div><head>La transcription</head>
+
+<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><pb facs="#B49r"/>
+<fw>De Geometrie 49</fw><head facs="#B49rHead">
+DU SON ET ACCORD DES CLOCHES ET <lb/> des alleures des chevaulx,
+chariotz &amp; charges, des fontaines:&amp; <lb/> encyclie du monde,
+&amp; de la dimension du corps humain.</head>
+<head>Chapitre septiesme</head>
+<div n="1">
+<p>Le son &amp; accord des cloches pendans en ung mesme <lb/> axe, est
+faict en contraires parties.</p>
+<p rend="it" facs="#B49rPara2">LEs cloches ont quasi fi<lb/>gures de rondes
+pyra<lb/>mides imperfaictes &amp; <lb/> irregulieres: &amp; leur
+accord se <lb/> fait par reigle geometrique. Com<lb/>me si les deux
+cloches C &amp; D <lb/> sont <w facs="#B49rW457">pendans</w> à ung
+mesme axe <lb/> ou essieu A B: je dis que leur ac<lb/>cord se fera en
+co<ex>n</ex>traires parties<lb/> co<ex>m</ex>me voyez icy
+figuré. Car qua<ex>n</ex>d <lb/> lune sera en hault, laultre
+declinera embas. Aultrement si elles decli<lb/>nent toutes deux
+ensembles en une mesme partie, elles seront discord, <lb/> &amp; sera
+leur sonnerie mal plaisante à oyr.<figure facs="#B49rFig1"/>
+</p></div></egXML>
+</div>
+
+
+            <div>
+                <head>Premiere proposition :  <gi>ge:document</gi></head>
+<p>Un nouveau élément, qui resemble un peu a l'existant
+<gi>facsimile</gi>...
+</p>
+                <list type="unordered">
+                    <item>au meme niveau que
+		     <gi>text</gi> et <gi>teiHeader</gi>
+                    </item>
+                    <item>représente la <hi>structure physique</hi> du
+		    document</item>
+		    <item>rassemble un ou plusieur
+                            elements <gi>surface</gi> écrites, eventuellement
+		    divise en <gi>zone</gi>s d'interet </item>
+                    <item>un nouvel élément <gi>ge:line</gi> est
+		    proposé pour représenter les lignes
+                        topographiques </item>
+                    <item>un nouvel élément <gi>ge:patch</gi> est proposé pour représenter des
+                        surfaces fragmentaires (les paperoles) </item>
+                </list>
+            </div>
+           
+ <div>
+                <figure>
+                    <graphic url="../Graphics/Genetic/feed.png"/>
+                </figure>
+            </div>
+            <div>
+                <figure>
+                    <graphic url="../Graphics/Genetic/feed-zoned.png"/>
+                </figure>
+            </div>
+            <div>
+                <figure>
+                    <graphic url="../Graphics/Genetic/feed-coded.png"/>
+                </figure>
+            </div>
+            <div>
+                <head>Les surfaces et les zones... </head>
+<p>La relation surface / zone peut être assez complexe :</p>
+                <figure>
+                    <graphic url="../Graphics/Genetic/prpost-zone.png"/>
+                </figure>
+            </div>
+<div>
+    <head>... et les paperoles</head>
+<p>Et une surface peut être composite :</p> 
+   <figure>
+         <graphic url="../Graphics/Genetic/patch.png"/>
+    </figure>
+</div>
+
+<!--           
+
+            <div rend="slide">
+                <head>La transcription des sources primaires</head>
+                <p>La TEI propose deja beaucoup de distinctions
+</p>
+                <list>
+                    <item>la manière dont le texte est inscrit sur la page</item>
+                    <item>l’orthographe</item>
+                    <item>le rendu formel original (s’il a une importance)</item>
+                    <item>la ponctuation originale</item>
+                    <item>les abréviations</item>
+                    <item>les ajouts et suppressions</item>
+                    <item>les erreurs et omissions</item>
+                    <item> eventuellement, les illustrations, dessins ou
+                        graphiques illustrant le texte</item>
+                    <item>la structure logique du texte</item>
+                    <item>peut-être d’autres choses, selon le point de vue qu’on adopte et les
+                        objectifs du projet...</item>
+                </list>
+            </div>
+-->
+
+            <div rend="slide">
+                <head>Les principaux éléments TEI utiles pour la transcription</head>
+                <list type="gloss">
+                    <label>Définis dans le module 'core' :</label>
+                    <item>
+                        <gi>abbr</gi>, <gi>add</gi>, <gi>choice</gi>, <gi>corr</gi>, <gi>del</gi>,
+                            <gi>expan</gi>, <gi>gap</gi>, <gi>sic</gi>
+                    </item>
+                    <label>Définis dans le module 'transcr' :</label>
+                    <item>
+                        <gi>addSpan</gi>, <gi>am</gi>, <gi>damage</gi>, <gi>damageSpan</gi>,
+                            <gi>delSpan</gi>, <gi>ex</gi>, <gi>facsimile</gi>, <gi>fw</gi>,
+                            <gi>handNotes</gi>, <gi>handShift</gi>, <gi>restore</gi>
+                        <gi>space</gi>, <gi>subst</gi>, <gi>supplied</gi>, <gi>surface</gi>,
+                            <gi>zone</gi>
+                    </item>
+                    <label>Définis dans le module 'textcrit' :</label>
+                    <item>
+                        <gi>app</gi>, <gi>lacunaEnd</gi>, <gi>lacunaStart</gi>, <gi>lem</gi>,
+                            <gi>listWit</gi>, <gi>rdg</gi>, <gi>rdgGrp</gi>,
+                            <gi>variantEncoding</gi>, <gi>wit</gi>, <gi>witDetail</gi>,
+                            <gi>witEnd</gi>, <gi>witStart</gi>, <gi>witness</gi>
+                    </item>
+                </list>
+<p rend="box">La plupart de ces balisages sont textuels</p>
+            </div>
+<!--
+            <div rend="slide">
+                <head>Encodage de la structure physique avec ces balises</head>
+                <p><graphic url="../Graphics/Genetic/exemple-p5.png"/>
+                </p>
+            </div>-->
+            <div>
+                <head>Deuxieme proposition: des balises supplémentaires pour la transcription</head>
+                <list>
+                    <label><gi>ge:mod</gi> et <gi>ge:modSpan</gi></label>
+                    <item>indiquent, de maniere generique, un lieu de modification dans le
+                        document, sans preconception de sa fonction</item>
+                    <label><gi>ge:metaMark</gi></label>
+                    <item>un signal quelconque determinant la lecture
+		    du document </item>
+                    <label><gi>ge:used</gi></label>
+                    <item>un cas specifique de metaMark, indiquant une partie raturée parce que déja
+                        utilisée</item>
+                    <label><gi>ge:undo</gi>, <gi>ge:redo</gi>, <gi>ge:rewrite</gi></label>
+                    <item>indications respectivement de: corrections supprimées, corrections
+                        reaffirmées, reécritures</item>
+                    <label><gi>ge:transpose</gi> et <gi>ge:transposeGrp</gi></label>
+                    <item>transpositions</item>
+                </list>
+            </div>
+
+            <div>
+                <head><gi>ge:metaMark</gi> exemplaire</head>
+                <figure>
+                    <graphic url="../Graphics/Genetic/ibsen01.jpg" width="300px"/>
+                    <head>Extracted from <ref>http://www.emunch.no/tei-mm-2008/ms.html</ref></head>
+                </figure>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"
+xmlns:ge="http://www.nontei">
+                    <ge:line><seg xml:id="ib01">bör</seg><ge:metaMark rend="underline"
+                            function="transposition" target="#ib1" place="above">2.</ge:metaMark> og
+                            <seg xml:id="ib02">hör</seg>
+<ge:metaMark rend="underline" 
+	  function="transposition" target="#ib02" place="above">1.
+</ge:metaMark></ge:line>
+                </egXML>
+
+            </div>
+            <div>
+                <head>Transposition exemplaire</head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"
+xmlns:ge="http://www.nontei">
+                    <ge:transposeGrp>
+                        <ge:transpose>
+                            <ptr target="#ib02"/>
+                            <ptr target="#ib01"/>
+                        </ge:transpose>
+                    </ge:transposeGrp>
+                </egXML>
+            </div>
+            <div>
+                <head><gi>ge:used</gi> exemplaire... </head>
+<p><graphic url="../Graphics/Genetic/used.png"/></p>
+            </div>
+
+            <div>
+                <head><gi>ge:used</gi> encodage </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<used spanTo="#endOfZone1" type="rature"/>
+<zone xml:id="zone1">
+                <line> 28) le court de tennis. Les tribunes sont
+                        maintenant pleines de supporteurs. Deux joueurs</line>
+<!-- ... -->			
+<metaMark xml:id="metaMark" function="rature">tapé</metaMark>
+<!-- ... -->
+                <line>3<subst stage="#red"><del>3</del><add>4</add></subst>)
+                        Le mot FIN apparaît sur l’écran.</line></zone>
+<anchor xml:id="endOfZone1"/>
+</egXML>
+
+            </div>
+
+            <div>
+                <head>Troisieme proposition : distinguer les étapes d'écriture</head>
+                <p>On propose un attribut <att>stage</att> qui associe n'importe quel élément de la
+                    transcription avec une étape identifiée dans l'évolution du document</p>
+		    <p>L'identification d'une étape est au coeur du
+		    problématique génétique: on ne peut pas vous aider là!</p>
+                <p>Les étapes elles-mêmes sont à documenter dans le <gi>profileDesc</gi> de l'entête
+                    TEI.</p>
+            </div>
+            
+    <div><head>Exemple continue</head>
+                <figure>
+                    <graphic url="../Graphics/Genetic/etapes-1.png"/>
+                </figure>
+<p rend="box">Ex hypothèse, dans ce cas, les étapes sont associées avec un
+couleur d'encre</p>
+</div>
+
+<div><head>Encodage des étapes</head>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+xmlns:ge="http://whatever">
+                  <profileDesc>
+                     <creation>
+                        <ge:stageNotes ordered="true">
+                           <ge:stageNote xml:id="ST-1">Premier
+			   brouillon, en encre noir </ge:stageNote>
+                           <ge:stageNote xml:id="ST-2">Corrections et
+			   revisions en rouge</ge:stageNote>
+                           <ge:stageNote xml:id="ST-3">Corrections et
+			   revisions en bleu</ge:stageNote>
+                           <ge:stageNote xml:id="ST-4">Ratures et
+			   indications d'usage en vert</ge:stageNote>
+                        </ge:stageNotes>
+                     </creation>
+                  </profileDesc>
+               </egXML>
+
+</div>
+
+<div><head>Association d'une étape avec une partie transcrite</head>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples"
+xmlns:ge="http://genetic">
+<zone xml:id="zone1" stage="#ST-1">
+                <ge:line> 28) le court de tennis. Les tribunes sont
+                        ... Deux joueurs</ge:line>
+<!-- ... -->			
+                    <ge:line>30) l’un des joueurs de tennis se tient ... trois</ge:line>
+                    <ge:line>fois sur le sol</ge:line>
+                <zone stage="#ST-2"><ge:line>31) </ge:line>
+		<ge:line>Vue de face</ge:line><ge:line> a contre jour</ge:line>
+		<ge:metaMark function="add"/>
+		<ge:line>la vieille dame  ... dans le vestibule
+                        (contre-jour)</ge:line></zone>
+                <ge:line>3<subst
+		stage="#ST-2"><del>1</del><add>2</add></subst>)Le
+		groupe de cavaliers  ...</ge:line>
+<!-- ... -->
+<ge:line>... Le mot FIN apparaît sur l’écran.</ge:line>
+</zone>
+<zone stage="ST-3"><ge:line>Dans ce cas...</ge:line>
+</zone>
+</egXML>
+</div>
+
+        <div>
+                <head>Traitement d'un crux</head>
+                <figure>
+                    <graphic url="../Graphics/Genetic/CSimon-cut.png"/>
+                </figure>
+<egXML xmlns="http://www.tei-c.org/ns/Examples" xmlns:ge="http://www.tei-c.org/genetic">
+     <zone facs="#path4052" stage="#red"><ge:line>31) <ge:metaMark function="add"
+                                target="#add1"/> la vieille dame <seg xml:id="alt1"
+                            >éléphant</seg><seg rend="suplerlinear" xml:id="alt2"><metaMark
+                                function="add" target="#alt2" facs="#path6183"/>obèse</seg> appuyée
+                        sur ses cannes <unclear>nous latel</unclear> dans le vestibule
+                        (contre-jour)</ge:line></zone>
+                <zone facs="#path3070" xml:id="add1"><ge:line>Vue de face</ge:line><ge:line>à
+                        contre-jour</ge:line></zone>
+               <alt targets="#alt1 #alt2" weights="0.5 0.5"
+		    mode="excl"/>               
+</egXML>
+</div>
+
+            <div rend="slide">
+                <head>Etat actuel de ces propositions</head>
+
+                <list type="bulleted">
+
+                    <item>Premier rapport au TEI Members Meeting à Ann Arbor (Michigan) en
+                        2009 </item>
+                    <item>Béta test jusqu'à la fin de Janvier 2010</item>
+                    <item>Révisions :février - mars 2010: r</item>
+                    <item>Proposition quasiment complète soumise au
+		    TEI Council : avril 2010 </item>
+                    <item>Ateliers et test au TEI Members Meeting à
+		    Zadar (Croatie): novembre 2010 </item>
+                </list>
+<p rend="box"><ref>http://www.tei-c.org/Activities/Council/Working/tcw19.html</ref>
+</p>
+            </div>
+        </body>
+    </text>
+</TEI>
