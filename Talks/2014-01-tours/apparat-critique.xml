@@ -1,0 +1,402 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Formation à l’utilisation de TEI pour l’édition critique de manuscrits (École
+               nationale des chartes, mars 2011)</title>
+            <title type="sub">Un texte, plusieurs témoins : l’apparat critique en TEI</title>
+            <author>Florence Clavaud (École nationale des chartes)</author>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+               <date when="2011-03">mars 2011</date>
+            </edition>
+         </editionStmt>
+         <publicationStmt>
+            <publisher>
+               <orgName>École nationale des chartes</orgName>
+               <address>
+                        <addrLine>19 rue de la Sorbonne</addrLine>
+                        <addrLine>75005 Paris</addrLine>
+                    </address>
+            </publisher>
+            <availability>
+               <p>Ce texte est mis à disposition de tous selon les termes de la licence Creative
+                  Commons « Paternité - Pas d’Utilisation Commerciale - Pas de Modification ; 2.0
+                  France ». Cette licence est disponible <ref
+                     target="http://creativecommons.org/licenses/by-nc-nd/2.0/fr/">en ligne</ref> ou
+                  par courrier postal à Creative Commons, 171 Second Street, Suite 300, San
+                  Francisco, California 94105, USA.</p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Fichier produit pour les besoins de la formation, nativement numérique.</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Support de cours préparé pour le stage de formation continue à TEI, organisé par
+               l’Ecole des chartes les 9-11 et 17-18 mars 2011.</p>
+         </projectDesc>
+      </encodingDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div>
+            <head>Rappels sur l’apparat critique</head>
+            <p>On parle ici de l’ensemble des notes éditoriales relatives aux différentes leçons
+               existantes pour un texte donné, telles que relevées dans les témoins qui ont été identifiés et
+               retenus. L’apparat critique a sa place dans tout travail d’édition quelle que soit la
+               discipline des SHS concernée, dès qu’on travaille à partir de plusieurs témoins,
+               qu’il s’agisse d’une œuvre littéraire dont on cherche à cerner la genèse (à partir
+               de la documentation, des brouillons manuscrits ou dactylographiés successifs, des
+               épreuves, des éditions pour un texte contemporain) et/ou la tradition (pour un
+               manuscrit littéraire ancien), ou encore d’un acte juridique ou texte administratif
+               (dont on possède l’original et des copies informes ou authentiques). Il inclut
+               souvent les éditions antérieures à celle que l’on prépare, lorsqu’elles font
+               autorité.</p>
+            <p>Dans une édition imprimée, l’apparat critique consiste en notes spécifiques,
+               présentées en bas de page ou à la fin de l’édition. La manière dont ces notes sont
+               rédigées et présentées dépend de la discipline concernée et des pratiques de la communauté dans laquelle on travaille. Elles sont parfois associées au texte
+               grâce à des ancres numérotées. </p>
+            <p>Les notes d’apparat critique sont indissociables de la liste des témoins étudiés.
+               Cette liste prend, selon les disciplines, le nom de "index codicum", "stemma",
+               "tableau de la tradition". Chacun des témoins, qu’il s’agisse d’une source primaire
+               ou d’une édition, reçoit un sigle, sous la forme d’une lettre de l’alphabet (le plus
+               souvent). Le sigle est ensuite utilisé dans le corps de la note d’apparat critique
+               pour désigner le témoin dont on donne la leçon.</p>
+         </div>
+         <div>
+            <head>TEI et l’apparat critique</head>
+            <p>TEI propose un dispositif générique, applicable à toutes ces situations, pour encoder
+               d’une part la liste des témoins, d’autre part les notes d’apparat critique. Les
+               éléments utiles appartiennent au module <ref
+                  target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TC.html"
+                     ><ident>textcrit</ident></ref>. Ce sont : app, lacunaEnd, lacunaStart, lem,
+               listWit, rdg, rdgGrp, variantEncoding, wit, witDetail, witEnd, witStart et
+               witness. Nous allons présenter les plus fréquemment utilisés.</p>
+         </div>
+         <div>
+            <head>La liste des témoins (<gi>listWit</gi>)</head>
+            <p>La liste des témoins est encodée à l’aide de l’élément <gi>listWit</gi>. Cet élément
+               devrait logiquement être saisi dans l’élément <gi>sourceDesc</gi> dans l’en-tête TEI.
+               Mais on peut aussi l’encoder ailleurs, par ex. dans un élément <gi>div</gi> de
+               l’élément <gi>body</gi>, ou encore dans l’élément <gi>front</gi> optionnel qui
+               précède <gi>body</gi>.</p>
+            <p><gi>listWit</gi> est l’élément spécialisé pour encoder une liste de témoins ; il faut
+               cependant noter qu’une telle liste peut aussi être encodée à l’aide d’un élément
+                  <gi>listBibl</gi>. Dans le premier cas, la description d’un témoin donné sera
+               encodée au sein d’un élément <gi>witness</gi> ; dans le deuxième cas, on utilisera un
+               élément <gi>bibl</gi>, <gi>biblFull</gi> ou <gi>biblStruct</gi>.</p>
+            <p>Dans tous les cas, il sera indispensable d’affecter à chacun des éléments servant à
+               décrire les témoins un identifiant, à l’aide de l’attribut <att>xml:id</att>, afin de
+               pouvoir faire référence aux témoins dans les notes d’apparat critique.</p>
+            <div>
+               <head>Contenu de l’élément <gi>witness</gi></head>
+               <p>Selon le niveau de précision que l’éditeur souhaite atteindre en décrivant les
+                  témoins, selon ses besoins en matière d’affichage ou d’exploitation des
+                  informations, il pourra choisir :<list>
+                     <item>de saisir dans l’élément <gi>witness</gi> (ou équivalent) une description
+                        en prose du témoin</item>
+                     <item>de structurer plus finement cette description. Dans le cas d’un témoin
+                        manuscrit, il pourra donc utiliser <gi>msDesc</gi> (l’élément conteneur pour
+                        la description d’un manuscrit) ; dans le cas d’un témoin imprimé (édition
+                        ancienne), il pourra utiliser <gi>bibl</gi> ou <gi>biblStruct</gi>.</item>
+                  </list></p>
+               <p>Il faut noter aussi que <gi>witness</gi> peut à son tour contenir <gi>listWit</gi>
+                  pour grouper une série de témoins.</p>
+            </div>
+            <div>
+               <head><gi>listWit</gi> : exemples</head>
+               <p>Extrait de l’édition des édits de pacification (<ref
+                     target="http://elec.enc.sorbonne.fr/editsdepacification/edit_12">édit de Nantes
+                     de 1598</ref>) : 
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <listWit xml:id="edit_12_v1">
+                        <head>Version 1</head>
+                        <witness xml:id="edit_12-A1">
+                           <label>A<hi rend="sup">1</hi></label> : orig. perdu.
+                        </witness>
+                        <witness xml:id="edit_12_C">
+                           <label>C</label> : Bibl. publique et
+                           universitaire de Genève,
+                           <num>ms. fr. 197<hi rend="sup">aa</hi></num>,
+                           t. 13, fol. 1-40, copie.
+                        </witness>
+                        <witness xml:id="edit_12_E1">
+                           <label>E<hi rend="sup">1</hi></label> : Léonce
+                           Anquez, <title>Histoire des assemblées politiques
+                           des réformés de France</title>, Paris,
+                           1859, p. 456-486.
+                        </witness>
+                     </listWit>
+                  </egXML>
+               </p>
+               <p>Extrait simplifié de l’édition (en cours) des chartes d’un monastère romain :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <listWit>
+                        <witness xml:id="p-104-A">
+                           <msDesc>
+                              <msIdentifier>
+                                 <repository>ASR</repository>
+                                 <collection>Coll. Perg., Rome,Clarisse in SS. Cosma e Damiano </collection>
+                                 <idno>layette 16, charte 104</idno>
+                              </msIdentifier>
+                              <physDesc>
+                                 <objectDesc>
+                                    <supportDesc>
+                                       <p>Charte en forme de trapèze (mm. 428 x 235-190), restaurée,
+                                          avec de tâches d’humidité.</p>
+                                    </supportDesc>
+                                    <layoutDesc>
+                                       <layout>Les souscriptions des auteurs du document, notamment
+                                          du recteur du monastère et du prêtre <foreign
+                                             xml:lang="lat">Albertus</foreign>, d’une autre main que
+                                          celle du scribe, ont été mises avant les autres
+                                          souscriptions.</layout>
+                                    </layoutDesc>
+                                 </objectDesc>
+                                 <additions>Au dos, d’un main contemporaine de l’acte :
+                                    <foreign
+                                       xml:lang="lat">terra de Marcelli Gregorio de
+                                       Amizo.</foreign>
+                                 </additions>
+                              </physDesc>
+                           </msDesc>
+                        </witness>
+                        <witness xml:id="p-104-a">
+                           <bibl>L. Gili, <title>Appendice A, La documentazione di età medioevale
+                                 XII-XII secolo</title>, dans <title>Il territorio del Municipio
+                                 Roma XVI. Storia, immagini, documenti</title>, sous la direction de
+                              L. Londei, A. Pompeo, Roma 2009, p. 149-150.</bibl>
+                        </witness>
+                     </listWit>
+                  </egXML>
+               </p>
+               <p>Extrait simplifié de l’édition critique du Cartulaire blanc de Saint-Denis, <ref
+                     target="http://saint-denis.enc.sorbonne.fr/cartulaire.html?chapitre=beaurain&amp;acte=3"
+                     >acte Beaurain 3</ref> :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <listWit>
+                        <witness xml:id="beaurain-acte3-A" n="A">
+                           Arch. nat., K 25B, n° 51.
+                        </witness>
+                        <witness xml:id="beaurain-acte3-B" n="B">
+                           Cart. blanc, t. I, p. 539a-b, n°III,
+                           <q xml:lang="lat">Compositio inter nos et Guidone de Caprosia super
+                           advocatione</q>, avec reproduction du monogramme (p. 539b).
+                        </witness>
+                        <witness xml:id="beaurain-acte3-C" n="C">Cart. Beaurain, p. 4-5.</witness>
+                        <witness n="indiqué" xml:id="beaurain-acte3-indiqué">
+                           <listWit>
+                              <witness xml:id="beaurain-acte3-indiqué-noir" n="noir">
+                                 Anc. inv. noir, p. 158a-b, n° III :
+                                 <q xml:lang="lat">Ludovici junioris
+                                 quomodo Guido de Caprosia miles recognovit se tenere
+                                 de nobis in feodum tanquam advocatum terras que sun
+                                 in valle Caprosie, et tenentur heredes sui venire
+                                 ad submonitionem domini abbatis apud
+                                 Sanctum Dyonisium ut inde se justiciant</q>.
+                              </witness>
+                              <witness xml:id="beaurain-acte3-indiqué-jaune" n="jaune">
+                                 Anc. inv. jaune, p. 199 : <q xml:lang="lat">Ludovici
+                                 regis quomodo confirmat pacem factam inter ecclesiam
+                                 Sancti Dyonisii et Guidonem de Caprosia super feodo
+                                 de valle Caprosie, videlicet advocationis
+                                 terre Sancti Dyonisii in dicta valle quod dictus
+                                 dicebat se tenere de episcopo Parisiensi, tandem
+                                 recognovit coram rege se tenere illud ab abbate
+                                 Sancti Dyonisii, cum isto signo : + m m</q>.
+                              </witness>
+                              <witness xml:id="beaurain-acte3-indiqué-général" n="général">
+                                 Inv. gén. I, n° 398, p. 428-429, d’après l’original.
+                              </witness>
+                              <witness xml:id="beaurain-acte3-indiqué-luchaire" n="général">
+                                 Luchaire, n° 627.
+                              </witness>
+                           </listWit>
+                        </witness>
+                        <witness xml:id="beaurain-acte3-a" n="a">Tardif, 
+                           <title>Monuments historiques</title>, n° 638, p. 316
+                           (sans le préambule).
+                        </witness>
+                     </listWit>
+                  </egXML>
+               </p>
+            </div>
+         </div>
+         <div>
+            <head>Les notes d’apparat critique</head>
+            <p>Les notes d’apparat critique elles-mêmes sont encodées à l’aide d’un élément de note
+               spécialisé, <gi>app</gi>.</p>
+            <p>L’élément <gi>app</gi> contient essentiellement les leçons des différents témoins,
+               chacune de ces leçons étant encodées dans un élément <gi>rdg</gi>. <gi>app</gi>
+               contient donc au moins un élément <gi>rdg</gi>, ou encore au moins un élément
+                  <gi>lem</gi>, qui peut servir à encoder la leçon du témoin de référence, ou la
+               leçon proposée par l’éditeur.</p>
+            <p>Il faut noter que <gi>app</gi> peut aussi contenir, au lieu d’une séquence simple
+               d’éléments <gi>rdg</gi>, une séquence contenant un ou plusieurs éléments
+                  <gi>rdgGrp</gi>, dans le cas où les leçons de certains témoins pourraient être
+               regroupées.</p>
+            <p>Chacun des éléments <gi>rdg</gi> doit nécessairement avoir un attribut
+               <att>wit</att>, dans lequel on inscrira la ou les références (séparées l’une de
+               l’autre par une espace) au(x) témoin(s) édité(s). </p>
+            <p><gi>rdg</gi> peut aussi avoir : <list>
+                  <item>un attribut <att>type</att>, pour catégoriser la leçon</item>
+                  <item>un attribut <att>cause</att>, pour préciser la raison de la variante</item>
+                  <item>un attribut <att>hand</att>, pour spécifier, le cas échéant, la main qui a
+                     écrit la variante dans le témoin</item>
+                  <item>un attribut <att>varSeq</att>, pour définir, grâce à un nombre, la séquence
+                     dans les variantes</item>
+               </list>
+            </p>
+            <p><gi>rdg</gi> pourra contenir du texte, et tout élément utile pour transcrire un
+               document (éléments du module "transcr").</p>
+         </div>
+         <div>
+            <head><gi>app</gi> : exemples</head>
+            <p>Extrait simplifié de l’édition critique du Cartulaire blanc de Saint-Denis, <ref
+                  target="http://saint-denis.enc.sorbonne.fr/cartulaire.html?chapitre=beaurain&amp;acte=46"
+                  >acte Beaurain 46</ref> :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  et si quid in dictis rebus prefata uxor prefati Theobaldi habebat
+                  vel habere poterat jure dotalicii vel quocumque alio modo
+                  dicte ecclesie penitus quitavit spontanea, non
+                  <app n="a">
+                     <lem resp="#OGJ">vi</lem>
+                     <rdg wit="#beaurain-acte46-B"/>
+                     <note><foreign xml:lang="lat">vi</foreign>omis B, restitué d’après le
+                    sens.</note>
+                  </app>
+                  vel metu coacta </egXML>
+            </p>
+            <p>Extrait de l’édition des édits de pacification (<ref
+                  target="http://elec.enc.sorbonne.fr/editsdepacification/edit_12">édit de Nantes de
+                  1598</ref>) :
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  et à faulte d’en convenir, leur en sera pourveu par les juges des lieux,
+                  sauf ausd. possesseurs leur recours contre qui il appartiendra.
+                  <app rend="table">
+                     <rdg wit="#edit_12_v1">Et où lesd. eclesiasticques recevroient le prix du
+                        fondz, seront tenuz le remployer au proffict de l’eglise.</rdg>
+                     <rdg wit="#edit_12_v2">Et où lesd. eclesiastiques contraindroient les
+                        possesseurs d’achepter le fondz, les deniers de l’estimation ne seront mis
+                        en leurs mains, ains demoureront lesd. possesseurs chargez, pour en faire
+                        proffict à raison du denier vingt, jusques à ce qu’ilz ayent esté employez
+                        au proffict de l’Eglise, ce qui se fera dans un an. Et où, led. temps passé,
+                        l’acquereur ne voudroit plus continuer lad. rente, il en sera deschargé en
+                        consignant les deniers entre les mains de personne solvable, avec
+                        l’aucthorité de la justice. Et pour les lieux sacrez, en sera donné advis
+                        par les commissaires qui seront ordonnez pour l’execution du present eedit,
+                        pour sur ce y estre par nous pourveu.</rdg>
+                  </app>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head>Mise en relation des notes d’apparat critique avec le texte édité</head>
+            <p>Les guidelines TEI présentent trois méthodes pour l’ajout des notes d’apparat
+               critique à l’édition. Deux d’entre elles sont utilisables hors du texte édité, la
+               dernière ne peut être utilisée que dans ce texte.</p>
+            <div>
+               <head>La méthode dite "Location-referenced Method"</head>
+               <p>Cette méthode consiste à encoder les notes d’apparat critique dans des éléments
+                     <gi>app</gi> hors du texte, en renvoyant à l’aide de l’attribut <att>loc</att> de
+                     <gi>app</gi> vers le bloc du texte où apparaissent les variantes
+                  concernées.</p>
+               <p>Pour reprendre l’exemple ci-dessus, en employant cette méthode, on aurait procédé
+                  ainsi :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <!-- d’abord on aurait encodé le texte -->
+                     <div n="04"><!-- début de la transcription-->
+                        et à faulte d’en convenir, leur
+                        en sera pourveu par les juges des lieux, sauf
+                        ausd. possesseurs leur recours
+                        contre qui il appartiendra. </div>
+                     <!-- plus loin, par ex. dans un élément <gi>back</gi>, on aurait écrit :-->
+                     <div type="critapp">
+                        <app loc="04">
+                           <rdg wit="#edit_12_v1">Et où lesd. eclesiasticques recevroient le prix du
+                              fondz, seront tenuz le remployer au proffict de l’eglise.</rdg>
+                           <rdg wit="#edit_12_v2">Et où lesd. eclesiastiques contraindroient les
+                              possesseurs d’achepter le fondz, les deniers de l’estimation ne seront
+                              mis en leurs mains, ains demoureront lesd. possesseurs chargez, pour
+                              en faire proffict à raison du denier vingt, jusques à ce qu’ilz ayent
+                              esté employez au proffict de l’Eglise, ce qui se fera dans un an. Et
+                              où, led. temps passé, l’acquereur ne voudroit plus continuer lad.
+                              rente, il en sera deschargé en consignant les deniers entre les mains
+                              de personne solvable, avec l’aucthorité de la justice. Et pour les
+                              lieux sacrez, en sera donné advis par les commissaires qui seront
+                              ordonnez pour l’execution du present eedit, pour sur ce y estre par
+                              nous pourveu.</rdg>
+                        </app>
+                     </div>
+                  </egXML></p>
+               <p>Cette méthode est simple à mettre en œuvre, mais la localisation des variantes
+                  reste imprécise.</p>
+            </div>
+            <div>
+               <head>Méthode dite "Double End-Point Attachment Method"</head>
+               <p>Cette méthode utilise des éléments de type milestone comme <gi>anchor</gi>, et des
+                  attributs de <gi>app</gi> (<att>from</att> et <att>to</att>) pour localiser le début et la fin de la leçon de base
+                  dans le texte.</p>
+               <p>Exemple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <!-- dans le corps de la transcription -->
+                  decimas autem quas petebat presbiter
+                  de Argentolio apud 
+                   <anchor xml:id="app-01"/>Aurelian’<anchor xml:id="app-02"/>
+                  tam bladi quam vini, in parrochia de Argentolio
+                  a monasterio Sancti Dyonisii et
+                  prioratu de Argentolio [...]
+                   <!-- plus loin, par ex. dans un élément <gi>back</gi>-->
+                   <app from="#app-01" to="#app-02">
+                     <rdg wit="#beaurain-acte14-B1">Aurelianen’</rdg>
+                     <rdg wit="#beaurain-acte14-B2">Aurelianis</rdg>
+                   </app>
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>La méthode dite de segmentation parallèle</head>
+               <p>Cette méthode ne peut être employée qu’à l’intérieur du texte édité. Elle consiste
+                  à relever systématiquement et à encoder dans <gi>app</gi> toutes les leçons
+                  distinctes des témoins retenus. De ce fait il n’y a pas d’ambiguité sur le début
+                  ou la fin d’une leçon de référence, et finalement on peut (si on le souhaite)
+                  considérer qu’il n’y a plus de leçon de référence. Cependant, dans le cas de
+                  traditions très complexes, cette méthode n’est pas nécessairement viable.</p>
+               <p>Exemples : voir plus haut </p>
+               <p>Autre exemple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     Nomina vero illorum qui similiter eandem quitationem
+                     fecerunt ut dictum est coram clerico nostro
+                     ad hoc a nobis specialiter destinato sunt hec,
+                     videlicet Garinus de <foreign xml:lang="fro">Chovilier</foreign>,
+                     Eremburgis relicta defuncti Theobaldi tegularii,
+                     Guerinus et Maria liberi ejusdem, Eremburgis, Aalesia
+                     <foreign xml:lang="fro">la Coquille</foreign>
+                     <app n="b">
+                        <lem resp="#OGJ">relicta</lem>
+                        <rdg wit="#beaurain-acte76-B"><sic>relea</sic></rdg>
+                        <note><foreign xml:lang="lat">relea</foreign> sic B.</note>
+                     </app>
+                     defuncti Ade <foreign xml:lang="fro">Opinel</foreign>,
+                     Richeldis et Sedilia filie dicte Aelesie [...]
+                  </egXML>
+               </p>
+            </div>
+            <div>
+               <head>Documenter la méthode employée</head>
+               <p>Le nom de la méthode employée pour saisir les notes d’apparat critique devrait
+                  normalement être consigné dans l’en-tête TEI, dans l’élément
+                  <gi>encodingDesc</gi>, à l’aide d’un élément <gi>variantEncoding</gi>.</p>
+               <p>Exemple :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <variantEncoding method="parallel-segmentation" location="internal"/>
+                  </egXML>
+               </p>
+            </div>
+         </div>
+      </body>
+   </text>
+</TEI>
