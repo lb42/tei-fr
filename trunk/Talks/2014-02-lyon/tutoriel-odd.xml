@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+    
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Tous les chemins mènent à ROMA: comment profiter des richesses de la TEI</title>
+                <author>Lou Burnard</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>Version pour la formation SUFCO 2013</p>        
+            </publicationStmt>
+            <sourceDesc>
+                <p>From previous talks in Paris and Barcelona</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change who="#LB" when="2013-10-20">Finalised for SUFCO formation, Oct 2013</change>
+        </revisionDesc>
+        
+    </teiHeader>
+    
+    <text>
+        <body>    
+            
+<schemaSpec ns="" start="stuff" ident="simpleS" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+    xmlns="http://www.tei-c.org/ns/1.0">
+<p rend="box">Nous avons besoin de <gi>stuff</gi>, qui contient un mélange des <gi>bit</gi>s
+        et de <gi>bob</gi>s. Nous ne connaissons rien au sujet de la TEI, et n'en avons pas envie.
+        Pareil pour les espaces de noms.</p>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <elementSpec ident="stuff">
+        <desc>élément racine d'un schéma simplissime</desc>
+        <content>
+            <alternate maxOccurs="unbounded">
+                <elementRef key="bit"/>
+                <elementRef key="bob"/>
+            </alternate>
+        </content>
+    </elementSpec>
+    <elementSpec ident="bob">
+        <desc>élément pointeur du schéma simplissime</desc>
+        <content/>
+        <attList>
+            <attDef ident="href">
+                <desc>fournit l' URI de l'objet cible</desc>
+                <datatype>
+                    <rng:data type="anyURI"/>
+                    <!-- should be <macroRef key="data.pointer"/>-->
+                </datatype>
+            </attDef>
+        </attList>
+    </elementSpec>
+    <elementSpec ident="bit">
+        <desc>élément textuel du schéma simplissime (peut contenir des bobs) </desc>
+        <content allowText="true">
+            <elementRef key="bob" minOccurs="0" maxOccurs="unbounded"/>
+        </content>
+    </elementSpec>
+</schemaSpec>
