@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>ODD pour transcription des sources</title>
+			</titleStmt>
+			<publicationStmt>
+				<p>Publication Information</p>
+			</publicationStmt>
+			<sourceDesc>
+				<p>Information about the source</p>
+			</sourceDesc>
+		</fileDesc>
+	</teiHeader>
+	<text>
+		<body>
+			<p>Ce document definit un sous-ensemble des elements TEI, proposee comme schema martyre pour la retranscription et balisage enrichi des sources documentaires associees avec le projet DifDePo, qui se concerne avec la numerisation du Fonds Oulipo.  
+			</p>
+			<p>Un element <gi>elementRef</gi> est propose pour tout element que nous croyons utile. Le module <ident>tei</ident> est aussi propose, pour avoir la definitions des classes, des modeles de contenu, et des datatypes necessaire aux autres elements.</p>
+			
+	
+<schemaSpec ident="difdepo" start="TEI">
+				
+<!--moduleRef key="tei" include="att.datable.w3c att.global 
+			      att.naming 
+			      att.personal 
+			      att.tableDecoration 
+			      att.typed 
+			      macro.limitedContent 
+			      macro.paraContent 
+			      macro.phraseSeq 
+			      macro.phraseSeq.limited 
+			      macro.specialPara
+			      data.certainty
+			      data.language
+			      data.count
+			      data.numeric
+			      data.text
+			      data.word
+			      data.enumerated
+			      data.name
+			      data.outputMeasurement
+			      data.pointer
+			      data.temporal.w3c
+			      data.version
+"/-->
+	
+	<moduleRef key="tei"/>
+	
+	<moduleRef key="transcr" include="att.global.facs"/>
+
+<elementRef key="TEI"/>
+<elementRef key="ab"/>
+<elementRef key="abbr"/>
+	<elementRef key="add"/>
+<elementRef key="affiliation"/>
+	<elementRef key="am"/>
+<elementRef key="anchor"/>
+<elementRef key="author"/>
+<elementRef key="availability"/>
+<elementRef key="back"/>
+<elementRef key="bibl"/>
+<elementRef key="body"/>
+<elementRef key="cell"/>
+<elementRef key="code"/>
+<elementRef key="date"/>
+	<elementRef key="del"/>
+<elementRef key="div"/>
+<elementRef key="edition"/>
+<elementRef key="editor"/>
+<elementRef key="encodingDesc"/>
+	<elementRef key="ex"/>
+<elementRef key="extent"/>
+<elementRef key="figure"/>
+<elementRef key="fileDesc"/>
+<elementRef key="forename"/>
+<elementRef key="front"/>
+	<elementRef key="g"/>
+<elementRef key="graphic"/>
+<elementRef key="head"/>
+<elementRef key="hi"/>
+<elementRef key="idno"/>
+<elementRef key="item"/>
+<elementRef key="keywords"/>
+<elementRef key="label"/>
+<elementRef key="langUsage"/>
+<elementRef key="language"/>
+<elementRef key="lb"/>
+<elementRef key="list"/>
+<elementRef key="name"/>
+<elementRef key="note"/>
+<elementRef key="notesStmt"/>
+<elementRef key="orgName"/>
+<elementRef key="p"/>
+<elementRef key="pb"/>
+<elementRef key="persName"/>
+<elementRef key="profileDesc"/>
+<elementRef key="pubPlace"/>
+<elementRef key="publicationStmt"/>
+<elementRef key="publisher"/>
+<elementRef key="q"/>
+<elementRef key="ref"/>
+<elementRef key="relatedItem"/>
+<elementRef key="resp"/>
+<elementRef key="respStmt"/>
+<elementRef key="roleName"/>
+<elementRef key="row"/>
+<elementRef key="sourceDesc"/>
+<elementRef key="surname"/>
+<elementRef key="table"/>
+<elementRef key="teiHeader"/>
+<elementRef key="text"/>
+<elementRef key="textClass"/>
+	<elementRef key="unclear"/>
+<elementRef key="title"/>
+<elementRef key="titleStmt"/>
+
+<!-- Delete unwanted attributes from some attribute classes -->
+
+<classSpec ident="att.global" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="rendition" mode="delete"/>
+<!--attDef ident="style" mode="delete"/-->
+<attDef ident="xml:base" mode="delete"/>
+<attDef ident="xml:space" mode="delete"/>
+</attList>
+</classSpec>
+	
+	<classSpec ident="att.editLike" module="tei" mode="change" type="atts">
+	<attList>
+		<attDef ident="instant" mode="delete"/>
+		
+	</attList>
+	</classSpec>
+
+	<classSpec ident="att.naming" module="tei" mode="change" type="atts">
+		<attList>
+			<attDef ident="nymRef" mode="delete"/>
+		</attList>
+	</classSpec>
+	
+<classSpec ident="att.personal" module="tei" mode="change" type="atts">
+		<attList>
+			<attDef ident="full" mode="delete"/>
+		</attList>
+	</classSpec>
+
+
+<classSpec ident="att.pointing" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="targetLang" mode="delete"/>
+<attDef ident="evaluate" mode="delete"/>
+</attList>
+</classSpec><!-- giimho-->
+
+<classSpec ident="att.personal" module="tei" mode="change" type="atts">
+<attList>
+<attDef ident="sort" mode="delete"/>
+</attList>
+</classSpec><!-- giimho-->
+
+	<classSpec ident="att.ranging" module="tei" mode="change" type="atts">
+		<attList>
+			<attDef ident="confidence" mode="delete"/>
+		</attList>
+	</classSpec><!-- giimho-->
+	
+
+<!-- Some local attributes are also to be deleted -->
+
+
+<elementSpec ident="language" mode="change">
+<attList>
+<attDef ident="usage" mode="delete"/>
+</attList>
+</elementSpec>
+
+<elementSpec ident="list" mode="change">
+<attList>
+<attDef ident="type" mode="change">
+	<datatype>data.enumerated</datatype>
+	<defaultVal/>
+<valList type="open" mode="replace">
+<valItem ident="ordreDuJour"/>
+<valItem ident="assistance"/>
+	<valItem ident="actions"/>
+</valList>
+</attDef>
+</attList></elementSpec>
+
+<elementSpec ident="note" mode="change">
+<attList>
+<attDef ident="anchored" mode="delete"/>
+<attDef ident="targetEnd" mode="delete"/>
+</attList></elementSpec>
+
+<elementSpec ident="q" mode="change">
+<attList>
+<attDef ident="type" mode="delete"/>
+</attList></elementSpec>
+
+
+<elementSpec ident="teiHeader" mode="change">
+<attList>
+<attDef ident="type" mode="delete"/>
+</attList></elementSpec>
+
+
+</schemaSpec>
+
+</body></text></TEI>
