@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml"
-	schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
@@ -15,7 +12,11 @@
          <sourceDesc>
             <p>ne numerique</p>
          </sourceDesc>
-      </fileDesc><revisionDesc><change when="20140201">Initial draft on eurostar</change></revisionDesc>
+      </fileDesc>
+      <revisionDesc>
+         <change when="20140206">Revised after initial comments from Mutec</change>
+         <change when="20140201">Initial draft on eurostar</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
@@ -49,10 +50,30 @@
             </list>
             <p>Notre objectif sera d'aider ceux qui auront le besoin de former d'autres personnes
                dans l'usage d'ODD: en quelque sorte, de former les formateurs. </p>
+            <p>Entre autre, nos allons faire un etat de lieux sur les outils TEI existant pour le traitement des ODD, et en  particulier: <list>
+                  <item>limites de Roma. Opérations indispensables à réaliser en xml
+                     (documentation, contraintes, ...) </item>
+               <item>possibilités d'enchaîner les ODD  </item>
+                  <item>comparaison entre ODD d'un projet et odd produite à partir des documents
+                     encodés </item>
+                  <item>conversion de fichiers ODD du format 'exclusive' vers le 
+                     format inclusive ; implications de cette conversion </item>
+      <item>concepts, implementation, et implications de "Pure ODD" </item>
+                  <item>utilisation de schematron avec ODD dans une démarche de
+                     "contrôle qualité" et pour compléter les contraintes exprimés dans un ODD</item></list></p>
+            <p>Le temps permettant, nous proposons également de stimuler des discussions autour des sujets suivants:<list>
+                  <item> méthodologie de maintenance d'un projet d'édition électronique :
+                     modification de l'ODD et application des modifications à des fichiers déjà
+                     encodés... </item>
+                  <item> la manière dont une "communauté" comme Mutec peut contribuer
+                     à proposer des outils, faire partager des bonnes pratiques, etc. </item>
+                  <item> interface et ergonomie des outils plus efficace que ROMA pour formaliser des choses fines:  faut-il nécessairement
+                     travailler ODD en xml...</item>
+               </list></p>
          </div>
          <div>
             <head>Démarche proposée</head>
-            <p>La formation se déroulera sur 3 demi- journées dans une salle informatique équipée de
+            <p>La formation se déroulera sur 3 demi-journées dans une salle informatique équipée de
                postes de travail sous Windows, Mac, ou Linux.</p>
             <p>La formation sera composée d'un mélange de discussions générales, de présentations
                detaillées, et de travaux pratiques. Pour ces derniers, on peut se servir de
@@ -76,51 +97,101 @@
                <item>La formation sera assurée par Lou Burnard, avec l'assistance des collègues de
                   Mutec ou d'ailleurs notamment pour les travaux pratiques. </item>
                <label>budget</label>
-               <item>Un budget total pour 3 demi journées autour de 1200  euros est envisagé, pour
+               <item>Un budget total pour 3 demi journées autour de 1200 euros est envisagé, pour
                   suffir aux frais de déplacement (transports Oxford-Lyon, 3 nuitees d'hôtel) et
                   d'heures de formation @ 40 euro/heure. Un devis sera fourni</item>
             </list>
          </div>
          <div>
             <head>Programme previsionnel</head>
-
             <list>
                <label>Jour 1</label>
                <item><list>
                      <label>après-midi</label>
                      <item><list>
-                           <item>Discussion des projets de participants: ils souhaitent traîter
-                              quels types de document et en quelles manières?</item>
+                           <item>Discussion de l'usage actuel de ODD dans les projets de
+                              participants: ils souhaitent traîter quels types de document et en
+                              quelles manières? quels problèmes rencontrés, quels opérations
+                              d'amélioration, de maintenance ou de contrôle ils souhaiteraient
+                              mener? </item>
                            <item>Initiation au format ODD: présentation du syntaxe des
-                              spécifications ODD et exercice simple de création d'un ODD
-                              élémentaire</item>
+                              spécifications ODD et exercice simple de création d'un ODD non-TEI
+                              élémentaire: concepts de Pure ODD. </item>
                         </list></item>
-
-
                   </list></item>
                <label>Jour 2</label>
                <item><list>
                      <label>matin</label>
                      <item><list>
-                           <item>Présentation de l'organisation et du contenu de la TEI</item>
-                           <item>Cas d'étude : on construit un ODD  pour le balisage des
-                              cartes postales avec Roma et on le teste </item>
-                           <item>Création d'un ODD à partir d'un corpus de documents éxistant:
-                              démonstration et exercice</item>
+                           <item>Rappel de l'organisation et du contenu de la TEI</item>
+                           <item>Cas d'étude : on construit un ODD pour le balisage des cartes
+                              postales avec Roma; on fait la meme chose à partir d'un corpus de
+                              documents éxistant: discussion des differences entre les deux
+                              methodes; </item>
                         </list></item>
                      <label>après-midi</label>
-
                      <item><list>
-                           <item>ODD au dessous de la capote : présentation de la source TEI P5,
-                              explication de fonctionnement de quelques personnalisations</item>
-                           <item> Creation d'un ODD a partir d'une analyse des documents: les
+                           <item>ODD au dessous du capot : présentation de la source TEI P5,
+                              explication de fonctionnement de quelques personnalisations; usage de
+                              moduleRef; ODD par inclusion ou exclusion implications techniques,
+                              mode de conversion.</item>
+                           <item>Gestion, validation, et traitement d'un ODD avec Oxygen, et
+                              d'autres outils. Principes de conformance.
+                              <!--Principes d'une bonne gestion d'un corpus encodé via ODD.--> Quels
+                              niveau de formalisation ODD va être nécessaire pour se mettre en
+                              conformité avec le niveau d'exigence requis par la chaine de
+                              pérennisation du Cines (ou le bon sens...)
+                              ?<!-- Creation d'un ODD a partir d'une analyse des documents: les
                               participants créent leur propres ODD en Oxygen et l'enrichissent
-                              systematiquement</item>
-                           <item>Revue et discussion</item>
+                              systematiquement--></item>
+                           <item>Revue et discussions</item>
                         </list></item>
-
                   </list></item>
             </list>
+         </div>
+      
+        <div>    <head>Literature</head>
+           <listBibl>    <bibl>
+               <note>Specification complète du langage ODD</note><ref
+                  target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html"
+                  >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html</ref></bibl>
+            <bibl><note>Description du traitement des fichiers ODD</note>
+               <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM"
+                  >http://www.tei-c.org/release/doc/tei-p5-doc/en/html/USE.html#IM</ref></bibl>
+            <bibl>
+               <ref target="http://www.tei-c.org/Support/Learn/odds.xml">Getting started with P5
+                  ODDs</ref>
+               <note>Article discursif (P5)</note></bibl>
+           <bibl><title>Resolving the Durand Conundrum</title>
+              <author>Lou Burnard</author> <ref target="http://jtei.revues.org/842">Journal of the Text Encoding Initiative: Issue 6 | December 2013 </ref><note>Article introducing and explaining some proposed modifications to the ODD System; implemented as "Pure ODD"</note></bibl> 
+              <!--Lou Burnard, « Resolving the Durand Conundrum », Journal of the Text Encoding Initiative [Online], Issue 6 | December 2013, Online since 22 January 2014, connection on 06 February 2014. URL : http://jtei.revues.org/842 ; DOI : 10.4000/jtei.842-->
+              <bibl>
+               <ref target="http://tbe.kantl.be/TBE/modules/TBED08v00.htm"
+                  >http://tbe.kantl.be/TBE/modules/TBED08v00.htm</ref>
+               <note>Introduction tutoriel (P4)</note></bibl>
+            <bibl><ref target="http://www.tei-c.org/Guidelines/Customization/odds.xml"
+               >http://www.tei-c.org/Guidelines/Customization/odds.xml</ref>
+               <note>Introduction tutoriel</note></bibl>
+            <bibl>
+               <author>
+                 Lou Burnard
+               </author>
+               <author>
+                 Sebastian
+                  Rahtz
+               </author><title>RelaxNG with Son of ODD</title>
+               <ptr
+                  target="http://conferences.idealliance.org/extreme/html/2004/Burnard01/EML2004Burnard01.html"/>
+               <title level="m">Proceedings of Extreme Markup Languages 2004</title>
+               <note>Technical description of the new ODD system developed for TEI P5.</note>
+            </bibl>
+            <bibl><author>James
+               Cummings</author>
+               <title level="m">ODDly Pragmatic: Documenting encoding practices in Digital
+                  Humanities projects</title><ref
+                     target="http://blogs.it.ox.ac.uk/jamesc/2013/09/21/oddly-pragmatic/">[Blog
+                     entry summarizing talk given at JADH 2013]</ref>
+            </bibl></listBibl>
          </div>
       </body>
    </text>

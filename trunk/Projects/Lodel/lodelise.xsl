@@ -31,8 +31,7 @@
                 <xsl:variable name="filename" select="concat('whatIs-intro-',$part,'.xml')"/>
                 <xsl:message><xsl:value-of select="$filename"/>
                 </xsl:message>
-                
-                
+                          
                 <xsl:element name="include" namespace="http://www.w3.org/2001/XInclude">
                     <xsl:attribute name="href"><xsl:value-of select="$filename"/></xsl:attribute>
                 </xsl:element>
@@ -181,10 +180,32 @@
     <xsl:text>  </xsl:text><xsl:apply-templates/></item>
     </xsl:template>
         
-        <xsl:template match="listBibl">           
+ 
+    <!-- p/list not allowed -->
+    
+    
+    <xsl:template match="list">
+        <xsl:if test="parent::p">
+            <xsl:message>panic! list inside p! </xsl:message>
+        </xsl:if>
+        <xsl:variable name="listType">
+            <xsl:choose>
+                <xsl:when test="@type">ordered</xsl:when>
+                <xsl:otherwise>unordered</xsl:otherwise>
+            </xsl:choose> 
+        </xsl:variable>
+        <list type="{$listType}">
+            <xsl:apply-templates />
+        </list>
+    </xsl:template>
+    
+ 
+ 
+<!-- bibliographic elements -->
+    
+    <xsl:template match="listBibl">           
                 <xsl:apply-templates/>
         </xsl:template>
-    
     
     <xsl:template match="biblStruct|bibl">
        <p><bibl>
@@ -198,12 +219,13 @@
     
     <xsl:template match="analytic|monogr|imprint">
         <xsl:apply-templates/>
-        
     </xsl:template>
     
     <xsl:template match="biblScope">
         <biblScope><xsl:value-of select="@type"/> <xsl:value-of select="."/></biblScope> 
     </xsl:template>
+    
+ <!-- common phrase level elements -->
     
     <xsl:template match="emph">
         <hi rendition="#emph"><xsl:apply-templates/></hi>
@@ -225,6 +247,16 @@
         <hi rendition="#term"><xsl:apply-templates/>
         </hi>
     </xsl:template>
+ 
+    <xsl:template match="soCalled|mentioned">
+        <xsl:text> `</xsl:text><xsl:apply-templates/><xsl:text>' </xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="title">
+        <title rendition='#title'><xsl:apply-templates/></title>
+    </xsl:template>
+    
+<!-- techdoc elements -->    
     
     <xsl:template match="gi">
       <xsl:text>&lt;</xsl:text><xsl:apply-templates/><xsl:text>&gt;</xsl:text>
@@ -238,39 +270,16 @@
         @<xsl:apply-templates/>
     </xsl:template>
     
-    
     <xsl:template match="ident">
         <hi rendition="#ident"><xsl:apply-templates/></hi>
     </xsl:template>
-    
-    
-    <xsl:template match="soCalled|mentioned">
-       <xsl:text> `</xsl:text><xsl:apply-templates/><xsl:text>' </xsl:text>
-    </xsl:template>
-    
-    <xsl:template match="title">
-        <title rendition='#title'><xsl:apply-templates/></title>
-    </xsl:template>
-    
+      
     <xsl:template match="val">
         <hi rendition="#val"><xsl:apply-templates/></hi>
     </xsl:template>
    
-
-    <xsl:template match="list">
-        <xsl:if test="parent::p">
-            <xsl:message>list inside p! panic!</xsl:message>
-        </xsl:if>
-        <xsl:variable name="listType">
-            <xsl:choose>
-                <xsl:when test="@type">ordered</xsl:when>
-                <xsl:otherwise>unordered</xsl:otherwise>
-            </xsl:choose> 
-        </xsl:variable>
-        <list type="{$listType}">
-        <xsl:apply-templates />
-        </list>
-    </xsl:template>
+  
+ <!-- headings -->
     
     <xsl:template match="figure/head">
         <xsl:message>panic! head not allowed inside figure</xsl:message>
