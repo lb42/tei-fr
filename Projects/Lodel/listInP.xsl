@@ -47,12 +47,7 @@
   </xsl:copy>
         
     </xsl:template>
-    
-    <xsl:template match="list">
-        <xsl:if test="parent::p">
-            <xsl:message>list inside p! panic!</xsl:message>
-        </xsl:if>
-    </xsl:template>
+   
     <xsl:template match="figure/head">
         <xsl:message>panic! head not allowed inside figure</xsl:message>
     </xsl:template>
