@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-06T13:44:52Z. 
+Schema generated from ODD source 2014-02-06T17:17:02Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -1958,6 +1958,28 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <empty/>
     </element>
   </define>
+  <define name="change">
+    <element name="change">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">résume une modification ou une correction apportée à une version particulière d’un texte électronique partagé entre plusieurs chercheurs. [2.5.  2.4.1. ]</a:documentation>
+      <ref name="macro.specialPara"/>
+      <ref name="att.ascribed.attributes"/>
+      <ref name="att.datable.attributes"/>
+      <ref name="att.docStatus.attributes"/>
+      <ref name="att.global.attributes"/>
+      <ref name="att.typed.attributes"/>
+      <optional>
+        <attribute name="target">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">points to one or more elements that belong to this change.</a:documentation>
+          <list>
+            <oneOrMore>
+              <ref name="data.pointer"/>
+            </oneOrMore>
+          </list>
+        </attribute>
+      </optional>
+      <empty/>
+    </element>
+  </define>
   <define name="cell">
     <element name="cell">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (cellule) contient une cellule d'un tableau. [14.1.1. ]</a:documentation>
@@ -2648,6 +2670,20 @@ relatedItem element must be empty</sch:report>
       <empty/>
     </element>
   </define>
+  <define name="revisionDesc">
+    <element name="revisionDesc">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (descriptif des révisions) fournit un résumé de l’historique des révisions d’un fichier. [2.5.  2.1.1. ]</a:documentation>
+      <choice>
+        <ref name="list"/>
+        <oneOrMore>
+          <ref name="change"/>
+        </oneOrMore>
+      </choice>
+      <ref name="att.global.attributes"/>
+      <ref name="att.docStatus.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="row">
     <element name="row">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (rangée) contient une rangée d'un tableau. [14.1.1. ]</a:documentation>
@@ -2738,6 +2774,9 @@ relatedItem element must be empty</sch:report>
         <zeroOrMore>
           <ref name="model.teiHeaderPart"/>
         </zeroOrMore>
+        <optional>
+          <ref name="revisionDesc"/>
+        </optional>
       </group>
       <ref name="att.global.attributes"/>
       <empty/>
