@@ -44,6 +44,8 @@
 			      data.pointer
 			      data.temporal.w3c
 			      data.version
+			      data.sex
+		
 "/>
 	
 	<moduleRef key="transcr" include="att.global.facs"/>
@@ -68,6 +70,7 @@
 	<elementRef key="del"/>
 <elementRef key="div"/>
 <elementRef key="edition"/>
+	<elementRef key="editionStmt"/>
 <elementRef key="editor"/>
 <elementRef key="encodingDesc"/>
 	<elementRef key="ex"/>
@@ -76,6 +79,7 @@
 <elementRef key="fileDesc"/>
 <elementRef key="forename"/>
 <elementRef key="front"/>
+	<elementRef key="fw"/>
 	<elementRef key="g"/>
 <elementRef key="graphic"/>
 <elementRef key="head"/>
@@ -88,12 +92,15 @@
 <elementRef key="language"/>
 <elementRef key="lb"/>
 <elementRef key="list"/>
+	<elementRef key="listPerson"/>
+	
 <elementRef key="name"/>
 <elementRef key="note"/>
 <elementRef key="notesStmt"/>
 <elementRef key="orgName"/>
 <elementRef key="p"/>
 <elementRef key="pb"/>
+<elementRef key="person"/>
 <elementRef key="persName"/>
 <elementRef key="profileDesc"/>
 <elementRef key="pubPlace"/>
@@ -161,6 +168,22 @@
 			<attDef ident="confidence" mode="delete"/>
 		</attList>
 	</classSpec><!-- giimho-->
+	
+<!-- some attribute values get constrained -->
+	
+ <elementSpec ident="list" mode="change">
+		<attList>
+			<attDef ident="type" mode="change">
+				<datatype>data.enumerated</datatype>
+				<defaultVal/>
+				<valList type="open" mode="replace">
+					<valItem ident="ordreDuJour"/>
+					<valItem ident="assistance"/>
+					<valItem ident="actions"/>
+				</valList>
+			</attDef>
+		</attList></elementSpec>
+
 
 <!-- Some local attributes are also to be deleted -->
 
@@ -169,19 +192,6 @@
 <attDef ident="usage" mode="delete"/>
 </attList>
 </elementSpec>
-
-<elementSpec ident="list" mode="change">
-<attList>
-<attDef ident="type" mode="change">
-	<datatype>data.enumerated</datatype>
-	<defaultVal/>
-<valList type="open" mode="replace">
-<valItem ident="ordreDuJour"/>
-<valItem ident="assistance"/>
-	<valItem ident="actions"/>
-</valList>
-</attDef>
-</attList></elementSpec>
 
 <elementSpec ident="note" mode="change">
 <attList>
@@ -194,12 +204,10 @@
 <attDef ident="type" mode="delete"/>
 </attList></elementSpec>
 
-
 <elementSpec ident="teiHeader" mode="change">
 <attList>
 <attDef ident="type" mode="delete"/>
 </attList></elementSpec>
-
 
 </schemaSpec>
 
