@@ -120,9 +120,50 @@
 <elementRef key="teiHeader"/>
 <elementRef key="text"/>
 <elementRef key="textClass"/>
-	<elementRef key="unclear"/>
+<elementRef key="unclear"/>
 <elementRef key="title"/>
 <elementRef key="titleStmt"/>
+
+
+<!-- simplify some content models -->
+	
+	<elementSpec ident="publicationStmt" mode="change">
+		<content >
+			<rng:ref name="p"/>
+		</content>
+	</elementSpec>
+	
+	<elementSpec ident="sourceDesc" mode="change">
+		<content >
+			<rng:ref name="p"/>
+		</content>
+	</elementSpec>
+	
+	<elementSpec ident="revisionDesc" mode="change">
+		<content>
+			<rng:oneOrMore>
+				<rng:ref name="change"/>
+			</rng:oneOrMore>
+		</content>
+	</elementSpec>
+
+<!-- require revisionDesc -->
+	
+<elementSpec ident="teiHeader" mode="change">
+	<attList>
+		<attDef ident="type" mode="delete"/>
+	</attList>		
+			<content>
+				<rng:group>
+					<rng:ref name="fileDesc"/>
+					<rng:zeroOrMore>
+						<rng:ref name="model.teiHeaderPart"/>
+					</rng:zeroOrMore>
+						<rng:ref name="revisionDesc"/>
+				</rng:group>
+			</content>
+	
+	</elementSpec>
 
 <!-- Delete unwanted attributes from some attribute classes -->
 
@@ -204,10 +245,6 @@
 <attDef ident="type" mode="delete"/>
 </attList></elementSpec>
 
-<elementSpec ident="teiHeader" mode="change">
-<attList>
-<attDef ident="type" mode="delete"/>
-</attList></elementSpec>
 
 </schemaSpec>
 

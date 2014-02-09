@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-09T14:47:43Z. 
+Schema generated from ODD source 2014-02-09T19:48:04Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -1356,19 +1356,6 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="idno"/>
     </choice>
   </define>
-  <define name="model.publicationStmtPart.agency">
-    <choice>
-      <ref name="publisher"/>
-    </choice>
-  </define>
-  <define name="model.publicationStmtPart.detail">
-    <choice>
-      <ref name="availability"/>
-      <ref name="date"/>
-      <ref name="idno"/>
-      <ref name="pubPlace"/>
-    </choice>
-  </define>
   <define name="model.availabilityPart">
     <notAllowed/>
   </define>
@@ -1591,9 +1578,6 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="encodingDesc"/>
       <ref name="profileDesc"/>
     </choice>
-  </define>
-  <define name="model.sourceDescPart">
-    <notAllowed/>
   </define>
   <define name="model.encodingDescPart">
     <notAllowed/>
@@ -2709,21 +2693,7 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
   <define name="publicationStmt">
     <element name="publicationStmt">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (mention de publication) regroupe des informations concernant la publication ou la diffusion d’un texte électronique ou d’un autre type de texte. [2.2.4.  2.2. ]</a:documentation>
-      <choice>
-        <oneOrMore>
-          <group>
-            <group>
-              <ref name="model.publicationStmtPart.agency"/>
-            </group>
-            <zeroOrMore>
-              <ref name="model.publicationStmtPart.detail"/>
-            </zeroOrMore>
-          </group>
-        </oneOrMore>
-        <oneOrMore>
-          <ref name="model.pLike"/>
-        </oneOrMore>
-      </choice>
+      <ref name="p"/>
       <ref name="att.global.attributes"/>
       <empty/>
     </element>
@@ -2837,12 +2807,9 @@ relatedItem element must be empty</sch:report>
   <define name="revisionDesc">
     <element name="revisionDesc">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (descriptif des révisions) fournit un résumé de l’historique des révisions d’un fichier. [2.5.  2.1.1. ]</a:documentation>
-      <choice>
-        <ref name="list"/>
-        <oneOrMore>
-          <ref name="change"/>
-        </oneOrMore>
-      </choice>
+      <oneOrMore>
+        <ref name="change"/>
+      </oneOrMore>
       <ref name="att.global.attributes"/>
       <ref name="att.docStatus.attributes"/>
       <empty/>
@@ -2862,18 +2829,7 @@ relatedItem element must be empty</sch:report>
   <define name="sourceDesc">
     <element name="sourceDesc">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (description de la source) décrit la source à partir de laquelle un texte électronique a été dérivé ou produit, habituellement une description bibliographique pour un texte numérisé, ou une expression comme "document numérique natif " pour un texte qui n'a aucune existence précédente. [2.2.7. ]</a:documentation>
-      <choice>
-        <oneOrMore>
-          <ref name="model.pLike"/>
-        </oneOrMore>
-        <oneOrMore>
-          <choice>
-            <ref name="model.biblLike"/>
-            <ref name="model.sourceDescPart"/>
-            <ref name="model.listLike"/>
-          </choice>
-        </oneOrMore>
-      </choice>
+      <ref name="p"/>
       <ref name="att.global.attributes"/>
       <ref name="att.declarable.attributes"/>
       <empty/>
@@ -2938,9 +2894,7 @@ relatedItem element must be empty</sch:report>
         <zeroOrMore>
           <ref name="model.teiHeaderPart"/>
         </zeroOrMore>
-        <optional>
-          <ref name="revisionDesc"/>
-        </optional>
+        <ref name="revisionDesc"/>
       </group>
       <ref name="att.global.attributes"/>
       <empty/>
