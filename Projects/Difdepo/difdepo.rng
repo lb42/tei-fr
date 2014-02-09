@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-09T19:48:04Z. 
+Schema generated from ODD source 2014-02-09T20:16:23Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -1585,6 +1585,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.profileDescPart">
     <choice>
       <ref name="langUsage"/>
+      <ref name="particDesc"/>
       <ref name="textClass"/>
     </choice>
   </define>
@@ -2516,6 +2517,25 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
       <empty/>
     </element>
   </define>
+  <define name="listChange">
+    <element name="listChange">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">groups a number of change descriptions associated with either the creation of a source text or the revision of an encoded text. [2.5.  11.7. ]</a:documentation>
+      <oneOrMore>
+        <choice>
+          <ref name="listChange"/>
+          <ref name="change"/>
+        </choice>
+      </oneOrMore>
+      <ref name="att.global.attributes"/>
+      <ref name="att.sortable.attributes"/>
+      <optional>
+        <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" name="ordered" a:defaultValue="true">
+          <a:documentation>indicates whether the ordering of its child change elements is to be considered significant or not</a:documentation>
+        </attribute>
+      </optional>
+      <empty/>
+    </element>
+  </define>
   <define name="listPerson">
     <element name="listPerson">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (liste de personnes) contient une liste d'éléments, chacun d'entre eux apportant des informations sur une personne précise ou sur un groupe de personnes, par exemple les participants à une interaction linguistique, ou les personnes citées dans une source historique. [13.3.2.  15.2.  2.4.  15.3.2. ]</a:documentation>
@@ -2596,6 +2616,25 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
       <ref name="att.global.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.fragmentable.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="particDesc">
+    <element name="particDesc">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (description des participants) décrit les locuteurs, voix ou autres participants identifiables d'une interaction linguistique. [15.2. ]</a:documentation>
+      <choice>
+        <oneOrMore>
+          <ref name="model.pLike"/>
+        </oneOrMore>
+        <oneOrMore>
+          <choice>
+            <ref name="model.personLike"/>
+            <ref name="listPerson"/>
+          </choice>
+        </oneOrMore>
+      </choice>
+      <ref name="att.global.attributes"/>
+      <ref name="att.declarable.attributes"/>
       <empty/>
     </element>
   </define>
@@ -2807,9 +2846,7 @@ relatedItem element must be empty</sch:report>
   <define name="revisionDesc">
     <element name="revisionDesc">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (descriptif des révisions) fournit un résumé de l’historique des révisions d’un fichier. [2.5.  2.1.1. ]</a:documentation>
-      <oneOrMore>
-        <ref name="change"/>
-      </oneOrMore>
+      <ref name="listChange"/>
       <ref name="att.global.attributes"/>
       <ref name="att.docStatus.attributes"/>
       <empty/>
