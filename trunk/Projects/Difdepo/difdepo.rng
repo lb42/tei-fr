@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-06T17:17:02Z. 
+Schema generated from ODD source 2014-02-09T14:47:43Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -105,6 +105,9 @@ Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
     <data type="token">
       <param name="pattern">(\p{L}|\p{N}|\p{P}|\p{S})+</param>
     </data>
+  </define>
+  <define name="data.sex">
+    <ref name="data.word"/>
   </define>
   <define name="data.text">
     <data type="string"/>
@@ -1120,6 +1123,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.milestoneLike">
     <choice>
       <ref name="anchor"/>
+      <ref name="fw"/>
       <ref name="lb"/>
       <ref name="pb"/>
     </choice>
@@ -1216,22 +1220,28 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.listLike">
     <choice>
       <ref name="list"/>
+      <ref name="listPerson"/>
       <ref name="table"/>
     </choice>
   </define>
   <define name="model.listLike_alternation">
     <choice>
       <ref name="list"/>
+      <ref name="listPerson"/>
       <ref name="table"/>
     </choice>
   </define>
   <define name="model.listLike_sequence">
     <ref name="list"/>
+    <ref name="listPerson"/>
     <ref name="table"/>
   </define>
   <define name="model.listLike_sequenceOptional">
     <optional>
       <ref name="list"/>
+    </optional>
+    <optional>
+      <ref name="listPerson"/>
     </optional>
     <optional>
       <ref name="table"/>
@@ -1242,12 +1252,18 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="list"/>
     </zeroOrMore>
     <zeroOrMore>
+      <ref name="listPerson"/>
+    </zeroOrMore>
+    <zeroOrMore>
       <ref name="table"/>
     </zeroOrMore>
   </define>
   <define name="model.listLike_sequenceRepeatable">
     <oneOrMore>
       <ref name="list"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="listPerson"/>
     </oneOrMore>
     <oneOrMore>
       <ref name="table"/>
@@ -1322,6 +1338,24 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="model.pLike"/>
     </choice>
   </define>
+  <define name="model.persStateLike">
+    <choice>
+      <ref name="affiliation"/>
+      <ref name="persName"/>
+    </choice>
+  </define>
+  <define name="model.personLike">
+    <choice>
+      <ref name="person"/>
+    </choice>
+  </define>
+  <define name="model.personPart">
+    <choice>
+      <ref name="model.biblLike"/>
+      <ref name="model.persStateLike"/>
+      <ref name="idno"/>
+    </choice>
+  </define>
   <define name="model.publicationStmtPart.agency">
     <choice>
       <ref name="publisher"/>
@@ -1376,6 +1410,11 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="respStmt"/>
     </choice>
   </define>
+  <define name="model.divWrapper">
+    <choice>
+      <ref name="byline"/>
+    </choice>
+  </define>
   <define name="model.divTopPart">
     <choice>
       <ref name="model.headLike"/>
@@ -1383,11 +1422,13 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   </define>
   <define name="model.divTop">
     <choice>
+      <ref name="model.divWrapper"/>
       <ref name="model.divTopPart"/>
     </choice>
   </define>
   <define name="model.pLike.front">
     <choice>
+      <ref name="byline"/>
       <ref name="head"/>
     </choice>
   </define>
@@ -1396,6 +1437,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   </define>
   <define name="model.divBottom">
     <choice>
+      <ref name="model.divWrapper"/>
       <ref name="model.divBottomPart"/>
     </choice>
   </define>
@@ -1958,6 +2000,21 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <empty/>
     </element>
   </define>
+  <define name="byline">
+    <element name="byline">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (mention de responsabilité) indique la responsabilité principale pour une œuvre donnée sur la page de titre ou au début ou à la fin de l’œuvre. [4.2.2.  4.5. ]</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.gLike"/>
+          <ref name="model.phrase"/>
+          <ref name="model.global"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.global.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="change">
     <element name="change">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">résume une modification ou une correction apportée à une version particulière d’un texte électronique partagé entre plusieurs chercheurs. [2.5.  2.4.1. ]</a:documentation>
@@ -2099,6 +2156,24 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <empty/>
     </element>
   </define>
+  <define name="editionStmt">
+    <element name="editionStmt">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (mention d'édition) regroupe les informations relatives à l’édition d’un texte. [2.2.2.  2.2. ]</a:documentation>
+      <choice>
+        <oneOrMore>
+          <ref name="model.pLike"/>
+        </oneOrMore>
+        <group>
+          <ref name="edition"/>
+          <zeroOrMore>
+            <ref name="model.respLike"/>
+          </zeroOrMore>
+        </group>
+      </choice>
+      <ref name="att.global.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="editor">
     <element name="editor">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">mention de responsabilité secondaire pour un item bibliographique, par exemple le nom d'une personne, d'une institution ou d'un organisme (ou de plusieurs d'entre eux) comme éditeur scientifique, compilateur, traducteur, etc. [3.11.2.2. ]</a:documentation>
@@ -2163,6 +2238,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <group>
         <group>
           <ref name="titleStmt"/>
+          <optional>
+            <ref name="editionStmt"/>
+          </optional>
           <optional>
             <ref name="extent"/>
           </optional>
@@ -2233,6 +2311,22 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       </group>
       <ref name="att.global.attributes"/>
       <ref name="att.declaring.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="fw">
+    <element name="fw">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (élément de mise en page) permet d'encoder un titre courant (en haut ou en bas de la page), une réclame ou une autre information comparable, qui apparaît sur la page courante. [11.6. ]</a:documentation>
+      <ref name="macro.phraseSeq"/>
+      <ref name="att.global.attributes"/>
+      <ref name="att.placement.attributes"/>
+      <optional>
+        <attribute name="type">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">caractérise l'information encodée conformément à une typologie appropriée.
+Exemple de valeurs possibles: 1] header; 2] footer; 3] pageNum (numéro de page) ; 4] lineNum (numéro de ligne) ; 5] sig; 6] catch (réclame) </a:documentation>
+          <ref name="data.enumerated"/>
+        </attribute>
+      </optional>
       <empty/>
     </element>
   </define>
@@ -2438,6 +2532,30 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
       <empty/>
     </element>
   </define>
+  <define name="listPerson">
+    <element name="listPerson">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (liste de personnes) contient une liste d'éléments, chacun d'entre eux apportant des informations sur une personne précise ou sur un groupe de personnes, par exemple les participants à une interaction linguistique, ou les personnes citées dans une source historique. [13.3.2.  15.2.  2.4.  15.3.2. ]</a:documentation>
+      <group>
+        <zeroOrMore>
+          <ref name="model.headLike"/>
+        </zeroOrMore>
+        <oneOrMore>
+          <choice>
+            <ref name="model.personLike"/>
+            <ref name="listPerson"/>
+          </choice>
+        </oneOrMore>
+        <zeroOrMore>
+          <empty/>
+        </zeroOrMore>
+      </group>
+      <ref name="att.global.attributes"/>
+      <ref name="att.typed.attributes"/>
+      <ref name="att.declarable.attributes"/>
+      <ref name="att.sortable.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="name">
     <element name="name">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (nom, nom propre) contient un nom propre ou un syntagme nominal. [3.5.1. ]</a:documentation>
@@ -2506,6 +2624,52 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
       <ref name="att.edition.attributes"/>
       <ref name="att.spanning.attributes"/>
       <ref name="att.breaking.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="person">
+    <element name="person">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (personne) fournit des informations sur un individu identifiable, par exemple un participant à une interaction linguistique, ou une personne citée dans une source historique. [13.3.2.  15.2.2. ]</a:documentation>
+      <choice>
+        <oneOrMore>
+          <ref name="model.pLike"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="model.personPart"/>
+            <ref name="model.global"/>
+          </choice>
+        </zeroOrMore>
+      </choice>
+      <ref name="att.global.attributes"/>
+      <ref name="att.editLike.attributes"/>
+      <ref name="att.sortable.attributes"/>
+      <optional>
+        <attribute name="role">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">précise un rôle principal ou une classification principale pour cette personne.</a:documentation>
+          <list>
+            <oneOrMore>
+              <ref name="data.enumerated"/>
+            </oneOrMore>
+          </list>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="sex">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">précise le sexe de la personne.</a:documentation>
+          <list>
+            <oneOrMore>
+              <ref name="data.sex"/>
+            </oneOrMore>
+          </list>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="age">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">précise une tranche d'âge pour la personne.</a:documentation>
+          <ref name="data.enumerated"/>
+        </attribute>
+      </optional>
       <empty/>
     </element>
   </define>
