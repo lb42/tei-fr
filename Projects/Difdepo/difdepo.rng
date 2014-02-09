@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-09T20:21:54Z. 
+Schema generated from ODD source 2014-02-09T21:25:30Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -1466,17 +1466,20 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     <choice>
       <ref name="model.nameLike.agent"/>
       <ref name="idno"/>
+      <ref name="rs"/>
     </choice>
   </define>
   <define name="model.nameLike_alternation">
     <choice>
       <ref name="model.nameLike.agent_alternation"/>
       <ref name="idno"/>
+      <ref name="rs"/>
     </choice>
   </define>
   <define name="model.nameLike_sequence">
     <ref name="model.nameLike.agent_sequence"/>
     <ref name="idno"/>
+    <ref name="rs"/>
   </define>
   <define name="model.nameLike_sequenceOptional">
     <optional>
@@ -1484,6 +1487,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     </optional>
     <optional>
       <ref name="idno"/>
+    </optional>
+    <optional>
+      <ref name="rs"/>
     </optional>
   </define>
   <define name="model.nameLike_sequenceOptionalRepeatable">
@@ -1493,6 +1499,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     <zeroOrMore>
       <ref name="idno"/>
     </zeroOrMore>
+    <zeroOrMore>
+      <ref name="rs"/>
+    </zeroOrMore>
   </define>
   <define name="model.nameLike_sequenceRepeatable">
     <oneOrMore>
@@ -1500,6 +1509,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     </oneOrMore>
     <oneOrMore>
       <ref name="idno"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="rs"/>
     </oneOrMore>
   </define>
   <define name="model.global">
@@ -2749,6 +2761,16 @@ Exemple de valeurs possibles: 1] ordreDuJour; 2] assistance; 3] actions</a:docum
       <ref name="att.global.attributes"/>
       <ref name="att.ascribed.attributes"/>
       <ref name="att.source.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="rs">
+    <element name="rs">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (chaîne de référence) contient un nom générique ou une chaîne permettant de s'y référer. [13.2.1.  3.5.1. ]</a:documentation>
+      <ref name="macro.phraseSeq"/>
+      <ref name="att.global.attributes"/>
+      <ref name="att.naming.attributes"/>
+      <ref name="att.typed.attributes"/>
       <empty/>
     </element>
   </define>
