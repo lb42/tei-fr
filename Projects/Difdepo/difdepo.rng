@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-10T17:43:44Z. 
+Schema generated from ODD source 2014-02-10T17:49:55Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -1104,6 +1104,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="add"/>
       <ref name="damage"/>
       <ref name="del"/>
+      <ref name="supplied"/>
       <ref name="unclear"/>
     </choice>
   </define>
@@ -1112,6 +1113,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="add"/>
       <ref name="damage"/>
       <ref name="del"/>
+      <ref name="supplied"/>
       <ref name="unclear"/>
     </choice>
   </define>
@@ -1119,6 +1121,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     <ref name="add"/>
     <ref name="damage"/>
     <ref name="del"/>
+    <ref name="supplied"/>
     <ref name="unclear"/>
   </define>
   <define name="model.pPart.transcriptional_sequenceOptional">
@@ -1130,6 +1133,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     </optional>
     <optional>
       <ref name="del"/>
+    </optional>
+    <optional>
+      <ref name="supplied"/>
     </optional>
     <optional>
       <ref name="unclear"/>
@@ -1146,6 +1152,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="del"/>
     </zeroOrMore>
     <zeroOrMore>
+      <ref name="supplied"/>
+    </zeroOrMore>
+    <zeroOrMore>
       <ref name="unclear"/>
     </zeroOrMore>
   </define>
@@ -1158,6 +1167,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
     </oneOrMore>
     <oneOrMore>
       <ref name="del"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="supplied"/>
     </oneOrMore>
     <oneOrMore>
       <ref name="unclear"/>
@@ -2952,6 +2964,25 @@ relatedItem element must be empty</sch:report>
       <ref name="p"/>
       <ref name="att.global.attributes"/>
       <ref name="att.declarable.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="supplied">
+    <element name="supplied">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (texte restitué) permet d'encoder du texte restitué par l'auteur de la transcription ou par l'éditeur pour une raison quelconque, le plus souvent parce que le texte du document original ne peut être lu, par suite de dommages matériels ou de lacunes. [11.3.3.1. ]</a:documentation>
+      <ref name="macro.paraContent"/>
+      <ref name="att.global.attributes"/>
+      <ref name="att.editLike.attributes"/>
+      <optional>
+        <attribute name="reason">
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">donne la raison pour laquelle on a dû restituer le texte.</a:documentation>
+          <list>
+            <oneOrMore>
+              <ref name="data.word"/>
+            </oneOrMore>
+          </list>
+        </attribute>
+      </optional>
       <empty/>
     </element>
   </define>
