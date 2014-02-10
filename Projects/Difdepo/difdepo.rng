@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.tei-c.org/ns/1.0">
   <!--
-Schema generated from ODD source 2014-02-09T21:25:30Z. 
+Schema generated from ODD source 2014-02-10T17:43:44Z. 
 Edition: Version 2.6.0. Last updated on
 	20th January 2014, revision 12802
 Edition Location: http://www.tei-c.org/Vault/P5/Version 2.6.0/
@@ -254,6 +254,48 @@ Les valeurs suggérées comprennent: 1] cm (centimètres) ; 2] mm (millimètres)
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">spécifie l'applicabilité de cette mesure, là où plus d'un objet est mesuré.
 Exemple de valeurs possibles: 1] all; 2] most; 3] range</a:documentation>
         <ref name="data.enumerated"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.damaged.attributes">
+    <ref name="att.dimensions.attributes"/>
+    <ref name="att.damaged.attribute.hand"/>
+    <ref name="att.damaged.attribute.agent"/>
+    <ref name="att.damaged.attribute.degree"/>
+    <ref name="att.damaged.attribute.group"/>
+  </define>
+  <define name="att.damaged.attribute.hand">
+    <optional>
+      <attribute name="hand">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">dans le cas de dommages (effacement volontaire, etc.) attribuable à une main identifiable, identifie cette main.</a:documentation>
+        <ref name="data.pointer"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.damaged.attribute.agent">
+    <optional>
+      <attribute name="agent">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">caractérise la raison des dommages, lorsqu'elle peut être identifiée
+Exemple de valeurs possibles: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
+        <ref name="data.enumerated"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.damaged.attribute.degree">
+    <optional>
+      <attribute name="degree">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indique le degré (la gravité) du dommage subi, selon une grille appropriée. L'attribut degree doit être utilisé dans le seul cas où le texte peut être lu avec certitude ; le texte restitué en utilisant d'autres sources doit être encodé au moyen de l'élément supplied.</a:documentation>
+        <choice>
+          <ref name="data.certainty"/>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.damaged.attribute.group">
+    <optional>
+      <attribute name="group">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">permet d'assigner un numéro quelconque à chaque fragment endommagé considéré comme faisant partie d'un ensemble résultant du même phénomène physique</a:documentation>
+        <ref name="data.count"/>
       </attribute>
     </optional>
   </define>
@@ -1060,6 +1102,7 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.pPart.transcriptional">
     <choice>
       <ref name="add"/>
+      <ref name="damage"/>
       <ref name="del"/>
       <ref name="unclear"/>
     </choice>
@@ -1067,18 +1110,23 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.pPart.transcriptional_alternation">
     <choice>
       <ref name="add"/>
+      <ref name="damage"/>
       <ref name="del"/>
       <ref name="unclear"/>
     </choice>
   </define>
   <define name="model.pPart.transcriptional_sequence">
     <ref name="add"/>
+    <ref name="damage"/>
     <ref name="del"/>
     <ref name="unclear"/>
   </define>
   <define name="model.pPart.transcriptional_sequenceOptional">
     <optional>
       <ref name="add"/>
+    </optional>
+    <optional>
+      <ref name="damage"/>
     </optional>
     <optional>
       <ref name="del"/>
@@ -1092,6 +1140,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
       <ref name="add"/>
     </zeroOrMore>
     <zeroOrMore>
+      <ref name="damage"/>
+    </zeroOrMore>
+    <zeroOrMore>
       <ref name="del"/>
     </zeroOrMore>
     <zeroOrMore>
@@ -1101,6 +1152,9 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
   <define name="model.pPart.transcriptional_sequenceRepeatable">
     <oneOrMore>
       <ref name="add"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="damage"/>
     </oneOrMore>
     <oneOrMore>
       <ref name="del"/>
@@ -2054,6 +2108,16 @@ Exemple de valeurs possibles: 1] duplicate; 2] duplicate-partial; 3] excessStart
           <ref name="data.word"/>
         </attribute>
       </optional>
+      <empty/>
+    </element>
+  </define>
+  <define name="damage">
+    <element name="damage">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"> (dommage) sert à encoder une zone qui a subi des dommages dans le manuscrit témoin du texte. [11.3.3.1. ]</a:documentation>
+      <ref name="macro.paraContent"/>
+      <ref name="att.global.attributes"/>
+      <ref name="att.typed.attributes"/>
+      <ref name="att.damaged.attributes"/>
       <empty/>
     </element>
   </define>
