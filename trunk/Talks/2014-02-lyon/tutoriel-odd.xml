@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
-    
+
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -9,7 +9,7 @@
                 <author>Lou Burnard</author>
             </titleStmt>
             <publicationStmt>
-                <p>Pour integrer dans le doc CINES</p>        
+                <p>Pour integrer dans le doc CINES</p>
             </publicationStmt>
             <sourceDesc>
                 <p>From previous talks in Tours, Paris and Barcelona</p>
@@ -19,51 +19,53 @@
             <change who="#LB" when="2014-01-31">Tested with pure odd</change>
             <change who="#LB" when="2013-10-20">Finalised for SUFCO formation, Oct 2013</change>
         </revisionDesc>
-        
+
     </teiHeader>
-    
+
     <text>
         <body>
-            <p>Supposons un schema simplissime qui contient que trois elements: <gi>stuff</gi>, qui
-                contient un mélange des <gi>bit</gi>s et de <gi>bob</gi>s facultativement
-                interpelles de texte. Supposons d'ailleurs un ignorance total de la TEI, et une
-                absence de desir de la connaitre! Pareil pour les espaces de noms.</p>
-            <p>L'ODD suivant suffira pour definir nos trois elements</p>
-            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-                <schemaSpec ns="" start="stuff" ident="simpleS"
-                    xmlns:rng="http://relaxng.org/ns/structure/1.0">
-                    <elementSpec ident="stuff">
-                        <desc>élément racine d'un schéma simplissime</desc>
-                        <content>
-                            <alternate maxOccurs="unbounded">
-                                <elementRef key="bit"/>
-                                <elementRef key="bob"/>
-                            </alternate>
-                        </content>
-                    </elementSpec>
-                    <elementSpec ident="bob">
-                        <desc>élément pointeur du schéma simplissime</desc>
-                        <content/>
-                        <attList>
-                            <attDef ident="href">
-                                <desc>fournit l' URI de l'objet cible</desc>
-                                <datatype>
-                                    <rng:data type="anyURI"/>
-                                    <!-- should be <macroRef key="data.pointer"/>-->
-                                </datatype>
-                            </attDef>
-                        </attList>
-                    </elementSpec>
-                    <elementSpec ident="bit">
-                        <desc>élément textuel du schéma simplissime (peut contenir des bobs) </desc>
-                        <content allowText="true">
-                            <elementRef key="bob" minOccurs="0" maxOccurs="unbounded"/>
-                        </content>
-                    </elementSpec>
-                </schemaSpec>
-            </egXML>
-            <p>On peut traiter ce petit fichier avec une feuille de style TEI, et en generer la dtd suivant:
-            <eg><![CDATA[
+            <div>
+                <head>Exemple simplissime</head>
+                <p>Supposons un schema simplissime qui contient que trois elements: <gi>stuff</gi>,
+                    qui contient un mélange des <gi>bit</gi>s et de <gi>bob</gi>s facultativement
+                    interpelles de texte. Supposons d'ailleurs un ignorance total de la TEI, et une
+                    absence de desir de la connaitre! Pareil pour les espaces de noms.</p>
+                <p>L'ODD suivant suffira pour definir nos trois elements</p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <schemaSpec ns="" start="stuff" ident="simpleS"
+                        xmlns:rng="http://relaxng.org/ns/structure/1.0">
+                        <elementSpec ident="stuff">
+                            <desc>élément racine d'un schéma simplissime</desc>
+                            <content>
+                                <alternate maxOccurs="unbounded">
+                                    <elementRef key="bit"/>
+                                    <elementRef key="bob"/>
+                                </alternate>
+                            </content>
+                        </elementSpec>
+                        <elementSpec ident="bob">
+                            <desc>élément pointeur du schéma simplissime</desc>
+                            <content/>
+                            <attList>
+                                <attDef ident="href">
+                                    <desc>fournit l' URI de l'objet cible</desc>
+                                    <datatype>
+                                        <rng:data type="anyURI"/>
+                                        <!-- should be <macroRef key="data.pointer"/>-->
+                                    </datatype>
+                                </attDef>
+                            </attList>
+                        </elementSpec>
+                        <elementSpec ident="bit">
+                            <desc>élément textuel du schéma simplissime (peut contenir des bobs) </desc>
+                            <content allowText="true">
+                                <elementRef key="bob" minOccurs="0" maxOccurs="unbounded"/>
+                            </content>
+                        </elementSpec>
+                    </schemaSpec>
+                </egXML>
+                <p>On peut traiter ce petit fichier avec une feuille de style TEI, et en generer la
+                    dtd suivant: <eg><![CDATA[
                 <!ELEMENT bit (#PCDATA|bob)*>
 <!--doc:élément pointeur du schéma simplissime -->
 <!ELEMENT bob  EMPTY>
@@ -72,54 +74,79 @@ href CDATA #IMPLIED >
 <!--doc:élément racine d'un schéma simplissime -->
 <!ELEMENT stuff (bit|bob)+>
                 ]]></eg>
-            </p><p>De la meme maniere, on pourrait generer la XSD suivantl
-                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-                   
-                <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-                    <!-- Schema generated from ODD source 2014-01-31T15:38:53Z.   -->
-                    <!---->
-                    <xs:element name="stuff">
-                        <xs:annotation>
-                            <xs:documentation>élément racine d'un schéma simplissime</xs:documentation>
-                        </xs:annotation>
-                        <xs:complexType>
-                            <xs:choice maxOccurs="unbounded">
-                                <xs:element ref="bit"/>
-                                <xs:element ref="bob"/>
-                            </xs:choice>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="bob">
-                        <xs:annotation>
-                            <xs:documentation>élément pointeur du schéma simplissime</xs:documentation>
-                        </xs:annotation>
-                        <xs:complexType>
-                            <xs:attribute name="href" type="xs:anyURI">
+                </p>
+                <p>De la meme maniere, on pourrait generer la XSD suivantl <egXML
+                        xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                            elementFormDefault="qualified">
+                            <!-- Schema generated from ODD source 2014-01-31T15:38:53Z.   -->
+                            <!---->
+                            <xs:element name="stuff">
                                 <xs:annotation>
-                                    <xs:documentation>fournit l' URI de l'objet cible</xs:documentation>
+                                    <xs:documentation>élément racine d'un schéma
+                                        simplissime</xs:documentation>
                                 </xs:annotation>
-                            </xs:attribute>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="bit">
-                        <xs:annotation>
-                            <xs:documentation>élément textuel du schéma simplissime (peut contenir des bobs) </xs:documentation>
-                        </xs:annotation>
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" maxOccurs="unbounded" ref="bob"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                </xs:schema> 
-          </egXML></p>
-               <p>Ces trois schemas vont tous valider un fichier  comme ceci:
-                   <eg><![CDATA[
+                                <xs:complexType>
+                                    <xs:choice maxOccurs="unbounded">
+                                        <xs:element ref="bit"/>
+                                        <xs:element ref="bob"/>
+                                    </xs:choice>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="bob">
+                                <xs:annotation>
+                                    <xs:documentation>élément pointeur du schéma
+                                        simplissime</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="href" type="xs:anyURI">
+                                        <xs:annotation>
+                                            <xs:documentation>fournit l' URI de l'objet
+                                                cible</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="bit">
+                                <xs:annotation>
+                                    <xs:documentation>élément textuel du schéma simplissime (peut
+                                        contenir des bobs) </xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="bob"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:schema>
+                    </egXML></p>
+                <p>Ces trois schemas vont tous valider un fichier comme ceci: <eg><![CDATA[
                        <stuff>
                            <bit>This bit contains only text</bit>
                            <bit>This bit contains  text as well as a pointer <bob uri="http://ww.tei-c.org"/></bit>
                        </stuff>
                   ]]></eg>
-            </p>
-            
-        </body></text></TEI>
+                </p>
+            </div>
+            <div>
+                <head>Notions de classe</head>
+                <p>Biensur, dans le monde reel, le contenu de nos <gi>stuff</gi> ne se limite pas
+                    uniquement aux bits et bobs ou ptr. Il y a beaucoup d'autres elements qui
+                    peuvent y figurer. On peut donc se proposer de regrouper ensemble tous les
+                    elements qui ont en commun le possibilite d'apparaitre au sein d'un stuff: ce
+                    regroupement d'elements constitue ce que nous appelons une classe, et nous
+                    proposons pour cette classe le nom <ident>stuffPart</ident>.</p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><classSpec ident="stuffPart" type="model">
+                    <desc>elements which can appear inside stuff</desc>
+                </classSpec>
+                </egXML>
+                <p>Maintenantm, on peut faire deux choses. On peut dire que le contenu de stuff soity une serie de n'importe quels membres de la classe stuffpart:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"></egXML>
+                </p>
+                <p>Pour chacun des elements qui sont membres de la classe, il suffit d'introduire un nouveauy element de f
+                   definition <classes?
+                    DD suivant, on explicite cette notion. Notez bien qu'on commence avec une definition de la classe elle meme; ensuite dans les autres elements on lui fait reference</p>
+            </div>
+        </body>
+    </text>
+</TEI>
