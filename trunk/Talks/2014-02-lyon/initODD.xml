@@ -22,7 +22,7 @@
     <body>
       <div>
         <head>A quoi ca sert, un ODD? </head>
-        <p>Nous aurons besoins de plusieurs choses : <list>
+        <p>Nous avons besoins de plusieurs choses : <list>
             <item>un schéma formel (en langue informatique tel que DTD, RELAXNG, W3C Schema,
               Schematron) qui peut contrôler : <list>
                 <item>quelles balises sont disponibles ?</item>
@@ -49,25 +49,31 @@
             <item>des regroupements de tels éléments, publics ou privés </item>
             <item>des patrons (MLE macros) </item>
             <item>des classes (et sous-classes) d'éléments</item>
+            <item>des références de tels objets</item>
           </list>
         </p>
-        <p>Pour la définition des références également, qui permettront de réunir dans un schéma <list>
+        <p>Un schéma peut combiner <list>
             <item>des objets identifiables (dans la liste ci-dessus)</item>
             <item>des objets appartenant à d'autres espaces de nom</item>
           </list></p>
-        <p rend="box">et qui serait intégrable à un système de balisage documentaire classique</p>
+        <p rend="box">et devrait etre intégrable à un système de balisage documentaire classique</p>
       </div>
       <div>
-        <head>Elements essentiel d'un ODD</head>
+        <head>Eléments essentiel d'un ODD</head>
         <list type="label">
           <label><gi>schemaSpec</gi></label>
           <item>définit et identifie un schéma</item>
-          <label><gi>moduleRef</gi></label>
-          <item>fournit un ensemble de spécifications d'élément</item>
           <label><gi>elementSpec</gi></label>
           <item>fournit une définition d'élément, entièrement ou en partie</item>
           <label><gi>elementRef</gi></label>
-          <item>fournit une définition d'élément par référence</item>
+          <item>utilise une définition de classe existante</item>
+          <label><gi>classSpec</gi></label>
+          <item>fournit une définition d'une classe</item>
+          <label><gi>classRef</gi></label>
+          <item>utilise une définition de classe existante</item>
+          <label><gi>moduleRef</gi></label>
+          <item>fournit un ensemble de spécifications d'élément en faisant référence à un
+            module</item>
         </list>
         <p rend="box">Pour les documents TEI, une référence au module <ident>tei</ident> est
           (presque) obligatoire</p>
@@ -149,19 +155,18 @@
         </p>
         <list>
           <item>Pour ajouter un peu de documentation dans votre fichier <ident>oddex-1.odd</ident>
-            inserez le contenu du fichier <ident>oddex-2.xml</ident>
+            insérez le contenu du fichier <ident>oddex-2.xml</ident>
             <emph>avant</emph> le <gi>schemaSpec</gi></item>
-          <item>Sélectionner comme Scénario de Transformation TEI ODD to HTML et générer un doc HTML
+          <item>Sélectionner le Scénario de Transformation TEI ODD to HTML et générer un doc HTML
           </item>
         </list>
       </div>
       <div>
         <head>Notions de classe 1</head>
         <p>Dans le monde réel, le contenu de nos <gi>stuff</gi> ne se limite pas uniquement aux
-            <gi>bit</gi>s et <gi>bob</gi>.... on peut donc regrouper tous les éléments qui ont la
-          possibilité d'apparaître au sein d'un <ident>stuff</ident>: nous l'appelons une
-            <term>classe</term>, et nous proposons pour cette classe le nom
-          <ident>stuffPart</ident>.</p>
+            <gi>bit</gi>s et <gi>bob</gi>.... on peut regrouper tous les éléments qui ont la
+          possibilité d'apparaître au sein d'un <ident>stuff</ident>: nous appelons ce regroupement
+          une <term>classe</term>, pour laquelle nous proposons le nom <ident>stuffPart</ident>.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <classSpec ident="stuffPart" type="model">
             <desc>éléments qui ont la possibilité de figurer dans un stuff</desc>
@@ -169,19 +174,77 @@
         </egXML>
         <p>L'existence de cette classe dans notre ODD rend possible deux choses: <list>
             <item>on peut spécifier le contenu de <gi>stuff</gi> en lui faisant référence</item>
-            <item>on associe un élément avec sa classe en se servant des éléments <gi>classes</gi>
-              et <gi>memberOf</gi>
+            <item>on peut associer n'importe quel élément avec sa classe en se servant des éléments
+                <gi>classes</gi> et <gi>memberOf</gi>
             </item>
           </list>
         </p>
         <p rend="box">Examiner <ident>oddex-2.odd</ident> avec oXygen. Assurez-vous que le fichier
-          test reste valide avec cette version du schéma.</p>
+            <ident>odd-test-1.xml</ident> reste valide avec cette version du schéma.</p>
       </div>
       <div>
         <head>Notions de classe 2</head>
+        <p>Le sens d'un <gi>classRef</gi> figurant dans un <gi>content</gi> varie selon la valeur de
+          son attribut <att>expand</att>. </p>
+        <p>Supposons que la classe en question comporte 3 membres x, y, z ...</p>
+        <table>
+          <row role="label">
+            <cell>valeur</cell>
+            <cell>expansion</cell>
+          </row>
+          <row>
+            <cell>alternate (le defaut)</cell>
+            <cell>(x | y | z)</cell>
+          </row>
+          <row>
+            <cell>sequence</cell>
+            <cell>(x, y, z)</cell>
+          </row>
+          <row>
+            <cell>sequenceOptional</cell>
+            <cell>(x?, y?, z?)</cell>
+          </row>
+          <row>
+            <cell>sequenceOptionalRepeatable</cell>
+            <cell>(x*, y*, z*)</cell>
+          </row>
+          <row>
+            <cell>sequenceRepeatable</cell>
+            <cell>(x+, y+, z+)</cell>
+          </row>
+        </table>
+        <p>On peut aussi controler la fréquence des occurrences avec <att>minOccurs</att> et
+            <att>maxOccurs</att></p>
+        <p>(Et, prochainement, on peut sélectionner parmi les membres de la classe avec
+            <att>include</att> et <att>except</att>)</p>
+      </div>
+      <div>
+        <head>Tester votre compréhension</head>
+        <list>
+          <item>Ajouter trois nouveaux éléments au schéma <ident>oddex-2.odd</ident> : <list>
+              <item><gi>stuffSeq</gi> qui permettrait un séquence des membres de la classe
+                  <ident>stuffPart</ident> i.e. un <gi>bit</gi> suivi d'un <gi>bob</gi>
+              </item>
+              <item><gi>stuffSeqOpt</gi> qui permettrait un séquence optionel des membres de la
+                classe <ident>stuffPart</ident> i.e. un <gi>bit</gi> facultatif suivi d'un
+                  <gi>bob</gi> facultatif </item>
+              <item><gi>stuffSeqRep</gi> qui permettrait un séquence répété des membres de la classe
+                  <ident>stuffPart</ident> i.e. plusieurs <gi>bit</gi> suivi de plusieurs
+                  <gi>bob</gi>
+              </item>
+            </list>
+          </item>
+          <item>Ajoutez ces trois éléments comme éléments racines du schéma en modifiant l'attribut
+            @start du <gi>schemaSpec</gi> (sinon ils ne figuront pas dans le schéma généré)</item>
+          <item>Enregistrer ce fichier comme <ident>oddex-2a.odd</ident> et transformez-le en schéma
+            RNC. Testez l'effet de vos modifications</item>
+        </list>
+      </div>
+      <div>
+        <head>Notions de classe d'attributs</head>
         <p><ident>stuffPart</ident> est une classe de type <code>model</code>. Il existe aussi des
-          classes de type <code>att</code>, qui regroupent tous les elements ayant en commun un
-          ensemble specifique d'attributs.</p>
+          classes de type <code>att</code>, qui regroupent tous les éléments ayant en commun un
+          ensemble spécifique d'attributs.</p>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
             xmlns:rng="http://relaxng.org/ns/structure/1.0">
@@ -190,7 +253,7 @@
                 stuff</desc>
               <attList>
                 <attDef ident="n">
-                  <desc>fournit un numero ou autre label</desc>
+                  <desc>fournit un numéro ou autre label</desc>
                   <datatype><rng:string/></datatype>
                 </attDef>
                 <attDef ident="status">
@@ -205,21 +268,85 @@
             </classSpec></egXML></p>
       </div>
       <div>
-        <head>Notions de classe 3</head>
+        <head>Notions de classe d'attributs</head>
         <p>Tester votre compréhension...</p>
         <list>
-          <item>Insérez dans votre fichier ODD la définition d'une classe d'attribut (il y en a une
-            dans le fichier <ident>oddex-3.xml</ident>)</item>
-          <item>Ajouter un <gi>memberOf</gi> pour les éléments qui vont participer à cette
+          <item>Insérez dans votre fichier <ident>oddex-2.odd</ident>la définition d'une classe
+            d'attribut (il y en a une dans le fichier <ident>oddex-3.xml</ident>)</item>
+          <item>Ajoutez un <gi>memberOf</gi> pour les éléments qui vont participer à cette
             classe</item>
-          <item>Générez un schéma et assurez-vous que le fichier test reste valide avec cette
-            version du schéma.</item>
-          <item>Controller que oXygen vous propose ces nouveaux attributs, et qu'il contraint les valeurs
-            possibles</item>
+          <item>Générez un schéma et assurez-vous que le fichier <ident>odd-test-1.xml</ident> reste
+            valide avec cette version du schéma.</item>
+          <item>Controllez que oXygen vous propose ces nouveaux attributs, et qu'il contraint les
+            valeurs possibles</item>
         </list>
       </div>
-      
-      
+      <div>
+        <head>Notions de namespace</head>
+        <list>
+          <item>
+            Un <term>namespace</term> (espace de noms) fournit une manière d'associer et distinguer une
+            groupe de noms, typiquement d'éléments XML. </item>
+          <item>Jusqu'à present, tout ce qui est nommé dans notre schema appartient à un namespace
+            "nul". </item>
+          <item>Supposons que nous souhaitons ajouter un nouveau élément <gi>bit</gi> avec un modele de
+            contenu plus restreint. Ce <gi>bit</gi> ne contiendrait que de texte, mais nous
+            souhaitons l'appeler un <gi>bit</gi> quand meme. Pour le distinguer du <gi>bit</gi>
+            existant, il faut l'associer avec une autre espace de noms.</item>
+          <item>L'attribut <att>ns</att> est disponible sur <gi>elementSpec</gi> pour préciser un
+            nom d'espaces. Pour des raisons techniques il faut aussi spécifier un prefix unique:
+          </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+          xmlns:rng="http://relaxng.org/ns/structure/1.0">
+          <elementSpec ident="bit" ns="http://myNamespace.org" prefix="extra">
+            <desc>élément textuel du schéma simplissime (sans bob) </desc>
+            <content allowText="true"/>
+            <classes><memberOf key="stuffPart"/></classes>
+          </elementSpec>
+        </egXML>
+        <p>Notez bien que ce nouveau element participe a la classe <ident>stuffPart</ident>; sinon
+          il ne serait pas disponible dans nos documents.</p>
+      </div>
+      <div>
+        <head>Tester votre compréhension</head>
+        <list>
+          <item>Ajouter des traductions dans d'autres langues (allemand, russe, italien, anglais...)
+            des descriptions des elements</item>
+          <item>Créer un nouveau élément <gi>truc</gi> qui devraient pouvoir apparaitre dans un
+              <gi>stuff</gi>
+          </item>
+          <item>Modifier l'element <gi>truc</gi> pour lui donner les attributs <att>n</att> et
+              <att>status</att></item>
+          <item>Modifier la définition de l'attribut <att>status</att> pour lui permettre la valeur
+              <code>orange</code></item>
+        </list>
+      </div>
+      <div>
+        <head>Et enfin, un mot de la TEI</head>
+        <p>Admettons enfin que notre <gi>bit</gi> n'est pas si loin de l'élément TEI <gi>p</gi>, que
+          notre <gi>bob</gi> ressemble beaucoup à l'élément TEI <gi>ptr</gi>, et que notre
+            <gi>stuff</gi> pourrait être considéré comme un élément TEI <gi>div</gi>. Comment
+          ré-écrire ce schéma pour profiter des définitions TEI existantes? </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec start="div" ident="testSchema-2">
+            <elementRef key="div"/>
+            <elementRef key="p"/>
+            <elementRef key="ptr"/>
+            <moduleRef key="tei"/>
+          </schemaSpec></egXML>
+        <p>L'element <gi>moduleRef</gi> nous fournit un ensemble de définitions infrastructurales
+          pour les éléments TEI de la version courante. Après cela, nous n'avons besoin que de
+          référencer les éléments TEI souhaités avec un <gi>elementRef</gi>. </p>
+        <list>
+          <item>Créez un nouveau fichier TEI ODD avec oXygen et insérez le <gi>schemaSpec</gi> que
+            vous trouverez dans le fichier <ident>oddex-5.xml</ident></item>
+          <item>Transformez ce fichier en schéma, comme d'habitude</item>
+          <item>Le fichier <ident>odd-test-2.xml</ident> contient une version TEI de notre test file
+            initiale: validez-le contre le schéma que vous venez de créer</item>
+        </list>
+        <p>Demain on va explorer comment la TEI se sert du système ODD....</p>
+      </div>
       <!--     <div>
         <head>Traitement des ODD</head>
         <p>Un processeur ODD : <list>
