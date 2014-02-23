@@ -21,7 +21,7 @@
     <body>
       <div>
         <head>TEI ODD sous le capot</head>
-        <p>La TEI est définie avec des ODD. C'etait en effet la raison principale de l'invention ce
+        <p>La TEI est définie avec des ODD. c'était en effet la raison principale de l'invention du
           système. </p>
         <p>La source TEI P5 (disponible à <ptr
             target="http://www.tei-c.org/release/xml/tei/odd/Source/"/>) rassemble: <list>
@@ -40,7 +40,32 @@
               </list></item>
           </list>
         </p>
-        <p rend="box">Nous allons regarder ça de plus près...</p>
+        <p rend="box"> Nous allons regarder ça de plus près...</p>
+      </div>
+      <div>
+        <head>Organisation physique des Guidelines</head>
+        <p>Il ne faut pas confondre l'organisation physique (en fichiers) avec l'organisation
+          logique (en specifications etc.)</p>
+        <list>
+          <item>Le fichier <ident>guidelines-XX.xml</ident> est <soCalled>la</soCalled> source des
+            Guidelines pour la langue XX.</item>
+          <item>A part un TEI Header, et lla page a titre, il contient plusieurs lignes comme ceci:
+              <egXML xmlns="http://www.tei-c.org/ns/Examples"><include
+                xmlns="http://www.w3.org/2001/XInclude" href="Guidelines/en/HD-Header.xml"/>
+            </egXML></item>
+          <item>Au sein de chaque chapitre on trouve des <code>xInclude</code> pareilles pour les
+            objets définis par ce chapitre</item>
+        </list>
+        <p>De point de vue logique: <list>
+            <item>A la fin de chaque chapitre (par convention) il y a un élément <gi>moduleSpec</gi>
+              qui rassemble toutes les spécifications référencées par le chapitre pour définir un
+              module</item>
+            <item>ces spécifications sont (par convénience) organisées en <gi>specGrp</gi>, qui sont
+              ensuite référencées par un <gi>specgrpRef</gi>
+            </item>
+            <item>Chaque <gi>specGrp</gi> regroupe des spécifications d'objet, indiqué par un
+              xInclude</item>
+          </list></p>
       </div>
       <div>
         <head>Spécification d'un datatype</head>
@@ -130,6 +155,7 @@
             (<gi>listRef</gi>)</item>
         </list>
       </div>
+
       <div>
         <head>Les classes TEI</head>
         <p rend="att">Sans comprendre la système de classes TEI, on comprend à peine le
@@ -206,10 +232,10 @@
           Plusieurs démarches sont possibles: <list>
             <item>on représente les chevrons par des entités (&amp;lt; etc) : mais la source devient
               illisible et pas validable</item>
-            <item>on englobe tout dans un CDATA marked section <code>&lt;![CDATA[ &lt;p>comme ca >
-                &#93;]></code> : la source est plus lisible mais pas validable</item>
-            <item>on englobe tout dans un élément d'un autre namespace <code> &lt;egXML
-                xmlns="http://www.tei-c.org/ns/Examples"> &lt;p>ca marche!&lt;/p></code>
+            <item>on englobe tout dans un CDATA marked section <code>&lt;![CDATA[&lt;p>comme
+                ça&lt;/p> &#93;]></code> : la source est plus lisible mais pas validable</item>
+            <item>on englobe tout dans un élément d'un autre namespace <code rend="tiny">&lt;egXML
+                xmlns="http://www.tei-c.org/ns/Examples"> &lt;p>ça marche!&lt;/p></code>
             </item>
           </list></p>
         <p>Les éxpressions du namespace <code>http://www.tei-c.org/ns/Examples</code> sont validées
@@ -255,8 +281,12 @@
         <list>
           <item>Une spécification d'élément peut aussi contenir un élément <gi>constraintSpec</gi>
             (ou plusieures), rassemblant des règles exprimées en ISO schématron</item>
+          <item>le traitement de ces règles nécessite une étape additionnelle dans la validation des
+            documents</item>
+          <item>mais c'est prévu dans la version courante d'oXygen (si votre schéma s'exprime en
+            RELAXNG et si vos contraintes s'exprime en ISO schematron </item>
         </list>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
+        <!-- egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
           <![CDATA[          <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div"
             module="teistructure" mode="change">
             <constraintSpec ident="cartoon" scheme="isoschematron">
@@ -265,15 +295,11 @@
                   graphie </s:assert>
               </constraint>
             </constraintSpec>
-          </elementSpec>
-        ]]></egXML>
-        <p>Attention : <list>
-            <item>le traitement de ces règles nécessite une étape additionnelle dans la validation
-              des documents</item>
-            <item>ces règles ne sont pas forcément traitables par toute langue de schéma</item>
-          </list>
-        </p>
+          </elemeRntSpec>
+        ]]></egXML-->
+
       </div>
+
       <div>
         <head>Exemple de schematron</head>
         <p rend="box">Ouvrez <ident>span.xml</ident> avec oXygen</p>
@@ -284,25 +310,48 @@
           <item>la contrainte s'exprime en langue ISO schematron, donc dans une autre espace de
             noms</item>
           <item>par ex. <code>if @to is supplied on &lt;name/>, @from must be supplied as
-              well</code> (NB "&lt;name/> siignifie le nom de l'élément qui aurait activer cette
+              well</code> (NB "&lt;name/> signifie le nom de l'élément qui aurait activer cette
             regle)</item>
         </list>
       </div>
+
+
       <div>
         <head>ODD est aussi une langue de personnalisation </head>
         <p>On se sert du meme systeme pour specifier sa choix dans le grand bazar TEI et pour
           specifier le bazar lui-meme</p>
-        <p>Un ODD de personnalisation est specifiee par rapport au systeme complet <list>
+        <p>Un ODD de personnalisation est specifiée par rapport au système complet <list>
             <item>en selectionnant des modules</item>
             <item>en selectionnant parmi les objets (éléments, classes, datatypes, macros) fournis
               par ces modules</item>
             <item>en supprimant quelques un des attributs fournis par ces objets</item>
-            <item>en modifiant quelques parties de ces specifications (par ex les valList)</item>
-            <item>eventuellement en ajoutant des specifications d'objet nouveau</item>
+            <item>en modifiant ou remplaçant quelques parties de ces spécifications (par ex les
+              valList)</item>
+            <item>eventuellement en ajoutant des spécifications d'objet nouveau</item>
           </list></p>
-        <p>Le traitement d'un ODD implique la resolution de specifications multiples pour les memes
-          objets</p>
+        <p>Le traîtement d'un ODD implique la résolution de spécifications multiples pour un même
+          objet</p>
       </div>
+
+      <div>
+        <head>Définition d'un schéma TEI personnalisé</head>
+        <p>Comme vous avez déjà vu, une personnalisation s'effectue avec l'élément
+            <gi>schemaSpec</gi>. </p>
+        <list>
+          <item>L'attribut <att>ident</att> (obligatoire) fournit un nom pour le schéma</item>
+          <item>L'attribut <att>start</att> fournit le/s nom/s d'élément/s racine du schéma</item>
+          <item>L'attribut <att>source</att> fournit un URI pour la location des spécifications à
+            personnaliser (par ex, une version spécifique de TEI P5, ou une personnalisation
+            existante)</item>
+          <item>Les attributs <att>docLang</att> et <att>targetLang</att> permettent la séléction
+            des langues souhaitées pour les descriptions d'éléments et pour leur noms
+            respectivement</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <schemaSpec start="TEI" ident="testschema" source="tei:1.5.0" docLang="fr">
+            <!-- declarations -->
+          </schemaSpec>
+</egXML>      </div>
 
       <div>
         <head>Choisir sélectivement (1)</head>
@@ -345,20 +394,21 @@
               <elementRef key="div"/>
               <elementRef key="body"/>
             </schemaSpec></egXML></p>
-        <p rend="box">Attention! un module peut définir d'autre choses que des éléments</p>
+        <p rend="box">Attention! un module peut définir d'autre choses que des éléments. Les
+          attributs <att>include</att> et <att>except</att> ne s'appliquent qu'aux éléments</p>
       </div>
       <div>
         <head>Exercice </head>
-        <p>Nous allons creer une personnalisation modeste de la TEI. Notre but sera d'utiliser un
+        <p>Nous allons créer une personnalisation modeste de la TEI. Notre but sera d'utiliser un
           minimum d'éléments pour baliser un corpus linguistique. </p>
         <list>
-          <item>Notre header doit respecter le minimum requiert par la TEI</item>
-          <item>Dans le <gi>body</gi> de nos <gi>text</gi> nous souhaitons des <gi>ab</gi> divises
-            en <gi>s</gi> composes de <gi>w</gi>
+          <item>Notre TEI header doit respecter le minimum requiert par la TEI</item>
+          <item>Dans le <gi>body</gi> de nos <gi>text</gi> nous souhaitons des <gi>ab</gi> divisés
+            en <gi>s</gi>,  composés de <gi>w</gi>
           </item>
           <item>Ouvrez le fichier <ident>feather-1.odd</ident> avec oXygen et générez un schéma
             RelaxNG.</item>
-          <item>Créez un nouveau document XML se servant de ce schema, et controllez les balises et
+          <item>Créez un nouveau document XML se servant de ce schéma, et controllez les balises et
             les attributs qu'il rend disponibles. </item>
         </list>
       </div>
@@ -367,16 +417,16 @@
         <head>Exercice un peu plus avancé</head>
         <p>On continue de personnaliser le schema feather... </p>
         <list>
-          <item>Supprimez tous les attributs globaux sauf <att>rend</att>
+          <item>Supprimez tous les attributs globaux sauf <att>style</att>
             <att>xml:id</att> et <att>xml:lang</att></item>
           <item>Supprimez l'élément <gi>title</gi> du body, mais non pas du Header</item>
           <item>Ajoutez l'élément <gi>span</gi> et assurez vous que ces règles schematrons sont en
             vigeur dans votre schema </item>
           <item>Ajouter un nouveau élément <gi>mw</gi> pour les séquences de mots</item>
-     
         </list>
 
-        <p rend="box">Ma proposition est disponible dans le fichier <ident>feather-final</ident> ... </p>
+        <p rend="box">Ma proposition est disponible dans le fichier <ident>feather-final</ident> ...
+        </p>
       </div>
 
       <div>
@@ -392,7 +442,7 @@
           documents.</p>
       </div>
 
-  <!--   <div>
+      <!--   <div>
         <head>http://www.tei-c.org/Roma/</head>
         <p>On va experimenter cela... <graphic url="../Graphics/Roma-new.png" height="60%"/>
         </p>
@@ -403,7 +453,7 @@
           <item>Retravailler une personalisation déjà faite </item>
         </list>
       </div>-->
-      
+
     </body>
   </text>
 </TEI>
