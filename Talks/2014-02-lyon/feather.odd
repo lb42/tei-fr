@@ -19,8 +19,12 @@
       <head>A Minimal TEI Customization</head>
       <p>This customization is for a feather lite schema for corpus-style analysis.</p>
       <schemaSpec ident="feather" start="TEI">
+        
+        <!-- from the header, take only the compulsory elements -->
+        
         <moduleRef key="header" 
 		   include="teiHeader fileDesc titleStmt sourceDesc publicationStmt" />
+        
         <!-- we need title to go in the header, but we do not want it elsewhere.
           the easiest way is to delete the model class which introduces it into the body of a text -->
         
@@ -30,9 +34,6 @@
         <!-- we want only a few attribute classes and datatypes -->
         <moduleRef key="tei" include="att.datable.w3c 
 			      att.global 
-			      att.naming 
-			      att.personal 
-			      att.tableDecoration 
 			      att.typed 
 			      macro.limitedContent 
 			      macro.paraContent 
@@ -44,6 +45,8 @@
 			      data.name
 			      data.pointer
 "/>
+        <classSpec ident="att.declaring" type="atts" mode="delete"/>
+        
         <moduleRef key="textstructure" include="TEI text body div"/>
 
         <elementRef key="s" />
