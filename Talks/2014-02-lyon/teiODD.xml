@@ -188,25 +188,39 @@
           xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   ><content><rng:oneOrMore><rng:choice><rng:ref name="model.pLike"/><rng:ref
                   name="model.listLike"/></rng:choice></rng:oneOrMore></content></egXML>
-        
+
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <content><alternate maxOccurs="unbounded"><classRef key="model.pLike"/><classRef
                 key="model.listLike"/></alternate></content>
         </egXML>
-        
-        <p rend="box">Voir <ref target="reviewingODD.pdf">Burnard et Rahtz 2013</ref> pour les details</p></div>
-      
-      <div><head>Exemples</head>
-        <p>Un exemple vaut un million de mots... mais ce n'est pas evident comment integrer un exemple en XML dans un document en XML. Surtout si on souhaite le valider en meme temps. Plusieurs demarches sont possibles:
-        <list>
-          <item>on represente les chevrons par des entites (&amp;lt; etc) : mais la source devient illisible et pas validable</item><item>on englobe tout dans un CDATA marked section <code>&lt;![CDATA[ &lt;p>comme ca > &#93;]></code> : la source est plus lisible mais pas validable</item><item>on englobe tout dans un element d'un autre namespace <code> &lt;egXML xmlns="http://www.tei-c.org/ns/Examples"> &lt;p>ca marche!&lt;/p></code> </item>
-        </list></p>
-        <p>Les elements du namespace <code>http://www.tei-c.org/ns/Examples</code> sont valiude par un schema speciale, qui permet tout element XML comme racine, sous controle du validateur onvdl.</p>
+
+        <p rend="box">Voir <ref target="reviewingODD.pdf">Burnard et Rahtz 2013</ref> pour les
+          details</p>
       </div>
-      
-      <div><head>Contraintes sur les contenus</head>
-        
-        <p>Le modele de contenu est un des manieres de contraindre ce qui est permis dans un document. On a souvent besoin de plus que ca...</p>
+
+      <div>
+        <head>Exemples</head>
+        <p>Un exemple vaut un million de mots... mais ce n'est pas evident comment integrer un
+          exemple en XML dans un document en XML. Surtout si on souhaite le valider en meme temps.
+          Plusieurs demarches sont possibles: <list>
+            <item>on represente les chevrons par des entites (&amp;lt; etc) : mais la source devient
+              illisible et pas validable</item>
+            <item>on englobe tout dans un CDATA marked section <code>&lt;![CDATA[ &lt;p>comme ca >
+                &#93;]></code> : la source est plus lisible mais pas validable</item>
+            <item>on englobe tout dans un element d'un autre namespace <code> &lt;egXML
+                xmlns="http://www.tei-c.org/ns/Examples"> &lt;p>ca marche!&lt;/p></code>
+            </item>
+          </list></p>
+        <p>Les elements du namespace <code>http://www.tei-c.org/ns/Examples</code> sont valiude par
+          un schema speciale, qui permet tout element XML comme racine, sous controle du validateur
+          onvdl.</p>
+      </div>
+
+      <div>
+        <head>Contraintes sur les contenus</head>
+
+        <p>Le modele de contenu est un des manieres de contraindre ce qui est permis dans un
+          document. On a souvent besoin de plus que ca...</p>
         <p>Les contraintes sont exprimables de plusieurs manières : <list>
             <item>par référence à un élément <gi>valList</gi>... </item>
             <item>par reference à un élément <gi>datatype</gi> (s'applique uniquement aux attributs) </item>
@@ -215,7 +229,7 @@
           </list>
         </p>
       </div>
-    
+
       <div rend="slide">
         <head>Spécification des listes de valeurs</head>
         <p>Les valeurs légales d'un attribut peuvent être specifiées par un <gi>datatype</gi> et/ou
@@ -238,8 +252,8 @@
       <div>
         <head>Contraintes schématron</head>
         <list>
-          <item>Une spécification d'élément peut aussi contenir un élément <gi>constraintSpec</gi> (ou plusieures),
-            rassemblant des règles exprimées en ISO schématron</item>
+          <item>Une spécification d'élément peut aussi contenir un élément <gi>constraintSpec</gi>
+            (ou plusieures), rassemblant des règles exprimées en ISO schématron</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
           <![CDATA[          <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div"
@@ -259,8 +273,19 @@
           </list>
         </p>
       </div>
-      <div><head>Exemple de schematron</head>
+      <div>
+        <head>Exemple de schematron</head>
         <p rend="box">Ouvrez <ident>span.xml</ident> avec oXygen</p>
+        <list>
+          <item>cette specification comporte plusieurs <gi>constraintSpec</gi>, chacun avec son
+            @ident et son @scheme</item>
+          <item>un ou plusieurs <gi>constraint</gi> sont possible</item>
+          <item>la contrainte s'exprime en langue ISO schematron, donc dans une autre espace de
+            noms</item>
+          <item>par ex. <code>if @to is supplied on &lt;name/>, @from must be supplied as
+              well</code> (NB "&lt;name/> siignifie le nom de l'element qui aurait activer cette regle)</item>
+        </list>
+
       </div>
       <div>
         <head>Choisir sélectivement (1)</head>
