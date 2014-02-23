@@ -16,7 +16,7 @@
   </teiHeader>
   <text>
     <body>
-   
+
 
       <div>
         <head>Un cas d'étude: la carte postale</head>
@@ -133,32 +133,29 @@ France
       <div>
         <head>Proposition TEI initiale</head>
         <list>
-          <item>On traite chaque carte comme un <gi>text</gi>
+          <item>On traite chaque carte comme un <gi>text</gi> et chaque sous-partie comme un
+              <gi>div</gi> composé de <gi>p</gi> ou <gi>ab</gi>
           </item>
-          <item>On traite chaque division comme un <tag>div type="[fonction]"</tag>, facultativement
-            divisé en <gi>p</gi>
-          </item>
-          <item>Les noms de lieux seront balisés avec <gi>placeName</gi>, les noms de personnes avec
-              <gi>persName</gi>, et les dates avec <gi>date</gi>
-          </item>
-
+          <item>On se sert de l'attribut <att>type</att> pour caracteriser chaque division</item>
           <item>On va structurer les composants du destinataire en <gi>address</gi>, qui regroupe un
               <gi>persName</gi> et des <gi>addrLine</gi></item>
           <item>On aura également besoin de l'attribut <att>facs</att> pour associer une partie de
             texte avec son image numerisée</item>
-          <item>Nous nous servons de l'élément <gi>stamp</gi> pour tout timbrage, obliteration, etc
-            ; et de l'élément <gi>bibl</gi> pour les métadonnées concernant l'édition de la carte
-            avant son usage</item>
-          <item>Facultativement, nous pourrions nous servir de <gi>del</gi>(pour les ratures),
-              <gi>add</gi> (pour les ajouts), <gi>reg</gi> (pour les régularisations), <gi>hi</gi>
-            pour les mots ou phrases mises en évidence, <tag>lb/</tag> pour les retours à la
-            ligne.... </item>
+          <item>On propose l'élément <gi>stamp</gi> pour tout timbrage, obliteration, etc ; et de
+            l'élément <gi>bibl</gi> pour les métadonnées concernant l'édition de la carte avant son
+            usage</item>
+          <item>On pourrait distinguer les noms de lieux avec <gi>placeName</gi>, les noms de
+            personnes avec <gi>persName</gi>, les dates avec <gi>date</gi>
+          </item>
+          <item>On pourrait se servir de <gi>del</gi>(pour les ratures), <gi>add</gi> (pour les
+            ajouts), <gi>reg</gi> (pour les régularisations), <gi>hi</gi> pour les mots ou phrases
+            mises en évidence, <gi>lb</gi> pour les retours à la ligne.... </item>
         </list>
-        <p rend="box">Est-ce que cela nous servira?</p>
+        <p rend="box">Est-ce que cela nous suffira?</p>
       </div>
       <div>
         <head>Première proposition d'encodage TEI -- l'entête</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <teiHeader>
             <fileDesc>
               <titleStmt>
@@ -166,7 +163,7 @@ France
                   collection</title>
               </titleStmt>
               <publicationStmt>
-                <p>Démonstration à la Formation TEI, 2013</p>
+                <p>Démonstration à une formation TEI</p>
               </publicationStmt>
               <sourceDesc>
                 <bibl>
@@ -231,7 +228,7 @@ France
       </div>
       <div>
         <head>Première proposition d'encodage TEI -- l'envoi</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"  rend="tiny">
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <div type="envoi">
             <ab type="evidences">
               <stamp type="cachetPoste">
@@ -262,19 +259,30 @@ France
         <head>Exploration d'un ODD TEI</head>
         <list>
           <item>Avec oXygen, ouvrez le fichier <ident type="file">cartes-odd.xml</ident></item>
-          <item>Regardez (et modifiez si vous le souhaitez) les parties documentaires et les parties
-            ODD de ce fichier.</item>
-          <item>Générez un schema, et créez un document qui s'en sert</item><item>Dans le dossier Cartes vous trouverez quelques cartes postales, partiellement transcrites... à vous de les completer, en vous servant du schéma!</item><item>Si vous souhaitez modifier le schema (par ex pour ajouter une balise pas encore disponible) n'hesitez pas de modifier le ODD et regénérez le schéma. </item>
+          <item>Regardez (et modifiez si vous le souhaitez) les parties documentaires de ce
+            fichier.</item>
+          <item>Générez un schéma, et créez un document qui s'en sert</item>
+          <item>Dans le dossier <ident>Cartes</ident> vous trouverez quelques cartes postales,
+            partiellement transcrites... à vous de les compléter, en vous servant du schéma!</item>
+          <item>Si vous souhaitez modifier le schéma (par ex pour ajouter une balise pas encore
+            disponible) n'hesitez pas de modifier le ODD et regénérez le schéma</item>
+          <item>Quand vous avez fini, enregistrez votre carte dans le dossier
+              <ident>Cartes/XML</ident> avec les autres</item>
         </list>
-  </div>
-      
-      <div><head>Génération d'un ODD TEI</head>
-      
-      <p>La feuille de style <ident>oddbyexample</ident> nous permet de générer un ODD à partir d'un corpus de documents TEI.</p>
-        <list><item>Ouvrez n'importe quel fichier XML dans le dossier <ident>Cartes/XML</ident></item><item>Créez un nouveau  Scénario de Transformation <ident>oddByExample</ident> et l'appliquez (voir document <ident>oddByExSetup.pdf</ident> pour les précisions)</item><item>Comparer les deux ODD</item>
-         
+      </div>
+
+      <div>
+        <head>Génération d'un ODD TEI</head>
+
+        <p>La feuille de style <ident>oddbyexample</ident> nous permet de générer un ODD à partir
+          d'un corpus de documents TEI.</p>
+        <list>
+          <item>Ouvrez n'importe quel fichier XML dans le dossier <ident>Cartes/XML</ident></item>
+          <item>Créez un nouveau Scénario de Transformation <ident>oddByExample</ident> et
+            l'appliquez (voir document <ident>oddByExSetup.pdf</ident> pour les précisions)</item>
+          <item>Comparer les deux ODD</item>
         </list>
-        
+
       </div>
 
 
