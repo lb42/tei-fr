@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:lang="en" xmlns="http://www.tei-c.org/ns/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Featherlite TEI</title>
+      </titleStmt>
+      <publicationStmt>
+<ab>Unpublished demonstration file for a TEI Workshop</ab>
+      </publicationStmt>
+      <sourceDesc>
+        <ab>Born digital: no pre-existing source</ab>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <head>A Minimal TEI Customization</head>
+      <p>This customization is for a feather lite schema for corpus-style analysis.</p>
+      <schemaSpec ident="feather" start="TEI">
+        
+        <!-- from the header, take only the compulsory elements -->
+        <moduleRef key="header" 
+		   include="teiHeader fileDesc titleStmt sourceDesc publicationStmt" />
+        
+        <!-- we need title to go in the header, but we do not want it elsewhere.
+          the easiest way is to delete the model class which introduces it into the body of a text -->
+        
+        <elementRef key="title"/>
+        <classSpec type="model"  ident="model.emphLike" mode="delete"/>
+
+       
+        <!-- here are the elements we want -->
+        
+        <moduleRef key="textstructure" include="TEI text body div"/>
+
+        <elementRef key="s" />
+        <elementRef key="w"/>
+        <elementRef key="ab" />
+        
+        <elementRef key="span"/>
+       
+        <!-- we want only a few attribute classes and datatypes -->
+        
+        <moduleRef key="tei" include="att.datable.w3c 
+          att.global 
+          att.typed 
+          macro.limitedContent 
+          macro.paraContent 
+          macro.phraseSeq 
+          macro.phraseSeq.limited 
+          macro.specialPara
+          data.word
+          data.enumerated
+          data.name
+          data.pointer
+          "/>
+        
+        <classSpec ident="att.declaring" type="atts" mode="delete"/>
+       
+        <classSpec type="atts" ident="att.global" mode="change">
+          <attList >
+            <attDef ident="xml:space" mode="delete"/>
+            <attDef ident="xml:base" mode="delete"/>         
+            <attDef ident="rendition" mode="delete"/>
+            <attDef ident="rend" mode="delete"/>
+          </attList>
+        </classSpec>
+        
+        <!--classRef key="att.global" except="xml:space xml:base rendition rend"/-->
+       <!-- this simpler version is currently processed by Stylesheets but invalid in P5 -->
+        
+        
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
