@@ -23,47 +23,18 @@
         <!-- from the header, take only the compulsory elements -->
         
         <moduleRef key="header" 
-		   include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
-        <!--
+		   include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>  
           <elementRef key="title"/>
         
-        <classSpec type="model"  ident="model.emphLike" mode="delete"/>
--->
-        <!-- we want only a few attribute classes and datatypes -->
-        <moduleRef key="tei" include="att.datable.w3c 
-			      att.global 
-			      att.typed 
-			      macro.limitedContent 
-			      macro.paraContent 
-			      macro.phraseSeq 
-			      macro.phraseSeq.limited 
-			      macro.specialPara
-			      data.word
-			      data.enumerated
-			      data.name
-			      data.pointer
-"/>
+        <!-- delete some unwanted classes -->
+       <moduleRef key="tei" />
         <classSpec ident="att.declaring" type="atts" mode="delete"/>
         
         <moduleRef key="textstructure" include="TEI text body div"/>
-
         <elementRef key="s" />
         <elementRef key="w"/>
         <elementRef key="ab" />
         
-        <elementRef key="span"/>
-        
-        <classSpec type="atts" ident="att.global" mode="change">
-          <attList >
-            <attDef ident="xml:space" mode="delete"/>
-            <attDef ident="xml:base" mode="delete"/>         
-            <attDef ident="rendition" mode="delete"/>
-            <attDef ident="rend" mode="delete"/>
-          </attList>
-        </classSpec>
-        
-<!--classRef key="att.global" except="xml:space xml:base rendition rend"/-->
-      
       </schemaSpec>
     </body>
   </text>
