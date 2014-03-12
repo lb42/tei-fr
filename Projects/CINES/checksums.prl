@@ -1,0 +1,22 @@
+%lookup = ( JPG => "JPEG",
+	TEI =>"XML", ODD => "XML",
+	RNG => "XML", XSD => "XML", 
+	CSS => "TXT", DTD=> "TXT", RNC => "TXT");
+
+while (<>) {
+chop;
+if (s/([^ ]+) //) {
+  
+  $hash= $1;
+  $fname = $_;
+  $fname =~ /\.(...)$/;
+  $ftype = $1;
+#  print "$fname ends with $1\n";
+  $ftype = uc($ftype);
+  $ftype = $lookup{$ftype} if ($lookup{$ftype});
+#  print "filetype is $ftype";
+
+print
+"<FichMeta>\n<formatFichier>$ftype<\/formatFichier><nomFichier>$fname<\/nomFichier>\n";
+print "<empreinteOri type='MD5'>$hash<\/empreinteOri>\n<\/FichMeta>\n";
+}}
