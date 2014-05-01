@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<?oxygen NVDLSchema="../teitalks.nvdl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Comment se servir des TEI Guidelines? </title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>MEET</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2012-11-06">As used for Cahiers formation </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <!-- d'abord un peu de contextualisation -->
+      <div>
+        <head>Les Cinq Etapes du chemin de l'Eveil TEI-ODD</head>
+        <list type="ordered">
+          <item>Modelisation : quels sont les buts et les objets de votre projet?</item>
+          <item>Orientation : est-ce que vos objets sont déjà reconnus par la TEI?</item>
+          <item>Declaration : comment créer une specification TEI-conforme? </item>
+          <item>Documentation : comment documenter vos pratiques TEI ?</item>
+          <item>Validation : comment valider vos efforts ?</item>
+        </list>
+      </div>
+      <div xml:id="model">
+        <head>Modelisation</head>
+        <figure>
+          <graphic url="../Graphics/ceci-nest-pas-une-pipe.jpg" height="75%"/>
+        </figure>
+        <p>La modelisation de vos données est une préalable essentiel. Que vous vous servez de UML,
+          de RDBMS, de SKOS, ou quoique ça soit d'autre, si vous n'avez pas un modèle explicite des
+          choses que vous espérez gérer, vous aurez de grands difficultés.</p>
+      </div>
+      <div>
+        <head>Analyse des données classique</head>
+        <p>On identifie... <list>
+            <item>les "objets d'interêt"</item>
+            <item>leurs attributs et propriétés</item>
+            <item>les relations entre objets</item>
+            <item>les procédures/traitements essentiels envisagés </item>
+          </list>
+        </p>
+        <p rend="box">Ce travail est essentiel pour n'importe quel projet d'informatisation</p>
+      </div>
+      <div xml:id="map">
+        <head>Orientation</head>
+        <figure>
+          <graphic url="../Graphics/sweeties.jpg"/>
+        </figure>
+      </div>
+      <div>
+        <head>Comment s'orienter?</head>
+        <p>Les TEI Guidelines, imprimées ou en ligne, se divisent en deux gros parties : <list>
+            <item>une séquence de 23 chapitres, dont la plupart correspondent à un module</item>
+            <item>des listes alphabétiques de définitions exhaustives de classes (146), d'éléments
+              (521), d'attributs (), de macros, de types de données, etc.</item>
+          </list>
+        </p>
+        <p rend="box">Comment savoir quel élément (etc) choisir pour tel ou tel entité identifiée
+          dans votre analyse préalable ? Comment savoir que vous avez besoin d'une
+            <soCalled>licorne</soCalled>? </p>
+      </div>
+      <div>
+        <head>La triste vérité...</head>
+        <list>
+          <item>Désolé, mais il n'y a aucune méthode scientifique ; aucun raccourci pour cela... </item>
+          <item>Il faut étudier les exemplaires et les définitions pour savoir si cet élément TEI si
+            prometteur s'applique en effet à votre cas</item>
+          <item>comme c'est le cas pour d'autres types de mapping... </item>
+        </list>
+        <!--          Sadly there's no short cut answer to these questions. Suppose you want to encode
+          information about the postage stamp stuck to the envelope of a letter you are
+          transcribing. Does the TEI provide an element for this purpose? A quick look down the
+          reference pages will show you that there is an element called stamp, but is it
+          suitable for your planned uses? Does the TEI definition allow you to make clear
+          whether your stamp is a postage stamp, an impression from a rubber stamp, an embossed
+          image or what? You need to look at both the reference documentation and the
+          discussion of how the TEI thinks this element should be used to answer such
+          questions. The examples are helpful too. </p>-->
+        <p>Pour chacun(e) des entités/concepts identifiés dans votre modèle, il faut décider : <list>
+            <item>quel objet TEI lui correspond parfaitement? (s'il existe)</item>
+            <item>quel objet TEI lui ressemble et quelles petites modifications seraient nécessaires
+              pour qu'il lui corresponde ?</item>
+            <item>quelle lacune TEI votre analyse vous permettra de corriger (oui, elles existent
+              les licornes !)</item>
+          </list></p>
+      </div>
+      <div>
+        <head>Notre cas d'etude</head>
+        <figure>
+          <graphic url="../Graphics/BCCMAA1894_tp.png"/>
+        </figure>
+      </div>
+      <div>
+        <head>Structuration</head>
+        <list>
+          <item>C'est un livre, organise de maniere traditionelle, avec des pieces liminaires (page
+            a titre, prefaces, indexes etc. </item>
+          <item>Pour la plupart son "body" contient : <list>
+              <item>des proces verbales des reunions de la Commission</item>
+              <item>des rapports, chacun associe avec une reunion</item>
+              <item>des photos, plans, etc. de quelques uns des monuments mentionnes dans ces
+                rapports</item>
+            </list></item>
+          <item>chacun des rapports est organise en liste d'items numerotes; pareille pour les CR. </item>
+          <item>cette numerotation est souvent utilisee pour lier les discussions du CR avec les
+            sujets traites dans les rapports </item>
+        </list>
+      </div>
+      <div>
+        <head>Exemple d'un CR</head>
+        <figure>
+          <graphic url="../Graphics/BCCMAA1894_tp.png"/>
+        </figure>
+      </div>
+      <div>
+        <head>Exemple d'un rapport</head>
+        <figure>
+          <graphic url="../Graphics/BCCMAA1894_tp.png"/>
+        </figure>
+      </div>
+      <div rend="slide">
+        <head>Structure(s) d'un document TEI-XML</head>
+        <list>
+          <item>Chaque document TEI est represente par un element <gi>TEI</gi>
+          </item>
+          <item>On peut egalement regrouper des <gi>TEI</gi> dans un <gi>teiCorpus</gi></item>
+        </list>
+        <p rend="box"> Nous proposons de considerer le livre (fascicule) comme un seul <gi>TEI</gi>,
+          et d'encoder que son texte. Mais d'autres possibilites ne sont pas exclus... </p>
+      </div>
+      <div rend="slide">
+        <head> Comment structurer un corpus TEI-XML?</head>
+        <p>
+          <graphic url="../Graphics/struct-2.png" height="80%"/>
+        </p>
+        <p>Le <gi>teiHeader</gi> d'un corpus rassemble les metadonnées communes à un ensemble de
+          documents TEI.</p>
+      </div>
+      <div>
+        <head>Comment structurer un document TEI?</head>
+        <p>
+          <graphic height="70%" url="../Graphics/struct-5.png"/>
+        </p>
+        <list>
+          <item>un ensemble de représentations visuelles (<gi>facsimile</gi>)</item>
+          <item>ou une transcription textuelle (<gi>text</gi>) </item>
+          <item>ou une transcription documentaire (<gi>sourceDoc</gi>) </item>
+          <item>ou ces trois types d'objet conjointement</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>L’entête TEI</head>
+        <p>Inspiré de la pratique AACR2, il contient quatre éléments principaux : </p>
+        <list type="ordered">
+          <item><gi>fileDesc</gi>: une description bibliographique de la ressource et de ses
+            origines</item>
+          <item><gi>encodingDesc</gi>: une description du rapport entre la ressource et la source
+            (ou les sources) dont elle dérive</item>
+          <item><gi>profileDesc</gi>: des informations supplémentaires (non bibliographiques) sur la
+            ressource, par ex. les langues, les participants, les thèmes...</item>
+          <item><gi>revisionDesc</gi>: sommaire de l’historique des modifications de la ressource
+          </item>
+        </list>
+        <p rend="box">tous facultatifs, sauf le premier</p>
+      </div>
+      <div>
+        <head>L’entête minimal</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiHeader>
+              <fileDesc>
+                <titleStmt>
+                  <title>titre de la ressource</title>
+                </titleStmt>
+                <publicationStmt>
+                  <p>agence de distribution de la source</p>
+                </publicationStmt>
+                <sourceDesc>
+                  <p>provenance de la source</p>
+                </sourceDesc>
+              </fileDesc>
+            </teiHeader>
+          </egXML>
+        </p>
+      </div>
+      <div>
+        <head>Un texte simple... </head>
+        <p>
+          <graphic height="90%" url="../Graphics/struct-text.png"/>
+        </p>
+        <p rend="box"> une structuration de texte assez classique...</p>
+      </div>
+      <div>
+        <head>Un texte complexe... </head>
+        <p>
+          <graphic url="../Graphics/struct-group-1.png"/>
+        </p>
+      </div>
+      <div>
+        <head>Un texte complexe... </head>
+        <p>
+          <graphic url="../Graphics/struct-group-2.png"/>
+        </p>
+      </div>
+      <div rend="slide">
+        <head>Entrons dans le <gi>body</gi> d'un <gi>text</gi>... </head>
+        <p>D'habitude, on y trouve des <term>divisions</term>
+          <list type="unordered">
+            <item>qui s'emboitent</item>
+            <item>l'attribut <att>type</att> sert à distinguer les divisions par fonction ou par
+              niveau </item>
+            <item>l'attribut <att>n</att> fournit un nom ou un nombre pour une division déjà
+              numérotée d'une manière quelconque</item>
+            <item>l'attribut <att>xml:id</att> fournit une identifiant unique </item>
+            <item>l'attribut <att>xml:lang</att> identifie la langue (humaine) du contentu de la
+              division</item>
+          </list>
+        </p>
+        <p rend="box">Ces deux derniers sont deux des attributs dits <term>globaux</term> qui
+          peuvent s'attacher à n'importe quel élément TEI</p>
+      </div>
+      <div rend="slide">
+        <head>Par exemple ...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+          <body>
+            <head>Les Chouans</head>
+            <div type="partie" n="I" xml:id="CHOUAN0100">
+              <head>Première partie</head>
+              <head>L'embuscade</head>
+              <div n="1" type="chapitre" xml:id="CHOUAN0101">
+                <head>Chapitre premier</head>
+                <p>Dans les premiers jours de l'an VIII, au commencement de vendémiaire, ou, pour se
+                  conformer au calendrier actuel, vers la fin du mois de septembre 1799... </p>
+                <!-- suite du chapitre 1 -->
+              </div>
+              <div n="2" type="chapitre" xml:id="CHOUAN0102">
+                <head>Chapitre deuxieme</head>
+                <!-- chapitre 2 -->
+              </div>
+              <!-- suite du premier livre -->
+              <trailer> Fin de la premiere partie</trailer>
+            </div>
+            <div type="partie" n="II" xml:id="CHOUAN0100">
+              <head> Deuxieme partie</head>
+              <!--  deuxieme livre-->
+            </div>
+            <!-- d'autres livres -->
+          </body>
+        </egXML>
+      </div>
+      <div>
+        <head>Dans notre cas.... </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+          <text>
+            <front>
+              <!-- ... -->
+            </front>
+            <body>
+              <div type="pv" xml:id="pv1894_61">
+                <head>COMITÉ DE CONSERVATION DES MONUMENTS DE L'ART ARABE</head>
+                <head>Procès-verbal n° 61.</head>
+                <!-- ... -->
+              </div>
+              <div type="r" xml:id="r1894_161">
+                <head>161eme RAPPORT DE LA DEUXIEME COMMISSION </head>
+                <head>(Voir proces-verbal no 61).</head>
+                <!-- ... -->
+              </div>
+            </body>
+            <back>
+              <!-- ... -->
+            </back>
+          </text></egXML>
+      </div>
+      
+     
+      
+    </body>
+  </text>
+</TEI>
