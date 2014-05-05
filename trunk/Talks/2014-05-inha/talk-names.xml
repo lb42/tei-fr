@@ -44,12 +44,15 @@
 
         </egXML>
         <list>
-          <item>La TEI nous offre des manières simples d'indiquer la présence des noms propres : <gi>name</gi> et <gi>rs</gi>.</item>
-          <item>La module namesdates fournit des balises beaucoup plus spécifiques : p.e. <gi>persName</gi>, <gi>placeName</gi>, et <gi>orgName</gi></item>
-          <item>Chacune peut être ensuite décomposée grâce à des sous-balises</item>
-          <item>Elles peuvent aussi être associées à une entité normalisée</item>
+          <item>La TEI nous propose un balisage tres generique de tout reference avec <gi>rs</gi>, ou pour les noms propres  <gi>name</gi> </item>
+          <item>Elle fournit aussi des balises plus spécifiques : p.e. <gi>persName</gi>, <gi>placeName</gi>, et <gi>orgName</gi></item>
+          <item>Chacune peut être ensuite décomposée grâce à des sous-balises par ex <gi>forename</gi>, <gi>surname</gi>, <gi>geogName</gi>, etc.</item>
+          <item>Elles peuvent aussi être associées à une entité normalisée : p.e. <gi>person</gi>, <gi>place</gi>, <gi>org</gi>
+          </item><item>Et on peut noter des relations generique entre ces entites avec <gi>relation</gi></item>
         </list>
       </div>
+      
+      
       <div>
         <head>Les noms de personnes</head>
         <p>Par exemple :</p>
@@ -61,23 +64,23 @@
           <item><gi>addName</gi> un nom supplémentaire comme un surnom, une épithète, ou un alias, ou une périphrase descriptive utilisée dans un nom de personne</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
+        
           <persName>
           <forename>Geoffroy</forename>
            <genName>Ier</genName>
           <addName>Grisegonelle</addName> 
           </persName>
-          ]]>
+          
         </egXML>
       </div>
       <div>
         <head>Références</head>
         <p>Dans un texte nous pourrions trouver une référence à la même personne sous des formes différentes :</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
+    
           ...<persName>Clara Schumann</persName>.... <persName>Clara</persName>
           ....
-          <persName>Frau Schumann</persName>]]>
+          <persName>Frau Schumann</persName>
         </egXML>
         <list>
           <item>Tous ces noms renvoient à la même personne</item>
@@ -94,7 +97,7 @@
           <item>Par exemple :</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
+       
           ...<persName ref="#CS">Clara Schumann</persName>.... <persName ref="#CS">Clara</persName>
           ....
           <persName key="CS123">Frau Schumann</persName>
@@ -107,10 +110,285 @@
           <surname type="married">Schumann</surname>
           </persName>
           </person>
-          ]]>
+       
         </egXML>
 <p rend="box">Un <gi>persName</gi> n'est pas un <gi>person</gi> !</p>
       </div>
+      
+      
+      <div>
+        <head>A propos des noms... </head>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <name type="person">Nancy</name>
+          <name type="place">Nancy</name>
+          <rs type="?">Elle</rs> est jolie</egXML>
+        
+        <list><item>La  TEI nous offre des manières simples d'indiquer la
+          presence des noms propres ou de références nominaux: <gi>name</gi> et <gi>rs</gi>.</item>
+          <item>La module <ident>namesdates</ident> fournit aussi des spécialisations de ceux-ci: p.e. <gi>persName</gi>, <gi>placeName</gi>,
+            et <gi>orgName</gi></item>
+          <item>Chacune peut être ensuite décomposée </item>
+          <item>Elles peuvent aussi être associées à un <term>named
+            entity</term> (une entité nommée) </item>
+          <item>(Les noms propres sont aussi des entités)</item></list>
+      </div>
+      
+      
+      <div>
+        <head>Les noms de personnes</head>
+        <p>Par exemple:
+          <list>
+            <item rend="pause"><gi>persName</gi> (nom personnel) un
+              nom propre ou périphrase qui fait référence à un personnage:
+              ... equivalent à <gi>name type="person"</gi></item>
+            <item rend="pause"><gi>surname</gi> un nom de famille (hérité)</item>
+            <item rend="pause"><gi>forename</gi> un prénom ou nom de baptême</item>
+            <item rend="pause"><gi>roleName</gi> un composant de nom
+              indiquant un rôle particulier ou une position dans la société
+            </item>
+            <item rend="pause"><gi>addName</gi> un nom supplémentaire comme un surnom, une épithète, ou un alias, ou une périphrase descriptive utilisée dans un nom de personne </item>
+          </list>
+        </p>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <persName xml:lang="ru">
+            <forename type="first">Владимир</forename>
+            <forename type="patronymic">Владимирович</forename>
+            <surname>Маяковский</surname>
+          </persName>
+        </egXML>
+      </div>
+      
+      <div>
+        <head>Références de noms (1)</head>
+        <p>Dans un texte nous pourrions trouver la référence à la même personne en diverses occasions dans un nombre quelconque de manières différentes
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            ...<persName>Clara Schumann</persName>.... <persName>Clara</persName>
+            ....<persName>Frau Schumann</persName>
+          </egXML>
+        </p>
+        <p>Tous ces noms réfèrent à la meme personne</p>
+        <p>Nous pouvons utiliser un des deux attributs suivants, disponibles sur tous les éléments de
+          dénomination, pour spécifier à quelle entité on réfère:
+          <list>
+            <item><att>key</att> pour spécifier un code défini associé avec
+              l'entité dénommé</item>
+            <item><att>ref</att> pour pointer sur une définition de l'entité dénommé</item>
+          </list></p>
+      </div>
+      <div><head>Références de noms (2)</head>
+        <p>Par exemple:-
+          
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            ...<persName ref="#CS">Clara Schumann</persName>.... <persName ref="#CS">Clara</persName>
+            ....<persName key="CS123">Frau Schumann</persName>
+            <!-- ... elsewhere -->
+            <person xml:id="CS">
+              <persName xml:lang="de">  
+                <forename type="first">Clara</forename>
+                <forename type="middle">Josephine</forename>
+                <surname type="maiden">Wieck</surname>
+                <surname type="married">Schumann</surname>
+              </persName>
+            </person>
+          </egXML>
+        </p>        </div>
+      
+      <div><head>Les entités (1)</head>
+        <p>TEI maintenant offre des éléments spécifiques pour gerer de
+          l'information structurée au sujet des entités nommés (au dela de leur noms):
+          <list>
+            <item><gi>person</gi>, <gi>place</gi>, <gi>event</gi></item>
+            <item>elles peuvent être regroupées en  <gi>listPerson</gi>,
+              <gi>listPlace</gi>, etc.
+            </item>
+            <item>des relations peuvent aussi aussi être modélisées, utilisant explicitement
+              <gi>relation</gi> ou implicitement grâce au contexte</item>
+          </list>
+          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <person xml:lang="fr" xml:id="VM1893">
+              <persName xml:lang="ru">Владимир Владимирович Маяковский</persName>
+              <persName >Wladimir Maïakowski</persName>
+              <birth when="1893-07-19">7 July (OS) 1893, <placeName
+                ref="#BGDT">Baghdati, Georgie</placeName></birth>
+              <death when="1930-04-14"/>
+              <occupation><p>Poète et dramaturge, l'une des plus éminents représentants du futurisme de la Russie du début du XXe siècle.</p></occupation>
+              <!-- ... -->
+            </person>
+          </egXML></p></div>
+      
+      
+      <div><head>Traits, états et événements</head>
+        <p>La portée des éléments que l'on peut retenir pour une entité nommée est  <emph>vaste</emph>. La TEI fournit trois éléments génériques, et quelques-uns plus spécifiques. </p>
+        <p>Nous identifions trois classes principales d'information
+          <list>
+            <item>des caractéristiques ou des  <term>traits</term> qui en gros ne changement pas avec le temps
+            </item>
+            <item>des caractéristiques ou des <term>états</term> qui se maintiennent seulement pendant une durée définie</item>
+            <item>des<term>événements</term> ou des incidents qui peuvent conduire à un changement d'état ou, moins fréquemment, à un changement de trait </item>
+          </list>
+        </p>
+        <p>Pour des personnes, des traites typiques sont des choses telles que <gi>faith</gi> la foi,
+          <gi>sex</gi> le sexe, <gi>socEcStatus</gi>, le statut social; des états typiques sont des choses telles que
+          <gi>occupation</gi>le métier, <gi>residence</gi> la résidence, <gi>education</gi>,l'éducation; des événements typiques sont des choses telles que  <gi>birth</gi> la naissance, et  <gi>death</gi> la mort.</p>
+      </div>
+      
+      
+      <div>
+        <head>Les relations personnelles</head>
+        <list>
+          <item ><gi>relation</gi> (relationship)
+            decrit une relation ou un lien parmi des personnages, lieux,
+            etc. spécifiques
+            <list type="gloss">
+              <label>
+                <att>name</att>
+              </label>
+              <item>fournit un nom pour le type de relation dont elle est une instance.</item>
+              <label>
+                <att>active</att>
+              </label>
+              <item>identifie les participants actifs dans une
+                relation à sens unique, ou tous les participants dans une relation réciproque</item>
+              <label>
+                <att>mutual</att>
+              </label>
+              <item>fournit une liste de participants entre
+                lesquelles la relation est réciproque</item>
+              <label>
+                <att>passive</att>
+              </label>
+              <item>identifie les participants <q>passifs</q> dans une relation non mutuelle</item>
+            </list>
+          </item>
+          <item ><gi>relationGrp</gi> (relation group)
+            permet de regrouper des relations du même type. </item>
+          
+        </list>
+      </div>        <div>
+        <head>Exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <person xml:id="jsbach">
+            <persName>Johann Sebastian Bach</persName>
+          </person>
+          <person xml:id="cdbach">
+            <persName>Catharina Dorothea Bach</persName>
+          </person>
+          <person xml:id="ghbach">
+            <persName>Gottfried Heinrich Bach</persName>
+          </person>
+          <!--….-->
+          <relationGrp type="children" subtype="first-marriage">
+            <relation name="parent" active="#jsbach" passive="#cdbach"/>
+            <!--….-->
+          </relationGrp>
+          <relationGrp type="children" subtype="second-marriage">
+            <relation name="parent" active="#jsbach" passive="#ghbach"/>
+            <!--….-->
+          </relationGrp>
+        </egXML>
+      </div>
+      
+      
+      
+      <div>
+        <head>Autres sortes d'entités</head>
+        <p><gi>org</gi>: un collection nommée de personnes considérées comme une unité singulière, comme une société, une institution, ou une tribu.</p>
+        <p><gi>place</gi>: un lieu nommé, quel qu'il soit (y compris les lieux mythologiques et non terrestres)</p>
+        <p>Ceux-ci peuvent être groupées de la même manière (utilisant <gi>listOrg</gi> ou
+          <gi>listPlace</gi>), et ont aussi des états, des traits et des événements. </p>
+      </div>
+      
+      
+      <div>
+        <head>Lieux</head>
+        <list>
+          <item>Les lieux peuvent être identifiés principalement en termes de traits
+            geographiques, p.e.             <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <place><placeName>
+                <geogFeat>mount</geogFeat>
+                <geogName>Sinai</geogName>
+              </placeName></place></egXML></item>
+          <item>Plus généralement, on les identifie en termes géopolitiques, en utilisant:
+            <list><item>les unités administratives <gi>bloc</gi>, <gi>country</gi>,
+              <gi>region</gi>, <gi>settlement</gi>, <gi>district</gi> etc </item>
+              <item>la location physique <gi>geo</gi> ou <gi>offset</gi> </item></list></item>
+          <item>Notons que toutes ces données sont des traits -- elles peuvent changer avec le temps.</item>
+        </list></div>
+      
+      <div><head>Par exemple: le lieu de naissance de Mayakovsky</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <place xml:id="BGDT">
+            <placeName xml:lang="ka">ბაღდათი</placeName>
+            <placeName xml:lang="en">Baghdati</placeName>
+            <placeName notAfter="1990" notBefore="1940"> Mayakovsky</placeName>
+            <location type="geopolitical">
+              <country>Georgia</country>
+              <region>Imereti</region>
+            </location>
+            <location type="physical">
+              <offset>West of</offset>
+              <placeName>
+                <geogFeat>River</geogFeat>
+                <geogName>Khanistskali</geogName>
+              </placeName>
+              <geo>42.102298,42.832947</geo>
+            </location>
+            <population when="2007"><p>4,700 people</p></population>
+          </place>
+        </egXML></div>
+      
+      <div>
+        <head>Les lieux peuvent s'imbriquer </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">           
+          <place xml:id="LT">
+            <country>Lithuania</country>
+            <country xml:lang="lt">Lietuva</country>
+            <place xml:id="LT-VN">
+              <settlement>Vilnius</settlement>
+            </place>
+            <place xml:id="LT-KA">
+              <settlement>Kaunas</settlement>
+            </place>
+          </place></egXML></div>
+      
+      <div>
+        <head>Sources</head>
+        <p>On peut marquer la responsabilité et l'incertitude
+          concernant les sources, avec des
+          attributs de la classe <ident>att.editLike</ident>:
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <org xml:id="MXY" type="tribe" resp="#herodote">
+              <orgName>Les Maxyens</orgName>
+              <country>Libya</country>
+              <desc>Selon Hérodote, c'était une tribu de Lybie occidentale qui disait être la descendante des Troyens</desc>
+            </org>
+          </egXML>
+        </p>        </div>
+      
+      
+      
+      <div>
+        <head>Et finalement, n'oublions pas qu'un nom soit un entité!</head>
+        
+        <p>Pour certaines raisons (onomastique, étymologie...) les noms propres existent indépendamment de leur relation à une entité.</p>
+        <p>Les éléments <gi>nym</gi> et <gi>listNym</gi> peuvent être utilisés pour rappeler une information concernant un nom considéré comme une entité, et l'attribut <att>nymRef</att> peut être utilisé pour lui associer le ou les noms..</p>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><nym xml:id="VLAD">
+          <nym>
+            <form xml:lang="ru">Владимир</form>
+            <etym>from <lang>Slavonic</lang> 
+              Влад (rule) + м&#x0463;р (fame), changed by folk etymology into мир (world)</etym>
+            <nym><form>Vlad</form></nym>
+            <nym><form>Volodya</form></nym>
+          </nym>
+          <nym>  <form xml:lang="da">Valdemar</form></nym>
+          <nym >    <form xml:lang="de">Waldemar</form>   </nym>
+        </nym>
+          <!-- ... -->
+          <forename type="first" nymref="#VLAD">Владимир</forename>
+        </egXML>
+      </div>
+      
       <div>
         <head>Autres entités normalisées</head>
         <list>
@@ -124,13 +402,13 @@
         <head>Lieux</head>
         <p>Les lieux peuvent être identifiés en termes geographiques, p.e.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
+        
           <place>
             <placeName>
               <geogFeat>mount</geogFeat>
               <geogName>Sinai</geogName>
             </placeName>
-            </place>]]>
+            </place>
         </egXML>
         <p>De façon plus générale, on peut les identifier géopolitiquement :</p>
           <list>
@@ -142,7 +420,7 @@
       <div>
         <head>Par exemple: le lieu de naissance du poete Mayakovsky</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
+        
           <place xml:id="BGDT">
             <placeName xml:lang="ka">ბაღდათი</placeName>
             <placeName xml:lang="en">Baghdati</placeName>
@@ -162,7 +440,7 @@
             <population when="2007">
               <p>4,700 people</p>
             </population>
-         </place>]]>
+         </place>
         </egXML>
       </div>
       <div>
@@ -174,7 +452,6 @@
           <item>Elles peuvent être regroupées dans <gi>listPerson</gi>, <gi>listPlace</gi>, etc.</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
           <person xml:lang="fr" xml:id="VM1893">
             <persName xml:lang="ru">Владимир Владимирович Маяковский</persName>
             <persName>Wladimir Maïakowski</persName>
@@ -184,14 +461,13 @@
               <p>Poète et dramaturge, l'une des plus éminents représentants du futurisme de la Russie du début du XXe siècle.</p>
             </occupation>
             <!-- ... -->
-          </person>]]>
+          </person>
         </egXML>
       </div>
 
       <div>
         <head>Les lieux peuvent s'imbriquer</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
           <place xml:id="LT">
             <country>Lithuania</country>
             <country xml:lang="lt">Lietuva</country>
@@ -201,7 +477,7 @@
             <place xml:id="LT-KA">
               <settlement>Kaunas</settlement>
             </place>
-          </place>]]>
+          </place>
         </egXML>
       </div>
       <div>
@@ -210,11 +486,10 @@
           <item><gi>orgName</gi> sert à encoder le nom d’une organisation ou d’une institution.</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <![CDATA[
           <orgName> Chapitre de
             <persName><roleName>Saint</roleName> Léon </persName> 
           </orgName>      
-          ]]>
+      
         </egXML>
       </div>
       <div>
