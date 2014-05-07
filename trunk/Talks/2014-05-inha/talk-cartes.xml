@@ -253,14 +253,66 @@ France
           </div></egXML>
       </div>
 
-
-
+    
       <div>
-        <head>Exploration d'un ODD TEI</head>
+        <head>Comment définir un vocabulaire TEI XML ?</head>
+        <p>Il faut <list>
+          <item>spécifier les éléments souhaités et leurs attributs</item>
+          <item>préciser leurs contenus</item>
+          <item>documenter leur significations/règles d'usage</item>
+        </list></p>
+        <p rend="box">ODD nous permet de faire cela à partir des définitions TEI éxistantes.</p>
+      </div>
+      
+     
+        <div>
+          <head>Extrait d'un ODD pour documenter les cartes postales </head>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">  <schemaSpec ident="tei_cartes" docLang="fr" start="TEI teiCorpus">
+            <moduleRef key="tei"/>
+            <moduleRef key="textstructure"
+              include="TEI body dateline div postscript salute signed text"/>
+            <moduleRef key="core"
+              include=" add addrLine address bibl date del foreign graphic head hi item lb list name p 
+              publisher q reg resp respStmt street teiCorpus title unclear"/>
+            <moduleRef key="header"
+              include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
+            <moduleRef key="figures" include="figure figDesc"/>
+            <moduleRef key="msdescription" include="stamp"/>
+            <moduleRef key="transcr" include="att.global.facs"/>
+            <moduleRef key="namesdates" include="persName placeName"/>
+            <elementRef key="ab"/> <!-- ... --></schemaSpec>
+          </egXML>
+          <p>Cette spécification de schéma est à compléter avec de la documentation, bien sûr... </p>
+        </div>
+        
+     
+      <div><head>Traitement des ODD</head>
+      <p>A partir d'un ODD on peut generer 
+        <list><item>la documentation complete d'une application TEI en plusieur formats (HTML, DOCX, PDF...) </item><item>un schema (grammaire) pour controller et valider les fichiers TEI XML conformes a l'application</item></list></p>
+        <p>Ces transformations peuevent s'effectuer avec :
+        <list><item>sur le web avec Roma, Byzantium, qui interfacent avec oxGarage</item><item>sur ligne de commande directement (avec installation des feuilles de style TEI)</item><item> avec 
+          Oxygen
+        </item></list></p>
+      </div>
+      
+      <div>
+        <head>Exploration d'un ODD (1)</head>
+        
         <list>
-          <item>Avec oXygen, ouvrez le fichier <ident type="file">tei-cartes.odd</ident></item>
-          <item>Regardez (et modifiez si vous le souhaitez) les parties documentaires de ce
-            fichier.</item>
+          <item>Avec oXygen, ouvrez le fichier <ident type="file">cartes-odd.xml</ident></item>
+          <item>Regardez (et modifiez si vous le souhaitez) les parties documentaires et les parties
+            ODD de ce fichier.</item>
+          <item>Chargez ce meme fichier dans Roma et voir comment Roma s'en sert</item>
+        </list>
+       
+      </div>
+      
+      
+      <div>
+        <head>Exploration d'un ODD (2) </head>
+        <list>
+          <item>Avec oXygen, ouvrez le fichier <ident type="file">cartes-odd.xml</ident></item>
+       
           <item>Générez un schéma et créez un document qui se sert de ce schéma.</item>
           <item>Dans le dossier <ident>Cartes</ident>, vous trouverez quelques cartes postales,
             partiellement transcrites... à vous de les compléter, en vous servant du schéma !</item>
@@ -269,10 +321,11 @@ France
           <item>Quand vous aurez fini, enregistrez votre carte dans le dossier
               <ident>Cartes/XML</ident> avec les autres</item>
         </list>
+        <p rend="box">Référez vous au fichier <ident>exercice-oxygen.pdf</ident> pour les manip ... </p>
       </div>
 
-      <div>
-        <head>Génération d'un ODD TEI</head>
+   <!--   <div>
+        <head>Génération d'un ODD a partir des fichiers TEI</head>
 
         <p>La feuille de style <ident>oddbyexample</ident> nous permet de générer un ODD à partir
           d'un corpus de documents TEI.</p>
@@ -283,7 +336,7 @@ France
           <item>Comparer les deux ODD</item>
         </list>
 
-      </div>
+      </div>-->
 
 
     </body>
