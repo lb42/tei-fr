@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Un peu de XPath, un peu de XSLT</title>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date when="2011-05">mai 2011</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+          <p></p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Avec des notions prises dans le TP-5 de Florence. </p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Texte préparé pour le stage "XSLT pour les nuls" MUTEC
+          le 26 mai 2011.</p>
+      </projectDesc>
+    </encodingDesc>
+    <revisionDesc>
+<change when="2011-05-23">Drafted on train</change>    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <figure><graphic url="../Graphics/duBellay-1.png"/></figure>
+      <p>Dans ce petit exercice et le suivant, on prends comme
+      exemplaire une version numerisée de ce sonnet célèbre de
+      DuBellay. Vous trouverez une version de ce sonnet déjà balisée
+      dans le fichier <ident>duBellay.xml</ident> — ouvrez-le d'abord
+      avec Oxygen.</p>
+
+<div><head>XPath</head>
+
+      <div>
+        <head>Navigation avec XPath</head>
+        <p>Pour voir un peu ce que l’utilisation de XPath tout seul
+        peut apporter à un processus d’exploration, d’appropriation ou
+        de vérification de document TEI, oXygen est très pratique. La
+        ligne de saisie "XPath" que l’on voit a gauche en haut de la fenêtre,
+        au-dessous des barres d’outils oXygen, permet de saisir des
+        expressions XPath. Une fois fait "Entrée" au clavier, oXygen
+        évalue l’expression et retourne, dans la fenêtre qui fait
+        toute la largeur de l’écran en bas, une liste de(s)
+        résultat(s) - un ou plusieurs ensembles de nœuds, en donnant
+        pour chaque nœud résultat l’expression XPath qui permet de
+        l’atteindre. Si on clique avec la souris sur une des lignes de
+        résultat, oXygen montre dans la fenêtre de saisie le nœud
+        résultat, dans son contexte TEI.</p>
+        <!--p><graphic url="XPath-tool.jpg" height="200px"/></p-->
+        <p>Voici une petite liste de requêtes que vous devriez essayer d’exprimer au moyen du
+          langage XPath : <list type="ordered">
+            <item>quel est l’élément racine du fichier XML ?</item>
+            <item>quel est le titre donné à ce fichier ?</item>
+            <item>qui est le responsable de la création du fichier ?</item>
+	    <item>quel est l'origine de la version encodee ?</item>
+<item>quel est la date de la revision la plus recente du fichier ?</item>
+        <item>combien y a-t-il de strophes (<gi>lg</gi>) dans le sonnet ?</item>
+            <item>combien y a-t-il de segments de texte dont la
+	    graphie est considere incorrecte aujourd'hui ?</item>
+<item>combien y a-t-il de vers (<gi>l</gi>) qui contient au moins un
+tel segment ?</item>
+            <item>quel est le contenu textuel du premier vers de
+	    chaque strophe  ? et du dernier? </item>
+            <item>Quels  noeuds texte contiennent la chaîne de caractères "jamais"</item>
+          </list></p>
+        <p>On va faire ces exercices ensemble. Des réponses sont
+	proposées dans la section qui suit: ne le regardez pas si vous
+	preferiez tester vos competences!</p>
+        <p>Nota : utiliser ici XPath 2.0 (à cause de l’espace de noms par défaut).</p>
+      </div>
+
+<div>
+
+<head> Exercice XPath corrigé</head>
+
+<list type="gloss">
+<label>Quel est l’élément racine du fichier XML ?</label>
+<item><p>Expression XPath à écrire : </p><p><code>/*</code> [le noeud document est désigné par le slash ; la 2e étape désigne les enfants de type élément de ce noeud]</p>
+<p>Réponse : TEI </p></item>
+
+<label>Quel est le titre donné à ce fichier ?</label>
+<item><p>Expression XPath à écrire : </p><p><code>/TEI/teiHeader/fileDesc/titleStmt/title</code> ou encore (entre autres possibilités) : <code>//titleStmt/title</code></p>
+<p>Réponse : On voit les deux noeuds <gi>title</gi> qui répondent à la
+question. Si on voulait obtenir le titre proprement dit (sans le
+complément de titre), il faudrait connaître précisément le modèle
+auquel obéit ce document, et demander le noeud title en première
+position (//titleStmt/title[1]), ou de choisir le noeud title dont
+l'attribut <att>type</att> porte une valeur appropriee (<code>//titleStmt/title[@type='main')]</code>).
+</p></item>
+
+<label>Qui est le responsable de la création du fichier ?</label>
+<item><p>Expression XPath à écrire : </p><p><code> //titleStmt/respStmt/name</code></p>
+<p>Réponse : 1 seul noeud ici.</p>
+</item>
+
+<label>Quel est l'origine de la version encodée ?</label>
+<item><p>Expression XPath à écrire : </p><p><code>//sourceDesc/*</code> ou,
+plus finement, <code>/TEI/fileDesc/sourceDesc/*</code>. Sans le
+<code>*</code> vous ne recevrez que l'élément de groupement 
+<gi>sourceDesc</gi>, sans ses composants.</p></item>
+
+<label>Quel est la date de la revision la plus récente du fichier
+?</label>
+<item><p>Expression XPath à écrire :</p><p>
+<code>revisionDesc/change[1]/@when</code>. Par défaut, le premier
+<gi>change</gi> devrait etre le plus récent, et son attribut
+<att>when</att> donnera
+sa date dans un format normalisé.</p> 
+<p>Réponse : 2011-05-23 </p></item>
+
+<label>Combien y a-t-il de strophes dans le sonnet ? </label>
+<item><p>Expression XPath à écrire : </p><p><code>count(//lg)</code>. On se sert
+de la fonction <code>count()</code>.</p>
+<p>Réponse : 4 </p></item>
+
+
+<label>Combien y a-t-il de segments de texte dont la graphie est consideré incorrecte aujourd'hui ?</label>
+<item><p>Expression XPath à écrire : </p><p>
+<code>count(/TEI/text//orig)</code>. Enlevez le <code>count()</code>
+si vous préfériez les voir...</p>
+<p>Réponse : 17</p></item>
+ 
+<label>Combien y a-t-il de vers qui contient au moins un tel segment?</label>
+<item><p>Expression XPath à écrire : </p><p><code>count(//l[orig])</code></p>
+<p>Réponse : 7</p>
+</item>
+
+<label>Quel est le contenu textuel du premier vers de chaque strophe
+? et du dernier?</label>
+<item><p>Expression XPath à écrire :</p><p>
+<code>//lg/l[1]//text()</code></p>
+<p>Pour le dernier, c'est un peu moins
+evident... <code>//lg/l[position()=last()]//text()</code>
+</p>
+</item>
+
+<label>Quels  noeuds texte contiennent la chaîne de caractères
+"jamais" ?</label>
+<item><p>Expression XPath à écrire : </p><p><code>//text()[contains(., 'jamais')]</code></p>
+<p>Réponse : la liste de réponses contient 2 noeuds</p>
+</item>
+
+</list></div>
+
+</div>
+
+      <div>
+        <head>XSLT</head>
+
+        <p>Dans ce deuxieme petit exercice, nous allons faire des expériences avec XSLT sous contrôle
+          d'Oxygen. On va travailler avec une version du même
+	      sonnet de DuBellay qui a été (partiellement) enrichie avec
+            des balises <gi>choice</gi>. 
+</p>
+<div><head>Transformation en HTML</head>
+
+        <p>L'application classique de XSLT est de transformer un document TEI XML en HTML pour le
+          visualiser dans un navigateur web. On commence donc par
+	là. </p>
+<p>D'abord il faut mettre en place une liaison entre le
+	fichier XML d'entrée, le fichier HTML de sortie, et le fichier
+	XSLT qui va controller la transformation. Cette liaison
+s'appele un <term>scénario de transformation</term> et on la configure
+en Oxygen de la maniere suivante:</p>
+
+        <list type="ordered">
+          <item> Ouvrez Oxygen. Sélectionnez <ident>Ouvrir</ident> sur le menu
+              <ident>Fichier</ident> et ouvrez le fichier
+	      <ident>duBellayEd.xml</ident>.</item>
+
+          <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
+            ensuite <ident>Configurer un scénario de transformation</ident> ou tapez
+              <code>ctrl-maj-C</code>, ou bien cliquez sur le bouton à droite du triangle rouge sur
+            la barre d'outils.</item>
+        </list>
+        <p>Cliquez d'abord sur <ident>nouveau</ident> pour ouvrir la boîte de dialogue
+            <ident>Nouveau Scénario</ident>.</p>
+        <p><graphic height="5cm" url="../Graphics/scenario-2.png"/></p>
+        <list>
+          <item>Tapez <code>duBellay.xsl</code> dans le champ <ident>XSL URL</ident>.</item>
+          <item>Cliquez sur l'onglet <code>Sortie</code>
+          </item>
+          <item>Tapez <code>output.html</code> dans le champ <code>Enregistrer sous</code>
+          </item>
+          <item>Cochez la case <code>Ouvrir dans un navigateur</code></item>
+          <item>Cliquez sur <code>Accepter</code></item>
+        </list>
+        <p>Vous avez maintenant créé un nouveau scénario de transformation, qui s'appelle
+            <ident>duBellayEd</ident>.</p>
+        <p>
+          <graphic height="5cm" url="../Graphics/scenario-4.png"/></p>
+        <list>
+          <item>Cliquez sur <code>Transformer maintenant</code></item>
+          <item>En bas de l'écran, le message <code>Transformation réussie</code> apparaît... </item>
+          <item>.. et après un bref délai, votre navigateur devrait s'ouvrir pour afficher le
+            fichier <ident>output.html</ident> que vous venez de créer.</item>
+          <item>C'est joli, hein ? Peut-être y a-t-il encore un peu de travail à faire...</item>
+        </list>
+
+      </div>
+
+      <div>
+        <head>Une feuille de style XSLT</head>
+        <p>Une feuille de style XSLT est un document XML. Il peut donc être édité avec Oxygen. <list>
+            <item>Allez de nouveau sur <ident>Fichier - Ouvrir</ident>. Ouvrez le fichier
+                <ident>duBellay.xsl</ident> dans votre dossier de travail.</item>
+            <item>Ce fichier XSLT contient un seul template, qui correspond à l'élément
+              <gi>TEI</gi>, l'élément racine de notre document. Son effet sera de produire les
+              balises <gi>html</gi> et <tag>/html</tag>, avec entre les deux le résultat du
+                <gi>xsl:apply-templates</gi></item>
+            <item>Ce dernier va essayer d'appliquer tous les templates disponibles... il n'y en a
+              pas, donc il ne va produire que le texte du document. </item>
+            <item>... et en effet, si vous revenez sur votre navigateur et regardez la source du
+              fichier, c'est ce qu'il a fait.</item>
+          </list></p>
+
+        <p>Au travail ! D'abord, nous allons extraire de l'en-tête un titre pour le document HTML, et
+          supprimer le reste du TEI Header.</p>
+
+        <list>
+          <item>Après le <gi>html</gi>, tapez <code>&lt;head></code></item>
+          <item>Oxygen ajoute la balise fermante. C'est bien. Continuez donc. Ajoutez
+              <code>&lt;title></code> à l'intérieur de l'élément <gi>head</gi>. Pour trouver le titre du document il faut naviguer de la
+            racine du document (l'élément TEI) jusqu'à l'élément <gi>title</gi>, qui se trouve dans
+            le <gi>titleStmt</gi>, dans le <gi>fileDesc</gi>, dans le <gi>teiHeader</gi>. Cela
+            s'effectue avec le <term>XPath</term> suivant.</item>
+          <item>Tapez <code>&lt;xsl:value-of select="teiHeader/fileDesc/titleStmt/title"/&gt;</code>.</item>
+          <item>Modifiez la balise <gi>xsl:apply-templates</gi>, en ajoutant <code>
+              select="text"</code> et entourez-la d'un élément HTML <gi>body</gi></item>
+          <item>Cliquez sur le bouton Indentation. Votre feuille de style maintenant devrait
+            ressembler à ceci :</item>
+        </list>
+        <p><graphic height="8cm" url="../Graphics/script-1.png"/></p>
+        <list>
+          <item>Cliquez sur l'icône de la disquette (ou tapez ctrl-s) pour enrégistrer les
+            modifications que vous venez de faire.</item>
+          <item>Cliquez sur l'onglet <ident>duBellayEd.xml</ident> pour revenir sur votre document
+            XML.</item>
+          <item>Cliquez sur l'icône triangle-rouge pour relancer la transformation (ou tapez
+            CTRL-maj-T)</item>
+          <item>Voyons ce que cela donne : cette fois, on ne voit que le <gi>text</gi> de notre
+            document. On fait des progrès !</item>
+        </list>
+
+        <p>Maintenant, on va ajouter des templates.</p>
+
+        <list>
+          <item>Revenez sur la feuille de style. </item>
+          <item>Ajoutez <list>
+              <item>un template pour <gi>l</gi>, qui va ajouter une balise <tag>br/</tag> après chaque
+                vers</item>
+              <item>un template pour <gi>head</gi>, qui va l'entourer de <gi>h2</gi>
+              </item>
+              <item>un template pour <gi>lg</gi>, qui va l'entourer de <gi>p</gi>, et en plus le
+                préfixer du nombre de chaque strophe.</item>
+            </list></item>
+          <item>Voici les templates requis... essayez de comprendre par vous-même le fonctionnement de
+            chacun d'entre eux. </item>
+        </list>
+        <p><graphic height="8cm" url="../Graphics/script-2.png"/>
+        </p>
+      </div>
+<!--
+<div><head>Stylage</head>
+
+        <p> Le code HTML, c’est la XSLT qui l’a généré (en plus de
+          XSLT, il faut donc connaître au moins un peu TEI et HTML pour écrire un programme XSLT qui génère une page Web à partir d’un fichier TEI).
+          La mise en forme est réalisée grâce à une feuille de style CSS très sommaire qui est dans
+          le dossier et qui s’appelle <ident>acteRoyal.css</ident>. CSS (Cascading Style Sheets) est
+          une norme du W3C (encore une), qui définit un langage pour contrôler la présentation des
+          pages Web. Les instructions de mise en forme CSS peuvent être embarquées dans le fichier
+          HTML, ou être réunies dans un fichier <ident>*.css</ident>. Aujourd’hui une bonne pratique
+          de développement Web consiste à externaliser les instructions de mise en forme : c’est
+          plus facile à maintenir, à modifier, c’est réutilisable, le Web design peut être confié à
+          un... Web designer tandis que quelqu’un d’autre va s’occuper du code HTML, la séparation
+          de la structure et de la mise en forme est claire. </p>
+</div>
+-->
+      <div>
+        <head>Traitement des <gi>choice</gi></head>
+        <p>Est-ce que le XSLT peut nois aider à mieux traiter ces
+	elements <gi>choice</gi>? Bien sur, oui. D'abord,  on pourrait simplement
+          ajouter un template qui va supprimer les <gi>orig</gi> (ou
+	les <gi>reg</gi> si vous le préfériez).</p>
+        <p>Tout ce qu'il faut, c'est ajouter un template comme ceci : <tag>xsl:template
+            match="orig"/</tag>. Essayez-le. Est-ce que vous comprenez comment cela fonctionne ? Si oui,
+          vous avez bien compris les principes de XSLT !</p>
+
+      </div>
+<div><head>Pour aller plus loin...</head>
+<list>
+<item>Créez un paramètre <ident>modernisation</ident> avec
+<gi>xsl:variable</gi>, avec comme valeur "oui" ou "non", selon votre
+preference. (Attention de ne pas introduire des blancs autour du mot!). Ceci va
+controller
+la suppression ou bien des <gi>reg</gi>, ou bien des
+<gi>orig</gi> selon la valeur qu'on lui donne. Par exemple, s'il aura
+la valeur <code>oui</code> on supprimera les <gi>orig</gi>. </item>
+<item>Ajouter un template pour l'élément <gi>choice</gi>, qui contiendra un <gi>xsl:choose</gi> pour tester la valeur de ce
+paramètre </item>
+<item>Les experts en HTML peuvent proposer d'autre mises en jours
+eventuelles pour les <gi>choice</gi>, sous control d'autre valeurs du paramètre... </item>
+</list>
+
+<p>Qu'est-ce qu'on ferait pour n'afficher qu'une partie du texte?
+Modifiez votre feuille de style pour n'afficher que le vers initial de
+chaque strophe. Ensuite, vous pourriez les trier par
+ordre alphabetique....</p>
+
+<p>Vous trouverez dans le fichier <ident>duBellayCorr.xsl</ident> une
+version corrigée de cet exercice... ne le regardez pas tout de
+suite!</p>
+
+</div>
+
+</div>
+
+  </body>
+  </text>
+</TEI>
