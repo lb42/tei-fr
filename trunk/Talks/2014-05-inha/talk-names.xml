@@ -4,7 +4,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Encodage des entités nommées en TEI</title>
+        <title>Encodage des entites nommees et integration des images</title>
       </titleStmt>
       <publicationStmt>
         <p>Formation TEI ++</p>
@@ -36,9 +36,9 @@
       <div>
         <head> Pourquoi s'intéresser aux entités nommées?</head>
         <list>
-          <item> Utiliser les textes comme une base de données</item>
-          <item> Mise en relation des textes </item>
-          <item> Traitement type TAL, cartographie, index (facile avec XSLT) </item>
+          <item>Utiliser les textes comme une base de données</item>
+          <item>Mise en relation des textes </item>
+          <item>Traitement type TAL, cartographie, index (facile avec XSLT) </item>
           <item>Suivi de tendance, veille </item>
           <item>Optimisation de recherche et moteur de recherche sémantique Production de savoir par
             inférence (classification de documents par exemple)</item>
@@ -49,7 +49,7 @@
       <div>
         <head>Que propose la TEI pour les entités nommées ?</head>     
         <list>
-          <item>La TEI propose un balisage tres generique pour signaller la presence des noms propres ou de
+          <item>La TEI propose un balisage tres générique pour signaller la presence des noms propres ou de
             références nominaux dans un texte:  <gi>rs</gi>,
          <gi>name</gi>
           </item>
@@ -68,8 +68,14 @@
       
       <div><head>Par exemple</head>
       <figure><graphic url="debut-rapport-dtl.png"/></figure>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <p>La demande de construction a été addressée par le sieur <name>Hag Ahmed</name> pour bâtir son terrain à côté de la mosquée <name>Suyadi Mohamed el-Anouar</name>, sise à chara <name>el-Sayeda Sekina</name> </p>  
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+        <p>La demande de construction a été addressée par le sieur <name>Hag Ahmed</name> pour bâtir son terrain à côté de la mosquée <name>Suyadi Mohamed el-Anouar</name>, sise à chara <name>el-Sayeda Sekina</name></p>  
+        </egXML>  
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <p>La demande de construction a été addressée par le sieur <persName>Hag Ahmed</persName> pour bâtir son terrain à côté de la mosquée <placeName>Suyadi Mohamed el-Anouar</placeName>, sise à chara <name>el-Sayeda Sekina</name></p>  
+        </egXML>   
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <p>... sise à chara <placeName>el-<persName ref="http://en.wikipedia.org/wiki/Sukayna_bint_Husayn"> Sayeda Sekina </persName></placeName> </p>  
         </egXML>     
       </div>
       
@@ -157,7 +163,7 @@
       </div>
       <div>
         <head>Les entités (1)</head>
-        <p>TEI maintenant offre des éléments spécifiques pour gerer de l'information structurée au
+        <p>TEI offre des éléments spécifiques pour gerer de l'information structurée au
           sujet des entités nommés (au dela de leur noms): <list>
             <item><gi>person</gi>, <gi>place</gi>, <gi>event</gi></item>
             <item>elles peuvent être regroupées en <gi>listPerson</gi>, <gi>listPlace</gi>, etc. </item>
@@ -261,16 +267,16 @@
       <div>
         <head>Lieux</head>
         <list>
-          <item>Les lieux peuvent être identifiés principalement en termes de traits geographiques,
+          <item>Les lieux peuvent être identifiés  en termes de traits geographiques,
             p.e. <egXML xmlns="http://www.tei-c.org/ns/Examples">
               <place><placeName>
                   <geogFeat>mount</geogFeat>
                   <geogName>Sinai</geogName>
                 </placeName></place></egXML></item>
-          <item>Plus généralement, on les identifie en termes géopolitiques, en utilisant: <list>
+          <item>... ou bien en termes géopolitiques : <list>
               <item>les unités administratives <gi>bloc</gi>, <gi>country</gi>, <gi>region</gi>,
                   <gi>settlement</gi>, <gi>district</gi> etc </item>
-              <item>la location physique <gi>geo</gi> ou <gi>offset</gi>
+              <item>.. ou bien en termes de location physique <gi>geo</gi> ou <gi>offset</gi>
               </item>
             </list></item>
           <item>Notons que toutes ces données sont des traits -- elles peuvent changer avec le
@@ -355,7 +361,7 @@
       </div>
       
       <div>
-        <head>Encoder les dates</head>
+        <head>Encodage des dates</head>
         <list>
           <item><gi>date</gi> est utilisé pour encoder les dates et associé à des attributs pour
             proposer une forme normalisée</item>
@@ -375,18 +381,208 @@
           </item>
           <item>Ces attributs peuvent bien entendu être utilisés ensemble.</item>
         </list>
+      
       </div>
+      
+      <div><head>Autres calendriers</head>
+        
+        <p>L'attribut <att>calendar</att> sert à indiquer le calendrier dans lequel une date est exprimée</p>  
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <date calendar="*cal_AH">20 Rajab, 56</date>
+          <!-- nécessite une définition dans l'entête par ex --> 
+          <calendarDesc><calendar xml:id="cal_AH">
+            <p>Anno Hegirae (Muhammedan Era)</p>
+          </calendar></calendarDesc>
+        </egXML>
+        
+        <p rend="box">Par défaut les dates sont toujours normalisées par rapport au calendrier chrétien gregorien </p>
+        
+      </div>
+      <div><head>Epoques historiques</head>
+      <p>On peut aussi définir un <gi>period</gi> (epoque) et référer à cela de la même manière :
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <placeName period="#christian">Stauropolis</placeName>
+       <!-- nécessite une définition dans l'entête par ex  --> 
+        <category xml:id="hellenistic">
+          <catDesc>
+            <ref
+              target="http://www.wikipedia.com/wiki/Hellenistic">Hellenistic</ref>: Se dit de la periode
+            <date notBefore="-0323" notAfter="-0031">après la mort d'Alexandre jusqu'au conquête romain</date>
+          </catDesc></category>
+        </egXML>
+      </p>  
+      
+      
+      </div>
+      
       <div>
         <head>Usage des attributs de la class <q>att.datable</q></head>
         <list>
-          <item>La plupart des caracteristiques d'une entite normalisee peut changer dans le
+          <item>La plupart des caracteristiques d'une entité normalisée peut changer dans le
             temps</item>
           <item>par ex. occupation, adresse, mais aussi nom, affiliation religieuse, sexe,
             etc.</item>
-          <item>pour cette raison, tout element descriptif d'une entite est membre de la class
-            att.dating</item>
+          <item>pour cette raison, tout element descriptif d'une entité est membre de la classe            att.dating</item>
         </list>
       </div>
+      
+      <div><head>Integration des images numerises : le facsimilé numérique </head>
+      <p>La TEI propose plusieurs methodes d'integrer une transcription balisee avec un image numerique de la source transcrite
+        <list>
+          <item>Au plus simple, un inventaire de fichiers images, qui reproduisent le document décrit
+            par l'en-tête associé. </item>
+          <item> mais peut également définir des espaces visuels plus petits, comme les
+            <emph>surfaces</emph> ou <emph>zones d'intérêt</emph> sur ces surfaces </item>
+          <item> Tous peuvent être alignés, à un niveau approprié, avec les parties d'une
+            transcription </item>
+        </list>
+      </p>
+        
+      </div>
+      <div>
+        <head> La solution la plus simple pour supporter un "facsimilé numérique"</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <TEI>
+            <teiHeader>
+              <!--...--></teiHeader>
+            <text>
+              <pb facs="page1.png"/>
+              <!-- texte de la  page 1 facultativement transcrit ici -->
+              <pb facs="page2.png"/>
+              <!-- texte de la  page 2 facultativement transcrit ici-->
+            </text>
+          </TEI>
+        </egXML>
+        
+        <p>Inconvénients... <list>
+          <item>difficile de supporter des relations plus compliquées </item>
+          <item>maintien difficile d'informations propres à l'image </item>
+          <item>nécessite donc l'intégration avec d'autres fichiers (typiquement METS) </item>
+        </list></p>
+      </div>
+      
+      <div>
+        <head>Solution un peu moins simple </head>
+        
+        <p>Regrouper les données à un seul endroit: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile xml:base="http://mylibrary.wibble.fr/blah/blah/blah">
+            <graphic url="page1.png"/>
+            <graphic url="page2.png"/>
+            <graphic url="page3.png"/>
+            <graphic url="page4.png"/>
+          </facsimile>
+        </egXML></p>
+        
+        <p>(On pourrait également se servir de <gi>binaryObject</gi>)</p>
+        
+      </div>
+      <div>
+        <head>Et si on disposait de versions alternatives d'une même image?</head>
+        
+        <p>Se servir de <gi>surface</gi>pour grouper les images équivalentes: <egXML
+          xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
+            <graphic url="page1.png"/>
+            <surface>
+              <graphic url="page2-highRes.png"/>
+              <graphic url="page2-lowRes.png"/>
+            </surface>
+            <graphic url="page3.png"/>
+            <graphic url="page4.png"/>
+          </facsimile>
+        </egXML></p>
+      </div>
+      
+      <div>
+        <head>Lier l'image à la transcription</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
+          <graphic xml:id="page1" url="page1.png"/>
+          <graphic xml:id="page2" url="page2.png"/>
+          <graphic xml:id="page3" url="page3.png"/>
+          <graphic xml:id="page4" url="page4.png"/>
+        </facsimile>
+          <!-- ... -->
+          <text>
+            <pb facs="#page1"/>
+            <!-- texte de la  page 1 facultativement transcrit ici -->
+            <pb facs="#page2"/>
+            <!-- texte de la  page 1 facultativement transcrit ici -->
+          </text>
+        </egXML>
+        
+      </div>
+      
+      <div>
+        <head>Lier deux parties d'une image</head>
+        <list>
+          <item>on se sert de <gi>surface</gi> pour définir un systeme un système abstrait de
+            coordonnées </item>
+          <item>on se sert de <gi>zone</gi> pour définir une zone d'intérêt </item>
+          <item>on se sert de <gi>graphic</gi> pour fournir une image de la zone ou surface qui le
+            contient </item>
+        </list>
+      </div>
+      
+      <div>
+        <head> Bovelles-49r.png</head>
+        
+        <figure>
+          <graphic url="../Graphics/facs-fig1.png" height="250px"/>
+        </figure>
+        
+      </div>
+      
+      <div>
+        <head>Encodage pour cette image</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
+          <surface ulx="0" uly="0" lrx="200" lry="300">
+            <zone xml:id="B49r" ulx="0" uly="0" lrx="200" lry="300">
+              <graphic url="Bovelles-49r.png"/>
+            </zone>
+            <zone ulx="105" uly="76" lrx="175" lry="160">
+              <graphic url="Bovelles49r-detail.png"/>
+            </zone>
+            <zone xml:id="B49rHead" ulx="25" uly="25" lrx="180" lry="60"/>
+            <!-- contient le titre -->
+            <zone xml:id="B49rPara2" ulx="28" uly="75" lrx="175" lry="178"/>
+            <!-- contient le paragraphe en italique  -->
+            <zone xml:id="B49rFig1" ulx="105" uly="76" lrx="175" lry="160"/>
+            <!-- contient l'image de cloche  -->
+            <zone xml:id="B49rW457" ulx="45" uly="125" lrx="60" lry="130"/>
+            <!-- contient le mot "pendans" -->
+          </surface>
+        </facsimile></egXML>
+        <p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
+        
+      </div>
+      <div>
+        <head>La transcription</head>
+        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><pb facs="#B49r"/>
+          <fw>De Geometrie 49</fw><head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET <lb/> des
+            alleures des chevaulx, chariotz &amp; charges, des fontaines:&amp; <lb/> encyclie du
+            monde, &amp; de la dimension du corps humain.</head>
+          <head>Chapitre septiesme</head>
+          <div n="1">
+            <p>Le son &amp; accord des cloches pendans en ung mesme <lb/> axe, est faict en
+              contraires parties.</p>
+            <p rend="it" facs="#B49rPara2">LEs cloches ont quasi fi<lb/>gures de rondes
+              pyra<lb/>mides imperfaictes &amp; <lb/> irregulieres: &amp; leur accord se <lb/> fait
+              par reigle geometrique. Com<lb/>me si les deux cloches C &amp; D <lb/> sont <w
+                facs="#B49rW457">pendans</w> à ung mesme axe <lb/> ou essieu A B: je dis que leur
+              ac<lb/>cord se fera en co<ex>n</ex>traires parties<lb/> co<ex>m</ex>me voyez icy
+              figuré. Car qua<ex>n</ex>d <lb/> lune sera en hault, laultre declinera embas.
+              Aultrement si elles decli<lb/>nent toutes deux ensembles en une mesme partie, elles
+              seront discord, <lb/> &amp; sera leur sonnerie mal plaisante à oyr.<figure
+                facs="#B49rFig1"/>
+            </p>
+          </div></egXML>
+      </div>
+      
+      
     </body>
   </text>
 </TEI>

@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Initiation à l'encodage XML-TEI</title>
+	<author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+        <p></p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Derived from lots of other talks</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <list type="unordered">
+        <item><date>27 aug 12</date>LB: revised a bit for Berne</item>
+        <item><date>15 aug 06</date>LB: revised for 2010 version</item>
+        <item><date>15 aug 06</date>LB: revamp from ODP version francais</item>
+        <item><date>25 Jan 05</date>LB: revamp</item>
+        <item><date>11 No 04</date> SR: revamp</item>
+        <item><date>19 Jan 03</date> LB: minor revisions</item>
+        <item><date>16 Feb 03</date> LB: first draft</item>
+      </list>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+      <div rend="slide">
+        <head>Objectif de cette session</head>
+	<p>Répondre à ces questions :
+        <list type="ordered">
+          <item>Qu'est-ce qu'un <term>texte</term>? qu'est-ce qu'un
+	  <term>document</term> ? </item>
+	  <item>Qu'est-ce que le <term>balisage</term> ? </item>
+          <item>C'est quoi le <term>balisage XML</term>? Pourquoi est-il devenu si
+	  important?</item>
+        </list></p>
+      </div>
+
+<div><head>La tournée numérique</head>
+<p>Les sciences humaines et sociales s'occupent surtout du
+<emph>texte</emph> ...
+<list>
+<item>(majoritairement non-numérique) les livres, les manuscrits, les fonds d'archive ... </item>
+<item>ainsi que d'autres manifestations culturelles/communicatives (de plus en plus numerisées) par
+ex., les sons, les images, les cahiers de recherches, les tweets
+</item></list></p>
+<p>Les <q>digital humanities</q> se préoccupent avec les outils et les
+techniques qui permettent de manipuler d'une manière integrée toutes
+ces manifestations, et donc de gérer ce patrimoine de plus en plus signifiant.</p>
+<p rend="box">Le balisage (markup, encodage) est une composante
+incontournable de ces manipulations</p></div>
+
+<div><head>Texte et texte numérique</head>
+<p>Un texte peut être considéré selon trois axes :
+<list>
+<item>Un texte a une existence physique, ayant des <hi>traits
+visuels</hi> qu'on peut (plus ou moins) transférer automatiquement d'une instance à une
+autre</item>
+<item>Un texte possède des propriétés linguistiques et structurelles, qu'on
+ne peut transcrire, traduire, ou transmettre qu'avec une compréhension
+humaine</item>
+<item>Un texte présente des informations sur le monde réel, qu'on peut
+comprendre (ou non) ou annoter, et qui nous permet de générer de
+nouveaux textes</item>
+</list></p>
+<p rend="box">Un balisage effectif devrait donc opérer dans tous ces
+trois axes.</p>
+</div>
+
+<div><head>Un text numérique peut être ... </head>
+  <p rend="box">un <q>substitut</q> (surrogate) représentant
+    l'apparence d'un document existant</p>
+  <figure><graphic url="../Graphics/graves-2.png" height="80%"/></figure>
+  
+</div>
+
+<div><head> ... ou bien </head>
+  <p rend="box">une représentation du contenu linguistique,
+    et structure, avec annotations sur sa portée, son contexte..</p>
+  <figure><graphic url="../Graphics/graves-1.png" height="80%"/></figure>
+
+</div>
+
+
+<div rend="slide"><head>Qu'est-ce qu'on fait en numérisant un texte?</head>
+<figure>
+<graphic url="../Graphics/model-fr.png"/>
+</figure></div>
+
+
+      <div rend="slide">
+        <head>La TEI pourrait nous aider...</head>
+        <p>Elle représente un modèle conceptuel de texte bien établi
+	 qui facilite : <list>
+	<item>la conversion des données existantes</item>
+            <item>la création des données nouvelles</item>
+            <item>l'intégration des données déja existantes mais
+	    répandues dans plusieurs sources</item>
+        </list></p>
+        <p>Elle est basée sur des formats ouverts et des technologies
+      ouvertes</p>
+<p>Elle s'appuye sur une théorie explicite de l'ontologie
+textuelle </p>
+</div>
+
+
+        <div rend="slide">
+	  <head>Est-ce que ceci représente la même chose ?</head>
+
+<figure>
+<graphic  url="../Graphics/duBellay-1.png"/>
+</figure>
+</div>
+        <div rend="slide">
+	  <head>Et ceci  ?</head>
+
+<figure>
+<graphic  url="../Graphics/duBellay-1a.png"/>
+</figure>
+</div>
+
+
+
+        <div>
+          <head>Un texte n'est pas un document...</head>
+          <p>En quoi consiste l'essentiel d'un texte ? <list rend="pause">
+              <item>en l'apparence des lettres et leur mise-en-page?</item>
+              <item>en la version originelle (supposée) de cette copie?</item>
+              <item>en les interprétations/lectures apportées ou
+	      trouvées? </item>
+<item>en les intentions (supposées) de son auteur? </item>
+            </list>
+          </p>
+<p rend="box">Un "document" est une chose physique, que nous pouvons <emph>numériser</emph>.</p>
+          <p rend="box">Un "texte" est une abstraction, construite par
+	  ou pour une communauté de lecteurs, que nous pouvons <emph>encoder</emph>.</p>
+        </div>
+
+      <div rend="slide">
+        <head>L'encodage</head>
+        <list type="bulleted">
+          <item>Un texte est plus qu'une séquence de caractères
+	  encodés!</item>
+<item>Un texte est plus qu'une séquence de formes lexicales!
+<list><item>Il a une  <hi>structure</hi> et une
+<hi>signification</hi></item>
+<item>Un texte peut avoir plusieurs <hi>lectures</hi> variantes</item>
+<item>La portée d'un texte peut être <hi>enrichie</hi> par des annotations</item> </list></item>
+          <item>L'encodage explicite les lectures</item>
+          <item>Sans explicitation, on ne peut rien traiter 
+</item>
+        </list>
+      </div>
+
+<div><head>L'effet Babel</head>
+<p>Bien sûr il existe plusieurs lectures possibles pour la
+plupart des textes...</p>
+<p><figure>
+<graphic url="../Graphics/loomings.png" width="90%"/>
+</figure></p>
+<p>... et (malheureseument) plusieurs manières d'expression pour ces
+lectures!</p>
+</div>
+
+<div rend="slide"><head>Encodage ou babel?</head>
+<figure>
+<graphic url="../Graphics/moby.png" height="60%"/>
+</figure>
+<list>
+<item rend="pause">Bonne nouvelle: il existe des logiciels capables de traduire
+entre 500 formats divers</item>
+<item rend="pause">Mauvaise nouvelle: on en a besoin</item>
+</list>
+</div>
+
+<div rend="slide"><head>Echange d'informations (1)</head>
+<figure>
+<graphic url="../Graphics/echange-1.png" />
+<head>sans format pivot: 20 passerelles requises (n*n-n)</head>
+</figure></div>
+<div rend="slide"><head>Echange d'informations (2)</head>
+<figure>
+<graphic url="../Graphics/echange-2.png" height="80%"/>
+<head>avec format pivot: 10 passerelles requises (2n)</head></figure> </div>
+
+
+      <div rend="slide">
+        <head>Définitions</head>
+        <list type="bulleted">
+          <item>Un balisage explicite les distinctions qu'on désire
+	  faire en traitant une chaîne de caractères</item>
+          <item>Le balisage est une manière de nommer et de
+	  caractériser les composants d'une structure textuelle, d'une
+	  manière quasiment formelle</item>
+          <item>Quel genre de composants? La réponse dépend des usages
+	  prévus...</item>
+        </list>
+      </div>
+
+        <div rend="slide">
+          <head>Séparation de forme et contenu</head>
+          <list type="bulleted">
+            <item rend="pause">Un balisage descriptif s'intéresse plus
+	    au contenu qu'à sa mise en forme
+<list>
+	    <item rend="pause">cette séparation facilite la réutilisation</item>
+	    <item rend="pause">et augmente la flexibilité</item></list></item>
+<item rend="pause">Un balisage présentationnel par contre s'intéresse plus à l'affichage qu'à sa sémantique</item>
+
+	  </list>
+	</div>
+
+
+      <div rend="slide">
+        <head>Qu'est ce qu'on balisera?</head>
+        <p>Comparer: </p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><pb n="4"/>A MONSEI-
+<lb/>GNEUR LE REVE-
+<lb/>rendissime Cardinal
+<lb/>du Bellay.
+<lb/>S
+<lb/><c rend="lettrine">V</c>EU le Personnaige,
+<lb/>que tu joues au Spec-
+<lb/>tacle de toute l'Europe...</egXML>
+<p> avec </p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"><div type="dedicace">
+<head>A MONSEIGNEUR LE REVERENDISSIME CARDINAL DU BELLAY</head>
+<salute>S<ex>alut</ex></salute>
+<p><c rend="lettrine">V</c>EU le Personnaige, que tu joues au
+Spectacle de toute l'Europe...
+</p>...</div></egXML>
+        </div>
+
+<div><head>... et avec </head>
+<egXML xmlns="http://www.tei-c.org/ns/Examples"><pb n="4"/>
+<s><w pos="PPJ" lemma="voir">VEU</w>
+<w pos="ART" lemma="le">le</w>
+<w pos="SBC" lemma="personnage">Personnaige</w>
+<pc>,</pc>
+<w pos="COO" lemma="que">que</w>
+...</s>
+</egXML>
+<p>ou bien</p>
+<egXML xmlns="http://www.tei-c.org/ns/Examples">
+<s><choice><reg>Vu</reg><orig>Veu</orig></choice>
+le <choice><reg>Personnage</reg><orig>Personnaige</orig></choice>,
+que tu joues au Spectacle...</s>
+</egXML>
+</div>
+
+<div rend="slide"><head>Notre système d’encodage devrait être capable
+de..</head>
+<list>
+<item>spécifier les caractères d’un texte</item>
+<item>expliciter la/les structures aperçue/s dans un texte</item>
+<item>linéariser le texte </item>
+<item>spécifier les méta-informations, renseignements contextuels etc.</item>
+</list>
+<p rend="box">Jusqu'à présent, XML semble une bonne solution ...</p>
+</div>
+
+      <div rend="slide">
+        <head>La bonne soupe d'acronymes</head>
+        <table>
+          <row><cell>SGML</cell>
+          <cell>Standard Generalized Markup Language</cell></row>
+          <row><cell>HTML</cell>
+          <cell>Hypertext Markup Language</cell></row>
+          <row><cell>W3C</cell>
+          <cell>World Wide Web Consortium</cell></row>
+          <row><cell>XML</cell>
+          <cell>eXtensible Markup Language</cell></row>
+          <row><cell>DTD</cell>
+          <cell>Document Type Definition (or Declaration)</cell></row>
+          <row><cell>CSS</cell>
+          <cell>Cascading Style Sheet</cell></row>
+          <row><cell>Xpath</cell>
+          <cell>XML Path Language</cell></row>
+          <row><cell>XSLT</cell>
+          <cell>eXtensible Stylesheet Language - Transformations</cell></row>
+          <row><cell>RelaxNG</cell>
+          <cell>Regular Expression Language for XML (New Generation)</cell></row>
+        </table>
+        <p>à ne pas oublier
+	<hi>TEI</hi>, la <emph>Text Encoding Initiative</emph></p>
+      </div>
+      <div rend="slide">
+        <head>XML: ce que c'est et pourquoi on devrait le  connaitre</head>
+        <list>
+          <item>XML est une manière de représenter les <hi>données
+	  structurées</hi> sous forme de chaîne de caractères</item>
+          <item>un document XML ressemble à un document  HTML, sauf que:-<list><item>XML est
+       <hi>extensible</hi> 
+       </item><item>un document XML doit être  <hi>bien formé</hi> 
+        </item><item>un document XML peut être <hi>valide</hi> 
+       </item></list>
+       </item>
+          <item>XML est indépendant de l'application, de la plateforme et du vendeur </item>
+          <item>XML rend le pouvoir aux fournisseurs de données, et
+	  facilite l'intégration des ressources diverses et polyglottes</item>
+        </list>
+      </div>
+
+
+<div><head>(Presque) tout ce qu'il faut savoir au sujet de l'XML, sur
+un seul transparent</head>
+<list>
+<item>Un document XML contient au moins un
+<term>élément</term></item>
+<item>Un élément possède une <term>balise d'ouverture</term>,
+facultativement de 
+<term>contenu</term> et une  <term>balise de fermeture</term></item>
+<item>Un élément peut d'ailleurs porter des <term>attributs</term>,
+chacun portant un <term>nom</term> et une <term>valeur</term></item>
+<item>Un document XML est <emph>obligatoirement </emph> <soCalled>well
+formed</soCalled> (bien-formé)
+i.e. il doit suivre la syntaxe XML</item>
+<item>Un document bien-formé peut 
+<emph>facultativement</emph> être  <term>valide</term> i.e. il est
+conforme aux règles d'une <term>schéma</term> quelconque</item>
+</list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <![CDATA[<?xml version="1.0" ?>
+            <root>
+              <element attribute="value"> content </element>
+              <!-- comment -->
+            </root>]]>
+        </egXML>
+
+</div>
+
+
+        <div rend="slide">
+        <head>Un petit document XML </head>
+        <eg><![CDATA[   <?xml version="1.0" encoding="utf-8" ?>
+     <cookBook>
+     <recipe n="1">
+       <head>Soupe de pierre</head>
+       <ingredientList>
+         <ingredient>un oignon</ingredient>
+         <ingredient>deux carottes</ingredient>
+         <ingredient>de l'eau</ingredient>
+            ...
+         <ingredient>une pierre</ingredient>
+         <ingredient>des paysans naïfs</ingredient>
+       </ingredientList>
+       <procedure>
+         <step>mettre l'eau à bouillir dans un grande chaudron</step>
+          ....   
+         <step>enlever la pierre et servir</step>
+       </procedure>  
+      </recipe>
+      <recipe n="2"> 
+              <!-- deuxieme recette ici -->
+     </recipe>
+            <!-- hic desunt multa -->
+  </cookBook>
+]]></eg>
+      </div>
+      <div rend="slide">
+        <head>Syntaxe XML</head>
+        <p>Un document  XML contient:-
+     <list><item>des <term>éléments</term>, qui portent (facultativement)
+     des <term>attributs</term>, marqués par des <term>balises</term>
+</item>
+     <item>des <term>commentaires</term> </item>
+<item>des <term>instructions de traitement</term></item>
+<item>des <term>références à entité</term> (interne ou externe) </item>
+<item>des <hi>sections CDATA</hi> </item>
+<item>...et des caractères Unicode </item></list>
+     </p>
+        <p>C'est tout!</p>
+      </div>
+      <div rend="slide">
+        <head>XML: règles du jeu</head>
+        <list>
+          <item>Un document XML représente une arborescence composée
+	  de <hi>noeuds</hi>
+       </item>
+
+<item>il y a un seul noeud racine qui contient tous les autres</item>
+          <item>chaque noeud peut être <list><item>une
+	  arborescence</item>
+<item>un <hi>élément</hi> (qui porte facultativement des
+<hi>attributs</hi>)</item>
+<item>une chaîne  de <hi>caractères</hi>
+       </item></list>
+       </item>
+
+          <item>Chaque
+       élément porte un nom ou <hi>identification générique</hi>
+       </item>
+          <item>Chaque attribut porte un nom et une valeur</item>
+<item>les noms sont liés avec un <hi>namespace</hi> (espace de noms)</item>
+
+        </list>
+      </div>
+      <div rend="slide">
+        <head>Représentation d'une arborescence  XML</head>
+        <list>
+          <item>Un document XML linéarisé commence par une instruction
+	  de traitement spécial</item>
+          <item>Les occurrences d'élément sont marquées entre <hi>balises
+	  ouvrantes</hi> et <hi>balises fermantes</hi> 
+       </item>
+          <item>Les paires nom/valeurs qui constituent les attributs
+	  d'un élément peuvent apparaître sans ordre à l'intérieur
+	  d'une balise ouvrante</item>
+          <item>Les caractères  &lt; et &amp; sont Magiques et doivent
+	  être cachés au moyen de références entité (&amp;lt; et
+	  &amp;amp; respectivement)</item>
+	  <item>L'espace de noms auquel appartient un  élément
+	  peut être signalé par un  <hi>namespace-prefix</hi>
+	  (p.e. xml:) prédéfini</item>
+<item>Les <term>commentaires</term> sont délimités par
+<code>&lt;--</code>  et <code>--&gt;</code></item>
+<item>Les <term>références entité</term> sont délimités par
+<code>&amp;</code>  et <code>;</code></item>
+<item>Les <term>sections CDATA</term> sont délimités par
+<code>&lt;![CDATA[</code>  et <code>]]&gt;</code>
+</item>
+        </list>
+      </div>
+      <div rend="slide">
+        <head>Syntaxe XML: le "fine print"</head>
+        <p>Pour qu'un document soit <term>bien formé</term>, il faut que: 
+        <list type="ordered">
+          <item>une seul racine contienne le document entier</item>
+          <item>chaque arborescence soit proprement imbriquée</item>
+          <item>tous les noms soient sensibles à la casse</item>
+          <item>chaque balise ouvrante ait sa balise fermante (sauf
+	  qu'on peut combiner les deux, le noeud étant vide)</item>
+          <item>les valeurs d'attribut soient présentées correctement
+	  entre guillemets</item>
+        </list></p>
+      </div>
+      <div rend="slide">
+        <head>Bien formé? Oui ou non?</head>
+
+<list type="unordered">
+                <item rend="pause">
+                  <code><![CDATA[<seg>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg><foo>some</foo> <bar>text</bar></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg><foo>some <bar></foo> text</bar></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type='text'>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type=text>some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type = "text">some text</seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text<seg/>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text<gap/></seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text< /seg>]]></code>
+                </item>
+                <item rend="pause">
+                  <code><![CDATA[<seg type="text">some text</Seg>]]></code>
+                </item>
+              </list>
+        </div>
+
+
+        <div rend="slide">
+          <head>XML est un standard international</head>
+          <list>
+            <item>Un document XML doit respecter le standard ISO 10646 (aka Unicode) <list>
+                <item>un répertoire de caractères 31-bit adéquate à la
+		plupart des systèmes d'écriture humaine</item>
+                <item>encodé en deux formats  UTF8 ou UTF16</item>
+              </list></item>
+            <item>un document peut spécifier qu'il contient les mêmes
+	    caractères encodés d'une autre manière (notamment ISO 8859)</item>
+            <item>un élément peut spécifier le langage de son contenu avec
+                l'attribut prédéfini <att>xml:lang</att></item>
+          </list>
+          <p rend="box">Un attribut <att>xml:id</att> est également
+	  prédéfini par le W3C.</p>
+        </div>
+
+
+
+      <div rend="slide">
+        <head>Validation XML</head>
+        <p>Un document XML <term>valide</term> est (bien sûr) bien formé,
+	et en plus conforme à des règles supplémentaires, qui
+	constituent un <term>schéma</term>
+</p>
+
+        <p>Avec un schéma, on peut spécifier :
+<list><item>les nom des éléments qui constituer la racine d'un document</item>
+<item>les noms de tous les éléments légaux </item>
+<item>les noms, les types, et les valeurs par defaut de tous les attributs</item>
+<item>des règles concernant l'imbrication et le contenu des éléments</item>
+<item>et quelques autres menus propos...</item></list>
+            </p>
+        <p>Un schéma donc vous permet de contrôler par exemple
+	que <q>tout chapitre ait son titre</q>, que <q>toute recette
+	comporte une liste d''ingredients</q>, que <q>le valeur de tout attribut
+	<att>when</att> soit conforme au standard ISO</q> ... etc.</p>
+<p>Un espace de  noms, par contraste, ne vous permet que de labelliser
+le vocabulaire d'où est derivé un ensemble d'éléments.</p>
+      </div>
+      <div>
+        <head>Langues de schéma</head>
+        <p>Un schéma est  exprimé dans une langue
+	formelle. Actuellement, on peut choisir entre : 
+	<list><item>WSD: langage schéma du  W3C</item>
+<item>RNG: norme ISO "Relax NG" </item>
+<item>DTD: norme ISO </item></list>
+    </p>
+        <p>La TEI se sert de Relax NG </p>
+
+<p>        <graphic width="2in" url="../Graphics/relax.png"/></p>
+      </div>
+
+<div><head>Exercice 1</head>
+<p>D'abord, nous allons expérimenter un logiciel spécialisé pour créer
+et modifier des fichiers XML...</p>
+</div>
+
+
+
+
+</body></text></TEI>
