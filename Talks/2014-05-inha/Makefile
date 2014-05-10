@@ -18,6 +18,7 @@ EXERCISES= \
 	exercice-initiale \
 	exercice-header \
 	exercice-roma \
+	exercice-oxygen-2 \
 	exercice-semantique \
 	exercice-diffusion \
 	exercices-xslt
