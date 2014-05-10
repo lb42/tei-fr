@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+    xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc>
+   <titleStmt>
+    <title>Description des manuscrits</title>
+    <author>Lou Burnard</author>
+    <!--author>Laetita Bontemps</author-->
+   </titleStmt>
+   <publicationStmt>
+    <publisher>TEI</publisher>
+    <availability>
+     <p>Freely available for use and derivative works under a Creative
+      Commons Attribution license.</p>
+    </availability>
+    <date>2010-11</date>
+   </publicationStmt>
+   <sourceDesc>
+    <p>Some bits may be lifted from previous talks/workshops by the TEI
+     Community.</p>
+   </sourceDesc>
+  </fileDesc>
+ </teiHeader>
+ <text>
+  <body xml:lang="fra">
+   <div>
+    <head>Objectifs</head>
+       <p><graphic url="../Graphics/morrisCatalog.jpg" height="50%"/> <graphic url="../Graphics/catalogCard.jpg" height="50%"/>
+           <!-- William-Morris-autograph-calligraphic-manuscript-catalogue-of-his-library-ca.1890.--></p>
+    <list type="unordered">
+     <item>découvrir les balises spécifiques pour l’encodage de
+      descriptions des manuscrits</item>
+    </list>
+       <p>
+           </p>
+   </div>
+
+            <div rend="slide">
+                <head>Le manuscrit: un cas particulier</head>
+                <list>
+                    <item>Un manuscrit est un object
+		    <emph>unique</emph>, souvent d'importance culturel
+		    ou politique majeur.</item>
+                    <item>Un livre, par contre, existe d'habitude en
+		    pluseurs exemplaires. Une description adéquate
+		    se fait avec l'aide des conventions bien établies,
+		    bien connues.</item>
+                    <item>Pour les manuscrits, il existe plusieurs
+		    traditions de documentation, et peu de consensus. </item>
+                </list>
+                <p>On pourrait dire autant pour d'autres objets
+		"texte-portant" p.e. les inscriptions classiques... cf
+		Epidoc</p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Propositions de la TEI</head>
+                <p>La  TEI propose un élément <gi>msDesc</gi>, apte à 
+		plusieurs applications: <list>
+                        <item>base de donnee de record bibliographique
+			 (<term>finding
+                            aid</term>)</item>
+                        <item>texte discursif contenant plusieurs  records (<term>catalogue
+                                raisonn&#x00E9;</term>)</item>
+                        <item>assemblage des metadonnees au sein d'une
+			edition numerique (<term>electronic
+                                edition</term>)</item>
+                        <item>instrument pour la <soCalled>codicologie quantitative</soCalled></item>
+                    </list></p>
+<p rend="box">Avoir le beurre et l'argent du beurre?</p>   
+         </div>
+
+
+            <div rend="slide">
+                <head>Catalogue Raisonn&#x00E9;</head>
+                <p>Un  <gi>msDesc</gi> peut apparaître aux memes lieux
+		 qu'un <gi>p</gi> paragraphe</p>
+
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    <div>
+                        <head>Bibliotheque virtuel des humanistes</head>
+                        <p>Le BVH se situe à l'Universite Francois
+			Rabelais de Tours. Parmi ses fonds sont à
+			regarder quelques manuscrits remarquables  du 16e siecle …</p>
+                        <p>Ce manuscrit par exemple. </p>
+			<msDesc xml:id="BVH-0101"
+                                xml:lang="fr"><!-- …--></msDesc>
+                        <p>Par contre, cet autre  manuscrit…</p>
+			<msDesc xml:id="BVH-0595" xml:lang="fr"
+                                ><!-- …--></msDesc>
+                                            </div>
+                </egXML>
+<p>Dans ce cas, la description aura tendence belle-lettriste</p>
+            </div>
+
+            <div rend="slide">
+                <head>Application du <gi>msDesc</gi> dans l'édition numérique</head>
+                <p>Un  <gi>msDesc</gi> peut apparaître aussi au sein
+		du <gi>teiHeader</gi> attaché à une édition numérique
+		d'un ou plusieurs manuscrits.</p>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<TEI><teiHeader><fileDesc><titleStmt><title>Edition numérique du Ms 629</title>
+<!-- ... --></titleStmt>
+<sourceDesc>
+<msDesc><!-- ... --></msDesc>
+</sourceDesc></fileDesc></teiHeader><text><!--...--></text></TEI>
+		</egXML>
+<p>Dans ce cas, la description aura tendence bas-de-données</p>
+	    </div>
+<!--
+            <div rend="slide">
+                <head>Having one's cake and eating it</head>
+                <p>Two conflicting desires: <list>
+                        <item>preserve (or perpetuate) existing descriptive prose</item>
+                        <item>reliable search, retrieval, and analysis of data</item>
+                    </list>
+                </p>
+                <p>The <gi>msDesc</gi> tries, wherever possible, to do both of these things. </p>
+            </div>
+-->
+
+            <div rend="slide">
+                <head>Composants du <gi>msDesc</gi> (1)</head>
+                <p>L'élément <gi>msDesc</gi> doit contenir un élément
+		<gi>msIdentifier</gi> qui fournit 
+		une identification (ou plusieures) du manuscrit</p>
+<p>Facultativement il est completé par une séléction d' éléments plus spécialisés:
+ <list>
+                        <item><gi>msContents</gi>: décrit le contenu
+			intellectuel, soit en <gi>p</gi>, soit avec une
+    série d'éléments structurés (<gi>msItem</gi>) pour chacun des items du manuscrit.
+</item>
+                        <item><gi>physDesc</gi>: contient une
+			description physique complète, soit en
+			<gi>p</gi>, soit avec une série d'éléments
+      plus spécialisés, chacun décrivant  les pages, l'écriture, la reliure etc.
+</item>
+                        <item><gi>history</gi>: contient  un historique
+      complet du manuscrit et sa provenance, soit  en
+			<gi>p</gi>, soit avec d'éléments
+      plus spécialisés.
+</item>
+     <item><gi>additional</gi>: contient des informations supplémentaires,
+     notamment administratives concernant sa disponibilité, son historique
+     de sa conservation, etc. </item>
+                   			  </list>
+		</p>
+	    </div>
+
+
+<div><head>Exemple </head>
+
+  <egXML rend="tiny"
+      xmlns="http://www.tei-c.org/ns/Examples">            <sourceDesc>
+                <msDesc>
+                    <msIdentifier>
+                        <country>France</country>
+                        <settlement>Paris</settlement>
+                        <repository>Archives nationales</repository>
+                        <collection>Commerce et Industrie</collection>
+                        <idno>F/12/5080</idno>
+                    </msIdentifier>
+                    <msContents>
+                        <p>Minute d’un rapport de proposition à la
+                        Légion d’honneur fait, en 1850, par le
+                        ministre du Commerce et de l’Agriculture et
+                        président de la Société de géographie,
+                        Jean-Baptiste Dumas, au Président de la
+                        République, en faveur des frères d’Abbadie,
+                        Antoine (1810-1897) et Arnaud (1815-1893),
+                        auteurs d’un voyage en Abyssinie.</p>
+                    </msContents>
+                    <physDesc>
+		      <p>Deux feuilles de papier 24 x 12 cm; écriture
+		      encre noir.</p>
+                        <handDesc>
+                            <handNote xml:id="AA" scope="major"
+                                >Antoine d’Abbadie</handNote>
+                            <handNote xml:id="DJB" scope="minor"
+                                >Jean-Baptiste Dumas</handNote>
+                            <handNote xml:id="EPR" scope="minor"
+                                >membre inconnu du cabinet du ministre</handNote>
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+  </egXML></div>
+
+            <div rend="slide">
+                <head>Identification (1)</head>
+                <p>L'élément <gi>msIdentifier</gi></p>
+                <p>Une spécification classique est divisée en trois: <list>
+                        <item>lieu (<gi>country</gi>, <gi>region</gi>, <gi>settlement</gi>)</item>
+                        <item>entrepôt (<gi>institution</gi>, <gi>repository</gi>)</item>
+
+                        <item>identifiant (<gi>collection</gi>, <gi>idno</gi>) </item>
+                    </list>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <msIdentifier>
+                            <country>France</country>
+                            <settlement>Troyes</settlement>
+                            <repository>Bibliothèque Municipale</repository>
+                            <idno>50</idno>
+                        </msIdentifier>
+                    </egXML>
+                </p>
+            </div>
+
+            <div rend="slide">
+                <head>Identification (2)</head>
+                <p>L'élément <gi>msName</gi> fournit un nom ou une
+		appellation familiere (surnom): <egXML 
+                        xmlns="http://www.tei-c.org/ns/Examples">
+                        <msIdentifier>
+                            <country>Danmark</country>
+                            <settlement>København</settlement>
+                            <repository> Det ArnamagnæanskeInstitut </repository>
+                            <idno>AM 45 fol.</idno>
+                            <msName xml:lang="la">Codex Frisianus</msName>
+                            <msName xml:lang="is">Fríssbók</msName>
+                        </msIdentifier>
+                    </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Contenu intellectuel</head>
+                <list>
+                    <item>Des paragraphes…</item>
+                    <item>… ou une arborescence d'éléments <gi>msItem</gi></item>
+                    <item>… précedée d'une sommaire facultative</item>
+                </list>
+                <p>On peut décrire le contenu à un niveau general:<egXML rend="tiny"
+                        xmlns="http://www.tei-c.org/ns/Examples">
+                        <msContents>
+                            <p>Receuil des comptes fiscales de
+			    l'Abbeye de Nimportou.</p>
+                        </msContents>
+                    </egXML>ou on peut distinguer et détailler chaque
+		    item (ou quelques un): <egXML rend="tiny"
+                        xmlns="http://www.tei-c.org/ns/Examples">
+                        <msContents>
+                            <summary>Receuil des comptes fiscales de
+			    l'Abbeye de Nimportou..</summary>
+                            <msItem>
+                                <!-- compte 1 -->
+                            </msItem>
+                            <msItem>
+                                <!-- compte 2 -->
+                            </msItem>
+                        </msContents>
+                    </egXML>
+                </p>
+            </div>
+
+            <div rend="slide">
+                <head>L'élément <gi>msItem</gi></head>
+                <p>Un manuscrit contient plusieurs items distincts, chacun en
+		principe localisé dans un (ou plusieurs) lieu(x), ce
+		qu'on appelle son  <term>locus</term>. <list>
+                        <item>L'element <gi>locus</gi> contient une
+			localisation formelle, facultativement
+			normalisée par les  attributs
+			<att>from</att> et <att>to</att> </item>
+                        <item>et suivie d'une sélection des: <list>
+                                <item><gi>author</gi>, <gi>respStmt</gi></item>
+
+                                <item><gi>title</gi>, <gi>rubric</gi>, <gi>incipit</gi>,
+                                        <gi>explicit</gi>, <gi>colophon</gi>, <gi>finalRubric</gi>
+                                </item>
+                                <item><gi>quote</gi>, <gi>textLang</gi>, <gi>decoNote</gi>,
+                                        <gi>bibl</gi>, <gi>listBibl</gi>, <gi>note</gi> …</item>
+                                <item>… ou un <gi>msItem</gi> imbriqué</item>
+                            </list></item>
+                    </list>
+                </p>
+            </div>
+
+            <div>
+                <head><gi>msContents</gi> avec plusieurs <gi>msItem</gi>s </head>
+                <p>
+                    <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+                        <msContents>
+                            <msItem n="1">
+                                <locus from="5r" to="7v">fols. 5r-7v</locus>
+				<incipit>Pater noster qui es in celis</incipit>
+                            </msItem>
+                            <msItem n="2">
+                                <locus from="7v" to="8v">fols. 7v-8v</locus>
+      <incipit defective="true">tatem dedit hominibus  alleluia.</incipit>
+                            </msItem>
+                            <!-- … -->
+                            <msItem n="6" >
+                                <locus from="14r" to="126v">fols. 14r-126v</locus>
+				<author>Chaucer, Geoffrey </author>
+                                <title type="uniform">Troilus and Criseyde</title>
+                            </msItem>
+                        </msContents>
+                    </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Description physique</head>
+                <p>Une groupement commode de plusieurs items:</p>
+<list>
+                        <item><gi>objectDesc</gi>: le support matériel
+			du manuscrit</item>
+                        <item><gi>handDesc</gi>: description d'écritures </item>
+                        <item><gi>musicNotation</gi>, <gi>decoDesc</gi>, <gi>additions</gi>
+                        musique, decoration,
+			annotations</item>
+                        <item><gi>bindingDesc</gi> et
+			<gi>sealDesc</gi>: reliure, sceaux</item>
+                        <item><gi>accMat</gi>: materiaux
+			associés/attachés  </item>
+                    </list> 
+                <p>Comme ailleurs, éléments généralement fournissant un choix
+		entre des éléments plus ou moins structurants et une
+		description en prose.</p>
+            </div>
+
+            <div>
+                <head><gi>physDesc</gi> exemple simple </head>
+                <p>
+                                   <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+<physDesc>
+                  <objectDesc>
+                     <supportDesc>
+                        <condition>
+                           <damage>Il manque les trois derniers feuillets, dont deux blancs.</damage>
+                        </condition>
+                     </supportDesc>
+                  </objectDesc>
+                  <bindingDesc>
+                     <binding>
+                        <p>Reliure maroquin vert, signée Koehler. Dos à 4 nerfs.
+                        </p>
+                     </binding>
+                  </bindingDesc>
+               </physDesc>
+				   </egXML></p></div>               
+
+            <div>
+                <head>Le support (1) </head>
+                <p><gi>objectDesc</gi> peut etre structuré en  <gi>supportDesc</gi> et
+                        <gi>layoutDesc</gi>
+                    <egXML  xmlns="http://www.tei-c.org/ns/Examples">
+                        <objectDesc form="codex">
+                            <supportDesc material="mixed">
+                                <p><material>parchemin</material> et
+                                        <material>papier</material> du
+				12eme siecle.</p>
+                            </supportDesc>
+                            <layoutDesc>
+                                <layout columns="1" ruledLines="25 32"/>
+                            </layoutDesc>
+                        </objectDesc>
+                    </egXML></p>
+            </div>
+
+            <div>
+                <head>Le support (2)</head>
+                <p>D'autres éléments structurants sont disponible pour
+		la description
+		détaillée du support materiel: 
+                   <gi>support</gi>,      <gi>extent</gi>, <gi>foliation</gi>, <gi>collation</gi>,
+                    <gi>condition</gi> .</p>
+
+<egXML rend="tiny" 
+                        xmlns="http://www.tei-c.org/ns/Examples">        <supportDesc>
+          <support> Rouleau de parchemin avec des rubans de <material>soie</material>.</support>
+          <extent>
+            <dimensions type="binding">
+              <height unit="mm">155</height>
+              <width unit="mm">95</width>
+              <depth unit="mm">31</depth>
+            </dimensions>
+          </extent>
+        </supportDesc>
+    </egXML>
+
+    <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples" >
+      <supportDesc>
+<support>parchemin</support>
+      <foliation>Foliotation du 18eme en encre rouge au centre de la
+      marge exterieure des premiers pages de chaque cahier.</foliation>
+<collation>2 f. préliminaire, 52 f, 3 f. postliminaires.</collation>
+</supportDesc>
+    </egXML>
+
+
+	  
+	    </div>
+<div><head>Layout(s)</head>
+                <p>Plusiers mise-en-forme (layout)s peuvent etre specifiés: <egXML 
+                        xmlns="http://www.tei-c.org/ns/Examples">
+                        <layoutDesc>
+                            <layout ruledLines="25" columns="1">
+				    <p><locus from="1r" to="202v"/>
+                                    <locus from="210r" to="212v"/> 25
+				    lignes réglés.</p>
+                            </layout>
+                            <layout ruledLines="34 50" columns="2">
+                                <p><locus from="203r"
+				to="209v"/>Entre  34 et 50 lignes réglés, disposés en deux colonnes.</p>
+                            </layout>
+                        </layoutDesc>
+                    </egXML></p>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> et <gi>decoDesc</gi></head>
+<p>Ces éléments décrivent respectivement les mains (écritures)
+distinguées dans un manuscrit et les décorations, soit en prose, soit
+avec les éléments structurants:
+                <list>
+                    <item>
+                        <gi>handNote</gi> décrit un style d'écriture ou une main qui sont reconnus
+    dans un manuscrit. </item>
+                    <item><gi>decoNote</gi>contient une note décrivant soit un élément de
+      décoration du manuscrit, soit une catégorie relativement homogène de tels éléments.</item>
+                </list></p>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> example (1)</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <handDesc hands="2">
+                            <p>The manuscript is written in two contemporary hands, otherwise
+                                unknown, but clearly those of practised scribes. Hand I writes 
+				ff.1r-22v and hand II ff. 23 and 24. Some scholars, notably 
+				Verner Dahlerup and Hreinn Benediktsson, have argued for a 
+				third hand on f. 24, but the evidence for this is 
+			    insubstantial.</p>
+                        </handDesc>
+                    </egXML>
+                </p>
+            </div>
+
+            <div>
+                <head><gi>handDesc</gi> exemple (2)</head>
+                <p>
+
+     <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <physDesc>
+       <handDesc>
+        <handNote xml:id="secretaire" scope="major">Un secrétaire a
+         couché par écrit une liste de questions.</handNote>
+        <handNote xml:id="PDN" scope="minor">Philippe de Noailles
+         (1715-1794), intendant et gouverneur du château et domaine de
+         Versailles, a porté dans la marge de gauche les réponses du
+         roi, en paraphant ces réponses. Il a également signé le
+         document.</handNote>
+        <handNote xml:id="anonyme" scope="minor">une autre main à noté
+         la date du document en haut de la page.</handNote>
+       </handDesc>
+      </physDesc>
+     </egXML>
+
+                </p>
+            </div>
+
+
+            <div>
+                <head>
+                    Ajouts significatifs
+                </head>
+                <p> L'élément <gi>additions</gi> contient une description des ajouts significatifs
+      trouvés dans un manuscrit, tels que gloses marginales ou autres annotations. </p>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <additions>
+			  
+<p>The text of this manuscript is not interpolated with sentences 
+from Royal decrees promulgated in 1294, 1305 and 1314. In the
+margins, however, another somewhat later scribe has added the 
+relevant paragraphs of these decrees, see pp. 8, 24, 44, 47 
+etc.</p>
+<p>As a humorous gesture the scribe in one opening of the 
+manuscript, pp. 36 and 37, has prolonged the lower stems
+of one letter f and five letters þ and has them drizzle
+down the margin.</p>
+                        </additions>
+                    </egXML>
+                </p>
+            </div>
+
+            <div>
+                <head>Matériel d'accompagnement
+                </head>
+                <p>
+                    <gi>accMat</gi> (accompanying material) donne des détails sur tout matériel d'accompagnement
+      étroitement associé au manuscrit, tel que documents non contemporains ou fragments reliés avec
+      le manuscrit à une époque antérieure.</p>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <accMat>Une formulaire des impots datée  1947
+			était collée sur la derniere page; elle n'a
+			pas été cataloguée séparamment. </accMat>
+                    </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>
+   Historique du manuscrit       
+                </head>
+<p>L'élément  <gi>history</gi> rassemble les éléments servant à donner un historique
+      complet du manuscrit:
+                 <list>
+                    <item><gi>origin</gi>: informations sur l'origine du manuscrit </item>
+
+
+                    <item><gi>acquisition</gi>: informations sur les
+		    modalités d'entrée (&amp;c.) du manuscrit dans l'institution qui le
+      conserve</item>
+
+                    <item><gi>provenance</gi>: informations sur un épisode précis de
+      l'histoire du manuscrit, après sa création et avant son
+      acquisition</item>
+                </list></p>
+                <p><gi>origin</gi> est membre de la classe
+		<term>datable</term>, d'où sont derivés  les attributs normalisants
+                        <att>notBefore</att>, <att>notAfter</att>,
+		<att>when</att> etc. </p>            </div>
+
+            <div>
+                <head>Exemple</head>
+                <p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <history>
+          <origin notBefore="1750-01-01" notAfter="1750-12-31">
+            <p>Reliure exécutée par Louis-François Le Monnier (signature), Paris, vers 1750 d'après
+                <ref target="#bib01">Michon, 1956 (n° 38 (120)</ref> .</p>
+          </origin>
+      <provenance>Réportorié comme appartenant à l'abbé Untel en 1788.</provenance>
+      <provenance>Vendu par Sothebys en 1820.</provenance>
+          <acquisition notBefore="1833-12-31" notAfter="1848-01-31">Estampille n° 24, utilisée de
+            1833 à 1848</acquisition>
+        </history>
+      </egXML>
+                </p>
+            </div>
+
+
+            <div rend="slide">
+                <head>Informations supplémentaires</head>
+
+<p>L'élément <gi>additional</gi> regroupe:
+                <list>
+                    <item><gi>adminInfo</gi> : informations administratives</item>
+                    <item><gi>surrogates</gi> : informations sur surrogates, e.g.
+                        photos,  images numerisés etc.</item>
+                    <item><gi>listBibl</gi> : notices bibliographiques</item>
+                </list>
+</p>            </div>
+
+            <div rend="slide">
+                <head>Informations administratives </head>
+<p>L'élément <gi>admininfo</gi> regroupe:
+
+                <list >
+                    <item><gi>recordHist</gi>: historique du record</item>
+                    <item><gi>availability</gi>: disponibilité du manuscrit</item>
+                    <item><gi>custHist</gi>: historique du manuscrit
+		    apres son acquisition</item>
+                    <item><gi>note</gi>: d'autres remarques pertinentes</item>
+                </list>
+                <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+                    <adminInfo>
+        <recordHist>
+          <source>Record created <date>1 Aug 2004</date></source>
+        </recordHist>
+        <availability>
+          <p>Le manuscrit originel n'est plus accessible sauf sur presentation d'autorisation
+	  ecrite. </p>
+        </availability>
+                        <custodialHist>
+                            <custEvent type="restauration" notBefore="1961-03" notAfter="1961-03">
+                                <p>Tentative de restauration de
+				reliure mars 1961 a la bibliothèque
+				municipale de Lyon.
+</p>
+                            </custEvent>
+                            <custEvent type="numerisation" notBefore="1988-05-01"
+                                notAfter="1988-05-30">
+                                <p>Numerisation complète en mode images par Arkhênum
+				mai 1988.</p>
+                            </custEvent>
+                        </custodialHist>
+                    </adminInfo>
+                </egXML></p>
+            </div>
+
+<!-- surrogates -->
+
+<!-- listBibl-->
+
+            <div rend="slide">
+                <head>Et pour en finir...</head>
+                <p>Un <gi>msDesc</gi> peut en contenir un autre,
+		balisé comme <gi>msPart</gi>, dans le cas où des
+		manuscrits d'origine distincts ont été combiné pour
+		faire un manuscrit composé.</p>
+                <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+                    <msDesc>
+                        <msIdentifier>
+                            <settlement>Amiens</settlement>
+                            <repository>Bibliothèque Municipale</repository>
+                            <idno>MS 3</idno>
+                            <msName>Bible Maurdramnus</msName>
+                        </msIdentifier>
+                        <!-- ... -->
+                        <msPart>
+                            <altIdentifier>
+                                <idno>MS 6</idno>
+                            </altIdentifier>
+                            <!-- ... -->
+                        </msPart>
+                        <msPart>
+                            <altIdentifier>
+                                <idno>MS 7</idno>
+                            </altIdentifier>
+                            <!-- ...  -->
+                        </msPart>
+                        <!-- d'autre msParts ... -->
+                    </msDesc>
+                </egXML>
+            </div>
+<!--
+
+<div><head>Travaux pratiques</head>
+<p>Au lieu de travailler sur la lettre de Vinet, je vous propose un
+manuscrit de la Bibliotheque Municpale d'Orleans, le MS 629.</p>
+
+<figure><graphic url="Ms629_p01.png"/></figure>
+</div>
+
+<div><head>Travaux pratiques</head>
+<figure><graphic url="Ms629_p02.png"/></figure>
+</div>
+
+<div><head>Travaux pratiques</head>
+<figure><graphic url="Ms629_p03.png"/></figure>
+</div>
+
+<div><head>Travaux pratiques</head>
+<eg>Notice n°11640
+
+Auteur: Colas, Jacques
+
+Titre: Suputation nouvellement faicte de la valeur des monnoyes et abuz dicelles quant a la mise Par Jaques Colas de paris Nihil est opertum quod non reveletur.
+
+Date: 1557
+
+Format: 8°
+
+Collation: 2 f. préliminaire (1er blanc, 2e C'est de Jaques Colas Spes mea deus.) 52 f. 3 f. postliminaires.
+
+Institution: Bibliothèque municipale
+
+Ville: Orléans
+
+Cote: Ms. 629
+
+Référence bibliographique: Catalogue reliure p. 53.
+
+Etat physique: Dans un très bon état, sauf les représentations de monnaies, avec argent et or, qui sont très effacées.
+
+Reliure: Reliure veau brun (XVIe siècle)
+
+Provenance: Au feuillet chiffré 1 : "Ce present livre ma este donne de monsieur et père monsieur Colas, conseiller du Roy et general en son court des monnoyes, le Sixme jour de novembre mil vc soisante dixneuf. Colas / Mon espoir passe ma fortune".
+
+10/10/2008  17:57:39 Fac-similé numérisé
+</eg>
+
+</div>
+-->
+ 
+
+        </body>
+    </text>
+</TEI>
