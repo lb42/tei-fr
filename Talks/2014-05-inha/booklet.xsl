@@ -6,7 +6,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   
 <xsl:import
-    href="/usr/share/xml/tei/stylesheet/latex2/tei.xsl"/>
+    href="/usr/share/xml/tei/stylesheet/latex/latex.xsl"/>
 
 <xsl:param name="latexLogo">logo</xsl:param>
 <xsl:param name="spaceCharacter">\hspace*{6pt}</xsl:param>
