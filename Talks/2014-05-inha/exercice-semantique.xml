@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Balisage sémantique du CCMAA</title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>mai 2014</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Balisage sémantique</head>
+        <p>Dans cet exercice, nous allons enrichir le balisage des <title>Exercices</title> du CCMAA
+          déja effectué avec des aspects de caractère plus <soCalled>sémantique</soCalled>, c'est à
+          dire, nous allons distinguer les noms de personnes et de lieux, et nous allons aussi
+          ajouter des representations normalisées des entités que nous reconnaissons dans le
+          texte.</p>
+        <p>Nous supposons que vous avez complété (plus ou moins!) les deux exercices précedents, et
+          que vous disposez donc d'une version complète et valide du fichier <ident>pv61.xml</ident>
+          (si ce n'est pas le cas, on vous pardonne! vous trouverez une version corrigée dans le
+          fichier <ident>pv61-corr.xml</ident>) </p>
+        <p> Nous supposons également que vous avez en tête une politique assez clair sur ce que vous
+          considéréz comme nom de personne, nom de lieux etc !</p>
+        <list>
+          <item>Séléctionnez plusieurs noms dans le texte et les balisez avec CTRL-E, en vous
+            servant de la balise <gi>persName</gi>, <gi>placeName</gi>, <gi>orgName</gi> selon le
+            cas.</item><item>Par ex, à mon avis, la <code>Direction générale des Wakfs</code> est un
+              <gi>orgName</gi>, <code>Ahmed bey Sabri</code> est un <gi>persName</gi>, et le
+              <code>palais Berdak</code> et <code>Kidjmâs el-Ishâki</code> sont tous les deux des
+              <gi>placeName</gi>, mais n'étant pas de tout expert dans ce domaine, j'hésite de me
+            prononcer sur des cas plus complexes! </item>
+          <item>Puis, pour chaque <emph>entité</emph> identifié qui vous interesse, ajoutez un
+            élément (un <gi>org</gi>, un <gi>place</gi>, ou un <gi>person</gi> selon le cas) à
+            l'entête, dans un des <gi>listPlace</gi>, <gi>listOrg</gi>, ou <gi>listPerson</gi> que
+            vous y avez implanté au cours de l'exercice précedent</item>
+          <item>Faire le liaison entre les noms et l'entité avec un attribut <att>ref</att> sur
+            chacun des éléments nominaux, et un attribut <att>xml:id</att> sur l'élément entité. A
+            vous de choisir un système de codification pour les valeurs de ces attributs! </item>
+          <item>Par exemple: on va baliser chaque mention du palais Berdak (que ca soit épellé
+            ainsi, ou avec un q ou en lettres arabes) avec un <tag>placeName ref="#PB1234"</tag> (la
+            diese est obligatoire; elle indique que ce valeur serait un pointeur). Dans l'entête, on
+            va ajouter un seul élément <tag>place xml:id="PB1234"</tag> sur lequel tous ces
+            références pointent.</item>
+          <item>Ensuite, vous pouvez faire de recherche sur internet ou ailleurs pour vous renseigner au sujet des entites concernes, et ainsi pour compléter ces
+            éléments avec tout ce qui vous semble pertinent à savoir. Par exemple, pour les
+            personnes que vous arrivez à identifier, ajouter une date de naissance (<gi>birth</gi>)
+            ou de mort (<gi>death</gi>), d'autres noms, des evenements de leur vie (<gi>event </gi>)
+            etc. dans le <gi>person</gi> concerné. </item>
+          <item>Essayez de créer au moins une douzaine d'entités ... </item>
+        </list>
+      </div>
+    </body>
+  </text>
+</TEI>
