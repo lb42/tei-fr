@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Balisage du CCMAA : l'entête</title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>Lou Burnard Consulting</publisher>
+        <date>mai 2014</date>
+        <availability>
+          <licence>CC-BY-SA</licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Ajout des metadonnées</head>
+        <p>Dans cet exercice, nous allons essayer d'enrichir un peu notre <gi>teiHeader</gi>.
+          Evidemment, il y a beacoup de possibilités et c'est à vous de décider entre eux;
+          choisissant ceux qui vous semblent les plus utiles selon les objectifs de votre projet.
+          Nous proposons ici un noyau, suffisant pour la reste de cette formation. </p>
+        <p>Actuellement, notre header ne contient que : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <teiHeader>
+              <fileDesc>
+                <titleStmt>
+                  <title>Title</title>
+                </titleStmt>
+                <publicationStmt>
+                  <p>Publication Information</p>
+                </publicationStmt>
+                <sourceDesc>
+                  <p>Information about the source</p>
+                </sourceDesc>
+              </fileDesc>
+            </teiHeader>
+          </egXML> Ce sont les trois composants essentiels: une identification de l'objet
+            (<gi>titleStmt</gi>), des informations sur sa distribution (<gi>publicationStmt</gi>) et
+          sur sa source (<gi>sourceDesc</gi>). Avant de procéder, il faut décider un sujet peut être
+          pas aussi evident que tout cela: de quel<soCalled>objet</soCalled> s'agit-il? Nous vous
+          proposons de créer un seul <gi>teiHeader</gi> pour tout le fascicule 11 du CCMAA, mais on
+          pourrait également s'imaginer un header pour chaque procès-verbale, ou même pour chacun
+          des rapports. </p>
+      </div>
+      <div>
+        <head>Title Statement</head>
+        <list>
+          <item>Ajoutez un titre claire: par exemple <code>&lt;title> CCMAA Exercice 1894, 11ème
+              fascicule, en version TEI-XML &lt;/title</code>. </item>
+          <item>Mettez le curseur apres ce <gi>title</gi> mais avant la balise <tag>/titleStmt</tag>
+            et tapez un chevron. oXygen vous présente une liste de tous les éléments disponibles à
+            ce point. </item>
+          <item> Faites votre séléction! Vous pouvez peut être ajouter un <gi>respStmt</gi> pour
+            indiquer qui est responsable de la numérisation, ou un <gi>funder</gi> ou
+              <gi>sponsor</gi> pour indiquer que ce workshop est organisé sous l'égide de l'INHA. </item>
+          <item>Ensuite mettez le curseur apres la balise <tag>/titleStmt</tag> et tapez un chevron,
+            pour voir quels éléments sont permis avant le <gi>publicationStmt</gi> : pas grand chose
+            d'interêt. </item>
+        </list>
+      </div>
+      <div>
+        <head>Publication Statement</head>
+        <list>
+          <item>Enlevez l'élément <gi>p</gi> et ajoutez des informationm plus précises sur la
+            distribution de ce fichier, par exemple le <gi>publisher</gi> est <code>Lou Burnard
+              Consulting</code>, la <gi>date</gi> est <code>mai 2014</code>, etc. </item>
+          <item>Ajoutez aussi une notice de disponibilité (<gi>availability</gi>) pour éviter des
+            problèmes de droits, par ex: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <publicationStmt>
+                <publisher>Lou Burnard Consulting</publisher>
+                <date>mai 2014</date>
+                <availability>
+                  <licence>CC-BY-SA</licence>
+                </availability>
+              </publicationStmt></egXML></item>
+        </list>
+      </div>
+      <div>
+        <head>Source Description</head>
+        <list>
+          <item>Nous vous proposons de fournir ici une description bibliographique de la source
+            imprimée, correcte et complete. La balise <gi>bibl</gi> suffira pour cela ; son contenu
+            peut etre pris du page à titre du volume originale, par ex. <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">
+              <bibl><author>Comite de conservatioon des monuments de l'art arabe</author>
+                <title>Exercice 1894</title>
+                <edition>2eme edition</edition>
+                <pubPlace>Le Caire</pubPlace>
+                <date>1908</date></bibl>
+            </egXML>
+          </item>
+          <item>On peut utiliser le <gi>sourceDesc</gi> aussi pour héberger les listes d'entités qui
+            sont référenciés dans un document. Puisque nous allons créer de telles listes un peu
+            plus tard, nous vous proposons d'ajouter dès maintenant les balises requises (mais sans
+            contenu pour l'instant): <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <sourceDesc>
+                <bibl>
+                  <!-- comme ci dessus --></bibl>
+                <listPerson>
+                  <person/>
+                </listPerson>
+                <listPlace>
+                  <place/>
+                </listPlace>
+                <listOrg>
+                  <org/>
+                </listOrg>
+              </sourceDesc>
+            </egXML></item>
+          <item>Examinez les autres balises disponibles après le <gi>fileDesc</gi> pour en faire
+            votre séléction.</item>
+          <item>Et enfin, n'oubliez pas d'ajouter un <gi>revisionDesc</gi> en fin de compte : <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">
+              <revisionDesc>
+                <change when="2014-05-12"> VOTRE NOM ICI ajouta le header</change>
+              </revisionDesc></egXML>
+          </item>
+        </list>
+      </div>
+    </body>
+  </text>
+</TEI>
