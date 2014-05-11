@@ -80,6 +80,7 @@ handout:
 	pdflatex booklet
 	pdflatex booklet
 	pdflatex booklet
+	mv booklet.pdf exercices.pdf
 
 validate:
 	-for i in $(TALKS) ; do onvdl ../teitalks.nvdl `basename $$i .xml`.xml \
@@ -98,4 +99,7 @@ test:
 	jing demo.xsd demo.xml
 
 foo:
-	curl -s  -F upload=@RomaResults/demo.odd.compiled  -o test.html http://localhost:8080/ege-webservice/Conversions/ODDC%3Atext%3Axml/xhtml%3Aapplication%3Axhtml%2Bxml/
+	cp -r Diapos /media/lou/KINGSTON
+	cp -r Travaux /media/lou/KINGSTON
+	cp exercices.pdf /media/lou/KINGSTON
+
