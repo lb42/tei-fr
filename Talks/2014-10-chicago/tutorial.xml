@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Introducing Pure ODD</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Publication Information</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Information about the source</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Defining a content model</head>
+        <p>In Pure ODD, we use the <gi>content</gi> element to describe the intended content of an
+          element.</p>
+        <p>If the element concerned is empty, that is, it has no content at all, but only
+          attributes, then the <gi>content</gi> element itself is empty: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="emptyElement">
+              <desc>an element which may not contain anything</desc>
+              <content/>
+            </elementSpec>
+          </egXML></p>
+        <p>The <gi>textNode</gi> element can appear within a <gi>content</gi> element, to indicate
+          that the element concerned contains only text: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="textElement">
+              <desc>an element which may contain only textual data</desc>
+              <content><textNode/></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>A text node may be of any length, including zero. </p>
+        <p>An element may have what is known as <term>mixed content</term>, meaning that it may
+          contain a mixture of text fragments and some specified elements. This is represented in
+          pure ODD by the <gi>mixedContent</gi> element, which may appear as an alternative to the
+            <gi>content</gi> element. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="mixedElement">
+              <desc>an element which contains any combination of text nodes, <gi>one</gi>, and
+                  <gi>two</gi> elements</desc>
+              <mixedContent><elementRef key="one"/><elementRef key="two"/></mixedContent>
+            </elementSpec>
+          </egXML> A mixed content element may also be empty, since a text node can be of zero
+          length, and there is no requirement that any of its possible child elements be present</p>
+        <p>Alternatively, an element may have what is known as <term>element content</term>. In such
+          a case, the <gi>content</gi> element will contain references to one or more other
+          elements, each represented by an <gi>elementRef</gi> element. If there is only one such
+          child element it can be given directly: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="oneElement">
+              <desc>an element which contains only a <gi>one</gi> element</desc>
+              <content><elementRef key="one"/></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>The attributes <att>minOccurs</att> and <att>maxOccurs</att> may be used to indicate
+          repetition. In the following example, we define an element which can contain any number of
+          occurrences of a <gi>one</gi> element: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="manyOneElements">
+              <desc>an element which contains 2 or more <gi>one</gi> elements</desc>
+              <content><elementRef minOccurs="2" maxOccurs="unlimited" key="one"/></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>More usually, a mixed-content element will contain references to more than one different
+          element. These elements may be grouped of in one of three ways: as a sequence, as an
+          alternation, or interleaved. </p>
+        <p>In a sequence, all of the child elements must follow each other in the same order as they
+          appear within the <gi>content</gi> element: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="OneTwo">
+              <desc>an element which contains a <gi>one</gi> element followed by a
+                <gi>two</gi></desc>
+              <content>
+                <sequence>
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                </sequence></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>In an alternation, any one of the child elements may appear in any order: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="OneOrTwo">
+              <desc>an element which contains either a <gi>one</gi> element or a <gi>two</gi></desc>
+              <content>
+                <alternate>
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                </alternate></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>In an interleaved model, all of the child elements may appear in any order : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="OneAndTwo">
+              <desc>an element which contains either a <gi>one</gi> element followed by a
+                  <gi>two</gi>, or a <gi>two</gi> element followed by a <gi>one</gi></desc>
+              <content>
+                <interleave>
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                </interleave></content>
+            </elementSpec>
+          </egXML> Not all target schema languages support the concept of interleaving. An ODD
+          processor may thus generate a less precise content model from specifications using the
+            <gi>interleave</gi> element, possibly enhanced by additional constraints expressed in a
+          different constraint language.</p>
+        <p>The attributes <att>minOccurs</att> and <att>maxOccurs</att> may also be used on
+            <gi>alternate</gi>, <gi>sequence</gi>, or <gi>interleave</gi> to indicate repetition of
+          the grouping concerned. For example <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="onesOrTwos">
+              <desc>an element which contains one or more<gi>one</gi> element or <gi>two</gi>
+                elements in any order</desc>
+              <content>
+                <alternate minOccurs="1" maxOccurs="unlimited">
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                </alternate></content>
+            </elementSpec>
+          </egXML>
+        </p>
+        <p> For example <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="onesTwos">
+              <desc>an element which contains up to three repetitions of a <gi>one</gi> element
+                followed by a <gi>two</gi> element</desc>
+              <content>
+                <sequence minOccurs="1" maxOccurs="3">
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                </sequence></content>
+            </elementSpec>
+          </egXML></p>
+        <p>Occurrence indicators may be given at both levels. For example <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="onesTwos">
+              <desc>an element which contains up to three repetitions of two or more<gi>one</gi>
+                elements followed by a <gi>two</gi> element</desc>
+              <content>
+                <sequence minOccurs="1" maxOccurs="3">
+                  <elementRef minOccurs="2" maxOccurs="unlimited" key="one"/>
+                  <elementRef key="two"/>
+                </sequence></content>
+            </elementSpec>
+          </egXML></p>
+        <p>Sequences, alternations, and interleaved sequences may all be nested and combined as
+          necessary, permitting quite complex structures to be expressed.</p>
+        <p>A <gi>textNode</gi> may also appear within an alternation or a sequence. For example
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="textOne">
+              <desc>an element which may contain either two or more<gi>one</gi> elements, or a text
+                node</desc>
+              <content>
+                <alternate>
+                  <elementRef minOccurs="2" maxOccurs="unlimited" key="one"/>
+                  <textNode/>
+                </alternate></content>
+            </elementSpec>
+          </egXML> However, few current schema languages support content models containing text
+          nodes other than those like the following: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="mixedContent">
+              <desc>an element which may contain zero or more text nodes, <gi>one</gi> elements, or
+                  <gi>two</gi> elements</desc>
+              <content>
+                <alternate maxOccurs="unlimited" minOccurs="0">
+                  <elementRef key="one"/>
+                  <elementRef key="two"/>
+                  <textNode/>
+                </alternate></content>
+            </elementSpec>
+          </egXML> which corresponds exactly to the content model of the <gi>mixedContent</gi>
+          element we introduced above, provided by Pure ODD as an abbreviatory convenience. An ODD
+          processor generating outputs in a schema language which only supports mixed content of
+          this kind will usually translate any content model containing text nodes to this kind of
+          flattened alternation, possibly enhanced by additional constraints expressed in a
+          different constraint language.</p>
+
+      </div>
+      <div>
+        <head>Reference Section</head>
+        <schemaSpec ident="oddex1" start="TEI">
+          <moduleRef key="header"/>
+          <moduleRef key="core"/>
+          <moduleRef key="tei"/>
+          <moduleRef key="textstructure"/>
+        </schemaSpec>
+      </div>
+    </body>
+  </text>
+</TEI>
