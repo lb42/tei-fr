@@ -24,21 +24,22 @@
         <elementSpec ident="stuff">
           <desc>élément racine d'un schéma simplissime</desc>
           <content>
-            <alternate maxOccurs="unbounded">
-              <elementRef key="bit"/>
-              <elementRef key="bob"/>
-            </alternate>
+          <sequence>
+                <elementRef key="bit"/>
+               <elementRef key="bob"/>              
+          </sequence>
           </content>
         </elementSpec>
         <elementSpec ident="bob">
           <desc>élément pointeur du schéma simplissime</desc>
           <content/>
+         
           <attList>
             <attDef ident="uri">
               <desc>fournit l' URI de l'objet cible</desc>
               <datatype>
                 <rng:data type="anyURI"/>
-                <!-- should be <macroRef key="data.pointer"/>-->
+                <!-- would be <macroRef key="data.pointer" in TEIland/>-->
               </datatype>
             </attDef>
           </attList>
@@ -49,6 +50,14 @@
             <elementRef key="bob" />
           </content>
         </elementSpec>
+        
+        <elementSpec ident="t1">
+          <desc>élément textuel du schéma simplissime (peut contenir des bobs) </desc>
+          <content allowText="true"/>
+        </elementSpec>
+        
+      
+        
       </schemaSpec>
     </body>
   </text>
