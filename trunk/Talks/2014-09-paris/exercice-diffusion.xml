@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Diffusion des textes XML-TEI</title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>mai 2014</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+
+       <div>
+        <head>TEI Boilerplate : mode d'emploi</head>
+        <p>Dans cet exercice, nous allons expérimenter un système très modeste pour afficher les
+          documents TEI XML sur le web. Il s'agit d'un outil élaboré par John Walsh de l'Université
+          d'Indiana sous le nom de TEI Boilerplate. Vous pouvez le télécharger du site <ptr
+            target="http://teiboilerplate.org"/>, où vous trouverez également des renseignements sur
+          la motivation et les particularités de ce projet si cela vous interesse (en anglais,
+          seulement). </p>
+        <list>
+          <item>Téléchargez le fichier <ident>TEI-Boilerplate.zip</ident> sur votre bureau ou
+            ailleur (si vous n'y arrivez pas, une copie de ce zip est disponible également sur votre
+            clef USB dans le dossier <ident>Outils</ident>) </item>
+          <item>Après avoir dézippé l'archive quelque part (peu importe où), vous aurez un dossier
+              <ident>TEI-Boilerplate-master</ident>, qui contient entre autre un dossier
+              <ident>content</ident>. Il faut copier tous les fichiers que vous souhaitez afficher
+            avec TEI Boilerplate dans ce dossier. </item>
+          <item>Pour faire fonctionner Boilerplate, il faut aussi ajouter au debut des fichiers un
+              <term>processing instruction</term></item>
+        </list>
+        <p>Nous ne disposons pas d'un serveur web, mais la même démarche serait necessaire en ce
+          cas. L'interêt principale de TEI Boilerplate (à part sa simplicité) est qu'il vous permet
+          de controller directement l'affichage des parties de votre document en associant des
+          stylages CSS avec ces éléments TEI, sans nécessité de conversion HTML intermédiaire. </p>
+
+        <list>
+          <item>Réouvrez un de vos fichiers bien balisés, ou bien le fichier
+              <ident>CCMAA/pv61-corr.xml</ident> avec oXygen</item>
+          <item>Insérez au début de fichier cette formule magique <code> &lt;?xml-stylesheet
+              type="text/xsl" href="teibp.xsl"?> </code></item>
+          <item>Enregistrez cette version du fichier dans le dossier <ident>content</ident></item>
+          <item>Si vous souhaitez les afficher, il faut aussi copier les fichiers
+              <ident>pv61_07.png</ident> etc. dans ce même dossier.</item>
+          <item>Lancer votre navigateur web préfére (chrome, firefox, explorer... et essayer de
+            retrouver l'option pour ouvrir un fichier local (en firefox, cette option se trouve sur le menu <ident>Fichier</ident>)</item>
+          <item>Naviguer jusqu'au fichier modifié que vous venez d'enregistrez au dossier
+              <ident>content</ident> et l'ouvrir</item>
+        </list>
+        <p>Joli, hein? Si vous avez bien fait, les pages images sont disponibles en parallel, en
+          cliquant sur l'icone à droite de l'écran. Mais par défaut, la présence des noms de
+          personnes, de lieux, etc. n'est pas signallé. Nous allons régler cela en ajoutant des
+          specifications à l'entête.</p>
+        <list>
+          <item>Revenez dans votre fichier XML en oXygen</item>
+          <item>Mettez le curseur juste apràs la balise fermante du <gi>fileDesc</gi></item>
+          <item>Selectionnez <ident>Fichier -> Insérer un fichier</ident> dans le menu
+              <ident>Document</ident> et insérez le fichier <ident>renditions.xml</ident> que vous trouvez dans votre
+            dossier <ident>Travaux</ident></item>
+          <item>N'oubliez pas d'enregistrer cette nouvelle version de votre fichier dans le bon
+            endroit. </item>
+          <item>Rechargez le fichier dans votre navigateur. Cest mieux?</item>
+        </list>
+        <p>Comment est-ce que cela marche? L'element <gi>tagsDecl</gi> (déclaration de balises) que
+          vous venez d'ajouter contient deux parties. D'abord, il y a une série de déclarations
+          comme par exemple <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <rendition xml:id="blue" scheme="css"> color:blue; </rendition></egXML> Chacune de ces
+          déclarations définit un style d'affichage. En ce cas, le style porte l'identifiant
+            <code>blue</code>. Le style concerné est exprimé en langue CSS (une langue standard W3C pour la
+          définition des styles). Par exemple, le style <code>blue</code> va afficher de text bleu,
+          le style <code>i</code> va afficher de texte en italique etc.</p>
+        <p>En dessous, il y an un élément <gi>namespace</gi> qui contient une série de déclarations
+          comme ceci: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <namespace name="http://www.tei-c.org/ns/1.0">
+              <tagUsage gi="placeName" render="#blue"/>
+              <tagUsage gi="orgName" render="#i #blue"/> ...</namespace></egXML>
+        </p>
+        <p>Ces declarations servent à spécifier que tout occurrence de l'élément <gi>placeName</gi>
+          sera affiché (par defaut) en bleu (plus précisement, avec le style identifie par
+            <code>blue</code>) : d'ailleurs tout occurrence de <gi>orgName</gi> sera affiché en bleu et aussi
+          en italique. </p>
+        <p>Si par contre vous souhaitez modifier l'affichage d'un seul élément dans votre document.,
+          vous pouvez l'indiquer en utilisant l'attribut <att>rendition</att> pour pointer sur le
+          style concerné. Essayez, par exemple, de faire en sorte que le deuxième item soit affiché
+          en italique:  il suffit de modifier sa balise ouvrante ainsi: <code>&lt;item n="2"
+            rendition="#i"></code></p>
+        <p>Continuez vos explorations... Vous trouverez dans le fichier <ident>teibp.xml</ident> une
+          liste plus complète des styles ce dont vous pourriez vous servir.</p>
+      </div>
+    </body>
+  </text>
+</TEI>
