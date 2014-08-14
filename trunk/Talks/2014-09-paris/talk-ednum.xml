@@ -22,12 +22,12 @@
     <body>
       <div>
         <head>L'edition numerique : en pratique</head>
-        <p>On fait une edition numerique a partir des somposants suivants: </p>
+        <p>On fait une edition numerique a partir des composants suivants: </p>
         <list>
           <item>un ensemble d'images numerique, chacun representant une page d'une ressource </item>
-          <item>une transcription plus ou moins completes des textes signifiants dur ces
+          <item>une transcription plus ou moins completes des textes qui figurent sur ces
             pages</item>
-          <item>des metadonnees concernant la ressource numerisee</item>
+          <item>des metadonnees concernant les ressource numerisees, par ex. leur relation </item>
           <item>des metadonness concenant la maniere de sa numerisation</item>
           <item>des annotations plus our moins riches sur les entites referencies dans les textes,
             la langue du texte, etc</item>
@@ -66,12 +66,26 @@
         
       </div>
       <div xml:lang="fr">
-        <head> La solution la plus simple pour supporter un "facsimilé numérique"</head>
-
+        <head> Deux methodes simplissimes pour gerer un "facsimilé numérique"</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <TEI>
             <teiHeader>
-              <!--...--></teiHeader>
+              <!-- metadonnees sur l'edition numerique -->
+            </teiHeader>
+            <facsimile>
+              <graphic url="page1r.png"/>
+              <graphic url="page1v.png"/>
+              <graphic url="page2r.png"/>
+              <graphic url="page2v.png"/>
+            </facsimile>
+          </TEI>
+        </egXML>
+        <p>NB: aucune maniere de structurer les images</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <TEI>
+            <teiHeader>
+              <!-- metadonnees sur l'edition numerique -->
+            </teiHeader>
             <text>
               <pb facs="page1.png"/>
               <!-- texte de la  page 1 facultativement transcrit ici -->
@@ -79,67 +93,75 @@
               <!-- texte de la  page 2 facultativement transcrit ici-->
             </text>
           </TEI> </egXML>
-          <p>On pourrait se servir de <gi>sourceDoc</gi> au lieu de <gi>text</gi>, selon ses preferences editioraraux
-            </p>
-          <p>Cette methode manque de la structuration explicite...</p>
-       
+          <p>(On se servirait de <gi>sourceDoc</gi> au lieu de <gi>text</gi> selon ses principes editoriaux)</p>
+      
       </div>
 
         <div xml:lang="en">
-          <head>A digital facsimile edition</head>
-          <p>In the simplest case, we just want to organize a series of page image files so that an
-            application will display them correctly.</p>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <TEI>
-              <teiHeader>
-                <!-- metadata describing our digital edition -->
-              </teiHeader>
-              <facsimile>
-                <graphic url="page1r.png"/>
-                <graphic url="page1v.png"/>
-                <graphic url="page2r.png"/>
-                <graphic url="page2v.png"/>
-              </facsimile>
-            </TEI>
-          </egXML>
-          <p>This method lacks structure...</p>
-
-
-          <p>Inconvénients... <list>
+          <head>Inconvénients</head>
+          <list>
               <item>difficile de supporter des relations plus compliquées </item>
               <item>maintien difficile d'informations propres à l'image </item>
               <item>nécessite donc l'intégration avec d'autres fichiers (typiquement METS) </item>
-            </list></p>
+            </list>
+        <list>
+          <item>plusieurs images pour un seul page ? </item><item>besoin d'associer des pages, par ex pour une feuille, ou une double-page</item>
+        </list>
+        
         </div>
 
-        <div>
-          <head>Structuring a digital facsimile</head>
-          <list>
-            <item>we might have several graphics for the same component surface</item>
-            <item>we might want to indicate groupings of surfaces e.g. leaves of a codex</item>
-          </list>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
+      <div>
+        <head>On dispose de versions alternatives d'une même image</head>
+        
+        <p>L'element <gi>surface</gi> nous permet de 
+          regrouper les images équivalentes: </p>
+        <egXML
+          xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
+            <graphic url="page1.png"/>
+            <surface>
+              <graphic url="page2-highRes.png"/>
+              <graphic url="page2-lowRes.png"/>
+            </surface>
+            <graphic url="page3.png"/>
+            <graphic url="page4.png"/>
+          </facsimile>
+        </egXML>
+      </div>
+     
+      <div>
+        <head>On veut identifier les feuilles d'un manuscrit</head>
+        
+        <p>L'element <gi>surfaceGrp</gi> nous permet de 
+          regrouper les surfaces: </p>
+        <egXML
+          xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
             <surfaceGrp type="leaf">
               <surface>
-                <graphic url="page1r.png"/>
-                <graphic url="page1r.tiff"/>
+                <graphic url="page1recto.png"/>
               </surface>
               <surface>
-                <graphic url="page1v.png"/>
+                <graphic url="page1verso.png"/>
               </surface>
             </surfaceGrp>
-          </facsimile></egXML>
-        </div>
+          
+          </facsimile>
+        </egXML>
+      </div>
+      
+      
+     
         <div>
-          <head>Structuring a digital facsimile</head>
-          <p>We might also want to distinguish zones, rectangular or otherwise, within a surface. </p>
+          <head>On veut distinguer des sous-parties d'une surface</head>
+          
+          <p>L'element <gi>zone</gi> nous permet d'identifier n'importe quelle region d'une surface. </p>
           <list>
-            <item>A <gi>zone</gi> is any polygon identified within a surface</item>
-            <item>Its location may be indicated by means of the <att>points</att> attribute</item>
-            <item>Points defining a zone must use the <term>coordinate system</term> defined for the
-              surface</item>
-            <item>A coordinate system defines a range of values for the (x,y) point-pairs defining a
-              two-dimensional polygon: not a measurement</item>
+            <item>Un <gi>zone</gi> identifie un polygone (pas forcement rectangulaire) : une espace en 2d</item>
+            <item>Il est defini ou bien par l'attribut <att>points</att> ou bien par les attributs <att>ulx</att>, <att>uly</att>, <att>lrx</att> et <att>lry</att></item>
+            <item>Toute definition de zone doit utiliser le <term>systeme de coordonnees</term> definie pour la surface </item>
+            <item>Une systeme de coordonnees definit une plage de valeurs pour les coordonnees (x,y) qui expriment un polygon en 2d </item>
+            <item>(il ne s'agit pas d'une mensuration)</item>        
           </list>
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <facsimile>
@@ -152,14 +174,15 @@
             </facsimile>
           </egXML>
         </div>
-        <div>
-          <head>Aligning images and transcription</head>
+        
+      
+      <div>
+          <head>Lier les images avec leur transcription</head>
           <list>
-            <item>The <att>facs</att> attribute, available on any transcriptional element, points to
-              a <gi>zone</gi>, <gi>surface</gi>, or (in the simplest case) a <gi>graphic</gi>
+            <item>L'attribut <att>facs</att> est disponible sur tout element de transcription. Il pointe sur un 
+              <gi>zone</gi>, <gi>surface</gi>, ou (plus simplement)  sur un <gi>graphic</gi>
             </item>
-            <item>(And the <att>start</att> attribute on <gi>zone</gi> or <gi>surface</gi> can also
-              point into a transcription) </item>
+            <item>(L'attribut <att>start</att> de <gi>zone</gi> ou de <gi>surface</gi> pointe dans l'autre sens, vers une portion de transcription) </item>
           </list>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
             <surfaceGrp type="leaf">
@@ -180,39 +203,46 @@
             </text>
           </egXML>
         </div>
-        <div>
-          <head>A more complex example (1)</head>
+        
+         <div> 
+          
+          <head>Exemple </head>
           <figure>
             <graphic url="../Graphics/bovelles.png" height="90%"/>
           </figure>
           <cb/>
           <p/>
-          <p>We can identify several distinct zones in this page: <list>
-            <item>The heading</item>
-            <item>the ornamental capital</item>
-            <item>the picture of a bell</item>
+          <p>Nous distinguons plusieurs zones sur cette surface : <list>
+            <item>le titre</item>
+            <item>la lettrine</item>
+            <item>l'image d'une cloche</item>
           </list>...</p>
+           <p>Ce sont tous des zones rectangulaires</p>
         </div>
         <div>
-          <head>A more complex example (2)</head>
+          <head>Exemple</head>
           <figure>
             <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
           </figure>
           <cb/>
+         
+ 
+          
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny"><facsimile>
             <surface xml:id="B49r" ulx="0" uly="0" lrx="52" lry="32">
               <graphic url="bovelles.png"/>
               <zone xml:id="B49rHead" ulx="4" uly="4" lrx="27" lry="13"/>
-              <!-- contains the title -->
+              <!-- le titre -->
               <zone xml:id="B49rCap" ulx="4" uly="31" lrx="12" lry="38"/>
-              <!-- contains the ornamental capital  -->
+              <!-- la lettrine  -->
               <zone xml:id="B49rFig" ulx="10" uly="40" lrx="27" lry="52"/>
-              <!-- contains the diagram of a bell  -->
+              <!-- la cloche -->
             </surface>
           </facsimile></egXML>
+          <p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
         </div>
         <div>
-          <head>And the transcription</head>
+          <head>Et la transcription</head>
           <figure>
             <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
           </figure>
@@ -221,11 +251,11 @@
             <surface xml:id="B49r" ulx="0" uly="0" lrx="52" lry="32">
               <graphic url="bovelles.png"/>
               <zone xml:id="B49rHead" ulx="4" uly="4" lrx="27" lry="13"/>
-              <!-- contains the title -->
+              <!-- le titre -->
               <zone xml:id="B49rCap" ulx="4" uly="31" lrx="12" lry="38"/>
-              <!-- contains the ornamental capital  -->
+              <!-- la lettrine  -->
               <zone xml:id="B49rFig" ulx="10" uly="40" lrx="27" lry="52"/>
-              <!-- contains the diagram of a bell  -->
+              <!-- la cloche -->
             </surface></facsimile>
             <text>
               <body>
@@ -247,268 +277,9 @@
                     <pb/><!-- ... -->
                   </p></div></body></text></egXML>               </div>
                 
-                <div>
-          <head>Solution un peu moins simple </head>
+              
 
-          <p>Regrouper les données à un seul endroit:
-                  <egXML
-              xmlns="http://www.tei-c.org/ns/Examples">
-              <facsimile xml:base="http://mylibrary.wibble.fr/blah/blah/blah">
-                <graphic url="page1.png"/>
-                <graphic url="page2.png"/>
-                <graphic url="page3.png"/>
-                <graphic url="page4.png"/>
-              </facsimile>
-            </egXML></p>
-
-          <p>(On pourrait également se servir de <gi>binaryObject</gi>)</p>
-
-        </div>
-        <div>
-          <head>Et si on disposait de versions alternatives d'une même image?</head>
-
-          <p>Se servir de <gi>surface</gi>pour grouper les images équivalentes: </p>
-          <egXML
-              xmlns="http://www.tei-c.org/ns/Examples">
-              <facsimile>
-                <graphic url="page1.png"/>
-                <surface>
-                  <graphic url="page2-highRes.png"/>
-                  <graphic url="page2-lowRes.png"/>
-                </surface>
-                <graphic url="page3.png"/>
-                <graphic url="page4.png"/>
-              </facsimile>
-            </egXML>
-        </div>
-
-        <div>
-          <head>Lier l'image à la transcription</head>
-
-          <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
-              <graphic xml:id="page1" url="page1.png"/>
-              <graphic xml:id="page2" url="page2.png"/>
-              <graphic xml:id="page3" url="page3.png"/>
-              <graphic xml:id="page4" url="page4.png"/>
-            </facsimile>
-            <!-- ... -->
-            <text>
-              <pb facs="#page1"/>
-              <!-- texte de la  page 1 facultativement transcrit ici -->
-              <pb facs="#page2"/>
-              <!-- texte de la  page 1 facultativement transcrit ici -->
-            </text>
-          </egXML>
-
-        </div>
-
-        <div>
-          <head>Lier deux parties d'une image</head>
-          <list>
-            <item>on se sert de <gi>surface</gi> pour définir un systeme un système abstrait de
-              coordonnées </item>
-            <item>on se sert de <gi>zone</gi> pour définir une zone d'intérêt </item>
-            <item>on se sert de <gi>graphic</gi> pour fournir une image de la zone ou surface qui le
-              contient </item>
-          </list>
-        </div>
-
-        <div>
-          <head> Bovelles-49r.png</head>
-
-          <figure>
-            <graphic url="../Graphics/facs-fig1.png" height="250px"/>
-          </figure>
-
-        </div>
-
-        <div>
-          <head>Encodage pour cette image</head>
-
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
-              <surface ulx="0" uly="0" lrx="200" lry="300">
-                <zone xml:id="B49r" ulx="0" uly="0" lrx="200" lry="300">
-                  <graphic url="Bovelles-49r.png"/>
-                </zone>
-                <zone ulx="105" uly="76" lrx="175" lry="160">
-                  <graphic url="Bovelles49r-detail.png"/>
-                </zone>
-                <zone xml:id="B49rHead" ulx="25" uly="25" lrx="180" lry="60"/>
-                <!-- contient le titre -->
-                <zone xml:id="B49rPara2" ulx="28" uly="75" lrx="175" lry="178"/>
-                <!-- contient le paragraphe en italique  -->
-                <zone xml:id="B49rFig1" ulx="105" uly="76" lrx="175" lry="160"/>
-                <!-- contient l'image de cloche  -->
-                <zone xml:id="B49rW457" ulx="45" uly="125" lrx="60" lry="130"/>
-                <!-- contient le mot "pendans" -->
-              </surface>
-            </facsimile></egXML>
-          <p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
-
-        </div>
-        <div>
-          <head>La transcription</head>
-
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><pb facs="#B49r"/>
-            <fw>De Geometrie 49</fw><head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET <lb/>
-              des alleures des chevaulx, chariotz &amp; charges, des fontaines:&amp; <lb/> encyclie
-              du monde, &amp; de la dimension du corps humain.</head>
-            <head>Chapitre septiesme</head>
-            <div n="1">
-              <p>Le son &amp; accord des cloches pendans en ung mesme <lb/> axe, est faict en
-                contraires parties.</p>
-              <p rend="it" facs="#B49rPara2">LEs cloches ont quasi fi<lb/>gures de rondes
-                pyra<lb/>mides imperfaictes &amp; <lb/> irregulieres: &amp; leur accord se <lb/>
-                fait par reigle geometrique. Com<lb/>me si les deux cloches C &amp; D <lb/> sont <w
-                  facs="#B49rW457">pendans</w> à ung mesme axe <lb/> ou essieu A B: je dis que leur
-                ac<lb/>cord se fera en co<ex>n</ex>traires parties<lb/> co<ex>m</ex>me voyez icy
-                figuré. Car qua<ex>n</ex>d <lb/> lune sera en hault, laultre declinera embas.
-                Aultrement si elles decli<lb/>nent toutes deux ensembles en une mesme partie, elles
-                seront discord, <lb/> &amp; sera leur sonnerie mal plaisante à oyr.<figure
-                  facs="#B49rFig1"/>
-              </p>
-            </div></egXML>
-        </div>
-
-
-        <div>
-          <head>Structuring a digital facsimile</head>
-          <list>
-            <item>we might have several graphics for the same component surface</item>
-            <item>we might want to indicate groupings of surfaces e.g. leaves of a codex</item>
-          </list>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
-              <surfaceGrp type="leaf">
-                <surface>
-                  <graphic url="page1r.png"/>
-                  <graphic url="page1r.tiff"/>
-                </surface>
-                <surface>
-                  <graphic url="page1v.png"/>
-                </surface>
-              </surfaceGrp>
-            </facsimile></egXML>
-        </div>
-        <div>
-          <head>Structuring a digital facsimile</head>
-          <p>We might also want to distinguish zones, rectangular or otherwise, within a surface. </p>
-          <list>
-            <item>A <gi>zone</gi> is any polygon identified within a surface</item>
-            <item>Its location may be indicated by means of the <att>points</att> attribute</item>
-            <item>Points defining a zone must use the <term>coordinate system</term> defined for the
-              surface</item>
-            <item>A coordinate system defines a range of values for the (x,y) point-pairs defining a
-              two-dimensional polygon: not a measurement</item>
-          </list>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <facsimile>
-              <surface ulx="0" uly="0" lrx="40" lry="30">
-                <graphic url="page1r.png"/>
-                <zone points="22,10 30,21 17,25 12,23">
-                  <graphic url="page1rdetail.png"/>
-                </zone>
-              </surface>
-            </facsimile>
-          </egXML>
-        </div>
-        <div>
-          <head>Aligning images and transcription</head>
-          <list>
-            <item>The <att>facs</att> attribute, available on any transcriptional element, points to
-              a <gi>zone</gi>, <gi>surface</gi>, or (in the simplest case) a <gi>graphic</gi>
-            </item>
-            <item>(And the <att>start</att> attribute on <gi>zone</gi> or <gi>surface</gi> can also
-              point into a transcription) </item>
-          </list>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
-              <surfaceGrp type="leaf">
-                <surface xml:id="p1r">
-                  <graphic url="page1r.png"/>
-                  <graphic url="page1r.tiff"/>
-                </surface>
-                <surface xml:id="p1v">
-                  <graphic url="page1v.png"/>
-                </surface>
-              </surfaceGrp>
-            </facsimile>
-            <text>
-              <pb facs="#p1r"/>
-              <!-- text from page 1 recto transcribed here -->
-              <pb facs="#p1v"/>
-              <!-- text from page 1 verso transcribed here -->
-            </text>
-          </egXML>
-        </div>
-        <div>
-          <head>A more complex example (1)</head>
-          <figure>
-            <graphic url="../Graphics/bovelles.png" height="90%"/>
-          </figure>
-          <cb/>
-          <p/>
-          <p>We can identify several distinct zones in this page: <list>
-              <item>The heading</item>
-              <item>the ornamental capital</item>
-              <item>the picture of a bell</item>
-            </list>...</p>
-        </div>
-        <div>
-          <head>A more complex example (2)</head>
-          <figure>
-            <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
-          </figure>
-          <cb/>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny"><facsimile>
-              <surface xml:id="B49r" ulx="0" uly="0" lrx="52" lry="32">
-                <graphic url="bovelles.png"/>
-                <zone xml:id="B49rHead" ulx="4" uly="4" lrx="27" lry="13"/>
-                <!-- contains the title -->
-                <zone xml:id="B49rCap" ulx="4" uly="31" lrx="12" lry="38"/>
-                <!-- contains the ornamental capital  -->
-                <zone xml:id="B49rFig" ulx="10" uly="40" lrx="27" lry="52"/>
-                <!-- contains the diagram of a bell  -->
-              </surface>
-            </facsimile></egXML>
-        </div>
-        <div>
-          <head>And the transcription</head>
-          <figure>
-            <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
-          </figure>
-          <cb/>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny"><facsimile>
-              <surface xml:id="B49r" ulx="0" uly="0" lrx="52" lry="32">
-                <graphic url="bovelles.png"/>
-                <zone xml:id="B49rHead" ulx="4" uly="4" lrx="27" lry="13"/>
-                <!-- contains the title -->
-                <zone xml:id="B49rCap" ulx="4" uly="31" lrx="12" lry="38"/>
-                <!-- contains the ornamental capital  -->
-                <zone xml:id="B49rFig" ulx="10" uly="40" lrx="27" lry="52"/>
-                <!-- contains the diagram of a bell  -->
-              </surface></facsimile>
-            <text>
-              <body>
-                <pb facs="#B49r"/>
-                <fw>De Geometrie 159</fw>
-                <head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET DES ALleures des cheuaux,
-                  chariots &amp; charges: des fontaines,&amp; encyclie du monde: &amp; de la
-                  dimension du corps humain.</head>
-                <head>Chapitre Septiesme.</head>
-                <div n="1">
-                  <p>Le son &amp; accord des cloches pendans en ung mesme axe, est faict en
-                    contraires parties.</p>
-                  <p><g facs="#B49rCap">L</g>Es cloches ont quasi figures de rondes pyramides
-                    imperfaictes &amp; irregulieres: &amp; leur accord se fait par reigle
-                    Geometrique: comme si les deux cloches C &amp; D sont pendantes à vn mesme axe,
-                    ou essieu, A B: je dy que leur accord se fera en contraires parties
-                    co<ex>m</ex>me voyez icy figuré. Car quand l'vne sera en haut, l'autre declinera
-                    en bas. Autreme<ex>m</ex>t si elles de.<figure facs="#B49rFig1"/>
-                    <pb/><!-- ... -->
-                  </p>
-                </div>
-              </body>
-            </text></egXML>
-        </div>
+       
         <div>
           <head>Surfaces and zones... </head>
           <p>The relationship between surface and zone can be quite complex :</p>
