@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>L'outillage TEI </title>
+        <author>Lou Burnard</author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>mai 2014</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>Lou Burnard Consulting</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change>
+        <date>$LastChangedDate: $.</date>
+        <name>$LastChangedBy: $</name>
+        <note>$LastChangedRevision: $</note>
+      </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Où sont les outils TEI-XML?</head>
+        <list>
+          <item>La TEI ne vous fournit ni usine à gaz, ni boîte d'outils.. </item>
+          <item>Dès le début, elle essaie de se distinguer nettement de la production des outils,
+            pour mieux garantir son indépendence </item>
+          <item>Les <hi>Guidelines</hi> sont conçus comme expression concrète d'un modèle abstraite
+            des objets -- pour la plupart textuels -- qui sont d'interêt scientifique dans les
+            SHS...</item>
+          <item>Mais c'est réservé aux communautés d'utilisateurs de se décider comment traiter ces
+            objets, et donc de construire les outils pour en profiter.</item>
+        </list>
+      </div>
+      <div>
+        <head>OK, mais quand même...</head>
+        <p>Les TEI Guidelines s'expriment en XML, comme toute application TEI</p>
+        <list>
+          <item>en principe, alors, n'importe quel logiciel conforme au norme XML nous
+            suffirait</item>
+          <item>mais il faut le construire! </item>
+        </list>
+        <p>La TEI a construit, pour ses propres besoins, un ensemble de feuilles de style XSLT, qui
+          permet: <list>
+            <item>la génération et la documentation des schémas TEI personalisées ("ODD")</item>
+            <item>la visualisation des documents TEI, à travers les formats actuellement les plus
+              répandus (XHTML, PDF, Word, Open Office, ePUB...)</item>
+            <item>une architecture générique pour la transformation entre documents TEI et d'autres
+              formats (Word, OO, Docbook etc.)</item>
+          </list></p>
+      </div>
+      <div>
+        <head>La boite à outils TEI-XML </head>
+        <p>Pour maîtriser les documents XML, on a besoin de les <list>
+            <item>créer, modifier, valider...</item>
+            <item>transformer, visualiser...</item>
+            <item>rechercher, analyser...</item>
+            <item>stocker, gérer, découvrir; pérenniser ...</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Création et édition de documents XML</head>
+        <list>
+          <item>editeurs XML comme oXygen ne sont pas unique</item>
+          <item>Voir <ptr target="http://wiki.tei-c.org/index.php/Category:Editing_tools"/>
+          </item>
+          <item>On peut aussi créer des documents avec les outils bureatique (Word, Open Office) et
+            les convertir automatiquement en TEI XML avec Oxgarage ou oXygen</item>
+          <item>On peut saisir les documents tres structurés par formulaire et générer du TEI XML en
+            utilisant un langage comme Javascript, python etc.</item>
+        </list>
+      </div>
+      <div>
+        <head>Transformation et visualisation</head>
+        <p> D'abord il y a le bibliothèque de feuilles de style XSLT <ident>TEI Stylesheets</ident>
+          developpé par Sebastian Rahtz, qui se trouve partout: <list>
+            <item>emballé avec oXygen, par défaut, dans un Framework</item>
+            <item>téléchargeable sur gitHub (<ptr target="https://github.com/TEIC/Stylesheets"
+              /></item>
+            <item>à l'interieur du web service EGE </item>
+            <item>intégré avec plusioeurs applications indépendentes de la TEI </item>
+          </list>
+        </p>
+        <p rend="box">Ce bibliothèque de feuilles de style est très complet et flexible, mais on
+          peut aussi trouver d'autres solutions plus adaptés à des besoins specifiques (voir la
+          liste sur le wiki http://wiki.tei-c.org/index.php/Category:Tools)</p>
+      </div>
+      <div>
+        <head>Pourquoi se servir des TEI Stylesheets</head>
+        <list>
+          <item>ils proposent des solutions aux difficultés que vous n'auriez pas (peut être) encore
+            envisagés </item>
+          <item>mieux vaut participer à un projet open source que de réinventer (plusieurs) roues </item>
+          <item>ils sont maintenus en tandem avec les Guidelines</item>
+          <item>ils sont modulaires, extensibles, bien "architecturés"</item>
+        </list>
+      </div>
+      <div>
+        <head>Pourquoi ne pas s'en servir</head>
+        <p>Ils ont des objectifs génériques, mais avec des limites! <list>
+            <item>Ils ne traitent pas tout élément TEI!</item>
+            <item>Ils ne traitent pas tous les valeurs possibles des attributs TEI (surtout ceux qui
+              ne sont pas specifiés par la TEI)</item>
+          </list></p>
+        <p>Pour en profiter, il faut: <list>
+            <item>savoir se débrouiller en XSLT (un peu)</item>
+            <item>ajouter une couche de personalisation (un <ident>profil</ident>) propre à son
+              propre projet (probablement).</item>
+          </list></p>
+      </div>
+      <div>
+        <head>Personalisation des TEI Stylesheets</head>
+        <list type="gloss">
+          <label>(x)HTML </label>
+          <item>Un feuille de style CSS supplémentaire est conseillé pour les détails d'affichage,
+            polices etc.</item>
+          <label>LaTeX</label>
+          <item>Il faut connaître (évidemment) LaTeX ! mais en partant de cela, la génération d'un
+            PDF de haute qualité est très simple (grace aux expertises considérables déjà existant
+            dans l'édition scientifique avec LaTex)</item>
+        </list>
+      </div>
+      <div>
+        <head>Architecture des feuilles de style </head>
+        <p>Il y a un dossier par format de sortie...</p>
+        <table>
+          <row>
+            <cell>docx</cell>
+            <cell>transformation vers, ou à partir de, Word OOXML</cell>
+          </row>
+          <row>
+            <cell>epub</cell>
+            <cell>transformation vers ePub</cell>
+          </row>
+          <row>
+            <cell>fo</cell>
+            <cell>transformation vers XSL FO</cell>
+          </row>
+          <row>
+            <cell>latex</cell>
+            <cell>transformation vers LaTeX</cell>
+          </row>
+          <row>
+            <cell>nlm</cell>
+            <cell>transformation à partir de NLM</cell>
+          </row>
+          <row>
+            <cell>odds</cell>
+            <cell>transformation à partir de TEI ODD</cell>
+          </row>
+          <row>
+            <cell>oo</cell>
+            <cell>transformation vers, ou à partir de Open Office / Libre Office</cell>
+          </row>
+        </table>
+      </div>
+      <div>
+        <head>Rechercher, analyser..</head>
+        <p>Outils d'analyse linguistique comme txm (projet textometrie <ptr
+            target="http://textometrie.ens-lyon.fr/"/>) </p>
+        <p>Outils philologiques : <list>
+            <item>Versioning Machine : </item>
+            <item>Juxta : <ptr target="http://www.juxtasoftware.org/about/"/> <graphic url="../Graphics/juxta.png"/></item>
+          <item>CTE <ptr target="http://cte.oeaw.ac.at/"/>    <graphic url="../Graphics/cte.png"/> </item>
+          </list></p>
+        <p>Bases de données XML génériques comme <list>
+            <item>Basex <ptr target="http://basex.org"/>
+            </item>
+            <item>exist <ptr target="http://exist-db.org"/>
+            </item>
+            <item/>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Stocker, gérer, retrouver, perénniser ...</head>
+        <p>On voit émerger de systèmes plus ou moins complète pour l'édition TEI: </p>
+        <list>
+          <item>KILN: <ptr target="https://github.com/kcl-ddh/kiln/"/>
+          </item>
+          <item>Plugins pour systèmes existants (Drupal, Zotero, TEIChi ...)</item>
+          <item>Lodel</item>
+          <item>XTF : <ptr target="http://xtf.cdlib.org/"/>
+            <graphic url="../Graphics/xtf.png"/></item>
+          <item>TEI Publisher <ptr target="http://teipublisher.sourceforge.net/docs/index.php"
+            /></item>
+          <item>TAPAS <ptr target="http://www.tapasproject.org/"/></item>
+        </list>
+        <p>Aspects organisationels : HumaNum, CINES</p>
+      </div>
+    </body>
+  </text>
+</TEI>
