@@ -61,7 +61,7 @@ all:
 
 handout: 
 	cat booklet-top.txt > booklet-xi.xml
-	echo '<?tex \\newpage ?><div><head>Exercises</head>' >> booklet-xi.xml
+	echo '<?tex \\newpage ?>' >> booklet-xi.xml
 	for i in $(EXERCISES); do \
 		echo "<div>" >> booklet-xi.xml; \
 		grep "<title>" $$i.xml | head -1 | sed 's/title>/head>/g' >> booklet-xi.xml; \
@@ -69,7 +69,6 @@ handout:
 		echo "</div>" >> booklet-xi.xml; \
 		echo '<?tex \\newpage ?>'>> booklet-xi.xml ; \
 	done
-	echo "</div>" >> booklet-xi.xml
 	echo '<?tex \\newpage ?>'>> booklet-xi.xml
 	cat booklet-end.txt >> booklet-xi.xml
 	xmllint --xinclude booklet-xi.xml > booklet.xml

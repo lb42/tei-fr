@@ -38,10 +38,10 @@
         <head>Modelisation</head>
         <p>La modelisation de vos données est une préalable essentiel. Que vous vous servez de UML,
           de RDBMS, de SKOS, ou quoique ça soit d'autre, si vous n'avez pas un modèle explicite des
-          choses que vous espérez gérer, vous aurez de grands difficultés.</p><figure>
+          choses que vous espérez gérer, vous aurez de grands difficultés.</p>
+        <figure>
           <graphic url="../Graphics/ceci-nest-pas-une-pipe.jpg" height="72%"/>
         </figure>
-        
       </div>
       <div>
         <head>Analyse des données classique</head>
@@ -80,15 +80,7 @@
             prometteur s'applique en effet à votre cas</item>
           <item>comme c'est le cas pour d'autres types de mapping... </item>
         </list>
-        <!--          Sadly there's no short cut answer to these questions. Suppose you want to encode
-          information about the postage stamp stuck to the envelope of a letter you are
-          transcribing. Does the TEI provide an element for this purpose? A quick look down the
-          reference pages will show you that there is an element called stamp, but is it
-          suitable for your planned uses? Does the TEI definition allow you to make clear
-          whether your stamp is a postage stamp, an impression from a rubber stamp, an embossed
-          image or what? You need to look at both the reference documentation and the
-          discussion of how the TEI thinks this element should be used to answer such
-          questions. The examples are helpful too. </p>-->
+       
         <p>Pour chacun(e) des entités/concepts identifiés dans votre modèle, il faut décider : <list>
             <item>quel objet TEI lui correspond parfaitement? (s'il existe)</item>
             <item>quel objet TEI lui ressemble et quelles petites modifications seraient nécessaires
@@ -97,7 +89,7 @@
               les licornes !)</item>
           </list></p>
       </div>
-     <!--
+      <!--
        <div>
         <head>Notre cas d'etude</head>
         <figure>
@@ -135,7 +127,6 @@
         </figure>
       </div>
       -->
-      
       <div rend="slide">
         <head>Structure(s) d'un document TEI-XML</head>
         <list>
@@ -143,8 +134,7 @@
           </item>
           <item>On peut egalement regrouper des <gi>TEI</gi> dans un <gi>teiCorpus</gi></item>
         </list>
-        <p rend="box"> Nous proposons de considerer le livre (fascicule) comme un seul <gi>TEI</gi>,
-          et d'encoder que son texte. Mais d'autres possibilites ne sont pas exclus... </p>
+        <p rend="box"> Le <term>document </term>n'a pas de definition formelle, mais d'habitude il correspond a un object complet (un livre par ex). D'autres possibilites ne sont pas exclus... </p>
       </div>
       <div rend="slide">
         <head> Comment structurer un corpus TEI-XML?</head>
@@ -239,7 +229,7 @@
       </div>
       <div rend="slide">
         <head>Par exemple ...</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
           <body>
             <head>Les Chouans</head>
             <div type="partie" n="I" xml:id="CHOUAN0100">
@@ -266,31 +256,44 @@
           </body>
         </egXML>
       </div>
-     <!-- <div>
-        <head>Dans notre cas.... </head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+   
+      <div>
+        <head>Ou, par exemple, le Michna </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
           <text>
-            <front>
-             
-            </front>
             <body>
-              <div type="proces" xml:id="pv1894_61">
-                <head>COMITÉ DE CONSERVATION DES MONUMENTS DE L'ART ARABE</head>
-                <head>Procès-verbal n° 61.</head>
-             
+              <div type="seder" n="zeraim" xml:id="MISH1">
+                <div type="masechet" n="berakhot" xml:id="mish1_1">
+                  <div type="pereq" n="Me'eïmataï" xml:id="mish1_1_1">
+                    <div type="mishnah" n="m001" xml:id="mish1_1_1_1">
+                     <!-- ... -->
+                    </div>
+                    <div type="mishnah" n="m002" xml:id="mish1_1_1_2">
+                      <!-- ... -->
+                    </div>
+                    <!-- mishnayot 3 à 9 -->
+                  </div>
+                  <!-- chapitres 2 à 9 -->
+                </div>
+                <div type="masechet" n="peyah" xml:id="mish1_2">
+                  <div type="pereq" n="1" xml:id="mish1_2_1">
+                    <div type="mishnah" n="m0nn" xml:id="mish1_2_1_1">
+                      <!-- ... -->
+                    </div>
+                    <!-- mishnayot 2 à 6 -->
+                  </div>
+                  <!-- chapitres  2 à 8 -->
+                </div>
+                <!-- masechta 3 à 11 -->
               </div>
-              <div type="rapport" xml:id="r1894_161">
-                <head>161ème RAPPORT DE LA DEUXIEME COMMISSION </head>
-                <head>(Voir proces-verbal no 61).</head>
-               
+              <div type="seder" n="moed" xml:id="MISH2">
+                <!-- masechta 1 à 12 -->
               </div>
+              <!-- sederim 3 à 6  -->
             </body>
-            <back>
-         
-            </back>
           </text></egXML>
-      </div>-->
-  <!-- mishnah example here -->
+      </div>
+     
       <div rend="slide">
         <head>Composants des divisions</head>
         <p>Qu'est-ce qu'on trouve dans une division ? <list type="unordered">
@@ -305,7 +308,8 @@
                 <gi>p</gi> ou de <gi>l</gi> facultativement entrecoupée de didascalies
                 (<gi>stage</gi>)</item>
           </list>
-       </p><p rend="box">... et bien sûr des sous-divisions </p>
+        </p>
+        <p rend="box">... et bien sûr des sous-divisions </p>
       </div>
       <div rend="slide">
         <head>Exemple prosaique ... </head>
@@ -313,9 +317,10 @@
           <div n="1">
             <head>La Fête</head>
             <p>C'était à Mégara, faubourg de Carthage, dans les jardins d'Hamilcar.</p>
-            <p>Les soldats qu'il avait commandés en Sicile se donnaient 
-un grand festin pour célébrer le jour anniversaire de la bataille d'Eryx, et comme le maître était absent            et qu'ils se trouvaient nombreux, ils mangeaient 
-et ils buvaient en pleine liberté.</p>
+            <p>Les soldats qu'il avait commandés en Sicile se donnaient un grand festin pour
+              célébrer le jour anniversaire de la bataille d'Eryx, et comme le maître était absent
+              et qu'ils se trouvaient nombreux, ils mangeaient et ils buvaient en pleine
+              liberté.</p>
             <!-- ... -->
           </div>
         </egXML>
@@ -409,103 +414,74 @@ et ils buvaient en pleine liberté.</p>
             <l part="I">Vous vous tromperez.</l>
           </sp><sp>
             <speaker>Alceste.</speaker>
-            <l part="F">Soit. J' en veux voir le succès.</l>
+            <l part="F">Soit. J' en veux voir le suite.</l>
           </sp></egXML>
       </div>
-    <!--  <div>
-        <head>Et dans notre cas ...</head>
-        <list>
-          <item>Hélas, ni de vers ni de discours dramatique </item>
-          <item>mais <emph>beaucoup</emph> de listes... <list>
-              <item>chaque rapport est precédé d'une liste intitulée <q>Examen</q> qui résume les
-                parties numérotées qui la suivent</item>
-              <item>ces parties pourraient être considérées soit comme des <gi>div</gi> imbriqués,
-                soit comme des <gi>item</gi> dans une autre liste</item>
-              <item>de la même façon, chaque procés-verbal commence par une paragraphe contenant une
-                liste des personnes présentes, suivie d'une serie de parties numérotées</item>
-            </list></item>
-          <item>Nous proposons des <gi>list</gi> de <att>type</att> varié, par ex
-              <code>present</code>, <code>sommaire</code>, etc. contenant des <gi>item</gi>
-            facultativement precede d'un <gi>label</gi></item>
-          <item>ces <gi>item</gi> peuvent également contenir des <gi>p</gi> ou des <gi>list</gi>
-            emboîtes</item>
-        </list>
-      </div>
-      <div>
-        <head>Un rapport, par exemple</head>
-        <figure>
-          <graphic url="../Graphics/debut-rapport.png" height="65%"/>
-        </figure>
-        <cb/>
-        <egXML rend="teeny" xmlns="http://www.tei-c.org/ns/Examples"><div type="rapport" xml:id="r1894_161">
-            <head>161ème RAPPORT DE LA DEUXIEME COMMISSION </head>
-            <head>(Voir procès-verbal no 61).</head>
-            <list type="sommaire">
-              <head>Examen :</head>
-              <item n="1">D'une demande de construction ;</item>
-              <item n="2">Du palais Bardak..;</item>
-             
-              <item n="5">De la mosquée Kidjmas el-Ishaki...</item>
-            </list>
-            <div type="rapport">
-              <head>1 Demande de construction.</head>
-              <p>La demande de construction a été addressée par le sieur Hag Ahmed ... el-Sayeda Sekina</p>
-              <p>L'examen a  démontré que la mosquée ne présente aucun intérêt...</p>
-              </div>
-             
-            </div>
-        </egXML>
-      </div>-->
-      
+     
       <div rend="slide">
         <head>Composants textuels typiques</head>
         <list type="unordered">
           <item>des séquences de mots qui sont (par convention) mises en evidence, par exemple pour
             leur donner une emphase, parce qu'ils sont en langue étranger, ou cités etc, </item>
-          <item> des mots qui pourraient être d'interêt non-lexicale &#x201C;data-like&#x201D;
-            (des noms de lieu ou de personne, des dates, des chiffres ... )</item>
+          <item> des mots qui pourraient être d'interêt non-lexicale &#x201C;data-like&#x201D; (des
+            noms de lieu ou de personne, des dates, des chiffres ... )</item>
           <item> des indications d'interventions éditorielles (corrections, normalisations, ajouts,
             ratures...)</item>
           <item> des références et des liens</item>
           <item>listes, notes, annotations, graphies, tables, citations bibliographiques...</item>
-          <item>indications de structuration dans une autre hiérarchie, par exemple frontières de pages</item>
+          <item>indications de structuration dans une autre hiérarchie, par exemple frontières de
+            pages</item>
         </list>
         <p rend="box">TEI fournit des balises pour toutes ces choses : mais il faut faire une choix,
           selon les objectifs de son projet</p>
       </div>
-      
       <div>
         <head>La mise en evidence et son interprétation</head>
-        
-        <p>On voit une partie en italique ou en petites capitales : et on se demande pourquoi... par exemple :</p>
-        <figure><graphic width="80%" url="../Graphics/prevert.png"/></figure>
-        
+        <p>On voit une partie en italique ou en petites capitales : et on se demande pourquoi... par
+          exemple :</p>
+        <figure>
+          <graphic width="80%" url="../Graphics/prevert.png"/>
+        </figure>
       </div>
-      <div><head>La mise en evidence, et son interprétation - 1</head>
+      <div>
+        <head>La mise en evidence, et son interprétation - 1</head>
         <p>Plusieurs politiques sont envisageables : <list>
-          <item> on signale la présence d'une mise en évidence sans distinction particulière avec
-            <gi>hi</gi> (highlighted : distinction typographique) <egXML
-              rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><p>... mais Prévert pense que la <hi>parole</hi> convainc, et il continue « <hi>mais la brûlure de son regard Les rappelle à de bons sentiments</hi> », plus prompts à l'accord que les gens du <hi>Dîner de Têtes</hi>, ....</p>
-            </egXML>
-          </item>
-          <item> on essaie de distinguer l'  <hi>objectif sémantique</hi> de ces mises en evidence : en ce cas, il y a un 
-            <gi>emph</gi> (emphase linguistique), un <gi>quote</gi> (citation) et un <gi>title</gi> (titre): <egXML rend="tiny"
-              xmlns="http://www.tei-c.org/ns/Examples">
-              <p>... mais Prévert pense que la <emph>parole</emph> convainc, et il continue « <quote>mais la brûlure de son regard Les rappelle à de bons sentiments</quote> », plus prompts à l'accord que les gens du <title>Dîner de Têtes</title>, ....</p>
-            </egXML></item>
-        </list>
-        </p></div>
-      <div><head>La mise en evidence et son interprétation - 2</head>
-        <p> 
-          <list>
-            <item> on peut combiner ces deux niveaux de description ...
-              <egXML rend="tiny"
-                xmlns="http://www.tei-c.org/ns/Examples"><p>... mais Prévert pense que la <emph rend="italic">parole</emph>  convainc, et il continue « <q rend="italic">mais la brûlure de son regard Les rappelle à de bons sentiments</q> », plus prompts à l'accord que les gens du <title rend="italic">Dîner de Têtes</title>, ....</p> </egXML>
+            <item> on signale la présence d'une mise en évidence sans distinction particulière avec
+                <gi>hi</gi> (highlighted : distinction typographique) <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples">
+                  <p>... mais Prévert pense que la <hi>parole</hi> convainc, et il continue 
+                  « <hi>mais la brûlure de son regard Les rappelle à de bons sentiments</hi> », 
+                    plus prompts à l'accord que les gens du <hi>Dîner de Têtes</hi>, ....</p>
+              </egXML>
             </item>
-            <item>Les valeurs possibles de l'attribut <att>rend</att> sont à définir pour chaque projet.</item><item>Des attributs complémentaires <att>style</att> ou <att>rendition</att> permettent l'usage des systèmes déjà standardisés, notamment le CSS.</item>
-            
-          </list></p></div>
-      
+            <item> on essaie de distinguer l' <hi>objectif sémantique</hi> de ces mises en evidence
+              : en ce cas, il y a un <gi>emph</gi> (emphase linguistique), un <gi>quote</gi>
+              (citation) et un <gi>title</gi> (titre): <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <p>... mais Prévert pense que la <emph>parole</emph> convainc, et il continue «
+                    <quote>mais la brûlure de son regard Les rappelle à de bons sentiments</quote>
+                  », plus prompts à l'accord que les gens du <title>Dîner de Têtes</title>, ....</p>
+              </egXML></item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>La mise en evidence et son interprétation - 2</head>
+        <p>
+          <list>
+            <item> on peut combiner ces deux niveaux de description ... <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples"><p>... mais Prévert pense que la <emph
+                    rend="italic">parole</emph> convainc, et il continue « <q rend="italic">mais la
+                    brûlure de son regard Les rappelle à de bons sentiments</q> », plus prompts à
+                  l'accord que les gens du <title rend="italic">Dîner de Têtes</title>, ....</p>
+              </egXML>
+            </item>
+            <item>Les valeurs possibles de l'attribut <att>rend</att> sont à définir pour chaque
+              projet.</item>
+            <item>Des attributs complémentaires <att>style</att> ou <att>rendition</att> permettent
+              l'usage des systèmes déjà standardisés, notamment le CSS.</item>
+          </list></p>
+      </div>
       <div rend="slide">
         <head>Phrases en langues étrangères </head>
         <list type="unordered">
@@ -514,86 +490,86 @@ et ils buvaient en pleine liberté.</p>
             signaler</item>
           <item>La langue est identifiée par son code normalisé ISO </item>
         </list>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"> As-tu lu <title xml:lang="de">Die Dreigroschenoper </title>? </egXML>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" >
-          <p>Du palais Bardak, (<placeName xml:lang="ar">تتتص</placeName>) (ou Bardi).</p>
-        </egXML>     
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> As-tu lu <title xml:lang="de">Die
+            Dreigroschenoper </title>? </egXML>
+        
       </div>
-      
-      
       <div rend="slide">
         <head>Noms de lieux et de personnes</head>
-        <p>La balise <gi>rs</gi> (referring string) est très générique :
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que <rs type="person">M. de Norpois</rs> fit à la maison, une année où je jouais encore aux <rs type="place">Champs-Élysées</rs>, est resté dans ma mémoire, parce que l’après-midi de ce même jour fut celui 
-            où j’allai enfin entendre <rs type="person">la Berma</rs>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
-        <p>Les balises <gi>name</gi>, <gi>persName</gi>, ou <gi>persName</gi> sont plus spécifique :       <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que <persName ref="http://fr.wikipedia.org/wiki/Marquis_de_Norpois">M. de Norpois</persName> fit à la maison, une année où je jouais encore aux <placeName>Champs-Élysées</placeName>, est resté dans ma mémoire, parce que l’après-midi de ce même jour fut celui où j’allai enfin entendre <name>la Berma</name>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
-       <p>Nous allons traîter ce sujet en plus de détail demain.</p> 
+        <p>La balise <gi>rs</gi> (referring string) est très générique : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que <rs
+                type="person">M. de Norpois</rs> fit à la maison, une année où je jouais encore aux
+                <rs type="place">Champs-Élysées</rs>, est resté dans ma mémoire, parce que
+              l’après-midi de ce même jour fut celui où j’allai enfin entendre <rs type="person">la
+                Berma</rs>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
+        <p>Les balises <gi>name</gi>, <gi>persName</gi>, ou <gi>persName</gi> sont plus spécifique :
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que
+                <persName ref="http://fr.wikipedia.org/wiki/Marquis_de_Norpois">M. de
+                Norpois</persName> fit à la maison, une année où je jouais encore aux
+                <placeName>Champs-Élysées</placeName>, est resté dans ma mémoire, parce que
+              l’après-midi de ce même jour fut celui où j’allai enfin entendre <name>la
+              Berma</name>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
+        <p>Nous allons traîter ce sujet en plus de détail demain.</p>
       </div>
-      
       <div rend="slide">
         <head>Encodage de la structure physique</head>
         <p>Pour exprimer la manière dont le texte est inscrit sur le support physique, des éléments
           vides de type <soCalled>milestone</soCalled> (borne) sont disponibles, <tag>gb/</tag>,
-          <tag>pb/</tag>, <tag>cb/</tag>, et <tag>lb/</tag>, qui correspondent respectivement à la
+            <tag>pb/</tag>, <tag>cb/</tag>, et <tag>lb/</tag>, qui correspondent respectivement à la
           désignation des débuts de cahier ("gathering"), page, colonne et ligne. </p>
         <p>Ceux-ci servent principalement pour établir un système de référencement.</p>
         <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
           <pb n="12"/></egXML>
       </div>
-      
-      
-      <div><head>Les références croisées et les liens</head>
+      <div>
+        <head>Les références croisées et les liens</head>
         <p>Pour relier deux endroits d’un ou plusieurs textes, on utilise l’un des éléments
-          <gi>ptr</gi> ou <gi>ref</gi>. 
-          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">Voir <ref
-            target="#pv1894_61"> procès-verbal no 61</ref>.</egXML>
-          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr
-            target="#pv1894_61"/>.</egXML></p>
-        <p>L'attribut <att>target</att> spécifie l'objet ciblé par la référence, que ce soit en fournissant l'identifiant d'un autre élément dans le même document, ou en fournissant une adresse complète sur le Web (un URL)
-          <egXML rend="tiny"  xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr
-            target="http://www.example.org/example.xml#pv1894_61"/></egXML></p>
-        <p>Dans ces exemples, on pointe sur la section suivante :
-          <egXML rend="tiny"  xmlns="http://www.tei-c.org/ns/Examples"><div xml:id="pv1894_61">
-            <!-- ... -->
-          </div></egXML></p>
-        <p>Plusieurs autres attributs de type "pointeur" sont disponibles, fournissant une gamme de type de liens plus spécialisés. </p>
+            <gi>ptr</gi> ou <gi>ref</gi>. <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples">Voir <ref target="#pv1894_61"> procès-verbal no
+              61</ref>.</egXML>
+          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr target="#pv1894_61"
+            />.</egXML></p>
+        <p>L'attribut <att>target</att> spécifie l'objet ciblé par la référence, que ce soit en
+          fournissant l'identifiant d'un autre élément dans le même document, ou en fournissant une
+          adresse complète sur le Web (un URL) <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr
+              target="http://www.example.org/example.xml#pv1894_61"/></egXML></p>
+        <p>Dans ces exemples, on pointe sur la section suivante : <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples"><div xml:id="pv1894_61">
+              <!-- ... -->
+            </div></egXML></p>
+        <p>Plusieurs autres attributs de type "pointeur" sont disponibles, fournissant une gamme de
+          type de liens plus spécialisés. </p>
       </div>
-      
-      <div><head>Expressions temporelles</head>
-        <p>Les dates qui figurent dans les textes manifestent beaucoup de
-          variation lexicalle, pour ne rien dire des variations des systèmes de
-          calendrier. Pour comparer et contrôler de telles expressions d'une
-          manière efficace, il faut les normaliser. La TEI propose un élément
-          <gi>date</gi> pour identifier ces expressions, et plusieurs
-          attributs pour leur normalisation.</p>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="1980-02-21">21 février 1980</date>
+      <div>
+        <head>Expressions temporelles</head>
+        <p>Les dates qui figurent dans les textes manifestent beaucoup de variation lexicalle, pour
+          ne rien dire des variations des systèmes de calendrier. Pour comparer et contrôler de
+          telles expressions d'une manière efficace, il faut les normaliser. La TEI propose un
+          élément <gi>date</gi> pour identifier ces expressions, et plusieurs attributs pour leur
+          normalisation.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="1980-02-21">21 février
+            1980</date>
           <date when="1990-02-21" xml:lang="en">21 September, 1990</date></egXML>
-        
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="2001-09-11T12:48:00">11 septembre, neuf heures moins douze, EST</date>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="2001-09-11T12:48:00">11
+            septembre, neuf heures moins douze, EST</date>
         </egXML>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"> Décret de la Convention <date when="1794-10-30">9 Brumaire An III</date></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> Décret de la Convention <date
+            when="1794-10-30">9 Brumaire An III</date></egXML>
       </div>
-      
       <div rend="slide">
         <head>Bibliographies</head>
-        
-        
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <bibl xml:id="MK_73">Sturm, U. &amp; Drang, F. : <title>Musikalische Katastrophe</title>. 
+          <bibl xml:id="MK_73">Sturm, U. &amp; Drang, F. : <title>Musikalische Katastrophe</title>.
             (Berlin, W. de Gruyter, 1973)</bibl>
         </egXML>
-        
         <list type="unordered">
           <item>Une référence bibliographique peut être plus ou moins structurée, en se servant
-            d'éléments tels que <gi>author</gi>, <gi>editor</gi>, <gi>title</gi>,
-            <gi>pubPlace</gi>,
-            <gi>publisher</gi>,
-            <gi>series</gi> etc.</item>
+            d'éléments tels que <gi>author</gi>, <gi>editor</gi>, <gi>title</gi>, <gi>pubPlace</gi>,
+              <gi>publisher</gi>, <gi>series</gi> etc.</item>
           <item>les conventions de présentation des références ne sont pas forcément à
             encoder</item>
         </list>
-        
-        
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <bibl xml:id="MK73"><author>Sturm, U.</author>
             <author>Drang, F.</author>
@@ -602,39 +578,58 @@ et ils buvaient en pleine liberté.</p>
             <publisher>W. de Gruyter</publisher>
             <date>1973</date></bibl>
         </egXML>
-        
       </div>
-      
-      <div><head>Image et texte réunis</head>
+      <div>
+        <head>Image et texte réunis</head>
         <cb/>
-   <p>     <graphic url="../Graphics/Punch/147_03.jpg"
-          height="90%"/></p>
+        <p>
+          <graphic url="../Graphics/Punch/147_03.jpg" height="90%"/></p>
         <cb/>
         <egXML rend="teeny" xmlns="http://www.tei-c.org/ns/Examples">
           <div type="cartoon">
             <figure>
               <head>When the ships come home</head>
-              <figDesc xml:lang="fr">Un homme en vêtements turcs est allongé sur une fauteuil, fumant une cigarette et regardant dans un carnet intitulé  "Naval ledger". Un autre, en vêtements grecs, est debout devant lui, consultant également un carnet.</figDesc>
-              <graphic url="http://example.com/Materials/Punch/Graphics/003.png"/>
+              <figDesc xml:lang="fr">Un homme en vêtements turcs est allongé sur une fauteuil,
+                fumant une cigarette et regardant dans un carnet intitulé "Naval ledger". Un autre,
+                en vêtements grecs, est debout devant lui, consultant également un carnet.</figDesc>
+              <graphic url="../Graphics/003.png"/>
             </figure>
-            <sp><speaker>Greece.</speaker><p> Isn't it time we started fighting  again?</p></sp>
-            <sp><speaker>Turkey.</speaker><p> Yes, I daresay. How soon could you begin?</p></sp>
-            <sp><speaker>Greece.</speaker><p> Oh, in a few weeks.</p></sp>
-            <sp> <speaker>Turkey.</speaker><p> No good for me. Shan't be ready till  the autumn.</p></sp>
+            <sp>
+              <speaker>Greece.</speaker>
+              <p> Isn't it time we started fighting again?</p>
+            </sp>
+            <sp>
+              <speaker>Turkey.</speaker>
+              <p> Yes, I daresay. How soon could you begin?</p>
+            </sp>
+            <sp>
+              <speaker>Greece.</speaker>
+              <p> Oh, in a few weeks.</p>
+            </sp>
+            <sp>
+              <speaker>Turkey.</speaker>
+              <p> No good for me. Shan't be ready till the autumn.</p>
+            </sp>
           </div></egXML>
       </div>
-      
-      
       <div>
         <head>Et pour terminer, les notes</head>
-       <p> <graphic url="../Graphics/perec.png" /></p><cb/>
-        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples" corresp="#fr-ex-Perec-esp"><div n="3"><p>J'écris : j'habite ma feuille de papier, je l'investis, je la parcours.</p><p>Je suscite des <hi>blancs</hi>, des <hi>espaces</hi> (sauts dans le sens : discontinuités, passages, transitions). <note place="margin">J'écris dans la marge...</note></p><p rend="indent3">Je vais <lb/>à la ligne. Je renvoie à une note en bas de page<note place="foot">J'aime beaucoup les renvois en bas de page, même si je n'ai rien de particulier à y préciser.</note></p><p rend="indent2">Je change de feuille.</p></div><pb n="20"/>
+        <p>
+          <graphic url="../Graphics/perec.png"/></p>
+        <cb/>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples" corresp="#fr-ex-Perec-esp"><div
+            n="3">
+            <p>J'écris : j'habite ma feuille de papier, je l'investis, je la parcours.</p>
+            <p>Je suscite des <hi>blancs</hi>, des <hi>espaces</hi> (sauts dans le sens :
+              discontinuités, passages, transitions). <note place="margin">J'écris dans la
+                marge...</note></p>
+            <p rend="indent3">Je vais <lb/>à la ligne. Je renvoie à une note en bas de page<note
+                place="foot">J'aime beaucoup les renvois en bas de page, même si je n'ai rien de
+                particulier à y préciser.</note></p>
+            <p rend="indent2">Je change de feuille.</p>
+          </div><pb n="20"/>
         </egXML>
-        
       </div>
-      
-      
-      
       <div rend="slide">
         <head>Vous vous sentez un peu accablé ?</head>
         <p>Tout ceci n'est qu'une des manières de se servir de la TEI. </p>
