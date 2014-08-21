@@ -89,7 +89,7 @@
               les licornes !)</item>
           </list></p>
       </div>
-      <!--
+     
        <div>
         <head>Notre cas d'etude</head>
         <figure>
@@ -115,9 +115,9 @@
      <p>Le texte contient <list><item>des mentions de propositions faites à la Commission et ses décisions là-dessus</item><item>des noms de personnes concernées</item><item>des noms de lieux et des descriptions de monuments impliqués</item><item>des citations d'inscriptions monumentales et quelques images</item><item>des sommaires des dépenses effectuées et proposées par la Commission</item><item>.... </item></list></p></div>
      
       <div>
-        <head>Exemple d'un CR</head>
+        <head>Exemple d'un procès verbale</head>
         <figure>
-          <graphic url="Travaux/CCMAA/pv61_07.png" height="89%"/>
+          <graphic url="../Graphics/debut-pv.png" height="89%"/>
         </figure>
       </div>
       <div>
@@ -126,7 +126,7 @@
           <graphic url="../Graphics/debut-rapport.png" height="89%"/>
         </figure>
       </div>
-      -->
+
       <div rend="slide">
         <head>Structure(s) d'un document TEI-XML</head>
         <list>
@@ -294,6 +294,30 @@
           </text></egXML>
       </div>
      
+      <div>
+        <head>Dans notre cas.... </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="small">
+          <text>
+            <front>
+              <!-- ... -->
+            </front>
+            <body>
+              <div type="proces" xml:id="pv1894_61">
+                <head>COMITÉ DE CONSERVATION DES MONUMENTS DE L'ART ARABE</head>
+                <head>Procès-verbal n° 61.</head>
+                <!-- ... -->
+              </div>
+              <div type="rapport" xml:id="r1894_161">
+                <head>161ème RAPPORT DE LA DEUXIEME COMMISSION </head>
+                <head>(Voir proces-verbal no 61).</head>
+                <!-- ... -->
+              </div>
+            </body>
+            <back>
+              <!-- ... -->
+            </back>
+          </text></egXML>
+      </div>
       <div rend="slide">
         <head>Composants des divisions</head>
         <p>Qu'est-ce qu'on trouve dans une division ? <list type="unordered">
@@ -417,7 +441,50 @@
             <l part="F">Soit. J' en veux voir le suite.</l>
           </sp></egXML>
       </div>
-     
+      <div>
+        <head>Et dans notre cas ...</head>
+        <list>
+          <item>Hélas, ni de vers ni de discours dramatique </item>
+          <item>mais <emph>beaucoup</emph> de listes... <list>
+            <item>chaque rapport est precédé d'une liste intitulée <q>Examen</q> qui résume les
+              parties numérotées qui la suivent</item>
+            <item>ces parties pourraient être considérées soit comme des <gi>div</gi> imbriqués,
+              soit comme des <gi>item</gi> dans une autre liste</item>
+            <item>de la même façon, chaque procés-verbal commence par une paragraphe contenant une
+              liste des personnes présentes, suivie d'une serie de parties numérotées</item>
+          </list></item>
+          <item>Nous proposons des <gi>list</gi> de <att>type</att> varié, par ex
+            <code>present</code>, <code>sommaire</code>, etc. contenant des <gi>item</gi>
+            facultativement precede d'un <gi>label</gi></item>
+          <item>ces <gi>item</gi> peuvent également contenir des <gi>p</gi> ou des <gi>list</gi>
+            emboîtes</item>
+        </list>
+      </div>
+      <div>
+        <head>Un rapport, par exemple</head>
+        <figure>
+          <graphic url="../Graphics/debut-rapport.png" height="65%"/>
+        </figure>
+        <cb/>
+        <egXML rend="teeny" xmlns="http://www.tei-c.org/ns/Examples"><div type="rapport" xml:id="r1894_161">
+          <head>161ème RAPPORT DE LA DEUXIEME COMMISSION </head>
+          <head>(Voir procès-verbal no 61).</head>
+          <list type="sommaire">
+            <head>Examen :</head>
+            <item n="1">D'une demande de construction ;</item>
+            <item n="2">Du palais Bardak..;</item>
+            <!-- ... -->
+            <item n="5">De la mosquée Kidjmas el-Ishaki...</item>
+          </list>
+          <div type="rapport">
+            <head>1 Demande de construction.</head>
+            <p>La demande de construction a été addressée par le sieur Hag Ahmed ... el-Sayeda Sekina</p>
+            <p>L'examen a  démontré que la mosquée ne présente aucun intérêt...</p>
+          </div>
+          <!-- ... -->
+        </div>
+        </egXML>
+      </div>
       <div rend="slide">
         <head>Composants textuels typiques</head>
         <list type="unordered">
@@ -492,7 +559,9 @@
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples"> As-tu lu <title xml:lang="de">Die
             Dreigroschenoper </title>? </egXML>
-        
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" >
+          <p>Du palais Bardak, (<placeName xml:lang="ar">تتتص</placeName>) (ou Bardi).</p>
+        </egXML>      
       </div>
       <div rend="slide">
         <head>Noms de lieux et de personnes</head>
