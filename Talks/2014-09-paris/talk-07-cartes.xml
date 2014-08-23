@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
   <teiHeader>
     <fileDesc>
@@ -16,17 +15,14 @@
   </teiHeader>
   <text>
     <body>
-
-
       <div>
         <head>Un cas d'étude: la carte postale</head>
         <p>La TEI - la <emph>texte</emph> encoding initiative - s'applique quotidiennement aux
           livres et manuscrits, aux corpus literaires et linguistiques. </p>
-        <p>Supposons que l'on ait obtenu un financement ANR pour un projet de numérisation et de transcription d'une collection
-          gigantesque de cartes postales. Comment va-t-on créer un systeme TEI apte à gérer des
-          centaines de choses comme celles-ci ?</p>
+        <p>Supposons que l'on ait obtenu un financement ANR pour un projet de numérisation et de
+          transcription d'une collection gigantesque de cartes postales. Comment va-t-on créer un
+          systeme TEI apte à gérer des centaines de choses comme celles-ci ?</p>
       </div>
-
       <div>
         <head>Une carte (recto)</head>
         <figure>
@@ -39,7 +35,6 @@
           <graphic url="../Graphics/Cartes/19800726_001v.jpg"/>
         </figure>
       </div>
-
       <div>
         <head>Encore une carte</head>
         <figure>
@@ -47,11 +42,9 @@
           <p>NB : la structuration n'est pas toujours pareille...</p>
         </figure>
       </div>
-
       <div>
         <head>Quelles sont les éléments significatifs qu'il faut absolument distinguer dans notre
           encodage ?</head>
-
         <list rend="pause">
           <item>image</item>
           <item>oblitération</item>
@@ -64,8 +57,6 @@
           <item>...</item>
         </list>
       </div>
-
-
       <div>
         <head>Propositions</head>
         <p>Nous commençons en structurant chaque carte en divisions de type variés :</p>
@@ -123,33 +114,32 @@ France
           <item>On n'a pas mis en évidence tout ce qui pourrait nous intéresser du point de vue
             patrimonial, par exemple : les ratures, les retours à ligne, les noms de personnes ou de
             lieux, les aspects linguistiques, les métadonnées... </item>
-          <item>On n'a pas structuré (par exemple) le destinataire, ce qui va nous embêter pour faire
-            des recherches efficaces... </item>
+          <item>On n'a pas structuré (par exemple) le destinataire, ce qui va nous embêter pour
+            faire des recherches efficaces... </item>
           <item>Pour ajouter de telles choses, on doit inventer encore du vocabulaire... ce qui
             gaspille un peu notre temps, vu que la TEI l'a déjà fait...</item>
         </list>
       </div>
-
       <div>
         <head>Proposition TEI initiale</head>
         <list>
           <item>On traite chaque carte comme un <gi>text</gi> et chaque sous-partie comme un
               <gi>div</gi> composé de <gi>p</gi> ou <gi>ab</gi>
           </item>
-          <item>On se sert de l'attribut <att>type</att> pour caractériser chaque division</item>
-          <item>On va structurer les composants du destinataire en <gi>address</gi>, qui regroupe un
+          <item>L'attribut <att>type</att> sert à caractériser chaque <gi>div</gi></item>
+          <item>L'adresse du destinataire est indiqué par un <gi>address</gi>, qui regroupe un
               <gi>persName</gi> et des <gi>addrLine</gi></item>
-          <item>On aura également besoin de l'attribut <att>facs</att> pour associer une partie de
-            texte avec son image numerisée</item>
-          <item>On propose l'élément <gi>stamp</gi> pour tout timbrage, oblitération, etc. ; et de
+          <item>L'élément <gi>stamp</gi> est utilisable pour tout timbrage, oblitération, etc. ; et
             l'élément <gi>bibl</gi> pour les métadonnées concernant l'édition de la carte avant son
             usage</item>
-          <item>On pourrait distinguer les noms de lieux avec <gi>placeName</gi>, les noms de
-            personnes avec <gi>persName</gi>, les dates avec <gi>date</gi>
+          <item>Nous distinguons les noms de lieux avec <gi>placeName</gi>, les noms de personnes
+            avec <gi>persName</gi>, les dates avec <gi>date</gi>
           </item>
-          <item>On pourrait se servir de <gi>del</gi>(pour les ratures), <gi>add</gi> (pour les
-            ajouts), <gi>reg</gi> (pour les régularisations), <gi>hi</gi> pour les mots ou phrases
-            mises en évidence, <gi>lb</gi> pour les retours à la ligne.... </item>
+          <item>Nous dispons de <gi>del</gi>(pour les ratures), <gi>add</gi> (pour les ajouts),
+              <gi>reg</gi> (pour les régularisations), <gi>hi</gi> pour les mots ou phrases mises en
+            évidence, <gi>lb</gi> pour les retours à la ligne.... </item>
+          <item>On aura également besoin de l'attribut <att>facs</att> pour associer une partie de
+            texte avec son image numerisée</item>
         </list>
         <p rend="box">Est-ce que cela nous suffira ?</p>
       </div>
@@ -252,22 +242,30 @@ France
             </ab>
           </div></egXML>
       </div>
-
-    
+      <div>
+        <head>Prochaine étape: définition d'un ODD</head>
+        <list>
+          <item>Ces experiences nous aident à définir un lexique bien adapté aux besoins de notre
+            projet</item>
+          <item>un lexique aussi compréhensible à l'extérieur de notre projet</item>
+          <item>un lexique défini et documenté selon des normes explicites</item>
+        </list>
+        <p rend="box">On appelle cela un ODD (<hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it
+          all)</p>
+      </div>
       <div>
         <head>Comment définir un vocabulaire TEI XML ?</head>
         <p>Il faut <list>
-          <item>spécifier les éléments souhaités et leurs attributs</item>
-          <item>préciser leurs contenus</item>
-          <item>documenter leur significations/règles d'usage</item>
-        </list></p>
+            <item>spécifier les éléments souhaités et leurs attributs</item>
+            <item>préciser leurs contenus</item>
+            <item>documenter leur significations/règles d'usage</item>
+          </list></p>
         <p rend="box">ODD nous permet de faire cela à partir des définitions TEI éxistantes.</p>
       </div>
-      
-     
-        <div>
-          <head>Extrait d'un ODD pour les cartes postales </head>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">  <schemaSpec ident="tei_cartes" docLang="fr" start="TEI teiCorpus">
+      <div>
+        <head>Extrait d'un ODD pour les cartes postales </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <schemaSpec ident="tei_cartes" docLang="fr" start="TEI teiCorpus">
             <moduleRef key="tei"/>
             <moduleRef key="textstructure"
               include="TEI body dateline div postscript salute signed text"/>
@@ -280,42 +278,44 @@ France
             <moduleRef key="msdescription" include="stamp"/>
             <moduleRef key="transcr" include="att.global.facs"/>
             <moduleRef key="namesdates" include="persName placeName"/>
-            <elementRef key="ab"/> <!-- ... --></schemaSpec>
-          </egXML>
-          <p>Cette spécification de schéma est à compléter avec de la documentation, bien sûr... </p>
-        </div>
-        
-     
-      <div><head>Traitement des ODD</head>
-      <p>A partir d'un ODD on peut génerer 
-        <list><item>la documentation complàte d'une application TEI en plusieur formats (HTML, DOCX, PDF...) </item><item>un schéma (grammaire) pour controller et valider les fichiers TEI XML conformes à l'application</item></list></p>
-        <p>Ces transformations peuvent s'effectuer avec :
-        <list><item>sur le web avec Roma, qvec Byzantium, qui interfacent avec oxGarage</item><item>sur ligne de commande directement (avec installation des feuilles de style TEI)</item><item> avec 
-          Oxygen
-        </item></list></p>
+            <elementRef key="ab"/>
+            <!-- ... --></schemaSpec>
+        </egXML>
+        <p>Cette spécification de schéma est à compléter avec de la documentation, bien sûr... </p>
       </div>
-      
+      <div>
+        <head>Traitement des ODD</head>
+        <p>A partir d'un ODD on peut génerer <list>
+            <item>la documentation complète d'une application TEI en plusieur formats (HTML, DOCX,
+              PDF...) </item>
+            <item>un schéma (grammaire) pour controller et valider les fichiers TEI XML conformes à
+              l'application</item>
+          </list></p>
+        <p>Ces transformations peuvent s'effectuer avec : <list>
+            <item>sur le web avec Roma, avec Byzantium, qui interfacent avec oxGarage</item>
+            <item>sur ligne de commande directement (avec installation des feuilles de style
+              TEI)</item>
+            <item> avec Oxygen </item>
+          </list></p>
+      </div>
       <div>
         <head>Exploration d'un ODD</head>
-        
         <list>
-          <item>Avec oXygen, ouvrez le fichier <ident type="file">cartes-tei.odd</ident></item>
+          <item>Avec oXygen, ouvrez le fichier <ident type="file">cartes-tei.odd</ident> qui se
+            trouve dans votre dossier <ident>Travaux</ident></item>
           <item>Regardez (et modifiez si vous le souhaitez) les parties documentaires et les parties
             ODD de ce fichier.</item>
-         
-       
-          <item>Générez un schéma et créez un document qui se sert de ce schéma. Vous pouvez vous servir de Roma, ou bien de oXygen, comme vous voulez (pour oXygen, voir le fichier <ident>exercice-oxygen-2.pdf</ident> pour les manip ...  </item>
-          <item>Dans le dossier <ident>Cartes</ident>, vous trouverez quelques cartes postales,
-            partiellement transcrites... à vous de les compléter, en vous servant du schéma !</item>
+          <item>Générez un schéma et créez un document qui se sert de ce schéma en utilisant
+            oXygen</item>
+          <item>Dans le dossier <ident>Travaux/Cartes</ident>, vous trouverez quelques cartes
+            postales, partiellement transcrites... à vous de les compléter, en vous servant du
+            schéma !</item>
           <item>Si vous souhaitez modifier le schéma (par ex. pour ajouter une balise pas encore
             disponible), n'hésitez pas à modifier le ODD et générez à nouveau le schéma</item>
-          <item>Quand vous aurez fini, enregistrez votre carte dans le dossier
+          <item>Quand vous aurez fini, enregistrez votre carte balisé dans le dossier
               <ident>Cartes</ident> avec les autres</item>
         </list>
-       
       </div>
-
-  
     </body>
   </text>
 </TEI>

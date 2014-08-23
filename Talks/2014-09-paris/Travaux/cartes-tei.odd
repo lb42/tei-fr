@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TEI pour les cartes postales</title>
+                <author>Lou Burnard Consulting</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>Unpublished draft</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Initially created on <date when="2011-01-24">24 Jan 2011</date> at Gare
+                    Montparnasse, Paris; updated for various other talks</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change when="2014-08-23">Latest revision</change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>On propose une personalisation minimale de la TEI pour le balisage des cartes
+                postales.</p>
+            <div>
+                <head>Structuration basique</head>
+                <p>Chaque carte postale sera traitée comme un texte indépendant, represente par un
+                        <gi>TEI</gi>. Un ensemble de cartes sera donc traité comme un
+                        <gi>teiCorpus</gi>
+                    <specList>
+                        <specDesc key="teiCorpus"/>
+                        <specDesc key="TEI"/>
+                        <specDesc key="text"/>
+                        <specDesc key="body"/>
+                        <specDesc key="div"/>
+                        <specDesc key="list"/>
+                        <specDesc key="item"/>
+                        <specDesc key="p"/>
+                    </specList>
+                </p>
+                <p>Pour baliser les ajouts, les suppressions,les régularisations éditoriales, et les
+                    mots incertains dans la partie écrite, on se servira des balises suivantes: <specList>
+                        <specDesc key="add"/>
+                        <specDesc key="del"/>
+                        <specDesc key="reg"/>
+                        <specDesc key="unclear"/>
+                    </specList>
+                </p>
+                <p>Pour les changements de mise-en-valeur (par ex. écriture en couleur ou de taille
+                    remarquable) on se servira de la balise suivante: <specList>
+                        <specDesc key="hi"/>
+                    </specList></p>
+                <p>Nous désirons distinguer nettement les dates, les noms des lieux et des
+                    personnes, et les adresses, en nous servant des balises suivantes: <specList>
+                        <specDesc key="address"/>
+                        <specDesc key="addrLine"/>
+                        <specDesc key="date"/>
+                        <specDesc key="name"/>
+                        <specDesc key="street"/>
+                    </specList></p>
+            </div>
+            <div>
+                <head>Metadonnées</head>
+                <p>D'abord nous proposons une version tres simplifiée du TEI Header. La TEI n'exige
+                    que un <gi>fileDesc</gi>, qui ne peut contenir que les elements suivants: <specList>
+                        <specDesc key="titleStmt"/>
+                        <specDesc key="publicationStmt"/>
+                        <specDesc key="sourceDesc"/>
+                    </specList>
+                </p>
+                <p>Le <gi>titleStmt</gi> ne permet qu'un <gi>title</gi>; les deux autres qu'une
+                    séquence d'au moins un <gi>p</gi>, qui peut d'ailleurs inclure un <gi>bibl</gi>.
+                </p>
+            </div>
+            <div>
+                <head>Integration image/texte</head>
+                <p>Pour nous permettre d'intégrer des images numérisés avec le texte, il nous faut
+                    quelques parties du module <ident type="module">transcr</ident>, au moins
+                    l'attribut <att>facs</att>. Pour les images de recto nous allons nous servir des
+                    elements suivants: <specList>
+                        <specDesc key="figure"/>
+                        <specDesc key="figDesc"/>
+                        <specDesc key="graphic"/>
+                    </specList>
+                    <!--Nous incluons aussi les elements <gi>facsimile</gi>, <gi>surface</gi>, et <gi>zone</gi>.-->
+                </p>
+            </div>
+            <div>
+                <head>Suppréssion des attributs</head>
+                <p>Pour reduire la taille du schéma, nous supprimons plusieurs attributs. Cet
+                    objectif implique des modification des classes d'où ces attributs sont hérités;
+                    à savoir, <att>xml:space</att>, <att>rendition</att>, et <att>xml:base</att>
+                    sont supprimés de la classe <ident type="class">att.global</ident>, qui va donc
+                    ne proposer que les attributs <att>xml:id</att>, <att>n</att> et
+                        <att>xml:lang</att>. </p>
+                <p>Egalement, nous modifions la classe <ident type="class">att.divLike</ident> de
+                    sorte que l'element <gi>div</gi> n'hérite que les attributs <att>xml:id</att>,
+                        <att>n</att>, et <att>xml:lang</att>. La classe <ident>att.declaring</ident>
+                    est aussi supprimée.</p>
+            </div>
+            <div>
+                <head>Modification des attributs</head>
+                <p>Nous proposons de limiter les valeurs possibles pour quelques attributs,
+                    notamment l'attribut <att>type</att> de <gi>div</gi>. Dans notre schéma, cet
+                    attribut doit porter une des valeurs predefinies ci-dessous. </p>
+                <p>Dans une prochaine étape, il serait souhaitable d'ajouter des contraintes
+                    schematron pour assurer que (par ex.) chaque <gi>text</gi> ne contient qu'un
+                        <tag>div type="recto"</tag> et <tag>div type="verso"</tag>, etc.</p>
+            </div>
+            <div>
+                <head>Spécification du schéma</head>
+                <schemaSpec ident="tei_cartes" docLang="fr" start="TEI teiCorpus">
+                    <moduleRef key="tei"/>
+                    <moduleRef key="textstructure"
+                        include="TEI body dateline div postscript salute signed text"/>
+                    <moduleRef key="core"
+                        include=" add addrLine address bibl date del foreign graphic head hi item lb list name p 
+			        publisher q reg resp respStmt street teiCorpus title unclear"/>
+                    <moduleRef key="header"
+                        include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
+                    <moduleRef key="figures" include="figure figDesc"/>
+                    <moduleRef key="msdescription" include="stamp"/>
+                    <moduleRef key="transcr" include="att.global.facs"/>
+                    <moduleRef key="namesdates" include="persName placeName"/>
+                    <elementRef key="ab"/>
+                    <elementSpec ident="div" mode="change" module="textstructure">
+                        <classes>
+                            <memberOf key="att.global"/>
+                            <memberOf key="att.typed"/>
+                            <memberOf key="model.divLike"/>
+                        </classes>
+                        <attList>
+                            <attDef ident="type" mode="replace" usage="req">
+                                <valList type="closed">
+                                    <valItem ident="recto">
+                                        <desc xml:lang="fr">le recto de la carte, contenant
+                                            habituellement un image</desc>
+                                        <desc xml:lang="en">the front side of the card usually
+                                            containing a picture</desc>
+                                    </valItem>
+                                    <valItem ident="verso">
+                                        <desc xml:lang="fr">le verso de la carte, contenant
+                                            habituellement le message et le destinataire</desc>
+                                        <desc xml:lang="en">the back side of the card usually
+                                            containing the message and the addressee</desc>
+                                    </valItem>
+                                    <valItem ident="message">
+                                        <desc xml:lang="fr">une partie de la carte contenant un
+                                            message</desc>
+                                        <desc xml:lang="en">a part of the card containing a
+                                            message</desc>
+                                    </valItem>
+                                    <valItem ident="destination">
+                                        <desc xml:lang="fr">une partie de la carte contenant
+                                            l'adresse du destinataire et d'autres information sur
+                                            son expedition par ex les timbres etc</desc>
+                                        <desc xml:lang="en">the part of the card containing the
+                                            address and other information about its sending e.g.
+                                            stamps or postmarks</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="stamp" mode="change" module="textstructure">
+                        <attList>
+                            <attDef ident="type" mode="replace">
+                                <valList type="closed">
+                                    <valItem ident="postmark">
+                                        <desc xml:lang="fr">informations sur l'obliteration</desc>
+                                    </valItem>
+                                    <valItem ident="publicity">
+                                        <desc xml:lang="fr">informations sur les flammes ou autres
+                                            message publicitaire</desc>
+                                    </valItem>
+                                    <valItem ident="postage">
+                                        <desc xml:lang="fr">informations sur les timbres postes
+                                            affixes à la carte</desc>
+                                        <desc xml:lang="en">description of any postage stamp or seal
+                                            affixed to the card</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <classSpec ident="att.global" mode="change" module="tei" type="atts">
+                        <attList>
+                            <attDef ident="xml:space" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                        </attList>
+                    </classSpec>
+                </schemaSpec>
+            </div>
+        </body>
+    </text>
+</TEI>
