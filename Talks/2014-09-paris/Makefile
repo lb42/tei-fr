@@ -54,11 +54,11 @@ clean:
 	-rm booklet.pdf
 
 all:
-	xmllint --xinclude talks.xml > allTalks.xml
-	teitoepub --profile=oucs --odd allTalks.xml
-	teitodocx --profile=oucs allTalks.xml
-	rm -f Travaux.zip
-	zip -r Travaux `find Travaux -type f | grep -v .svn`
+	xmllint --xinclude talks.xml > diapos.xml
+	teitoepub --profile=tei --odd diapos.xml
+	teitodocx --profile=tei diapos.xml
+	rm -f travaux.zip
+	zip -r travaux `find Travaux -type f | grep -v .svn`
 
 handout: 
 	cat booklet-top.txt > booklet-xi.xml
