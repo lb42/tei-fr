@@ -18,9 +18,10 @@ EXERCISES= \
 	ex-2-basic \
 	ex-3-header \
 	ex-4-roma \
-	ex-5-names \
-	ex-6-outils \
-	ex-7-xslt
+	ex-5-cartes \
+	ex-6-names \
+	ex-7-outils \
+	ex-8-xslt
 
 default: pdfslides
 
