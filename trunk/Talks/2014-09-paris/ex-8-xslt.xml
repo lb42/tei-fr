@@ -29,8 +29,8 @@
   <text>
     <body>
       <figure><graphic url="../Graphics/duBellay.png"/></figure>
-      <p>Dans ce petit exercice et le suivant, on prends comme
-      exemplaire une version numerisée de ce sonnet célèbre de
+      <p>Dans ce petit exercice et le suivant, on prend comme
+      exemplaire une version numerisée d'un sonnet célèbre de
       DuBellay. Vous le trouverez dans le fichier <ident>duBellay.xml</ident>  de votre dossier <ident>Travaux</ident>  — ouvrez-le d'abord
       avec Oxygen.</p>
 
@@ -43,7 +43,7 @@
         de vérification de document TEI, oXygen est très pratique. La
         ligne de saisie "XPath" que l’on voit a gauche en haut de la fenêtre,
         au-dessous des barres d’outils oXygen, permet de saisir des
-        expressions XPath. Une fois fait "Entrée" au clavier, oXygen
+        expressions XPath. Une fois tapé "Entrée" au clavier, oXygen
         évalue l’expression et retourne, dans la fenêtre qui fait
         toute la largeur de l’écran en bas, une liste de(s)
         résultat(s) - un ou plusieurs ensembles de nœuds, en donnant
@@ -57,11 +57,11 @@
             <item>quel est l’élément racine du fichier XML ?</item>
             <item>quel est le titre donné à ce fichier ?</item>
             <item>qui est le responsable de la création du fichier ?</item>
-	    <item>quel est l'origine de la version encodee ?</item>
-<item>quel est la date de la revision la plus recente du fichier ?</item>
+	    <item>quelle est l'origine de la version encodée ?</item>
+<item>quelle est la date de la révision la plus récente du fichier ?</item>
         <item>combien y a-t-il de strophes (<gi>lg</gi>) dans le sonnet ?</item>
             <item>combien y a-t-il de segments de texte dont la
-	    graphie est considere incorrecte aujourd'hui ?</item>
+	    graphie est considérée incorrecte aujourd'hui ?</item>
 <item>combien y a-t-il de vers (<gi>l</gi>) qui contient au moins un
 tel segment ?</item>
             <item>quel est le contenu textuel du premier vers de
@@ -69,9 +69,9 @@ tel segment ?</item>
             <item>Quels  noeuds texte contiennent la chaîne de caractères "jamais"</item>
           </list></p>
         <p>On va faire ces exercices ensemble. Des réponses sont
-	proposées dans la section qui suit: ne le regardez pas si vous
-	preferiez tester vos competences!</p>
-        <p>Nota : utiliser ici XPath 2.0 (à cause de l’espace de noms par défaut).</p>
+	proposées dans la section qui suit : ne les regardez pas si vous
+	préfèrez tester vos compétences!</p>
+        <!--p>Nota : utiliser ici XPath 2.0 (à cause de l’espace de noms par défaut).</p-->
       </div>
 
 <div>
@@ -95,16 +95,16 @@ l'attribut <att>type</att> porte une valeur appropriee (<code>//titleStmt/title[
 
 <label>Qui est le responsable de la création du fichier ?</label>
 <item><p>Expression XPath à écrire : </p><p><code> //titleStmt/respStmt/name</code></p>
-<p>Réponse : 1 seul noeud ici.</p>
+<p>Réponse : un seul noeud ici.</p>
 </item>
 
-<label>Quel est l'origine de la version encodée ?</label>
+<label>Quelle est l'origine de la version encodée ?</label>
 <item><p>Expression XPath à écrire : </p><p><code>//sourceDesc/*</code> ou,
 plus finement, <code>/TEI/fileDesc/sourceDesc/*</code>. Sans le
 <code>*</code> vous ne recevrez que l'élément de groupement 
 <gi>sourceDesc</gi>, sans ses composants.</p></item>
 
-<label>Quel est la date de la revision la plus récente du fichier
+<label>Quelle est la date de la révision la plus récente du fichier
 ?</label>
 <item><p>Expression XPath à écrire :</p><p>
 <code>revisionDesc/change[1]/@when</code>. Par défaut, le premier
@@ -119,7 +119,7 @@ de la fonction <code>count()</code>.</p>
 <p>Réponse : 4 </p></item>
 
 
-<label>Combien y a-t-il de segments de texte dont la graphie est consideré incorrecte aujourd'hui ?</label>
+<label>Combien y a-t-il de segments de texte dont la graphie est considérée incorrecte aujourd'hui ?</label>
 <item><p>Expression XPath à écrire : </p><p>
 <code>count(/TEI/text//orig)</code>. Enlevez le <code>count()</code>
 si vous préfériez les voir...</p>
@@ -135,7 +135,7 @@ si vous préfériez les voir...</p>
 <item><p>Expression XPath à écrire :</p><p>
 <code>//lg/l[1]//text()</code></p>
 <p>Pour le dernier, c'est un peu moins
-evident... <code>//lg/l[position()=last()]//text()</code>
+évident... <code>//lg/l[position()=last()]//text()</code>
 </p>
 </item>
 
@@ -152,7 +152,7 @@ evident... <code>//lg/l[position()=last()]//text()</code>
       <div>
         <head>XSLT</head>
 
-        <p>Dans ce deuxieme petit exercice, nous allons faire des expériences avec XSLT sous contrôle
+        <p>Dans ce deuxième petit exercice, nous allons faire des expériences avec XSLT sous contrôle
           d'Oxygen. On va travailler avec une version du même
 	      sonnet de DuBellay qui a été (partiellement) enrichie avec
             des balises <gi>choice</gi>. 
@@ -164,16 +164,16 @@ evident... <code>//lg/l[position()=last()]//text()</code>
 	là. </p>
 <p>D'abord il faut mettre en place une liaison entre le
 	fichier XML d'entrée, le fichier HTML de sortie, et le fichier
-	XSLT qui va controller la transformation. Cette liaison
-s'appele un <term>scénario de transformation</term> et on la configure
-en Oxygen de la maniere suivante:</p>
+	XSLT qui va contrôler la transformation. Cette liaison
+s'appele un <term>scénario de transformation</term> et on le configure
+sous Oxygen de la manière suivante:</p>
 
         <list type="ordered">
           <item> Ouvrez Oxygen. Sélectionnez <ident>Ouvrir</ident> sur le menu
               <ident>Fichier</ident> et ouvrez le fichier
 	      <ident>duBellayEd.xml</ident> qui se trouve dans votre dossier <ident>Travaux</ident>.</item>
 
-          <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
+          <item>Dans le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
             ensuite <ident>Configurer un scénario de transformation</ident> ou tapez
               <code>ctrl-maj-C</code>, ou bien cliquez sur le bouton à droite du triangle rouge sur
             la barre d'outils.</item>
@@ -225,7 +225,7 @@ en Oxygen de la maniere suivante:</p>
         <list>
           <item>Après le <gi>html</gi>, tapez <code>&lt;head></code></item>
           <item>Oxygen ajoute la balise fermante. C'est bien. Continuez donc. Ajoutez
-              <code>&lt;title></code> à l'intérieur de l'élément <gi>head</gi>. Pour trouver le titre du document il faut naviguer de la
+            <code>&lt;title></code> à l'intérieur de l'élément <gi>head</gi>. Pour trouver le titre du document,  il faut naviguer de la
             racine du document (l'élément TEI) jusqu'à l'élément <gi>title</gi>, qui se trouve dans
             le <gi>titleStmt</gi>, dans le <gi>fileDesc</gi>, dans le <gi>teiHeader</gi>. Cela
             s'effectue avec le <term>XPath</term> suivant.</item>
@@ -237,7 +237,7 @@ en Oxygen de la maniere suivante:</p>
         </list>
         <p><graphic height="8cm" url="../Graphics/script-1.png"/></p>
         <list>
-          <item>Cliquez sur l'icône de la disquette (ou tapez ctrl-s) pour enrégistrer les
+          <item>Cliquez sur l'icône de la disquette (ou tapez ctrl-s) pour enregistrer les
             modifications que vous venez de faire.</item>
           <item>Cliquez sur l'onglet <ident>duBellayEd.xml</ident> pour revenir sur votre document
             XML.</item>
@@ -283,8 +283,8 @@ en Oxygen de la maniere suivante:</p>
 -->
       <div>
         <head>Traitement des <gi>choice</gi></head>
-        <p>Est-ce que le XSLT peut nois aider à mieux traiter ces
-	elements <gi>choice</gi>? Bien sur, oui. D'abord,  on pourrait simplement
+        <p>Est-ce que le XSLT peut nous aider à mieux traiter ces
+	éléments <gi>choice</gi>? Bien sur, oui. D'abord,  on pourrait simplement
           ajouter un template qui va supprimer les <gi>orig</gi> (ou
 	les <gi>reg</gi> si vous le préfériez).</p>
         <p>Tout ce qu'il faut, c'est ajouter un template comme ceci : <tag>xsl:template
@@ -296,21 +296,21 @@ en Oxygen de la maniere suivante:</p>
 <list>
 <item>Créez un paramètre <ident>modernisation</ident> avec
 <gi>xsl:variable</gi>, avec comme valeur "oui" ou "non", selon votre
-preference. (Attention de ne pas introduire des blancs autour du mot!). Ceci va
-controller
+préférence. (Attention à ne pas introduire des blancs autour du mot !). Ceci va
+contrôler
 la suppression ou bien des <gi>reg</gi>, ou bien des
 <gi>orig</gi> selon la valeur qu'on lui donne. Par exemple, s'il aura
 la valeur <code>oui</code> on supprimera les <gi>orig</gi>. </item>
 <item>Ajouter un template pour l'élément <gi>choice</gi>, qui contiendra un <gi>xsl:choose</gi> pour tester la valeur de ce
 paramètre </item>
-<item>Les experts en HTML peuvent proposer d'autre mises en jours
-eventuelles pour les <gi>choice</gi>, sous control d'autre valeurs du paramètre... </item>
+<item>Les experts en HTML peuvent proposer d'autre mises à jour
+eventuelles pour les <gi>choice</gi>, sous contrôle d'autre valeur du paramètre... </item>
 </list>
 
 <p>Qu'est-ce qu'on ferait pour n'afficher qu'une partie du texte?
 Modifiez votre feuille de style pour n'afficher que le vers initial de
 chaque strophe. Ensuite, vous pourriez les trier par
-ordre alphabetique....</p>
+ordre alphabétique....</p>
 
 <p>Vous trouverez dans le fichier <ident>duBellayCorr.xsl</ident> une
 version corrigée de cet exercice... ne le regardez pas tout de
