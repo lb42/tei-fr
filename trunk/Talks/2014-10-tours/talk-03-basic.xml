@@ -122,11 +122,11 @@
       <div rend="slide">
         <head>Structure(s) d'un document TEI-XML</head>
         <list>
-          <item>Chaque document TEI est represente par un element <gi>TEI</gi>
+          <item>Chaque document TEI est represente par un element <gi>TEI</gi>, regroupant de texte et des metadonnees
           </item>
           <item>On peut également regrouper des <gi>TEI</gi> dans un <gi>teiCorpus</gi></item>
         </list>
-        <p rend="box"> Le <term>document </term>n'a pas de definition formelle, mais d'habitude il correspond a un object complet (un livre par ex). D'autres possibilites ne sont pas exclus... </p>
+        <p rend="box"> Le terme <term rend="it">document </term> n'a pas de definition formelle, mais d'habitude il correspond a un object complet (un livre par ex). D'autres possibilites ne sont pas exclus... </p>
       </div>
      <!-- <div rend="slide">
         <head> Comment structurer un corpus TEI-XML?</head>
@@ -147,7 +147,39 @@
           <item>ou une transcription documentaire (<gi>sourceDoc</gi>) </item>
           <item>ou ces trois types d'objet conjointement</item>
         </list>
-      </div>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <TEI>
+            <teiHeader>
+              <!-- required : contains metadata  -->
+            </teiHeader>
+            <facsimile>
+              <!-- optional : collection of images of the object-->
+            </facsimile>
+            <sourceDoc>
+              <!-- optional : documentary transcription of the object -->
+            </sourceDoc>
+            <text>
+              <!-- required if no facsimile or sourceDoc -->
+            </text>
+          </TEI>
+        </egXML> </div>
+      <div>
+        <head>TEI basic structure (2)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiCorpus>
+              <teiHeader>
+                <!-- required -->
+              </teiHeader>
+              <TEI>
+                <!-- required -->
+              </TEI>
+              <!-- More <TEI> elements -->
+            </teiCorpus>
+          </egXML>
+        </p>
+        <p rend="box">We might use this for a collection of chapbooks, or for a curated set of
+          versions of the text</p></div>
       <div type="slide">
         <head>L’entête TEI</head>
         <p>Inspiré de la pratique AACR2, il contient quatre éléments principaux </p>
@@ -182,26 +214,78 @@
             </teiHeader>
           </egXML>
         </p>
-      </div>
-      <div>
-        <head>Un texte simple... </head>
-        <p>
-          <graphic height="80%" url="../Graphics/struct-text.png"/>
-        </p>
-        <p rend="box"> une structuration de texte assez classique...</p>
-      </div>
-      <div>
-        <head>Un texte complexe... </head>
-        <p>
-          <graphic url="../Graphics/struct-group-1.png"/>
-        </p>
-      </div>
-      <div>
-        <head>Un texte complexe... </head>
-        <p>
-          <graphic url="../Graphics/struct-group-2.png"/>
+      </div>  <div>
+        <head>The <gi>text</gi> element</head>
+        <p> What is a text?<list>
+          <item rend="pause"> A text may be unitary or composite <list>
+            <item>unitary: forming an organic whole</item>
+            <item>composite: consisting of several components which are in some important
+              sense independent of each other</item>
+          </list></item>
+          <item rend="pause"> a unitary text contains <list>
+            <item>optional front matter</item>
+            <item><gi>body</gi> (required)</item>
+            <item>optional back matter</item>
+          </list>
+          </item>
+          <!-- etc. -->
+        </list>
         </p>
       </div>
+      <div>
+        <head>TEI text structure (1)</head>
+        <p>A simple document: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <text>
+            <front>
+              <!-- optional -->
+            </front>
+            <body>
+              <!-- required -->
+            </body>
+            <back>
+              <!-- optional -->
+            </back>
+          </text>
+        </egXML>
+        </p>
+      </div>
+      <div>
+        <head>Composite texts</head>
+        <p>There are also composite texts (eg collected poems, a book of essays), which contain <list>
+          <item>optional front matter</item>
+          <item>a <gi>group</gi> with <gi>text</gi> inside (required)</item>
+          <item>optional back matter</item>
+        </list>
+        </p>
+      </div>
+      <div>
+        <head>TEI text structure (2)</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <text>
+              <front>
+                <!-- ... -->
+              </front>
+              <group>
+                <text n="1">
+                  <body>
+                    <p>...</p>
+                  </body>
+                </text>
+                <text n="2">
+                  <body>
+                    <p>...</p>
+                  </body>
+                </text>
+              </group>
+              <back>
+                <!-- ... -->
+              </back>
+            </text>
+          </egXML>
+        </p>
+      </div>
+    
       <div rend="slide">
         <head>Entrons dans le <gi>body</gi> d'un <gi>text</gi>... </head>
         <p>D'habitude, on y trouve des <term>divisions</term>
@@ -292,7 +376,7 @@
           <text>
             <front>
               <titlePage> ... </titlePage>
-              <!-- ... -->#
+              <!-- ... -->
               <div type="prolog" xml:id="P1">
                 <head>Ici commence le prologue de lecteur</head>
                 <!-- ... -->
@@ -574,7 +658,35 @@
         </egXML>
         <egXML xmlns="http://www.tei-c.org/ns/Examples"> Décret de la Convention <date
             when="1794-10-30">9 Brumaire An III</date></egXML>
-      </div>
+      </div>  <div>
+        <head>Graphics</head>
+        <p>
+          <list>
+            <item><gi>graphic</gi> (indicates the location of an inline graphic, illustration, or
+              figure)</item>
+            <item><gi>binaryObject</gi> (encoded binary data embedding a graphic or other
+              object)</item>
+            <item>The <title>figures</title> module provides <gi>figure</gi> and <gi>figDesc</gi>
+              for more complex graphics</item>
+            <item>The <att>facs</att> attribute links to an image of the source being encoded</item><item>The <att>url</att> attribute (on <gi>graphic</gi>)
+              links to an image forming part of the source </item>
+          </list>
+        </p></div><div>
+          <head>For example</head> 
+          
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <pb n="05" facs="page_05.png"/>
+            <p>Phillis interrupted him, saying, Cease bold Youth, leave off this passionate Address :—You are but young and meanly born, and unfit for my Degree; I would not my Father should know this Passion.
+            </p><figure>
+              <graphic url="page_05_detail.png"/>
+              <figDesc></figDesc>
+            </figure>
+            <p> Guy, thus discomfited, lived like one distracted, wringing his Hands, resolving to travel through the World to gain the Love of Phillis, or end his Days in Misery. Long may Dame Fortune frown, but when her Course is run she sends a Smile to
+            </p>
+          </egXML>
+          <cb/>
+          <p> <graphic url="Work/Guy/page_05.png"/>
+          </p>   </div>
       <div rend="slide">
         <head>Bibliographies</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">

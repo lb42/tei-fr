@@ -71,14 +71,14 @@
                     automatiquement. <list>
                         <item>Dans le document que vous venez de créer, mettez le curseur à
                             l'intérieur de l'élément <gi>p</gi>.</item>
-                        <item>Tapez '&lt;'. oXygen vous offre un menu de tous les éléments
+                        <item>Tapez '<code>&lt;</code>'. oXygen vous offre un menu de tous les éléments
                             disponibles à ce point.</item>
                         <item>Passez en revue la liste des noms d'élément : un "pop-up" apparaît
                             pour expliquer la fonction de chacun. Regardez par exemple
                                 <gi>address</gi>, <gi>camera</gi>, <gi>incident</gi>,
                                 <gi>metamark</gi>, ou <gi>notatedMusic</gi>.</item>
                         <item>Tapez <ident>ESC</ident> pour sortir du menu&#xa0;; supprimez le
-                            '&lt;' que vous venez d'ajouter.</item>
+                            '<code>&lt;</code>' que vous venez d'ajouter.</item>
                         <item>On a beaucoup de choix... mais dans un projet particulier il n'est
                             guère probable qu'on ait besoin de tous ces éléments. Avec autant de
                             possibilités, la probabilité d'introduire des incohérences ou
@@ -90,7 +90,7 @@
             <div>
                 <head>Création d'un schéma avec Roma</head>
                 <p>Le logiciel Roma vous permet de créer votre propre schéma TEI. Notre objectif
-                    sera de créer un schéma pour traîter une édition numérique (imaginaire) du CCMAA
+                    sera de créer un schéma pour traîter une édition numérique d'un  imprimé
                     ... <list>
                         <item>Avec votre navigateur rendez-vous sur <ref
                                 target="http://www.tei-c.org/Roma/"
@@ -116,7 +116,7 @@
                                 <item><hi>Title&#xa0;:</hi> Changez <code>My TEI Extension</code>
                                     en (par exemple) <code>TEI pour les imprimés</code>.</item>
                                 <item><hi>Filename&#xa0;:</hi> Changez <code>myTEI</code> en (par
-                                    exemple) <ident>teiImpr</ident> (c'est un identifiant, et donc
+                                    exemple) <ident>teiPrint</ident> (c'est un identifiant, et donc
                                     ne devrait pas inclure de blancs) </item>
                                 <item><hi>Language&#xa0;: </hi> Vous pouvez laisser en anglais, mais
                                     ce tutoriel part du principe que vous préférez travailler en
@@ -283,11 +283,11 @@
                     schéma. Que peut-on faire pour limiter les valeurs légales de ses attributs ?
                     (Notez qu'en général les attributs TEI sont définis d'une manière très
                     permissive : vous pouvez taper n'importe quoi). Supposons que nous désirons
-                    limiter les valeurs possibles pour l'attribut <att>type</att> sur <gi>list</gi><list>
+                    limiter les valeurs possibles pour l'attribut <att>type</att> sur <gi>div</gi><list>
                         <item>Revenez dans Roma</item>
                         <item>Cliquez sur l'onglet <ident>Modules</ident></item>
                         <item>Cliquez sur le module <ident>core</ident></item>
-                        <item>Trouvez le rang où est défini l'élément l<gi>ist</gi> et cliquez sur
+                        <item>Trouvez le rang où est défini l'élément <gi>div</gi> et cliquez sur
                                 <ident>Changer les Attributs</ident> tout à droite.</item>
                         <item>Une table des attributs disponibles pour cet élément s'affiche. Vous
                             pouvez inclure ou exclure des attributs si cela vous intéresse. Pour le
@@ -298,7 +298,7 @@
                                 <item><hi>Facultatif&#xa0;?</hi> Est-ce qu'il faut fournir une
                                     valeur pour cet attribut ou est-il facultatif&#xa0;? Supposons
                                     que nous désirons un schéma dans lequel la présence d'une valeur
-                                    de <att>type</att> sur <gi>list</gi> soit obligatoire&#xa0;:
+                                    de <att>type</att> sur <gi>div</gi> soit obligatoire&#xa0;:
                                     dans ce cas, sélectionnez <val>no</val>.</item>
                                 <item><hi>Contenu&#xa0;:</hi> Combien de valeurs (une ou plusieurs)
                                     sont permises pour cet attribut, et de quelle type (texte,
@@ -318,11 +318,11 @@
                                     valeurs sont proposées sous la forme d'une seule ligne, chaque
                                     valeur séparée par une virgule. Entrez donc la séquence suivante
                                         (<hi>sans blancs</hi>)
-                                        <code>present,proces,simple,inconnu</code>.</item>
+                                    <code>dedicace,apologie,livre,table</code>.</item>
                                 <item><hi>Description&#xa0;:</hi> nous permet de modifier la
                                     description de cet attribut. Vous pouvez la changer comme vous
                                     le souhaitez&#xa0;: par exemple, modifier "décrit la forme de la
-                                    liste" en "spécifie la catégorie de la liste selon notre système
+                                    division" en "spécifie la catégorie de la division selon notre système
                                     de classification".</item>
                             </list>
                         </item>
@@ -345,32 +345,26 @@
                         </item>
                         <item>Si tout va bien, votre document reste valide : il y a un petit carré
                             vert. </item>
-                        <item>Maintenant il faut ajouter une <gi>list</gi> quelque part, par exemple
+                    <item>Maintenant il faut ajouter une <gi>div</gi> quelque part, par exemple
                             a la suite d'un <gi>p</gi>. Essayez le!</item>
-                        <item>Par défaut une liste de type simple est proposée (c'est un bug): mais
-                            en tout cas notre document n'est plus valide&#xa0;: il y a un carré
-                            rouge en haut&#xa0;! En bas vous voyez le message <code>element "list"
-                                incomplete; missing required element "item"</code> : une liste vide
-                            n'est pas acceptable. Ajoutez donc un élément <gi>item</gi></item>
-                        <item>Supprimer la mention <code>type="simple"</code> et tapez un blanc.
+                        <item>Notre document n'est plus valide&#xa0;: il y a un carré
+                            rouge en haut&#xa0;! Ne vous inquietez pas... mettez le curseur a l'interieur de la balise ouvrante et tapez un blanc.</item><item>
                             oXygen propose une liste d'attributs disponibles. Déroulez-la jusqu'à
                                 <att>type</att> et notez que cet attribut est affiché en gras, pour
                             signaler que sa présence est obligatoire.</item>
                         <item>Sélectionnez <att>type</att> et notez que oXygen vous propose la liste
                             des valeurs que nous avions prédéfinies dans notre schéma. </item>
-                        <item>Choisissez l'une de ces valeurs, p.ex. 'proces', et votre document
+                        <item>Choisissez l'une de ces valeurs et votre document
                             redevient valide, avec un petit carré vert.</item>
                     </list>
                 </p>
-                <p>Maintenant, essayons l'épreuve décisive. Retrouvez le document XML-TEI que vous
-                    avez créé dans l'exercice précédent, qui contient votre version balisée du
-                    proces-verbal 61 du CCMAA! Est-ce que celui-ci est valide selon le schéma que
+                <p>Maintenant, essayons l'épreuve décisive. Reprenez les documents que vous avez créés dans l'exercice de Lauranne hier. Est-ce que ceux-ci sont tous valide selon le schéma que
                     vous venez de créer?</p>
                 <list>
-                    <item>Ouvrez votre fichier <ident>pv61.xml</ident> dans oXygen;</item>
+                    <item>Ouvrez un fichier <ident>.xml</ident> dans oXygen;</item>
                     <item> Choisir <ident>'Schema -> Associer un schéma'</ident> du menu
                             <ident>Document</ident>et sélectionner le fichier
-                            <ident>ccmaarnc</ident> généré par Roma</item>
+                            <ident>teiPrint</ident> généré par Roma</item>
                     <item>Si tout va bien vous aurez un joli carreau vert : sinon il faut voir
                         s'il ne s'agit pas d'un problème de balisage ou de schéma</item>
                 </list>
@@ -405,7 +399,7 @@
                     d'enregistrer la spécification, pour revenir dessus plus tard. <list>
                         <item>Revenez dans votre navigateur et cliquez sur l'onglet 'Enregistrer'. </item>
                         <item>Votre navigateur vous envoie un fichier XML-TEI, avec le même nom que
-                            votre schéma, donc <ident>teiCCMAA.xml</ident>. Enregistrez ce fichier
+                            votre schéma, donc <ident>teiPrint.xml</ident>. Enregistrez ce fichier
                             dans votre dossier <ident>Travaux</ident>. </item>
                         <item>Ouvrez ce fichier XML avec oXygen et lisez-le (mais avec les
                             balises&#xa0;: en mode Auteur il y a des détails significatifs qui sont
