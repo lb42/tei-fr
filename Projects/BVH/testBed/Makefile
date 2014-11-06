@@ -64,7 +64,7 @@ check:
 generate:
 		saxon -it:main -o:generated.odd \
 	/home/lou/Public/Stylesheets/tools/oddbyexample.xsl \
-	corpus=/home/lou/Public/tei-fr/Projects/BVH/futur ; \
+	corpus=/home/lou/Public/tei-fr/Projects/BVH/testBed ; \
 	teitorelaxng generated.odd
 
 checkSpec:
@@ -72,3 +72,12 @@ checkSpec:
 		echo $$f; \
 		jing generated.odd.relaxng \
 		$$f ; done
+
+testOBE:		
+	saxon -it:main -o:ccmaa.odd \
+	/home/lou/Public/Stylesheets/tools/oddbyexample.xsl \
+	corpus=/home/lou/Public/tei-fr/Talks/2014-05-inha/Travaux/CCMAA ; \
+	teitorelaxng ccmaa.odd; \
+	jing ccmaa.odd.relaxng ~/Public/tei-fr/Talks/2014-05-inha/Travaux/CCMAA/pv61-corr.xml
+
+
