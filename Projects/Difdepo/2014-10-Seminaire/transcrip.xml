@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Retranscription du fonds Oulipo</title>
+			</titleStmt>
+			<publicationStmt>
+				<p>unknown</p>
+			</publicationStmt>
+			<sourceDesc>
+				<p>Revised from previous seminar doc </p>
+			</sourceDesc>
+		</fileDesc>
+	</teiHeader>
+	<text>
+		<body xml:lang="fr">
+			<div>
+				<head>Retranscription avec Word : rappel</head>
+				<p>Nous vous avons proposé une démarche structurée pour préparer les transcriptions
+					des comptes rendus d'Oulipo: <list type="ordered">
+						<item>créer un nouveau Document Word en utilisant le template fourni</item>
+						<item>transformer le document Word en TEI XML avec l'aide de OxGarage</item>
+						<item>contrôler le fichier TEI XML généré avec oXygen </item>
+					</list>
+				</p>
+				<p rend="box">Un premier rapport...</p>
+			</div>
+			<div>
+				<head>Le template Word</head>
+				<p>Dans le fichier <ident>feuilledestyleOulipoV5.dotx</ident> sont predefinies
+					plusieurs styles specialises poour le projet. Les styles classiques de word (par
+					ex en gras, italique, sousligné etc.) restent également disponibles. Et en plus
+					rien ne vous empeche d'ajouter d'autres. </p>
+				<p>Dans Word, deux types de style sont a distinguer : <emph>Paragraph</emph> et
+						<emph>Character</emph>. Un passage de type <emph>Character</emph> est permis
+					à l'intérieur d'un passage de type <emph>Paragraph</emph>, mais pas un passage
+					de type <emph>Paragraph</emph>. </p>
+				<p>Voici les styles prédéfinis OuLiPo que nous avons initialement proposes: <table>
+						<row>
+							<cell>NomPersonneEditeur</cell>
+							<cell>e.g. <hi>Gallimard</hi>
+							</cell>
+						</row>
+						<row>
+							<cell>nomManifestation</cell>
+							<cell>e.g. <hi>Congrès</hi> de l’Oulipo </cell>
+						</row>
+						<row>
+							<cell>nomOulipien</cell>
+							<cell>e.g. <hi>FLL</hi> rappelle son accord</cell>
+						</row>
+						<row>
+							<cell>nomPersonneAuteur</cell>
+							<cell>e.g. <hi>FLL</hi> ouvre la séance</cell>
+						</row>
+						<row>
+							<cell>notions</cell>
+							<cell>e.g. <hi>structure</hi> en soi </cell>
+						</row>
+						<row>
+							<cell>reunionDate</cell>
+							<cell>e.g. <hi>10-11 juin 74</hi> à Boulogne</cell>
+						</row>
+						<row>
+							<cell>reunionInvite</cell>
+							<cell>e.g. <hi> Borzic</hi></cell>
+						</row>
+						<row>
+							<cell>reunionLieu</cell>
+							<cell>e.g. <hi>Chez MB</hi>.</cell>
+						</row>
+						<row>
+							<cell>reunionPresident</cell>
+							<cell>e.g. <hi>Président de séance : Fournel</hi></cell>
+						</row>
+						<row>
+							<cell>reunionSecretaire</cell>
+							<cell>e.g. <hi>Secrétaire : Bénabou</hi></cell>
+						</row>
+						<row>
+							<cell>titreDivers</cell>
+							<cell>e.g. <hi>« Idées ».</hi></cell>
+						</row>
+						<row>
+							<cell>titreOeuvre</cell>
+							<cell>e.g. <hi>La Littérature potentielle</hi></cell>
+						</row>
+					</table>
+				</p>
+			</div>
+			<div>
+				<head>Transformation des styles Word</head>
+				<p>Une feuille de style XSLT retrouve les styles Word dans un document et les
+					transforme en elements TEI selon ce mapping: <table>
+						<row>
+							<cell>Nom-institution</cell>
+							<cell><tag>orgName</tag></cell>
+						</row>
+						<!--row><cell>Nom-manifestation</cell><cell><tag>name type="event"</tag></cell></row>
+<row><cell>Nom-oulipien</cell><cell><tag>persName</tag></cell></row>
+<row><cell>Nom-personne-auteur</cell><cell><tag>persName role="auteur"</tag></cell></row>
+<row><cell>Nom-personne-divers</cell><cell><tag>persName</tag></cell></row>
+<row><cell>Nom-personne-editeur</cell><cell><tag>orgName role="editeur"</tag></cell></row-->
+						<row>
+							<cell>illisible</cell>
+							<cell><tag>unclear</tag></cell>
+						</row>
+						<row>
+							<cell>listeDesPresents[1]</cell>
+							<cell><tag>list type="present"</tag></cell>
+						</row>
+						<row>
+							<cell>nomManifestation Nom-manifestation</cell>
+							<cell><tag>name type="event"</tag></cell>
+						</row>
+						<row>
+							<cell>nomOulipien Nom-oulipien</cell>
+							<cell><tag>persName</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneAuteur Nom-personne-auteur</cell>
+							<cell><tag>persName role="auteur"</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneDivers Nom-personne-divers</cell>
+							<cell><tag>persName</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneEditeur Nom-personne-editeur</cell>
+							<cell><tag>orgName role="editeur"</tag></cell>
+						</row>
+						<row>
+							<cell>notions</cell>
+							<cell><tag>term</tag></cell>
+						</row>
+						<row>
+							<cell>refDocument</cell>
+							<cell><tag>ref</tag></cell>
+						</row>
+						<!--row><cell>reunion-invite</cell><cell><tag>persName role="invité"</tag>></cell></row>
+<row><cell>reunion-lieu</cell><cell><tag>placeName role="réunion"</tag></cell></row>
+<row><cell>reunion-presents</cell><cell><tag>persName role="présent"</tag></cell></row>
+<row><cell>reunion-president</cell><cell><tag>persName role="président"</tag></cell></row>
+<row><cell>reunion-secretaire</cell><cell><tag>persName role="secrétaire"</tag></cell></row>-->
+						<row>
+							<cell>reunionDate</cell>
+							<cell><tag>date type="réunion"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionInvite reunion-invite</cell>
+							<cell><tag>persName role="invité"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionLieu reunion-lieu</cell>
+							<cell><tag>placeName role="réunion"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionPresents reunion-presents</cell>
+							<cell><tag>persName role="présent"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionPresident reunion-president</cell>
+							<cell><tag>persName role="président"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionSecretaire reunion-secretaire</cell>
+							<cell><tag>persName role="secrétaire"</tag></cell>
+						</row>
+						<row>
+							<cell>titreDivers</cell>
+							<cell><tag>title>type="divers"</tag></cell>
+						</row>
+						<row>
+							<cell>titreOeuvre</cell>
+							<cell><tag>title</tag></cell>
+						</row>
+					</table>
+				</p>
+				<p rend="block">N'importe quel style Word nomme comme <code>tei_xxxx</code> sera
+					transforme dans une balise TEI <gi>xxxx</gi></p>
+			</div>
+			<!--
+  				<table>
+  					<row><cell>Title</cell><cell>Paragraph</cell><cell>titre du document (par exemple <q>COMPTE RENDU DU 7 NOVEMBRE 1974 (SEANCE EXTRAORDINAIRE)</q>)</cell></row>
+  					<row><cell>Présents</cell><cell>Paragraph</cell><cell>bilan des personnes présentes</cell></row>
+  					<row><cell>Excusés</cell><cell>Paragraph</cell><cell>bilan des personnes qui se sont excusées</cell></row>
+  					<row><cell>Président</cell><cell>Paragraph</cell><cell>la personne qui préside à la réunion</cell></row>
+  					<row><cell>Secrétaire</cell><cell>Paragraph</cell><cell>la personne qui prend les notes </cell></row>
+  					<row><cell>tei_closer</cell><cell>Paragraph</cell><cell>paragraphe de clôture à la fin du document (eg <q>La séance s’achève fort tard, après bien des
+									échanges bilatéraux.</q>)</cell></row>
+  					<row><cell>tei_quotation</cell><cell>Paragraph</cell><cell>citation mise en évidence dans le document</cell></row>
+  					<row><cell>tei_opener</cell><cell>Paragraph</cell><cell>paragraphe initial du document (eg <q>[Ordre du jour]</q>)</cell></row>
+  					<row><cell>tei_date</cell><cell>Character</cell><cell>une date</cell></row>
+  					<row>
+							<cell>tei_q</cell>
+							<cell>Character</cell>
+							<?oxy_custom_start type="oxy_content_highlight" color="255,255,0"?>
+							<cell>citation en ligne<?oxy_custom_end?></cell>
+						</row>
+  					<row><cell>tei_title</cell><cell>Character</cell><cell>titre d'un oeuvre</cell></row>
+  					<row><cell>tei_Personne</cell><cell>Character</cell><cell>nom d'une personne non-oulipien (ex: Balzac)</cell></row>
+  					<row><cell>tei_Oulipen</cell><cell>Character</cell><cell>nom d'un oulipien (ex: Queneau)</cell></row>
+  					<row><cell>tei_persName</cell><cell>Character</cell><cell>nom de personne de statut inconnu</cell></row>
+  				</table>      
+  			</p>
+  		</div>   
+  -->
+			<div>
+				<head>Comment effectuer cette transformation?</head>
+				<p>Trois possibilites: <list>
+						<item>avec oXygen, en utilisant une scenario de transformation DOCX
+							TEI</item>
+						<item>sur le web, avec OxGarage </item>
+						<item>a la ligne de commande en utilisant le script docxtotei</item>
+					</list>
+				</p>
+				<p rend="box">Tous les trois se servent des memes fichiers XSLT</p>
+			</div>
+			<div>
+				<head>Conversion de Word en XML-TEI avec OxGarage</head>
+				<list>
+					<item>Avec votre navigateur web, allez sur <ptr
+							target="http://oxgarage.oucs.ox.ac.uk:8080/ege-webclient/?lang=fr"
+						/></item>
+					<item>sélectionner <code>Microsoft Word (.docx)</code> dans la liste au dessus
+						de <emph>à partir de ce format</emph> / <emph>Textes</emph> à gauche</item>
+					<item>puis sélectionner <code>TEI P5 XML Document</code> dans la liste
+							<emph>vers ce format</emph> à droite</item>
+					<!--</list>
+				<p><graphic url="../../Talks/Graphics/oxg1.png" width="4in"/></p>
+				<list>-->
+					<item>Cliquer sur le texte <emph>+ Afficher les options avancées</emph>, pour
+						afficher des choix supplémentaires</item>
+					<item>Pour l'option <emph>Select conversion profile:</emph> sélectionner
+							<code>oulipo</code>. </item>
+					<!--	</list>
+				<p><graphic url="../../Talks/Graphics/oxg2.png" width="4in"/></p>
+				<list>-->
+					<item>Ensuite cliquer sur <emph>Sélectionner un fichier</emph></item>
+					<item>Sélectionner votre fichier Word</item>
+					<item>Cliquer le bouton <emph>Convert</emph>.</item>
+				</list>
+				<p>Un document TEI-XML sera crée que vous pouvez télécharger. </p>
+			</div>
+			<div>
+				<head>Conversion de Word en XML-TEI avec oXygen</head>
+				<list>
+					<item>In oXygen, use the usual Open dialog to select the docx file</item>
+					<item>A window labelled <code>Archive Browser</code> opens to the left of the
+						main screen. It shows the file structure of the docx archive.</item>
+					<!--				<item><graphic url="navigateur-1.png" height="4cm"/></item>
+	-->
+					<item>Click the blue key next to the folder called <ident>word </ident> to see
+						the contents of this folder</item>
+					<!--	<item><graphic url="navigateur-2.png" height="4cm"/></item>
+				-->
+					<item>Select the file called <ident> document.xml</ident> and double click to
+						open it (may take a few moments if the file is large)</item>
+					<!--	<item><graphic url="document-word.png" height="4cm"/></item>
+				-->
+					<item>With the <ident>document.xml</ident> file open in your main editing
+						window, select <ident>Transformation -> Configure Transformation
+							Scenario(s)</ident> from the <ident>Document</ident> menu. Or type
+							<code>CTRL-SHIFT-C</code>. Or click the little spanner icon</item>
+					<item>For the default DOCX to TEI conversion, check the little box next to DOCX
+						TEI P5 and press the <ident>Apply Associated</ident> button </item>
+					<!--	<item><graphic url="configurer-1.png" height="4cm"/></item>
+				-->
+					<item>Click on the spanner again to reopen the Configurer Scenarios de
+						Transformation dialog and this time click the Edit button at the bottom.
+						This will enable you to reconfigure the default conversion process.</item>
+					<item>You can't modify a built in configuration scenario, so oXyGen offers to
+						make a copy for you to play with.
+						<!--	<graphic url="yesno.png" height="2cm"/>.
+					--> Press <ident>
+							Oui.</ident>
+					</item>
+					<item>The <ident>editer le scenario ANT </ident> is displayed to enable you to
+						configure your new version of the transformation scenario.
+						<!--<graphic
+							url="editer-scenario-1.png" height="4cm"/>-->
+					</item>
+					<item>Let's begin by changing its name to something sensible: change "DOCX TEI
+						P5 copier" to "DOCX TEI P5 Oulipo" for example. Then press the Parametres
+						tab to see what else can be modified.</item>
+					<!--<item><graphic url="editer-scenario-2.png" height="4cm"/></item>
+					-->
+					<item>This dialog allows us to change the default input and output paths for
+						this transformation and also to specify a <term>profile</term>. The TEI
+						Stylesheet package included with oXygen supplies a small number of
+						predefined sets of customized stylesheets called profiles. You can use or
+						modify an existing profile to get the effects you want in your own project
+						(not covered here). In this exercise, we will use the Oulipo profile. </item>
+					<item>Select the word Profile and press the Edition button. </item>
+					<!--	<item><graphic url="modifier-parametre.png" height="4cm"/></item>
+				-->
+					<item>Add the word oulipo in the box labelled Valeur and press Accepter to
+						return to the Editer le scenario Ant dialog. Press Accepter again.</item>
+					<item>Your new transformation scenario should now be available in the Configurer
+						Transformation Scenario dialog. Check the little box next to it, and uncheck
+						the box next to the default Scenario.</item>
+				</list>
+			</div>
+			<div>
+				<head>Conversion a la ligne de commande</head>
+				<p rend="box">Attention : cette demarche n'est pas possible sur Windows</p>
+				<list>
+					<item>Il faut d'abord installer le package <code>TEI Stylesheets</code> (voir
+						http://wiki.tei-c.org/index.php/Tei-xsl pour les details) </item>
+					<item>Vous aurez besoin egalement de <code>java</code>, et de
+						<code>ant</code></item>
+					<item>Ensuite, la commande <code>docxtotei</code> (entre autres) devient
+						disponible</item>
+					<item>La commande <code>docxtotei --profile=oulipo xxxx.docx</code> sert a
+						transformer le document <ident>xxxx.docx</ident> en TEI XML ; (le resultat
+						se trouve dans un fichier <ident>xxx.xml</ident>, si vous ne precisez pas
+						d'autre nom a la fin de la ligne de commande)</item>
+				</list>
+			</div>
+			<div>
+				<head>Usage des styles</head>
+				<p>Dans une soixantaine de fichiers transformes automatiquemenet de docx en TEI,
+					j'ai note plusieurs style Word imprevus, a savoir: <list>
+						<item><label>styles de paragraphe</label> : <code>Date</code>,
+								<code>List</code>, <code>Paragraph</code>(?!),
+								<code>Réunion-invité</code>, <code>endnote</code>,
+								<code>footnote</code>, <code>text</code>
+						</item>
+						<item><label>styles de nom fautif</label> : <code>Date_Car</code>,
+								<code>Date_Char</code>, <code>NomInstitution</code>,
+								<code>NomPersonneDivers</code>, <code>NomPersonneEditeur</code>,
+								<code>annotation_reference</code>, <code>reunion-date</code>,
+								<code>titre-divers</code>, <code>titre-oeuvre</code></item>
+						<item><label>styles visuels inutiles</label> :
+								<code>background(yellow)</code>
+							<code>bold</code>, <code>color(xxxxxx)</code>,
+								<code>doubleunderline</code>, <code>endnote_reference</code>,
+								<code>italic</code>, <code>strikethrough</code>,
+								<code>superscript</code>, <code>underline</code>
+						</item>
+						<item><label>cas particuliers </label>: <code>ERROR</code> et
+								<code>docxError</code> (presence des images inline)</item>
+					</list></p>
+			</div>
+			<div>
+				<head>Comment faire?</head>
+				<list>
+					<item>identifier les cas frequents</item>
+					<item>adapter la feuille de transformation</item>
+					<item>corriger automatiquement si possible</item>
+				</list>
+			</div>
+			<div>
+				<head>Lacune signifiante : les metadonnees </head>
+				<p>Sur 60 documents ...<list>
+						<item>Aucun ne contient de titre correcte</item>
+						<item>Tous sont attribues au nom de transcripteur (ou a "Student", ou
+							"Macbook")</item>
+						<item>Tous ont comme indication de source <code>Converted from a Word
+								document</code>
+						</item>
+					</list></p>
+				<p>Bien sur, c'est a cause de la methode de conversion, mais comment ameliorer?</p>
+			</div>
+			<div>
+				<head>Propositions d'amelioration </head>
+				<p>Avec une petite modification de feuille de style on peut <list>
+						<item>Ajouter un titre, derive du nom du fichier</item>
+						<item>Presenter correctement le nom de transcribeur/se </item>
+						<item>indiquer une date de conversion</item>
+					</list></p>
+				<p>On pourrait (peut-etre) aussi extraire automatiquement des donnees bibliographiques du catalogue existant pour le sourceDesc </p>
+				<p rend="box">Mais quid de la <term>classement</term> des documents (CR, Convocation, rapport, annex ...) ? </p>
+			</div>
+			
+			<div><head>Par exemple</head>
+			<p>Au lieu de:
+			<graphic url="header.png"/>
+			</p>
+			<cb/>
+			<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+				<teiHeader>
+					<fileDesc>
+						<titleStmt>
+							<title>Reunion du 2 novembre 1977, CR de FLL : version TEI</title>
+							<idno>1977-11-03-CR</idno>
+							<respStmt><resp>transcription</resp>
+								<name ref="#barbara">barbara</name></respStmt>
+						</titleStmt>
+						<publicationStmt>
+							<distributor>Projet ANR DifDePO</distributor>
+							<availability>
+								<licence target="http://creativecommons.org/licenses/by/3.0/"
+									notBefore="2016-01-01"/>
+							</availability>
+						</publicationStmt>
+						<sourceDesc>
+							
+							<p>Converted from a Word document </p>
+						</sourceDesc>
+					</fileDesc>
+					<revisionDesc>
+						<listChange>
+							<change who="#lou" when="2014-11-22">Amelioration de l'entete</change>
+							<change who="#barbara" when="2014-11-12T18:23:57Z">Transcription initiale</change>
+						</listChange>
+					</revisionDesc>
+				</teiHeader>
+
+			</egXML></div>
+			<div>
+				<head>Possibilites d'amelioration d'encodage 1</head>
+				<figure>
+					<graphic url="pageBreak.png"/>
+					<head>10010013-CR-1961-11</head>
+				</figure>
+				<p>(plutot... <egXML xmlns="http://www.tei-c.org/ns/Examples"><p>... c'est potentiel
+							: un ptit sediment. </p><pb n="7"/><p><persName>QUENEAU</persName> :
+							C'est un objet. </p>
+					</egXML></p>
+			</div>
+			<div>
+				<head>Possibilites d'amelioration d'encodage 2</head>
+				<figure>
+					<graphic url="drama.png"/>
+					<head>10010013-CR-1961-11</head>
+				</figure>
+				<p rend="box">Le document se presente en forme de piece dramatique, avec des enonces
+					des participants, et des commentaires en parenthese du transcripteur. </p>
+			</div>
+			<div>
+				<head>Pieces dramatique en TEI</head>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><sp><speaker>LE
+							LIONNAIS </speaker><p> Réunis en petits groupes de travail, ...
+							appliquer systématiquement ces règles ou méthodes à de nombreux
+							textes.</p></sp>
+					<sp><speaker>LA SERVEUSE : </speaker><p>Tomates nature,
+						tomates-concombres…</p></sp>
+					<sp><speaker>LATIS : </speaker><p> Justement…</p></sp>
+					<sp><speaker>LA SERVEUSE : </speaker><p>Voici le beurre.</p></sp>
+					<sp><speaker>LATIS</speaker> <p> … je me suis penché sur la redondance. J’ai
+							étudié la redondance chez ‘mond ‘neau. Voici ce que cela donne.</p></sp>
+					<p> (Lecture des <title type="divers">OuLiPotages</title> de
+							<persName>Latis</persName>. Leur publication dans le <title
+							type="divers">Dossier</title> est adoptée.)</p></egXML>
+			</div>
+		</body>
+	</text>
+</TEI>
