@@ -4,6 +4,7 @@
 		<fileDesc>
 			<titleStmt>
 				<title>Retranscription du fonds Oulipo</title>
+				<author>Lou Burnard Consulting</author>
 			</titleStmt>
 			<publicationStmt>
 				<p>unknown</p>
@@ -12,6 +13,7 @@
 				<p>Revised from previous seminar doc </p>
 			</sourceDesc>
 		</fileDesc>
+		<revisionDesc><change when="2014-11-20">First draft</change></revisionDesc>
 	</teiHeader>
 	<text>
 		<body xml:lang="fr">
@@ -28,15 +30,12 @@
 			</div>
 			<div>
 				<head>Le template Word</head>
-				<p>Dans le fichier <ident>feuilledestyleOulipoV5.dotx</ident> sont predefinies
-					plusieurs styles specialises poour le projet. Les styles classiques de word (par
+				<p>Dans le fichier <ident>feuilledestyleOulipoV5.dotx</ident> sont prédéfinies
+					plusieurs styles specialisés poour le projet. Les styles classiques de word (par
 					ex en gras, italique, sousligné etc.) restent également disponibles. Et en plus
 					rien ne vous empeche d'ajouter d'autres. </p>
-				<p>Dans Word, deux types de style sont a distinguer : <emph>Paragraph</emph> et
-						<emph>Character</emph>. Un passage de type <emph>Character</emph> est permis
-					à l'intérieur d'un passage de type <emph>Paragraph</emph>, mais pas un passage
-					de type <emph>Paragraph</emph>. </p>
-				<p>Voici les styles prédéfinis OuLiPo que nous avons initialement proposes: <table>
+			
+				<p>Voici les styles prédéfinis OuLiPo que nous avons initialement proposés: <table>
 						<row>
 							<cell>NomPersonneEditeur</cell>
 							<cell>e.g. <hi>Gallimard</hi>
@@ -92,7 +91,7 @@
 			<div>
 				<head>Transformation des styles Word</head>
 				<p>Une feuille de style XSLT retrouve les styles Word dans un document et les
-					transforme en elements TEI selon ce mapping: <table>
+					transforme en éléments TEI selon ce mapping: <table>
 						<row>
 							<cell>Nom-institution</cell>
 							<cell><tag>orgName</tag></cell>
@@ -303,25 +302,25 @@
 				</list>
 			</div>
 			<div>
-				<head>Conversion a la ligne de commande</head>
-				<p rend="box">Attention : cette demarche n'est pas possible sur Windows</p>
+				<head>Conversion à la ligne de commande</head>
+				<p rend="box">Attention : cette démarche n'est pas possible sur Windows</p>
 				<list>
 					<item>Il faut d'abord installer le package <code>TEI Stylesheets</code> (voir
-						http://wiki.tei-c.org/index.php/Tei-xsl pour les details) </item>
-					<item>Vous aurez besoin egalement de <code>java</code>, et de
+						http://wiki.tei-c.org/index.php/tei-xsl pour les détails) </item>
+					<item>Vous aurez besoin également de <code>java</code>, et du logiciel
 						<code>ant</code></item>
 					<item>Ensuite, la commande <code>docxtotei</code> (entre autres) devient
 						disponible</item>
-					<item>La commande <code>docxtotei --profile=oulipo xxxx.docx</code> sert a
-						transformer le document <ident>xxxx.docx</ident> en TEI XML ; (le resultat
+					<item>La commande <code>docxtotei --profile=oulipo xxxx.docx</code> sert à
+						transformer le document <ident>xxxx.docx</ident> en TEI XML ; (le résultat
 						se trouve dans un fichier <ident>xxx.xml</ident>, si vous ne precisez pas
-						d'autre nom a la fin de la ligne de commande)</item>
+						d'autre nom à la fin de la ligne de commande)</item>
 				</list>
 			</div>
 			<div>
 				<head>Usage des styles</head>
-				<p>Dans une soixantaine de fichiers transformes automatiquemenet de docx en TEI,
-					j'ai note plusieurs style Word imprevus, a savoir: <list>
+				<p>Dans une soixantaine de fichiers transformés automatiquement de docx en TEI,
+					j'ai noté plusieurs style Word imprévus, à savoir: <list>
 						<item><label>styles de paragraphe</label> : <code>Date</code>,
 								<code>List</code>, <code>Paragraph</code>(?!),
 								<code>Réunion-invité</code>, <code>endnote</code>,
@@ -333,45 +332,46 @@
 								<code>annotation_reference</code>, <code>reunion-date</code>,
 								<code>titre-divers</code>, <code>titre-oeuvre</code></item>
 						<item><label>styles visuels inutiles</label> :
-								<code>background(yellow)</code>
-							<code>bold</code>, <code>color(xxxxxx)</code>,
+								<code>background(yellow)</code>,
+					 <code>color(xxxxxx)</code>,
 								<code>doubleunderline</code>, <code>endnote_reference</code>,
 								<code>italic</code>, <code>strikethrough</code>,
 								<code>superscript</code>, <code>underline</code>
 						</item>
 						<item><label>cas particuliers </label>: <code>ERROR</code> et
-								<code>docxError</code> (presence des images inline)</item>
+								<code>docxError</code> (présence des images inline)</item>
 					</list></p>
 			</div>
 			<div>
 				<head>Comment faire?</head>
 				<list>
-					<item>identifier les cas frequents</item>
+					<item>identifier les cas fréquents</item>
 					<item>adapter la feuille de transformation</item>
-					<item>corriger automatiquement si possible</item>
+					<item>corriger automatiquement où possible</item>
 				</list>
+				<p rend="box">Mais un travail signifiant de correction en oXygen semble incontournable... </p>
 			</div>
 			<div>
-				<head>Lacune signifiante : les metadonnees </head>
+				<head>Lacune signifiante : les metadonnées </head>
 				<p>Sur 60 documents ...<list>
-						<item>Aucun ne contient de titre correcte</item>
-						<item>Tous sont attribues au nom de transcripteur (ou a "Student", ou
+						<item>qucun ne contient de titre correcte</item>
+						<item>tous sont attribués au nom de transcripteur (ou  "Student", ou
 							"Macbook")</item>
-						<item>Tous ont comme indication de source <code>Converted from a Word
+						<item>tous pretendent comme indication de source <code>Converted from a Word
 								document</code>
 						</item>
 					</list></p>
-				<p>Bien sur, c'est a cause de la methode de conversion, mais comment ameliorer?</p>
+				<p>Bien sûr, c'est à cause de la méthode de conversion, mais comment améliorer?</p>
 			</div>
 			<div>
-				<head>Propositions d'amelioration </head>
+				<head>Propositions d'amélioration </head>
 				<p>Avec une petite modification de feuille de style on peut <list>
-						<item>Ajouter un titre, derive du nom du fichier</item>
-						<item>Presenter correctement le nom de transcribeur/se </item>
+						<item>Ajouter un titre, dérivé du nom du fichier</item>
+						<item>Présenter correctement le nom de transcribeur/se </item>
 						<item>indiquer une date de conversion</item>
 					</list></p>
-				<p>On pourrait (peut-etre) aussi extraire automatiquement des donnees bibliographiques du catalogue existant pour le sourceDesc </p>
-				<p rend="box">Mais quid de la <term>classement</term> des documents (CR, Convocation, rapport, annex ...) ? </p>
+				<p>On pourrait (peut-etre) aussi extraire automatiquement des données bibliographiques du catalogue existant pour le sourceDesc </p>
+				<p rend="box">Se mettre d'accord sur la <term>classement</term> des documents (CR, Convocation, rapport, annex ...) ? </p>
 			</div>
 			
 			<div><head>Par exemple</head>
@@ -383,9 +383,9 @@
 				<teiHeader>
 					<fileDesc>
 						<titleStmt>
-							<title>Reunion du 2 novembre 1977, CR de FLL : version TEI</title>
+							<title>Réunion OuLiPo du 2 novembre 1977. Compte rendu dactylographié par Francois Lyonnais : version TEI</title>
 							<idno>1977-11-03-CR</idno>
-							<respStmt><resp>transcription</resp>
+							<respStmt><resp>transcription Word</resp>
 								<name ref="#barbara">barbara</name></respStmt>
 						</titleStmt>
 						<publicationStmt>
@@ -396,13 +396,17 @@
 							</availability>
 						</publicationStmt>
 						<sourceDesc>
-							
-							<p>Converted from a Word document </p>
+							<!-- EAD record to be added here -->
+							<!-- reference to image file to be added-->
 						</sourceDesc>
 					</fileDesc>
+					<profileDesc>
+						<creation date="1977-11-02"/>
+						<textClass><catRef target="#CR #dactylo #FLL"/></textClass>
+					</profileDesc>
 					<revisionDesc>
 						<listChange>
-							<change who="#lou" when="2014-11-22">Amelioration de l'entete</change>
+							<change who="#lou" when="2014-11-22">Elargissement de l'entête</change>
 							<change who="#barbara" when="2014-11-12T18:23:57Z">Transcription initiale</change>
 						</listChange>
 					</revisionDesc>
@@ -410,7 +414,7 @@
 
 			</egXML></div>
 			<div>
-				<head>Possibilites d'amelioration d'encodage 1</head>
+				<head>Possibilites d'amélioration d'encodage 1</head>
 				<figure>
 					<graphic url="pageBreak.png"/>
 					<head>10010013-CR-1961-11</head>
@@ -421,16 +425,16 @@
 					</egXML></p>
 			</div>
 			<div>
-				<head>Possibilites d'amelioration d'encodage 2</head>
+				<head>Possibilités d'amélioration d'encodage 2</head>
 				<figure>
 					<graphic url="drama.png"/>
 					<head>10010013-CR-1961-11</head>
 				</figure>
-				<p rend="box">Le document se presente en forme de piece dramatique, avec des enonces
-					des participants, et des commentaires en parenthese du transcripteur. </p>
+				<p rend="box">Le document se présente en forme de pièce théatrale, avec des énoncés
+					des participants, et des commentaires du transcripteur en parenthèses. </p>
 			</div>
 			<div>
-				<head>Pieces dramatique en TEI</head>
+				<head>Pièces dramatiques en TEI</head>
 				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><sp><speaker>LE
 							LIONNAIS </speaker><p> Réunis en petits groupes de travail, ...
 							appliquer systématiquement ces règles ou méthodes à de nombreux
