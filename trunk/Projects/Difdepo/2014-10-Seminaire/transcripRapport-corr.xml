@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Retranscription du fonds Oulipo</title>
+				<author>Lou Burnard Consulting</author>
+			</titleStmt>
+			<publicationStmt>
+				<p>unknown</p>
+			</publicationStmt>
+			<sourceDesc>
+				<p>Revised from previous seminar doc </p>
+			</sourceDesc>
+		</fileDesc>
+		<revisionDesc>
+			<change when="2014-11-20">First draft</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<body xml:lang="fr">
+			<div>
+				<head>Retranscription avec Word : rappel</head>
+				<p>Nous vous avons proposé une démarche structurée pour préparer les transcriptions
+					des comptes rendus d'Oulipo: <list type="ordered">
+						<item>créer un nouveau Document Word en utilisant le template fourni</item>
+						<item>transformer le document Word en TEI XML avec l'aide de OxGarage</item>
+						<item>contrôler le fichier TEI XML généré avec oXygen </item>
+					</list>
+				</p>
+				<p rend="box">Un premier rapport ...</p>
+			</div>
+			<div>
+				<head>Le template Word</head>
+				<p>Dans le fichier <ident>feuilledestyleOulipoV5.dotx</ident> sont prédéfinies
+					plusieurs styles specialisés pour le projet. Les styles classiques de word (par
+					ex <term>bold italic underline</term> etc.) restent également disponibles. Et
+					rien ne vous empêche d'en ajouter d'autres. </p>
+				<p>Voici les styles prédéfinis OuLiPo que nous avons initialement proposés: <table>
+						<row>
+							<cell>NomPersonneEditeur</cell>
+							<cell>e.g. <hi>Gallimard</hi>
+							</cell>
+						</row>
+						<row>
+							<cell>nomManifestation</cell>
+							<cell>e.g. <hi>Congrès</hi> de l’Oulipo </cell>
+						</row>
+						<row>
+							<cell>nomOulipien</cell>
+							<cell>e.g. <hi>FLL</hi> rappelle son accord</cell>
+						</row>
+						<row>
+							<cell>nomPersonneAuteur</cell>
+							<cell>e.g. <hi>FLL</hi> ouvre la séance</cell>
+						</row>
+						<row>
+							<cell>notions</cell>
+							<cell>e.g. <hi>structure</hi> en soi </cell>
+						</row>
+						<row>
+							<cell>reunionDate</cell>
+							<cell>e.g. <hi>10-11 juin 74</hi> à Boulogne</cell>
+						</row>
+						<row>
+							<cell>reunionInvite</cell>
+							<cell>e.g. <hi> Borzic</hi></cell>
+						</row>
+						<row>
+							<cell>reunionLieu</cell>
+							<cell>e.g. <hi>Chez MB</hi>.</cell>
+						</row>
+						<row>
+							<cell>reunionPresident</cell>
+							<cell>e.g. <hi>Président de séance : Fournel</hi></cell>
+						</row>
+						<row>
+							<cell>reunionSecretaire</cell>
+							<cell>e.g. <hi>Secrétaire : Bénabou</hi></cell>
+						</row>
+						<row>
+							<cell>titreDivers</cell>
+							<cell>e.g. <hi>« Idées ».</hi></cell>
+						</row>
+						<row>
+							<cell>titreOeuvre</cell>
+							<cell>e.g. <hi>La Littérature potentielle</hi></cell>
+						</row>
+					</table>
+				</p>
+				<p rend="block">et ... bonus : n'importe quel style Word nommé comme <code>tei_xxxx</code>
+					sera transformé dans une balise TEI <gi>xxxx</gi></p>
+			</div>
+			<div>
+				<head>Transformation des styles Word</head>
+				<p>Une feuille de style XSLT retrouve les styles Word dans un document et les
+					transforme en éléments TEI selon ce mapping: <table rend="tiny">
+						<row>
+							<cell>Nom-institution</cell>
+							<cell><tag>orgName</tag></cell>
+						</row>
+						<!--row><cell>Nom-manifestation</cell><cell><tag>name type="event"</tag></cell></row>
+<row><cell>Nom-oulipien</cell><cell><tag>persName</tag></cell></row>
+<row><cell>Nom-personne-auteur</cell><cell><tag>persName role="auteur"</tag></cell></row>
+<row><cell>Nom-personne-divers</cell><cell><tag>persName</tag></cell></row>
+<row><cell>Nom-personne-editeur</cell><cell><tag>orgName role="editeur"</tag></cell></row-->
+						<row>
+							<cell>illisible</cell>
+							<cell><tag>unclear</tag></cell>
+						</row>
+						<row>
+							<cell>listeDesPresents[1]</cell>
+							<cell><tag>list type="present"</tag></cell>
+						</row>
+						<row>
+							<cell>nomManifestation<lb/>Nom-manifestation</cell>
+							<cell><tag>name type="event"</tag></cell>
+						</row>
+						<row>
+							<cell>nomOulipien<lb/>Nom-oulipien</cell>
+							<cell><tag>persName</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneAuteur<lb/>Nom-personne-auteur</cell>
+							<cell><tag>persName role="auteur"</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneDivers<lb/>Nom-personne-divers</cell>
+							<cell><tag>persName</tag></cell>
+						</row>
+						<row>
+							<cell>nomPersonneEditeur<lb/>Nom-personne-editeur</cell>
+							<cell><tag>orgName role="editeur"</tag></cell>
+						</row>
+						<row>
+							<cell>notions</cell>
+							<cell><tag>term</tag></cell>
+						</row>
+						<row>
+							<cell>refDocument</cell>
+							<cell><tag>ref</tag></cell>
+						</row>
+						<!--row><cell>reunion-invite</cell><cell><tag>persName role="invité"</tag>></cell></row>
+<row><cell>reunion-lieu</cell><cell><tag>placeName role="réunion"</tag></cell></row>
+<row><cell>reunion-presents</cell><cell><tag>persName role="présent"</tag></cell></row>
+<row><cell>reunion-president</cell><cell><tag>persName role="président"</tag></cell></row>
+<row><cell>reunion-secretaire</cell><cell><tag>persName role="secrétaire"</tag></cell></row>-->
+						<row>
+							<cell>reunionDate</cell>
+							<cell><tag>date type="réunion"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionInvite<lb/>reunion-invite</cell>
+							<cell><tag>persName role="invité"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionLieu<lb/>reunion-lieu</cell>
+							<cell><tag>placeName role="réunion"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionPresents<lb/>reunion-presents</cell>
+							<cell><tag>persName role="présent"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionPresident<lb/>reunion-president</cell>
+							<cell><tag>persName role="président"</tag></cell>
+						</row>
+						<row>
+							<cell>reunionSecretaire<lb/>reunion-secretaire</cell>
+							<cell><tag>persName role="secrétaire"</tag></cell>
+						</row>
+						<row>
+							<cell>titreDivers</cell>
+							<cell><tag>title>type="divers"</tag></cell>
+						</row>
+						<row>
+							<cell>titreOeuvre</cell>
+							<cell><tag>title</tag></cell>
+						</row>
+					</table>
+				</p>
+			</div>
+			<!--
+  				<table>
+  					<row><cell>Title</cell><cell>Paragraph</cell><cell>titre du document (par exemple <q>COMPTE RENDU DU 7 NOVEMBRE 1974 (SEANCE EXTRAORDINAIRE)</q>)</cell></row>
+  					<row><cell>Présents</cell><cell>Paragraph</cell><cell>bilan des personnes présentes</cell></row>
+  					<row><cell>Excusés</cell><cell>Paragraph</cell><cell>bilan des personnes qui se sont excusées</cell></row>
+  					<row><cell>Président</cell><cell>Paragraph</cell><cell>la personne qui préside à la réunion</cell></row>
+  					<row><cell>Secrétaire</cell><cell>Paragraph</cell><cell>la personne qui prend les notes </cell></row>
+  					<row><cell>tei_closer</cell><cell>Paragraph</cell><cell>paragraphe de clôture à la fin du document (eg <q>La séance s’achève fort tard, après bien des
+									échanges bilatéraux.</q>)</cell></row>
+  					<row><cell>tei_quotation</cell><cell>Paragraph</cell><cell>citation mise en évidence dans le document</cell></row>
+  					<row><cell>tei_opener</cell><cell>Paragraph</cell><cell>paragraphe initial du document (eg <q>[Ordre du jour]</q>)</cell></row>
+  					<row><cell>tei_date</cell><cell>Character</cell><cell>une date</cell></row>
+  					<row>
+							<cell>tei_q</cell>
+							<cell>Character</cell>
+							<?oxy_custom_start type="oxy_content_highlight" color="255,255,0"?>
+							<cell>citation en ligne<?oxy_custom_end?></cell>
+						</row>
+  					<row><cell>tei_title</cell><cell>Character</cell><cell>titre d'un oeuvre</cell></row>
+  					<row><cell>tei_Personne</cell><cell>Character</cell><cell>nom d'une personne non-oulipien (ex: Balzac)</cell></row>
+  					<row><cell>tei_Oulipen</cell><cell>Character</cell><cell>nom d'un oulipien (ex: Queneau)</cell></row>
+  					<row><cell>tei_persName</cell><cell>Character</cell><cell>nom de personne de statut inconnu</cell></row>
+  				</table>      
+  			</p>
+  		</div>   
+  -->
+			<div>
+				<head>Comment effectuer cette transformation?</head>
+				<p>Trois possibilités: <list>
+						<item>avec oXygen, en utilisant un <term>scénario de transformation</term>
+							DOCX TEI</item>
+						<item>sur le web, avec OxGarage </item>
+						<item>à la ligne de commande en utilisant le script
+							<term>docxtotei</term></item>
+					</list>
+				</p>
+				<p rend="box">Tous les trois se servent des mêmes fichiers XSLT</p>
+			</div>
+			
+			<div>
+				<head>Usage des styles</head>
+				<p>Dans une soixantaine de fichiers transformés automatiquement de docx en TEI, j'ai
+					noté plusieurs style Word imprévus, à savoir: <list>
+						<item><label>styles de paragraphe</label> : <code>Date</code>,
+								<code>List</code>, <code>Paragraph</code>(?!),
+								<code>Réunion-invité</code>, <code>endnote</code>,
+								<code>footnote</code>, <code>text</code>
+						</item>
+						<item><label>styles de nom fautif</label> : <code>Date_Car</code>,
+								<code>Date_Char</code>, <code>NomInstitution</code>,
+								<code>NomPersonneDivers</code>, <code>NomPersonneEditeur</code>,
+								<code>annotation_reference</code>, <code>reunion-date</code>,
+								<code>titre-divers</code>, <code>titre-oeuvre</code></item>
+						<item><label>styles visuels inutiles</label> :
+								<code>background(yellow)</code>, <code>color(xxxxxx)</code>,
+								<code>doubleunderline</code>, <code>endnote_reference</code>,
+								<code>italic</code>, <code>strikethrough</code>,
+								<code>superscript</code>, <code>underline</code>
+						</item>
+						<item><label>cas particuliers </label>: <code>ERROR</code> et
+								<code>docxError</code> (présence des images inline)</item>
+					</list></p>
+			</div>
+			<div>
+				<head>Comment faire?</head>
+				<list>
+					<item>identifier les cas fréquents</item>
+					<item>adapter la feuille de transformation</item>
+					<item>corriger automatiquement où possible</item>
+					<item>éventuellement, définition d'un schéma XML pour valider les documents
+						transformés</item>
+				</list>
+				<p rend="box">Mais un travail significatif de correction en oXygen semble
+					incontournable... </p>
+			</div>
+			<div>
+				<head>Lacune significative : les métadonnées </head>
+				<p>Sur 60 documents ...<list>
+						<item>aucun ne contient de titre correct</item>
+						<item>tous sont attribués au nom de transcripteur (ou "Student", ou
+							"Macbook")</item>
+						<item>tous prétendent comme indication de source <code>Converted from a Word
+								document</code>
+						</item>
+					</list></p>
+				<p>Bien sûr, cela dû à la méthode de conversion, mais comment améliorer ce problème ?</p>
+			</div>
+			<div>
+				<head>Propositions d'amélioration </head>
+				<p>Avec une petite modification de la procédure de transformation j'ai pu ...  <list>
+						<item>Ajouter un titre, dérivé du nom du fichier</item>
+						<item>Présenter correctement le nom du transcripteur </item>
+						<item>indiquer la date de conversion</item>
+					</list></p>
+				<p>On pourrait (peut-être) aussi extraire automatiquement des données
+					bibliographiques du catalogue existant pour le sourceDesc </p>
+				<p rend="box">Se mettre d'accord sur la <term>classement</term> des documents (CR,
+					Convocation, rapport, annex ...) ? </p>
+			</div>
+			<div>
+				<head>Par exemple</head>
+				<figure>
+					<graphic url="header.png"/>
+				</figure>
+			</div>
+			<div>
+				<head>Par exemple</head>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+					<teiHeader>
+						<fileDesc>
+							<titleStmt>
+								<title>Réunion OuLiPo du 2 novembre 1977. Compte rendu
+									dactylographié par Francois Le Lyonnais : version TEI</title>
+								<idno>1977-11-03-CR</idno>
+								<respStmt>
+									<resp>transcription Word</resp>
+									<name ref="#barbara">barbara</name>
+								</respStmt>
+							</titleStmt>
+							<publicationStmt>
+								<distributor>Projet ANR DifDePO</distributor>
+								<availability>
+									<licence target="http://creativecommons.org/licenses/by/3.0/"
+										notBefore="2016-01-01"/>
+								</availability>
+							</publicationStmt>
+							<sourceDesc>
+								<!-- EAD record to be added here -->
+								<!-- reference to image file to be added-->
+							</sourceDesc>
+						</fileDesc>
+						<profileDesc>
+							<creation date="1977-11-02"/>
+							<textClass>
+								<catRef target="#CR #dactylo #FLL"/>
+							</textClass>
+						</profileDesc>
+						<revisionDesc>
+							<listChange>
+								<change who="#lou" when="2014-11-22">Elargissement de
+									l'entête</change>
+								<change who="#barbara" when="2014-11-12T18:23:57Z">Transcription
+									initiale</change>
+							</listChange>
+						</revisionDesc>
+					</teiHeader>
+				</egXML>
+			</div>
+			<div>
+				<head>Quoi encoder?</head>
+				<figure>
+					<graphic url="pageBreak.png"/>
+					<head>10010013-CR-1961-11</head>
+				</figure>
+				<p>Les mots <code>saut de page</code> ne figurent pas dans l'original ! <egXML
+						xmlns="http://www.tei-c.org/ns/Examples"><p>... c'est potentiel : un ptit
+							sediment. </p><pb n="7"/><p><persName>QUENEAU</persName> : C'est un
+							objet. </p>
+					</egXML></p>
+			</div>
+			<div>
+				<head>Distinctions souhaitables: les titres</head>
+				<p><graphic url="headings.png"/></p>
+				<cb/>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<body>
+						<pb n="001"/>
+						<head>OUVROIR DE LITTERATURE POTENTIELLE</head>
+						<head>Circulaire no 43</head>
+						<head rend="underline">COMPTE-RENDU DE LA REUNION DU <date type="reunion"
+								when="1964-03-11">11 MARS 1964</date></head>
+						<!-- ... -->
+					</body>
+				</egXML>
+			</div>
+			<div>
+				<head>Cohérence des pratiques : les noms </head>
+				<p>liste des présents, par exemple: </p>
+				<p><graphic url="presence2.png"/></p>
+				<p>ou bien ...</p>
+				<p><graphic url="presence.png"/></p>
+			</div>
+			<div>
+				<head> ou même ... </head>
+				<p><graphic url="presence-3.png"/></p>
+			</div>
+			<div><head>Distinctions essentielles : les notes </head>
+				<figure><graphic url="unrealnote.png" />
+				<head>note de transcripteur</head></figure>
+				<figure><graphic url="realnote.png"/>
+				<head>note originelle </head></figure>
+			</div>
+			
+			<div>
+				<head>Distinctions souhaitables: les dialogues</head>
+				<figure>
+					<graphic url="drama.png"/>
+					<head>10010013-CR-1961-11</head>
+				</figure>
+				<p rend="box">Le document se présente en forme de dialogue, avec des énoncés des
+					participants, et des commentaires du transcripteur en parenthèses. </p>
+			</div>
+			<div>
+				<head>Pièces dramatiques en TEI</head>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><sp><speaker>LE
+							LIONNAIS </speaker><p> Réunis en petits groupes de travail, ...
+							appliquer systématiquement ces règles ou méthodes à de nombreux
+							textes.</p></sp>
+					<sp><speaker>LA SERVEUSE : </speaker><p>Tomates nature,
+						tomates-concombres…</p></sp>
+					<sp><speaker>LATIS : </speaker><p> Justement…</p></sp>
+					<sp><speaker>LA SERVEUSE : </speaker><p>Voici le beurre.</p></sp>
+					<sp><speaker>LATIS</speaker> <p> … je me suis penché sur la redondance. J’ai
+							étudié la redondance chez ‘mond ‘neau. Voici ce que cela donne.</p></sp>
+					<p> (Lecture des <title type="divers">OuLiPotages</title> de
+							<persName>Latis</persName>. Leur publication dans le <title
+							type="divers">Dossier</title> est adoptée.)</p></egXML>
+			</div>
+			<div>
+				<head>Distinctions souhaitables: les listes</head>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+					<p>
+						<persName>Raymond Queneau</persName> demande alors immédiatement la parole
+						pour regretter que l’on ait omis de signaler, au cours des deux précédents
+						comptes-rendus :</p>
+					<p> a/ que l’OuLiPo a été fondé sur l’initiative de <persName>François Le
+							Lionnais </persName>;</p>
+					<p> b/ que le titre <title type="divers">Ouvroir de Littérature
+							Expérimentale</title> a été proposé par <persName>Albert-Marie
+							Schmidt</persName>.</p>
+					<p> L’assemblée considère ces deux remarques comme parfaitement judicieuses et
+						adresse un blâme (léger) au <persName role="secrétaire">secrétaire de
+							séance</persName>, blâme reçu par l’intéressé avec une décente
+						confusion. Acte en est donné par le présent compte-rendu.</p>
+				</egXML>
+				<p>mais le <code>a/</code>
+					<code>b/</code> sont-ils parties du texte?</p>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+					<p>
+						<persName>Raymond Queneau</persName> demande alors immédiatement la parole
+						pour regretter que l’on ait omis de signaler, au cours des deux précédents
+						comptes-rendus : <list>
+							<item><label> a/ </label>que l’OuLiPo a été fondé sur l’initiative de
+									<persName>François Le Lionnais </persName>;</item>
+							<item><label> b/ </label>que le titre <title type="divers">Ouvroir de
+									Littérature Expérimentale</title> a été proposé par
+									<persName>Albert-Marie Schmidt</persName>.</item>
+						</list></p>
+					<p> L’assemblée considère ces deux remarques comme parfaitement judicieuses...
+					</p>
+				</egXML>
+			</div>
+		</body>
+	</text>
+</TEI>
