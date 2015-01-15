@@ -30,13 +30,13 @@
   </teiHeader>
   <text>
     <body>
-      
       <div>
         <head>Pourquoi distinguer les manuscrits?</head>
         <list>
           <item>chaque manuscrit est effectivement un object unique</item>
           <item>mais plusieurs manuscrits peuvent témoigner un seul texte</item>
-          <item>un seul manuscrit peut engendrer (ou contenir) plusieurs interprétations ou lectures</item>
+          <item>un seul manuscrit peut engendrer (ou contenir) plusieurs interprétations ou
+            lectures</item>
         </list>
       </div>
       <div rend="slide">
@@ -98,8 +98,6 @@
           soit un <q>document</q>
         </p>
       </div>
-     
-      
       <div>
         <head>Variétés de manuscrit</head>
         <list>
@@ -135,7 +133,116 @@
           <graphic url="../Graphics/etapes-1.png"/>
         </figure>
       </div>
-     
+      <div>
+        <head>Comment modéliser la variation textuelle? </head>
+        <list>
+          <item>On peut citer le modèle de Schmidt pour les <soCalled>multiversion
+              documents</soCalled>: <p><graphic url="../Graphics/schmidt-model.png"/></p>
+            <p><ptr target="http://multiversiondocs.blogspot.com"/></p></item>
+          <item> .. comme le "Rhine-delta model" de Sperberg-McQueen 1989 <ptr
+              target="http://cmsmcq.com/1989/rhine-delta-abstract.html"/>, cet modelisation serait
+            mieux conçu pour représenter les sorties d'un logiciel de collation automatique.</item>
+        </list>
+        <p rend="box">En effet, la représentation d'une collation déjà faite semble de moins interêt
+          que celle d'un dossier de transcriptions... un corpus</p>
+      </div>
+      <div>
+        <head>L'edition "Old Skool" </head>
+        <p><graphic url="../Graphics/appcrit.jpg" width="7cm"/></p>
+        <p rend="box">Une mise en page complèxe, signalant la structuration du texte; (rappelant un
+          peu les dictionnaires imprimées) </p>
+      </div>
+      <div>
+        <head>Un exemple simple </head>
+        <!-- Example stolen from wikipedia -->
+        <p>Au dessous de ce vers de <title>Hamlet</title> : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples"> LAERTES. Alas, then she is drowned. </egXML>
+          se trouve un peu de discussion scientifique : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">4.7.156 Alas, then is she drowned. HIBBARD;
+            Alas then, is she drown'd? F; Alas then is she drownd. Q3; Alas, then, she is drownd.
+            Q2; So, she is drownde: Q1. </egXML>
+        </p>
+      </div>
+      <div rend="slide">
+        <head> Structuration classique d'apparat critique avec <gi>app</gi>, <gi>rdg</gi>, et
+            <gi>lem</gi>
+        </head>
+        <list type="gloss">
+          <label>
+            <gi>app</gi>
+          </label>
+          <item>(apparatus entry) contient une entrée dans un apparat critique, constituée d'un
+            lemme facultatif et d'au moins une leçon.</item>
+          <label>
+            <gi>rdg</gi>
+          </label>
+          <item>(reading) contient une leçon à l'intérieur d'une variante du texte. </item>
+          <label>
+            <gi>lem</gi>
+          </label>
+          <item>(lemma) contient le lemme ou le texte de base d'une variante textuelle.</item>
+        </list>
+        <p>Chaque <gi>rdg</gi> est constaté par un ou plusieurs <soCalled>témoins</soCalled></p>
+      </div>
+      <div>
+        <head>Par exemple ...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <app>
+            <lem>Alas, then she is drowned.</lem>
+            <rdg wit="#Hib">Alas, then is she drowned.</rdg>
+            <rdg wit="#F">Alas then, is she drown'd?</rdg>
+            <rdg wit="#Q3">Alas then is she drownd.</rdg>
+            <rdg wit="#Q2">Alas, then, she is drownd.</rdg>
+            <rdg wit="#Q1">So, she is drownde:</rdg>
+          </app>
+        </egXML>
+      </div>
+      <div>
+        <head>La granularité d'annotation n'est pas prédéfinie </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><l n="156">
+            <app>
+              <rdg wit="#Hib">Alas, then</rdg>
+              <rdg wit="#F">Alas then,</rdg>
+              <rdg wit="#Q3">Alas then</rdg>
+              <rdg wit="#Q2">Alas, then,</rdg>
+              <rdg wit="#Q1">So,</rdg>
+            </app>
+            <app>
+              <rdg wit="#Hib #F #Q3">is she</rdg>
+              <rdg wit="#Q2 #Q1">she is</rdg>
+            </app>
+            <app>
+              <rdg wit="#Hib">drowned.</rdg>
+              <rdg wit="#F">drown'd?</rdg>
+              <rdg wit="#Q3 #Q2">drownd.</rdg>
+              <rdg wit="#Q1">drownde:</rdg>
+            </app>
+          </l></egXML>
+      </div>
+      <div>
+        <head>Pointeurs et cibles</head>
+        <p>Les labels (<val>#Hib</val>, <val>#Q1</val> etc.) sont des pointeurs: ils indiquent des
+          métadonnées sur le témoin concérné </p>
+        <p>La TEI a <emph>beaucoup</emph> de propositions relatives à l'encodage des métadonnées...
+          permettant ainsi l'évolution d'une <soCalled>codicologie quantitative</soCalled>. </p>
+        <p>Dans une longue tradition par exemple épigraphiuque, les leçons des savants célèbres
+          peuvent etre considérés comme des <gi>rdg</gi>s. </p>
+      </div>
+      <div>
+        <head>Le syntaxe peut être plus complexe...</head>
+        <list>
+          <item>Les leçons communes peuvent être regroupés avec <gi>rdgGroup</gi>, <gi>witList</gi>
+            etc.</item>
+          <item>La localisation des variants représentés peut être indiquée en plusieurs manières
+            (par référence, par liens, etc.) </item>
+          <item>la présence d'une lemme n'est pas obligatoire </item>
+        </list>
+        <p rend="box">Quand même, ce format ne suffit pas de générer automatiquement les sources
+          originalles</p>
+        <p>Ni serait il capable de représenter les sorties d'un logiciel de collation automatique
+          des sources. </p>
+      </div>
+      
       <div>
         <head>Transcription: une espèce de lecture</head>
         <p>Quel est le but de votre transcription? <list>
@@ -166,16 +273,16 @@
           travail de transcription ? </p>
         <list>
           <item>la structure physique : organisation des feuillets etc.</item>
-          <item>la manière dont le texte est inscrit sur la page
-           
-         <list> 
-          <item>l’orthographe original, le rendu formel original, la ponctuation originale</item>
-          <item>les abréviations</item>
-         <item>les ajouts; les suppréssions</item>
-          <item>les erreurs et les omissions <soCalled>evidentes</soCalled>
-          </item> <item>les passages endommagées, ou illisibles, à restaurer.</item></list></item>
+          <item>la manière dont le texte est inscrit sur la page <list>
+              <item>l’orthographe original, le rendu formel original, la ponctuation
+                originale</item>
+              <item>les abréviations</item>
+              <item>les ajouts; les suppréssions</item>
+              <item>les erreurs et les omissions <soCalled>evidentes</soCalled>
+              </item>
+              <item>les passages endommagées, ou illisibles, à restaurer.</item>
+            </list></item>
           <item>eventuellement, une normalisation ou modernisation de l'orthographe</item>
-         
           <item>eventuellement, les illustrations, dessins ou graphiques illustrant le texte</item>
         </list>
       </div>
@@ -194,7 +301,6 @@
             changements d'écriture.</item>
         </list>
       </div>
-      
       <!--
       <div>
         <head>Comment encoder ceci ?</head>
@@ -211,7 +317,6 @@
       </div>-->
       <div rend="slide">
         <head>Caractère et graphème ("glyph")</head>
-  
         <list>
           <item>un seul caractère peut être réalisé par plusieurs graphèmes (à ne rien dire des
             variations graphétiques!) <list>
@@ -220,21 +325,25 @@
             </list></item>
           <item>il est possible que le caractere souhaite n'existe pas encore en Unicode</item>
         </list>
-        
-        <p rend="box">L'element <gi>g</gi> permet d'indiquer la presence d'un caractere ou glyph non-Unicode </p>
-     </div>
-      <div><head>Usage de <gi>g</gi></head>
-        <figure><graphic url="../Graphics/s-long-ex.png"/><head>Extrait d'un journal intime de 1822</head></figure>
-     <p>On pourrait encoder par ex: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <p rend="box">L'element <gi>g</gi> permet d'indiquer la presence d'un caractere ou glyph
+          non-Unicode </p>
+      </div>
+      <div>
+        <head>Usage de <gi>g</gi></head>
+        <figure>
+          <graphic url="../Graphics/s-long-ex.png"/>
+          <head>Extrait d'un journal intime de 1822</head>
+        </figure>
+        <p>On pourrait encoder par ex: <egXML xmlns="http://www.tei-c.org/ns/Examples">
             Me&#x017f;sieurs et Mesdames </egXML> ou bien <egXML
-            xmlns="http://www.tei-c.org/ns/Examples"> Me<g ref="#long-s-glyph">s</g>ieurs et Mesdames..</egXML>
+            xmlns="http://www.tei-c.org/ns/Examples"> Me<g ref="#long-s-glyph">s</g>ieurs et
+            Mesdames..</egXML>
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <g ref="#per-glyph">per</g>
           </egXML>
         </p>
-        <p rend="box">Les objets references par <att>ref</att> sont definis dans un element du TEI Header
-        </p>
-      
+        <p rend="box">Les objets references par <att>ref</att> sont definis dans un element du TEI
+          Header </p>
         <!--
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <glyph xml:id="long-s-glyph">
@@ -260,7 +369,7 @@
             <label>"Brévigraphes"</label>
             <item>ce sont des symboles spécifiques, tels que la note tironienne (&amp;#x204A;
               &#x204A;) utilisée à la place du mot <q>et</q>, la lettre p barrée (&amp;#x1D71;
-              &#x1D71;),  utilisée à la place de la syllabe <q>per</q>. </item>
+              &#x1D71;), utilisée à la place de la syllabe <q>per</q>. </item>
           </list>
         </p>
         <p>La plupart des symboles dont on a besoin sont définies par Unicode, mais ne sont pas
@@ -429,39 +538,34 @@
             </subst>have </egXML>
         </p>
       </div>
-      
       <div rend="slide">
         <head>Corrections</head>
-        
         <p><graphic url="../Graphics/cadinal.png" height="10%"/></p>
         <p> L’élément <gi>sic</gi> peut être utilisé pour indiquer que la leçon donnée par le
-          manuscrit est erronée ou n’a pas de sens <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
+          manuscrit est erronée ou n’a pas de sens <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <sic>Cadinal</sic>
-          </egXML>
-          L’élément <gi>corr</gi> sert à
-          fournir ce qui est la leçon correcte selon l’opinion de l’éditeur : 
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          </egXML> L’élément <gi>corr</gi> sert à fournir ce qui est la leçon correcte selon
+          l’opinion de l’éditeur : <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <corr>Cardinal</corr>
           </egXML>
         </p>
         <p>Les deux éléments peuvent être associés au sein d’un élément <gi>choice</gi> : <egXML
-          rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
-          <choice>
-            <sic>Cadinal</sic>
-            <corr>Cardinal</corr>
-          </choice>
-        </egXML>
+            rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+            <choice>
+              <sic>Cadinal</sic>
+              <corr>Cardinal</corr>
+            </choice>
+          </egXML>
         </p>
       </div>
       <div rend="slide">
         <head>Normalisation</head>
-        <p>Pour la recherche ou pour
-          d’autres raisons liées aux traitements informatiques prévus, la graphie moderne peut
-          s’avérer utile dans une transcription. L’élément <gi>reg</gi> (régularisation) est
-          disponible pour encoder une forme normalisée, tandis que l’élément <gi>orig</gi> (forme
-          originale) contient la graphie d’origine non normalisée. On peut si on le souhaite
-          regrouper ces éléments de contenu alternatif en utilisant l’élément <gi>choice</gi>.</p>
+        <p>Pour la recherche ou pour d’autres raisons liées aux traitements informatiques prévus, la
+          graphie moderne peut s’avérer utile dans une transcription. L’élément <gi>reg</gi>
+          (régularisation) est disponible pour encoder une forme normalisée, tandis que l’élément
+            <gi>orig</gi> (forme originale) contient la graphie d’origine non normalisée. On peut si
+          on le souhaite regrouper ces éléments de contenu alternatif en utilisant l’élément
+            <gi>choice</gi>.</p>
       </div>
       <div>
         <head>Normalisation (exemple)</head>
@@ -470,12 +574,12 @@
         </p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <lb/>dix <choice><orig>huict</orig><reg>huit</reg></choice> grains <choice><orig>troys
-            quartz</orig><reg>trois-quart</reg></choice></egXML>
+              quartz</orig><reg>trois-quart</reg></choice></egXML>
         <p>Dans ce cas, il existe aussi la possibilité d'une régularisation sémantique: <egXML
-          xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-          <lb/><measure quantity="18.75" unit="gr">dix
-            <choice><orig>huict</orig><reg>huit</reg></choice> grains <choice><orig>troys
-              quartz</orig><reg>trois-quart</reg></choice></measure></egXML></p>
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <lb/><measure quantity="18.75" unit="gr">dix
+                <choice><orig>huict</orig><reg>huit</reg></choice> grains <choice><orig>troys
+                  quartz</orig><reg>trois-quart</reg></choice></measure></egXML></p>
       </div>
       <div>
         <head>Dommages materiels</head>
@@ -518,28 +622,41 @@
           </egXML>
         </p>
       </div>
-      
       <!-- exercice here -->
-      <div><head>Exercice premier: transcription d'une lettre</head>
-      
-      <cb/><figure><graphic url="../Graphics/vinet.jpg" height="80%"/>
-        <head>Lettre d'Elie Vinet (1509–1587)</head></figure> 
-      <cb/>
-        <list><item><ident>Travaux/vinet.jpg</ident> : page image</item>
-          <item><ident>Travaux/vinet.xml</ident> : version TEI XML à enrichir</item><item>Ouvrez ce fichier en Oxygen, et corrigez son balisage...</item></list>
-      <!-- first thing is to wrap all text in one p to make it valid! -->
+      <div>
+        <head>Exercice premier: transcription d'une lettre</head>
+        <cb/>
+        <figure>
+          <graphic url="../Graphics/vinet.jpg" height="80%"/>
+          <head>Lettre d'Elie Vinet (1509–1587)</head>
+        </figure>
+        <cb/>
+        <list>
+          <item><ident>Travaux/vinet.jpg</ident> : page image</item>
+          <item><ident>Travaux/vinet.xml</ident> : version TEI XML à enrichir</item>
+          <item>Ouvrez ce fichier en Oxygen, et corrigez son balisage...</item>
+        </list>
+        <!-- first thing is to wrap all text in one p to make it valid! -->
       </div>
-      
-      <div><head>Exercice premier: quelques propositions</head>
-        
-       
-        <list><item>Indiquez que <q>Cadinal</q> serait une erreur (avec <gi>sic</gi>)</item><item>Indiquez que <q>par</q> est un ajout (en dessus de ligne) avec <gi>add</gi></item>
-          <item>Indiquez les ratures (avec <gi>del</gi>) et fournir ou bien les mots raturés ou bien l'indication <gi>unclear</gi>; supprimez les asterix</item><item>Traitez quelques abréviations avec <gi>expan</gi>, <gi>abbr</gi>, et <gi>choice</gi></item><item>Ajoutez de la structure en vous servant des balises <gi>p</gi> pour les paragraphes, <gi>opener</gi> pour les formules initiales, et <gi>closer</gi> pour les formules finales; </item><item>ces derniers peuvent contenir <gi>salute</gi> pour les salutations, <gi>signed</gi> pour la phrase et le nom de signature, <gi>dateline</gi> pour la date et location</item><item>indiquez que la phrase <q>apud Medulos</q> est du latin avec la balise <tag>foreign xml:lang="lat"</tag></item><item>N'oubliez pas de prendre le crédit pour vos travaux en modifiant l'entête!</item></list>
-        
+      <div>
+        <head>Exercice premier: quelques propositions</head>
+        <list>
+          <item>Indiquez que <q>Cadinal</q> serait une erreur (avec <gi>sic</gi>)</item>
+          <item>Indiquez que <q>par</q> est un ajout (en dessus de ligne) avec <gi>add</gi></item>
+          <item>Indiquez les ratures (avec <gi>del</gi>) et fournir ou bien les mots raturés ou bien
+            l'indication <gi>unclear</gi>; supprimez les asterix</item>
+          <item>Traitez quelques abréviations avec <gi>expan</gi>, <gi>abbr</gi>, et
+            <gi>choice</gi></item>
+          <item>Ajoutez de la structure en vous servant des balises <gi>p</gi> pour les paragraphes,
+              <gi>opener</gi> pour les formules initiales, et <gi>closer</gi> pour les formules
+            finales; </item>
+          <item>ces derniers peuvent contenir <gi>salute</gi> pour les salutations, <gi>signed</gi>
+            pour la phrase et le nom de signature, <gi>dateline</gi> pour la date et location</item>
+          <item>indiquez que la phrase <q>apud Medulos</q> est du latin avec la balise <tag>foreign
+              xml:lang="lat"</tag></item>
+          <item>N'oubliez pas de prendre le crédit pour vos travaux en modifiant l'entête!</item>
+        </list>
       </div>
-      
-      
-      
       <div>
         <head>Quelques problèmes</head>
         <p>Ces méthodes sont adéquates au situations de variation pas trop complexes. On peut
@@ -566,9 +683,6 @@
           </egXML>
         </p>
       </div>
-      
-      
-      
       <div>
         <head>Usage des attributs pour capturer la séquence</head>
         <list>
@@ -611,7 +725,6 @@
         <p>... notez nous n'avons pas saisi le <q>metamark</q>
           <val>stet</val>, bien d'avoir indiqué sa portée.</p>
       </div>
-        
       <div>
         <head>TEI fournit un moyen d'encoder des <hi>textes</hi>, mais .. </head>
         <list type="bulleted">
@@ -637,115 +750,6 @@
         <p>D'abord, la TEI avait considéré ce genre de problèmes hors de sa portée, en partie à
           cause des problèmes techniques. </p>
         <p rend="box">Nous revenons sur ce problemes plus tard.... </p>
-      </div>
-      <div>
-        <head>L'edition "Old Skool" </head>
-        <p><graphic url="../Graphics/appcrit.jpg" width="7cm"/></p>
-        <p rend="box">Une mise en page complèxe, signalant la structuration du texte; (rappelant un
-          peu les dictionnaires imprimées) </p>
-      </div>
-      <div>
-        <head>Un exemple simple </head>
-        <!-- Example stolen from wikipedia -->
-        <p>Au dessous de ce vers de <title>Hamlet</title> : <egXML
-            xmlns="http://www.tei-c.org/ns/Examples"> LAERTES. Alas, then she is drowned. </egXML>
-          se trouve un peu de discussion scientifique : <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">4.7.156 Alas, then  is she drowned. HIBBARD;
-            Alas then, is she drown'd? F; Alas then is she drownd. Q3; Alas, then, she is drownd.
-            Q2; So, she is drownde: Q1. </egXML>
-        </p>
-      </div>
-      <div rend="slide">
-        <head> Structuration classique d'apparat critique avec <gi>app</gi>, <gi>rdg</gi>, et
-            <gi>lem</gi>
-        </head>
-        <list type="gloss">
-          <label>
-            <gi>app</gi>
-          </label>
-          <item>(apparatus entry) contient une entrée dans un apparat critique,
-            constituée d'un lemme facultatif et d'au moins une leçon.</item>
-          <label>
-            <gi>rdg</gi>
-          </label>
-          <item>(reading) contient une leçon à l'intérieur d'une variante
-            du texte. </item>
-          <label>
-            <gi>lem</gi>
-          </label>
-          <item>(lemma) contient le lemme ou le texte de base d'une
-            variante textuelle.</item>
-        </list>
-        <p>Chaque <gi>rdg</gi> est constaté par un ou plusieurs <soCalled>témoins</soCalled></p>
-      </div>
-      <div>
-        <head>Par exemple ...</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <app>
-            <lem>Alas, then she is drowned.</lem>
-            <rdg wit="#Hib">Alas, then is she drowned.</rdg>
-            <rdg wit="#F">Alas then, is she drown'd?</rdg>
-            <rdg wit="#Q3">Alas then is she drownd.</rdg>
-            <rdg wit="#Q2">Alas, then, she is drownd.</rdg>
-            <rdg wit="#Q1">So, she is drownde:</rdg>
-          </app>
-        </egXML>
-      </div>
-      <div>
-        <head>La granularité d'annotation n'est pas prédéfinie </head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><l n="156">
-            <app>
-              <rdg wit="#Hib">Alas, then</rdg>
-              <rdg wit="#F">Alas then,</rdg>
-              <rdg wit="#Q3">Alas then</rdg>
-              <rdg wit="#Q2">Alas, then,</rdg>
-              <rdg wit="#Q1">So,</rdg>
-            </app>
-            <app>
-              <rdg wit="#Hib #F #Q3">is she</rdg>
-              <rdg wit="#Q2 #Q1">she is</rdg>
-            </app>
-            <app>
-              <rdg wit="#Hib">drowned.</rdg>
-              <rdg wit="#F">drown'd?</rdg>
-              <rdg wit="#Q3 #Q2">drownd.</rdg>
-              <rdg wit="#Q1">drownde:</rdg>
-            </app>
-          </l></egXML>
-      </div>
-      <div>
-        <head>Pointeurs et cibles</head>
-        <p>Les labels (<val>#Hib</val>, <val>#Q1</val> etc.) sont des pointeurs: ils indiquent des
-          métadonnées sur le témoin concérné </p>
-        <p>La TEI a <emph>beaucoup</emph> de propositions relatives à l'encodage des métadonnées...
-          permettant ainsi l'évolution d'une <soCalled>codicologie quantitative</soCalled>. </p><p>Dans une longue tradition par exemple épigraphiuque, les leçons des savants célèbres peuvent etre considérés comme des <gi>rdg</gi>s. </p>
-      </div>
-      <div>
-        <head>Le syntaxe peut être plus complexe...</head>
-        <list>
-          <item>Les leçons communes peuvent être regroupés avec <gi>rdgGroup</gi>,
-              <gi>witList</gi> etc.</item>
-          <item>La localisation des variants représentés peut être indiquée en plusieurs manières
-            (par référence, par liens, etc.) </item>
-          <item>la présence d'une lemme n'est pas obligatoire </item>
-        </list>
-        <p rend="box">Quand même, ce format ne suffit pas de générer automatiquement les sources
-          originalles</p>
-        <p>Ni serait il capable de représenter les sorties d'un logiciel de collation automatique
-          des sources. </p>
-      </div>
-      <div>
-        <head>Comment mieux modéliser la variation textuelle? </head>
-        <list>
-              <item>On peut aussi citer le modèle de Schmidt pour les <soCalled>multiversion
-              documents</soCalled>: <p><graphic url="../Graphics/schmidt-model.png"/></p>
-            <p><ptr target="http://multiversiondocs.blogspot.com"/></p></item>
-          <item> .. comme le "Rhine-delta model" de Sperberg-McQueen 1989
-              <ptr target="http://cmsmcq.com/1989/rhine-delta-abstract.html"/>, cet modelisation serait
-            mieux conçu pour représenter les sorties d'un logiciel de collation automatique.</item>
-        </list>
-        <p rend="box">En effet, la représentation d'une collation déjà faite semble de moins interêt
-          que celle d'un dossier de transcriptions... un corpus</p>
       </div>
     </body>
   </text>
