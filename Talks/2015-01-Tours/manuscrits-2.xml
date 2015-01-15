@@ -13,6 +13,7 @@
       <publicationStmt>
         <distributor>Lou Burnard Consulting</distributor>
         <availability>
+
           <p>Freely available for use and derivative works under a Creative Commons Attribution
             license.</p>
         </availability>
@@ -31,6 +32,249 @@
   <text>
     <body>
       <div>
+        <head>L'édition numérique : en pratique</head>
+        <p>On fait une édition numérique à partir des composants suivants: </p>
+        <list>
+          <item>un ensemble d'images numérique, chacun représentant une page d'une ressource </item>
+          <item>une transcription plus ou moins complète des textes qui figurent sur ces
+            pages</item>
+          <item>des metadonnées concernant les ressources numerisées, par ex. leur relation </item>
+          <item>des metadonnées concenant la manière de sa numérisation</item>
+          <item>des annotations plus ou moins riches sur les entités referenciés par les textes, la
+            langue des textes, etc</item>
+        </list>
+        <p rend="box">Le système TEI nous propose plusieurs manières d'organiser tout cela</p>
+      </div>
+      <div>
+        <head>Structures TEI pour la transcription des sources</head>
+        <list>
+          <item><gi>text</gi> : rassemble une lecture structurée du contenu intellectuel d'un
+            document (ou en ensemble des documents) son <q>texte</q></item>
+          <item><gi>facsimile</gi> : regroupe un ensemble d'images représentant les pages
+            (<foreign>vel sim</foreign>) d'un document</item>
+          <item><gi>sourceDoc</gi> : facsimile et transcription quasiment objective des aspects
+            physique d'un seul document </item>
+          <item><gi>teiHeader</gi> : fournit des métadonnées qui décrivent les objects traités et
+            les méthodes d'encodage concernées </item>
+        </list>
+        <p rend="box">Un élément <gi>TEI</gi> contient au minimum un <gi>teiHeader</gi>, suivi d'un
+          ou plusieurs des autres possibilités</p>
+      </div>
+      <div xml:lang="fr">
+        <head> Deux méthodes simplissimes pour gérer un "facsimilé numérique"</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <TEI>
+            <teiHeader>
+              <!-- metadonnées sur l'édition numerique -->
+            </teiHeader>
+            <facsimile>
+              <graphic url="page1r.png"/>
+              <graphic url="page1v.png"/>
+              <graphic url="page2r.png"/>
+              <graphic url="page2v.png"/>
+            </facsimile>
+          </TEI>
+        </egXML>
+        <p>NB: aucune manière de structurer les images</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <TEI>
+            <teiHeader>
+              <!-- metadonnées sur l'édition numerique -->
+            </teiHeader>
+            <text>
+              <pb facs="page1.png"/>
+              <!-- texte de la  page 1 facultativement transcrit ici -->
+              <pb facs="page2.png"/>
+              <!-- texte de la  page 2 facultativement transcrit ici-->
+            </text>
+          </TEI>
+        </egXML>
+        <p>(On se servirait de <gi>sourceDoc</gi> au lieu de <gi>text</gi> selon ses principes
+          editoriaux)</p>
+      </div>
+      <div xml:lang="en">
+        <head>Inconvénients</head>
+        <list>
+          <item>difficile de supporter des relations plus compliquées </item>
+          <item>maintien difficile d'informations propres à l'image </item>
+          <item>nécessité donc d'intégration avec d'autres fichiers (typiquement METS) </item>
+        </list>
+        <p> .Problèmes : </p>
+        <list>
+          <item>plusieurs images pour une seul page</item>
+          <item>comment associer des pages, par ex pour une feuille, ou une double-page </item>
+        </list>
+      </div>
+      <div>
+        <head>On dispose de versions alternatives d'une même image ?</head>
+        <p>L'élément <gi>surface</gi> nous permet de regrouper les images équivalentes: </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
+            <graphic url="page1.png"/>
+            <surface>
+              <graphic url="page2-highRes.png"/>
+              <graphic url="page2-lowRes.png"/>
+            </surface>
+            <graphic url="page3.png"/>
+            <graphic url="page4.png"/>
+          </facsimile>
+        </egXML>
+      </div>
+      <div>
+        <head>On veut identifier les feuilles d'un manuscrit ?</head>
+        <p>L'élément <gi>surfaceGrp</gi> nous permet de regrouper les surfaces: </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <facsimile>
+            <surfaceGrp type="leaf">
+              <surface>
+                <graphic url="page1recto.png"/>
+              </surface>
+              <surface>
+                <graphic url="page1verso.png"/>
+              </surface>
+            </surfaceGrp>
+          </facsimile>
+        </egXML>
+      </div>
+      <div>
+        <head>On veut distinguer des sous-parties d'une surface</head>
+        <p>L'élément <gi>zone</gi> nous permet d'identifier n'importe quelle région d'une surface. </p>
+        <list>
+          <item>Un <gi>zone</gi> identifie un polygone (pas forcément rectangulaire) : un espace en
+            2d</item>
+          <item>Il est défini ou bien par l'attribut <att>points</att> ou bien par les attributs
+            <att>ulx</att>, <att>uly</att>, <att>lrx</att> et <att>lry</att></item>
+          <item>Toute définition de zone doit utiliser le <term>système de coordonnées</term>
+            définie pour la surface </item>
+          <item>Un système de coordonnées définit une plage de valeurs pour les paires de coordonnées (x,y)
+            qui expriment un polygone 2d </item>
+          <item>(il ne s'agit pas d'une mensuration)</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <facsimile>
+            <surface ulx="0" uly="0" lrx="40" lry="30">
+              <graphic url="page1r.png"/>
+              <zone points="22,10 30,21 17,25 12,23">
+                <graphic url="page1rdetail.png"/>
+              </zone>
+            </surface>
+          </facsimile>
+        </egXML>
+      </div>
+      <div>
+        <head>Lier les images avec leur transcription</head>
+        <list>
+          <item>L'attribut <att>facs</att> est disponible sur tout élément de transcription. Il
+            pointe sur un <gi>zone</gi>, <gi>surface</gi>, ou (plus simplement) sur un
+            <gi>graphic</gi>
+          </item>
+          <item>(L'attribut <att>start</att> de <gi>zone</gi> ou de <gi>surface</gi> pointe dans
+            le sens opposé, vers une portion de transcription) </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
+          <surfaceGrp type="leaf">
+            <surface xml:id="p1r">
+              <graphic url="page1r.png"/>
+              <graphic url="page1r.tiff"/>
+            </surface>
+            <surface xml:id="p1v">
+              <graphic url="page1v.png"/>
+            </surface>
+          </surfaceGrp>
+        </facsimile>
+          <text>
+            <pb facs="#p1r"/>
+            <!-- text from page 1 recto transcribed here -->
+            <pb facs="#p1v"/>
+            <!-- text from page 1 verso transcribed here -->
+          </text>
+        </egXML>
+      </div>
+      <div>
+        <head>Exemple </head>
+        <figure>
+          <graphic url="../Graphics/bovelles.png" height="90%"/>
+        </figure>
+        <cb/>
+        <p/>
+        <p>Nous distinguons plusieurs zones sur cette surface : <list>
+          <item>le titre</item>
+          <item>la lettrine</item>
+          <item>l'image d'une cloche</item>
+        </list>...</p>
+        <p>Ce sont tous des zones rectangulaires</p>
+      </div>
+      <div>
+        <head>Exemple</head>
+        <figure>
+          <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
+        </figure>
+        <cb/>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny"><facsimile>
+          <surface ulx="0" uly="0" 
+            lrx="52" lry="32">
+            <graphic url="bovelles.png"/>
+            <zone  ulx="4" uly="4" 
+              lrx="27" lry="13"/>
+            <!-- le titre -->
+            <zone  ulx="4" uly="31" 
+              lrx="12" lry="38"/>
+            <!-- la lettrine  -->
+            <zone  ulx="10" uly="40" 
+              lrx="27" lry="52"/>
+            <!-- la cloche -->
+          </surface>
+        </facsimile></egXML>
+        <p>(Notons que nous n'avons pas encore introduit des identifiants pour chaque zone)</p>
+      </div>
+      <div>
+        <head>Et la transcription</head>
+        <figure>
+          <graphic url="../Graphics/bovelles-boxed.png" height="90%"/>
+        </figure>
+        <cb/>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny"><facsimile>
+          <surface xml:id="B49r" ulx="0" uly="0" lrx="52" lry="32">
+            <graphic url="bovelles.png"/>
+            <zone xml:id="B49rHead" ulx="4" uly="4" lrx="27" lry="13"/>
+            <!-- le titre -->
+            <zone xml:id="B49rCap" ulx="4" uly="31" lrx="12" lry="38"/>
+            <!-- la lettrine  -->
+            <zone xml:id="B49rFig" ulx="10" uly="40" lrx="27" lry="52"/>
+            <!-- la cloche -->
+          </surface></facsimile>
+          <text>
+            <body>
+              <pb facs="#B49r"/>
+              <fw>De Geometrie 159</fw>
+              <head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET DES ALleures des cheuaux, chariots &amp;amp; charges: des fontaines,&amp;amp; encyclie du monde: &amp;amp; de la dimension du corps humain.</head>
+              <head>Chapitre Septiesme.</head>
+              <div n="1">
+                <p>Le son &amp;amp; accord des cloches pendans en ung mesme axe, est faict en contraires parties.</p>
+                <p><g facs="#B49rCap">L</g>Es cloches ont quasi figures de rondes pyramides imperfaictes &amp;amp; irregulieres: &amp;amp; leur accord se fait par reigle Geometrique: comme si les deux cloches C &amp;amp; D sont pendantes à vn mesme axe, ou essieu, A B: je dy que leur accord se fera en contraires parties co<ex>m</ex>me voyez icy figuré. Car quand l'vne sera en haut, l'autre declinera en bas. Autreme<ex>m</ex>t si elles de.<figure facs="#B49rFig1"/>
+                  <pb/><!-- ... -->
+                </p>
+              </div>
+            </body>
+          </text></egXML>
+      </div>
+      <div>
+        <head>Surfaces et zones... </head>
+        <p>La relation surface/zone peut être très complex :</p>
+        <figure>
+          <graphic url="../Graphics/prpost-zone.png" height="80%"/>
+        </figure>
+      </div>
+      <div>
+        <head>... les zones peuvent traverser les frontières des surfaces</head>
+        <figure>
+          <graphic url="../Graphics/lebrave-finale.png" height="80%"/>
+        </figure>
+       <!-- <p rend="box">Elena va discuter de cela plus tard!</p>-->
+      </div>
+      
+      
+      <div>
         <head>Encodage documentaire</head>
         <p>Nous avons deja évoqué les problèmes associés à l'encodage des <list>
             <item>l'apparence physique d'un document</item>
@@ -42,154 +286,11 @@
           </list></p>
         <p>La TEI d'aujourd'hui propose des mécanismes plus ou moins elaborés pour l'encodage de ces
           aspects... </p>
+
+
       </div>
-      <div>
-        <head> Qu'est-ce qu'un "facsimilé numérique"?</head>
-        <list>
-          <item>Au plus simple, un inventaire de fichiers images, qui reproduisent le document
-            décrit par l'en-tête associé. </item>
-          <item> mais peut également définir des espaces visuels plus petits, comme les
-              <emph>surfaces</emph> ou <emph>zones d'intérêt</emph> sur ces surfaces </item>
-          <item> Tous peuvent être alignés, à un niveau approprié, avec les parties d'une
-            transcription </item>
-        </list>
-      </div>
-      <div>
-        <head> La solution la plus simple pour supporter un "facsimilé numérique"</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <TEI>
-            <teiHeader>
-              <!--...--></teiHeader>
-            <text>
-              <pb facs="page1.png"/>
-              <!-- texte de la  page 1 facultativement transcrit ici -->
-              <pb facs="page2.png"/>
-              <!-- texte de la  page 2 facultativement transcrit ici-->
-            </text>
-          </TEI>
-        </egXML>
-        <p>Inconvénients... <list>
-            <item>difficile de supporter des relations plus compliquées </item>
-            <item>maintien difficile d'informations propres à l'image </item>
-            <item>nécessite donc l'intégration avec d'autres fichiers (typiquement METS) </item>
-          </list></p>
-      </div>
-      <div>
-        <head>Solution un peu moins simple </head>
-        <p>Regrouper les données à un seul endroit: <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <facsimile xml:base="http://mylibrary.wibble.fr/blah/blah/blah">
-              <graphic url="page1.png"/>
-              <graphic url="page2.png"/>
-              <graphic url="page3.png"/>
-              <graphic url="page4.png"/>
-            </facsimile>
-          </egXML></p>
-        <p>(On pourrait également se servir de <gi>binaryObject</gi>)</p>
-      </div>
-      <div>
-        <head>Et si on disposait de versions alternatives d'une même image?</head>
-        <p>Se servir de <gi>surface</gi>pour grouper les images équivalentes: <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
-            <facsimile>
-              <graphic url="page1.png"/>
-              <surface>
-                <graphic url="page2-highRes.png"/>
-                <graphic url="page2-lowRes.png"/>
-              </surface>
-              <graphic url="page3.png"/>
-              <graphic url="page4.png"/>
-            </facsimile>
-          </egXML></p>
-      </div>
-      <div>
-        <head>Lier l'image à la transcription</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"><facsimile>
-            <graphic xml:id="page1" url="page1.png"/>
-            <graphic xml:id="page2" url="page2.png"/>
-            <graphic xml:id="page3" url="page3.png"/>
-            <graphic xml:id="page4" url="page4.png"/>
-          </facsimile>
-          <!-- ... -->
-          <text>
-            <pb facs="#page1"/>
-            <!-- texte de la  page 1 facultativement transcrit ici -->
-            <pb facs="#page2"/>
-            <!-- texte de la  page 1 facultativement transcrit ici -->
-          </text>
-        </egXML>
-      </div>
-      <div>
-        <head>Lier deux parties d'une image</head>
-        <list>
-          <item>on se sert de <gi>surface</gi> pour définir un systeme un système abstrait de
-            coordonnées </item>
-          <item>on se sert de <gi>zone</gi> pour définir une zone d'intérêt </item>
-          <item>on se sert de <gi>graphic</gi> pour fournir une image de la zone ou surface qui le
-            contient </item>
-        </list>
-      </div>
-      <div>
-        <head> Bovelles-49r.png</head>
-        <figure>
-          <graphic url="../Graphics/facs-fig1.png" height="250px"/>
-        </figure>
-      </div>
-      <div>
-        <head>Encodage pour cette image</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><facsimile>
-            <surface ulx="0" uly="0" lrx="200" lry="300">
-              <zone xml:id="B49r" ulx="0" uly="0" lrx="200" lry="300">
-                <graphic url="Bovelles-49r.png"/>
-              </zone>
-              <zone ulx="105" uly="76" lrx="175" lry="160">
-                <graphic url="Bovelles49r-detail.png"/>
-              </zone>
-              <zone xml:id="B49rHead" ulx="25" uly="25" lrx="180" lry="60"/>
-              <!-- contient le titre -->
-              <zone xml:id="B49rPara2" ulx="28" uly="75" lrx="175" lry="178"/>
-              <!-- contient le paragraphe en italique  -->
-              <zone xml:id="B49rFig1" ulx="105" uly="76" lrx="175" lry="160"/>
-              <!-- contient l'image de cloche  -->
-              <zone xml:id="B49rW457" ulx="45" uly="125" lrx="60" lry="130"/>
-              <!-- contient le mot "pendans" -->
-            </surface>
-          </facsimile></egXML>
-        <p>(Notons que nous introduisons des identifiants pour chaque zone)</p>
-      </div>
-      <div>
-        <head>La transcription</head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><pb facs="#B49r"/>
-          <fw>De Geometrie 49</fw><head facs="#B49rHead"> DU SON ET ACCORD DES CLOCHES ET <lb/> des
-            alleures des chevaulx, chariotz &amp; charges, des fontaines:&amp; <lb/> encyclie du
-            monde, &amp; de la dimension du corps humain.</head>
-          <head>Chapitre septiesme</head>
-          <div n="1">
-            <p>Le son &amp; accord des cloches pendans en ung mesme <lb/> axe, est faict en
-              contraires parties.</p>
-            <p rend="it" facs="#B49rPara2">LEs cloches ont quasi fi<lb/>gures de rondes
-              pyra<lb/>mides imperfaictes &amp; <lb/> irregulieres: &amp; leur accord se <lb/> fait
-              par reigle geometrique. Com<lb/>me si les deux cloches C &amp; D <lb/> sont <w
-                facs="#B49rW457">pendans</w> à ung mesme axe <lb/> ou essieu A B: je dis que leur
-              ac<lb/>cord se fera en co<ex>n</ex>traires parties<lb/> co<ex>m</ex>me voyez icy
-              figuré. Car qua<ex>n</ex>d <lb/> lune sera en hault, laultre declinera embas.
-              Aultrement si elles decli<lb/>nent toutes deux ensembles en une mesme partie, elles
-              seront discord, <lb/> &amp; sera leur sonnerie mal plaisante à oyr.<figure
-                facs="#B49rFig1"/>
-            </p>
-          </div></egXML>
-      </div>
-      <div>
-        <head>Comment combiner transcription et images?</head>
-        <p>On peut se servir de l' élément <gi>sourceDoc</gi>... </p>
-        <list type="unordered">
-          <item>au même niveau que <gi>text</gi> et <gi>teiHeader</gi>
-          </item>
-          <item>représente la <hi>structure physique</hi> du document</item>
-          <item>rassemble un ou plusieurs éléments <gi>surface</gi> écrites, éventuellement divisées
-            en <gi>zone</gi>s d'intérêt </item>
-          <item>ou en <gi>line</gi>s topographiques </item>
-        </list>
-      </div>
+
+     
       <div>
         <figure>
           <graphic url="../Graphics/feed.png"/>
@@ -238,6 +339,7 @@
           </sourceDoc>
         </egXML>
       </div>
+
       <div>
         <head>Les surfaces et les zones... </head>
         <p>La relation surface / zone peut être assez complexe :</p>
@@ -245,6 +347,8 @@
           <graphic url="../Graphics/prpost-zone.png"/>
         </figure>
       </div>
+
+
       <div>
         <head>Multi-part surfaces</head>
         <p>... <emph>tres</emph>complexe </p>
@@ -252,14 +356,17 @@
           <graphic url="../Graphics/lebrave-finale.png"/>
         </figure>
       </div>
+
       <div>
         <head>Balisage des informations "meta" ...</head>
         <list>
           <label><gi>metamark</gi></label>
           <item>une marque quelconque déterminant la lecture du document </item>
+
           <label><gi>mod</gi> et <gi>modSpan</gi></label>
           <item>indiquent, de manière générique, le lieu d'une modification dans le document, sans
             spécifier sa fonction</item>
+
           <label><gi>undo</gi>
             <gi>redo</gi>, <gi>retrace</gi></label>
           <item>indications respectivement de : corrections supprimées, corrections réaffirmées,
@@ -270,8 +377,11 @@
       </div>
       <div>
         <head>Metamark exemple</head>
+
         <p><graphic url="../Graphics/whitman-02.jpg"/></p>
       </div>
+
+
       <div>
         <head>Metamark exemple encodé </head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -299,12 +409,14 @@
           <graphic url="../Graphics/ibsen01.jpg" width="300px"/>
           <head>Extrait de <ref>http://www.emunch.no/tei-mm-2008/ms.html</ref></head>
         </figure>
+
         <egXML xmlns="http://www.tei-c.org/ns/Examples" xmlns:ge="http://www.nontei">
           <line><seg xml:id="ib01">bör</seg><metamark rend="underline" function="transposition"
               target="#ib1" place="above">2.</metamark> og <seg xml:id="ib02">hör</seg>
             <metamark rend="underline" function="transposition" target="#ib02" place="above">1.
             </metamark></line>
         </egXML>
+
       </div>
       <div>
         <head>Transposition : exemple</head>
@@ -317,6 +429,7 @@
           </transposeGrp>
         </egXML>
       </div>
+
       <div>
         <head>Distinction des étapes d'écriture</head>
         <p>L'attribut <att>change</att> sert a associer n'importe quel élément de la transcription
@@ -326,6 +439,8 @@
         <p>Les étapes elles-mêmes sont à documenter dans l'élément <gi>profileDesc</gi> de l'en-tête
           TEI.</p>
       </div>
+
+
       <div>
         <head>Example... </head>
         <figure>
@@ -334,6 +449,7 @@
         <p rend="box">Ex hypothese, les couleurs d'encre sont a associer avec des niveaux distincts
           d'ecriture</p>
       </div>
+
       <div>
         <head>Documentation des etapes</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -348,7 +464,9 @@
             </creation>
           </profileDesc>
         </egXML>
+
       </div>
+
       <div>
         <head>Association transcription/documentation</head>
         <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><zone xml:id="zone1"
@@ -370,6 +488,7 @@
           </zone>
         </egXML>
       </div>
+
       <div>
         <head>Comment profiter de tous ces balises?</head>
         <p>Il faut maitriser une langue de programmation, ou plutot de transformation, par ex. XSLT
@@ -379,7 +498,7 @@
         <p rend="box">mais on peut déjà faire beaucoup avec un outil tel Oxygen</p>
       </div>
       <div>
-        <head>Un dernier exercice</head>
+        <head>Exercice : visualisation</head>
         <list>
           <item>Revenez sur votre version de la lettre de Vinet, ou la version que je vous propose
             dans <ident>vinet-corr.xml</ident>
@@ -397,6 +516,7 @@
         </list>
       </div>
     </body>
+
   </text>
 </TEI>
 <!--
