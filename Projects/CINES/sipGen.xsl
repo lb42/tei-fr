@@ -6,6 +6,8 @@
     exclude-result-prefixes="xs tei"
     version="2.0">
     
+    <!-- stylesheet for extracting relevant parts of a TEI Header and re-expressing
+        them as an XML SIP conforming to the CINES sip.xsd (Lou Burnard, 2013) -->
     
     <xsl:template match="/">
         <xsl:apply-templates select="//teiHeader"/>
