@@ -57,7 +57,7 @@
                 </titleStmt>
                 <publicationStmt>
                   <publisher>
-                        <xsl:apply-templates select="sp:editorialInfo"/>
+                      <xsl:apply-templates select="sp:editorialInfo/bk:textS/sc:para"/>
                   </publisher> 
                     <availability>
                         <p>
@@ -65,7 +65,7 @@
                         </p>
                     </availability>
                 </publicationStmt>
-                <sourceDesc><p>Converted from scendari source</p></sourceDesc>
+                <sourceDesc><p>Converted from cendari source</p></sourceDesc>
             </fileDesc>
            
 
@@ -82,8 +82,12 @@
              </author>
         </xsl:for-each>
     </xsl:template>
-
-
+    
+    <xsl:template match="sp:firstName">
+        <xsl:value-of select="."/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
+    
     <xsl:template match="bk:chapter|bk:subChap">
         <div>
             <xsl:apply-templates/>
@@ -119,6 +123,24 @@
             <xsl:apply-templates/>
         </head>
     </xsl:template>
+    
+    <xsl:template match="sp:remark//sp:title">
+        <p rend="head">
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    
+    <xsl:template match="sp:warning//sp:title">
+        <p rend="head">
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    
+    <xsl:template match="sp:complement//sp:title">
+        <p rend="head">
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
 
     <xsl:template match="sp:example">
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -130,10 +152,22 @@
     </xsl:template>
 
 <xsl:template match="sp:remark">
-    <!-- dunno wot to do with this -->
+    <note type="remark">
     <xsl:apply-templates/>
-</xsl:template>
+    </note>
+    </xsl:template>
     
+    <xsl:template match="sp:warning">
+        <note type="warning">
+            <xsl:apply-templates/>
+        </note>       
+    </xsl:template>
+    
+    <xsl:template match="sp:complement">
+        <note type="complement">
+            <xsl:apply-templates/>
+        </note>       
+    </xsl:template>
     <xsl:template match="sc:extBlock">
         <figure>
             <graphic url="{@sc:refUri}"/>
