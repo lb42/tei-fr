@@ -3,10 +3,10 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2014-11-06T17:52:06Z. 
-Edition: Version 2.7.0. Last updated on
+Schema generated from ODD source 2015-01-20T10:41:46Z. .
+TEI Edition: Version 2.7.0. Last updated on
 	16th September 2014, revision 13036
-Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
+TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
   
 --><!---->
    <define name="macro.paraContent">
@@ -167,6 +167,27 @@ Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
          </data>
       </choice>
    </define>
+   <define name="macro.anyXML">
+      <element>
+         <anyName>
+            <except>
+               <nsName ns="http://www.tei-c.org/ns/1.0"/>
+               <name ns="http://www.tei-c.org/ns/Examples">egXML</name>
+            </except>
+         </anyName>
+         <zeroOrMore>
+            <attribute>
+               <anyName/>
+            </attribute>
+         </zeroOrMore>
+         <zeroOrMore>
+            <choice>
+               <text/>
+               <ref name="macro.anyXML"/>
+            </choice>
+         </zeroOrMore>
+      </element>
+   </define>
    <define name="att.ascribed.attributes">
       <ref name="att.ascribed.attribute.who"/>
    </define>
@@ -257,7 +278,6 @@ Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
       <ref name="att.ranging.attributes"/>
       <ref name="att.dimensions.attribute.unit"/>
       <ref name="att.dimensions.attribute.quantity"/>
-      <ref name="att.dimensions.attribute.scope"/>
    </define>
    <define name="att.dimensions.attribute.unit">
       <optional>
@@ -285,15 +305,6 @@ Suggested values include: 1] cm(centimetres) ; 2] mm(millimetres) ; 3] in(inches
          <attribute name="quantity">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the length in the units specified</a:documentation>
             <ref name="data.numeric"/>
-         </attribute>
-      </optional>
-   </define>
-   <define name="att.dimensions.attribute.scope">
-      <optional>
-         <attribute name="scope">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">where the measurement summarizes more than one observation, specifies the applicability of this measurement.
-Sample values include: 1] all; 2] most; 3] range</a:documentation>
-            <ref name="data.enumerated"/>
          </attribute>
       </optional>
    </define>
@@ -480,27 +491,6 @@ Sample values include: 1] approved; 2] candidate; 3] cleared; 4] deprecated; 5] 
          </attribute>
       </optional>
    </define>
-   <define name="att.editLike.attribute.evidence">
-      <optional>
-         <attribute name="evidence">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the nature of the evidence supporting the reliability or accuracy of the intervention or interpretation.
-Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentation>
-            <list>
-               <oneOrMore>
-                  <choice>
-                     <value>internal</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">there is internal evidence to support the intervention.</a:documentation>
-                     <value>external</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">there is external evidence to support the intervention.</a:documentation>
-                     <value>conjecture</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the intervention or interpretation has been made by the editor, cataloguer, or scholar on the basis of their expertise.</a:documentation>
-                     <data type="Name"/>
-                  </choice>
-               </oneOrMore>
-            </list>
-         </attribute>
-      </optional>
-   </define>
    <define name="att.global.attribute.xmlid">
       <optional>
          <attribute name="xml:id">
@@ -578,11 +568,31 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
          </attribute>
       </optional>
    </define>
+   <define name="att.handFeatures.attributes">
+      <ref name="att.handFeatures.attribute.scribe"/>
+      <ref name="att.handFeatures.attribute.scribeRef"/>
+      <ref name="att.handFeatures.attribute.script"/>
+      <ref name="att.handFeatures.attribute.scriptRef"/>
+      <ref name="att.handFeatures.attribute.medium"/>
+      <ref name="att.handFeatures.attribute.scope"/>
+   </define>
    <define name="att.handFeatures.attribute.scribe">
       <optional>
          <attribute name="scribe">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">gives a name or other identifier for the scribe believed to be responsible for this hand.</a:documentation>
             <ref name="data.name"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="att.handFeatures.attribute.scribeRef">
+      <optional>
+         <attribute name="scribeRef">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">points to a full description of the scribe concerned, typically supplied by a person element elsewhere in the description.</a:documentation>
+            <list>
+               <oneOrMore>
+                  <ref name="data.pointer"/>
+               </oneOrMore>
+            </list>
          </attribute>
       </optional>
    </define>
@@ -595,6 +605,45 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
                   <ref name="data.name"/>
                </oneOrMore>
             </list>
+         </attribute>
+      </optional>
+   </define>
+   <define name="att.handFeatures.attribute.scriptRef">
+      <optional>
+         <attribute name="scriptRef">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">points to a full description of the script or writing style used by this hand, typically supplied by a scriptNote element elsewhere in the description.</a:documentation>
+            <list>
+               <oneOrMore>
+                  <ref name="data.pointer"/>
+               </oneOrMore>
+            </list>
+         </attribute>
+      </optional>
+   </define>
+   <define name="att.handFeatures.attribute.medium">
+      <optional>
+         <attribute name="medium">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes the tint or type of ink, e.g. brown, or other writing medium, e.g. pencil</a:documentation>
+            <list>
+               <oneOrMore>
+                  <ref name="data.enumerated"/>
+               </oneOrMore>
+            </list>
+         </attribute>
+      </optional>
+   </define>
+   <define name="att.handFeatures.attribute.scope">
+      <optional>
+         <attribute name="scope">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies how widely this hand is used in the manuscript.</a:documentation>
+            <choice>
+               <value>sole</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">only this hand is used throughout the manuscript</a:documentation>
+               <value>major</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">this hand is used through most of the manuscript</a:documentation>
+               <value>minor</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">this hand is used occasionally in the manuscript</a:documentation>
+            </choice>
          </attribute>
       </optional>
    </define>
@@ -995,61 +1044,34 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
       </oneOrMore>
    </define>
    <define name="model.dimLike">
-      <choice>
-         <ref name="height"/>
-         <ref name="width"/>
-      </choice>
+      <notAllowed/>
    </define>
    <define name="model.measureLike">
       <choice>
          <ref name="dim"/>
-         <ref name="height"/>
-         <ref name="width"/>
       </choice>
    </define>
    <define name="model.measureLike_alternation">
       <choice>
          <ref name="dim"/>
-         <ref name="height"/>
-         <ref name="width"/>
       </choice>
    </define>
    <define name="model.measureLike_sequence">
       <ref name="dim"/>
-      <ref name="height"/>
-      <ref name="width"/>
    </define>
    <define name="model.measureLike_sequenceOptional">
       <optional>
          <ref name="dim"/>
-      </optional>
-      <optional>
-         <ref name="height"/>
-      </optional>
-      <optional>
-         <ref name="width"/>
       </optional>
    </define>
    <define name="model.measureLike_sequenceOptionalRepeatable">
       <zeroOrMore>
          <ref name="dim"/>
       </zeroOrMore>
-      <zeroOrMore>
-         <ref name="height"/>
-      </zeroOrMore>
-      <zeroOrMore>
-         <ref name="width"/>
-      </zeroOrMore>
    </define>
    <define name="model.measureLike_sequenceRepeatable">
       <oneOrMore>
          <ref name="dim"/>
-      </oneOrMore>
-      <oneOrMore>
-         <ref name="height"/>
-      </oneOrMore>
-      <oneOrMore>
-         <ref name="width"/>
       </oneOrMore>
    </define>
    <define name="model.egLike">
@@ -1119,10 +1141,7 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
       <choice>
          <ref name="dimensions"/>
          <ref name="heraldry"/>
-         <ref name="locus"/>
          <ref name="material"/>
-         <ref name="origDate"/>
-         <ref name="origPlace"/>
          <ref name="stamp"/>
          <ref name="watermark"/>
       </choice>
@@ -2009,26 +2028,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
          <ref name="docDate"/>
       </choice>
    </define>
-   <define name="model.msQuoteLike">
-      <choice>
-         <ref name="title"/>
-         <ref name="explicit"/>
-         <ref name="incipit"/>
-         <ref name="rubric"/>
-      </choice>
-   </define>
-   <define name="model.msItemPart">
-      <choice>
-         <ref name="model.biblLike"/>
-         <ref name="model.quoteLike"/>
-         <ref name="model.respLike"/>
-         <ref name="model.msQuoteLike"/>
-         <ref name="textLang"/>
-         <ref name="idno"/>
-         <ref name="msItem"/>
-         <ref name="decoNote"/>
-      </choice>
-   </define>
    <define name="model.choicePart">
       <choice>
          <ref name="sic"/>
@@ -2198,7 +2197,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
          <ref name="series"/>
          <ref name="bibl"/>
          <ref name="relatedItem"/>
-         <ref name="textLang"/>
          <ref name="edition"/>
          <ref name="extent"/>
          <ref name="availability"/>
@@ -2934,16 +2932,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>nationality</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>owner</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>person</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>place</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>scholar</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>scribe</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>transcription</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
@@ -3482,7 +3470,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                         <choice>
                            <ref name="model.ptrLike"/>
                            <ref name="idno"/>
-                           <ref name="textLang"/>
                            <ref name="editor"/>
                            <ref name="respStmt"/>
                         </choice>
@@ -3498,7 +3485,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                      </oneOrMore>
                      <zeroOrMore>
                         <choice>
-                           <ref name="textLang"/>
                            <ref name="author"/>
                            <ref name="editor"/>
                            <ref name="respStmt"/>
@@ -3563,7 +3549,6 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                <ref name="respStmt"/>
                <ref name="biblScope"/>
                <ref name="idno"/>
-               <ref name="textLang"/>
                <ref name="model.global"/>
                <ref name="availability"/>
             </choice>
@@ -3741,34 +3726,13 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                <choice>
                   <value>contribution</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>gmd</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>legende</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>supplied</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>titre_court</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>titre_long</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>titre_variante</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>uniform</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="level">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.</a:documentation>
-               <choice>
-                  <value>a</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>j</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>m</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>s</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
             </attribute>
@@ -3875,11 +3839,7 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
                <choice>
                   <value>page</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>pages</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>tome</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>volume</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
             </attribute>
@@ -4334,29 +4294,6 @@ relatedItem element must be empty</sch:report>
          <empty/>
       </element>
    </define>
-   <define name="textLang">
-      <element name="textLang">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(text language) describes the languages and writing systems identified within the bibliographic work being described, rather than its description. [3.11.2.4.  10.6.6. ]</a:documentation>
-         <ref name="macro.phraseSeq"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="mainLang">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(main language) supplies a code which identifies the chief language used in the bibliographic work.</a:documentation>
-               <ref name="data.language"/>
-            </attribute>
-         </optional>
-         <empty/>
-      </element>
-   </define>
    <define name="app">
       <element name="app">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(apparatus entry) contains one entry in a critical apparatus, with an optional lemma and usually one or more readings or notes on the relevant passage. [12.1.1. ]</a:documentation>
@@ -4789,7 +4726,11 @@ relatedItem element must be empty</sch:report>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
                <choice>
+                  <value>fonction</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>honorifique</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>nobiliaire</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>religieux</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
@@ -4850,6 +4791,8 @@ relatedItem element must be empty</sch:report>
                   <value>region</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>rue</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>vile</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                   <value>ville</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
@@ -5696,30 +5639,7 @@ relatedItem element must be empty</sch:report>
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <ref name="att.handFeatures.attribute.scribe"/>
-         <ref name="att.handFeatures.attribute.script"/>
-         <optional>
-            <attribute name="medium">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes the tint or type of ink, e.g. brown, or other writing medium, e.g. pencil</a:documentation>
-               <list>
-                  <oneOrMore>
-                     <choice>
-                        <value>ink</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                     </choice>
-                  </oneOrMore>
-               </list>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="scope">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies how widely this hand is used in the manuscript.</a:documentation>
-               <choice>
-                  <value>sole</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
+         <ref name="att.handFeatures.attributes"/>
          <empty/>
       </element>
    </define>
@@ -5908,6 +5828,7 @@ relatedItem element must be empty</sch:report>
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
+         <ref name="att.handFeatures.attributes"/>
          <empty/>
       </element>
    </define>
@@ -5949,9 +5870,6 @@ relatedItem element must be empty</sch:report>
                   <optional>
                      <ref name="additional"/>
                   </optional>
-                  <zeroOrMore>
-                     <ref name="msPart"/>
-                  </zeroOrMore>
                </group>
             </choice>
          </group>
@@ -6020,33 +5938,6 @@ The element <name/> may appear once only
          <ref name="att.ranging.attribute.min"/>
          <ref name="att.ranging.attribute.max"/>
          <ref name="att.ranging.attribute.confidence"/>
-         <optional>
-            <attribute name="unit">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">names the unit used for the measurement</a:documentation>
-               <choice>
-                  <value>inch</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="scope">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">where the measurement summarizes more than one observation, specifies the applicability of this measurement.</a:documentation>
-               <choice>
-                  <value>all</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates which aspect of the object is being measured.</a:documentation>
-               <choice>
-                  <value>leaf</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6092,50 +5983,6 @@ The element <name/> may appear once only
          <empty/>
       </element>
    </define>
-   <define name="height">
-      <element name="height">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a measurement measured along the axis at right angles to the bottom of the written surface, i.e. parallel to the spine for a codex or book. [10.3.4. ]</a:documentation>
-         <ref name="macro.xtext"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.ranging.attribute.atLeast"/>
-         <ref name="att.ranging.attribute.atMost"/>
-         <ref name="att.ranging.attribute.min"/>
-         <ref name="att.ranging.attribute.max"/>
-         <ref name="att.ranging.attribute.confidence"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="width">
-      <element name="width">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a measurement measured along the axis parallel to the bottom of the written surface, i.e. perpendicular to the spine of a book or codex. [10.3.4. ]</a:documentation>
-         <ref name="macro.xtext"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.ranging.attribute.atLeast"/>
-         <ref name="att.ranging.attribute.atMost"/>
-         <ref name="att.ranging.attribute.min"/>
-         <ref name="att.ranging.attribute.max"/>
-         <ref name="att.ranging.attribute.confidence"/>
-         <empty/>
-      </element>
-   </define>
    <define name="heraldry">
       <element name="heraldry">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a heraldic formula or phrase, typically found as part of a blazon, coat of arms, etc.  [10.3.8. ]</a:documentation>
@@ -6150,35 +5997,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="locus">
-      <element name="locus">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">defines a location within a manuscript or manuscript part, usually as a (possibly discontinuous) sequence of folio references. [10.3.5. ]</a:documentation>
-         <ref name="macro.xtext"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="from">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the starting point of the location in a normalized form, typically a page number.</a:documentation>
-               <ref name="data.word"/>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="to">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the end-point of the location in a normalized form, typically as a page number.</a:documentation>
-               <ref name="data.word"/>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6197,83 +6015,6 @@ The element <name/> may appear once only
          <ref name="att.global.linking.attribute.corresp"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="origDate">
-      <element name="origDate">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(origin date) contains any form of date, used to identify the date of origin for a manuscript or manuscript part. [10.3.1. ]</a:documentation>
-         <zeroOrMore>
-            <choice>
-               <text/>
-               <ref name="model.gLike"/>
-               <ref name="model.phrase"/>
-               <ref name="model.global"/>
-            </choice>
-         </zeroOrMore>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.datable.w3c.attribute.notBefore"/>
-         <ref name="att.datable.w3c.attribute.notAfter"/>
-         <ref name="att.datable.iso.attribute.when-iso"/>
-         <ref name="att.datable.iso.attribute.notBefore-iso"/>
-         <ref name="att.datable.iso.attribute.notAfter-iso"/>
-         <ref name="att.datable.iso.attribute.from-iso"/>
-         <ref name="att.datable.iso.attribute.to-iso"/>
-         <ref name="att.datable.custom.attribute.when-custom"/>
-         <ref name="att.datable.custom.attribute.notBefore-custom"/>
-         <ref name="att.datable.custom.attribute.notAfter-custom"/>
-         <ref name="att.datable.custom.attribute.from-custom"/>
-         <ref name="att.datable.custom.attribute.to-custom"/>
-         <ref name="att.datable.custom.attribute.datingPoint"/>
-         <ref name="att.datable.custom.attribute.datingMethod"/>
-         <ref name="att.ranging.attribute.atLeast"/>
-         <ref name="att.ranging.attribute.atMost"/>
-         <ref name="att.ranging.attribute.min"/>
-         <ref name="att.ranging.attribute.max"/>
-         <ref name="att.ranging.attribute.confidence"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="origPlace">
-      <element name="origPlace">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(origin place) contains any form of place name, used to identify the place of origin for a manuscript or manuscript part. [10.3.1. ]</a:documentation>
-         <ref name="macro.phraseSeq"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.datable.iso.attribute.when-iso"/>
-         <ref name="att.datable.iso.attribute.notBefore-iso"/>
-         <ref name="att.datable.iso.attribute.notAfter-iso"/>
-         <ref name="att.datable.iso.attribute.from-iso"/>
-         <ref name="att.datable.iso.attribute.to-iso"/>
-         <ref name="att.datable.custom.attribute.when-custom"/>
-         <ref name="att.datable.custom.attribute.notBefore-custom"/>
-         <ref name="att.datable.custom.attribute.notAfter-custom"/>
-         <ref name="att.datable.custom.attribute.from-custom"/>
-         <ref name="att.datable.custom.attribute.to-custom"/>
-         <ref name="att.datable.custom.attribute.datingPoint"/>
-         <ref name="att.datable.custom.attribute.datingMethod"/>
-         <ref name="att.ranging.attribute.atLeast"/>
-         <ref name="att.ranging.attribute.atMost"/>
-         <ref name="att.ranging.attribute.min"/>
-         <ref name="att.ranging.attribute.max"/>
-         <ref name="att.ranging.attribute.confidence"/>
          <empty/>
       </element>
    </define>
@@ -6345,7 +6086,6 @@ The element <name/> may appear once only
             </group>
             <zeroOrMore>
                <choice>
-                  <ref name="msName"/>
                   <ref name="altIdentifier"/>
                </choice>
             </zeroOrMore>
@@ -6452,79 +6192,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <choice>
-                  <value>SC</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>partial</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <empty/>
-      </element>
-   </define>
-   <define name="msName">
-      <element name="msName">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(alternative name) contains any form of unstructured alternative name used for a manuscript, such as an ocellus nominum, or nickname. [10.4. ]</a:documentation>
-         <ref name="macro.xtext"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <choice>
-                  <value>nickname</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <empty/>
-      </element>
-   </define>
-   <define name="explicit">
-      <element name="explicit">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the explicit of a manuscript item, that is, the closing words of the text proper, exclusive of any rubric or colophon which might follow it. [10.6.1. ]</a:documentation>
-         <ref name="macro.phraseSeq"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.msExcerpt.attributes"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="incipit">
-      <element name="incipit">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the incipit of a manuscript item, that is the opening words of the text proper, exclusive of any rubric which might precede it, of sufficient length to identify the work uniquely; such incipits were, in former times, frequently used a means of reference to a work, in place of a title. [10.6.1. ]</a:documentation>
-         <ref name="macro.phraseSeq"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.msExcerpt.attributes"/>
          <empty/>
       </element>
    </define>
@@ -6537,15 +6204,10 @@ The element <name/> may appear once only
             </oneOrMore>
             <group>
                <optional>
-                  <ref name="textLang"/>
-               </optional>
-               <optional>
                   <ref name="titlePage"/>
                </optional>
                <zeroOrMore>
-                  <choice>
-                     <ref name="msItem"/>
-                  </choice>
+                  <empty/>
                </zeroOrMore>
             </group>
          </choice>
@@ -6560,68 +6222,6 @@ The element <name/> may appear once only
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
          <ref name="att.msExcerpt.attributes"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="msItem">
-      <element name="msItem">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(manuscript item) describes an individual work or item within the intellectual content of a manuscript or manuscript part. [10.6.1. ]</a:documentation>
-         <group>
-            <zeroOrMore>
-               <choice>
-                  <ref name="locus"/>
-               </choice>
-            </zeroOrMore>
-            <choice>
-               <oneOrMore>
-                  <ref name="model.pLike"/>
-               </oneOrMore>
-               <oneOrMore>
-                  <choice>
-                     <ref name="model.titlepagePart"/>
-                     <ref name="model.msItemPart"/>
-                     <ref name="model.global"/>
-                  </choice>
-               </oneOrMore>
-            </choice>
-         </group>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.msExcerpt.attributes"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="rubric">
-      <element name="rubric">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the text of any rubric or heading attached to a particular manuscript item, that is, a string of words through which a manuscript signals the beginning of a text division, often with an assertion as to its author and title, which is in some way set off from the text itself, usually in red ink, or by use of different size or type of script, or some other such visual device. [10.6.1. ]</a:documentation>
-         <ref name="macro.phraseSeq"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <choice>
-                  <value>final</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6660,9 +6260,6 @@ The element <name/> may appear once only
                <optional>
                   <ref name="supportDesc"/>
                </optional>
-               <optional>
-                  <ref name="layoutDesc"/>
-               </optional>
             </group>
          </choice>
          <ref name="att.global.attribute.xmlid"/>
@@ -6675,15 +6272,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="form">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a short project-specific name identifying the physical form of the carrier, for example as a codex, roll, fragment, partial leaf, cutting etc.</a:documentation>
-               <choice>
-                  <value>codex</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6701,9 +6289,6 @@ The element <name/> may appear once only
                <optional>
                   <ref name="extent"/>
                </optional>
-               <zeroOrMore>
-                  <ref name="foliation"/>
-               </zeroOrMore>
                <optional>
                   <ref name="collation"/>
                </optional>
@@ -6722,15 +6307,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="material">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a short project-defined name for the material composing the majority of the support</a:documentation>
-               <choice>
-                  <value>perg</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6768,23 +6344,6 @@ The element <name/> may appear once only
          <empty/>
       </element>
    </define>
-   <define name="foliation">
-      <element name="foliation">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes the numbering system or systems used to count the leaves or pages in a codex. [10.7.1.4. ]</a:documentation>
-         <ref name="macro.specialPara"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
    <define name="condition">
       <element name="condition">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a description of the physical condition of the manuscript. [10.7.1.5. ]</a:documentation>
@@ -6799,71 +6358,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="layoutDesc">
-      <element name="layoutDesc">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(layout description) collects the set of layout descriptions applicable to a manuscript. [10.7.2. ]</a:documentation>
-         <choice>
-            <oneOrMore>
-               <ref name="model.pLike"/>
-            </oneOrMore>
-            <group>
-               <oneOrMore>
-                  <ref name="layout"/>
-               </oneOrMore>
-            </group>
-         </choice>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="layout">
-      <element name="layout">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes how text is laid out on the page, including information about any ruling, pricking, or other evidence of page-preparation techniques. [10.7.2. ]</a:documentation>
-         <ref name="macro.specialPara"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="columns">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the number of columns per page</a:documentation>
-               <list>
-                  <ref name="data.count"/>
-                  <optional>
-                     <ref name="data.count"/>
-                  </optional>
-               </list>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="ruledLines">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the number of ruled lines per column</a:documentation>
-               <list>
-                  <ref name="data.count"/>
-                  <optional>
-                     <ref name="data.count"/>
-                  </optional>
-               </list>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -6965,17 +6459,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <choice>
-                  <value>initial</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                  <value>miniature</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -7056,12 +6539,6 @@ The element <name/> may appear once only
          <ref name="att.datable.custom.attribute.to-custom"/>
          <ref name="att.datable.custom.attribute.datingPoint"/>
          <ref name="att.datable.custom.attribute.datingMethod"/>
-         <optional>
-            <attribute name="contemporary">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies whether or not the binding is contemporary with the majority of its contents</a:documentation>
-               <ref name="data.xTruthValue"/>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -7090,9 +6567,6 @@ The element <name/> may appear once only
                <ref name="model.pLike"/>
             </oneOrMore>
             <group>
-               <optional>
-                  <ref name="origin"/>
-               </optional>
                <zeroOrMore>
                   <ref name="provenance"/>
                </zeroOrMore>
@@ -7111,56 +6585,6 @@ The element <name/> may appear once only
          <ref name="att.global.attribute.xmlspace"/>
          <ref name="att.global.analytic.attribute.ana"/>
          <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="origin">
-      <element name="origin">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains any descriptive or other information concerning the origin of a manuscript or manuscript part. [10.8. ]</a:documentation>
-         <ref name="macro.specialPara"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.ranging.attribute.atLeast"/>
-         <ref name="att.ranging.attribute.atMost"/>
-         <ref name="att.ranging.attribute.min"/>
-         <ref name="att.ranging.attribute.max"/>
-         <ref name="att.ranging.attribute.confidence"/>
-         <ref name="att.responsibility.attribute.cert"/>
-         <ref name="att.datable.w3c.attribute.notBefore"/>
-         <ref name="att.datable.w3c.attribute.notAfter"/>
-         <ref name="att.datable.iso.attribute.when-iso"/>
-         <ref name="att.datable.iso.attribute.notBefore-iso"/>
-         <ref name="att.datable.iso.attribute.notAfter-iso"/>
-         <ref name="att.datable.iso.attribute.from-iso"/>
-         <ref name="att.datable.iso.attribute.to-iso"/>
-         <ref name="att.datable.custom.attribute.when-custom"/>
-         <ref name="att.datable.custom.attribute.notBefore-custom"/>
-         <ref name="att.datable.custom.attribute.notAfter-custom"/>
-         <ref name="att.datable.custom.attribute.from-custom"/>
-         <ref name="att.datable.custom.attribute.to-custom"/>
-         <ref name="att.datable.custom.attribute.datingPoint"/>
-         <ref name="att.datable.custom.attribute.datingMethod"/>
-         <optional>
-            <attribute name="evidence">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the nature of the evidence supporting the reliability or accuracy of the intervention or interpretation.</a:documentation>
-               <list>
-                  <oneOrMore>
-                     <choice>
-                        <value>conjecture</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-                     </choice>
-                  </oneOrMore>
-               </list>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -7260,9 +6684,6 @@ The element <name/> may appear once only
                <ref name="availability"/>
             </optional>
             <optional>
-               <ref name="custodialHist"/>
-            </optional>
-            <optional>
                <ref name="model.noteLike"/>
             </optional>
          </group>
@@ -7323,129 +6744,10 @@ The element <name/> may appear once only
          <empty/>
       </element>
    </define>
-   <define name="custodialHist">
-      <element name="custodialHist">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(custodial history) contains a description of a manuscript's custodial history, either as running prose or as a series of dated custodial events. [10.9.1.2. ]</a:documentation>
-         <choice>
-            <oneOrMore>
-               <ref name="model.pLike"/>
-            </oneOrMore>
-            <oneOrMore>
-               <ref name="custEvent"/>
-            </oneOrMore>
-         </choice>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="custEvent">
-      <element name="custEvent">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(custodial event) describes a single event during the custodial history of a manuscript. [10.9.1.2. ]</a:documentation>
-         <ref name="macro.specialPara"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <ref name="att.datable.iso.attribute.when-iso"/>
-         <ref name="att.datable.iso.attribute.notBefore-iso"/>
-         <ref name="att.datable.iso.attribute.notAfter-iso"/>
-         <ref name="att.datable.iso.attribute.from-iso"/>
-         <ref name="att.datable.iso.attribute.to-iso"/>
-         <ref name="att.datable.custom.attribute.when-custom"/>
-         <ref name="att.datable.custom.attribute.notBefore-custom"/>
-         <ref name="att.datable.custom.attribute.notAfter-custom"/>
-         <ref name="att.datable.custom.attribute.from-custom"/>
-         <ref name="att.datable.custom.attribute.to-custom"/>
-         <ref name="att.datable.custom.attribute.datingPoint"/>
-         <ref name="att.datable.custom.attribute.datingMethod"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <choice>
-                  <value>exhibition</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </attribute>
-         </optional>
-         <empty/>
-      </element>
-   </define>
    <define name="surrogates">
       <element name="surrogates">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains information about any representations of the manuscript being described which may exist in the holding institution or elsewhere. [10.9. ]</a:documentation>
          <ref name="macro.specialPara"/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.n"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.attribute.rend"/>
-         <ref name="att.global.attribute.style"/>
-         <ref name="att.global.attribute.rendition"/>
-         <ref name="att.global.attribute.xmlbase"/>
-         <ref name="att.global.attribute.xmlspace"/>
-         <ref name="att.global.analytic.attribute.ana"/>
-         <ref name="att.global.change.attribute.change"/>
-         <empty/>
-      </element>
-   </define>
-   <define name="msPart">
-      <element name="msPart">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(manuscript part) contains information about an originally distinct manuscript or part of a manuscript, now forming part of a composite manuscript. [10.10. ]</a:documentation>
-         <group>
-            <choice>
-               <ref name="altIdentifier"/>
-               <ref name="msIdentifier"/>
-            </choice>
-            <zeroOrMore>
-               <ref name="model.headLike"/>
-            </zeroOrMore>
-            <choice>
-               <oneOrMore>
-                  <ref name="model.pLike"/>
-               </oneOrMore>
-               <group>
-                  <optional>
-                     <ref name="msContents"/>
-                  </optional>
-                  <optional>
-                     <ref name="physDesc"/>
-                  </optional>
-                  <optional>
-                     <ref name="history"/>
-                  </optional>
-                  <optional>
-                     <ref name="additional"/>
-                  </optional>
-                  <zeroOrMore>
-                     <ref name="msPart"/>
-                  </zeroOrMore>
-               </group>
-            </choice>
-         </group>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="oddbyexample-msPart-deprecate-altIdentifier-child-constraint-7">
-            <rule context="tei:msPart">
-               <sch:report xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                           xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                           xmlns="http://www.tei-c.org/ns/1.0"
-                           test="child::tei:altIdentifier"
-                           role="nonfatal">WARNING: use of deprecated method — the use of the altIdentifier element as a direct child of the msPart element will be removed from the TEI on 2016-09-09</sch:report>
-            </rule>
-         </pattern>
          <ref name="att.global.attribute.xmlid"/>
          <ref name="att.global.attribute.n"/>
          <ref name="att.global.attribute.xmllang"/>

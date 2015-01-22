@@ -1,4 +1,6 @@
+#SCHEMA=/usr/share/xml/tei/custom/schema/relaxng/tei_all.rng
 ECHO=
+SCHEMA=/home/lou/Public/TEI-SF/P5/Exemplars/tei_all.rng
 #	M0275_01_tei.xml \
 #	M0275_02_tei.xml \
 
@@ -59,7 +61,7 @@ FILES= \
 check:
 	for f in $(FILES) ; do \
 		echo $$f; \
-		jing /usr/share/xml/tei/custom/schema/relaxng/tei_all.rng \
+		jing  $(SCHEMA) \
 		$$f ; done
 generate:
 		saxon -it:main -o:generated.odd \
