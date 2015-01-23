@@ -111,7 +111,7 @@
             <xsl:apply-templates/>
         </list>
     </xsl:template>
-    <xsl:template match="sc:listItem/sc:para|sc:simpleList/sc:member">
+    <xsl:template match="sc:listItem|sc:simpleList/sc:member">
         <item>
             <xsl:apply-templates/>
         </item>
