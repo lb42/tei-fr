@@ -94,7 +94,7 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="sc:para">
+    <xsl:template match="sp:txtR/bk:textR/sc:para">
         <p>
             <xsl:apply-templates/>
         </p>
@@ -138,19 +138,25 @@
     
     <xsl:template match="sp:complement//sp:title">
         <p rend="head">
+           
             <xsl:apply-templates/>
         </p>
     </xsl:template>
 
     <xsl:template match="sp:example">
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <xsl:apply-templates/>
+            <xsl:for-each select="bk:textR/sc:para">               
+                <xsl:value-of select="."/><xsl:text>|
+                </xsl:text>
+            </xsl:for-each>
+            
         </egXML>
     </xsl:template>
-    <xsl:template match="sp:example/bk:textR/sc:para">
+
+    <!--<xsl:template match="sp:example/bk:textR/sc:para">
         <xsl:apply-templates/>
     </xsl:template>
-
+-->
 <xsl:template match="sp:remark">
     <note type="remark">
     <xsl:apply-templates/>
@@ -169,8 +175,8 @@
         </note>       
     </xsl:template>
     <xsl:template match="sc:extBlock">
-        <figure>
-            <graphic url="{@sc:refUri}"/>
+       <figure>
+            <graphic url="{substring-after(@sc:refUri,'Renaissance/')}"/>
         </figure>
     </xsl:template>
 
