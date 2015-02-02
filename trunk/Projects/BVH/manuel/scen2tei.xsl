@@ -74,8 +74,7 @@
     <xsl:template match="sp:authors">
         <xsl:for-each select="sp:author">
             <author>
-                <!--<xsl:value-of select='substring-after(@sc:refUri, "Renaissance/")'/>
-               --> <xsl:variable name="SRC">
+                <xsl:variable name="SRC">
                     <xsl:value-of select="substring-after(@sc:refUri,'Renaissance/')"/>
                 </xsl:variable>            
                     <xsl:apply-templates select="doc($SRC)"/>
@@ -94,6 +93,12 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="sp:introduction/bk:textR/sc:para">
+        <p>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    
     <xsl:template match="sp:txtR/bk:textR/sc:para">
         <p>
             <xsl:apply-templates/>
@@ -137,8 +142,7 @@
     </xsl:template>
     
     <xsl:template match="sp:complement//sp:title">
-        <p rend="head">
-           
+        <p rend="head">          
             <xsl:apply-templates/>
         </p>
     </xsl:template>
@@ -146,17 +150,12 @@
     <xsl:template match="sp:example">
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <xsl:for-each select="bk:textR/sc:para">               
-                <xsl:value-of select="."/><xsl:text>|
-                </xsl:text>
-            </xsl:for-each>
-            
+                <xsl:value-of select="." disable-output-escaping="yes"/><xsl:text>
+</xsl:text>
+            </xsl:for-each>          
         </egXML>
     </xsl:template>
 
-    <!--<xsl:template match="sp:example/bk:textR/sc:para">
-        <xsl:apply-templates/>
-    </xsl:template>
--->
 <xsl:template match="sp:remark">
     <note type="remark">
     <xsl:apply-templates/>
@@ -175,8 +174,9 @@
         </note>       
     </xsl:template>
     <xsl:template match="sc:extBlock">
+        
        <figure>
-            <graphic url="{substring-after(@sc:refUri,'Renaissance/')}"/>
+           <graphic url="{substring-after(@sc:refUri,'Renaissance/')}"/>
         </figure>
     </xsl:template>
 
