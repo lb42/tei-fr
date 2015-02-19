@@ -5,7 +5,7 @@ namespace rng = "http://relaxng.org/ns/structure/1.0"
 namespace sch = "http://purl.oclc.org/dsdl/schematron"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2015-02-18T19:45:55Z. 
+# Schema generated from ODD source 2015-02-19T13:56:32Z. 
 # Edition: Version 2.7.0. Last updated on
 #	16th September 2014, revision 13036
 # Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
@@ -16,17 +16,51 @@ macro.paraContent =
   (text | model.gLike | model.phrase | model.inter | model.global)*
 macro.phraseSeq = (text | model.gLike | model.phrase | model.global)*
 macro.phraseSeq.limited = (text | model.limitedPhrase | model.global)*
+macro.specialPara =
+  (text
+   | model.gLike
+   | model.phrase
+   | model.inter
+   | model.divPart
+   | model.global)*
+data.temporal.w3c =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+data.truthValue = xsd:boolean
 data.language = xsd:language | ""
 data.pointer = xsd:anyURI
 data.word = xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
 data.text = xsd:string
 data.name = xsd:Name
 data.enumerated = data.name
+data.temporal.iso =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+  | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
 macro.anyXML =
   element * - (ns1:* | egXML) {
     attribute * { text }*,
     (text | macro.anyXML)*
   }
+att.ascribed.attributes = att.ascribed.attribute.who
+att.ascribed.attribute.who =
+  
+  ## indique la personne ou le groupe de personnes à qui le contenu de l'élément est attribué.
+  attribute who {
+    list { data.pointer+ }
+  }?
 att.canonical.attributes = att.canonical.attribute.ref
 att.canonical.attribute.ref =
   
@@ -39,6 +73,26 @@ att.breaking.attribute.break =
   
   ## indique si l'élément qui porte cet attribut peut être considéré comme une espace blanc indiquant la fin d'un mot orthographique.
   attribute break { data.enumerated }?
+att.datable.w3c.attributes =
+  att.datable.w3c.attribute.when,
+  att.datable.w3c.attribute.notBefore,
+  att.datable.w3c.attribute.notAfter
+att.datable.w3c.attribute.when =
+  
+  ## spécifie une date exacte pour un événement sous une forme normalisée, par ex. aaaa-mm-jj.
+  attribute when { data.temporal.w3c }?
+att.datable.w3c.attribute.notBefore =
+  
+  ## spécifie la date la plus ancienne pour l'événement sous une forme normalisée, par ex. aaaa-mm-jj
+  attribute notBefore { data.temporal.w3c }?
+att.datable.w3c.attribute.notAfter =
+  
+  ## spécifie la date la plus récente possible pour l'événement sous une forme normalisée, par ex. aaaa-mm-jj
+  attribute notAfter { data.temporal.w3c }?
+att.datable.attributes =
+  att.datable.w3c.attributes,
+  att.datable.iso.attributes,
+  att.datable.custom.attributes
 att.declaring.attributes = att.declaring.attribute.decls
 att.declaring.attribute.decls =
   
@@ -69,6 +123,12 @@ att.fragmentable.attribute.part =
       "F"
   }?
 att.divLike.attributes = att.fragmentable.attributes
+att.docStatus.attributes = att.docStatus.attribute.status
+att.docStatus.attribute.status =
+  
+  ## describes the status of a document either currently or, when associated with a dated element, at the time indicated.
+  ## Sample values include: 1] approved; 2] candidate; 3] cleared; 4] deprecated; 5] draft; 6] embargoed; 7] expired; 8] frozen; 9] galley; 10] proposed; 11] published; 12] recommendation; 13] submitted; 14] unfinished; 15] withdrawn
+  [ a:defaultValue = "draft" ] attribute status { data.enumerated }?
 att.global.attributes =
   att.global.attribute.xmlid,
   att.global.attribute.n,
@@ -316,12 +376,12 @@ model.oddDecl_sequenceOptionalRepeatable = empty
 model.oddDecl_sequenceRepeatable = notAllowed
 model.phrase.xml = notAllowed
 model.specDescLike = notAllowed
-model.biblLike = notAllowed
-model.biblLike_alternation = notAllowed
-model.biblLike_sequence = empty
-model.biblLike_sequenceOptional = empty
-model.biblLike_sequenceOptionalRepeatable = empty
-model.biblLike_sequenceRepeatable = notAllowed
+model.biblLike = bibl
+model.biblLike_alternation = bibl
+model.biblLike_sequence = bibl
+model.biblLike_sequenceOptional = bibl?
+model.biblLike_sequenceOptionalRepeatable = bibl*
+model.biblLike_sequenceRepeatable = bibl+
 model.headLike = notAllowed
 model.headLike_alternation = notAllowed
 model.headLike_sequence = empty
@@ -334,12 +394,12 @@ model.labelLike_sequence = label
 model.labelLike_sequenceOptional = label?
 model.labelLike_sequenceOptionalRepeatable = label*
 model.labelLike_sequenceRepeatable = label+
-model.listLike = notAllowed
-model.listLike_alternation = notAllowed
-model.listLike_sequence = empty
-model.listLike_sequenceOptional = empty
-model.listLike_sequenceOptionalRepeatable = empty
-model.listLike_sequenceRepeatable = notAllowed
+model.listLike = \list
+model.listLike_alternation = \list
+model.listLike_sequence = \list
+model.listLike_sequenceOptional = \list?
+model.listLike_sequenceOptionalRepeatable = \list*
+model.listLike_sequenceRepeatable = \list+
 model.noteLike = notAllowed
 model.lLike = notAllowed
 model.lLike_alternation = notAllowed
@@ -361,7 +421,6 @@ model.stageLike_sequenceOptionalRepeatable = empty
 model.stageLike_sequenceRepeatable = notAllowed
 model.global.edit = notAllowed
 model.divPart = model.lLike | model.pLike
-model.personLike = notAllowed
 model.placeNamePart = placeName
 model.placeNamePart_alternation = placeName
 model.placeNamePart_sequence = placeName
@@ -392,14 +451,15 @@ model.qLike_sequenceOptional = model.quoteLike_sequenceOptional?
 model.qLike_sequenceOptionalRepeatable =
   model.quoteLike_sequenceOptionalRepeatable*
 model.qLike_sequenceRepeatable = model.quoteLike_sequenceRepeatable+
-model.respLike = respStmt
-model.divWrapper = notAllowed
+model.respLike = respStmt | meeting
+model.divWrapper = meeting
 model.divTopPart = model.headLike
 model.divTop = model.divWrapper | model.divTopPart
 model.frontPart.drama = notAllowed
 model.pLike.front = notAllowed
 model.divBottomPart = notAllowed
 model.divBottom = model.divWrapper | model.divBottomPart
+model.imprintPart = notAllowed
 model.addressLike = notAllowed
 model.addressLike_alternation = notAllowed
 model.addressLike_sequence = empty
@@ -441,6 +501,7 @@ model.global =
   | model.milestoneLike
   | model.noteLike
   | model.global.edit
+model.biblPart = model.respLike | model.imprintPart | bibl
 model.frontPart = model.frontPart.drama
 model.pPart.data =
   model.dateLike
@@ -478,9 +539,8 @@ model.limitedPhrase =
 model.divLike = \div
 model.divGenLike = notAllowed
 model.div1Like = notAllowed
-model.teiHeaderPart = profileDesc
+model.teiHeaderPart = notAllowed
 model.sourceDescPart = notAllowed
-model.profileDescPart = particDesc
 model.resourceLike = notAllowed
 att.personal.attributes = att.naming.attributes
 p =
@@ -515,7 +575,11 @@ name =
   
   ## (nom, nom propre) contient un nom propre ou un syntagme nominal. [3.5.1. ]
   element ns1:name {
-    macro.phraseSeq, att.global.attributes, att.typed.attributes, empty
+    macro.phraseSeq,
+    att.global.attributes,
+    att.datable.attributes,
+    att.typed.attributes,
+    empty
   }
 date =
   
@@ -523,6 +587,7 @@ date =
   element ns1:date {
     (text | model.gLike | model.phrase | model.global)*,
     att.global.attributes,
+    att.datable.attributes,
     att.typed.attributes,
     empty
   }
@@ -557,6 +622,49 @@ ref =
     att.pointing.attributes,
     att.typed.attributes,
     att.declaring.attributes,
+    empty
+  }
+\list =
+  
+  ## (liste) contient une suite d'items ordonnés dans une liste. [3.7. ]
+  element ns1:list {
+    ((model.divTop | model.global)*,
+     ((item, model.global*)+
+      | (label, model.global*, item, model.global*)+),
+     (model.divBottom, model.global*)*),
+    att.global.attributes,
+    att.sortable.attributes,
+    att.typed.attribute.subtype,
+    
+    ## describes the nature of the items in the list.
+    ## Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syllogism
+    attribute type {
+      
+      ## chaque item de la liste commente un terme ou un concept qui est donné par un élément label précédant l'item de la liste.
+      "gloss"
+      | 
+        ## each list item is an entry in an index such as the alphabetical topical index at the back of a print volume.
+        "index"
+      | 
+        ## each list item is a step in a sequence of instructions, as in a recipe.
+        "instructions"
+      | 
+        ## each list item is one of a sequence of petitions, supplications or invocations, typically in a religious ritual.
+        "litany"
+      | 
+        ## each list item is part of an argument consisting of two or more propositions and a final conclusion derived from them.
+        "syllogism"
+      | xsd:Name
+    }?,
+    empty
+  }
+item =
+  
+  ## contient un composant d'une liste. [3.7.  2.5. ]
+  element ns1:item {
+    macro.specialPara,
+    att.global.attributes,
+    att.sortable.attributes,
     empty
   }
 label =
@@ -602,7 +710,10 @@ resp =
   
   ## (responsabilité) contient une expression décrivant la nature de la responsabilité intellectuelle d'une personne. [3.11.2.2.  2.2.1.  2.2.2.  2.2.5. ]
   element ns1:resp {
-    macro.phraseSeq.limited, att.global.attributes, empty
+    macro.phraseSeq.limited,
+    att.global.attributes,
+    att.datable.attributes,
+    empty
   }
 title =
   
@@ -613,12 +724,115 @@ title =
     att.typed.attribute.subtype,
     empty
   }
+meeting =
+  
+  ## contient le titre descriptif formalisé d’une réunion ou d’une conférence, employé dans une description bibliographique pour un article provenant d'une telle réunion, ou comme le titre ou le préambule aux publications qui en émanent. [3.11.2.2. ]
+  element ns1:meeting {
+    date,
+    placeName,
+    \list,
+    att.global.attributes,
+    att.canonical.attributes,
+    empty
+  }
+bibl =
+  
+  ## (référence bibliographique.) contient une référence bibliographique faiblement structurée dans laquelle les sous-composants peuvent ou non être explicitement balisés. [3.11.1.  2.2.7.  15.3.2. ]
+  element ns1:bibl {
+    (text
+     | model.gLike
+     | model.highlighted
+     | model.pPart.data
+     | model.pPart.edit
+     | model.segLike
+     | model.ptrLike
+     | model.biblPart
+     | model.global)*,
+    att.global.attributes,
+    att.typed.attributes,
+    att.sortable.attributes,
+    att.docStatus.attributes,
+    empty
+  }
+att.datable.custom.attributes =
+  att.datable.custom.attribute.when-custom,
+  att.datable.custom.attribute.notBefore-custom,
+  att.datable.custom.attribute.notAfter-custom,
+  att.datable.custom.attribute.from-custom,
+  att.datable.custom.attribute.to-custom,
+  att.datable.custom.attribute.datingPoint,
+  att.datable.custom.attribute.datingMethod
+att.datable.custom.attribute.when-custom =
+  
+  ## supplies the value of a date or time in some standard form.
+  attribute when-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.notBefore-custom =
+  
+  ## specifies the earliest possible date for the event in some custom standard form.
+  attribute notBefore-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.notAfter-custom =
+  
+  ## specifies the latest possible date for the event in some custom standard form.
+  attribute notAfter-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.from-custom =
+  
+  ## indicates the starting point of the period in some standard form.
+  attribute from-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.to-custom =
+  
+  ## indicates the ending point of the period in some standard form.
+  attribute to-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.datingPoint =
+  
+  ## supplies a pointer to some location defining a named point in time with reference to which the datable item is understood to have occurred
+  attribute datingPoint { data.pointer }?
+att.datable.custom.attribute.datingMethod =
+  
+  ## supplies a pointer to a calendar element or other means of interpreting the values of the custom dating attributes.
+  attribute datingMethod { data.pointer }?
+att.datable.iso.attributes =
+  att.datable.iso.attribute.when-iso,
+  att.datable.iso.attribute.notBefore-iso,
+  att.datable.iso.attribute.notAfter-iso,
+  att.datable.iso.attribute.from-iso,
+  att.datable.iso.attribute.to-iso
+att.datable.iso.attribute.when-iso =
+  
+  ## précise une date exacte pour l'évènement selon la forme normalisée ISO 8601, c'est-à-dire aaaa-mm-jj.
+  attribute when-iso { data.temporal.iso }?
+att.datable.iso.attribute.notBefore-iso =
+  
+  ## précise la première date possible pour l'évènement selon la forme normalisée, c'est-à-dire aaaa-mm-jj.
+  attribute notBefore-iso { data.temporal.iso }?
+att.datable.iso.attribute.notAfter-iso =
+  
+  ## précise la dernière date possible pour l'évènement selon la forme normalisée, c'est-à-dire aaaa-mm-jj.
+  attribute notAfter-iso { data.temporal.iso }?
+att.datable.iso.attribute.from-iso =
+  
+  ## Indique le point de départ de la période sous une forme normalisée
+  attribute from-iso { data.temporal.iso }?
+att.datable.iso.attribute.to-iso =
+  
+  ## Indique le point final de la période sous une forme normalisée
+  attribute to-iso { data.temporal.iso }?
 orgName =
   
   ## (nom d'organisation) contient le nom d'une organisation. [13.2.2. ]
   element ns1:orgName {
     macro.phraseSeq,
     att.global.attributes,
+    att.datable.attributes,
     att.personal.attributes,
     att.typed.attributes,
     empty
@@ -629,6 +843,7 @@ persName =
   element ns1:persName {
     macro.phraseSeq,
     att.global.attributes,
+    att.datable.attributes,
     att.canonical.attribute.ref,
     att.typed.attributes,
     
@@ -653,6 +868,7 @@ placeName =
   ## (nom de lieu) contient un nom de lieu absolu ou relatif. [13.2.3. ]
   element ns1:placeName {
     macro.phraseSeq,
+    att.datable.attributes,
     att.global.attributes,
     att.personal.attributes,
     att.typed.attributes,
@@ -662,7 +878,9 @@ teiHeader =
   
   ## (en-tête TEI) fournit des informations descriptives et déclaratives qui constituent une page de titre électronique au début de tout texte conforme à la TEI. [2.1.1.  15.1. ]
   element ns1:teiHeader {
-    (fileDesc, model.teiHeaderPart*), att.global.attributes, empty
+    (fileDesc, model.teiHeaderPart*, revisionDesc?),
+    att.global.attributes,
+    empty
   }
 fileDesc =
   
@@ -697,11 +915,43 @@ sourceDesc =
     att.global.attributes,
     empty
   }
-profileDesc =
+revisionDesc =
   
-  ## (description du profil) fournit une description détaillée des aspects non bibliographiques du texte, notamment les langues utilisées et leurs variantes, les circonstances de sa production, les collaborateurs et leur statut. [2.4.  2.1.1. ]
-  element ns1:profileDesc {
-    model.profileDescPart*, att.global.attributes, empty
+  ## (descriptif des révisions) fournit un résumé de l’historique des révisions d’un fichier. [2.5.  2.1.1. ]
+  element ns1:revisionDesc {
+    (\list | listChange | change+),
+    att.global.attributes,
+    att.docStatus.attributes,
+    empty
+  }
+change =
+  
+  ## résume une modification ou une correction apportée à une version particulière d’un texte électronique partagé entre plusieurs chercheurs. [2.5.  2.4.1.  11.7. ]
+  element ns1:change {
+    macro.specialPara,
+    att.ascribed.attributes,
+    att.datable.attributes,
+    att.docStatus.attributes,
+    att.global.attributes,
+    att.typed.attributes,
+    
+    ## points to one or more elements that belong to this change.
+    attribute target {
+      list { data.pointer+ }
+    }?,
+    empty
+  }
+listChange =
+  
+  ## groups a number of change descriptions associated with either the creation of a source text or the revision of an encoded text. [2.5.  11.7. ]
+  element ns1:listChange {
+    (listChange | change)+,
+    att.global.attributes,
+    att.sortable.attributes,
+    
+    ## indicates whether the ordering of its child change elements is to be considered significant or not
+    [ a:defaultValue = "true" ] attribute ordered { data.truthValue }?,
+    empty
   }
 ab =
   
@@ -796,14 +1046,6 @@ front =
       (model.divBottom, (model.divBottom | model.global)*)?)?),
     att.global.attributes,
     att.declaring.attributes,
-    empty
-  }
-particDesc =
-  
-  ## (description des participants) décrit les locuteurs, voix ou autres participants identifiables d'une interaction linguistique. [15.2. ]
-  element ns1:particDesc {
-    (model.pLike+ | (model.personLike)+),
-    att.global.attributes,
     empty
   }
 model.persNamePart = notAllowed
