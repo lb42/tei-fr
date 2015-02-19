@@ -22,7 +22,8 @@
             <classSpec type="atts" ident="att.global.linking" mode="delete"/>
             <classSpec type="atts" ident="att.declarable" mode="delete"/>
             <classSpec type="atts" ident="att.editLike" mode="delete"/>
-            <classSpec type="atts" ident="att.datable" mode="delete"/>
+            <classSpec type="atts" ident="att.datable-iso" mode="delete"/>
+            <classSpec type="atts" ident="att.datable-custom" mode="delete"/>          
             <classSpec type="atts" ident="att.datcat" mode="delete"/>
             <classSpec type="atts" ident="att.cReferencing" mode="delete"/>
             <classSpec type="atts" ident="att.edition" mode="delete"/>
@@ -91,6 +92,18 @@
                   <attDef ident="extent" mode="delete"/>
                   <attDef ident="precision" mode="delete"/>
                   <attDef ident="scope" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.datable" type="atts" mode="change">
+               <attList>
+                  <attDef ident="calendar" mode="delete"/>
+                  <attDef ident="period" mode="delete"/>
+            </attList>
+            </classSpec>
+            <classSpec ident="att.datable.w3c" type="atts" mode="change">
+               <attList>
+                  <attDef ident="from" mode="delete"/>
+                  <attDef ident="to" mode="delete"/>
                </attList>
             </classSpec>
             <classSpec ident="att.damaged" type="atts" mode="change">
@@ -167,7 +180,10 @@
             </classSpec>
             <!--Checking module core-->
             <moduleRef key="core"
-                       include="p term unclear name date ref label pb respStmt resp title"/>
+                       include="p term unclear name date ref label pb respStmt resp title bibl meeting list item"/>
+           
+            
+            
             <elementSpec ident="term" mode="change">
                <attList>
                   <attDef ident="ref" mode="delete"/>
@@ -182,13 +198,28 @@
                      <valList type="closed">
                         <valItem ident="locuteur"><desc>indique le nom d'une personne associee avec le texte qui suit</desc></valItem>
                         <valItem ident="rubrique"><desc>caracterise la fonction du texte qui suit</desc></valItem>
-                     </valList>
-                    
+                     </valList>                
                   </attDef>
                </attList>
                <exemplum><egXML xmlns="http://www.tei-c.org/ns/Examples"><label type="rubrique">Erudition : un article d’<persName>E. Sanguineti </persName>( ?)
                   cet été sur l’Oulipo et la <term>littérature définitionnelle</term> (il présente un
                   <term>plagiaire par anticipation</term>). </label></egXML></exemplum> 
+            </elementSpec>
+            
+            <elementSpec ident="meeting" mode="change">
+          <content>
+             <elementRef key="date"/>
+             <elementRef key="placeName"/>
+             <elementRef key="list"/>
+          </content>
+               <exemplum><egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <bibl><meeting n=""><date when="1977-03-11"/><placeName>chez FLL</placeName><list type="present"><item><persName ref="#FLL"/><persName ref="#HM"/><persName ref="#CB"/><persName
+                     ref="#IC"/><persName ref="#PF"/><persName ref="#MB"/><persName ref="#JR"
+                     /><persName ref="#NA"/><persName role="invité">Jacques
+                        Rigaud</persName><persName role="président">FLL</persName><persName
+                           role="secretaire">PF</persName></item></list></meeting></bibl>
+               </egXML></exemplum>
+            
             </elementSpec>
             <elementSpec ident="unclear" mode="change">
                <attList>
@@ -222,7 +253,7 @@
             </elementSpec>
             <!--Checking module header-->
             <moduleRef key="header"
-                       include="teiHeader fileDesc titleStmt publicationStmt sourceDesc profileDesc"/>
+                       include="teiHeader fileDesc titleStmt publicationStmt sourceDesc revisionDesc listChange change"/>
             <elementSpec ident="teiHeader" mode="change">
                <attList>
                   <attDef ident="type" mode="delete"/>
