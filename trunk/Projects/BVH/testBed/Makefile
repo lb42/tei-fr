@@ -75,11 +75,3 @@ checkSpec:
 		jing generated.odd.relaxng \
 		$$f ; done
 
-testOBE:		
-	saxon -it:main -o:ccmaa.odd \
-	/home/lou/Public/Stylesheets/tools/oddbyexample.xsl \
-	corpus=/home/lou/Public/tei-fr/Talks/2014-05-inha/Travaux/CCMAA ; \
-	teitorelaxng ccmaa.odd; \
-	jing ccmaa.odd.relaxng ~/Public/tei-fr/Talks/2014-05-inha/Travaux/CCMAA/pv61-corr.xml
-
-
