@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Exploration d'oXygen</title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>octobre 2012</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>À la découverte d'oXygen</head>
+        <p>Dans ce premier exercice, nous allons nous servir d'oXygen pour : <list>
+            <item>la création d'un nouveau document XML</item>
+          <item>le balisage progressif d'un document</item><!-- should we have a group doing everything in Oxygen? at least one or two pairs, if possible, yes -->
+            <item>la validation en continu d'un document</item>
+            <item>l'affichage du document sans balises</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>oXygen: c'est quoi?</head>
+        <p>Un outil très performant pour toute manipulation des fichiers XML....<list>
+            <item>création des fichiers TEI-XML ex nihilo</item>
+            <item>modification sous contrôle d'un schéma</item>
+            <item>validation</item>
+            <item>transformation</item>
+          </list></p>
+      </div>
+      <div>
+        <head>Création d'un document</head>
+        <list>
+          <item>Démarrez oXygen.</item>
+          <item>Cliquez sur l'icône Nouveau en haut à gauche (ou sélectionnez Nouveau du menu
+            Fichier, ou tapez CTRL-N) pour ouvrir la boîte de dialogue Nouveau</item>
+          <item>Choisissez <ident>Cadre des modèles</ident>, ensuite <ident>TEI P5</ident>, puis
+              <ident>TEI-Bare</ident>, pour sélectionner un schéma basique TEI. </item>
+          <item>
+            <graphic height="5cm" url="../../Talks/Graphics/new-bare-1.png"/>
+          </item>
+          <item> Cliquez sur le bouton <ident>Créer</ident> en bas. oXygen affiche un document TEI
+            minimal que vous allez compléter.</item>
+        </list>
+        <p>Le schéma TEI bare permet un minimum de balises, mais il permet quand-même de décrire un
+          document complet TEI. </p>
+        <p>On est maintenant dans l'espace de travail typique d'oXygen. Par défaut, il y a plusieurs
+          petites fenêtres, autour d'un grand blanc où nous allons éditer notre document. A gauche,
+          par exemple, vous voyez dans la fenêtre <ident>Sommaire</ident> un aperçu de la structure
+          du document. </p>
+        <p>Notez qu'un document TEI est divisé en deux parties. En haut, vous avez les métadonnées,
+          entourées de la balise <gi>teiHeader</gi>. En bas, se trouve le texte, entouré de la
+          balise <gi>text</gi>. </p>
+        <p>
+          <graphic height="5cm" url="../../Talks/Graphics/nouveau-bare-2.png"/>
+        </p>
+        <p>En bas de l'écran, vous voyez qu'il est possible de modifier l'affichage du document en
+          cliquant sur les boutons <term>Texte</term>, <term>Grille</term>, ou <term>Auteur</term>.
+          Nous, on n'a pas peur des balises, donc on va commencer à l'éditer en mode
+            <term>Texte</term>. </p>
+        <p>D'abord, on va fournir les métadonnées essentielles à tout nouveau document : son titre,
+          sa distribution, et ses origines. oXygen vous propose des morceaux de texte qu'il faut
+          changer puis compléter... <list>
+            <item>Remplacez le mot <q>Title</q> (entre les balises <gi>title</gi> et
+                <tag>/title</tag>) par un titre pour votre document. À vous de choisir ! Quelque
+              chose comme "À la découverte d'oXygen" suffirait. </item>
+            <item>Remplacez les deux autres morceaux de texte proposés par des mentions plus
+              appropriées. Par exemple, pour publication, on pourrait mettre <q>Brouillon inédit</q>
+              ou <q>Distribué sur mon blog</q> ; pour <gi>sourceDesc</gi>, on vous propose <q>Œuvre
+                originale, guidé par une formation TEI</q>.</item>
+          </list>
+        </p>
+        <p>oXygen par défaut cherchera à maintenir votre document dans un état de validité.
+          Qu'est-ce qui arrive si vous l'endommagez ? <list>
+            <item>Effacez quelques lettres à l'intérieur de n'importe quelle balise : par exemple
+              changez <gi>publicationStmt</gi> en <gi>publicat</gi>. </item>
+            <item>oXygen fait de son mieux. D'abord, il change la balise fermante correspondante
+              (qui devient instantanément <code>&lt;/publicat&gt;</code>): le document reste donc
+              bien formé. Mais il n'est plus valide : par conséquent les balises fautives sont
+              soulignées en rouge ; il y a un message d'erreur en bas de l'écran ; et à droite il y
+              a quelques taches rouges.</item>
+            <item>Cliquez sur les taches rouges pour essayer de comprendre la manière dont une
+              erreur peut en enchaîner une autre.</item>
+            <item>Cliquez sur CTRL-Z (ou sélectionnez <ident>Undo</ident> du menu
+                <ident>Edit</ident>) pour revenir dans un état de grâce... vous verrez que le petit
+              carreau rouge en haut à droite devient vert après correction de toutes les
+              erreurs.</item>
+          </list>
+        </p>
+        <p>En plus, oXygen ne vous permettra d'ajouter que des balises prévues dans le schéma
+          actuellement sélectionné pour le document. <list>
+            <item>Mettez le curseur à la fin de la 7ème ou au début de la 8ème ligne, entre
+                <code>&lt;/title&gt;</code> et <code>&lt;/titleSmt&gt;</code>;</item>
+            <item>tapez <code>&lt;</code> et arrêtez un instant ;</item>
+            <item>le carreau vert redevient rouge, parce que vous n'avez pas encore entré le nom de
+              l'élément souhaité.</item>
+            <item>oXygen vous propose une liste de balises disponibles à cet emplacement dans le
+              document : notamment vous avez le droit d'insérer ici un élément <gi>author</gi> ou
+              encore un <gi>title</gi>, de terminer le <gi>titleStmt</gi>, d'insérer un commentaire
+              XML etc. </item>
+            <item>Tapez sur ENTRER pour accepter la première proposition. oXygen insert dans votre
+              document les balises <gi>author</gi> et <code>&lt;/author&gt;</code>.</item>
+            <item>Le curseur reste à l'intérieur de la balise ouvrante, au cas où vous désireriez
+              spécifier ses attributs. Faire bouger le curseur d'un caractère à droite et tapez
+              votre nom, comme auteur du fichier.</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Ajout de texte au document</head>
+        <p>Enfin, nous sommes prêts ... commencez la création de votre document. À vous de décider
+          de son contenu et de son balisage. </p>
+        <p>D'abord, quels composants proposeriez-vous pour votre document ? Un document contenant un
+          seul paragraphe n'est guère probable ! Avec le schéma <term>bare</term> vous avez le droit
+          de signaler : <list>
+            <item>des titres ... à baliser avec la balise <gi>head</gi></item>
+            <item>des chapitres ... à baliser avec la balise <gi>div</gi></item>
+            <item>des listes ... à baliser avec la balise <gi>list</gi></item>
+            <item>des paragraphes ... à baliser avec la balise <gi>p</gi></item>
+          </list> Allons-y !</p>
+        <p>Dans le reste de ce petit tutoriel, nous allons vous montrer quelques manipulations
+          utiles offertes par ce logiciel. </p>
+        <p>D'abord, une question important. Pour le contenu, OK, il faut le créer -- mais est-ce
+          qu'il faut toujours taper soi-même les balises ? Non : oXygen est là pour vous aider. Vous
+          avez déjà vu comment il peut vous proposer la liste des balises disponibles à un certain
+          emplacement du document. Il peut aussi vous proposer comment baliser un morceau de texte
+          sélectionné. </p>
+        <list>
+          <item>Avec la souris, sélectionnez le contenu du <gi>body</gi>, i.e. la séquence
+              <code>&lt;p>Some text here&lt;/p></code>. </item>
+          <item>Tapez CTRL-E (ou sélectionnez <ident>XML Refactoring</ident> et ensuite
+              <ident>Entourer des balises</ident> dans le menu <ident>Document</ident>.</item>
+          <item>oXygen vous propose toutes les balises qui pourraient éventuellement être insérées à
+            cet endroit précis du document : dans ce cas, il est conseillé de sélectionner
+              <gi>div</gi>. Puis, cliquez sur <ident>Accepter</ident></item>
+          <item>L'élément <gi>div</gi> va contenir le premier chapitre de votre document. Insérez
+            donc un titre au début de ce <gi>div</gi>, en vous servant de la balise <gi>head</gi>
+          </item>
+          <item>Il serait aussi utile de numéroter vos chapitres d'une manière explicite : pour
+            cela, on vous propose l'attribut <att>n</att> qui est disponible sur n'importe quel
+            élément TEI, y compris <gi>div</gi>. </item>
+          <item>Mettez le curseur <emph>à l'intérieur</emph> de la balise <gi>div</gi> juste avant
+            le &gt; et tapez un seul espace. oXygen vous propose un menu des attributs disponibles. </item>
+          <item>Tapez sur RETOUR pour sélectionnez <att>n</att>. oXygen vous informe qu'il faut dans
+            ce cas ajouter une valeur, et le curseur reste entre les guillemets.</item>
+          <item>Tapez (par exemple) <code>1</code>, et votre document redeviendra valide. </item>
+        </list>
+        <p>Votre document devrait maintenant ressembler à ceci :</p>
+        <p>
+          <graphic height="4cm" url="../../Talks/Graphics/body-shot.png"/>
+        </p>
+        <p>À vous d'ajouter maintenant du texte à ce paragraphe : un peu plus intéressant que
+            <q>some text here</q> de préférence ! Décrivez-nous vos premières réactions avec oXygen
+          ; partagez vos idées sur la situation politique actuelle ; écrivez ce que vous voulez.</p>
+        <p>Sans doute aurez-vous besoin de plus d'un seul paragraphe. Comment faire pour terminer
+          celui-ci et commencer un nouveau ? Bien-sûr on peut simplement taper les balises
+            <code>&lt;/p>&lt;p&gt;</code> mais il y a une autre manière plus simple. </p>
+      </div>
+      <div>
+        <head>Division des éléments</head>
+        <p>Supposons que vous avez maintenant quelques centaines de mots dans votre seul paragraphe,
+          et que vous voulez le diviser en plusieurs.</p>
+        <list>
+          <item>Mettez le curseur au point de chaque division souhaitée </item>
+          <item>Tapez ALT + MAJ + D ou sélectionnez <ident>XML Refactoring</ident> et ensuite
+              <ident>Élément de division</ident> (sic) dans le menu <ident>Document</ident>.</item>
+        </list>
+        <p>Vous pouvez faire pareil pour diviser le chapitre unique, mais attention à choisir un
+          endroit valide pour effectuer la division : <emph>entre</emph> deux éléments <gi>p</gi>,
+          et non pas dans l'enceinte d'un <gi>p</gi>. </p>
+        <p>Dans un de vos chapitres, n'omettez pas d'ajouter une liste, balisée avec un élément
+            <gi>list</gi>, contenant une séquence de <gi>item</gi> éléments, précédée d'un
+            <gi>head</gi> facultatif.</p>
+      </div>
+      <div>
+        <head>Affichage du texte balisé</head>
+        <p>Est-ce que la quantité de balises dans votre document commence à vous inquiéter un peu ? </p>
+        <p>On peut mettre en ordre le balisage que l'on a fait, en cliquant sur le bouton
+          d'indentation, ou en tapant CTRL+MAJ+P, ou en sélectionnant Source->Indenter le document
+          sur le menu Document. Mais peut être préféreriez-vous voir disparaître les balises ?</p>
+        <list>
+          <item>En bas de la fenêtre vous voyez trois onglets: Texte , Grille, et Auteur.
+            Sélectionnez le dernier. L'affichage de votre document change, et un nouveau menu
+              <ident>TEI P5</ident> devient disponible. Sur ce menu, sélectionnez <ident>Mode
+              d'affichage</ident> des balises et regardez les possibilités offertes par ses options. </item>
+          <item>L'option <ident>Toutes les balises</ident> affiche les balises en icones; l'option
+              <ident>Aucune balises</ident> les fait disparaître totalement.</item>
+          <item> Notez en plus que votre document est maintenant stylé ; il y a des changements de
+            police ; les retours de chariots sont traités comme des blancs ; etc. </item>
+          <item>Dans mode auteur, on peut diviser un élément simplement en tapant RETOUR deux fois.
+            Expérimentez cela.</item>
+        </list>
+        <p>Plus tard, nous verrons comment vous pourrez contrôler l'affichage de votre document avec
+          une <term>feuille de style</term>.</p>
+      </div>
+      
+      <!-- <div>
+        <head>Importation d'un document bureautique</head>
+        <p>La plupart des documents numériques que vous rencontrerez dans le monde actuel semble
+          innocent de toute balise XML. Par exemple, les documents preparés à l'aide des outils
+          bureautiques tels Microsoft Word ou Open Office ont l'apparence d'être du texte pur. Mais
+          effectivement, ce n'est qu'une apparence: derrière tout cela il existe un format XML, que
+          l'on peut manipuler, et donc qu'on peut transformer dans un format XML TEI simple. </p>
+        
+        <p>Dans votre dossier il y a un fichier <ident>lacigale.docx</ident> : cliquez là-dessus pour l'ouvrir. Sans doute vous le
+          reconnaitrez. On va se servir d'un outil online pour le transformer en XML
+          TEI.</p>
+        <p>Nous pourrions exporter un fichier bureautique au format « plein text ». Nous pourrions
+          aussi faire un copier-coller. Mais dans chaque cas, nous perdrions le formatage qui
+          distingue (par exemple) les titres des sections. </p>
+        <p>Si le fichier bureautique est bien stylé, on peut le transformer en XML TEI, sans perte
+          d’information. L'outil OxGarage nous aidera.</p>
+        <list>
+          <item>Ouvrez votre navigateur Internet, et allez sur le site
+              <ptr target="http://www.tei-c.org/ege-webclient/"/></item>
+          <item>Cliquez sur <ident>Text Documents</ident>. Dans la liste des formats de saisie
+            proposée, cochez la case pour Open Office.</item>
+          <item>Une liste des formats cibles proposés apparaît. Cochez la case pour TEI P5
+            XML.</item>
+          <item>En haut de l'écran un bouton <ident>Browse</ident> apparaît. Cliquez sur ce bouton, et
+            naviguez jusqu'au fichier <ident>lacigale.docx</ident> .</item>
+          <item>Cliquez sur le grand bouton <ident>Convert</ident> et patientez. </item>
+          <item>Le site vous renvoie (après un bref délai) un fichier <ident>lacigale.xml</ident>.
+           </item>
+          <item>Ouvrez ce fichier avec Oxygen, et vérifiez si la conversion a été effectuée correctement. A vous de corriger les fautes, s'il y en a!</item>
+  </list>
+<p>Si vous disposez d'autres documents Word ou ODT, n'hesiter pas d'essayer de les transformer de la même manière!</p>
+      </div>-->
+    </body>
+  </text>
+</TEI>
