@@ -1,0 +1,2610 @@
+default namespace = "http://www.tei-c.org/ns/Examples"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace ns1 = "http://www.tei-c.org/ns/1.0"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace sch = "http://purl.oclc.org/dsdl/schematron"
+namespace xlink = "http://www.w3.org/1999/xlink"
+
+# Schema generated from ODD source 2015-02-06T16:42:19Z. 
+# Edition: Version 2.7.0. Last updated on
+#	16th September 2014, revision 13036
+# Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
+#
+
+#
+macro.paraContent =
+  (text | model.gLike | model.phrase | model.inter | model.global)*
+macro.phraseSeq = (text | model.gLike | model.phrase | model.global)*
+macro.phraseSeq.limited = (text | model.limitedPhrase | model.global)*
+macro.specialPara =
+  (text
+   | model.gLike
+   | model.phrase
+   | model.inter
+   | model.divPart
+   | model.global)*
+data.certainty = "high" | "medium" | "low" | "unknown"
+data.probability = xsd:double { minInclusive = "0" maxInclusive = "1" }
+data.numeric =
+  xsd:double
+  | xsd:token { pattern = "(\-?[\d]+/\-?[\d]+)" }
+  | xsd:decimal
+data.temporal.w3c =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+data.truthValue = xsd:boolean
+data.xTruthValue = xsd:boolean | "unknown" | "inapplicable"
+data.language = xsd:language | ""
+data.pointer = xsd:anyURI
+data.word = xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+data.text = xsd:string
+data.name = xsd:Name
+data.enumerated = data.name
+data.temporal.iso =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+  | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+macro.anyXML =
+  element * - (ns1:* | egXML) {
+    attribute * { text }*,
+    (text | macro.anyXML)*
+  }
+att.ascribed.attributes = att.ascribed.attribute.who
+att.ascribed.attribute.who =
+  
+  ## indicates the person, or group of people, to whom the element content is ascribed.
+  attribute who {
+    list { data.pointer+ }
+  }?
+att.canonical.attributes = att.canonical.attribute.key
+att.canonical.attribute.key =
+  
+  ## provides an externally-defined means of identifying the entity (or entities) being named, using a coded value of some kind.
+  attribute key { data.text }?
+att.ranging.attributes =
+  att.ranging.attribute.atLeast,
+  att.ranging.attribute.atMost,
+  att.ranging.attribute.min,
+  att.ranging.attribute.max,
+  att.ranging.attribute.confidence
+att.ranging.attribute.atLeast =
+  
+  ## gives a minimum estimated value for the approximate measurement.
+  attribute atLeast { data.numeric }?
+att.ranging.attribute.atMost =
+  
+  ## gives a maximum estimated value for the approximate measurement.
+  attribute atMost { data.numeric }?
+att.ranging.attribute.min =
+  
+  ## where the measurement summarizes more than one observation or a range, supplies the minimum value observed.
+  attribute min { data.numeric }?
+att.ranging.attribute.max =
+  
+  ## where the measurement summarizes more than one observation or a range, supplies the maximum value observed.
+  attribute max { data.numeric }?
+att.ranging.attribute.confidence =
+  
+  ## specifies the degree of statistical confidence (between zero and one) that a value falls within the range specified by min and max, or the proportion of observed values that fall within that range.
+  attribute confidence { data.probability }?
+att.dimensions.attributes =
+  att.ranging.attributes, att.dimensions.attribute.extent
+att.dimensions.attribute.extent =
+  
+  ## indicates the size of the object concerned using a project-specific vocabulary combining quantity and units in a single string of words.
+  attribute extent { data.text }?
+att.breaking.attributes = att.breaking.attribute.break
+att.breaking.attribute.break =
+  
+  ## indicates whether or not the element bearing this attribute should be considered to mark the end of an orthographic token in the same way as whitespace.
+  attribute break { data.enumerated }?
+att.datable.w3c.attributes =
+  att.datable.w3c.attribute.when,
+  att.datable.w3c.attribute.notBefore,
+  att.datable.w3c.attribute.notAfter,
+  att.datable.w3c.attribute.from,
+  att.datable.w3c.attribute.to
+att.datable.w3c.attribute.when =
+  
+  ## supplies the value of the date or time in a standard form, e.g. yyyy-mm-dd.
+  attribute when { data.temporal.w3c }?
+att.datable.w3c.attribute.notBefore =
+  
+  ## specifies the earliest possible date for the event in standard form, e.g. yyyy-mm-dd.
+  attribute notBefore { data.temporal.w3c }?
+att.datable.w3c.attribute.notAfter =
+  
+  ## specifies the latest possible date for the event in standard form, e.g. yyyy-mm-dd.
+  attribute notAfter { data.temporal.w3c }?
+att.datable.w3c.attribute.from =
+  
+  ## indicates the starting point of the period in standard form, e.g. yyyy-mm-dd.
+  attribute from { data.temporal.w3c }?
+att.datable.w3c.attribute.to =
+  
+  ## indicates the ending point of the period in standard form, e.g. yyyy-mm-dd.
+  attribute to { data.temporal.w3c }?
+att.datable.attributes =
+  att.datable.w3c.attributes,
+  att.datable.iso.attributes,
+  att.datable.custom.attributes
+att.declaring.attributes = att.declaring.attribute.decls
+att.declaring.attribute.decls =
+  
+  ## identifies one or more declarable elements within the header, which are understood to apply to the element bearing this attribute and its content.
+  attribute decls {
+    list { data.pointer+ }
+  }?
+att.fragmentable.attribute.part =
+  
+  ## specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.
+  [ a:defaultValue = "N" ]
+  attribute part {
+    
+    ## (yes) the element is fragmented in some (unspecified) respect
+    "Y"
+    | 
+      ## (no) either the element is not fragmented, or no claim is made as to its completeness.
+      "N"
+    | 
+      ## (initial) this is the initial part of a fragmented element
+      "I"
+    | 
+      ## (medial) this is a medial part of a fragmented element
+      "M"
+    | 
+      ## (final) this is the final part of a fragmented element
+      "F"
+  }?
+att.docStatus.attributes = att.docStatus.attribute.status
+att.docStatus.attribute.status =
+  
+  ## describes the status of a document either currently or, when associated with a dated element, at the time indicated.
+  ## Sample values include: 1] approved; 2] candidate; 3] cleared; 4] deprecated; 5] draft; 6] embargoed; 7] expired; 8] frozen; 9] galley; 10] proposed; 11] published; 12] recommendation; 13] submitted; 14] unfinished; 15] withdrawn
+  [ a:defaultValue = "draft" ] attribute status { data.enumerated }?
+att.responsibility.attributes =
+  att.source.attributes,
+  att.responsibility.attribute.cert,
+  att.responsibility.attribute.resp
+att.responsibility.attribute.cert =
+  
+  ## (certainty) signifies the degree of certainty associated with the intervention or interpretation.
+  attribute cert { data.certainty }?
+att.responsibility.attribute.resp =
+  
+  ## (responsible party) indicates the agency responsible for the intervention or interpretation, for example an editor or transcriber.
+  attribute resp {
+    list { data.pointer+ }
+  }?
+att.editLike.attribute.instant =
+  
+  ## indicates whether this is an instant revision or not.
+  [ a:defaultValue = "false" ] attribute instant { data.xTruthValue }?
+att.global.attribute.xmlid =
+  
+  ## (identifier) provides a unique identifier for the element bearing the attribute.
+  attribute xml:id { xsd:ID }?
+att.global.attribute.n =
+  
+  ## (number) gives a number (or other label) for an element, which is not necessarily unique within the document.
+  attribute n { data.text }?
+att.global.attribute.xmllang =
+  
+  ## (language) indicates the language of the element content using a tag generated according to BCP 47.
+  attribute xml:lang { data.language }?
+att.global.attribute.style =
+  
+  ## contains an expression in some formal style definition language which defines the rendering or presentation used for this element in the source text
+  attribute style { data.text }?
+att.global.attribute.xmlbase =
+  
+  ## provides a base URI reference with which applications can resolve relative URI references into absolute URI references.
+  attribute xml:base { data.pointer }?
+sch:pattern [
+  id = "castellanie-att.typed-subtypeTyped-constraint-1"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "*[@subtype]"
+    "\x{a}" ~
+    "        "
+    sch:assert [
+      test = "@type"
+      "The "
+      sch:name [ ]
+      " element should not be categorized in detail with @subtype\x{a}" ~
+      " unless also categorized in general with @type"
+    ]
+    "\x{a}" ~
+    "      "
+  ]
+  "\x{a}" ~
+  "   "
+]
+att.pointing.attributes =
+  att.pointing.attribute.targetLang,
+  att.pointing.attribute.target,
+  att.pointing.attribute.evaluate
+att.pointing.attribute.targetLang =
+  
+  ## specifies the language of the content to be found at the destination referenced by target, using a language tag generated according to BCP 47.
+  attribute targetLang { data.language }?
+sch:pattern [
+  id = "castellanie-att.pointing-targetLang-targetLang-constraint-2"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "tei:*[not(self::tei:schemaSpec)][@targetLang]"
+    "\x{a}" ~
+    "            "
+    sch:assert [
+      test = "count(@target)"
+      "@targetLang can only be used if @target is specified."
+    ]
+    "\x{a}" ~
+    "          "
+  ]
+  "\x{a}" ~
+  "   "
+]
+att.pointing.attribute.target =
+  
+  ## specifies the destination of the reference by supplying one or more URI References
+  attribute target {
+    list { data.pointer+ }
+  }?
+att.pointing.attribute.evaluate =
+  
+  ## specifies the intended meaning when the target of a pointer is itself a pointer.
+  attribute evaluate {
+    
+    ## if the element pointed to is itself a pointer, then the target of that pointer will be taken, and so on, until an element is found which is not a pointer.
+    "all"
+    | 
+      ## if the element pointed to is itself a pointer, then its target (whether a pointer or not) is taken as the target of this pointer.
+      "one"
+    | 
+      ## no further evaluation of targets is carried out beyond that needed to find the element specified in the pointer's target.
+      "none"
+  }?
+att.sortable.attributes = att.sortable.attribute.sortKey
+att.sortable.attribute.sortKey =
+  
+  ## supplies the sort key for this element in an index, list or group which contains it.
+  attribute sortKey { data.word }?
+att.edition.attributes =
+  att.edition.attribute.ed, att.edition.attribute.edRef
+att.edition.attribute.ed =
+  
+  ## (edition) supplies a sigil or other arbitrary identifier for the source edition in which the associated feature (for example, a page, column, or line break) occurs at this point in the text.
+  attribute ed {
+    list { data.word+ }
+  }?
+att.edition.attribute.edRef =
+  
+  ## (edition reference) provides a pointer to the source edition in which the associated feature (for example, a page, column, or line break) occurs at this point in the text.
+  attribute edRef {
+    list { data.pointer+ }
+  }?
+att.spanning.attributes = att.spanning.attribute.spanTo
+att.spanning.attribute.spanTo =
+  
+  ## indicates the end of a span initiated by the element bearing this attribute.
+  attribute spanTo { data.pointer }?
+sch:pattern [
+  id = "castellanie-att.spanning-spanTo-spanTo-2-constraint-3"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "tei:*[@spanTo]"
+    "\x{a}" ~
+    "            "
+    sch:assert [
+      test =
+        "id(substring(@spanTo,2)) and following::*[@xml:id=substring(current()/@spanTo,2)]"
+      "\x{a}" ~
+      "The element indicated by @spanTo ("
+      sch:value-of [ select = "@spanTo" ]
+      ") must follow the current element "
+      sch:name [ ]
+      "\x{a}" ~
+      "                  "
+    ]
+    "\x{a}" ~
+    "          "
+  ]
+  "\x{a}" ~
+  "   "
+]
+att.transcriptional.attribute.hand =
+  
+  ## indicates the hand of the agent which made the intervention.
+  attribute hand { data.pointer }?
+model.nameLike.agent = name | orgName | persName
+model.nameLike.agent_alternation = name | orgName | persName
+model.nameLike.agent_sequence = name, orgName, persName
+model.nameLike.agent_sequenceOptional = name?, orgName?, persName?
+model.nameLike.agent_sequenceOptionalRepeatable =
+  name*, orgName*, persName*
+model.nameLike.agent_sequenceRepeatable = name+, orgName+, persName+
+model.segLike = notAllowed
+model.hiLike = hi
+model.hiLike_alternation = hi
+model.hiLike_sequence = hi
+model.hiLike_sequenceOptional = hi?
+model.hiLike_sequenceOptionalRepeatable = hi*
+model.hiLike_sequenceRepeatable = hi+
+model.emphLike = foreign | title
+model.emphLike_alternation = foreign | title
+model.emphLike_sequence = foreign, title
+model.emphLike_sequenceOptional = foreign?, title?
+model.emphLike_sequenceOptionalRepeatable = foreign*, title*
+model.emphLike_sequenceRepeatable = foreign+, title+
+model.highlighted = model.hiLike | model.emphLike
+model.dateLike = date
+model.dateLike_alternation = date
+model.dateLike_sequence = date
+model.dateLike_sequenceOptional = date?
+model.dateLike_sequenceOptionalRepeatable = date*
+model.dateLike_sequenceRepeatable = date+
+model.measureLike = notAllowed
+model.measureLike_alternation = notAllowed
+model.measureLike_sequence = empty
+model.measureLike_sequenceOptional = empty
+model.measureLike_sequenceOptionalRepeatable = empty
+model.measureLike_sequenceRepeatable = notAllowed
+model.egLike = notAllowed
+model.egLike_alternation = notAllowed
+model.egLike_sequence = empty
+model.egLike_sequenceOptional = empty
+model.egLike_sequenceOptionalRepeatable = empty
+model.egLike_sequenceRepeatable = notAllowed
+model.graphicLike = notAllowed
+model.offsetLike = notAllowed
+model.offsetLike_alternation = notAllowed
+model.offsetLike_sequence = empty
+model.offsetLike_sequenceOptional = empty
+model.offsetLike_sequenceOptionalRepeatable = empty
+model.offsetLike_sequenceRepeatable = notAllowed
+model.pPart.msdesc = notAllowed
+model.pPart.editorial = subst
+model.pPart.editorial_alternation = subst
+model.pPart.editorial_sequence = subst
+model.pPart.editorial_sequenceOptional = subst?
+model.pPart.editorial_sequenceOptionalRepeatable = subst*
+model.pPart.editorial_sequenceRepeatable = subst+
+model.pPart.transcriptional =
+  sic | add | del | unclear | damage | supplied
+model.pPart.transcriptional_alternation =
+  sic | add | del | unclear | damage | supplied
+model.pPart.transcriptional_sequence =
+  sic, add, del, unclear, damage, supplied
+model.pPart.transcriptional_sequenceOptional =
+  sic?, add?, del?, unclear?, damage?, supplied?
+model.pPart.transcriptional_sequenceOptionalRepeatable =
+  sic*, add*, del*, unclear*, damage*, supplied*
+model.pPart.transcriptional_sequenceRepeatable =
+  sic+, add+, del+, unclear+, damage+, supplied+
+model.pPart.edit = model.pPart.editorial | model.pPart.transcriptional
+model.ptrLike = notAllowed
+model.lPart = notAllowed
+model.global.meta = notAllowed
+model.milestoneLike = milestone | pb | lb
+model.gLike = notAllowed
+model.oddDecl = notAllowed
+model.oddDecl_alternation = notAllowed
+model.oddDecl_sequence = empty
+model.oddDecl_sequenceOptional = empty
+model.oddDecl_sequenceOptionalRepeatable = empty
+model.oddDecl_sequenceRepeatable = notAllowed
+model.phrase.xml = notAllowed
+model.specDescLike = notAllowed
+model.biblLike = notAllowed
+model.biblLike_alternation = notAllowed
+model.biblLike_sequence = empty
+model.biblLike_sequenceOptional = empty
+model.biblLike_sequenceOptionalRepeatable = empty
+model.biblLike_sequenceRepeatable = notAllowed
+model.headLike = head
+model.headLike_alternation = head
+model.headLike_sequence = head
+model.headLike_sequenceOptional = head?
+model.headLike_sequenceOptionalRepeatable = head*
+model.headLike_sequenceRepeatable = head+
+model.labelLike = notAllowed
+model.labelLike_alternation = notAllowed
+model.labelLike_sequence = empty
+model.labelLike_sequenceOptional = empty
+model.labelLike_sequenceOptionalRepeatable = empty
+model.labelLike_sequenceRepeatable = notAllowed
+model.listLike = \list
+model.listLike_alternation = \list
+model.listLike_sequence = \list
+model.listLike_sequenceOptional = \list?
+model.listLike_sequenceOptionalRepeatable = \list*
+model.listLike_sequenceRepeatable = \list+
+model.noteLike = note
+model.lLike = notAllowed
+model.lLike_alternation = notAllowed
+model.lLike_sequence = empty
+model.lLike_sequenceOptional = empty
+model.lLike_sequenceOptionalRepeatable = empty
+model.lLike_sequenceRepeatable = notAllowed
+model.pLike = p
+model.pLike_alternation = p
+model.pLike_sequence = p
+model.pLike_sequenceOptional = p?
+model.pLike_sequenceOptionalRepeatable = p*
+model.pLike_sequenceRepeatable = p+
+model.stageLike = notAllowed
+model.stageLike_alternation = notAllowed
+model.stageLike_sequence = empty
+model.stageLike_sequenceOptional = empty
+model.stageLike_sequenceOptionalRepeatable = empty
+model.stageLike_sequenceRepeatable = notAllowed
+model.global.edit = notAllowed
+model.divPart = model.lLike | model.pLike
+model.placeNamePart = notAllowed
+model.placeNamePart_alternation = notAllowed
+model.placeNamePart_sequence = empty
+model.placeNamePart_sequenceOptional = empty
+model.placeNamePart_sequenceOptionalRepeatable = empty
+model.placeNamePart_sequenceRepeatable = notAllowed
+model.placeStateLike = model.placeNamePart
+model.placeStateLike_alternation = model.placeNamePart_alternation
+model.placeStateLike_sequence = model.placeNamePart_sequence
+model.placeStateLike_sequenceOptional =
+  model.placeNamePart_sequenceOptional?
+model.placeStateLike_sequenceOptionalRepeatable =
+  model.placeNamePart_sequenceOptionalRepeatable*
+model.placeStateLike_sequenceRepeatable =
+  model.placeNamePart_sequenceRepeatable+
+model.publicationStmtPart.agency = notAllowed
+model.publicationStmtPart.detail = date
+model.quoteLike = quote
+model.quoteLike_alternation = quote
+model.quoteLike_sequence = quote
+model.quoteLike_sequenceOptional = quote?
+model.quoteLike_sequenceOptionalRepeatable = quote*
+model.quoteLike_sequenceRepeatable = quote+
+model.qLike = model.quoteLike
+model.qLike_alternation = model.quoteLike_alternation
+model.qLike_sequence = model.quoteLike_sequence
+model.qLike_sequenceOptional = model.quoteLike_sequenceOptional?
+model.qLike_sequenceOptionalRepeatable =
+  model.quoteLike_sequenceOptionalRepeatable*
+model.qLike_sequenceRepeatable = model.quoteLike_sequenceRepeatable+
+model.respLike = respStmt
+model.divWrapper = notAllowed
+model.divTopPart = model.headLike
+model.divTop = model.divWrapper | model.divTopPart
+model.divBottomPart = notAllowed
+model.divBottom = model.divWrapper | model.divBottomPart
+model.addressLike = notAllowed
+model.addressLike_alternation = notAllowed
+model.addressLike_sequence = empty
+model.addressLike_sequenceOptional = empty
+model.addressLike_sequenceOptionalRepeatable = empty
+model.addressLike_sequenceRepeatable = notAllowed
+model.nameLike =
+  model.nameLike.agent
+  | model.offsetLike
+  | model.placeStateLike
+  | model.persNamePart
+model.nameLike_alternation =
+  model.nameLike.agent_alternation
+  | model.offsetLike_alternation
+  | model.placeStateLike_alternation
+  | model.persNamePart_alternation
+model.nameLike_sequence =
+  model.nameLike.agent_sequence,
+  model.offsetLike_sequence,
+  model.placeStateLike_sequence,
+  model.persNamePart_sequence
+model.nameLike_sequenceOptional =
+  model.nameLike.agent_sequenceOptional?,
+  model.offsetLike_sequenceOptional?,
+  model.placeStateLike_sequenceOptional?,
+  model.persNamePart_sequenceOptional?
+model.nameLike_sequenceOptionalRepeatable =
+  model.nameLike.agent_sequenceOptionalRepeatable*,
+  model.offsetLike_sequenceOptionalRepeatable*,
+  model.placeStateLike_sequenceOptionalRepeatable*,
+  model.persNamePart_sequenceOptionalRepeatable*
+model.nameLike_sequenceRepeatable =
+  model.nameLike.agent_sequenceRepeatable+,
+  model.offsetLike_sequenceRepeatable+,
+  model.placeStateLike_sequenceRepeatable+,
+  model.persNamePart_sequenceRepeatable+
+model.global =
+  model.global.meta
+  | model.milestoneLike
+  | model.noteLike
+  | model.global.edit
+model.pPart.data =
+  model.dateLike
+  | model.measureLike
+  | model.addressLike
+  | model.nameLike
+model.inter =
+  model.egLike
+  | model.oddDecl
+  | model.biblLike
+  | model.labelLike
+  | model.listLike
+  | model.stageLike
+  | model.qLike
+model.common = model.divPart | model.inter | model.entryLike
+model.phrase =
+  model.segLike
+  | model.highlighted
+  | model.graphicLike
+  | model.pPart.msdesc
+  | model.pPart.edit
+  | model.ptrLike
+  | model.lPart
+  | model.phrase.xml
+  | model.specDescLike
+  | model.pPart.data
+  | model.ptrLike.form
+model.limitedPhrase =
+  model.hiLike
+  | model.emphLike
+  | model.pPart.msdesc
+  | model.pPart.editorial
+  | model.ptrLike
+  | model.phrase.xml
+  | model.pPart.data
+model.divLike = \div
+model.divGenLike = notAllowed
+model.div1Like = notAllowed
+model.teiHeaderPart = notAllowed
+model.sourceDescPart = notAllowed
+att.source.attributes = att.source.attribute.source
+att.source.attribute.source =
+  
+  ## provides a pointer to the bibliographical source from which a quotation or citation is drawn.
+  attribute source {
+    list { data.pointer+ }
+  }?
+model.resourceLike = notAllowed
+p =
+  
+  ## (paragraph) marks paragraphs in prose. [3.1.  7.2.5. ]
+  element ns1:p {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.declaring.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "head"
+         | 
+           ##
+           "verso")+
+      }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.
+    [ a:defaultValue = "N" ]
+    attribute part {
+      
+      ##
+      "N"
+    }?,
+    empty
+  }
+foreign =
+  
+  ## identifies a word or phrase as belonging to some language other than that of the surrounding text. [3.3.2.1. ]
+  element ns1:foreign {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+hi =
+  
+  ## (highlighted) marks a word or phrase as graphically distinct from the surrounding text, for reasons concerning which no claim is made. [3.3.2.2.  3.3.2. ]
+  element ns1:hi {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "césure"
+         | 
+           ##
+           "italics"
+         | 
+           ##
+           "itlics"
+         | 
+           ##
+           "rend"
+         | 
+           ##
+           "sup")+
+      }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+quote =
+  
+  ## (quotation) contains a phrase or passage attributed by the narrator or author to some agency external to the text. [3.3.3.  4.3.1. ]
+  element ns1:quote {
+    macro.specialPara,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.source.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+sic =
+  
+  ## (Latin for thus or so
+  ##    ) contains text reproduced although apparently incorrect or inaccurate. [3.4.1. ]
+  element ns1:sic {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+add =
+  
+  ## (addition) contains letters, words, or phrases inserted in the source text by an author, scribe, or a previous annotator or corrector. [3.4.3. ]
+  element ns1:add {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.transcriptional.attribute.hand,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.responsibility.attribute.resp,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "autreMain")+
+      }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates the effect of the intervention, for example in the case of a deletion, strikeouts which include too much or too little text, or in the case of an addition, an insertion which duplicates some of the text already present.
+    [ a:defaultValue = "unremarkable" ]
+    attribute status {
+      
+      ##
+      "unremarkable"
+    }?,
+    
+    ## specifies where this item is placed
+    attribute place {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "bottom"
+         | 
+           ##
+           "endOfLine"
+         | 
+           ##
+           "endOfPar"
+         | 
+           ##
+           "enfOfLine"
+         | 
+           ##
+           "enfOfLines"
+         | 
+           ##
+           "intelinear"
+         | 
+           ##
+           "interlinar"
+         | 
+           ##
+           "interlinear"
+         | 
+           ##
+           "leftMArgin"
+         | 
+           ##
+           "leftMargin"
+         | 
+           ##
+           "rightMargin")+
+      }
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+del =
+  
+  ## (deletion) contains a letter, word, or passage deleted, marked as deleted, or otherwise indicated as superfluous or spurious in the copy text by an author, scribe, or a previous annotator or corrector. [3.4.3. ]
+  element ns1:del {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.responsibility.attribute.resp,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "biffé"
+         | 
+           ##
+           "grattage"
+         | 
+           ##
+           "overstrike"
+         | 
+           ##
+           "scratched"
+         | 
+           ##
+           "underline_dotted"
+         | 
+           ##
+           "underlined"
+         | 
+           ##
+           "underlined_dotted")+
+      }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates the effect of the intervention, for example in the case of a deletion, strikeouts which include too much or too little text, or in the case of an addition, an insertion which duplicates some of the text already present.
+    [ a:defaultValue = "unremarkable" ]
+    attribute status {
+      
+      ##
+      "unremarkable"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+unclear =
+  
+  ## contains a word, phrase, or passage which cannot be transcribed with certainty because it is illegible or inaudible in the source. [11.3.3.1.  3.4.3. ]
+  element ns1:unclear {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates why the material is hard to transcribe.
+    attribute reason {
+      list { data.word+ }
+    }?,
+    
+    ## Where the difficulty in transcription arises from damage, categorizes the cause of the damage, if it can be identified.
+    ## Sample values include: 1] rubbing; 2] mildew; 3] smoke
+    attribute agent { data.enumerated }?,
+    empty
+  }
+name =
+  
+  ## (name, proper noun) contains a proper noun or noun phrase. [3.5.1. ]
+  element ns1:name {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.canonical.attribute.key,
+    att.datable.w3c.attribute.when,
+    att.datable.w3c.attribute.notBefore,
+    att.datable.w3c.attribute.notAfter,
+    att.datable.w3c.attribute.from,
+    att.datable.w3c.attribute.to,
+    att.datable.custom.attribute.when-custom,
+    att.datable.custom.attribute.notBefore-custom,
+    att.datable.custom.attribute.notAfter-custom,
+    att.datable.custom.attribute.from-custom,
+    att.datable.custom.attribute.to-custom,
+    att.datable.custom.attribute.datingPoint,
+    att.datable.custom.attribute.datingMethod,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates whether the name component is given in full, as an abbreviation or simply as an initial.
+    [ a:defaultValue = "yes" ]
+    attribute full {
+      
+      ##
+      "yes"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+date =
+  
+  ## contains a date in any format. [3.5.4.  2.2.4.  2.5.  3.11.2.4.  15.2.3.  13.3.6. ]
+  element ns1:date {
+    (text | model.gLike | model.phrase | model.global)*,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.datable.attributes,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.responsibility.attribute.cert,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "debut"
+      | 
+        ##
+        "fin"
+    }?,
+    empty
+  }
+\list =
+  
+  ## contains any sequence of items organized as a list. [3.7. ]
+  element ns1:list {
+    ((model.divTop | model.global)*,
+     ((item, model.global*)+ | (model.global*, item, model.global*)+),
+     (model.divBottom, model.global*)*),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.sortable.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## describes the nature of the items in the list.
+    ## Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syllogism
+    attribute type {
+      
+      ## each list item glosses some term or concept, which is given by a label element preceding the list item.
+      "gloss"
+      | 
+        ## each list item is an entry in an index such as the alphabetical topical index at the back of a print volume.
+        "index"
+      | 
+        ## each list item is a step in a sequence of instructions, as in a recipe.
+        "instructions"
+      | 
+        ## each list item is one of a sequence of petitions, supplications or invocations, typically in a religious ritual.
+        "litany"
+      | 
+        ## each list item is part of an argument consisting of two or more propositions and a final conclusion derived from them.
+        "syllogism"
+      | xsd:Name
+    }?,
+    empty
+  }
+item =
+  
+  ## contains one component of a list. [3.7.  2.5. ]
+  element ns1:item {
+    macro.specialPara,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.sortable.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+head =
+  
+  ## (heading) contains any type of heading, for example the title of a section, or the heading of a list, glossary, manuscript description, etc. [4.2.1. ]
+  element ns1:head {
+    (text
+     | model.gLike
+     | model.phrase
+     | model.inter
+     | model.lLike
+     | model.global)*,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+note =
+  
+  ## contains a note or annotation. [3.8.1.  2.2.6.  3.11.2.8.  9.3.5.4. ]
+  element ns1:note {
+    macro.specialPara,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.pointing.attributes,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## specifies where this item is placed
+    attribute place {
+      list {
+        (
+         ##
+         "foot")+
+      }
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "césure"
+      | 
+        ##
+        "refbibl"
+    }?,
+    
+    ## indicates whether the copy text shows the exact place of reference for the note.
+    [ a:defaultValue = "true" ] attribute anchored { data.truthValue }?,
+    empty
+  }
+milestone =
+  
+  ## marks a boundary point separating any kind of section of a text, typically but not necessarily indicating a point at which some part of a standard reference system changes, where the change is not represented by a structural element. [3.10.3. ]
+  element ns1:milestone {
+    empty,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.edition.attributes,
+    att.spanning.attributes,
+    att.breaking.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## provides a conventional name for the kind of section changing at this milestone.
+    attribute unit {
+      
+      ##
+      "vue"
+    },
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+pb =
+  
+  ## (page break) marks the start of a new page in a paginated document. [3.10.3. ]
+  element ns1:pb {
+    empty,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.edition.attributes,
+    att.spanning.attributes,
+    att.breaking.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+lb =
+  
+  ## (line break) marks the start of a new (typographic) line in some edition or version of a text. [3.10.3.  7.2.5. ]
+  element ns1:lb {
+    empty,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.edition.attributes,
+    att.spanning.attributes,
+    att.breaking.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+respStmt =
+  
+  ## (statement of responsibility) supplies a statement of responsibility for the intellectual content of a text, edition, recording, or series, where the specialized elements for authors, editors, etc. do not suffice or do not apply. May also be used to encode information about individuals or organizations which have played a role in the production or distribution of a bibliographic work. [3.11.2.2.  2.2.1.  2.2.2.  2.2.5. ]
+  element ns1:respStmt {
+    ((resp+, model.nameLike.agent+) | (model.nameLike.agent+, resp+)),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+resp =
+  
+  ## (responsibility) contains a phrase describing the nature of a person's intellectual responsibility, or an organization's role in the production or distribution of a work. [3.11.2.2.  2.2.1.  2.2.2.  2.2.5. ]
+  element ns1:resp {
+    macro.phraseSeq.limited,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.datable.w3c.attribute.when,
+    att.datable.w3c.attribute.notBefore,
+    att.datable.w3c.attribute.notAfter,
+    att.datable.w3c.attribute.from,
+    att.datable.w3c.attribute.to,
+    att.datable.custom.attribute.when-custom,
+    att.datable.custom.attribute.notBefore-custom,
+    att.datable.custom.attribute.notAfter-custom,
+    att.datable.custom.attribute.from-custom,
+    att.datable.custom.attribute.to-custom,
+    att.datable.custom.attribute.datingPoint,
+    att.datable.custom.attribute.datingMethod,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+title =
+  
+  ## contains a title for any kind of work. [3.11.2.2.  2.2.1.  2.2.5. ]
+  element ns1:title {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## classifies the title according to some convenient typology.
+    ## Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] short; 5] desc(descriptive) 
+    attribute type { data.enumerated }?,
+    
+    ## indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.
+    attribute level {
+      
+      ## (analytic) the title applies to an analytic item, such as an article, poem, or other work published as part of a larger item.
+      "a"
+      | 
+        ## (monographic) the title applies to a monograph such as a book or other item considered to be a distinct publication, including single volumes of multi-volume works
+        "m"
+      | 
+        ## (journal) the title applies to any serial or periodical publication such as a journal, magazine, or newspaper
+        "j"
+      | 
+        ## (series) the title applies to a series of otherwise distinct publications such as a collection
+        "s"
+      | 
+        ## (unpublished) the title applies to any unpublished material (including theses and dissertations unless published by a commercial press)
+        "u"
+    }?,
+    empty
+  }
+att.datable.custom.attributes =
+  att.datable.custom.attribute.when-custom,
+  att.datable.custom.attribute.notBefore-custom,
+  att.datable.custom.attribute.notAfter-custom,
+  att.datable.custom.attribute.from-custom,
+  att.datable.custom.attribute.to-custom,
+  att.datable.custom.attribute.datingPoint,
+  att.datable.custom.attribute.datingMethod
+att.datable.custom.attribute.when-custom =
+  
+  ## supplies the value of a date or time in some standard form.
+  attribute when-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.notBefore-custom =
+  
+  ## specifies the earliest possible date for the event in some custom standard form.
+  attribute notBefore-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.notAfter-custom =
+  
+  ## specifies the latest possible date for the event in some custom standard form.
+  attribute notAfter-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.from-custom =
+  
+  ## indicates the starting point of the period in some standard form.
+  attribute from-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.to-custom =
+  
+  ## indicates the ending point of the period in some standard form.
+  attribute to-custom {
+    list { data.word+ }
+  }?
+att.datable.custom.attribute.datingPoint =
+  
+  ## supplies a pointer to some location defining a named point in time with reference to which the datable item is understood to have occurred
+  attribute datingPoint { data.pointer }?
+att.datable.custom.attribute.datingMethod =
+  
+  ## supplies a pointer to a calendar element or other means of interpreting the values of the custom dating attributes.
+  attribute datingMethod { data.pointer }?
+orgName =
+  
+  ## (organization name) contains an organizational name. [13.2.2. ]
+  element ns1:orgName {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.datable.w3c.attribute.when,
+    att.datable.w3c.attribute.notBefore,
+    att.datable.w3c.attribute.notAfter,
+    att.datable.w3c.attribute.from,
+    att.datable.w3c.attribute.to,
+    att.datable.custom.attribute.when-custom,
+    att.datable.custom.attribute.notBefore-custom,
+    att.datable.custom.attribute.notAfter-custom,
+    att.datable.custom.attribute.from-custom,
+    att.datable.custom.attribute.to-custom,
+    att.datable.custom.attribute.datingPoint,
+    att.datable.custom.attribute.datingMethod,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates whether the name component is given in full, as an abbreviation or simply as an initial.
+    [ a:defaultValue = "yes" ]
+    attribute full {
+      
+      ##
+      "yes"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+persName =
+  
+  ## (personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. ]
+  element ns1:persName {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.datable.w3c.attribute.when,
+    att.datable.w3c.attribute.notBefore,
+    att.datable.w3c.attribute.notAfter,
+    att.datable.w3c.attribute.from,
+    att.datable.w3c.attribute.to,
+    att.datable.custom.attribute.when-custom,
+    att.datable.custom.attribute.notBefore-custom,
+    att.datable.custom.attribute.notAfter-custom,
+    att.datable.custom.attribute.from-custom,
+    att.datable.custom.attribute.to-custom,
+    att.datable.custom.attribute.datingPoint,
+    att.datable.custom.attribute.datingMethod,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates whether the name component is given in full, as an abbreviation or simply as an initial.
+    [ a:defaultValue = "yes" ]
+    attribute full {
+      
+      ##
+      "yes"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+roleName =
+  
+  ## contains a name component which indicates that the referent has a particular role or position in society, such as an official title or rank. [13.2.1. ]
+  element ns1:roleName {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates whether the name component is given in full, as an abbreviation or simply as an initial.
+    [ a:defaultValue = "yes" ]
+    attribute full {
+      
+      ##
+      "yes"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+teiHeader =
+  
+  ## (TEI header) supplies the descriptive and declarative information making up an electronic title page for every TEI-conformant document. [2.1.1.  15.1. ]
+  element ns1:teiHeader {
+    (fileDesc, model.teiHeaderPart*, revisionDesc?),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## specifies the kind of document to which the header is attached, for example whether it is a corpus or individual text.
+    [ a:defaultValue = "text" ]
+    attribute type {
+      
+      ##
+      "text"
+    }?,
+    empty
+  }
+fileDesc =
+  
+  ## (file description) contains a full bibliographic description of an electronic file. [2.2.  2.1.1. ]
+  element ns1:fileDesc {
+    ((titleStmt, editionStmt?, publicationStmt, seriesStmt?),
+     sourceDesc+),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+titleStmt =
+  
+  ## (title statement) groups information about the title of a work and those responsible for its content. [2.2.1.  2.2. ]
+  element ns1:titleStmt {
+    (title+, model.respLike*),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+editionStmt =
+  
+  ## (edition statement) groups information relating to one edition of a text. [2.2.2.  2.2. ]
+  element ns1:editionStmt {
+    (model.pLike+ | (edition, model.respLike*)),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+edition =
+  
+  ## describes the particularities of one edition of a text. [2.2.2. ]
+  element ns1:edition {
+    macro.phraseSeq,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+publicationStmt =
+  
+  ## (publication statement) groups information concerning the publication or distribution of an electronic or other text. [2.2.4.  2.2. ]
+  element ns1:publicationStmt {
+    ((model.publicationStmtPart.agency,
+      model.publicationStmtPart.detail*)+
+     | model.pLike+),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+seriesStmt =
+  
+  ## (series statement) groups information about the series, if any, to which a publication belongs. [2.2.5.  2.2. ]
+  element ns1:seriesStmt {
+    (model.pLike+
+     | (title+, (respStmt)*, empty*)),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+sourceDesc =
+  
+  ## (source description) describes the source from which an electronic text was derived or generated, typically a bibliographic description in the case of a digitized text, or a phrase such as "born digital" for a text which has no previous existence. [2.2.7. ]
+  element ns1:sourceDesc {
+    (model.pLike+
+     | (model.biblLike | model.sourceDescPart | model.listLike)+),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates whether or not this element is selected by default when its parent is selected.
+    [ a:defaultValue = "false" ]
+    attribute default {
+      
+      ##
+      "false"
+    }?,
+    empty
+  }
+revisionDesc =
+  
+  ## (revision description) summarizes the revision history for a file. [2.5.  2.1.1. ]
+  element ns1:revisionDesc {
+    (\list | change+),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.docStatus.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+change =
+  
+  ## documents a change or set of changes made during the production of a source document, or during the revision of an electronic file. [2.5.  2.4.1.  11.7. ]
+  element ns1:change {
+    macro.specialPara,
+    att.ascribed.attributes,
+    att.datable.w3c.attribute.when,
+    att.datable.w3c.attribute.notBefore,
+    att.datable.w3c.attribute.notAfter,
+    att.datable.w3c.attribute.from,
+    att.datable.w3c.attribute.to,
+    att.datable.custom.attribute.when-custom,
+    att.datable.custom.attribute.notBefore-custom,
+    att.datable.custom.attribute.notAfter-custom,
+    att.datable.custom.attribute.from-custom,
+    att.datable.custom.attribute.to-custom,
+    att.datable.custom.attribute.datingPoint,
+    att.datable.custom.attribute.datingMethod,
+    att.docStatus.attributes,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+att.global.facs.attribute.facs =
+  
+  ## (facsimile) points to all or part of an image which corresponds with the content of the element.
+  attribute facs {
+    list { data.pointer+ }
+  }?
+att.global.change.attribute.change =
+  
+  ## points to one or more change elements documenting a state or revision campaign to which the element bearing this attribute and its children have been assigned by the encoder.
+  attribute change {
+    list { data.pointer+ }
+  }?
+damage =
+  
+  ## contains an area of damage to the text witness. [11.3.3.1. ]
+  element ns1:damage {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.dimensions.attribute.extent,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "encre_délavée"
+      | 
+        ##
+        "parchemin_froissé"
+      | 
+        ##
+        "support_détruit"
+      | 
+        ##
+        "support_endommagé"
+    }?,
+    
+    ## categorizes the cause of the damage, if it can be identified.
+    attribute agent {
+      
+      ##
+      "parchemin_froissé"
+    }?,
+    empty
+  }
+subst =
+  
+  ## (substitution) groups one or more deletions with one or more additions when the combination is to be regarded as a single intervention in the text. [11.3.1.5. ]
+  element ns1:subst {
+    ((add | del | model.milestoneLike)+)
+    >> sch:pattern [
+         id = "castellanie-subst-substContents1-constraint-4"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:subst"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "child::tei:add and child::tei:del"
+             "\x{a}" ~
+             "                  "
+             sch:name [ ]
+             " must have at least one child add and at least one child del"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## indicates the effect of the intervention, for example in the case of a deletion, strikeouts which include too much or too little text, or in the case of an addition, an insertion which duplicates some of the text already present.
+    [ a:defaultValue = "unremarkable" ]
+    attribute status {
+      
+      ##
+      "unremarkable"
+    }?,
+    empty
+  }
+supplied =
+  
+  ## signifies text supplied by the transcriber or editor for any reason, typically because the original cannot be read because of physical damage or loss to the original. [11.3.3.1. ]
+  element ns1:supplied {
+    macro.paraContent,
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.editLike.attribute.instant,
+    att.ranging.attribute.atLeast,
+    att.ranging.attribute.atMost,
+    att.ranging.attribute.min,
+    att.ranging.attribute.max,
+    att.ranging.attribute.confidence,
+    att.source.attribute.source,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "détruit"
+         | 
+           ##
+           "support")+
+      }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## one or more words indicating why the text has had to be supplied, e.g. overbinding, faded-ink, lost-folio, omitted-in-original.
+    attribute reason {
+      list { data.word+ }
+    }?,
+    empty
+  }
+TEI =
+  
+  ## (TEI document) contains a single TEI-conformant document, comprising a TEI header and a text, either in isolation or as part of a teiCorpus element. [4.  15.1. ]
+  element ns1:TEI {
+    (teiHeader,
+     ((model.resourceLike+, \text?) | \text))
+    >> sch:ns [ prefix = "tei" uri = "http://www.tei-c.org/ns/1.0" ]
+    >> sch:ns [ prefix = "xs" uri = "http://www.w3.org/2001/XMLSchema" ]
+    >> sch:ns [
+         prefix = "rng"
+         uri = "http://relaxng.org/ns/structure/1.0"
+       ],
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+\text =
+  
+  ## contains a single text of any kind, whether unitary or composite, for example a poem or drama, a collection of essays, a novel, a dictionary, or a corpus sample. [4.  15.1. ]
+  element ns1:text {
+    (model.global*, (body), model.global*),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.declaring.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type { data.enumerated }?,
+    empty
+  }
+body =
+  
+  ## (text body) contains the whole body of a single unitary text, excluding any front or back matter. [4. ]
+  element ns1:body {
+    (model.global*,
+     (model.divTop, (model.global | model.divTop)*)?,
+     (model.divGenLike, (model.global | model.divGenLike)*)?,
+     ((model.divLike, (model.global | model.divGenLike)*)+
+      | (model.div1Like, (model.global | model.divGenLike)*)+
+      | ((model.common, model.global*)+,
+         ((model.divLike, (model.global | model.divGenLike)*)+
+          | (model.div1Like, (model.global | model.divGenLike)*)+)?)),
+     (model.divBottom, model.global*)*),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.declaring.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    empty
+  }
+\div =
+  
+  ## (text division) contains a subdivision of the front, body, or back of a text. [4.1. ]
+  element ns1:div {
+    ((model.divTop | model.global)*,
+     ((((model.divLike | model.divGenLike), model.global*)+
+       | ((model.common, model.global*)+,
+          ((model.divLike | model.divGenLike), model.global*)*)),
+      (model.divBottom, model.global*)*)?),
+    att.global.attribute.xmlid,
+    att.global.attribute.n,
+    att.global.attribute.xmllang,
+    att.global.attribute.style,
+    att.global.attribute.xmlbase,
+    att.global.facs.attribute.facs,
+    att.global.change.attribute.change,
+    att.declaring.attributes,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list { data.word+ }
+    }?,
+    
+    ## points to a description of the rendering or presentation used for this element in the source text.
+    attribute rendition {
+      list { data.pointer+ }
+    }?,
+    
+    ## signals an intention about how white space should be managed by applications.
+    attribute xml:space {
+      
+      ## signals that the application's default white-space processing modes are acceptable
+      "default"
+      | 
+        ## indicates the intent that applications preserve all white space
+        "preserve"
+    }?,
+    
+    ## (organization) specifies how the content of the division is organized.
+    [ a:defaultValue = "uniform" ]
+    attribute org {
+      
+      ##
+      "uniform"
+    }?,
+    
+    ## indicates whether this division is a sample of the original source and if so, from which part.
+    [ a:defaultValue = "complete" ]
+    attribute sample {
+      
+      ##
+      "complete"
+    }?,
+    
+    ## specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.
+    [ a:defaultValue = "N" ]
+    attribute part {
+      
+      ##
+      "N"
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "annex"
+      | 
+        ##
+        "recepte"
+      | 
+        ##
+        "sub"
+      | 
+        ##
+        "subaccount"
+      | 
+        ##
+        "verso"
+    }?,
+    empty
+  }
+att.datable.iso.attributes = att.datable.iso.attribute.from-iso
+att.datable.iso.attribute.from-iso =
+  
+  ## indicates the starting point of the period in standard form.
+  attribute from-iso { data.temporal.iso }?
+model.persNamePart = roleName
+model.persNamePart_alternation = roleName
+model.persNamePart_sequence = roleName
+model.persNamePart_sequenceOptional = roleName?
+model.persNamePart_sequenceOptionalRepeatable = roleName*
+model.persNamePart_sequenceRepeatable = roleName+
+model.entryLike = notAllowed
+model.ptrLike.form = notAllowed
+start = TEI

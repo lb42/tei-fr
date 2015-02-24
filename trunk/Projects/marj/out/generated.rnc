@@ -1,0 +1,903 @@
+default namespace = "http://www.tei-c.org/ns/1.0"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace sch = "http://purl.oclc.org/dsdl/schematron"
+namespace xlink = "http://www.w3.org/1999/xlink"
+
+# Schema generated from ODD source 2015-02-08T16:48:19Z. 
+# Edition: Version 2.7.0. Last updated on
+#	16th September 2014, revision 13036
+# Edition Location: http://www.tei-c.org/Vault/P5/Version 2.7.0/
+#
+
+#
+macro.paraContent =
+  (text | model.gLike | model.phrase | model.inter | model.global)*
+macro.phraseSeq = (text | model.gLike | model.phrase | model.global)*
+macro.phraseSeq.limited = (text | model.limitedPhrase | model.global)*
+macro.specialPara =
+  (text
+   | model.gLike
+   | model.phrase
+   | model.inter
+   | model.divPart
+   | model.global)*
+data.certainty = "high" | "medium" | "low" | "unknown"
+data.truthValue = xsd:boolean
+data.xTruthValue = xsd:boolean | "unknown" | "inapplicable"
+data.language = xsd:language | ""
+data.pointer = xsd:anyURI
+data.word = xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+data.text = xsd:string
+data.name = xsd:Name
+data.enumerated = data.name
+data.temporal.iso =
+  xsd:date
+  | xsd:gYear
+  | xsd:gMonth
+  | xsd:gDay
+  | xsd:gYearMonth
+  | xsd:gMonthDay
+  | xsd:time
+  | xsd:dateTime
+  | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+att.canonical.attributes = att.canonical.attribute.key
+att.canonical.attribute.key =
+  
+  ## provides an externally-defined means of identifying the entity (or entities) being named, using a coded value of some kind.
+  attribute key { data.text }?
+att.dimensions.attributes = att.dimensions.attribute.extent
+att.dimensions.attribute.extent =
+  
+  ## indicates the size of the object concerned using a project-specific vocabulary combining quantity and units in a single string of words.
+  attribute extent { data.text }?
+att.datable.attributes = att.datable.iso.attributes
+att.fragmentable.attribute.part =
+  
+  ## specifies whether or not its parent element is fragmented in some way, typically by some other overlapping structure: for example a speech which is divided between two or more verse stanzas, a paragraph which is split across a page division, a verse line which is divided between two speakers.
+  [ a:defaultValue = "N" ]
+  attribute part {
+    
+    ## (yes) the element is fragmented in some (unspecified) respect
+    "Y"
+    | 
+      ## (no) either the element is not fragmented, or no claim is made as to its completeness.
+      "N"
+    | 
+      ## (initial) this is the initial part of a fragmented element
+      "I"
+    | 
+      ## (medial) this is a medial part of a fragmented element
+      "M"
+    | 
+      ## (final) this is the final part of a fragmented element
+      "F"
+  }?
+att.responsibility.attributes =
+  att.responsibility.attribute.cert, att.responsibility.attribute.resp
+att.responsibility.attribute.cert =
+  
+  ## (certainty) signifies the degree of certainty associated with the intervention or interpretation.
+  attribute cert { data.certainty }?
+att.responsibility.attribute.resp =
+  
+  ## (responsible party) indicates the agency responsible for the intervention or interpretation, for example an editor or transcriber.
+  attribute resp {
+    list { data.pointer+ }
+  }?
+att.editLike.attribute.instant =
+  
+  ## indicates whether this is an instant revision or not.
+  [ a:defaultValue = "false" ] attribute instant { data.xTruthValue }?
+att.global.attribute.xmlid =
+  
+  ## (identifier) provides a unique identifier for the element bearing the attribute.
+  attribute xml:id { xsd:ID }?
+att.global.attribute.n =
+  
+  ## (number) gives a number (or other label) for an element, which is not necessarily unique within the document.
+  attribute n { data.text }?
+att.global.attribute.xmllang =
+  
+  ## (language) indicates the language of the element content using a tag generated according to BCP 47.
+  attribute xml:lang { data.language }?
+sch:pattern [
+  id = "castellanie-att.typed-subtypeTyped-constraint-1"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "*[@subtype]"
+    "\x{a}" ~
+    "        "
+    sch:assert [
+      test = "@type"
+      "The "
+      sch:name [ ]
+      " element should not be categorized in detail with @subtype\x{a}" ~
+      " unless also categorized in general with @type"
+    ]
+    "\x{a}" ~
+    "      "
+  ]
+  "\x{a}" ~
+  "   "
+]
+att.transcriptional.attribute.hand =
+  
+  ## indicates the hand of the agent which made the intervention.
+  attribute hand { data.pointer }?
+model.nameLike.agent = name | orgName | persName
+model.nameLike.agent_alternation = name | orgName | persName
+model.nameLike.agent_sequence = name, orgName, persName
+model.nameLike.agent_sequenceOptional = name?, orgName?, persName?
+model.nameLike.agent_sequenceOptionalRepeatable =
+  name*, orgName*, persName*
+model.nameLike.agent_sequenceRepeatable = name+, orgName+, persName+
+model.segLike = notAllowed
+model.hiLike = hi
+model.hiLike_alternation = hi
+model.hiLike_sequence = hi
+model.hiLike_sequenceOptional = hi?
+model.hiLike_sequenceOptionalRepeatable = hi*
+model.hiLike_sequenceRepeatable = hi+
+model.emphLike = foreign | title
+model.emphLike_alternation = foreign | title
+model.emphLike_sequence = foreign, title
+model.emphLike_sequenceOptional = foreign?, title?
+model.emphLike_sequenceOptionalRepeatable = foreign*, title*
+model.emphLike_sequenceRepeatable = foreign+, title+
+model.highlighted = model.hiLike | model.emphLike
+model.dateLike = date
+model.dateLike_alternation = date
+model.dateLike_sequence = date
+model.dateLike_sequenceOptional = date?
+model.dateLike_sequenceOptionalRepeatable = date*
+model.dateLike_sequenceRepeatable = date+
+model.measureLike = notAllowed
+model.measureLike_alternation = notAllowed
+model.measureLike_sequence = empty
+model.measureLike_sequenceOptional = empty
+model.measureLike_sequenceOptionalRepeatable = empty
+model.measureLike_sequenceRepeatable = notAllowed
+model.egLike = notAllowed
+model.egLike_alternation = notAllowed
+model.egLike_sequence = empty
+model.egLike_sequenceOptional = empty
+model.egLike_sequenceOptionalRepeatable = empty
+model.egLike_sequenceRepeatable = notAllowed
+model.graphicLike = notAllowed
+model.offsetLike = notAllowed
+model.offsetLike_alternation = notAllowed
+model.offsetLike_sequence = empty
+model.offsetLike_sequenceOptional = empty
+model.offsetLike_sequenceOptionalRepeatable = empty
+model.offsetLike_sequenceRepeatable = notAllowed
+model.pPart.msdesc = notAllowed
+model.pPart.editorial = subst
+model.pPart.editorial_alternation = subst
+model.pPart.editorial_sequence = subst
+model.pPart.editorial_sequenceOptional = subst?
+model.pPart.editorial_sequenceOptionalRepeatable = subst*
+model.pPart.editorial_sequenceRepeatable = subst+
+model.pPart.transcriptional =
+  sic | add | del | unclear | damage | supplied
+model.pPart.transcriptional_alternation =
+  sic | add | del | unclear | damage | supplied
+model.pPart.transcriptional_sequence =
+  sic, add, del, unclear, damage, supplied
+model.pPart.transcriptional_sequenceOptional =
+  sic?, add?, del?, unclear?, damage?, supplied?
+model.pPart.transcriptional_sequenceOptionalRepeatable =
+  sic*, add*, del*, unclear*, damage*, supplied*
+model.pPart.transcriptional_sequenceRepeatable =
+  sic+, add+, del+, unclear+, damage+, supplied+
+model.pPart.edit = model.pPart.editorial | model.pPart.transcriptional
+model.ptrLike = notAllowed
+model.lPart = notAllowed
+model.global.meta = notAllowed
+model.milestoneLike = milestone | pb | lb
+model.gLike = notAllowed
+model.oddDecl = notAllowed
+model.oddDecl_alternation = notAllowed
+model.oddDecl_sequence = empty
+model.oddDecl_sequenceOptional = empty
+model.oddDecl_sequenceOptionalRepeatable = empty
+model.oddDecl_sequenceRepeatable = notAllowed
+model.phrase.xml = notAllowed
+model.specDescLike = notAllowed
+model.biblLike = notAllowed
+model.biblLike_alternation = notAllowed
+model.biblLike_sequence = empty
+model.biblLike_sequenceOptional = empty
+model.biblLike_sequenceOptionalRepeatable = empty
+model.biblLike_sequenceRepeatable = notAllowed
+model.headLike = head
+model.headLike_alternation = head
+model.headLike_sequence = head
+model.headLike_sequenceOptional = head?
+model.headLike_sequenceOptionalRepeatable = head*
+model.headLike_sequenceRepeatable = head+
+model.labelLike = notAllowed
+model.labelLike_alternation = notAllowed
+model.labelLike_sequence = empty
+model.labelLike_sequenceOptional = empty
+model.labelLike_sequenceOptionalRepeatable = empty
+model.labelLike_sequenceRepeatable = notAllowed
+model.listLike = \list
+model.listLike_alternation = \list
+model.listLike_sequence = \list
+model.listLike_sequenceOptional = \list?
+model.listLike_sequenceOptionalRepeatable = \list*
+model.listLike_sequenceRepeatable = \list+
+model.noteLike = note
+model.lLike = notAllowed
+model.lLike_alternation = notAllowed
+model.lLike_sequence = empty
+model.lLike_sequenceOptional = empty
+model.lLike_sequenceOptionalRepeatable = empty
+model.lLike_sequenceRepeatable = notAllowed
+model.pLike = p
+model.pLike_alternation = p
+model.pLike_sequence = p
+model.pLike_sequenceOptional = p?
+model.pLike_sequenceOptionalRepeatable = p*
+model.pLike_sequenceRepeatable = p+
+model.stageLike = notAllowed
+model.stageLike_alternation = notAllowed
+model.stageLike_sequence = empty
+model.stageLike_sequenceOptional = empty
+model.stageLike_sequenceOptionalRepeatable = empty
+model.stageLike_sequenceRepeatable = notAllowed
+model.global.edit = notAllowed
+model.divPart = model.lLike | model.pLike
+model.placeNamePart = notAllowed
+model.placeNamePart_alternation = notAllowed
+model.placeNamePart_sequence = empty
+model.placeNamePart_sequenceOptional = empty
+model.placeNamePart_sequenceOptionalRepeatable = empty
+model.placeNamePart_sequenceRepeatable = notAllowed
+model.placeStateLike = model.placeNamePart
+model.placeStateLike_alternation = model.placeNamePart_alternation
+model.placeStateLike_sequence = model.placeNamePart_sequence
+model.placeStateLike_sequenceOptional =
+  model.placeNamePart_sequenceOptional?
+model.placeStateLike_sequenceOptionalRepeatable =
+  model.placeNamePart_sequenceOptionalRepeatable*
+model.placeStateLike_sequenceRepeatable =
+  model.placeNamePart_sequenceRepeatable+
+model.publicationStmtPart.agency = notAllowed
+model.publicationStmtPart.detail = date
+model.quoteLike = quote
+model.quoteLike_alternation = quote
+model.quoteLike_sequence = quote
+model.quoteLike_sequenceOptional = quote?
+model.quoteLike_sequenceOptionalRepeatable = quote*
+model.quoteLike_sequenceRepeatable = quote+
+model.qLike = model.quoteLike
+model.qLike_alternation = model.quoteLike_alternation
+model.qLike_sequence = model.quoteLike_sequence
+model.qLike_sequenceOptional = model.quoteLike_sequenceOptional?
+model.qLike_sequenceOptionalRepeatable =
+  model.quoteLike_sequenceOptionalRepeatable*
+model.qLike_sequenceRepeatable = model.quoteLike_sequenceRepeatable+
+model.respLike = respStmt
+model.divWrapper = notAllowed
+model.divTopPart = model.headLike
+model.divTop = model.divWrapper | model.divTopPart
+model.divBottomPart = notAllowed
+model.divBottom = model.divWrapper | model.divBottomPart
+model.addressLike = notAllowed
+model.addressLike_alternation = notAllowed
+model.addressLike_sequence = empty
+model.addressLike_sequenceOptional = empty
+model.addressLike_sequenceOptionalRepeatable = empty
+model.addressLike_sequenceRepeatable = notAllowed
+model.nameLike =
+  model.nameLike.agent
+  | model.offsetLike
+  | model.placeStateLike
+  | model.persNamePart
+model.nameLike_alternation =
+  model.nameLike.agent_alternation
+  | model.offsetLike_alternation
+  | model.placeStateLike_alternation
+  | model.persNamePart_alternation
+model.nameLike_sequence =
+  model.nameLike.agent_sequence,
+  model.offsetLike_sequence,
+  model.placeStateLike_sequence,
+  model.persNamePart_sequence
+model.nameLike_sequenceOptional =
+  model.nameLike.agent_sequenceOptional?,
+  model.offsetLike_sequenceOptional?,
+  model.placeStateLike_sequenceOptional?,
+  model.persNamePart_sequenceOptional?
+model.nameLike_sequenceOptionalRepeatable =
+  model.nameLike.agent_sequenceOptionalRepeatable*,
+  model.offsetLike_sequenceOptionalRepeatable*,
+  model.placeStateLike_sequenceOptionalRepeatable*,
+  model.persNamePart_sequenceOptionalRepeatable*
+model.nameLike_sequenceRepeatable =
+  model.nameLike.agent_sequenceRepeatable+,
+  model.offsetLike_sequenceRepeatable+,
+  model.placeStateLike_sequenceRepeatable+,
+  model.persNamePart_sequenceRepeatable+
+model.global =
+  model.global.meta
+  | model.milestoneLike
+  | model.noteLike
+  | model.global.edit
+model.pPart.data =
+  model.dateLike
+  | model.measureLike
+  | model.addressLike
+  | model.nameLike
+model.inter =
+  model.egLike
+  | model.oddDecl
+  | model.biblLike
+  | model.labelLike
+  | model.listLike
+  | model.stageLike
+  | model.qLike
+model.common = model.divPart | model.inter
+model.phrase =
+  model.segLike
+  | model.highlighted
+  | model.graphicLike
+  | model.pPart.msdesc
+  | model.pPart.edit
+  | model.ptrLike
+  | model.lPart
+  | model.phrase.xml
+  | model.specDescLike
+  | model.pPart.data
+model.limitedPhrase =
+  model.hiLike
+  | model.emphLike
+  | model.pPart.msdesc
+  | model.pPart.editorial
+  | model.ptrLike
+  | model.phrase.xml
+  | model.pPart.data
+model.divLike = \div
+model.divGenLike = notAllowed
+model.div1Like = notAllowed
+model.teiHeaderPart = notAllowed
+model.sourceDescPart = notAllowed
+model.resourceLike = notAllowed
+p =
+  
+  ## (paragraph) marks paragraphs in prose. [3.1.  7.2.5. ]
+  element p {
+    macro.paraContent,
+    att.global.attribute.n,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "head"
+         | 
+           ##
+           "verso")+
+      }
+    }?,
+    empty
+  }
+foreign =
+  
+  ## identifies a word or phrase as belonging to some language other than that of the surrounding text. [3.3.2.1. ]
+  element foreign {
+    macro.phraseSeq, att.global.attribute.xmllang, empty
+  }
+hi =
+  
+  ## (highlighted) marks a word or phrase as graphically distinct from the surrounding text, for reasons concerning which no claim is made. [3.3.2.2.  3.3.2. ]
+  element hi {
+    macro.paraContent,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "césure"
+         | 
+           ##
+           "italics"
+         | 
+           ##
+           "itlics"
+         | 
+           ##
+           "rend"
+         | 
+           ##
+           "sup")+
+      }
+    }?,
+    empty
+  }
+quote =
+  
+  ## (quotation) contains a phrase or passage attributed by the narrator or author to some agency external to the text. [3.3.3.  4.3.1. ]
+  element quote { macro.specialPara }
+sic =
+  
+  ## (Latin for thus or so
+  ##    ) contains text reproduced although apparently incorrect or inaccurate. [3.4.1. ]
+  element sic { macro.paraContent }
+add =
+  
+  ## (addition) contains letters, words, or phrases inserted in the source text by an author, scribe, or a previous annotator or corrector. [3.4.3. ]
+  element add {
+    macro.paraContent,
+    att.transcriptional.attribute.hand,
+    att.editLike.attribute.instant,
+    att.responsibility.attribute.resp,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "autreMain")+
+      }
+    }?,
+    
+    ## indicates the effect of the intervention, for example in the case of a deletion, strikeouts which include too much or too little text, or in the case of an addition, an insertion which duplicates some of the text already present.
+    [ a:defaultValue = "unremarkable" ]
+    attribute status {
+      
+      ##
+      "unremarkable"
+    }?,
+    
+    ## specifies where this item is placed
+    attribute place {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "bottom"
+         | 
+           ##
+           "endOfLine"
+         | 
+           ##
+           "endOfPar"
+         | 
+           ##
+           "enfOfLine"
+         | 
+           ##
+           "enfOfLines"
+         | 
+           ##
+           "intelinear"
+         | 
+           ##
+           "interlinar"
+         | 
+           ##
+           "interlinear"
+         | 
+           ##
+           "leftMArgin"
+         | 
+           ##
+           "leftMargin"
+         | 
+           ##
+           "rightMargin")+
+      }
+    }?,
+    empty
+  }
+del =
+  
+  ## (deletion) contains a letter, word, or passage deleted, marked as deleted, or otherwise indicated as superfluous or spurious in the copy text by an author, scribe, or a previous annotator or corrector. [3.4.3. ]
+  element del {
+    macro.paraContent,
+    att.editLike.attribute.instant,
+    att.responsibility.attribute.resp,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         ""
+         | 
+           ##
+           "biffé"
+         | 
+           ##
+           "grattage"
+         | 
+           ##
+           "overstrike"
+         | 
+           ##
+           "scratched"
+         | 
+           ##
+           "underline_dotted"
+         | 
+           ##
+           "underlined"
+         | 
+           ##
+           "underlined_dotted")+
+      }
+    }?,
+    empty
+  }
+unclear =
+  
+  ## contains a word, phrase, or passage which cannot be transcribed with certainty because it is illegible or inaudible in the source. [11.3.3.1.  3.4.3. ]
+  element unclear {
+    macro.paraContent,
+    att.editLike.attribute.instant,
+    
+    ## indicates why the material is hard to transcribe.
+    attribute reason {
+      list { data.word+ }
+    }?,
+    empty
+  }
+name =
+  
+  ## (name, proper noun) contains a proper noun or noun phrase. [3.5.1. ]
+  element name {
+    macro.phraseSeq,
+    att.global.attribute.xmllang,
+    att.canonical.attribute.key,
+    att.editLike.attribute.instant,
+    empty
+  }
+date =
+  
+  ## contains a date in any format. [3.5.4.  2.2.4.  2.5.  3.11.2.4.  15.2.3.  13.3.6. ]
+  element date {
+    (text | model.gLike | model.phrase | model.global)*,
+    att.datable.attributes,
+    att.editLike.attribute.instant,
+    att.responsibility.attribute.cert,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "debut"
+      | 
+        ##
+        "fin"
+    }?,
+    empty
+  }
+\list =
+  
+  ## contains any sequence of items organized as a list. [3.7. ]
+  element list {
+    (model.divTop | model.global)*,
+    ((item, model.global*)+ | (model.global*, item, model.global*)+),
+    (model.divBottom, model.global*)*
+  }
+item =
+  
+  ## contains one component of a list. [3.7.  2.5. ]
+  element item { macro.specialPara }
+head =
+  
+  ## (heading) contains any type of heading, for example the title of a section, or the heading of a list, glossary, manuscript description, etc. [4.2.1. ]
+  element head {
+    (text
+     | model.gLike
+     | model.phrase
+     | model.inter
+     | model.lLike
+     | model.global)*
+  }
+note =
+  
+  ## contains a note or annotation. [3.8.1.  2.2.6.  3.11.2.8.  9.3.5.4. ]
+  element note {
+    macro.specialPara,
+    
+    ## specifies where this item is placed
+    attribute place {
+      list {
+        (
+         ##
+         "foot")+
+      }
+    }?,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "césure"
+      | 
+        ##
+        "refbibl"
+    }?,
+    
+    ## indicates whether the copy text shows the exact place of reference for the note.
+    [ a:defaultValue = "true" ] attribute anchored { data.truthValue }?,
+    empty
+  }
+milestone =
+  
+  ## marks a boundary point separating any kind of section of a text, typically but not necessarily indicating a point at which some part of a standard reference system changes, where the change is not represented by a structural element. [3.10.3. ]
+  element milestone {
+    empty,
+    att.global.attribute.n,
+    
+    ## provides a conventional name for the kind of section changing at this milestone.
+    attribute unit {
+      
+      ##
+      "vue"
+    },
+    empty
+  }
+pb =
+  
+  ## (page break) marks the start of a new page in a paginated document. [3.10.3. ]
+  element pb { empty, att.global.attribute.n, empty }
+lb =
+  
+  ## (line break) marks the start of a new (typographic) line in some edition or version of a text. [3.10.3.  7.2.5. ]
+  element lb { empty }
+respStmt =
+  
+  ## (statement of responsibility) supplies a statement of responsibility for the intellectual content of a text, edition, recording, or series, where the specialized elements for authors, editors, etc. do not suffice or do not apply. May also be used to encode information about individuals or organizations which have played a role in the production or distribution of a bibliographic work. [3.11.2.2.  2.2.1.  2.2.2.  2.2.5. ]
+  element respStmt {
+    (resp+, model.nameLike.agent+) | (model.nameLike.agent+, resp+)
+  }
+resp =
+  
+  ## (responsibility) contains a phrase describing the nature of a person's intellectual responsibility, or an organization's role in the production or distribution of a work. [3.11.2.2.  2.2.1.  2.2.2.  2.2.5. ]
+  element resp { macro.phraseSeq.limited }
+title =
+  
+  ## contains a title for any kind of work. [3.11.2.2.  2.2.1.  2.2.5. ]
+  element title { macro.paraContent }
+teiHeader =
+  
+  ## (TEI header) supplies the descriptive and declarative information making up an electronic title page for every TEI-conformant document. [2.1.1.  15.1. ]
+  element teiHeader { fileDesc, model.teiHeaderPart*, revisionDesc? }
+fileDesc =
+  
+  ## (file description) contains a full bibliographic description of an electronic file. [2.2.  2.1.1. ]
+  element fileDesc {
+    (titleStmt, editionStmt?, publicationStmt, seriesStmt?), sourceDesc+
+  }
+titleStmt =
+  
+  ## (title statement) groups information about the title of a work and those responsible for its content. [2.2.1.  2.2. ]
+  element titleStmt { title+, model.respLike* }
+editionStmt =
+  
+  ## (edition statement) groups information relating to one edition of a text. [2.2.2.  2.2. ]
+  element editionStmt { model.pLike+ | (edition, model.respLike*) }
+edition =
+  
+  ## describes the particularities of one edition of a text. [2.2.2. ]
+  element edition { macro.phraseSeq }
+publicationStmt =
+  
+  ## (publication statement) groups information concerning the publication or distribution of an electronic or other text. [2.2.4.  2.2. ]
+  element publicationStmt {
+    (model.publicationStmtPart.agency,
+     model.publicationStmtPart.detail*)+
+    | model.pLike+
+  }
+seriesStmt =
+  
+  ## (series statement) groups information about the series, if any, to which a publication belongs. [2.2.5.  2.2. ]
+  element seriesStmt {
+    model.pLike+
+    | (title+, (respStmt)*, empty*)
+  }
+sourceDesc =
+  
+  ## (source description) describes the source from which an electronic text was derived or generated, typically a bibliographic description in the case of a digitized text, or a phrase such as "born digital" for a text which has no previous existence. [2.2.7. ]
+  element sourceDesc {
+    model.pLike+
+    | (model.biblLike | model.sourceDescPart | model.listLike)+
+  }
+revisionDesc =
+  
+  ## (revision description) summarizes the revision history for a file. [2.5.  2.1.1. ]
+  element revisionDesc { \list | change+ }
+change =
+  
+  ## documents a change or set of changes made during the production of a source document, or during the revision of an electronic file. [2.5.  2.4.1.  11.7. ]
+  element change { macro.specialPara, att.global.attribute.n, empty }
+model.persNamePart = roleName
+model.persNamePart_alternation = roleName
+model.persNamePart_sequence = roleName
+model.persNamePart_sequenceOptional = roleName?
+model.persNamePart_sequenceOptionalRepeatable = roleName*
+model.persNamePart_sequenceRepeatable = roleName+
+att.datable.iso.attributes = att.datable.iso.attribute.from-iso
+att.datable.iso.attribute.from-iso =
+  
+  ## indicates the starting point of the period in standard form.
+  attribute from-iso { data.temporal.iso }?
+orgName =
+  
+  ## (organization name) contains an organizational name. [13.2.2. ]
+  element orgName {
+    macro.phraseSeq, att.editLike.attribute.instant, empty
+  }
+persName =
+  
+  ## (personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. ]
+  element persName {
+    macro.phraseSeq, att.editLike.attribute.instant, empty
+  }
+roleName =
+  
+  ## contains a name component which indicates that the referent has a particular role or position in society, such as an official title or rank. [13.2.1. ]
+  element roleName { macro.phraseSeq }
+TEI =
+  
+  ## (TEI document) contains a single TEI-conformant document, comprising a TEI header and a text, either in isolation or as part of a teiCorpus element. [4.  15.1. ]
+  element TEI {
+    (teiHeader,
+     ((model.resourceLike+, \text?) | \text))
+    >> sch:ns [ prefix = "tei" uri = "http://www.tei-c.org/ns/1.0" ]
+    >> sch:ns [ prefix = "xs" uri = "http://www.w3.org/2001/XMLSchema" ]
+    >> sch:ns [
+         prefix = "rng"
+         uri = "http://relaxng.org/ns/structure/1.0"
+       ],
+    att.global.attribute.xmlid,
+    empty
+  }
+\text =
+  
+  ## contains a single text of any kind, whether unitary or composite, for example a poem or drama, a collection of essays, a novel, a dictionary, or a corpus sample. [4.  15.1. ]
+  element text { model.global*, (body), model.global* }
+body =
+  
+  ## (text body) contains the whole body of a single unitary text, excluding any front or back matter. [4. ]
+  element body {
+    model.global*,
+    (model.divTop, (model.global | model.divTop)*)?,
+    (model.divGenLike, (model.global | model.divGenLike)*)?,
+    ((model.divLike, (model.global | model.divGenLike)*)+
+     | (model.div1Like, (model.global | model.divGenLike)*)+
+     | ((model.common, model.global*)+,
+        ((model.divLike, (model.global | model.divGenLike)*)+
+         | (model.div1Like, (model.global | model.divGenLike)*)+)?)),
+    (model.divBottom, model.global*)*
+  }
+\div =
+  
+  ## (text division) contains a subdivision of the front, body, or back of a text. [4.1. ]
+  element div {
+    ((model.divTop | model.global)*,
+     ((((model.divLike | model.divGenLike), model.global*)+
+       | ((model.common, model.global*)+,
+          ((model.divLike | model.divGenLike), model.global*)*)),
+      (model.divBottom, model.global*)*)?),
+    att.global.attribute.xmlid,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "annex"
+      | 
+        ##
+        "recepte"
+      | 
+        ##
+        "sub"
+      | 
+        ##
+        "subaccount"
+      | 
+        ##
+        "verso"
+    }?,
+    empty
+  }
+damage =
+  
+  ## contains an area of damage to the text witness. [11.3.3.1. ]
+  element damage {
+    macro.paraContent,
+    att.dimensions.attribute.extent,
+    
+    ## characterizes the element in some sense, using any convenient classification scheme or typology.
+    attribute type {
+      
+      ##
+      "encre_délavée"
+      | 
+        ##
+        "parchemin_froissé"
+      | 
+        ##
+        "support_détruit"
+      | 
+        ##
+        "support_endommagé"
+    }?,
+    
+    ## categorizes the cause of the damage, if it can be identified.
+    attribute agent {
+      
+      ##
+      "parchemin_froissé"
+    }?,
+    empty
+  }
+subst =
+  
+  ## (substitution) groups one or more deletions with one or more additions when the combination is to be regarded as a single intervention in the text. [11.3.1.5. ]
+  element subst {
+    ((add | del | model.milestoneLike)+)
+    >> sch:pattern [
+         id = "castellanie-subst-substContents1-constraint-2"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:subst"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "child::tei:add and child::tei:del"
+             "\x{a}" ~
+             "                  "
+             sch:name [ ]
+             " must have at least one child add and at least one child del"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    att.editLike.attribute.instant,
+    empty
+  }
+supplied =
+  
+  ## signifies text supplied by the transcriber or editor for any reason, typically because the original cannot be read because of physical damage or loss to the original. [11.3.3.1. ]
+  element supplied {
+    macro.paraContent,
+    att.editLike.attribute.instant,
+    
+    ## (rendition) indicates how the element in question was rendered or presented in the source text.
+    attribute rend {
+      list {
+        (
+         ##
+         "détruit"
+         | 
+           ##
+           "support")+
+      }
+    }?,
+    
+    ## one or more words indicating why the text has had to be supplied, e.g. overbinding, faded-ink, lost-folio, omitted-in-original.
+    attribute reason {
+      list { data.word+ }
+    }?,
+    empty
+  }
+start = TEI
