@@ -1,0 +1,31 @@
+
+    <schemaSpec ns="" start="book" ident="bookSchema">
+        <elementSpec ident="book">
+            <desc>Root element for a very simple schema</desc>
+            <content>
+                <alternate minOccurs="1" maxOccurs="unbounded">
+                    <elementRef key="para"/>
+                    <elementRef key="picture"/>
+                </alternate>
+            </content>
+        </elementSpec>
+      
+            <elementSpec ident="para">
+                <desc>paragraph of running text</desc>
+                <content><textNode/></content>
+            </elementSpec>
+            
+            <elementSpec ident="picture">
+                <desc>empty element pointing to a graphic file</desc>
+                <content/>           
+                <attList>
+                    <attDef ident="href">
+                        <desc>supplies the URI of the graphic pointed at</desc>
+                        <datatype>
+                            <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                        </datatype>
+                    </attDef>
+                </attList>
+            </elementSpec>
+            
+</schemaSpec>

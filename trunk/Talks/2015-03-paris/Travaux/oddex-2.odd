@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>My First ODD</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <p>In this very simple schema, the root element is called <gi>book</gi> and it can contain
+            the following elements: <specList>
+               <specDesc key="para"/>
+               <specDesc key="picture" atts="href"/>
+            </specList></p>
+         <schemaSpec ns="" start="book" ident="bookSchema">
+            <classSpec ident="bookPart" type="model">
+               <desc>groups the elements representing parts of a book</desc>
+            </classSpec>
+            <classSpec ident="pointing" type="atts">
+               <desc>provides the href attribute for all pointing elements</desc>
+               <attList>
+                  <attDef ident="href">
+                     <desc>supplies the URI of the object pointed at</desc>
+                     <datatype>
+                        <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                     </datatype>
+                  </attDef>
+               </attList>
+            </classSpec>
+            <elementSpec ident="book">
+               <desc>Root element for a very simple schema</desc>
+               <content>
+                  <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
+               </content>
+            </elementSpec>
+            <elementSpec ident="para">
+               <desc>paragraph of running text</desc>
+               <classes>
+                  <memberOf key="bookPart"/>
+               </classes>
+               <content><textNode/></content>
+            </elementSpec>
+            <elementSpec ident="picture">
+               <desc>empty element pointing to a graphic file</desc>
+               <classes>
+                  <memberOf key="bookPart"/>
+                  <memberOf key="pointing"/>
+               </classes>
+               <content/>
+            </elementSpec>
+         </schemaSpec>
+      </body>
+   </text>
+</TEI>
