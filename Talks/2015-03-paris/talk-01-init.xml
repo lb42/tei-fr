@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../teitalks.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title xml:lang="en">An ODD Initiation</title>
+        <title xml:lang="fr">Initiation ODD</title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <p xml:lang="en">As presented at TEI MM 2014</p>
+        <p xml:lang="fr">Préparé pour ENC MasterPro 2015</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>From previous talks in Tours, Paris, Barcelona, Paris, Graz...</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change who="#LB" when="2014-09-23">Revised for MM14</change>
+      <change who="#LB" when="2014-02-17">Revised for Mutec</change>
+      <change who="#LB" when="2013-10-20">Finalised for SUFCO formation, Oct 2013</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div xml:lang="en">
+        <head>Why might you need an ODD?</head>
+        <list>
+          <item>You need to define an XML schema to describe your resource</item>
+          <item>You need to provide documentation about <list>
+              <item>the semantics of your XML schema</item>
+              <item>constraints, usage notes, examples</item>
+            </list></item>
+          <item>You need to keep the two in step</item>
+          <item>You want to share the results <list>
+              <item>with others</item>
+              <item>with yourself, long term</item>
+            </list></item>
+          <item>you don't want to reinvent the wheel</item>
+        </list>
+      </div>
+      <div xml:lang="fr">
+        <head>A quoi ca sert, un ODD? </head>
+        <p>Nous avons besoins de plusieurs choses : <list>
+            <item>un schéma formel (utilisant un langage informatique tel que DTD, RELAX NG, W3C
+              Schema, Schematron) qui peut contrôler : <list>
+                <item>quelles balises sont disponibles ?</item>
+                <item>dans quels contextes ?</item>
+                <item>avec quels attributs ?</item>
+                <item>avec quelles valeur ?</item>
+                <item>en respectant quelles contraintes ?</item>
+              </list>
+            </item>
+            <item>Une documentation pour expliciter nos principes éditoriaux, nos principes de choix
+              de balises, etc. aux utilisateurs / developpeurs : <list>
+                <item>dans plusieurs langues naturelles ;</item>
+                <item>dans plusieurs formats de fichiers (PDF, Word, HTML, epub...).</item>
+              </list></item>
+            <item>Des outils informatiques pour transformer et gérer nos données XML.</item>
+          </list></p>
+      </div>
+      <div xml:lang="en">
+        <head>ODD : the basic notion</head>
+        <p rend="box"><hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it all</p>
+        <p>A special XML vocabulary for defining.... <list>
+            <item>schemas</item>
+            <item>XML element types independent of a particular schema language</item>
+            <item>public or private groups of such elements </item>
+            <item>patterns (macros) </item>
+            <item>classes (and subclasses) of element</item>
+          </list>
+        </p>
+        <p>And also for defining references which can pull into a schema <list>
+            <item>named components from the above list</item>
+            <item>objects from other namespaces</item>
+          </list></p>
+        <p rend="box">And also closely integrated with a set of traditional document markup
+          elements</p>
+      </div>
+      <div xml:lang="fr">
+        <head>L'idée essentielle de ODD</head>
+        <p rend="box"><hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it all</p>
+        <p>Un vocabulaire spécialisé pour la définition :<list>
+            <item>des schémas</item>
+            <item>des types d'élément XML, indépendant des schémas</item>
+            <item>des regroupements de tels éléments, publics ou privés </item>
+            <item>des patrons (MLE macros) </item>
+            <item>des classes (et sous-classes) d'éléments</item>
+            <item>des références de tels objets</item>
+          </list>
+        </p>
+        <p>Un schéma peut combiner :<list>
+            <item>des objets identifiables (dans la liste ci-dessus)</item>
+            <item>des objets appartenant à d'autres espaces de nom</item>
+          </list></p>
+        <p rend="box">et devrait etre intégrable à un système de balisage documentaire classique</p>
+      </div>
+      <div xml:lang="en">
+        <head>Basic ODD components for schema definition</head>
+        <list type="gloss">
+          <label><gi>schemaSpec</gi></label>
+          <item>Defines and identifies a schema</item>
+          <label><gi>elementSpec</gi></label>
+          <item>Provides some or all of an element specification</item>
+          <label><gi>elementRef</gi></label>
+          <item>References an existing element specification</item>
+          <label><gi>classSpec</gi>, <gi>classRef</gi></label>
+          <item>Likewise, for classes</item>
+          <label><gi>attDef</gi>, <gi>attRef</gi></label>
+          <item>Likewise, for attributes</item>
+          <label><gi>moduleRef</gi></label>
+          <item>References an existing <soCalled>module</soCalled> i.e. a group of predefined
+            elements and attributes, entirely or partially</item>
+        </list>
+        <p rend="box">(We discuss documentary components of an ODD later)</p>
+      </div>
+      <div xml:lang="fr">
+        <head>Eléments essentiel d'un ODD</head>
+        <list type="label">
+          <label><gi>schemaSpec</gi></label>
+          <item>définit et identifie un schéma</item>
+          <label><gi>elementSpec</gi></label>
+          <item>fournit une définition d'élément, entièrement ou en partie</item>
+          <label><gi>elementRef</gi></label>
+          <item>utilise une définition d'un élément existant</item>
+          <label><gi>classSpec</gi></label>
+          <item>fournit une définition d'une classe</item>
+          <label><gi>classRef</gi></label>
+          <item>utilise une définition de classe existante</item>
+          <label><gi>moduleRef</gi></label>
+          <item>fournit un ensemble de spécifications d'éléments en faisant référence à un
+              <soCalled>module</soCalled>
+          </item>
+        </list>
+        <p rend="box">(Nous revenons plus tard sur les composants documentaire d'un ODD )</p>
+
+      </div>
+      <div xml:lang="en">
+        <head>A simple example</head>
+        <p rend="box">Our markup uses a <gi>book</gi> element, which contains a mixture of
+            <gi>para</gi>s and <gi>picture</gi>s. We have never heard of the TEI and we don't want
+          to use it. </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <schemaSpec ns="" start="book" ident="bookSchema">
+            <elementSpec ident="book">
+              <desc>Root element for a very simple schema</desc>
+              <content>
+                <alternate maxOccurs="unbounded">
+                  <elementRef key="para"/>
+                  <elementRef key="picture"/>
+                </alternate>
+              </content>
+            </elementSpec>
+            <!-- ... continues on next slide -->
+          </schemaSpec>
+        </egXML>
+      </div>
+      <div xml:lang="fr">
+        <head>Premier exemple simplissime</head>
+        <p rend="box">Nous utilisons un élément <gi>book</gi>, qui contient un mélange des
+            <gi>para</gi>s et de <gi>image</gi>s. Nous ne connaissons rien au sujet de la TEI, et
+          n'en avons pas envie. Pareil pour les espaces de noms.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <schemaSpec ns="" start="book" ident="bookSchema">
+            <elementSpec ident="book">
+              <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
+              <content>
+                <alternate maxOccurs="unbounded">
+                  <elementRef key="para"/>
+                  <elementRef key="image"/>
+                </alternate>
+              </content>
+            </elementSpec>
+            <!-- ... continue au prochain diapo -->
+          </schemaSpec>
+        </egXML>
+      </div>
+      <div xml:lang="en">
+        <head>A simple example, contd.</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <!-- ... contd -->
+          <elementSpec ident="para">
+            <desc>paragraph of running text</desc>
+            <content>
+              <textNode/>
+            </content>
+          </elementSpec>
+          <elementSpec ident="picture">
+            <desc>empty element pointing to a graphic file</desc>
+            <content/>
+            <attList>
+              <attDef ident="href">
+                <desc>supplies the URI of the object pointed at</desc>
+                <datatype>
+                  <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                </datatype>
+              </attDef>
+            </attList>
+          </elementSpec>
+        </egXML>
+      </div>
+
+      <div xml:lang="fr">
+        <head>exemple simplissime (suite)</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+          xmlns:rng="http://relaxng.org/ns/structure/1.0">
+          <schemaSpec ns="" start="stuff" ident="oddex-1">
+            <!-- ... contd -->
+            <elementSpec ident="para">
+              <desc>une paragraph de text </desc>
+              <content>
+                <textNode/>
+              </content>
+            </elementSpec>
+            <elementSpec ident="image">
+              <desc>un élément vide qui pointe sur un fichier graphique</desc>
+              <content/>
+              <attList>
+                <attDef ident="href">
+                  <desc>fournit l' URI de l'objet ciblé</desc>
+                  <datatype>
+                    <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                  </datatype>
+                </attDef>
+              </attList>
+            </elementSpec>
+          </schemaSpec>
+        </egXML>
+      </div>
+      <div xml:lang="en">
+        <head>So what?</head>
+        <list>
+          <item>We can now build a schema in RELAX NG, W3C schema, or DTD language by a simple XSLT
+            transformation</item>
+          <item>We can also extract documentary fragments (e.g. the descriptions of elements and
+            attributes)</item>
+        </list>
+        <p>TEI provides a special element for the latter purpose: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><specList>
+              <specDesc key="para"/>
+              <specDesc key="picture"/>
+            </specList></egXML> which would generate something like <list type="gloss">
+            <label><gi>para</gi></label>
+            <item>une paragraph de text</item>
+            <label><gi>picture</gi></label>
+            <item>Empty element to point at a picture</item>
+          </list> inside our running text</p>
+      </div>
+      <div xml:lang="fr">
+        <head>So what ?</head>
+        <list>
+          <item>On peut maintenant générer un schéma RELAX NG, W3C, ou DTD par une transformation
+            XSLT</item>
+          <item>On peut extraire les fragments documentaires, notamment les descriptions des
+            éléments et des attributs</item>
+        </list>
+        <p>TEI fournit un élément spécialisé pour cela : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><specList>
+              <specDesc key="para"/>
+              <specDesc key="picture"/>
+            </specList></egXML>
+        </p>
+        <p>Ce balisage genera quelque chose comme: <list type="gloss">
+            <label><gi>para</gi></label>
+            <item>textual element in a very simple schema (may have pictures in it) </item>
+            <label><gi>picture</gi></label>
+            <item>un élément vide qui pointe sur un fichier graphique</item>
+          </list>
+        </p>
+
+      </div>
+      <div xml:lang="en" type="tp">
+        <head>Let's try this out ... </head>
+        <list>
+          <item>Start oXygen</item>
+          <item>Make a new document (CTRL-N) using the <ident>TEI-P5 -> ODD Customization</ident>
+            Framework Templates</item>
+          <item>Replace the proposed <gi>schemaSpec</gi> with the content of the file
+              <ident>oddex-1.xml</ident>; add the content of the file <ident>oddex-1-doc.xml</ident>
+            before it; save the result as <ident>oddex-1.odd</ident>
+          </item>
+          <item>Use built-in Transformation Scenarios <ident>TEI ODD to RELAX NG XML</ident> and
+              <ident>TEI ODD to HTML</ident> to generate a schema and its documentation </item>
+          <item>Save the generated schema file as <ident>oddex-1.rng</ident> ; view the displayed
+            documentation </item>
+          <item>Open the test file <ident>oddex-1-test.xml</ident> and associate it with the
+            generated schema; validate the file. </item>
+        </list>
+      </div>
+      <div xml:lang="fr" type="tp">
+        <head>Essayons cela avec oXygen... </head>
+        <list>
+          <item>Démarrez oXygen</item>
+          <item>Créez un nouveau fichier (CTRL-N)</item>
+          <item>Sélectionnez <ident>TEI-P5 -> ODD Customization</ident> dans le menu <ident>Cadre
+              des modèles</ident> du dialog <ident>Nouveau</ident></item>
+          <item>Remplacer l'élément <gi>schemaSpec</gi> proposé par le contenu du fichier
+              <ident>oddex-1.xml</ident></item>
+          <item> Insérez le contenu du fichier <ident>oddex-1-doc.xml </ident>
+            <emph>avant</emph> le nouveau <gi>schemaSpec</gi></item>
+          <item>Enregistrez votre ODD sous le nom <ident>oddex-1.odd</ident></item>
+          <item>Sélectionnez les Scénario de Transformation <ident>TEI ODD to RELAX NG XML</ident>
+            et <ident>TEI ODD to HTML</ident> pour générer un schéma et sa documentation a partir de
+            cet ODD</item>
+          <item>Enregistrer le schéma obtenu sous le nom <ident>oddex-1.rng</ident></item>
+          <item>Associez votre schéma avec le fichier test <ident>odd-test-1.xml</ident> et validez
+            le fichier</item>
+        </list>
+      </div>
+
+      <div xml:lang="en">
+        <head>Defining a model class</head>
+        <p>In the real world, the elements that can appear inside a <gi>book</gi> are likely to be
+          many and various. It's convenient therefore to have a way of talking about all of them: in
+          ODD, we say that all such elements are members of a <term>model class</term>. </p>
+        <p>We use the <gi>classes</gi> element to record an element's membership in a class: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <elementSpec ident="para">
+              <!-- ... -->
+              <classes>
+                <memberOf key="bookPart"/>
+              </classes>
+              <!-- ... -->
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>And for completeness, here's a definition for the <ident>bookPart</ident> class.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <classSpec ident="bookPart" type="model">
+            <desc>the elements of this class all represent top-level parts of a book</desc>
+          </classSpec>
+        </egXML>
+      </div>
+      <div xml:lang="fr">
+        <head>Notions de classe 1</head>
+        <p>Dans le monde réel, le contenu de nos <gi>book</gi> ne se limite pas uniquement aux
+            <gi>para</gi>s et <gi>image</gi>s... on peut regrouper tous les éléments qui ont la
+          possibilité d'apparaître au sein d'un <ident>book</ident> : nous appelons ce regroupement
+          une <term>classe</term>, pour laquelle nous proposons le nom <ident>bookPart</ident>.</p>
+        <p>Nous utilisons l'élément <gi>classes</gi> pour indiquer l'association d'un élément avec
+          une classe : <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <elementSpec ident="para">
+              <!-- ... -->
+              <classes>
+                <memberOf key="bookPart"/>
+              </classes>
+              <!-- ... -->
+            </elementSpec>
+          </egXML>
+        </p>
+        <p>Et voici la définition de la classe <ident>bookPart</ident>.</p>
+
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <classSpec ident="bookPart" type="model">
+            <desc>éléments qui ont la possibilité de figurer dans un <gi>book</gi></desc>
+          </classSpec>
+        </egXML>
+
+
+      </div>
+      <div xml:lang="en">
+        <head>Using a model class</head>
+        <p>Rather than say that a <gi>book</gi> contains <gi>para</gi> elements (and other things),
+          we can now say that it contains members of the <ident>bookPart</ident> class.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec ident="book">
+            <desc>Root element for a very simple schema</desc>
+            <content>
+              <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
+            </content>
+          </elementSpec></egXML>
+        <p>(When we realise that books can also contain <gi>list</gi>s this will save time!)</p>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Usage d'une classe de modelisation</head>
+        <p>Maintenant, au lieu de lister exhaustivement tous les composants possibles d'un
+            <gi>book</gi>, il suffit de dire que cet element est compose des membres de la classe
+            <ident>bookPart</ident> .</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec ident="book">
+            <desc>Root element for a very simple schema</desc>
+            <content>
+              <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
+            </content>
+          </elementSpec></egXML>
+        <p>(Dès que nous découvrons l'existence de listes dans les livres nous saurons quoi faire
+          )</p>
+      </div>
+
+
+      <div xml:lang="en">
+        <head>Defining an attribute class</head>
+        <p>In the real world, it's also likely that several elements will have the same attributes.
+          It's convenient therefore to define them once only: in ODD we say all elements with some
+          attributes in common are members of an <term>attribute class</term>, which we define like
+          this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <classSpec ident="pointing" type="atts">
+              <desc>elements of this class all have an href attribute</desc>
+              <attList>
+                <attDef ident="href">
+                  <desc>supplies a URI for the object pointed at</desc>
+                  <datatype>
+                    <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                  </datatype>
+                </attDef>
+              </attList>
+            </classSpec>
+          </egXML></p>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Definition d'une classe d' attribut</head>
+        <p>Dans le monde réel, il est aussi très probable que plusieurs éléments portent les memes
+          attributs: il sera donc très convénients de les définir une fois seule </p>
+        <p> ODD nous permet de dire que tous les éléments ayant en commun un ensemble d'attributs
+          constituent une classe <term>attribute class</term> que nous définissons ainsi <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <classSpec ident="pointing" type="atts">
+              <desc>les membres de cette classe ont tous un attribut <att>href</att>
+              </desc>
+              <attList>
+                <attDef ident="href">
+                  <desc>fournit l' URI de l'objet ciblé</desc>
+                  <datatype>
+                    <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                  </datatype>
+                </attDef>
+              </attList>
+            </classSpec>
+          </egXML></p>
+      </div>
+
+      <div xml:lang="en">
+        <head>Test your understanding</head>
+        <list>
+          <item>Open the file <ident>oddex-2.odd</ident> with oXygen and compare it with
+              <ident>oddex-1.odd</ident></item>
+          <item>Generate a schema from it and make sure that the test file
+              <ident>oddex-1-test.xml</ident> is still valid</item>
+          <item>Check that you understand how the class references are being used.</item>
+        </list>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Testez votre compréhension</head>
+
+        <list>
+          <item>Ouvrez le fichier <ident>oddex-2.odd</ident> avec oXygen et comparez le avec
+              <ident>oddex-1.odd</ident></item>
+          <item>Créer un nouveau version du schéma à partir de cet ODD</item>
+          <item>Assurez vous que le fichier test <ident>oddex-1-test.xml</ident> reste valide contre
+            cette nouvelle version du schéma </item>
+        </list>
+      </div>
+
+
+
+      <div xml:lang="en">
+        <head>Controlling attribute values</head>
+        <list>
+          <item>The value of an attribute can be specified just by referring to an externally
+            defined datatype such as <code>anyURI </code> or <code>ID</code> (these are W3C defined
+            standards) </item>
+          <item>We can also supply and document our own list of required or recommended values using
+            the <gi>valList</gi> element</item>
+        </list>
+        <p>For example... <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+            xmlns:rng="http://relaxng.org/ns/structure/1.0">
+            <classSpec ident="bookAtts" type="atts">
+              <desc>this class defines the attributes that can appear on any element inside a
+                book</desc>
+              <attList>
+                <attDef ident="xml:id">
+                  <desc>provides a unique identifier for an element</desc>
+                  <datatype>
+                    <data xmlns="http://relaxng.org/ns/structure/1.0" type="ID"/>
+                  </datatype>
+                </attDef>
+                <attDef ident="status">
+                  <desc>indicates the correction status of this element </desc>
+                  <valList>
+                    <valItem ident="red"/>
+                    <valItem ident="green"/>
+                    <valItem ident="unknown"/>
+                  </valList>
+                </attDef>
+              </attList>
+            </classSpec>
+          </egXML></p>
+      </div>
+      <div xml:lang="fr">
+        <head>Classe d'attribut: un exemple</head>
+        <p>Les valeurs possible d'un attribut peuvent etre controlles de plusieurs manieres: <list>
+            <item>Par reference a un <term>datatype</term> (type de donnee) externe, par ex
+                <code>anyURI </code> or <code>ID</code> (ce sont des datatypes standard, definis par
+              le W3C)</item>
+            <item>En fournissant notre propre liste des valeurs avec l'element <gi>valList</gi>
+            </item>
+          </list></p>
+        <p>Par exemple... <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+            xmlns:rng="http://relaxng.org/ns/structure/1.0">
+            <classSpec ident="bookAtts" type="atts">
+              <desc>attributs applicables aux objets contenus par des <gi>book</gi></desc>
+              <attList>
+                <attDef ident="xml:id">
+                  <desc>fournit un identifiant unique pour le composant</desc>
+                  <datatype>
+                    <data xmlns="http://relaxng.org/ns/structure/1.0" type="ID"/>
+                  </datatype>
+                </attDef>
+                <attDef ident="status">
+                  <desc>indique le status de l'element </desc>
+                  <valList>
+                    <valItem ident="red"/>
+                    <valItem ident="green"/>
+                    <valItem ident="unknown"/>
+                  </valList>
+                </attDef>
+              </attList>
+            </classSpec>
+          </egXML></p>
+      </div>
+      <div xml:lang="en">
+        <head>Test your understanding</head>
+        <list>
+          <item>The preceding attribute class definition is available in your file
+              <ident>oddex-3.xml</ident>. Add it into your <ident>oddex-2.odd</ident> file</item>
+          <item>Provide appropriate <gi>memberOf</gi> elements for the elements <gi>para</gi> and
+              <gi>pointer</gi> to make them both members of the <ident>bookAtts</ident> class</item>
+          <item>Generate a schema and check that the <ident>oddex-1-test.xml</ident> file is
+              <emph>still</emph> valid against this version of the schema.</item>
+          <item>Check that oXygen now permits the attributes <att>xml:id</att> and
+            <att>status</att>. What values can be used for them?</item>
+        </list>
+      </div>
+      <div xml:lang="fr">
+        <head>Tester votre compréhension...</head>
+        <list>
+          <item>Insérez dans votre fichier <ident>oddex-2.odd</ident>la définition d'une classe
+            d'attribut (il y en a une dans le fichier <ident>oddex-3.xml</ident>)</item>
+          <item>Ajoutez un <gi>memberOf</gi> pour les éléments qui vont participer à cette
+            classe</item>
+          <item>Générez un schéma et assurez-vous que le fichier <ident>odd-test-1.xml</ident> reste
+            valide avec cette version du schéma.</item>
+          <item>Contrôlez que oXygen vous propose ces nouveaux attributs, et qu'il contraint les
+            valeurs possibles</item>
+        </list>
+      </div>
+      <div xml:lang="en">
+        <head>What else might you want to say about your elements?</head>
+        <list>
+          <item>Additional glosses and descriptions, perhaps in different languages</item>
+          <item>Usage examples</item>
+          <item>More sophisticated constraints <list>
+              <item>complex content models</item>
+              <item>contextual dependencies</item>
+            </list></item>
+        </list>
+        <p rend="box">Plus other documentary features : versioning, cross references, ontological
+          mappings ...</p>
+      </div>
+      <div xml:lang="fr">
+        <head>Qu'est-ce qu'on pourrait vouloir ajouter pour boien documenter son systeme?</head>
+        <p>Peut-etre ... <list>
+            <item>Des gloses, des descriptions en plusieurs langues</item>
+            <item>Des exemples d'usage</item>
+            <item>des contraintes plus sophistiqués <list>
+                <item>modeles de contenu plus complexes</item>
+                <item>contraintes variantes selon le contexte</item>
+              </list></item>
+          </list></p>
+        <p rend="box">Et comme tout projet de documentation : versioning, referencements ailleurs,
+          mapping ontologique....</p>
+      </div>
+      <div xml:lang="en">
+        <head>Descriptions and glosses</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec ident="para">
+            <gloss>paragraph</gloss>
+            <desc>marks paragraphs in prose.</desc>
+            <desc xml:lang="zh-tw">標記散文的段落。</desc>
+            <desc xml:lang="ja"> 散文の段落を示す． </desc>
+            <desc xml:lang="fr">marque les paragraphes dans un texte en prose.</desc>
+            <desc xml:lang="es">marca párrafos en prosa.</desc>
+            <desc xml:lang="it">indica i paragrafi in prosa</desc>
+            <!-- ... -->
+          </elementSpec>
+        </egXML>
+      </div>
+      <div xml:lang="fr">
+        <head>Descriptions et gloses</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec ident="para">
+            <gloss>paragraph</gloss>
+            <desc>marks paragraphs in prose.</desc>
+            <desc xml:lang="zh-tw">標記散文的段落。</desc>
+            <desc xml:lang="ja"> 散文の段落を示す． </desc>
+            <desc xml:lang="fr">marque les paragraphes dans un texte en prose.</desc>
+            <desc xml:lang="es">marca párrafos en prosa.</desc>
+            <desc xml:lang="it">indica i paragrafi in prosa</desc>
+            <!-- ... -->
+          </elementSpec>
+        </egXML>
+      </div>
+
+      <div xml:lang="en">
+        <head>Usage examples</head>
+        <p>Documenting an XML schema requires the inclusion of examples in XML. If your
+          documentation is also in XML, you need to be a little devious. There are three possible
+          approaches: <list>
+            <item>hide everything within a CDATA marked section</item>
+            <item>Escape everything using entity references</item>
+            <item>Use a different name space</item>
+          </list>
+        </p>
+        <p rend="box">The last has the great advantage that you can validate your examples against
+          an XML schema</p>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Exemples d'usage</head>
+        <p>Evidemment, si on decrit un schema XML schema on va inclure des exemple d'usage en XML.
+          Si la documentationm s'exprime egalement en XML, il faut etre astucieux... Il y a trois
+          approches possibles : <list>
+            <item>tout cacher avec un "CDATA marked section" (magique hérité de SGML)</item>
+            <item>tout echapper en utilisent des "references" (<code>&amp;amp;lt;</code> etc)</item>
+            <item>utiliser un autre espace de nommage</item>
+          </list>
+        </p>
+        <p rend="box">Le dernier vous permet de valider vos exemples : un plus tres avantageux</p>
+      </div>
+      <div xml:lang="en">
+        <head>For example </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <eg>&lt;![CDATA[&lt;p>A paragraph&lt;/p> &#93;]></eg>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <eg>
+            <code lang="XML">&amp;lt;p>A paragraph&amp;lt;/p></code></eg></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> &lt;egXML
+          xmlns="http://www.tei-c.org/ns/Examples"> <p>A paragraph</p> &lt;/egXML></egXML>
+      </div>
+      <div xml:lang="fr">
+        <head>Par exemple </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <eg>&lt;![CDATA[&lt;p>un paragraphe&lt;/p> &#93;]></eg>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <eg>
+            <code lang="XML">&amp;lt;p>un paragraphe&amp;lt;/p></code></eg></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> &lt;egXML
+          xmlns="http://www.tei-c.org/ns/Examples"> <p>un paragraphe</p> &lt;/egXML></egXML>
+      </div>
+      <div xml:lang="en">
+        <head>More sophisticated constraints</head>
+        <list>
+          <item>We can define the legal content of an element using <soCalled>pure ODD</soCalled>
+            constructs</item>
+          <item>Alternatively we can use RELAX NG directly </item>
+          <item>Content can be further constrained by means of a <gi>valList</gi> element ... </item>
+          <item>... or by means of a <gi>datatype</gi> element (which uses RELAX NG) </item>
+          <item>Contextual dependencies can be expressed by means of <gi>constraint</gi> elements
+            (which use e.g. ISO Schematron) </item>
+        </list>
+        <p rend="box">We will introduce these possibilities gradually !</p>
+      </div>
+      <div xml:lang="fr">
+        <head>Des contraintes plus sophistiqués </head>
+        <list>
+          <item>Les modeles de contenu peuvent etre exprime en <soCalled>pure ODD</soCalled>,
+            independemment du langage de schema</item>
+          <item>Les valeurs d'attribut peuvent etre controlle avec <gi>valList</gi> element ou
+              <gi>datatype</gi>, a plusieurs niveaux de generalite </item>
+          <item>... or by means of a element (which uses RELAX NG) </item>
+          <item>Les contraintes variantes selon le contexte peut etre exprimees en utilisant
+            l'element <gi>constraint</gi>
+          </item>
+        </list>
+        <p rend="box">Nous allons introduire tout cela doucement... !</p>
+      </div>
+
+
+      <!-- <div>
+        <head>Defining a content model in pure ODD</head>
+        <p> The <gi>content</gi> element can contain</p>
+        <list>
+          <item>References to other elements <gi>elementRef</gi></item>
+          <item>References to classes of element <gi>classRef</gi></item>
+          <item>Alternations of the foregoing <gi>alternate</gi></item>
+          <item>Sequences of the foregoing <gi>sequence</gi></item>
+          <item>Interleaved instances of the foregoing <gi>interleave</gi> (<hi rend="bold">Warning:
+              this is not yet implemented</hi>)</item>
+        </list>
+        <p>Attributes <att>minOccurs</att> and <att>maxOccurs</att> can be used to control
+          repetition</p>
+      </div>-->
+
+      <div xml:lang="en">
+        <head>Is your journey really necessary ?</head>
+        <p rend="box">The TEI defines elements very like yours. Why not use the TEI?</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><schemaSpec
+            source="http://www.tei-c.org/release/xml/tei/odd/p5subset.xml" start="div"
+            ident="teiBook">
+            <elementRef key="div"/>
+            <elementRef key="p"/>
+            <elementRef key="graphic"/>
+            <elementRef key="figure"/>
+            <moduleRef key="tei"/>
+          </schemaSpec></egXML>
+        <p>The <gi>moduleRef</gi> here provides definitions for the TEI infrastructure, notably the
+          classes and datatypes used throughout every TEI schema. Apart from that we just need to
+          specify the TEI elements we want to use, by means of an <gi>elementRef</gi>. </p>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Et enfin, un mot de la TEI</head>
+        <p>Admettons enfin que notre <gi>para</gi> n'est pas si loin de l'élément TEI <gi>p</gi>,
+          que notre <gi>image</gi> ressemble beaucoup à l'élément TEI <gi>graphic</gi>, et que notre
+            <gi>book</gi> pourrait être considéré comme un élément TEI <gi>div</gi>. Comment
+          ré-écrire ce schéma pour profiter des définitions TEI existantes ? </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec start="div" ident="testSchema-2" source="tei:1.6.0">
+            <elementRef key="div"/>
+            <elementRef key="p"/>
+            <elementRef key="graphic"/>
+            <elementRef key="figure"/>
+            <moduleRef key="tei"/>
+          </schemaSpec></egXML>
+        <p>L'élément <gi>moduleRef</gi> nous fournit un ensemble de définitions infrastructurales,
+          notamment pour les classes utilisées partout dans le systeme TEI. Apart cela, nous n'avons
+          besoin que de référencer les éléments TEI souhaités avec un <gi>elementRef</gi>. </p>
+      </div>
+
+
+      <div xml:lang="en">
+        <head>Constructing a TEI ODD</head>
+        <list>
+          <item>Open the file <ident>oddex-3.odd</ident> and compare it with the previous
+            versions</item>
+          <item>Compile it as before, and use it to validate the TEI file
+              <ident>oddex-3-test.xml</ident></item>
+          <item>Note that a TEI document must use the TEI namespace</item>
+          <item>Note also that TEI concepts don't always overlap exactly with our initial model
+            (e.g. a  rend="box">> cannot appear between <gi>p</gi> elements)</item>
+        </list>
+        <p rend="box">We'll look at the TEI use of ODD in more detail this afternoon</p>
+      </div>
+
+      <div xml:lang="fr">
+        <head>Création d'un schéma TEI</head>
+        <list>
+          <item>Chargez le fichier <ident>oddex-3.odd</ident> avec oXygen et comparez le avec les
+            versions precedentes </item>
+          <item>Transformez ce fichier en schéma, comme d'habitude.</item>
+          <item>Le fichier <ident>oddex-3-test.xml</ident> contient une version TEI de notre test
+            file initial : validez-le avec le schéma que vous venez de créer.</item>
+          <item>Notez qu'un document TEI <emph>doit</emph> utiliser l'espace de nommage TEI</item>
+          <item>Notez egalement que les concepts TEI et les notres ne sont pas forcement identiques (par ex, usage de <gi>raphic</gi>)</item>
+        </list>
+        <p rend="box">>Demain, nous verrons comment la TEI se sert du système ODD...</p>
+      </div>
+    
+
+      <!--<div>
+        <head>Notions de namespace 1</head>
+        <list>
+          <item> Un <term>namespace</term> (espace de noms) fournit une manière d'associer et
+            distinguer un groupe de termes, typiquement d'éléments XML. </item>
+          <item>Jusqu'à présent, tout ce qui a été nommé dans notre schéma appartient à un namespace
+            "nul". </item>
+          <item>Supposons que nous souhaitions ajouter un nouvel élément <gi>bit</gi> avec un modèle
+            de contenu plus restreint. Ce <gi>bit</gi> ne contiendrait que de texte, mais nous
+            souhaitons l'appeler un <gi>bit</gi> quand même. Pour le distinguer du <gi>bit</gi>
+            existant, il faut l'associer à un autre espace de noms.</item>
+          <item>L'attribut <att>ns</att> est disponible sur <gi>elementSpec</gi> pour préciser un
+            espace de noms. Pour des raisons techniques, il faut aussi spécifier un prefixe unique.
+          </item>
+        </list>
+      </div>
+      <div>
+        <head>Notions de namespace 2</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+          xmlns:rng="http://relaxng.org/ns/structure/1.0">
+          <elementSpec ident="bit" ns="http://myNamespace.org" prefix="extra">
+            <desc>élément textuel du schéma simplissime (sans bob) </desc>
+            <content allowText="true"/>
+            <classes><memberOf key="stuffPart"/></classes>
+          </elementSpec>
+        </egXML>
+        <p>Notez bien que ce nouvel élément fait partie de la classe <ident>stuffPart</ident> ;
+          sinon il ne serait pas disponible dans nos documents.</p>
+      </div>
+      <div>
+        <head>Tester votre compréhension...</head>
+        <list>
+          <item>Ajoutez des traductions dans d'autres langues (allemand, russe, italien, anglais...)
+            des descriptions d'éléments</item>
+          <item>Créez un nouvel élément <gi>truc</gi> qui devrait pouvoir apparaître dans un
+              <gi>stuff</gi>
+          </item>
+          <item>Modifiez l'élément <gi>truc</gi> pour lui donner les attributs <att>n</att> et
+              <att>status</att></item>
+          <item>Modifiez la définition de l'attribut <att>status</att> pour lui permettre de prendre
+            la valeur <code>orange</code>.</item>
+        </list>
+      </div>
+      
+      -->
+    </body>
+  </text>
+</TEI>
