@@ -6,59 +6,78 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>My First ODD</title>
+            <title>Mon premier ODD</title>
          </titleStmt>
          <publicationStmt>
-            <p>Publication Information</p>
+            <p>[informations sur l'edition]</p>
          </publicationStmt>
          <sourceDesc>
-            <p>Information about the source</p>
+            <p>[informations sur la source]</p>
          </sourceDesc>
       </fileDesc>
    </teiHeader>
    <text>
       <body>
-         <p>In this very simple schema, the root element is called <gi>book</gi> and it can contain
-            the following elements: <specList>
+         <p>Dans ce schéma simplissime, l'élément de racine s'appelle <gi>book</gi> et il peut contenir les éléments suivants:
+            <specList>
                <specDesc key="para"/>
-               <specDesc key="picture" atts="href"/>
+               <specDesc key="image" atts="href"/>
             </specList></p>
+         
          <schemaSpec ns="" start="book" ident="bookSchema">
             <classSpec ident="bookPart" type="model">
-               <desc>groups the elements representing parts of a book</desc>
+               <desc>éléments qui ont la possibilité de figurer dans un <gi>book</gi></desc>
             </classSpec>
+            
             <classSpec ident="pointing" type="atts">
-               <desc>provides the href attribute for all pointing elements</desc>
+               <desc>les membres de cette classe ont tous un attribut <att>href</att>
+               </desc>
                <attList>
                   <attDef ident="href">
-                     <desc>supplies the URI of the object pointed at</desc>
+                     <desc>fournit l' URI de l'objet ciblé</desc>
                      <datatype>
                         <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
                      </datatype>
                   </attDef>
                </attList>
-            </classSpec>
+               </classSpec>
+         
             <elementSpec ident="book">
-               <desc>Root element for a very simple schema</desc>
-               <content>
-                  <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
-               </content>
-            </elementSpec>
-            <elementSpec ident="para">
-               <desc>paragraph of running text</desc>
-               <classes>
-                  <memberOf key="bookPart"/>
-               </classes>
-               <content><textNode/></content>
-            </elementSpec>
-            <elementSpec ident="picture">
-               <desc>empty element pointing to a graphic file</desc>
-               <classes>
-                  <memberOf key="bookPart"/>
-                  <memberOf key="pointing"/>
-               </classes>
-               <content/>
-            </elementSpec>
+                     <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
+                    
+                        <content>
+                           <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
+                        </content>
+                     
+                  </elementSpec>
+                  
+                  <elementSpec ident="para">
+                     <desc>une paragraph de text </desc>
+                     <classes>
+                        <memberOf key="bookPart"/>
+                     </classes>
+                     <content>
+                        <textNode/>
+                     </content>
+                  </elementSpec>
+            
+                  <elementSpec ident="image">
+                     <desc>un élément vide qui pointe sur un fichier graphique</desc>
+                     <classes>
+                        <memberOf key="bookPart"/>
+                        <memberOf key="pointing"/>                       
+                     </classes>
+                     <content/>                    
+                     <attList>
+                        <attDef ident="href">
+                           <desc>fournit l' URI de l'objet ciblé</desc>
+                           <datatype>
+                              <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                           </datatype>
+                        </attDef>
+                     </attList>
+                  </elementSpec>
+              
          </schemaSpec>
       </body>
    </text>
