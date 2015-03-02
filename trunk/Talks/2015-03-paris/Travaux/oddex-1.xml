@@ -1,31 +1,34 @@
 
-    <schemaSpec ns="" start="book" ident="bookSchema">
-        <elementSpec ident="book">
-            <desc>Root element for a very simple schema</desc>
-            <content>
-                <alternate minOccurs="1" maxOccurs="unbounded">
-                    <elementRef key="para"/>
-                    <elementRef key="picture"/>
-                </alternate>
-            </content>
-        </elementSpec>
-      
-            <elementSpec ident="para">
-                <desc>paragraph of running text</desc>
-                <content><textNode/></content>
-            </elementSpec>
-            
-            <elementSpec ident="picture">
-                <desc>empty element pointing to a graphic file</desc>
-                <content/>           
-                <attList>
-                    <attDef ident="href">
-                        <desc>supplies the URI of the graphic pointed at</desc>
-                        <datatype>
-                            <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
-                        </datatype>
-                    </attDef>
-                </attList>
-            </elementSpec>
-            
+<schemaSpec ns="" start="book" ident="bookSchema">
+    <elementSpec ident="book">
+        <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
+        <content>
+            <alternate minOccurs="1" maxOccurs="unbounded">
+                <elementRef key="para"/>
+                <elementRef key="image"/>
+            </alternate>
+        </content>
+    </elementSpec>
+    
+    <elementSpec ident="para">
+        <desc>une paragraph de text </desc>
+        <content>
+            <textNode/>
+        </content>
+    </elementSpec>
+    <elementSpec ident="image">
+        <desc>un élément vide qui pointe sur un fichier graphique</desc>
+        <content/>
+        <attList>
+            <attDef ident="href">
+                <desc>fournit l' URI de l'objet ciblé</desc>
+                <datatype>
+                    <rng:data xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/>
+                </datatype>
+            </attDef>
+        </attList>
+    </elementSpec>
 </schemaSpec>
+      
+            
+
