@@ -4,7 +4,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt xml:lang="fr">
-        <title>ODD : topiques avancées</title>
+        <title>ODD : sujets avancées</title>
         <author>Sebastian Rahtz</author>
         <respStmt>
           <resp>traduction francaise</resp>
@@ -38,8 +38,8 @@
           documentation </head>
         <list type="gloss">
           <label><gi>code</gi></label>
-          <item>morceau de code exprimé en n'importe quel langage formel <eg>&lt;code>count = 56;&lt;/code>
-            </eg></item>
+          <item>morceau de code exprimé en n'importe quel langage formel <eg>&lt;code>count =
+              56;&lt;/code> </eg></item>
           <label><gi>att</gi></label>
           <item>nom d'attribut <att>target</att></item>
           <label><gi>gi</gi></label>
@@ -51,16 +51,16 @@
           <item>balise (spécifique à XML) <eg>&lt;tag>ptr
               target="http://www.bbc.co.uk"/&lt;/tag></eg></item>
           <label><gi>val</gi></label>
-          <item>valeur d'attribut  <val>unknown</val></item>
+          <item>valeur d'attribut <val>unknown</val></item>
         </list>
       </div>
-
       <div xml:lang="fr">
-        <head>Contraintes de donneés avec Schematron </head>
+        <head>Contraintes de données avec Schematron </head>
         <list>
-          <item>Une spécification d'élément peut proposer des contraintes suppleméntaires sur son
-            contenu en utilisant un ou plusieurs éléments <gi>constraintSpec</gi> </item>
-          <item>Ces règles sont exprimés (typiquement) en utilisant le langage ISO Schematron 
+          <item>Une spécification d'élément peut proposer des contraintes supplémentaires sur son
+            contenu en utilisant un ou plusieurs éléments <gi>constraintSpec</gi>
+          </item>
+          <item>Ces règles sont exprimées (typiquement) en utilisant le langage ISO Schematron
           </item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
@@ -78,17 +78,19 @@
       <div xml:lang="fr">
         <head>L'élément <gi>constraintSpec</gi>
         </head>
-        <p>Il définit une contrainte qui s'applique dans le contexte de l'élément au sein duquel il est declaré</p>
-<!--          The rule applies to the context of the element in which it is defined. </p>-->
+        <p>Il définit une contrainte qui s'applique au sein de l'élément dans lequel il est
+          declaré</p>
+        <!--          The rule applies to the context of the element in which it is defined. </p>-->
         <list>
-          <item>L'attribut <att>scheme</att> spécifie le langage dans lequel s'exprime la contrainte 
+          <item>L'attribut <att>scheme</att> spécifie le langage dans lequel s'exprime la contrainte
               (<val>isoschematron</val> par défaut)</item>
           <item>L'attribut <att>ident</att> est obligatoire: il fournit un identifiant unique</item>
-          <item>Il rassemble un ou plusieurs  <gi>constraint</gi></item>
-          <item>L'élément <gi>constraint</gi> contient (typiquement) un <gi>assert</gi> ou un <gi>report</gi> element
-            de l'espace de nommage 
-              <code>http://purl.oclc.org/dsdl/schematron</code> </item>
-          <item>L'attribut <att>test</att> fournit une expression XPath  vers l'objet à tester. 
+          <item>Il rassemble une ou plusieurs <gi>constraint</gi></item>
+          <item>L'élément <gi>constraint</gi> contient (typiquement) un <gi>assert</gi> ou un
+              <gi>report</gi> élément de l'espace de nommage
+              <code>http://purl.oclc.org/dsdl/schematron</code>
+          </item>
+          <item>L'attribut <att>test</att> fournit une expression XPath vers l'objet à tester.
             <!--The prefix <code>tei</code> is
             defined in the TEI for you--></item>
         </list>
@@ -96,36 +98,36 @@
       <div xml:lang="fr">
         <head>Fonctionnement des règles Schematron </head>
         <list>
-          <item>Le contenu de l'élément <gi>assert</gi> est affiché si le test est <hi>false</hi></item>
-          <item>Le contenu de l'élément  <gi>report</gi> est affiché si le test est  <hi>true</hi></item>
-          <item>Astuce: plusieurs éléments schematron sont disponibles
-            pour enrichir le texte du message affiché, notamment  <gi>name</gi> (context) et <gi>value-of</gi> (valeur) 
-          </item><item>Voir <ptr target="http://www.schematron.com/"/> pour les détails</item>
+          <item>Le contenu de l'élément <gi>assert</gi> est affiché si le test est
+            <hi>false</hi></item>
+          <item>Le contenu de l'élément <gi>report</gi> est affiché si le test est
+            <hi>true</hi></item>
+          <item>Astuce: plusieurs éléments schematron sont disponibles pour enrichir le texte du
+            message affiché, notamment <gi>name</gi> (context) et <gi>value-of</gi> (valeur) </item>
+          <item>Voir <ptr target="http://www.schematron.com/"/> pour une description plus
+            détaillée</item>
         </list>
-      
-        <p rend="box">
-          Un schema RNG intégrant ces rèegles sera autogénéré si on se sert du logiciel oXygen pour traîter son ODD
-          
-        </p>
+        <p rend="box"> Un schema RNG intégrant ces règles sera autogénéré si l'on utilise le
+          logiciel oXygen pour traiter son ODD </p>
       </div>
-
-
       <div xml:lang="fr">
-        <head>Applications typiques des regles  Schematron</head>
+        <head>Applications typiques des regles Schematron</head>
         <list>
-          <item>Contraintes de co-occurrence : <q>si l'attribut  X a la valeur A, l'élément qui le porte doit contenir un 
-            Y</q></item> 
-          <item>Contraintes arithmetique contextuel : <q>au sein d'un  <gi>titleStmt</gi>, on ne permet qu'un seul <gi>title</gi></q></item>
-          <item>Contraintes textuelles : <q>Les caracteres ' et ` ne sont pas permis au sein d'un <tag>p xml:lang="en"</tag></q>
-            </item>
-          <item>Contraintes  contextuelles : <q>mots en francais  (xml:lang='fr') ne sont pas permis au sein d'un élément
-           latin (xml:lang='la')</q></item>
-          <item>Referential integrity: <q>un pointer en forme de URL commenceant en # doit correspondre à un
-            element ayant un <att>xml:id</att> pareil quelque part dans le document</q>
+          <item>Contraintes de co-occurrence : <q>si l'attribut X a la valeur A, l'élément qui le
+              porte doit contenir un Y</q></item>
+          <item>Contraintes arithmetique contextuelles : <q>au sein d'un <gi>titleStmt</gi>, on ne
+              permet qu'un seul <gi>title</gi></q></item>
+          <item>Contraintes textuelles : <q>Les caracteres ' et ` ne sont pas permis au sein d'un
+                <tag>p xml:lang="en"</tag></q>
+          </item>
+          <item>Contraintes contextuelles : <q>mots en francais (xml:lang='fr') ne sont pas permis
+              au sein d'un élément latin (xml:lang='la')</q></item>
+          <item>Intégrité référentielle: <q>un pointer exprimé sous la forme d'une URL et commençant par # doit
+              correspondre à un element ayant un <att>xml:id</att> identique quelque part dans le
+              document</q>
           </item>
         </list>
       </div>
-
       <div xml:lang="fr">
         <head>Un schematron plus complexe (1) </head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
@@ -136,10 +138,9 @@
                   value="for $t in tokenize(normalize-space(@target),'\s+') 
                   return starts-with($t,'#') 
                   and not(id(substring($t,2)))"/>
-                <report test="some $x in $results satisfies $x"> 
-                  Erreur: Chaque pointer dans
-                    "<value-of select="@target"/>" devrait indiquer un ID dans 
-                  ce meme document (<value-of select="$results"/>)</report>
+                <report test="some $x in $results satisfies $x"> Erreur: Chaque pointer dans
+                    "<value-of select="@target"/>" doit indiquer un ID dans ce meme document
+                    (<value-of select="$results"/>)</report>
               </rule>
             </constraint>
           </constraintSpec>
@@ -158,20 +159,21 @@
             of true/false values</item>
         </list>
       </div>
-      
       <div xml:lang="fr">
         <head>Un schematron plus complexe (2) </head>
         <list>
-          <item><code>normalize-space(@target)</code>: assurez la suppression des blancs non-signifiants</item>
-          <item><code>tokenize(normalize-space(@target),'\s+')</code>: couper la valeur de l'attribut dans des tokens séparés par des blancs</item>
-          <item><code> starts-with($t,'#')</code>: ne regardez que les pointeurs locaux</item>
-          <item><code>not(id(substring($t,2)))</code>: y-a-t il un attribut <att>xml:id</att>
-           dont la valeur correspond à la valeur indiquée en sélectionnant ce qui suit son 2ème caractères</item>
-          <item><code>some $x in $results satisfies $x</code>: expression XPath permettant la validation d'une séquence de valeurs booléennes (vrai/fausse)
-         </item>
+          <item><code>normalize-space(@target)</code>: supprimer les blancs
+            non-signifiants</item>
+          <item><code>tokenize(normalize-space(@target),'\s+')</code>: couper la valeur de
+            l'attribut dans des tokens séparés par des blancs</item>
+          <item><code> starts-with($t,'#')</code>: ne considérer que les pointeurs locaux</item>
+          <item><code>not(id(substring($t,2)))</code>: y-a-t il un attribut <att>xml:id</att> dont
+            la valeur correspond à la valeur indiquée en sélectionnant ce qui suit son 2ème
+            caractère</item>
+          <item><code>some $x in $results satisfies $x</code>: expression XPath permettant la
+            validation d'une séquence de valeurs booléennes (vraies/fausses) </item>
         </list>
       </div>
-     
       <div xml:lang="en">
         <head>Copying the Schematron approach</head>
         <p>You could also write a simple XSLT of your own to test your document, simply using
@@ -185,9 +187,9 @@
         </egXML>
       </div>
       <div xml:lang="fr">
-        <head>On n'est pas obligé d'utiliser l'approche Schematron</head>
-        <p>On pourrait également écrire de l'XSLT pur et simple pour valider son document, en utilisant
-          <gi>xsl:message</gi>.</p>
+        <head>Il n'est pas obligatoire d'utiliser l'approche Schematron</head>
+        <p>On pourrait également écrire de l'XSLT pur et simple pour valider son document, en
+          utilisant <gi>xsl:message</gi>.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <xsl:template match="q">
             <xsl:if test="count(ancestor-or-self::q)&gt;3">
@@ -196,7 +198,6 @@
           </xsl:template>
         </egXML>
       </div>
-      
       <div xml:lang="en">
         <head>Processing ODD</head>
         <p>An ODD processor:</p>
@@ -212,20 +213,19 @@
         <p rend="box">http://oxgarage.oucs.ox.ac.uk:8080/ege-webclient/</p>
       </div>
       <div xml:lang="fr">
-        <head>Traîtement d'un ODD</head>
+        <head>Traitement d'un ODD</head>
         <p>Un outil ODD doit</p>
         <list>
-          <item>rassembler les déclarations référencies ou fournis directement </item>
+          <item>rassembler les déclarations référencées ou fournies directement </item>
           <item>resoudre les conflits éventuels </item>
-          <item>valider la consistence de ce qui en ressort</item>
-          <item>produire un schéma classique ou plusieurs</item>
-          <item>produire un document XML normal pour documenter ces schémas</item>
+          <item>valider la coherence de ce qui en ressort</item>
+          <item>produire un (ou plusieurs) schéma(s) classique(s) </item>
+          <item>produire un document XML standard pour documenter ces schémas</item>
         </list>
         <p rend="box">http://www.tei-c.org/Roma/</p>
         <p rend="box">http://tei.it.ox.ac.uk/Byzantium/</p>
         <p rend="box">http://oxgarage.oucs.ox.ac.uk:8080/ege-webclient/</p>
         <p rend="box"> et oXygen</p>
-        
       </div>
       <div xml:lang="en">
         <head>How TEI ODD customization documentation is made</head>
@@ -237,7 +237,6 @@
             there....)</item>
         </list>
       </div>
-
       <div xml:lang="en">
         <head>ODD flow diagram</head>
         <p><graphic url="oddity.png"/></p>
@@ -246,13 +245,11 @@
         <head>Organigramme ODD</head>
         <p><graphic url="../Graphics/oddity.png"/></p>
       </div>
-      
-       <div xml:lang="en">
+      <div xml:lang="en">
         <head>What about this <att>prefix</att> thing?</head>
         <p>Schema languages describe a flat set of objects (<q>patterns</q> in RELAXNG,
             <q>entities</q> in DTD) which other objects point to. Typically, named the same as
           elements. So what if we have two of the same name?</p>
-
         <p>in TEI: <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <define name="tei_list" xmlns="http://relaxng.org/ns/structure/1.0">
               <element name="list">
@@ -268,7 +265,6 @@
             </define>
           </egXML> so prefixes solve the problem of conflict.</p>
       </div>
-
       <div xml:lang="en">
         <head>Examples of <att>source</att></head>
         <p><att>source</att> tells the processor where to read.</p>
@@ -284,16 +280,15 @@
           <schemaSpec ident="test4"
             source="file:///home/lou/Public/TEI-SF/P5/Source/Guidelines/en/guidelines-en.xml"
             ><!-- ... --></schemaSpec></egXML>
-
         <p>Note the use of the private <code>tei:</code> URI protocol.</p>
         <p rend="box">
           <att>source</att> can also be used on <gi>classRef</gi>, <gi>elementRef</gi>,
             <gi>macroRef</gi>, and <gi>moduleRef</gi>.</p>
       </div>
-     
       <div xml:lang="en">
-        <head>Usage de l'attribut  <att>source</att></head>
-        <p>L'attribut <att>source</att> sert à specifier la source des déclarations qu'on souhaite intégrer</p>
+        <head>Usage de l'attribut <att>source</att></head>
+        <p>L'attribut <att>source</att> sert à specifier la source des déclarations qu'on souhaite
+          intégrer</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <schemaSpec ident="test1" prefix="tei_" start="TEI"
             source="http://www.tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml"
@@ -306,26 +301,27 @@
           <schemaSpec ident="test4"
             source="file:///home/lou/Public/TEI-SF/P5/Source/Guidelines/en/guidelines-en.xml"
             ><!-- ... --></schemaSpec></egXML>
-        
-         <p rend="box">
-          <att>source</att> peut être utilisé sur  <gi>classRef</gi>, <gi>elementRef</gi>,
-          <gi>macroRef</gi>, et <gi>moduleRef</gi>.</p>
+        <p rend="box">
+          <att>source</att> peut être utilisé sur <gi>classRef</gi>, <gi>elementRef</gi>,
+            <gi>macroRef</gi>, et <gi>moduleRef</gi>.</p>
       </div>
       <div xml:lang="en">
         <head>Enchainement des ODD</head>
-        <p>L'opération <q>ODD to RELAX NG</q> comporte deux étapes  (<q>odd to odd</q> suivi de <q>odd to relax</q>); 
-          pour crééer son propre  base de personnalisation réutilisable il faut garder le produit de la première étape</p>
+        <p>L'opération <q>ODD to RELAX NG</q> comporte deux étapes (<q>odd to odd</q> suivi de
+            <q>odd to relax</q>); pour crééer son propre base de personnalisation réutilisable il
+          faut garder le produit de la première étape</p>
         <list>
-          <item>En <ident>roma</ident> utilisez l'option <code>--compile</code> </item>
-          <item>Utilisez la ligne de commande  <ident>teitoodd</ident> </item>
-          <item>Avec OxGarage  convertissez du format <q>ODD Document</q> vers <q>Compiled ODD
-            Document</q></item>
-          <item>Avec oXygen générew une nouvelle transformation Ant; utilisant la feuille  XSLT
-              <ident>odd2odd.xsl</ident> et les options définis par 
+          <item>En <ident>roma</ident> utilisez l'option <code>--compile</code>
+          </item>
+          <item>Utilisez la ligne de commande <ident>teitoodd</ident>
+          </item>
+          <item>Avec OxGarage convertissez du format <q>ODD Document</q> vers <q>Compiled ODD
+              Document</q></item>
+          <item>Avec oXygen générew une nouvelle transformation Ant; utilisant la feuille XSLT
+              <ident>odd2odd.xsl</ident> et les options définis par
               <ident>stylesheets/odd/build-to.xml</ident></item>
         </list>
       </div>
-
       <div xml:lang="en">
         <head>Chaining ODDS - customizing from a new source</head>
         <p><att>source</att> on <gi>schemaSpec</gi> is optional and defaults to
@@ -350,7 +346,6 @@
           </egXML>
         </p>
       </div>
-
       <div xml:lang="en">
         <head>Mixing in foreign schema components</head>
         <p>What if we want to extend TEI's <gi>formula</gi> to permit MathML content? We have to do
@@ -362,18 +357,16 @@
           </list>
         </p>
       </div>
-
-      <div xml:lang='fr'>
+      <div xml:lang="fr">
         <head>Addition des composants d'une schéma nonTEI</head>
-        <p>On souhaite utiliser l'élément TEI <gi>formula</gi> pour fournir de contenu exprimé en  MathML: il faut donc
-          :<list type="ordered">
-            <item>inclure les composants de la schéma  MathML </item>
-            <item>modifier la modèle de contenu de l'élément  <gi>formula</gi></item>
-            <item>générer un schéma sans conflits de nommage               
-           </item>
+        <p>On souhaite utiliser l'élément TEI <gi>formula</gi> pour insérer du contenu exprimé en
+          MathML: il faut donc :<list type="ordered">
+            <item>inclure les composants du schéma MathML </item>
+            <item>modifier le modèle de contenu de l'élément <gi>formula</gi></item>
+            <item>générer un schéma qui résout les conflits de nommage </item>
           </list></p>
-          <p rend="block"> ATTENTION : il y a un élément <gi>list</gi> dans TEI et aussi dans mathl!</p> 
-      
+        <p rend="block"> ATTENTION : il y a un élément <gi>list</gi> dans TEI mais également dans
+          MathML !</p>
       </div>
       <div xml:lang="en">
         <head>TEI + MathML</head>
@@ -412,12 +405,12 @@
             </elementSpec>
           </schemaSpec>
         </egXML>
-        <p rend="box">L'attribut <att>prefix</att> nous permet de désambiguiser les identifiants ressortant des schémas différentes</p>
+        <p rend="box">L'attribut <att>prefix</att> nous permet de désambiguïser les identifiants
+          ressortant des schémas différentes</p>
       </div>
       <div xml:lang="fr">
         <head>TEI + MathML : le document</head>
-        <p>Le schéma généré va valider par ex : <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
+        <p>Le schéma généré va valider par ex : <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <p>The relevant inequalities and distributions are <formula notation="MathML">
                 <math xmlns="http://www.w3.org/1998/Math/MathML" overflow="scroll">
                   <mn>0</mn>
@@ -435,7 +428,6 @@
         </p>
         <p><graphic url="../Graphics/vavilov.png"/></p>
       </div>
-
       <div xml:lang="en">
         <head>Merging SVG uses a different technique</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -450,7 +442,6 @@
         <p>In a rather devious way, we add an SVG pattern to a TEI model class.</p>
         <p rend="box">This technique may well not work in the Pure ODD world.</p>
       </div>
-
       <div xml:lang="en">
         <head>ODD by Example</head>
         <p>What if you want to create an ODD by examining your current practice?</p>
@@ -462,7 +453,6 @@
         <p rend="box">oddbyexample needs plenty of memory provided to Java on your computer to
           operate on big corpora.</p>
       </div>
-
       <div xml:lang="en">
         <head>What does oddbyexample actually do?</head>
         <list rend="ordered">
@@ -477,7 +467,6 @@
           <item>for every attribute which is of type "enumerated", construct a valList</item>
         </list>
       </div>
-
       <div xml:lang="en">
         <head>Parameters in oddbyexample</head>
         <table>
@@ -572,7 +561,6 @@
           </row>
         </table>
       </div>
-
       <div xml:lang="en">
         <head>Setting up oddbyexample in oXygen</head>
         <list>
@@ -591,7 +579,6 @@
           </item>
         </list>
       </div>
-
       <div xml:lang="en">
         <head>Setting up oddbyexample in oXygen (cont.)</head>
         <list>
@@ -612,7 +599,6 @@
           <item>If everything works, you should see the resulting ODD file
               <ident>generated.odd</ident></item>
         </list>
-
       </div>
       <div xml:lang="en">
         <head>Other ODD outputs</head>
@@ -628,16 +614,13 @@
             <label>JSON</label>
             <item><code>tools/odd-to-tree.xsl</code> produces a generic JSON output which you can
               use with any of the myriad Javascript libraries</item>
-
           </list>
         </p>
       </div>
-
       <div xml:lang="en">
         <head>which gives us the chance to consider things like...</head>
         <p><graphic url="vis.png"/></p>
       </div>
-
       <div xml:lang="en">
         <head>Making your own dancing graphs</head>
         <p>There are a selection of force-directed graphs for TEI customizations available at <ptr

@@ -82,7 +82,7 @@
         <p rend="box"><hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it all</p>
         <p>Un vocabulaire spécialisé pour la définition :<list>
             <item>des schémas</item>
-            <item>des types d'élément XML, indépendant des schémas</item>
+            <item>des types d'élément XML, indépendants des schémas</item>
             <item>des regroupements de tels éléments, publics ou privés </item>
             <item>des patrons (MLE macros) </item>
             <item>des classes (et sous-classes) d'éléments</item>
@@ -93,7 +93,7 @@
             <item>des objets identifiables (dans la liste ci-dessus)</item>
             <item>des objets appartenant à d'autres espaces de nom</item>
           </list></p>
-        <p rend="box">et devrait etre intégrable à un système de balisage documentaire classique</p>
+        <p rend="box">et devrait être intégrable à un système de balisage documentaire classique</p>
       </div>
       <div xml:lang="en">
         <head>Basic ODD components for schema definition</head>
@@ -132,8 +132,7 @@
               <soCalled>module</soCalled>
           </item>
         </list>
-        <p rend="box">(Nous revenons plus tard sur les composants documentaire d'un ODD )</p>
-
+        <p rend="box">(Nous reviendrons plus tard sur les composants documentaire d'un ODD )</p>
       </div>
       <div xml:lang="en">
         <head>A simple example</head>
@@ -159,11 +158,11 @@
         <head>Premier exemple simplissime</head>
         <p rend="box">Nous utilisons un élément <gi>book</gi>, qui contient un mélange des
             <gi>para</gi>s et de <gi>image</gi>s. Nous ne connaissons rien au sujet de la TEI, et
-          n'en avons pas envie. Pareil pour les espaces de noms.</p>
+          n'en avons pas envie. De même pour les espaces de noms.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <schemaSpec ns="" start="book" ident="bookSchema">
             <elementSpec ident="book">
-              <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
+              <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc><desc/>
               <content>
                 <alternate maxOccurs="unbounded">
                   <elementRef key="para"/>
@@ -171,7 +170,7 @@
                 </alternate>
               </content>
             </elementSpec>
-            <!-- ... continue au prochain diapo -->
+            <!-- ... continue à la prochaine diapo -->
           </schemaSpec>
         </egXML>
       </div>
@@ -180,7 +179,7 @@
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <!-- ... contd -->
           <elementSpec ident="para">
-            <desc>paragraph of running text</desc>
+            <desc>a paragraph of running text</desc>
             <content>
               <textNode/>
             </content>
@@ -199,7 +198,6 @@
           </elementSpec>
         </egXML>
       </div>
-
       <div xml:lang="fr">
         <head>exemple simplissime (suite)</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
@@ -207,7 +205,7 @@
           <schemaSpec ns="" start="stuff" ident="oddex-1">
             <!-- ... contd -->
             <elementSpec ident="para">
-              <desc>une paragraph de text </desc>
+              <desc>un paragraphe de text </desc>
               <content>
                 <textNode/>
               </content>
@@ -241,7 +239,7 @@
               <specDesc key="picture"/>
             </specList></egXML> which would generate something like <list type="gloss">
             <label><gi>para</gi></label>
-            <item>une paragraph de text</item>
+            <item>a paragraph of running text</item>
             <label><gi>picture</gi></label>
             <item>Empty element to point at a picture</item>
           </list> inside our running text</p>
@@ -262,12 +260,11 @@
         </p>
         <p>Ce balisage genera quelque chose comme: <list type="gloss">
             <label><gi>para</gi></label>
-            <item>textual element in a very simple schema (may have pictures in it) </item>
+            <item>un paragraphe de texte </item>
             <label><gi>picture</gi></label>
             <item>un élément vide qui pointe sur un fichier graphique</item>
           </list>
         </p>
-
       </div>
       <div xml:lang="en" type="tp">
         <head>Let's try this out ... </head>
@@ -303,11 +300,10 @@
             et <ident>TEI ODD to HTML</ident> pour générer un schéma et sa documentation a partir de
             cet ODD</item>
           <item>Enregistrer le schéma obtenu sous le nom <ident>oddex-1.rng</ident></item>
-          <item>Associez votre schéma avec le fichier test <ident>oddex-1-test.xml</ident> et validez
-            le fichier</item>
+          <item>Associez votre schéma avec le fichier test <ident>oddex-1-test.xml</ident> et
+            validez le fichier</item>
         </list>
       </div>
-
       <div xml:lang="en">
         <head>Defining a model class</head>
         <p>In the real world, the elements that can appear inside a <gi>book</gi> are likely to be
@@ -349,14 +345,11 @@
           </egXML>
         </p>
         <p>Et voici la définition de la classe <ident>bookPart</ident>.</p>
-
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <classSpec ident="bookPart" type="model">
             <desc>éléments qui ont la possibilité de figurer dans un <gi>book</gi></desc>
           </classSpec>
         </egXML>
-
-
       </div>
       <div xml:lang="en">
         <head>Using a model class</head>
@@ -371,7 +364,6 @@
           </elementSpec></egXML>
         <p>(When we realise that books can also contain <gi>list</gi>s this will save time!)</p>
       </div>
-
       <div xml:lang="fr">
         <head>Usage d'une classe de modelisation</head>
         <p>Maintenant, au lieu de lister exhaustivement tous les composants possibles d'un
@@ -379,16 +371,14 @@
             <ident>bookPart</ident> .</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <elementSpec ident="book">
-            <desc>Root element for a very simple schema</desc>
+            <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
             <content>
               <classRef key="bookPart" minOccurs="1" maxOccurs="unbounded"/>
             </content>
           </elementSpec></egXML>
-        <p>(Dès que nous découvrons l'existence de listes dans les livres nous saurons quoi faire
+        <p>(Dès que nous découvrirons l'existence de listes dans les livres nous saurons quoi faire
           )</p>
       </div>
-
-
       <div xml:lang="en">
         <head>Defining an attribute class</head>
         <p>In the real world, it's also likely that several elements will have the same attributes.
@@ -408,11 +398,10 @@
             </classSpec>
           </egXML></p>
       </div>
-
       <div xml:lang="fr">
         <head>Définition d'une classe d' attribut</head>
-        <p>Dans le monde réel, il est aussi très probable que plusieurs éléments portent les mêmes
-          attributs: il sera donc très convénients de les définir une fois seule </p>
+        <p>Dans le monde réel, il est très probable que plusieurs éléments différents comportent les
+          même attributs: il sera donc très pratique de les définir en une seule fois</p>
         <p> ODD nous permet de dire que tous les éléments ayant en commun un ensemble d'attributs
           constituent une classe <term>attribute class</term> que nous définissons ainsi <egXML
             xmlns="http://www.tei-c.org/ns/Examples">
@@ -430,7 +419,6 @@
             </classSpec>
           </egXML></p>
       </div>
-
       <div xml:lang="en">
         <head>Test your understanding</head>
         <list>
@@ -441,10 +429,8 @@
           <item>Check that you understand how the class references are being used.</item>
         </list>
       </div>
-
       <div xml:lang="fr">
         <head>Testez votre compréhension</head>
-
         <list>
           <item>Ouvrez le fichier <ident>oddex-2.odd</ident> avec oXygen et comparez le avec
               <ident>oddex-1.odd</ident></item>
@@ -453,9 +439,6 @@
             cette nouvelle version du schéma </item>
         </list>
       </div>
-
-
-
       <div xml:lang="en">
         <head>Controlling attribute values</head>
         <list>
@@ -491,7 +474,7 @@
       </div>
       <div xml:lang="fr">
         <head>Classe d'attribut: un exemple</head>
-        <p>Les valeurs possible d'un attribut peuvent être controllées de plusieurs manieres: <list>
+        <p>Les valeurs possibles d'un attribut peuvent être contrôlées de plusieurs manieres: <list>
             <item>Par référence à un <term>datatype</term> (type de donnée) externe, par ex
                 <code>anyURI </code> or <code>ID</code> (ce sont des datatypes standard, definis par
               le W3C)</item>
@@ -541,8 +524,8 @@
             d'attribut (il y en a une dans le fichier <ident>oddex-3.xml</ident>)</item>
           <item>Ajoutez un <gi>memberOf</gi> pour les éléments qui vont participer à cette
             classe</item>
-          <item>Générez un schéma et assurez-vous que le fichier <ident>oddex-1-test.xml</ident> reste
-            valide avec cette version du schéma.</item>
+          <item>Générez un schéma et assurez-vous que le fichier <ident>oddex-1-test.xml</ident>
+            reste valide avec cette version du schéma.</item>
           <item>Contrôlez que oXygen vous propose ces nouveaux attributs, et qu'il contraint les
             valeurs possibles</item>
         </list>
@@ -561,16 +544,16 @@
           mappings ...</p>
       </div>
       <div xml:lang="fr">
-        <head>Qu'est-ce qu'on pourrait vouloir ajouter pour bien documenter son système?</head>
-        <p>Peut-etre ... <list>
+        <head>Qu'est-ce que l'on pourrait vouloir ajouter pour bien documenter son système?</head>
+        <p>Peut-être ... <list>
             <item>Des gloses, des descriptions en plusieurs langues</item>
             <item>Des exemples d'usage</item>
-            <item>des contraintes plus sophistiqués <list>
+            <item>des contraintes plus sophistiquées <list>
                 <item>modèles de contenu plus complexes</item>
-                <item>contraintes variantes selon le contexte</item>
+                <item>contraintes variables selon le contexte</item>
               </list></item>
           </list></p>
-        <p rend="box">Et comme tout projet de documentation : versioning, référencements ailleurs,
+        <p rend="box">Et comme tout projet de documentation : versioning, référencements extérieurs,
           mappings ontologiques ....</p>
       </div>
       <div xml:lang="en">
@@ -603,7 +586,6 @@
           </elementSpec>
         </egXML>
       </div>
-
       <div xml:lang="en">
         <head>Usage examples</head>
         <p>Documenting an XML schema requires the inclusion of examples in XML. If your
@@ -617,19 +599,18 @@
         <p rend="box">The last has the great advantage that you can validate your examples against
           an XML schema</p>
       </div>
-
       <div xml:lang="fr">
         <head>Exemples d'usage</head>
-        <p>Evidemment, si on décrit un schéma XML on va inclure des exemples d'usage en XML.
-          Si la documentation s'exprime également en XML, il faut etre astucieux... Il y a trois
-          approches possibles : <list>
+        <p>Evidemment, si on décrit un schéma XML on va inclure des exemples d'usage en XML. Si la
+          documentation s'exprime également en XML, il faut être astucieux... Il y a trois approches
+          possibles : <list>
             <item>tout cacher avec un "CDATA marked section" (magique hérité de SGML)</item>
             <item>tout échapper en utilisent des "references" (<code>&amp;amp;lt;</code> etc)</item>
             <item>utiliser un autre espace de nommage</item>
           </list>
         </p>
-        <p rend="box">Seul le dernier vous permet de valider vos exemples : 
-          un plus très avantageux</p>
+        <p rend="box">Seul le dernier vous permet de valider vos exemples : un plus très
+          avantageux</p>
       </div>
       <div xml:lang="en">
         <head>For example </head>
@@ -667,20 +648,18 @@
         <p rend="box">We will introduce these possibilities gradually !</p>
       </div>
       <div xml:lang="fr">
-        <head>Des contraintes plus sophistiqués </head>
+        <head>Des contraintes plus sophistiquées </head>
         <list>
-          <item>Les modèles de contenu peuvent etre exprimés en <soCalled>pure ODD</soCalled>,
+          <item>Les modèles de contenu peuvent être exprimés en <soCalled>pure ODD</soCalled>,
             independemment du langage de schéma</item>
-          <item>Les valeurs d'attribut peuvent etre controllés avec <gi>valList</gi> element ou
+          <item>Les valeurs d'attribut peuvent être controllés avec <gi>valList</gi> element ou
               <gi>datatype</gi>, à plusieurs niveaux de generalité </item>
-           <item>Les contraintes variantes selon le contexte peut etre exprimées en utilisant
+          <item>Les contraintes variables selon le contexte peut être exprimées en utilisant
             l'element <gi>constraint</gi>
           </item>
         </list>
         <p rend="box">Nous allons introduire tout cela doucement... !</p>
       </div>
-
-
       <!-- <div>
         <head>Defining a content model in pure ODD</head>
         <p> The <gi>content</gi> element can contain</p>
@@ -695,7 +674,6 @@
         <p>Attributes <att>minOccurs</att> and <att>maxOccurs</att> can be used to control
           repetition</p>
       </div>-->
-
       <div xml:lang="en">
         <head>Is your journey really necessary ?</head>
         <p rend="box">The TEI defines elements very like yours. Why not use the TEI?</p>
@@ -712,7 +690,6 @@
           classes and datatypes used throughout every TEI schema. Apart from that we just need to
           specify the TEI elements we want to use, by means of an <gi>elementRef</gi>. </p>
       </div>
-
       <div xml:lang="fr">
         <head>Et enfin, un mot de la TEI</head>
         <p>Admettons enfin que notre <gi>para</gi> n'est pas si loin de l'élément TEI <gi>p</gi>,
@@ -728,11 +705,9 @@
             <moduleRef key="tei"/>
           </schemaSpec></egXML>
         <p>L'élément <gi>moduleRef</gi> nous fournit un ensemble de définitions infrastructurales,
-          notamment pour les classes utilisées partout dans le systeme TEI. Apart cela, nous n'avons
+          notamment pour les classes utilisées partout dans le systeme TEI. A part cela, nous n'avons
           besoin que de référencer les éléments TEI souhaités avec un <gi>elementRef</gi>. </p>
       </div>
-
-
       <div xml:lang="en">
         <head>Constructing a TEI ODD</head>
         <list>
@@ -742,27 +717,24 @@
               <ident>oddex-3-test.xml</ident></item>
           <item>Note that a TEI document must use the TEI namespace</item>
           <item>Note also that TEI concepts don't always overlap exactly with our initial model
-            (e.g. a  rend="box">> cannot appear between <gi>p</gi> elements)</item>
+            (e.g. a rend="box">> cannot appear between <gi>p</gi> elements)</item>
         </list>
         <p rend="box">We'll look at the TEI use of ODD in more detail this afternoon</p>
       </div>
-
       <div xml:lang="fr">
         <head>Création d'un schéma TEI</head>
         <list>
           <item>Chargez le fichier <ident>oddex-3.odd</ident> avec oXygen et comparez le avec les
             versions precedentes </item>
           <item>Transformez ce fichier en schéma, comme d'habitude.</item>
-          <item>Le fichier <ident>oddex-3-test.xml</ident> contient une version TEI de notre test
-            file initial : validez-le avec le schéma que vous venez de créer.</item>
+          <item>Le fichier <ident>oddex-3-test.xml</ident> contient une version TEI de notre 
+            fichier de test initial : validez-le avec le schéma que vous venez de créer.</item>
           <item>Notez qu'un document TEI <emph>doit</emph> utiliser l'espace de nommage TEI</item>
-          <item>Notez également que les concepts TEI et les nôtres ne sont pas 
-            forcément identiques (par ex, usage de <gi>graphic</gi>)</item>
+          <item>Notez également que les concepts TEI et les nôtres ne sont pas forcément identiques
+            (par ex, usage de <gi>graphic</gi>)</item>
         </list>
         <p rend="box">Plus tard, nous verrons comment la TEI se sert du système ODD...</p>
       </div>
-    
-
       <!--<div>
         <head>Notions de namespace 1</head>
         <list>
