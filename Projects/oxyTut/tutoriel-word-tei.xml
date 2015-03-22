@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml"
-	schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
@@ -18,93 +15,209 @@
    </teiHeader>
    <text>
       <body>
-         <head>Can you convert Word documents to TEI XML in oXygen?</head>
-         <p>Yes you can!</p>
-         <p>A Word docx file is actually a compressed archive containing several other files,
-            including XML files which can be manipulated and converted in the same way as any other
-            XML file. oXygen knows this, and comes with predefined XSLT stylesheets for converting
-            from docx to TEI P5. The conversion can also take into account any Word styles found,
-            which makes it possible to customize the way your Word file,is converted, in order to
-            produce more intelligent markup than would otherwise be possible.</p>
-         <p> </p>
-         <p>In this little tutorial we'll step through the process, using as example a test file
-            produced by the DifDepo project. If you want to play along, you can download the test
+         <div xml:lang="en">
+            <head>Transforming Word documents into TEI XML with oXygen</head>
+            <p>A Word docx file is actually a compressed archive containing several other files,
+               including XML files which can be manipulated and converted in the same way as any
+               other XML file. oXygen knows this, and comes with predefined XSLT stylesheets for
+               converting from docx to TEI P5. The conversion can also take into account any Word
+               styles found, which makes it possible to customize the way your Word file,is
+               converted, in order to produce more intelligent markup than would otherwise be
+               possible.</p>
+            <p> The TEI provides stylesheets to carry out this conversion which are also included
+               with oXygen, provided you have the TEI Oxygen framework installed. Since these
+               stylesheets, like the TEI, are constantly being updated, you might want to check that
+               you have the most recent version of that framework installed. Provided that you are
+               running a version of oXygen more recent than 15.2, this can be done automatically.
+               See
+               http://blogs.it.ox.ac.uk/jamesc/2014/04/02/auto-update-your-tei-framework-in-oxygen/
+               for step by step instructions. </p>
+            <p>In this little tutorial we'll step through the process as it is used in DifDepo
+               project.
+               <!--If you want to play along, you can download the test
             file from <ref
                target="https://code.google.com/p/tei-fr/source/browse/trunk/Projects/Difdepo/Testfiles/testStyles.docx"
-               >here</ref></p>
-         <list>
-            <item>In oXygen, use the usual Open dialog to select the docx file</item>
-            <item>A window opens to the left of the main screen headed "Navigateur d'Archives". It
-               shows the file structure of the docx archive.</item>
-            <item><graphic url="navigateur-1.png" height="4cm"/></item>
-            <item>Click the blue key next to the folder called word to see the contents of this
-               folder</item>
-            <item><graphic url="navigateur-2.png" height="4cm"/></item>
-            <item>Select the file called document.xml and double click to open it (may take a few
-               moments if the file is large)</item>
-            <item><graphic url="document-word.png" height="4cm"/></item>
-            <item>As you see, this is an XML document, with lots of XML tags, using many different
-               namespaces, most of them defined by Microsoft. Let's convert it!</item>
-         </list>
-
-         <list>
-            <item>With the <ident>document.xml</ident> file open in your main editing window, select
-                  <ident>Transformation -> Configurer les Scenarios de transformation</ident> from
-               the <ident>Document</ident> menu. Or type <code>CTRL-MAJ-C</code>. Or click the
-               little spanner icon (this one : <graphic url="spanner.png" height="7mm"/>) </item>
-            <item>oXygen shows you the transformation options available for this kind of document.
-               This should include one called DOCX TEI P5, which is the default TEI conversion. </item>
-            <item><graphic url="configurer-1.png" height="4cm"/></item>
-            <item>To see what it does, check the little box next to it, and press the<ident>
-                  Appliquer associe(s</ident>) button at the bottom. A new window opens at the
-               bottom of the screen in which oXygen displays messages relating to the conversion
-               process ; you may safely ignore these. </item>
-            <item>In the main editing window, you should now see a TEI-conformant document. (Choose
-               Source > Indenter le document from the Document menu, or type CTRL-MAJ-P or click the
-               Indent button (this one: <graphic url="indent.png" height="7mm"/>) if it is displayed
-               as a single line on the screen) Scroll down to see how the Word styles have been
-               converted. </item>
-            <item><graphic url="converted-1.png"  height="6cm"/></item>
-            <item>Note that many of the paragraphs have a rend attribute. The values of this
-               attribute correspond with the Word style used in the original docx file. You can use
-               these values to make a more intelligent conversion.</item>
-         </list>
-         <list>
-            <item>Close the tab labelled Test_tous-styles-TEI-P5.xml to return to the window
-               containing document.xml, your source Word document.</item>
-            <item>Click on the spanner again to reopen the Configurer Scenarios de Transformation
-               dialog and this time click the Edit button at the bottom. This will enable you to
-               reconfigure the bdefault conversion process.</item>
-            <item>You can't modify a built in configuration scenario, so oXyGen offers to make a
-               copy for you to play with. <graphic url="yesno.png" height="2cm"/>. Press <ident> Oui.</ident>
-            </item>
-            <item>The <ident>editer le scenario ANT </ident> is displayed to enable you to configure
-               your new version of the transformation scenario. <graphic url="editer-scenario-1.png" height="4cm"
-               /></item>
-            <item>Let's begin by changing its name to something sensible: change "DOCX TEI P5
-               copier" to "DOCX TEI P5 Oulipo" for example.  Then press the Parametres tab to see
-               what else can be modified.</item>
-            <item><graphic url="editer-scenario-2.png" height="4cm"/></item>
-            <item>This dialog allows us to change the default input and output paths for this
-               transformation and also to specify a <term>profile</term>. The TEI Stylesheet package
-               included with oXygen supplies a small number of predefined sets of customized
-               stylesheets called profiles. You can use or modify an existing profile to get the
-               effects you want in your own project (not covered here). In this exercise, we will
-               use the Oulipo profile. </item><item>Select the word Profile and  press the Edition button. </item>
-            <item/>
-            <item><graphic url="modifier-parametre.png" height="4cm"/></item>
-            <item>Add the word oulipo in the box labelled Valeur and press Accepter to return to the
-               Editer le scenario Ant dialog. Press Accepter again.</item>
-            <item>Your new transformation scenario should now be available in the Configurer
-               Transformation Scenario dialog. Check the little box next to it, and uncheck the box
-               next to the default Scenario.</item>
-            <item><graphic url="configurer-3.png" height="4cm"/></item>
-            <item>This OULIPO profile includes rules to handle the Word styles which were simply
-               passed through as values for the rend attribute in the default transformation
-               scenario.  (These rules are written in XSLT; we don't tell you here how to write
-               them). Run the transformation again, by pressing Appliquer associes.  You should see
-               something rather different this time...</item><!--item><graphic url="converted-2.png"/> </item-->
-         </list>
+               >here</ref>--></p>
+         </div>
+         <div xml:lang="fr">
+            <head>Transformation de documents Word en TEI XML avec oXygen</head>
+            <p>Un fichier docx est en effet une archive contenant plusieurs fichiers, notamment des
+               fichiers XML susceptibles de manipulation et de conversion comme tout autre fichier
+               XML. oxYgen est donc capable de le traiter, d'autant plus parce que ce logiciel est
+               doté de plusieurs feuilles de style XSLT prédéfinies pour cette conversion en TEI
+               XML. Ces feuilles font partie du <soCalled>TEI framework</soCalled>, qu'il faut
+               installer dans votre copie d'oxyGen (mais qui est fournie comme un
+                  <soCalled>AddOn</soCalled> par défaut dans les versions récentes)</p>
+            <p>Ce TEI Oxygen framework peut être configuré à se mettre à jour automatiquement : voir
+               http://blogs.it.ox.ac.uk/jamesc/2014/04/02/auto-update-your-tei-framework-in-oxygen/
+               pour vous renseigner sur cette démarche. </p>
+            <p>Dans ce petit tutoriel nous sommarisons comment utiliser ces outils dans le cadre du
+               projet Difdepo. </p>
+         </div>
+         <div xml:lang="en">
+            <list>
+               <head>Open and convert a Word docx file</head>
+               <item>In oXygen, use the usual Open dialog to select the docx file</item>
+               <item>A window labelled <ident>Archive Browser</ident> opens to the left of the main
+                  screen. It shows the file structure of the docx archive.</item>
+               <item><graphic url="media/en/archive-browser.png" height="4cm"/></item>
+               <item>Click the blue key next to the folder called <ident>word </ident> to see the
+                  contents of this folder</item>
+               <item><graphic url="media/en/archive-browser-2.png" height="4cm"/></item>
+               <item>Select the file called <ident> document.xml</ident> and double click to open it
+                  (may take a few moments if the file is large)</item>
+            </list>
+            <p><graphic url="media/document-word.png" height="4cm"/> As you see, this is an XML
+               document, with lots of XML tags, using many different namespaces, most of them
+               defined by Microsoft. </p>
+            <list>
+               <item>With the <ident>document.xml</ident> file open in your main editing window,
+                  select <ident>Transformation -> Configure Transformation Scenario(s)</ident> from
+                  the <ident>Document</ident> menu. Or type <code>CTRL-SHIFT-C</code>. Or click the
+                  little spanner icon</item>
+               <item>For the default DOCX to TEI conversion, check the little box next to DOCX TEI
+                  P5 and press the <ident>Apply Associated</ident> button </item>
+            </list>
+            <p><graphic url="media/configurer-1.png" height="4cm"/></p>
+            <list xml:lang="en">
+               <item>A new window opens at the bottom of the screen in which oXygen displays
+                  messages relating to the conversion process ; you may safely ignore these. </item>
+               <item>In the main editing window, you should now see a TEI-conformant document.
+                  (Choose Source > Indenter le document from the Document menu, or type CTRL-MAJ-P
+                  or click the Indent button (this one: <graphic url="media/indent.png" height="7mm"
+                  />) if it is displayed as a single line on the screen) Scroll down to see how the
+                  Word styles have been converted. </item>
+               <item><graphic url="media/converted-1.png" height="6cm"/></item>
+               <item>Note that many of the paragraphs have a rend attribute. The values of this
+                  attribute correspond with the Word style used in the original docx file. We could
+                  use these values to make a more intelligent conversion.</item>
+            </list>
+         </div>
+         <div xml:lang="fr">
+            <list xml:lang="fr">
+               <head>Ouvrir et convertir un fichier MS Word (.docx)</head>
+               <item>Dans oXygen, utilisez la boite de dialogue habituelle <ident>Ouvrir</ident>
+                  pour sélectionner un fichier docx contenant une transcription difdepo.</item>
+               <item>Une fenêtre intitulée <code>Archive Browser</code> s’ouvre à gauche de l’écran
+                  principal. Elle présente la structure de fichiers de l’archive docx.</item>
+               <item><graphic url="media/fr/navigateur-1.png" height="4cm"/></item>
+               <item>Cliquez sur la clef bleu à côté du répertoire appelé <ident>word</ident> pour
+                  voir le contenu de ce répertoire</item>
+               <item><graphic url="media/fr/navigateur-2.png" height="4cm"/></item>
+               <item>Sélectionnez le fichier dénommé <ident>document.xml</ident> et double-cliquez
+                  pour l’ouvrir (cela peut prendre un moment si le fichier est important)</item>
+            </list>
+            <p><graphic url="media/fr/document-word.png" height="6cm"/>
+            </p>
+            <p>Comme vous le constatez, c'est un document XML, plein de balises XML utilisant
+               plusieurs espaces de nom, pour la plupart définies par Microsoft. </p>
+            <list>
+               <item>Avec le fichier <ident>document.xml</ident> ouvert dans votre fenêtre d’édition
+                  principale, sélectionnez <ident>Transformation -> Configurer Scénario(s) de
+                     Transformation</ident> depuis le menu <ident>Document</ident>. Ou bien tappez
+                     <code>CTRL-SHIFT-C</code>. Ou cliquez sur l’icône avec la petite
+                  clef-à-molette</item>
+               <item>Pour la conversion par défaut d’un document DOCX vers TEI, cochez la case DOCX
+                  TEI P5 et appuyez sur le bouton <ident>Appliquer Associé(s)</ident></item>
+            </list>
+            <p><graphic url="media/fr/configurer-1.png" height="4cm"/></p>
+            <list xml:lang="en">
+               <item>Une nouvelle fenetre s'ouvre en bas de l'écran pour l'affichage des messages de
+                  traitement pendant la conversion; vous n'êtes pas obligé de les regarder...</item>
+               <item>Dans la fenêtre d’édition principale, un document TEI-XML s'affiche (si tout va
+                  bien). Sélectionnez Source > Indenter le document du menu Document, ou tappez
+                  CTRL-MAJ-P ou appuyez sur le bouton <ident>Indent</ident> (celui-ci : <graphic
+                     url="media/indent.png" height="7mm"/>) si vous ne voyez que le début d'une
+                  ligne. Scrollez et regardez bien comment les styles Word ont été prises en charges
+                  par la conversion. </item>
+               <item><p><graphic url="media/fr/converted-1.png" height="6cm"/></p><p>Plusieurs
+                     paragraphes utilisent l'attribut <att>rend</att>. Ces valeurs correspondent au
+                     style Word utilisé dans le fichier docx. Donc ils sont disponibles pour
+                     effectuer une conversion plus intelligente. </p></item>
+            </list>
+         </div>
+         <div xml:lang="en">
+            <list xml:lang="en">
+               <item>Close the tab labelled Test_tous-styles-TEI-P5.xml to return to the window
+                  containing document.xml, your source Word document.</item>
+               <item>Click on the spanner again to reopen the Configurer Scenarios de Transformation
+                  dialog and this time click the Edit button at the bottom. This will enable you to
+                  reconfigure the bdefault conversion process.</item>
+               <item>You can't modify a built in configuration scenario, so oXyGen offers to make a
+                  copy for you to play with. <graphic url="media/yesno.png" height="2cm"/>. Press
+                     <ident> Oui.</ident>
+               </item>
+               <item>The <ident>editer le scenario ANT</ident> is displayed to enable you to
+                  configure your new version of the transformation scenario. <graphic
+                     url="media/editer-scenario-1.png" height="4cm"/></item>
+               <item>Let's begin by changing its name to something sensible: change "DOCX TEI P5
+                  copier" to "DOCX TEI P5 Oulipo" for example. Then press the Parametres tab to see
+                  what else can be modified.</item>
+               <item><graphic url="media/editer-scenario-2.png" height="4cm"/></item>
+               <item>This dialog allows us to change the default input and output paths for this
+                  transformation and also to specify a <term>profile</term>. The TEI Stylesheet
+                  package included with oXygen supplies a small number of predefined sets of
+                  customized stylesheets called profiles. You can use or modify an existing profile
+                  to get the effects you want in your own project (not covered here). In this
+                  exercise, we will use the Oulipo profile. </item>
+               <item>Select the word Profile and press the Edition button. </item>
+               <item><graphic url="media/modifier-parametre.png" height="4cm"/></item>
+               <item>Add the word oulipo in the box labelled Valeur and press Accepter to return to
+                  the Editer le scenario Ant dialog. Press Accepter again.</item>
+               <item>Your new transformation scenario should now be available in the Configurer
+                  Transformation Scenario dialog. Check the little box next to it, and uncheck the
+                  box next to the default Scenario.</item>
+               <item><graphic url="media/configurer-3.png" height="4cm"/></item>
+               <item>This OULIPO profile includes rules to handle the Word styles which were simply
+                  passed through as values for the rend attribute in the default transformation
+                  scenario. (These rules are written in XSLT; we don't tell you here how to write
+                  them). Run the transformation again, by pressing Appliquer associes. You should
+                  see something rather different this time...</item>
+               <!--item><graphic url="converted-2.png"/> </item-->
+            </list>
+         </div>
+         <div xml:lang="fr">
+            <list>
+               <item>Fermez l'onglet contenant votre premier essai de conversion pour revenir à la
+                  fenêtre contentant votre source docx, le fichier
+                  <ident>document.xml</ident>.</item>
+               <item>Rouvrez le dialog <ident>Configurer Scénarios de Transformation</ident> en
+                  cliquant la petite clef-à-molette. Cette fois-ci, appuyez sur le bouton
+                     <ident>Edition</ident> en bas pour reconfigurer la procédure de conversion. </item>
+               <item><p>Vous ne pouvez pas modifier directement le Scénario de Transformation docx
+                     to tei, bien sûr: oXygen donc vous propose une copie modifiable du scénario</p><p>
+                     <graphic url="media/yesno.png" height="2cm"/></p><p>tappez donc <ident>
+                        Oui.</ident></p>
+               </item>
+               <item><p>Le dialog <ident>Editer le scénario ANT</ident> s'affiche </p><p><graphic
+                        url="media/fr/editer-scenario-1.png" height="4cm"/></p></item>
+               <item><p>Changez <code>DOCX TEI P5 copie</code> en <code>DOCX TEI P5 Oulipo</code>
+                     pour lui donner un nom plus raisonnable. Cliquez l'onglet
+                        <ident>Paramètres</ident></p><p><graphic
+                        url="media/fr/editer-scenario-2.png" height="4cm"/></p></item>
+               <item>Ce dialog permet de modifier plusieurs aspects de la transformation.
+                  L'essentiel est d'identifier un ensemble de feuilles de style approprié: cet
+                  ensemble est nommé un <term>profile</term>.
+                  <!--The TEI Stylesheet
+                  package included with oXygen supplies a small number of predefined sets of
+                  customized stylesheets called profiles. You can use or modify an existing profile
+                  to get the effects you want in your own project (not covered here). In this
+                  exercise, we will use the Oulipo profile. --></item>
+               <item>Sélectionnez le mot <code>Profile</code> et tappez <ident>Edition</ident>. </item>
+               <item><graphic url="media/fr/modifier-parametre.png" height="4cm"/></item>
+               <item>Tappez le mot <code>oulipo</code> dans la petite boite <ident>Valeur</ident> et
+                  appuyez sur <ident>Accepter</ident> pour retourner au dialog <ident>Editer le
+                     scénario Ant</ident>. Appuyez encore sur <ident>Accepter</ident> .</item>
+               <item>Votre nouveau Scénario de Transformation figure maintenant dans le dialog
+                     <ident>Configurer Scénarios de Transformation</ident>. Cochez la case à gauche,
+                  et décochez celle du Scénario par défaut.</item>
+               <item><graphic url="media/fr/configurer-3.png" height="4cm"/></item>
+               <item>Le profile oulipo contient plusieures règles pour le traitement des styles Word
+                  qui n'étaient que transférés bêtement par le scénario par défaut. Appuyez encore
+                  sur <ident>Appliquer associé(s)</ident> et vous allez voir! </item>
+               <!--item><graphic url="converted-2.png"/> </item-->
+            </list>
+         </div>
       </body>
    </text>
 </TEI>
