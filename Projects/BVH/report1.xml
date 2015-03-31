@@ -6,30 +6,87 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>Title</title>
+            <title>Projet C3T : rapport initiale</title>
          </titleStmt>
          <publicationStmt>
-            <p>Publication information</p>
+            <authority>Lou Burnard Consulting</authority>
          </publicationStmt>
          <sourceDesc>
-            <p>Information about the source</p>
+            <p>Ne-numerique</p>
          </sourceDesc>
       </fileDesc>
+      <revisionDesc>
+         <change when="2015-03-31">First draft</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <body>
-         <p>Use of @resp="transcription" needs to go: this is wrong</p>
-         <p>@xml:id values need to be unique: move names to a sep file; replace xml:id by @ref to
-            this</p>
-         <p>xml:id on divs also need to be unique, include uniquifying prefix given as @n value on
-            root <gi>TEI</gi></p>
-         <p>Empty fw is meaningless: schematron shd flag it</p><p>
-            keywords@scheme "#Index_matiere.xml" looks doubtful. Where is it?
-            likewise @corresp values shd be correct URLs "matiere5" looks doubtful
-            </p>
-         <figure>
-            <graphic url="http://www.tei-c.org/logos/TEI-glow.png"/>
-         </figure>
+         <div>
+            <head>Objectifs</head>
+            <p>Pour rappel, les objectifs du projet C3T sont : <list>
+                  <item>Controle du "TEI Conformance" de l'ensemble des documents TEI XML du projet
+                     BVH déjà disponibles</item>
+                  <item>Création d'une documentation complète des pratiques TEI du corpus en format
+                     ODD</item>
+                  <item>Définition d'une démarche réproducible pour cette procédure de validation à
+                     fin de l'appliquer à d'autres corpus, provenant par exemple du Consortium
+                     CAHIER</item>
+               </list></p>
+            <p> Dans ce premier rapport, nous sommarisons les travaux éffectués jusqu'à la fin de
+               mars 2015.</p>
+         </div>
+         <div>
+            <head>Actions accomplies</head>
+            <list>
+               <item>52 documents candidats en format TEI-XML ont étés rassemblés pour constituer le
+                  dossier <ident>testBed</ident> du projet. Quelques petites modifications (par ex
+                  enlevement de <code>&lt;!DOCTYPE> declaration</code>) et l'ajout d'un fichier
+                  pilote <ident>driuer.xml</ident> ont permis la validation du corpus entier ou des
+                  fichiers independents. </item>
+               <item>Les documents ont étés validés d'abord avec le schéma TEI_ALL. Ce schéma
+                  n'assure qu'un premier niveau de conformance TEI, notamment pour les noms des
+                  éléments etc. Il ne valident pas la sémantique des balises. </item>
+               <item>La tache de production d'une documentation complète et intégrale a débuté. Nous
+                  avons d'abord traduit les fichiers existents du manuel en format TEI XML a partir
+                  du format originel (Scenari) avec une feuille de style XSLT. Le document résultant
+                  est un seul fichier <ident>manuel.tei.xml</ident> qui sera retravaillé.</item>
+               <item>En utilisant la feuille de style "oddbyexample", nous avons préparé une version
+                  initiale d'un ODD (une personnalisation de TEI) qui représentent la pratique
+                  actuelle de balisage dans l'ensemble du corpus. A partir de ce ODD (un peu
+                  retravaillé à la main) nous avons créé une version préliminaire d'un schéma BVH,
+                  qui pourrait finalement remplacer le dtd actuel 9voir fichiers <ident>bvh.odd</ident> et <ident>bvh.rng</ident>.</item>
+               <item>En utilisant une autre feuille de style <ident>counter.xsl</ident>, nous avons généré un rapport detaillé
+                  sur l'utilisation de la TEI (balises, attributs, valeurs...) dans l'ensemble des
+                  documents, ce qui nous a permet d'élaborer des propositions d'amélioration de cet
+                  encodage. </item>
+            </list>
+            <p>Tous les documents associés au projet sont disponibles sur notre site tei-fr. </p>
+         </div>
+         <div>
+            <head>Sommaire des améliorations d'encodage initialement proposées</head>
+            <list>
+               <item>Les valeurs d'attribut <att>xml:id</att>, notamment sur les <gi>div</gi>,
+                  devraient être unique dans le corpus. Nous allons donc définir un code unique pour
+                  chaque document, et l'utiliser comme préfix pour tous les valeurs xml:id
+                  existantes.</item>
+               <item>L'usage de <att>xml:id</att> par ex sur les noms de personnes sera
+                  systématiquement remplacé par l'usage d'un attribut <att>key </att>ou
+                     <att>ref</att>, pointant sur un ensemble de noms de personne défini dans
+                  l'entête du fichier <ident>driuer.xml</ident></item>
+               <item>L'usage des attributs <att>corresp</att> et <att>xml:base</att> sera
+                  systématiquement supprimé en faveur de <att>ref</att>
+                  <att>key</att> ou <att>facs</att> selon le cas</item>
+               <item>La valeur de plusieurs attributs (<att>hand</att>, <att>who</att>,
+                     <att>resp</att>, <att>scheme</att> ) sera systématiquement changé en pointeur;
+                  les elements ciblés seront définies dans un document xml indépendent qui sera
+                  référencié par l'entête du corpus</item>
+               <item>Les valeurs sous contrôle d'une taxinomie ou d'une liste close seront
+                  controllés; les collègues de BVH étant invités a proposer les modifications
+                  éventuelles, par ex en cas de doublons</item>
+               <item>Plusieurs petites modifications mineures seront éffectuées: voir les <ref
+                     target="wiki_BVH_review">Notes on current BVH encoding praxis</ref></item>
+            </list>
+         </div>
       </body>
    </text>
 </TEI>
