@@ -1,0 +1,240 @@
+# Notes on current BVH encoding praxis #
+
+See also
+
+  * [BVH\_AuthorityFiles](BVH_AuthorityFiles.md)
+  * [full report](https://code.google.com/p/tei-fr/source/browse/trunk/Projects/BVH/counterList.html)
+
+**TEI**
+
+  * @version ("5.0") : no longer valid : two occurrences to remove
+  * @xml:base : ?valid "The attribute xml:base may be inserted in XML documents to specify a base URI **other than** the base URI of the  document or external entity." according to the spec. However, what we see here is the root filename. Strictly speaking all #xxx type links will be interpreted relative to this, which is probably not what was intended.
+  * @xml:id : these are valid though verbose : introduce a shorter version ?
+  * @xml:lang : missing on one doc; fra(48) shd really be fr(1)
+
+**ab** (1012)
+> All but 8 specify a @rend, which in all but 11  ="runon" ; also specified on parent sp
+  1. only supplies @type="note" : this seems redundant
+
+**abbr** (1610)
+> One and one only has a value (IDBA) for its xml:id. Why?
+
+**add**
+  * @hand some values are unresolvable pointers; 5 (of 36) are just words
+  * @type="provenance" occurs twice. Why?
+  * @xml:id used twice only
+
+**author**
+  * @role=auteur (46) seems a bit redundant
+  * @xml:id (15 cases) maybe better as @key ?
+  * @corresp (1) why?
+
+**authority** (150)
+  * @xml:base (49/50) why? and why is 1 @corresp
+
+**bibl** (393)
+  * @xml:base misused : where it provides a reference, probably should be @ref
+  * xml:id vals need to be checked, but look ok
+  * @xml:lang =lat (18) shd be la
+
+**biblScope** (155) 85 have no @unit
+  * @type (4)  : shd be @unit
+
+**castItem** (63)
+  * @xml:id only 8 -- so where else do @who point to?
+
+**catRef** (162)
+  * @scheme values need to be better defined (corpus-BVH/tei/version)?
+  * @target : where are values defined? no taxonomy found
+
+**change**
+  * @who values shd be links
+
+**choice**
+  * @xml:lang=eus (1) ??
+
+**cit** (99)
+  * @xml:lang 3 letter vals used
+
+**classDecl**
+  * @xml:base points to "#BVH\_classDecl.xml" (4 occs of @corresp likewise) :
+probably these should both just be xIncludes but I need to see the file to see what it is
+
+**corr**
+  * @resp : values a mix of refs and codes: shd be consistent
+  * @source : apparently used in the same way
+
+**date**
+  * @n nearly always =1 : is this useful?
+  * @type : inconsistent codes
+
+**del**
+  * @hand : unresolved pointers; inconsistent
+  * @type : =censure (only value; 9 occs)
+
+**dim**
+  * @rend : misused here
+  * @unit : ligne/lignes?
+
+**div**
+  * @corresp : 1 occ =#peletier ??
+  * @type/@subtype : values need to be reviewed
+  * xml:id : needs to be uniquified : just add a 2 digit prefix for doc and we're done
+  * @xml:lang : 3 char codes (ell/ita/lat) instead of (el/it/la)
+
+**edition**
+  * @corresp (2) : meaning?
+  * @xml:base (50) : supplying an xtf query of some sort, but why?
+
+**editionStmt**
+  * @xml:base and xml:id misused, I think, but only once
+
+**epigraph** (2)
+  * @xml:lang : la not lat plz
+
+**expan**
+  * @source (3) : vals inconsistent
+  * @xml:lang : la not lat plz
+
+**figure** (480)
+> some of these are not figures
+
+**foreign**
+  * @xml:lang : vals inconsistent shd all be 2 chars
+
+**fw** (20554)
+> Should not be used for editiorial foliation if it's not visible.
+    * @rend : italic/it
+    * @type : pagenum (1)/pageNum (9260)
+    * @xml:id (1) ?
+
+**g** (1012)
+  * @ref (787) null : error?; links to a specific lettrine image should be done with @facs I think
+  * @type (103) : is @type="pied\_de\_mouche" same as @ref="#mouche" ?
+
+**graphic**
+  * @xml:base and @xml:id used strangely
+  * @xml:lang(2)  values "art" and "oar" mean what?
+
+**head**
+  * @rend has " center" and "center"
+
+**hi**
+  * @rend has "hi" "it" "italic" and some other variants
+
+**institution**
+  * @key (7) what do these values mean?
+
+**item**
+  * @corresp shd be a pointer, but only 1 of the 44 is
+
+**keywords**
+  * @scheme 45 point to "#Index\_matuere.xml"; 5 to "BVH-matiere"
+
+**l**
+  * @rend what do values "negatif" and "positif" (or "positirf") mean?
+
+
+**lg**
+  * @xml:lang =la (1) =lat(3)
+  * @xml:id =la (1)
+
+**list**
+  * @type(44) : check values
+
+**listBibl**
+  * @type =refbiblio (34) -- how different from the other 14
+  * @xml:base : usage?
+
+**name**
+  * @corresp : a few non pointers. what is it pointing at?
+  * @key : usage?
+  * @xml:id : usage ?
+
+**note**
+  * @resp : two nonpointer vals LB and TU
+
+**orgName**
+  * @key (8) means what?
+
+**p**
+  * @corresp : half are pointers, half not; should probly be @facs
+  * @rend : check values
+
+**pb**
+  * @facs and @xml:id values overlap considerably
+
+**persName**
+  * @key : some values start "#loc" is this correct?; as usual some values are not links
+
+**person** (9)
+  * @xml:id s not used
+
+**ref** (1266)
+  * @target : some are idrefs; some point to other works; some are xtf queries  ??
+  * @ xml:base (1)
+
+**reg**
+  * @resp and @source values inconsistent
+
+**repository**
+  * @key and @n used interchangeably ?
+
+**said**
+  * @who values shd be pointers
+
+**sp** contains ab or p or lg; why not just ab or lg?
+  * @who values shd all be pointers
+  * @xml:id (2) misused?
+
+
+**supplied**
+  * @source values shd all be pointers
+
+**taxonomy**
+  * @corresp values shd all be pointers
+
+**text**
+  * @type values need checking
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**sp**
+
+
+
+
+
+
+
+

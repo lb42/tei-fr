@@ -1,0 +1,14 @@
+#Liste des logiciels à fournir
+
+# Liste des logiciels que les stagiaires doivent installer au préalable #
+
+  * oXygen : http://oxygenxml.com/download.html (choisir Oxygen XML Editor; et n'oubliez pas de telecharger aussi le "Trial License Key" (licence d'essai de 30 jours)
+  * Inkscape : http://inkscape.org/?lang=fr
+  * TEI Boilerplate http://teiboilerplate.org
+  * TXM : http://sourceforge.net/projects/txm/files/software/TXM/0.7.0beta3/
+  * TreeTagger : http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
+    * voir le Tutoriel d'installation du TreeTagger pour TXM : http://txm.sourceforge.net/installtreetagger_fr.html
+
+# Liste des ressources à télécharger #
+
+> à fournir

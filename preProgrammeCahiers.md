@@ -1,0 +1,37 @@
+#cahiers  preprogramme
+TEI ++: une formation approfondie pour le consortium Cahier du TGIR Corpus
+Proposition de  pré-programme
+
+On assume dans le publique une connaissance basique de l'encodage XML, et des essentiels de la TEI, par exemple issue de la formation Patrimoine Numerique du CESR.
+
+## Sujets à traiter ##
+  * méta-TEI :
+    * explication de l'architecture du système TEI-XML
+    * fonctionnement de Roma,  définition d'un ODD
+    * définition retrospective d'un ODD
+    * transformation en TEI des documents Word ou ODT
+    * gestion des documents TEI avec Oxygen, ou d'autre editeurs XML
+    * usage des feuilles de style CSS et XSLT pour traitement des documents TEI
+    * application des outils d'affichage TEI : tei-publisher, tei-boilerplate, teichi ...
+    * application des outils d'analyse et de visualisation : txm  ...
+  * TEI  modules
+    * structuration des corpus
+    * transcription et visualisation des sources primaires
+    * description détaillée des sources primaires
+    * transcription et documentation de l'oral
+    * transcription et documentation des pieces de theatre
+    * traitement des noms et des entités nommés
+    * représentation des analyses linguistiques et litteraires
+
+## Modalités ##
+Formation assurée par  Lou Burnard (TEI), assisté de Lauranne Bertrand (CESR), et par  Alexandre Gefen (Sorbonne). La participation d'autres experts francais est aussie envisagée selon leur disponibilité.
+
+Quatre journées plenieres sont proposees, avec chacune
+  * présentation et discussion d'un projet par l'un ou plusieurs des participants
+  * atelier pratique avec présentation des matières suivi de travaux pratiques scriptés
+    * quelques  interventions d'experts invitées, à preciser.
+
+Les participants seront invités de presenter des échantillons des sources  sur lesquelles ils travaillent et de discuter leur encodage eventuel.
+
+En l'absence d'une salle pre-equipée d'ordinateurs, les participants seront invités de travailler sur leur propres portables (PC, Mac, ou Linux). Les materiels à installer (y compris une licence temporaire pour les logiciels tels que oXygen avec lesquels on va travailler) leur seront communiqués aussitot que possible avant la formation.
+Toute la materielle (transparents, exercices scriptés, fichiers etc.) de la formation restera disponible apres la formation

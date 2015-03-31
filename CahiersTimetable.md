@@ -1,0 +1,87 @@
+## Lundi 19 novembre ##
+
+### 09h30 - 11h00 ###
+  * 1.1 Introduction. Présentation des participants et de leurs intérêts ; objectifs de la formation ; présentation de quelques projets TEI actuels.
+  1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/index.xml
+
+### 11h30 - 13h00 ###
+  * 1.2 Session de rappels pratiques: éditer avec oXygen et notions de schéma LAURANNE + ALEXANDRE
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-1.xml
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-1-cartes.xml
+
+
+### 14h00 - 15h30 ###
+  * 1.3  Présentation du paysage TEI : LOU +ALEXANDRE
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/talk-03-overview.xml
+
+### 16h00 - 17h30 ###
+  * 1.4  Construction de schéma pour ses propres textes en se servant de Roma :  ALEXEI + LAURANNE
+    1. (document de travail) https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-2.xml
+    1. (archive) https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-10-tours/tp-3.xml
+
+## Mardi 20 novembre (9h30 – 17h30) ##
+
+### 09h30 - 11h00 ###
+  * 2.2 Présentation du langage ODD : LOU
+    1. http://tei.oucs.ox.ac.uk/Oxford/2011-06-18-odd/talk-odd.xml
+### 11h30 - 13h00 ###
+  * 2.3 Création d’un ODD à partir d'un corpus ; modification d'un ODD : LAURANNE + LOU
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-3.xml
+
+
+### 14h00 - 15h30 ###
+  * 2.1   Présentation du TEI Header et considérations sur les métadonnées
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/talk-05-hdr.xml  LOU
+
+### 16h00 - 17h30 ###
+  * 2.4 Création d'un header de manuscrit
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-msdesc.xml
+
+## Mercredi 21 novembre ##
+
+### 09h00 - 10h30 ###
+  * 3.3 Encodage des entités nommées avec analyses littéraires :  ALEXANDRE
+    1. (archive) http://tei.oucs.ox.ac.uk/Oxford/2008-10-tours/beyond-text-fr.xml
+    1. (archive) https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-07-dhox/talk04.xml
+
+
+### 11h00 - 12h30 ###
+  * 3.4 Exercice "data mining" dans un corpus de documents historiques LOU +ALEXANDRE (qui devra partir à 12h00)
+    1. (archive) http://tei.oucs.ox.ac.uk/Oxford/2010-06-mutec/travprat-3.xml
+
+### 14h00 - 15h30 ###
+  * 3.1 Encodage TEI des corpus oraux avec analyses linguistiques : BERTRAND
+
+  1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-05-paris/talk-oral.xml
+
+### 16h00 - 17h30 ###
+  * 3.2 Exercice sur l'encodage d'un texte oral : BERTRAND + LOU
+
+
+## Jeudi 22 novembre (9h30 – 17h30) ##
+
+### 09h30 - 11h00 ###
+  * 4.1 Encodage TEI des sources manuscrites  ALEXEI
+    1. (document de travail) http://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/talk-07-transcr.xml
+    1. (archive) http://tei.oucs.ox.ac.uk/Oxford/2008-08-kazan/tei-mss.xml
+    1. (archive) http://tei.oucs.ox.ac.uk/Oxford/2010-06-mutec/transcription-fr-augmentee.xml
+    1. (archive) https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-09-berne/FR/talk-04-transcr.xml
+    1. (archive) https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-09-berne/FR/talk-06-transcr.xml
+
+### 11h30 - 13h00 ###
+  * 4.2 Exercice sur l'encodage d'un manuscrit LAURANNE + ALEXEI
+    1. (document de travail) http://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-7.xml
+    1. (supplementaire) http://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/tp-mstranscr.xml
+    1. (archive) http://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-09-berne/FR/tp-6.xml
+
+### 14h00 - 15h30 ###
+
+  * 4.3 Stockage, affichage et analyse des corpus TEI ; discussion sur les outils : LOU
+
+### 16h00 - 17h30 ###
+  * 4.4 Expérimentation avec des logiciels disponibles pour stockage,  affichage et analyse des corpus TEI : ALEXANDRE + ALEXEI
+
+
+## Voir aussi ##
+  * [Liste des logiciels à pré-installer par les stagiaires](https://code.google.com/p/tei-fr/wiki/Logiciels)
+  * [Liste des inscriptions](https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-11-paris/inscriptions.csv)

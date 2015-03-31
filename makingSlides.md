@@ -1,0 +1,91 @@
+# Introduction #
+
+The XML source files available from this SVN provide talks about the TEI in TEI format. This document explains how to  transform them into  PDF files which can be used for presentations. It's a two stage process:
+
+  * First we convert the TEI to LaTeX, using Sebastian Rahtz's stylesheet library
+  * Second, we process the LaTeX into PDF, using set of macros provided by the XeLaTeX package, and the xetex typesetting system.
+
+SFAIK this only works on Linux. It has been tested on Ubuntu 12.04 in September 2012; and on Mac OSX in October 2012!
+
+# Prerequisite packages #
+
+You need the TEI stylesheets, an XSLT version2 processor such as saxon, and the XeLaTex package (included in TeX Live). You will also need a PDF reader such as Acrobat Reader or Evince to see the results, and a suitable collection of fonts, of course.
+
+For a full explanation of the TEI stylesheets, see http://www.tei-c.org/Tools/Stylesheets/
+
+You can download the saxon jar file from http://saxon.sourceforge.net, using the download for Java. Similarly, you can install the Tex bits and pieces from http://www.tug.org/texlive/acquire-netinstall.html.
+
+Alternatively, for the lazy amongst us, here's the Ubuntu solution (see further http://http://tei.oucs.ox.ac.uk/teideb/)
+
+  1. Add the TEI repo to your sources.list
+```
+deb http://tei.oucs.ox.ac.uk/teideb/binary ./
+```
+
+  1. Then grab the following packages:
+```
+sudo apt-get install tei-xsl saxon latex-beamer texlive-xetex texlive texlive-latex-extra 
+```
+
+# Fonts #
+
+The TEI stylesheets assume you have the fonts "Minion Pro" and "Myriad Pro" installed on your system (for the roman and sans serif fonts). They are included in the "acroread" package, so you may have them already on your machine.
+
+If you don't have them, you can either install the "acroread" package or install the relevant additional font packages for latex separately. Alternatively, you can specify a font that is available on your machine in the "slides" file (the relevant lines are lines 36 to 43, approximately). You can comment out lines by adding the "%" sign in front of them.
+
+# Setting up all files in the right places #
+
+You can place your TEI source files anywhere you like on your system, but you must have a copy of the files   "Makefile" and  "slides.xsl" in the same folder. Edit the Makefile to specify the names of the file or files you want to transform.
+
+If the XML file you chose to transform, or the XML file you created from it, refers to any graphics, the (usually relative) paths you indicate there need to match the paths where you actually put the image files.
+
+The "slides.xsl" file refers to the TEI stylesheets. The path indicated in the "slides" file on line 9 needs to match the path on your system. You can achieve this either by changing the path in the "slides" file or by moving the stylesheet folder. A good place for the stylesheets is the path "/usr/share/xml/", which means the full path to the relevant stylesheet is "/usr/share/xml/tei/stylesheet/slides/teilatex-slides.xsl".
+
+# Running the transformations #
+
+If you've edited the Makefile correctly, you can skip this section and just type
+```
+make
+```
+However you probably won't understand how to edit the Makefile until you've read this section...
+
+The transformation is a two-step process. To run the transformations, saxon needs to be available. In the terminal, move to the folder where your TEI file is (along with the "slides" and "Makefile" files, of course).
+
+To transform the TEI file into a TEX file, run the first transformation:
+
+```
+saxon -o:xxx.tex xxx.xml slides.xsl
+```
+
+Here, "xxx" is the name of your file, so "-o:xxx.tex" specifies the output file, "xxx.xml" is the input file, and "slides.xsl" calls up the stylesheet. This process will give you a file called "xxx.tex" written to the same folder.
+
+To transform the TEX file into a PDF file, run the second transformation:
+
+```
+xelatex xxx.tex
+```
+
+Here, "xxx.tex" is the input file, and Xelatex will produce an output file called "xxx.pdf" and write it into the same folder.
+
+If your XML file contained any cross references you will need to repeat the "xelatex" command to get them properly resolved in the PDF output. Otherwise, you're done!
+
+# MacOSX process #
+
+1/ Download mactex (http://www.tug.org/mactex/) and install the pkg
+
+2/ Update the latex package with
+```
+tlmgr update --all
+```
+3/ See above for XSLT package and installation
+
+4/ Write your xml
+
+5/ Transform your xml file into latex file
+```
+java -jar saxon -o:xxx.tex -s:xxx.xml -xsl:slides.xsl
+```
+6/ Transform your latex file into pdf :
+```
+xelatex xxx.tex
+```

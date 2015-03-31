@@ -1,0 +1,122 @@
+# Timetable #
+
+( voir aussi BerneTimetable )
+
+### Lundi ###
+_Présentations et discussions_ : les participants présenteront rapidement leur projet d'édition (10-12 groupes max. de 15-20 min.)
+
+_visite des archives littéraires de Berne_
+
+Le soir, apéro de bienvenu
+
+### Mardi, Mercredi, Jeudi ###
+
+|09h -10h |Plenière |
+|:--------|:---------|
+|10h30 - 12h30 |Ateliers en parallel |
+|14h - 15h |Plenière |
+|15h30 - 17h30 | Ateliers en parallel |
+
+### Vendredi ###
+|09h -11h |Ateliers en parallel|
+|:--------|:-------------------|
+|11 - 12h30 |Bilan de tous les participants sur les travaux, discussion, évaluation etc.|
+
+Le départ se fait après le déjeuner (14h)
+
+## Participation ##
+
+Chacun des formateurs va donner une plenière et prendre en charge un des trois ateliers. Les plenières seront ou bien en anglais ou bien en français, les  ateliers en allemand  (Christof) italien (Elena) et français (Lou).
+
+Les participants sont pour la plupart des philologues, interessés par l'édition des textes contemporaines/modernes. Sur les 40 participants, la moitié sont des "généticiens ou des chercheurs en littérature contemporaine".
+
+Entre 15-20 personnes sont attendus par atelier (le 20 mai, Benedicte rapporte "17 en allemand; 7 en italien pour l'instant --  on arrivera probablement à 10 ou 12; 15 en français")
+
+## Plenières ##
+
+Une plenière sera effectuée par Lou, Elena, Christof, Alejandro Bia, Jean-Louis Lebrave et Sophie Lesiewicz. Voir [BernePlenieres](BernePlenieres.md)
+
+## Ateliers ##
+
+7 Ateliers de 2 heures chacun
+
+### 1. Mardi matin ###
+  * What is markup? What is XML?
+  * Distinction between document-based and text-based perspective
+**~~Learn to choose what to mark up~~
+  * Learn how to use Oxygen
+  * Use Oxygen's author view, learn how to use and adapt the stylesheet**
+
+### 2. Mardi après-midi ###
+  * Principles of TEI, and some of the core elements
+  * Analyse a simple text and mark it up using core elements (or TEI Lite elements)
+
+
+_I would suggest to leave the point "learn to choose what to mark up"
+out of session 1, at least as a major point. It would fit nicely in
+session 3, with the overview of what TEI can do (examples from all
+modules), and with the part on Roma. (I plan to translate Lou's nice
+presentation on the overview; talk 9 and exercise 9 from the Oxford
+materials may come in handy for the Roma part.) The recapitulation
+exercise we planned here could be one consisting of reading and
+understanding an existing TEI-encoded document, which can be somewhat
+more complex than the ones from sessions 1 and 2. (CS)_
+
+
+### 3. Mercredi  matin ###
+  * Exercise recapitulating the things learnt on Tuesday
+  * Then: overview of all TEI modules / what TEI can do
+  * Also: How to decide what to markup; how to create a schema with Roma to reflect those decisions
+
+_Possibly based on this talk? http://tei.oucs.ox.ac.uk/Oxford/2011-02-aix/talk-guidelines.xml (CS)_
+
+### 4. Mercredi après-midi ###
+  * Module "transcription of primary sources" (excluding the genetic parts)
+  * Practice using some of these elements, like add/del, etc. on an example text
+  * Learn how to use and/or adapt a CSS stylesheet (rather not XSLT) to render the features
+
+_Do we have materials for session 4, "transcription of primary
+sources"? This should not overlap with the "core" exercise, nor with
+the more advanced "genetic" exercise. It turns out to be quite
+difficult to find a good example of a manuscript in German for
+exercise 4; I tend to think I should use the example from exercise 6
+in the Oxford materials, although this is in English. (CS)_
+
+_If we do some names and dates here, we should maybe cover some of the "new" more genetic transcription features (things like mod, change, @seq) in session 4, along with the more traditional elements (like add/del, sic/cor, abbr/expan). Could this be smuggled into the Oxford 2012 materials for transcription of primary sources? (CS)_
+
+
+### 5. Jeudi matin ###
+  * Module "Manuscript description"
+  * Maybe: also speak a bit more about the header here
+
+_agreed (LB)_
+
+  * Module "Names and dates" (either here or in no 7)
+
+_probably no room here, move to no 7 (LB)_
+
+_Sessions 5, it seems to me, is very nicely covered by the Oxford
+materials (talk 5 and exercise 5 for "manuscript description"). I
+think it makes sense to just translate and adapt these materials. (CS)_
+_Agreed (LB)  they are in fact derived from a talk I have already translated into French! (LB)_Very good, then! (CS)
+
+### 6. Jeudi après-midi ###
+  * The document / genetic view: focus on "zones"
+  * Present (some of ) the elements etc.
+  * Exercises with examples / tasks from Elena
+
+### 7. Vendredi matin ###
+  * The document / genetic view: focus on "lines"
+  * Present (some of) the elements etc.
+  * Exercises with examples / tasks from Elena
+
+_I think we should leave at least part of Friday morning free for things that turn up in the course of the week. I would also like to put in here a brief section on named entities if we can. Is it not possible to combine 6 and 7 into one session? (LB)_Why not, combining 6 and 7 into one was also my thought (CS)
+
+## Materials and examples ##
+  * [Slides and tutorials from Aix (en francais)](http://tei.oucs.ox.ac.uk/Oxford/2011-02-aix/)
+  * [TEI A La Carte tutorial (in English) ](http://tei-fr.googlecode.com/files/practicalsession.pdf)
+  * [Materials from ENC workshop (en francais)](http://tei-fr.googlecode.com/files/2011-03-ENC.zip)
+  * Materials from Elena about genetic module
+  * Elena's prototype on Proust (see/get online)
+  * Christof will find a draft manuscript in German (for units 4 and 5)
+  * [Materials from the Oxford Summer School 2012](http://digital.humanities.ox.ac.uk/dhoxss/2012/)

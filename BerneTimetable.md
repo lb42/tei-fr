@@ -1,0 +1,88 @@
+# Timetable #
+
+Details of plenaries are not included here (see BernePlenieres); they take place each morning between 09 and 10 and each afternoon between 14 and 15h. I'm assuming that (if there is one) there is a coffee break between the end of the plenary and the start of the atelier both in the morning and the afternoon.
+
+Numbered links below each title are to possible sources for the relevant talk/tutorial mostly on the svn repository on this site. Final versions will be stored in the repository at https://code.google.com/p/tei-fr/source/browse/#svn%2Ftrunk%2FTalks%2F2012-09-berne
+
+## Tuesday / mardi ##
+
+### 1030 - 1130 ###
+
+  * Talk 1 : Introduction to mark up concepts
+    1. http://tei.oucs.ox.ac.uk/Oxford/2011-02-aix/talk-intro-xml.xml
+    1. http://tei.oucs.ox.ac.uk/Talks/2012-07-dhoxss/DHIntro/Markup/talk-markup.xml (longer version, in English)
+
+### 1130 - 1230 ###
+
+  * TP 1 : creating an XML document with Oxygen; visualising it
+    1. http://tei-fr.googlecode.com/files/practicalsession.pdf
+    1. http://tei-fr.googlecode.com/files/uebungen.zip (from Christof)
+
+### 1530 - 1630 ###
+
+  * Talk 2 : Introduction to TEI and core elements
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-06-reggio/talk-tei.xml
+
+### 1630 - 1730 ###
+
+  * TP 2 : marking up a document with TEI Lite or less
+
+## Wednesday / mercredi ##
+
+### 1030 - 1130 ###
+
+  * Talk 3 : Recap. Overview of TEI. Selection of TEI elements.
+    1. http://tei.oucs.ox.ac.uk/Oxford/2011-02-aix/talk-guidelines.xml
+
+### 1130 - 1230 ###
+
+  * TP 3 : Defining a schema with Roma
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-07-dhox/exercise09.xml
+
+### 1530 - 1630 ###
+
+  * Talk 4 : TEI elements for documentary transcriptions
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-01-tours/talk-ms.xml
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-07-dhox/talk06.xml
+
+### 1630 - 1730 ###
+
+  * TP 4 : marking up a simple manuscript transcription
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-07-dhox/exercise06.xml
+
+## Thursday / jeudi ##
+
+### 1030 - 1130 ###
+
+  * Talk 5 : Metadata. TEI elements for manuscript description.
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-07-dhox/talk05.xml
+    1. https://code.google.com/p/tei-fr/source/browse/trunk/Talks/2012-03-clermont/talk-hdr.xml
+
+
+
+### 1130 - 1230 ###
+
+  * TP 5 : adding a header, and marking up a manuscript description
+
+### 1530 - 1630 ###
+
+  * Talk 6 : TEI elements for documentary transcription : closer look
+
+### 1630 - 1730 ###
+
+  * TP 6 : adding zones and images to a manuscript transcription
+
+
+## Friday / vendredi ##
+
+### 0900 - 0945 ###
+
+  * Talk 7 : Named entities. Indexing. Other topics?
+
+### 0945 - 1030 ###
+
+  * TP 7 : ?
+
+### 1100 - 1230 ###
+
+Closing plenary discussion
