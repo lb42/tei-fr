@@ -1,9 +1,12 @@
 #SCHEMA=/usr/share/xml/tei/custom/schema/relaxng/tei_all.rng
 ECHO=
 SCHEMA=/home/lou/Public/TEI-SF/P5/Exemplars/tei_all.rng
-CORPUS=/home/lou/Public/tei-fr/Projects/BVH/testBed
+CORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/testBed
+NEWCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/Corpus
+CLEANCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanCorpus
 OBE=/home/lou/Public/Stylesheets.git/trunk/tools/oddbyexample.xsl
-BVHRNC=/home/lou/Public/tei-fr/Projects/BVH/bvh.rnc
+BVHRNC=/home/lou/Public/tei-fr/trunk/Projects/BVH/bvh.rnc
+CLEANUP=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanup.xsl
 CURRENT=`pwd`
 #	M0275_01_tei.xml \
 #	M0275_02_tei.xml \
@@ -79,3 +82,8 @@ checkSpec:
 		jing $(BVHRNC) \
 		$$f ; done; cd $(CURRENT);
 
+cleanup:
+	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
+		echo $$f; \
+		saxon  \
+		$$f $(CLEANUP) > $(CLEANCORPUS)/$$f; done; cd $(CURRENT);
