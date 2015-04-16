@@ -15,7 +15,7 @@
    cdata-section-elements="tei:eg teix:egXML"
    omit-xml-declaration="yes"/>
 
-<!-- first we try to get rid of duplicate xml:id values -->
+<!-- (1)  get rid of duplicate xml:id values -->
 
 <!-- change xml:id on name to @key -->
 <xsl:template match="tei:name/@xml:id">
@@ -44,6 +44,48 @@
 <xsl:template match="tei:zone/@xml:id"/>
 
 
+<!-- (2) next we validate  all pointer attributes -->
+  
+<!-- remove empty <g> -->
+<xsl:template match="tei:g[@ref='']"/>
+  
+<!-- fix local refs starting with "n"  --> 
+<xsl:template match="tei:ref[@target]">
+  <xsl:if test="starts-with(.,'n')">
+    <xsl:attribute name="target">
+      <xsl:value-of select="concat('#',concat(substring-before(ancestor::tei:TEI/@xml:id,'tei'), .))"/>
+    </xsl:attribute>
+  </xsl:if>
+</xsl:template>  
+  
+<!-- fix @scheme attribute values -->
+<xsl:template match="tei:catRef/@scheme">
+ <xsl:attribute name="scheme">
+  <xsl:choose>
+   <xsl:when test=".='corpus-BVH'">bvh:corpus</xsl:when>
+    <xsl:when test=".='version'">bvh:version</xsl:when>
+    <xsl:otherwise>bvh:unknown</xsl:otherwise>
+ </xsl:choose>
+ </xsl:attribute>
+</xsl:template>  
+  
+  <xsl:template match="tei:keywords/@scheme">
+    <xsl:attribute name="scheme">
+      <xsl:choose>
+        <xsl:when test=".='#index-matiere.xml'">bvh:matiere</xsl:when>
+        <xsl:when test=".='BVH-matiere'">bvh:matiere</xsl:when>
+        <xsl:otherwise>bvh:unknown</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:template>  
+  
+  <!-- fix @who attribute values -->
+  <xsl:template match="@who[substring(.,1,1)!='#']">
+    <xsl:attribute name="who">
+      <xsl:value-of select="concat('#',.)"/>       
+    </xsl:attribute>
+  </xsl:template>  
+  
 <!-- copy everything else -->
 
  <xsl:template match="*">
