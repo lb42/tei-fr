@@ -73,6 +73,7 @@
     <xsl:attribute name="scheme">
       <xsl:choose>
         <xsl:when test=".='#index-matiere.xml'">bvh:matiere</xsl:when>
+        <xsl:when test=".='#Index-matiere.xml'">bvh:matiere</xsl:when>
         <xsl:when test=".='BVH-matiere'">bvh:matiere</xsl:when>
         <xsl:otherwise>bvh:unknown</xsl:otherwise>
       </xsl:choose>
@@ -85,6 +86,25 @@
       <xsl:value-of select="concat('#',.)"/>       
     </xsl:attribute>
   </xsl:template>  
+  
+  <!-- fix @resp attribute values -->
+  <xsl:template match="@resp[substring(.,1,1)!='#']">
+    <xsl:attribute name="resp">
+      <xsl:value-of select="concat('#',.)"/>       
+    </xsl:attribute>
+  </xsl:template>  
+  
+  <!-- fix @hand attribute values -->
+  <xsl:template match="@hand[substring(.,1,1)!='#']">
+    <xsl:attribute name="hand">
+      <xsl:value-of select="concat('#',.)"/>       
+    </xsl:attribute>
+  </xsl:template>  
+  
+  <!-- 3 : suppress some bizarre hapax -->
+  
+  <xsl:template match="@rendition"/>
+  
   
 <!-- copy everything else -->
 
