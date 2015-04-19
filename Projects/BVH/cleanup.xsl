@@ -101,6 +101,14 @@
     </xsl:attribute>
   </xsl:template>  
   
+  <!-- change @corresp to @ref where appropropriate -->
+
+  <xsl:template match="tei:name/@corresp">
+    <xsl:attribute name="ref">
+      <xsl:value-of select="."/>       
+    </xsl:attribute>
+  </xsl:template>  
+
   <!-- 3 : suppress some bizarre hapax -->
   
   <xsl:template match="@rendition"/>
