@@ -101,7 +101,7 @@
     </xsl:attribute>
   </xsl:template>  
   
-  <!-- change @corresp to @ref where appropropriate -->
+  <!-- change @corresp to @ref on name -->
 
   <xsl:template match="tei:name/@corresp">
     <xsl:attribute name="ref">
@@ -109,10 +109,38 @@
     </xsl:attribute>
   </xsl:template>  
 
-  <!-- 3 : suppress some bizarre hapax -->
+  <!-- change @corresp to @facs on p -->
+   <xsl:template match="tei:p/@corresp">
+    <xsl:if test=".">  
+    <xsl:attribute name="facs">
+      <xsl:choose>
+        <xsl:when test="substring(.,1,1)='#'">
+          <xsl:value-of select="substring-after(.,'#')"/>
+        </xsl:when>      
+        <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+      </xsl:choose>      
+    </xsl:attribute>
+  </xsl:if>
+  </xsl:template>  
+  
+  <!-- 3 : suppress bizarre hapax -->
   
   <xsl:template match="@rendition"/>
   
+  <!-- 4: fix things no longer valid -->
+  
+  <!-- biblScope/@type has been replaced by @unit -->
+  <xsl:template match="tei:biblScope/@type">
+    <xsl:attribute name="unit">  
+      <xsl:value-of select="."/>
+    </xsl:attribute></xsl:template>
+  
+  <!-- vacuous relatedItem not permitted -->
+  <xsl:template match="tei:bibl/tei:relatedItem">
+    <xsl:if test="string-length() gt 1">
+      <xsl:copy-of select="."/>
+    </xsl:if>  
+  </xsl:template>
   
 <!-- copy everything else -->
 

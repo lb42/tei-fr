@@ -5,8 +5,9 @@ CORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/testBed
 NEWCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/Corpus
 CLEANCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanCorpus
 OBE=/home/lou/Public/Stylesheets.git/trunk/tools/oddbyexample.xsl
-BVHRNC=/home/lou/Public/tei-fr/trunk/Projects/BVH/bvh.rnc
+BVHRNG=/home/lou/Public/tei-fr/trunk/Projects/BVH/out/bvh.rng
 CLEANUP=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanup.xsl
+IDENTITY=/home/lou/Public/tei-fr/trunk/Projects/BVH/identity.xsl
 CURRENT=`pwd`
 #	M0275_01_tei.xml \
 #	M0275_02_tei.xml \
@@ -77,13 +78,21 @@ generate:
 	teitorelaxng generated.odd ; mv generated.odd.relaxng $(BVHRNC)
 
 checkSpec:
+	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
+		echo $$f; \
+		jing $(BVHRNG) \
+		$$f ; done; cd $(CURRENT);
+
+copy:
 	cd $(CORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
-		jing $(BVHRNC) \
-		$$f ; done; cd $(CURRENT);
+		saxon \
+		$$f $(IDENTITY) >$(NEWCORPUS)/$$f; done; cd $(CURRENT);
 
 cleanup:
 	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		saxon  \
 		$$f $(CLEANUP) > $(CLEANCORPUS)/$$f; done; cd $(CURRENT);
+
+
