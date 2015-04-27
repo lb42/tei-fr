@@ -96,3 +96,8 @@ cleanup:
 		$$f $(CLEANUP) > $(CLEANCORPUS)/$$f; done; cd $(CURRENT);
 
 
+checkClean:
+	cd $(CLEANCORPUS); 	for f in $(FILES) ; do \
+		echo $$f; \
+		jing $(BVHRNG) \
+		$$f ; done; cd $(CURRENT);
