@@ -1,0 +1,2448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Manuel d'encodage TEI - Renaissance et temps modernes</title>
+				<author>Nicole Dufournaud (auteur principal, v1-2)</author>
+				<author>Marie-Luce Demonet (responsable scientifique)</author>
+				<author>Toshinori Uetani (responsable scientifique)</author>
+				<author>Thierry Vincent ( auteur, v1)</author>
+				<author>Vanessa le Rolle (auteur, v2)</author>
+				<author>Laetitia Bontemps (auteur, v2)</author>
+				<author>Jorge Fins (auteur, v3)</author>
+				<author>Lauranne Bertrand (auteur, v3)</author>
+				<author>Alice Nué (contributeur, v2)</author>
+				<author>Sandrine Breuil (contributeur, v2-3)</author>
+				<author>Rémi Jimenes (contributeur, v2-3)</author>
+				<author>Lou Burnard (contributeur, v1-2 ; TEI consortium)</author>
+				<author>Jean-Daniel Fekete (contributeur, v2 ; INRIA)</author>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Bibliothèques Virtuelles humanistes <ref target="http://www.bvh.univ-tours.fr">http://www.bvh.univ-tours.fr</ref></publisher>
+				<availability>
+					<p>           
+                    2012
+                    CESR
+                    <note type="complement">CC BY-NC-ND 2.0</note>
+					</p>
+				</availability>
+			</publicationStmt>
+			<sourceDesc><p>Converted from Scenari source</p></sourceDesc>
+		</fileDesc>
+		<revisionDesc>
+			<list>
+				<item>Mise à jour en fonction de l'évolution des recommandations TEI et du balisage TEI Renaissance</item>
+				<item>Modifications de la structure du manuel</item>
+				<item>Liens vers la documentation ODD des Bibliothèques Virtuelles Humanistes</item>
+				<item>Reformulations, ajouts d'informations utiles et suppressions d'informations obsolètes</item>
+				<item>Refonte graphique</item>
+			</list>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<front>
+            <div>
+            	<head>La Text Encoding Initiative</head>
+                
+                <p>La TEI (Text Encoding Initiative) est un projet universitaire pluridisciplinaire 
+                	visant à uniformiser autant que possible le codage de documents en vue de leur 
+                	échange et de leur publication en ligne ou hors ligne. Il s'agit d'un format 
+                	de codage de documents dit « structuré » : il a besoin d'un langage, XML, pour aider 
+                	à la saisie d'un texte en lui donnant une structure compatible à la fois avec les 
+                	exigences des différentes communautés qui l'utilisent (bibliothécaires, historiens, philosophes, 
+                	spécialistes de littérature, linguistes, amateurs) et avec les possibilités des outils de consultation. 
+                	Les recommandations du consortium TEI (http://www.tei-c.org/) dans sa version P5 ont été suivies, 
+                	en s'inspirant du <title>Manuel TEI des Cahiers Gutenberg</title><note place="foot">« Numéro spécial : TEI Text Encoding Initiative », dir. Jacques ANDRE, Rennes, n° 24, juin 1996.</note> de 1996 ainsi que du <ref target="http://bfm.ens-lyon.fr/IMG/pdf/Manuel_Encodage_TEI.pdf">Manuel de la BFM</ref> pour élaborer le présent manuel.
+                        Cet ouvrage n'a pas pour objectif de remplacer la lecture attentive des directives de la TEI 
+                        (<ref target="http://www.tei-c.org/P5/Guidelines/">http://www.tei-c.org/P5/Guidelines/</ref>), mais d'en 
+                	décrire une application et de guider son utilisation pour les textes allant du début de l'imprimerie à la 
+                	période de normalisation typographique au XIXe siècle.
+                	Nous nous appuyons sur des exemples pratiques. Trois ouvrages du XVIe siècle français nous ont servi à 
+                	illustrer concrètement les principaux usages d'encodage TEI :
+                 </p>       <list rend="ordered">
+                            <item>
+                                Louise Labé, <title>Euvres</title>, Lyon, Jean de Tournes, 1555<note place="foot"><hi rend="bold">Louise Labé</hi>, 
+                                	Lyon, Jean de Tournes, 1555 (d'après un exemplaire original disponible sur le site 
+                                	« <ref target="http://gallica.bnf.fr/ark:/12148/btv1b86095588/f11.image.r">Gallica</ref> » de la Bibliothèque de France)</note> ;
+                            </item>
+                            <item>
+                                 [Elie VINET ?], <title>Discours non plus mélancoliques que divers</title>, Poitiers, Enguilbert 
+                            	de Marnef, 1556<note place="foot"><hi rend="bold">[Elie VINET ?]</hi>, Poitiers, Enguilbert de Marnef, 
+                            		1556 (d'après un exemplaire reproduit sur <ref target="http://gallica.bnf.fr/ark:/12148/bpt6k71448r">Gallica</ref>, 
+                            		et un autre, daté de 1557, de la Médiathèque François-Mitterrand de Poitiers en ligne sur le site 
+                            		des <ref target="http://www.bvh.univ-tours.fr/Consult/index.asp?numfiche=71">BVH</ref>)</note> ;
+                            </item>
+                            <item>
+                                François Rabelais, <title>Le Tiers Livre</title>, Paris, Chrétien Wechel, 1546, et Paris, Michel Fezandat, 
+                            	1552.<note place="foot"><hi rend="bold">François Rabelais</hi>, Paris, Chrétien Wechel, 1546 
+                            		(<ref target="http://www.bvh.univ-tours.fr/Consult/index.asp?numfiche=61">BVH</ref>), et Paris, Michel 
+                            		Fezandat, 1552 (<ref target="http://gallica.bnf.fr/ark:/12148/btv1b8600033x/f5.image">Gallica</ref>).
+                                	<lb/>Nous avons travaillé en parallèle sur deux exemplaires de cette édition : celui de la 
+                            		Bibliothèque nationale de France (Rés. Y2 2162) et la reproduction en ligne de l'exemplaire de 
+                            		la collection Gordon (Université de Virginie, R 258) ; les variantes constatées (et encodées) nous 
+                            		ont permis de découvrir que ce dernier représentait un état du texte inconnu jusqu'à présent.</note>
+                            </item>
+                        </list>
+                       <p>Leur structure complexe et les problèmes divers rencontrés au cours de leur encodage ont permis de vérifier 
+                       	l'adéquation des éléments existant dans la TEI —voire d'en proposer d'autres lorsque cela s'est révélé nécessaire—, 
+                       	et d'élaborer un protocole qui guide l'application à d'autres textes publiés pendant trois siècles. Conçu en 
+                       	premier lieu à l'usage des <ref target="http://www.bvh.univ-tours.fr/index.htm">BVH</ref> (« Bibliothèques Virtuelles Humanistes ») du Centre d'Études Supérieures de la 
+                       	Renaissance (CESR) pour des textes français de la Renaissance, ce manuel pourra servir de base à d'autres projets 
+                       	portant sur d'autres documents manuscrits ou imprimés.</p>
+            	<p>Si les exemples donnés sont français, la TEI « Renaissance et temps modernes » ne réalise pas un encodage spécifique des textes écrits 
+            		en cette langue, elle offre la possibilité d'usages multilingues de la description structurelle. L'universalité des 
+            		éléments permet la compatibilité des analyses, et les sources numérisées dans le cadre des BVH relèvent de 
+            		tous les domaines encyclopédiques, dans plusieurs langues anciennes et modernes.</p>
+            	<p>Cette application montre comment on peut adapter les éléments TEI à la description des textes anciens, en respectant leur 
+            		présentation originale : pagination, lignage, disposition des titres, insertion des éléments illustrés, caractéristiques 
+            		typographiques. Elle se fonde sur une transcription « quasi-diplomatique »<note place="foot">Située entre l'édition « diplomatique » 
+            			intégrale (qui connaît une gamme variable de principes) et l'édition régularisée.
+            			<lb/>Pour plus de détails, cf. les <ref target="http://www.bvh.univ-tours.fr/Epistemon/principeseditoriaux.asp">principes éditoriaux</ref> 
+            			de la base Epistemon sur le site des BVH.</note> du texte, 
+            		soucieuse de donner le plus grand nombre possible d'informations tout en autorisant les traitements automatiques pour 
+            		les recherches sur la langue, les données historiques, les différentes versions du document et les variantes dont le 
+            		niveau de précision peut être adapté aux recherches désirées.</p>
+            	<p>Cette représentation informatique du document est le plus petit dénominateur commun aux exigences des différentes communautés 
+            		des sciences humaines. Elle leur laisse le soin d'y ajouter des annotations relevant de leurs spécialités. Les 
+            		recommandations de ce manuel sont autant que possible d'ordre générique, autorisant des options qui permettent 
+            		de les adapter à d'autres bases textuelles.</p>
+            	<p>Par rapport aux usages habituels de la TEI, les difficultés rencontrées lors de son application aux textes de cette 
+            		période viennent toutes du désir de fidélité à l'exemplaire transcrit. Nous avons tenté de rendre compatibles l'exigence 
+            		de restitution et la possibilité d'effectuer des requêtes impliquant des comptages, et donc une certaine régularisation, 
+            		notamment des graphies multiples. L'un des principaux intérêts du langage XML est de permettre de résoudre par l'encodage 
+            		la très grande variation typographique et textuelle des documents : cette souplesse ne doit pas cependant être un frein à 
+            		l'acquisition et à l'encodage rapides des corpus textuels. Nous avons utilisé cette procédure en même temps que nous développons, 
+            		avec des laboratoires d'informatique, des routines d'auto­matisation fondées sur l'analyse de structure, ce qui constitue 
+            		l'un des axes de recherche interdisciplinaire du projet « BVH »<note place="foot" target="Notes/LI.refs">Le Laboratoire LI-RFAI 
+            			(dir. Jean-Yves Ramel) et le consortium Navidomass (projet ANR 2007-2009).</note>.</p>
+            	<p>Au fur et à mesure que l'équipe a progressé dans la mise au point de cette application, il est apparu qu'une telle structure 
+            		pouvait aussi servir à modéliser les ouvrages qui ne seraient publiés qu'en mode image, mais dont les divisions seraient 
+            		naturellement de même nature : titres, chapitres, para­graphes, éléments illustrés, etc., de façon à préparer et à faciliter 
+            		l'alignement des deux modes de présentation du texte, un idéal que les usagers des bibliothèques numériques attendent avec 
+            		impatience et auquel le consortium TEI travaille.</p>
+            	<p>Les œuvres encodées peuvent être des manuscrits ou des imprimés, mais les sources textuelles qui ont servi à l'élaboration 
+            		du manuel d'encodage sont des imprimés. La nature même du texte influe sur la structure du document : un poème ne sera pas 
+            		encodé comme un roman car sa structure n'est pas la même (strophes pour le premier et paragraphes dans des chapitres pour le second). 
+            		Moyennant quelques modifications, ce manuel pourra aussi s'appliquer à l'encodage des 
+            		manuscrits<note place="foot" target="Notes/GuideLines.refs">Voir le protocole TEI et plus particulièrement les deux chapitres 
+            			« Manuscripts Description » et « Representation of Primary Sources » http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/index-toc.html</note>.
+                    </p>
+                
+            </div>
+        </front>
+		<body>
+			<div>		
+			<head>Notions</head>
+				<div>
+					<head>Transcription et encodage</head>	
+					
+						
+							
+								<p>Commençons par deux pages du Tiers Livre de Rabelais (1546) :</p>
+								<figure>
+ <graphic url="media/01transcr.png"/>
+								</figure>
+								<p>Une transcription effectuée avec un traitement de texte donne le résultat suivant :</p>
+								<figure>
+ <graphic url="media/02transc.png"/>
+								</figure>
+							
+								<p>Les limites de cette transcription établie avec un traitement de texte apparaissent ainsi :</p>
+								<list>
+ <item>les numéros de page, la signature (L iij) et le titre du chapitre ne sont pas délimités et font partie du texte ;</item>
+ <item>les paragraphes se différencient grâce à des fins de ligne forcées et un retrait d'alinéa ;</item>
+ <item>les choix éditoriaux ne sont pas explicites : les abréviations sont développées ; les césures de mots en fin de ligne sont respectées ;</item>
+ <item>les noms de personnes et de lieux ne sont pas repérables.</item>
+								</list>
+								<p>Nous présentons le même exemple sous une troisième forme conforme aux recommandations de XML/TEI qui rend explicites les règles de codage :</p>
+								<list>
+ <item>les numéros de page et la signature font l'objet d'une délimitation spécifique et le saut de page est distinct ;</item>
+ <item>le texte est explicitement structuré : titre du chapitre et paragraphes ;</item>
+ <item>les noms de personnes et de lieux sont marqués ;</item>
+ <item>les rendus typographiques sont indiqués ;</item>
+ <item>il a été ajouté un « sic » pour marquer le mot « asne » là où on attendait « ame » ;</item>
+ <item>les césures de fin de ligne sont marquées ;</item>
+ <item>le caractère &amp; est remplacé par &amp;amp;<note place="foot">Voir « Le codage des caractères » en fin de manuel.</note>.</item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<div xml:id="n26" type="chapitre" n="23">
+								<fw place="top-left" type="pageNum">164</fw>
+								<head>
+ <lb/>Comment <name>Panurge</name> faict discours
+ <lb/>pour retourner a <name>Raminagro-
+								    <lb rend="hyphen"/>bis</name>.<space unit="cm" quantity="1.5"/>Chap. 23.
+								</head>
+								
+								<p>
+ <lb/><hi rend="larger">R</hi>Etournons (dist <name>Panurge</name> continuant)
+ <lb/>l'admonester de son salut. Allons on
+ <lb/>nom, allons en la vertus Dieu. Ce
+ <lb/>sera oeuvre charitable a nous faicte. Au
+ <lb/>moins s'il perd le corps &amp; la vie, qu'il
+ <lb/>ne damne son <sic>asne</sic>. Nous le induirons
+ <lb/>a contrition de son peché: a requerir par-
+ <lb rend="hyphen"/>don es dictz tant beatz peres absens com-
+ <lb rend="hyphen"/>me praesens. Et en prendrons acte, affin
+ <lb/>qu'apres son trespas ilz ne le declairent
+ <lb/>hereticque &amp; damné comme les Farfa-
+ <lb rend="hyphen"/>detz feirent de la praevoste d'<placeName type="ville">Orleans</placeName>: &amp;
+ <lb/>leurs satisfaire de l'oultraige, ordon-
+ <lb rend="hyphen"/>nant par tous les couvens de ceste pro-
+ <lb rend="hyphen"/>vince aux bons peres religieulx force bri-
+ <lb rend="hyphen"/>bes, force messes, force obitz &amp; anni-
+ <lb rend="hyphen"/>versaires. Et que au jour de son trespas
+ <lb/>sempiternellement ilz ayent tous quin-
+ <lb rend="hyphen"/>tuple pitance: &amp; que le grand bourra-
+ 
+ <pb n="173" xml:id="B372616101_3537_0173"/>
+ 
+ <fw place="top-right" type="pageNum">165</fw>
+ 
+ <lb rend="hyphen"/>baquin plein du meilleur trote de ranco
+ <lb/>par leurs tables, tant des Burgotz, Layz,
+ <lb/>&amp; Briffaulx, que des presbtres &amp; des
+ <lb/>clercs: tant des novices, que des profes.
+ <lb/>Ainsi pourra il de Dieu pardon avoir.
+								</p>
+								<lb/>
+								<p rend="indent">Ho, ho, je me abuse, &amp; m'esguare en
+ <lb/>mes discours. Le Diable emport si je
+ <lb/>y voys. Vertus Dieu, la chambre est des-
+ <lb rend="hyphen"/>ja pleine des Diables. Je les oy desja soy
+ <lb/>pelaudans &amp; entrebattans en diable, a
+ <lb/>qui humera l'ame Raminagrobidicque, &amp;
+ <lb/>qui premier de broc en bouc la portera a
+ <lb/>messer <name>Lucifer</name>. Houstez vous de la. Je n'y
+ <lb />voys pas. Le Diable m'emport si je y
+ <lb />voys. Qui scait s'ilz useroient de qui pro
+ <lb />quo, &amp; en lieu de <name>Raminagrobis</name> grup-
+ <lb  rend="hyphen"/>peroient le paouvre <name>Panurge</name> quitte? Ilz
+ <lb />y ont maintes foys failly estant safrané
+ <lb />&amp; endebté. Houstez vous de la. Je n'y
+ <lb />voys pas. Je meurs par Dieu de male rai-
+ <lb  rend="hyphen"/>ge de paour. Soy trouver entre diables
+ <lb />affamez? entre diables de faction? entre
+ 
+ <fw place="bot-right" type="sig">L iij</fw>
+								</p>
+							</div>
+						</egXML>
+						
+							
+								<p>Remarquons l'indentation des lignes dans notre présentation : ces retraits permettent 
+ une bonne appréciation visuelle de la structure du document. L'indentation n'est pas 
+ obligatoire, mais elle est fortement conseillée.</p>
+								<p>Le texte a 3 niveaux de structure : physique, logique et sémantique. L'encodage montre 
+ les divisions de type chapitre, composées de paragraphes dans lesquels se juxtaposent 
+ des lignes qu'il est possible de numéroter.</p>
+				</div>
+		
+		
+			<div>
+				<head>Principes de balisage XML</head>
+				
+				<p>« Les éléments, qui sont les structures de base des documents XML, sont délimités par des balises 
+					de début et des balises de fin qui portent le contenu ». Voici une définition parmi beaucoup d'autres.</p>
+				<p>TEI est une norme de codage de textes qui repose sur XML. Des marques sont utilisées pour identifier 
+					le contenu du texte : elles sont appelées « balises » (en anglais « tags »). Dans XML, le marquage est 
+					constitué des chevrons « &lt; » et « &gt; », par exemple :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<title>Discours non plus melancoliques que divers...</title>
+				</egXML>
+				
+				<p>Dans cet exemple, les chevrons &lt;...&gt; entourent le mot title pour constituer la balise <gi>title</gi>.</p>
+				<p>En général, la séquence textuelle est encadrée par une balise ouvrante et une balise fermante :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<p>Le Tiers Livre de François Rabelais.</p>
+				</egXML>
+				
+				<p>Le p est marqué deux fois : le premier est dans la balise ouvrante <gi>p</gi> ; le second est dans la balise 
+					fermante <tag>/p</tag>. La barre « / » signifie la fin du marquage des éléments du texte.</p>
+				<p>Nous pouvons reprendre notre premier exemple, celui du titre :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<title>Discours non plus mélancoliques ...</title>
+				</egXML>
+				
+				<p>Il y a deux règles essentielles dans XML : la syntaxe des balises telle que nous venons de la 
+					décrire et la règle d'imbrication stricte des éléments. Ainsi, on peut imbriquer un élément dans un autre :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<p>Le Tiers Livre de <name>François Rabelais</name>.</p>
+				</egXML>
+				
+				<p>Il ne faut pas faire chevaucher les éléments comme le montre l'exemple <hi rend="bold">(non valide)</hi> suivant :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<![CDATA[<p>Le Tiers Livre de <name>François Rabelais.</p></name>]]>
+				</egXML>
+				
+				<p>Un fichier XML est organisé comme une arborescence d'éléments. Les relations sont hiérarchiques.</p>
+				<p>Ces règles simples sont fondamentales : si elles ne sont pas suivies scrupuleusement, le document XML produit est 
+					invalide. Ces erreurs peuvent facilement être évitées à l'aide d'un schema<note place="foot">Afin de s'assurer de 
+						la validité d'un fichier TEI par rapport à l'encodage XML et aux choix de balisages d'un projet, on emploie un schéma. 
+						Ce schéma est une grammaire établissant les règles d'imbrication possibles entre balises. Des projets TEI 
+						différents ont souvent des schémas spécifiques. Cf. <ref target="http://guides-reperes.mutec-shs.fr/node/58">http://guides-reperes.mutec-shs.fr/node/58</ref></note> 
+					(DTD, RelaxNG ou autre). 
+				</p>
+				<p>La TEI repose sur XML pour sa syntaxe. Tout document TEI doit être conforme aux règles édictées précédemment, 
+					avec une liste d'éléments valides et des règles d'emboîtements autorisées.</p>
+				<p>On appelle « élément » la partie du texte qui se trouve dans les balises après le chevron « &lt; » de 
+					la balise ouvrante, et répétée dans la balise fermante. Dans l'exemple précédent, l'élément est indiqué par 
+					la lettre p qui signifie <foreign xml:lang="eng">paragraph</foreign><note place="foot">Tous les termes anglais seront 
+						en italique à l'exception des exemples.</note>. 
+					Dorénavant, nous dirons « élément » pour signifier l'élément de la balise ; par exemple, 
+					nous écrirons l'élément <foreign xml:lang="eng">paragraph</foreign> ainsi : <gi>p</gi>.</p>
+				<p>Deux cas sont possibles :</p>
+				<list>
+					<item>les éléments ont un contenu, constitué d'une partie d'un texte.</item>
+				</list>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<title>Le Tiers Livre</title>
+				</egXML>
+				
+				<p>Le texte encodé est « Le Tiers Livre » et l'élément TEI est « <gi>title</gi> ».</p>
+				
+				<list>
+					<item>les éléments n'ont pas de contenu : les balises se raccourcissent alors en une seule grâce au 
+						caractère / qui se positionne juste avant le chevron fermant ; par exemple, le saut de page ou <foreign xml:lang="eng">page break</foreign> :</item>
+				</list>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<pb/>
+				</egXML>
+				
+				<div>
+					<head>Éléments</head>
+					
+					<p>Les éléments peuvent eux-mêmes être définis et classés dans deux catégories <note place="foot">Selon Jacques 
+						André, « le principe de base est "à chacun son métier..." : aux auteurs de travailler sur le "contenu" de 
+						leurs œuvres et aux typographes ou maquettistes de régler les problèmes de forme... » Voir <title>Cahiers Gutenberg</title>, article cité, p. 16.</note>:</p>
+					
+					<list rend="ordered">
+						<item>Dans la première catégorie, la structure du document est définie : il est possible de dresser 
+							l'organisation logique des œuvres comme la page de titre, les pièces liminaires, etc. 
+							La transcription physique du document signale les principaux traits éditoriaux ainsi que les 
+							informations supplémentaires comme les déchirures, les corrections, les ajouts, les suppressions, 
+							les abréviations. Dans le cas d'une source imprimée, les éléments éditoriaux diffèrent et 
+							concernent la typographie : titre courant, pied de page, signatures. Nous appelons cette 
+							catégorie : balisage formel et typographique.</item>
+						<item>La seconde est composée d'éléments analytiques succincts comme l'indication des noms propres, 
+							des toponymes, des dates ou de tout élément d'étude pour lequel il est possible de dresser des 
+							typologies. Nous appelons cette catégorie : balisage sémantique.</item>
+					</list>
+					
+					<p>Il existe une hiérarchie dans les éléments. Une certaine catégorie d'éléments est dite imbriquée dans 
+						une autre catégorie d'éléments. Par exemple, l'adresse est décomposée selon le modèle actuel, par exemple 
+						« rue » et « ville » ; l'élément <gi>address</gi> comprend toujours l'élément <gi>addrLine</gi>, soit une ligne composant 
+						l'adresse. Il n'est pas utilisé seul. L'adresse du CESR est par exemple :</p>
+					
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<address>
+							<addrLine>59 rue Néricault-Destouches</addrLine>
+							<addrLine>Tours Cedex</addrLine>
+							<addrLine>France</addrLine>
+						</address>
+					</egXML>
+					
+					<p>Dans certaines configurations, certains éléments indépendants peuvent être imbriqués dans d'autres : 
+						par exemple, l'élément <gi>date</gi> s'utilise seul ou parfois imbriqué dans d'autres 
+						éléments comme dans celui qui est dédié à la bibliographie <gi>bibl</gi>.</p>
+					
+					<p>Souvent, les éléments ne suffisent pas. Pour les caractériser, on a besoin d'y associer 
+						un paramètre spécifique : ce sont les « attributs ».</p>
+				</div>
+				
+				<div>
+					<head>Attributs</head>
+					
+					<p>On appelle « attribut » un paramètre associé à un élément. Il peut être simple comme <att>n</att> pour <foreign xml:lang="eng">number</foreign> 
+						ou <att>name</att>, ou plus élaboré comme <att>resp</att>="<val>#ND</val>" pour pointer vers un autre endroit du fichier : 
+						le caractère # signifie que "<val>ND</val>" est un identifiant référencé dans le fichier (il renvoie à "responsable 
+						de l'encodage : Nicole Dufournaud", par exemple)<note place="foot">Les identifiants peuvent être notés dans le header.</note>.</p>
+					
+					<p>Un attribut est lui-même associé à une valeur. Par exemple, une date sera encodée ainsi :</p>
+					
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<date when="1515-04-28">28 avril 1515</date>
+					</egXML>
+					
+					<p>Dorénavant, nous écrirons les attributs sous la forme suivante : </p>
+					
+					<p>attribut="valeur"</p>
+					<p>ou encore précédé de l'arobase :</p>
+					<p>@attribut</p>
+					
+					<p>Il existe des attributs globaux – c'est-à-dire utilisés par tous les éléments – mais 
+						également des attributs spécifiques à quelques éléments. Par exemple, l'attribut <att>n</att> pour <foreign xml:lang="eng">number</foreign> 
+						est un attribut global alors que <att>when</att> est un attribut réservé à l'élément <gi>date</gi>.</p>
+				</div>
+			</div>
+				
+			<div>
+				<head>Structure globale TEI</head>
+				
+				<p>La structure de base d'un texte TEI repose sur un document original<note place="foot">Sur le sujet, nous conseillons les travaux 
+					de Jacques André qui nous ont fortement inspirés, particulièrement « Numérisation et codage de livres anciens », <title>Le document numérique</title>, 
+					spécial « Numérisation et patrimoine », vol. 7, no 3-4, 2003. Voir le site personnel 
+					de Jacques André : <ref target="http://jacques-andre.fr/japublis/">http://jacques-andre.fr/japublis/</ref></note>. 
+					Dans le projet BVH, le document est en général un livre imprimé, mais ce peut être également un manuscrit. 
+					La structure d'un texte TEI décrit le contenu d'un document manuscrit ou imprimé qui comprend une partie textuelle prépondé­rante.</p>
+				
+				<p>Comme la structure d'un document touche à l'aspect physique – il est composé de feuillets consti­tués de pages – on dit
+					que la structure est physique. Une description simple du document peut être la suivante : la page de titre, 
+					les pages liminaires, le corps du texte et les annexes. La page de titre – s'il y en a une – est composée d'un ou 
+					de plusieurs titres, d'un auteur, etc. La page d'un imprimé peut être décrite ainsi : un numéro de page, un titre 
+					courant, un pied de page, etc.</p>
+				
+				<p>À la structure physique du document se combine une structure logique : l'organisation du contenu et son 
+					découpage en parties, chapitres et sections. Si la structure physique s'adresse à l'œil, en revanche on entend 
+					par structure logique l'organisation du document en entités comme titre, chapitre, section, para­graphe, note, citation, tableau, liste, etc.</p>
+				
+				<p>La notion de structure est fondamentale pour éditer, échanger et analyser des textes grâce aux recommandations TEI. 
+					S'y ajoute une autre notion : celle de métadonnées TEI que l'on encode dans le TEIheader ou header. Tout texte de 
+					format TEI est composé d'un header TEI placé avant le corps du texte lui-même. Le header contient des informations 
+					analogues à celles que l'on trouve sur la page de titre d'un texte imprimé complétées par l'aspect numérique de la source : 
+					nous parlons de page de titre électronique.</p>
+				
+				<p>Les noms propres sont balisés sémantiquement dans le texte et l'encodage des interventions éditoriales, 
+					que celles-ci soient contemporaines de l'édition ou bien le fait d'un encodage récent, permettent d'enrichir 
+					le texte d'informations sur l'histoire de son édition, sur les variantes, annotations critiques, linguistiques, etc.</p>
+				
+				<p>L'encodage global d'un document standard se présente ainsi :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<TEI>
+						<teiHeader>
+							...
+						</teiHeader>
+						<text>
+							<front>...</front>
+							<body>
+								<div>
+ ...
+								</div>
+							</body>
+							<back>
+								...
+							</back>
+						</text>
+					</TEI>
+				</egXML>
+				
+				<p>Le texte est structuré au maximum en cinq composantes ; deux sont obligatoires et trois optionnelles :
+					<!-- À voir si specList ou liste classique avec gi -->
+				<specList xml:lang="fr">
+					<specDesc key="group"/>
+					<specDesc key="text"/>
+					<specDesc key="front"/>
+					<specDesc key="body"/>
+					<specDesc key="back"/>
+				</specList>
+				</p>
+				
+				<p>L'élément <gi>text</gi> représente le début du texte de la source originale. Il suit immédiatement la balise 
+					indiquant la fin de l'en-tête TEI <tag>/teiHeader</tag> et précède les éléments <gi>front</gi> et <gi>body</gi>. 
+					Par exemple :</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<text>
+						<front>
+							...
+						</front>
+						<body>
+							...
+						</body>
+					</text>
+				</egXML>
+				
+				<p>L'élément <gi>front</gi> contient tous les éléments qui précèdent le corps du texte au sens strict. 
+					Imbriquée dans l'élément <gi>front</gi>, la page de titre nécessite l'élément <gi>titlePage</gi> ; elle peut être suivie 
+					de pièces liminaires comme un privilège, une dédicace, une préface, des textes d'autres auteurs, etc. 
+					Tous ces éléments sont compris dans l'élément <gi>front</gi>.</p>
+				
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<text>
+						<front>
+							<titlePage>
+								<docTitle>
+ <titlePart> ... </titlePart>
+								</docTitle>
+								<docImprint>
+ ...
+								</docImprint>
+							</titlePage>
+						</front>
+					</text>
+				</egXML>
+				
+				<p>La page de titre reprend tous les éléments de la page de titre de l'œuvre originale comme le titre, 
+					l'auteur, l'adresse typographique, la date, etc. Nous reprendrons en détail ces éléments dans la quatrième partie du manuel.</p>
+				<p>L'élément <gi>body</gi> est utilisé pour marquer le contenu de l'œuvre dans sa globalité.</p>
+				<p>Enfin, l'élément <gi>back</gi> contient toutes sortes d'annexes qui suivent le corps du texte. 
+					Par exemple, il est utilisé pour les corrections ajoutées par l'imprimeur ou encore pour le colophon quand il est imprimé en fin d'ouvrage.</p>
+			</div>
+			</div>
+			
+			<div>
+		
+			<head>Texte de l'œuvre</head>
+				
+				<div>
+					<head>Introduction</head>
+					
+					<p>L'élément <gi>text</gi> englobe l'ensemble du texte. Il peut y en avoir plusieurs dans le cas d'un recueil. 
+						Le texte dans son ensemble est composé au maximum de quatre parties :					
+					<!-- À voir si specList ou liste classique avec gi -->
+				<specList xml:lang="fr">
+					<specDesc key="front"/>
+					<specDesc key="group"/>
+					<specDesc key="body"/>
+					<specDesc key="back"/>
+				</specList>
+					</p>
+					
+					<p>Au début du manuel, nous avons exposé une structure simple, à laquelle nous ajoutons l'élément <gi>back</gi> :</p>
+					
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<text>
+							<front>
+								...
+							</front>
+							<body>
+								...
+							</body>
+							<back>
+								...
+							</back>
+						</text>
+					</egXML>
+				
+				</div>
+				
+				<div>
+					<head>Page de titre et pièces liminaires</head>
+					
+					<p>L'élément <gi>front</gi> contient tous les éléments qui précèdent le texte : la page de titre et 
+						les pièces liminaires d'un texte. Un exemple complexe nous est donné par la page de titre des <title>Discours 
+						non plus mélancoliques</title> qui est encodée ainsi :</p>
+					
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<front>
+							<titlePage>
+								<figure>
+ <graphic url="http://www.bvh.univ-tours.fr/B861946101_DP1139/B861946101_DP1139.jpg"/>
+ <figDesc>Bibliothèques Virtuelles Humanistes - Médiathèque de Poitiers</figDesc>
+								</figure>
+								<docTitle>
+ <titlePart>Discours non plus
+ 	<lb/><hi rend="sc">MELANCOLIQUES QUE DIVERS,</hi>
+ 	<lb/>de choses mesmement qui appartiennent
+ 	<lb/>a notre <placeName>France</placeName>: &amp; a la fin La maniere de
+ 	<lb/>bien &amp; justement entoucher les Lucs &amp;
+ 	<lb/>Guiternes.
+ </titlePart>
+								</docTitle>
+								<docImprint>
+ <lb/>
+ <lb/>A <placeName>POITIERS</placeName>
+ <lb/>De l'imprimerie d'<persName>Enguilbert de Marnef</persName>.
+ <lb/>
+ <docDate>1556</docDate>
+								</docImprint>
+								<imprimatur>Avec privilege du Roy.</imprimatur>
+							</titlePage>
+							<div type="privilege">
+								<p>...</p>
+							</div>
+						</front>
+					</egXML>
+						
+							
+								<p>Nous y distinguons les éléments suivants :
+								<!-- À voir si specList ou liste classique avec gi -->
+ <specList xml:lang="fr">
+ 	<specDesc key="titlePage"/>
+ 	<specDesc key="docTitle"/>
+ 	<specDesc key="titlePart"/>
+ 	<specDesc key="docImprint"/>
+ 	<specDesc key="docDate"/>
+ 	<specDesc key="imprimatur"/>
+ </specList>
+								</p>
+								
+								
+								<p>Le privilège du roi est une pièce liminaire de l'œuvre ; il est encodé grâce à 
+ l'élément <gi>div</gi> dans lequel est ajouté le type « privilege ».</p>
+								<p>La partie graphique sera présentée ultérieurement à la partie "Images, langues et références" 
+ du chapitre "Balisages".</p>
+								<p>Les pages de titre intermédiaires ne nécessitent pas l'élément <gi>titlePage</gi> qui caractérise 
+ la page de titre du livre, mais sont marquées uniquement avec l'élément <gi>docTitle</gi> puis <gi>titlePart</gi>.</p>
+				</div>
+			</div>
+			<div>
+				<head>Balisages</head>
+				<div>
+					<head>Introduction</head>
+					<p>L'encodage se distingue de l'affichage en HTML qui n'est pas pris en charge par XML/TEI, mais par une feuille de style.</p>
+					<p>Le projet BVH repose sur le respect patrimonial des sources, qu'elles soient littéraires ou historiques. 
+						Il peut être important de préserver les changements de caractères et les alternances typogra­phiques, 
+						et de spécifier l'emplacement des illustrations. De même, le marquage typographique a un sens qui favorise 
+						l'analyse historique et l'interprétation des sources. Le respect de la typographie donne par ailleurs une 
+						meilleure concordance avec les images numériques des livres imprimés (les fac-similés, selon la terminologie TEI) 
+						et améliore la lisibilité du texte. Le projet BVH ne prévoit pas la restitution diplomatique intégrale de la source.</p>
+				</div>
+				<div>
+					<head>Balisage physique</head>
+					
+					<p>Le balisage physique rend compte de la mise en page du document original. Dans le cadre d'Epistemon, les sources 
+						sont principalement des imprimés. Du point de vue du document, ces imprimés contiennent des pages délimitées 
+						par des sauts de page. Ces pages se décomposent en lignes délimitées par des sauts de ligne et peuvent contenir 
+						des éléments de mise en page. Certaines parties du texte peuvent être mises en évidence typographiquement (gras, italique, petite capitale, etc.)</p>
+					
+					<div>
+						<head>Retour à la ligne <gi>lb</gi> pour <foreign xml:lang="eng">linebreak</foreign></head>
+						
+						<p>
+							<!-- à voir -->
+							<specDesc key="lb" xml:lang="fr"/>
+							<lb/>Comme le contenu de l'élément est vide, il est raccourci ainsi :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<lb/>
+						</egXML>
+						
+						<p>Si l'on veut numéroter les lignes, on ajoute l'attribut <att>n</att>.</p>
+					
+					</div>
+					<div>
+						<head>Coupure de mots en fin de ligne</head>
+						
+						<p>Pour indiquer une coupure de mots en fin de ligne et afin de répondre au besoin des requêtes sur des mots 
+							entiers, on pourra ajouter <att>rend</att>="<val>hyphen</val>" à l'élément <gi>lb</gi> marquant le saut de ligne.</p>
+						<p>Pour cet exemple :</p>
+						<figure>
+							<graphic url="media/03cesure.png"/>
+						</figure>
+						<p>On pourra encoder ainsi :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<lb/>ne l'avez (comme facilement je suys in-
+							<lb rend="hyphen"/>duict a croire) pour le moins avez vous
+							<lb/>ouy de luy parler. Car par l'aer &amp; tout
+							<lb/>ce ciel est son bruyt &amp; nom jusques a pre
+							<lb rend="hyphen"/>sent resté memorable &amp; celebre assez, &amp;
+						</egXML>
+						
+						<p>Le même traitement pourra être effectué pour les mots coupés en fin de page.</p>
+					</div>
+					
+					<div>
+						<head>Saut de page <gi>pb</gi> pour <foreign xml:lang="eng">pagebreak</foreign></head>
+						
+						<p>La limite entre une page et la suivante est encodée grâce à l'élément <gi>pb</gi>. 
+							Tout comme le <foreign xml:lang="eng">linebreak</foreign>, il peut comprendre l'attribut <att>n</att> afin de numéroter 
+							les pages. Par exemple :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<pb n="10"/>
+						</egXML>
+						
+						<p>Cet élément est essentiel pour le lien avec l'image des pages du livre numérisé. 
+							Le lien vers l'image pourra être indiqué au moyen de l'attribut <att>facs</att>.</p>
+						
+						<note type="remark">
+							<p rend="head">Remarque</p>
+							
+							<list>
+								<item>Ne pas oublier que la première page doit être aussi numérotée ;</item>
+								<item>Le numéro n'est pas obligatoirement identique à celui qui figure sur la page du livre ; 
+ il est encodé grâce à l'élément <gi>fw</gi> (voir paragraphe suivant) ;</item>
+								<item>Si la page du texte pointe vers son image en fac-similé, l'élément <gi>pb</gi> est indispensable.</item>
+							</list>
+						</note>
+					</div>
+					
+					<div>
+						<head>En-tête et pied de page : <gi>fw</gi> pour <foreign xml:lang="eng">Forme Work</foreign></head>
+						
+						<p>Il est utile de signaler les titres courants qui sont sur la même ligne que les numéros de page, 
+							et les pieds de page. L'élément <gi>fw</gi> pour forme work sert dans les deux cas.</p>
+						
+						<figure>
+							<graphic url="media/04labe.png"/>
+						</figure>
+						
+						<p>Pour le titre courant, cet élément précise le rendu typographique, sa place dans la page et 
+							son type grâce aux attributs <att>place</att> et <att>type</att>. Dans l'exemple, le titre courant et 
+							le numéro de page seront encodés ainsi :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<fw place="top-center" type="head">DE FOLIE ET D'AMOUR.</fw>
+							<fw place="top-right" type="pageNum">19</fw>
+						</egXML>
+						
+						<p>Les valeurs des attributs sont :</p>
+						<list>
+							<item><att>place</att> : <val>top</val> pour le haut de page et <val>bot</val> (pour bottom) pour le bas 
+								de page, et <val>center</val>, <val>left</val> ou <val>right</val> pour le centre, la gauche ou la droite de la page,</item>
+							<item><att>type</att> : <val>head</val> pour le titre courant, <val>pageNum</val> pour le numéro de la page ou du feuillet.</item>
+						</list>
+						
+						<p>Pour le pied de page, l'élément précise la place des « signatures » et des « réclames » 
+							(au sens typographique). Prenons la page 3 du même ouvrage :</p>
+						
+						<figure>
+							<graphic url="media/05labe.png"/>
+						</figure>
+						
+						<p>La signature et la réclame seront encodées ainsi : </p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <fw place="bot-center" type="sig">a 2</fw>
+ <fw place="bot-right" type="catch">rera,</fw>
+								</egXML>
+						
+						<p>Les attributs utilisés sont les mêmes, seule leur valeur change :</p>
+						<p><att>type</att> : <val>sig</val> pour <foreign xml:lang="eng">signature</foreign>, c'est-à-dire la signature, 
+							<val>catch</val> pour <foreign xml:lang="eng">catchword</foreign>, c'est-à-dire la réclame.</p>
+						<p>Cet élément permet une structuration physique aussi fidèle que possible par rapport à la page 
+							originale, car ici la signature n'est pas au centre.</p>
+					</div>
+					
+					<div>
+						<head>Mise en valeur : <gi>hi</gi> pour <foreign xml:lang="eng">highlighted</foreign></head>
+						
+						<p>L'élément <gi>hi</gi> marque un mot ou une série de mots graphiquement distincts du 
+							texte environnant. Il utilise l'attribut <att>rend</att> pour <foreign xml:lang="eng">rendition</foreign> qui rend 
+							l'aspect physique de la chaîne de caractères.</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<hi rend="it">texte en italique</hi>
+						</egXML>
+						
+						<p>L'attribut reflète l'aspect visuel et ne donne aucune interprétation. Ici, l'attribut 
+							<att>rend</att> signale la présentation physique de la police qui peut être : <foreign xml:lang="eng">italic</foreign> 
+							ou <val>it</val>, <val>sc</val> pour <foreign xml:lang="eng">small caps</foreign>, <val>bold</val> 
+							(gras), mais également <val>center</val>. Toutes ces valeurs sont déclarées dans la feuille de style.</p>
+					</div>
+				</div>
+				<div>
+					<head>Balisage logique</head>
+					
+					<p>Le corps du texte balisé avec l'élément <gi>body</gi> est structuré selon le genre de texte : un recueil 
+						de poèmes n'a pas la même structure qu'une pièce de théâtre, un roman et encore moins un dictionnaire. 
+						Cependant tous ces textes ont en commun d'être souvent répartis en divisions, d'avoir des retours à la ligne, 
+						des sauts de lignes et des sauts de pages.</p>
+					
+					<div>
+						<head>Division <gi>div</gi> associé à l'élément <gi>head</gi></head>
+						
+						<p>
+							L'élément <gi>div</gi> est une subdivision du corps du texte. Ce n'est pas un élément 
+							obligatoire. Quand il est utilisé, il peut être accompagné d'un élément optionnel <gi>head</gi> qui identifie la division.
+							<!-- à voir -->
+							<specList xml:lang="fr">
+								<specDesc key="div"/>								
+								<specDesc key="head"/>
+							</specList>
+						</p>
+						<p>Les éléments <gi>div</gi> peuvent s'emboîter les uns dans les autres. Ils sont dotés d'un 
+							attribut de typologie, <att>type</att>, pour les caractériser, ainsi que de l'attribut <att>n</att> :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<div n="1" type="chapitre"></div>
+						</egXML>
+						
+						<p>ce qui signifie que la division est le chapitre numéro 1.</p>
+						<p>L'élément <gi>head</gi> contient toute forme de titre de la division, par exemple :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<div n="1" type="chapitre">
+								<head>ARGUMENT.</head>
+								...
+							</div>
+						</egXML>
+						
+						<p>ce qui signifie que le texte réel est « ARGUMENT. » Cet élément est également utilisé en dehors 
+							de l'élément <gi>div</gi> comme nous le verrons par la suite.</p>
+					
+					</div>
+					<div>
+						<head>Paragraphe : <gi>p</gi></head>
+						
+						<p>L'élément <gi>p</gi> indique un paragraphe, segmentation très fréquente pour les textes en prose. 
+							Parfois, il n'est pas nécessaire de découper le texte en divisions lorsqu'il n'y a pas de sous-parties. 
+							Dans ce cas, après l'élément <gi>body</gi>, nous mettons directement l'élément <gi>p</gi><note place="foot">Mais cela 
+								peut être indispensable pour le traitement de bases de données textuelles ou l'utilisation 
+								d'outils comme XTF.</note>.</p>
+						<p>C'est la feuille de style qui décide de l'affichage du paragraphe : elle peut montrer uniquement 
+							un retour à la ligne ou un paragraphe suivi d'un saut de ligne. Si un retrait de la première 
+							ligne est exigé, il devra être notifié manuellement grâce à l'attribut <att>rend</att> et la valeur « <val>indent</val> » :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<p rend="indent"></p>
+						</egXML>
+						
+						<note type="warning">
+							<p rend="head">Attention</p>
+							Certains imprimés présentent des paragraphes sans retrait et ni retour à la ligne. 
+							Parfois, un auteur ou un imprimeur peut laisser un espace vide. Ces blancs qui ponctuent 
+							la page peuvent être représentés avec l'élément <gi>space</gi> combiné avec <gi>p</gi>.</note>
+					</div>
+					
+					<div>
+						<head>Texte théâtral : <gi>sp</gi> pour <foreign xml:lang="eng">speech</foreign> et <gi>speaker</gi></head>
+						
+						<p>Les <title>Euvres</title> de Louise Labé comprennent des discours sous forme de 
+							répliques comme dans un texte théâtral. Nous avons utilisé les 
+							éléments <gi>sp</gi> pour <soCalled>speech</soCalled> et <gi>speaker</gi>, puis nous les avons combinés 
+							avec l'élément <gi>ab</gi> (unité de texte quelconque) :
+						
+						<specList xml:lang="fr">
+						<specDesc key="sp"/>
+						<specDesc key="speaker"/>
+						<specDesc key="ab"/>
+						</specList></p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+ <sp who="#amour">
+ 	<speaker><name type="allegorie">AMOUR</name></speaker>
+ 	<ab>Qui est cette fole qui me...</ab>
+ </sp>
+ <sp who="#folie">
+ 	<speaker><name type="allegorie">FOLIE</name></speaker>
+ 	<ab>Tu ne m'usses pù empescher,...</ab>
+ </sp>
+								</egXML>
+						
+						<p>L'élément <gi>sp</gi> utilise l'attribut <att>who</att> pour différencier les locuteurs.</p>
+						<p>Les indications de mise en scène (didascalies) peuvent être encodées grâce à l'élément <gi>stage</gi> :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<stage>Folie se fait invisible, tellement, qu'Amour ne la peut assener.</stage>
+						</egXML>
+					</div>
+					
+					<div>
+						<head>Prose et vers : <gi>lg</gi> pour <foreign xml:lang="eng">linegroup</foreign> et 
+							<gi>l</gi> pour <foreign xml:lang="eng">line</foreign></head>
+						
+						<p>Pour encoder la structure des textes poétiques, deux éléments ont été utilisés. 
+							Dans les élégies et les sonnets, l'élément <gi>lg</gi> pour <foreign xml:lang="eng">linegroup</foreign> 
+							contient un groupe de lignes de vers, la strophe, et <gi>l</gi> ou <soCalled>line</soCalled> une seule ligne. 
+							L'élément <gi>p</gi> est alors inutile.
+						<!-- à voir -->
+						<specList xml:lang="fr">
+						<specDesc key="lg"/>
+						<specDesc key="l"/>
+						</specList></p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<lg n="2">
+								<l>PAR TOY, AMI, TANT VESQUI ENFLAMMEE,</l>
+								<l>QU'EN LANGUISSANT PAR FEU SUIS CONSUMEE,</l>
+								<l>QUI COUVE ENCOR SOUS MA CENDRE EMBRAZEE,</l>
+								<l>SI NE LA RENS DE TES PLEURS APAIZEE.</l>
+							</lg>
+						</egXML>
+						
+						<p>Ici l'élément <gi>lg</gi> utilise l'attribut <att>n</att> pour numéroter les strophes ; 
+							l'élément <gi>l</gi> pourrait égale­ment utiliser cet attribut pour numéroter les lignes.</p>
+					</div>
+					
+					<div>
+						<head>Tête et fin de division : <gi>head</gi> et <gi>trailer</gi></head>
+						
+						<p>Nous avons vu l'utilisation de l'élément <gi>head</gi> qui suit l'élément <gi>div</gi> pour 
+							indiquer un sous-titre. Les exemples étant nombreux et répartis tout au long du manuel, 
+							nous ne revenons pas sur la spécificité de cet élément souvent imbriqué dans un autre élément.</p>
+						<p>À la fin d'une division, il apparaît parfois une mention explicite de fin. L'élément <gi>trailer</gi> en contient la formule :</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<trailer rend="center">
+								<lb/>FIN DES EUVRES DE <name>LOUÏZE
+ <lb/>LABE'</name> LIONNOIZE.
+							</trailer>
+						</egXML>
+					</div>
+				
+					<div>
+						<head>Listes, tables et tableaux : <gi>list</gi>, <gi>cb</gi> et <gi>table</gi></head>
+						
+						<p><!-- à voir -->
+							<specList xml:lang="fr">
+								<specDesc key="list"/>
+								<specDesc key="item"/>
+							</specList>
+						</p>
+						
+						<list>
+							<item>L'élément <gi>list</gi> est utilisé pour marquer toutes sortes de listes simples. 
+								L'élément <gi>p</gi> le précède pour indiquer un paragraphe, s'il y a lieu. Les éléments 
+								<gi>item</gi> séparent toutes les séquences de la liste. L'élément <gi>head</gi> contient l'en-tête de la liste.</item>
+						</list>
+						
+						<p>Nous donnons ici deux exemples : une liste simple et une liste à deux colonnes.</p>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<p>
+								<list>
+ <head>FAUTES A CORRIGER<lb/>en l'impression.</head>
+ <item>Page 33. lig. 7. lis plait, pour pleint</item>
+ <item>Page 67. lig. 15. lis fait, pour fay</item>
+ <item>Page 102. lig. 16. lis Tous ses voisins</item>
+ <item>Page 141. lig. 5. lis Il nous faut eores aquiter</item>
+								</list>
+							</p>
+						</egXML>
+						
+						<p>Les listes peuvent être également marquées à l'aide de lettres ou de chiffres, ou bien avec des puces. 
+							Il s'agit alors de mettre l'attribut <att>type</att> et la valeur correspondante : soit « <val>ordered</val> » pour ordonner, 
+							soit « <val>bulleted</val> » pour les listes marquées par des puces, soit « <val>simple</val> » pour des listes non marquées ou 
+							enfin « <val>runon</val> » pour indiquer le style en continu de la liste sans retour à la ligne.</p>
+						<p>Une table simple à deux colonnes peut être traitée comme une liste de type glossaire (ou notices de dictionnaire) ; 
+							nous utilisons alors l'élément <gi>label</gi> à la place du premier <gi>item</gi> qui contient alors soit le terme 
+							défini dans un glossaire, soit l'étiquette associée à un élément dans une liste.</p>
+						
+						<list>
+							<item>Dans le cas d'une table des matières ou d'une table complexe, on emploiera pour chaque colonne un 
+								élément <gi>p</gi> précédé d' un saut de colonne <gi>cb</gi> :</item>
+						</list>
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">    
+							<cb/>
+							<p rend="columns_center">
+								<lb/>En celle du costé droict de l'entree
+    <lb/>estoit escrite ceste fameuse sentence de
+    <lb/><name>Virgile</name>, gravee en belles lettres Latines.
+    <lb/>
+    <lb/><foreign xml:lang="lat">TRAHIT SUA QUEM-
+    <lb rend="hyphen"/>QUE VOLUPTAS.</foreign>
+    <lb/>
+    <lb/><hi rend="it">C'est à dire.
+    <lb/>
+    <lb/>Chacun est tiré de sa volupté.</hi>
+</p>
+    <cb/>
+<p rend="columns_center">
+    <lb/>Et en la senestre en lettres Greques
+    <lb/>capitales il y avoit.
+    <lb/><foreign xml:lang="ell">ΠΑΝ ΔΕΙ ΠΟΙΕΙΝ ΚΑΤΑΤΗΝ
+    <lb/>ΑΥΤΟΥ ΦΥΣΥΝ.
+    <lb/>Pan dei poien cata tin autou
+    <lb/>Physin.</foreign>
+    <lb/>
+    <lb/><hi rend="it">Qui signifie, il faut que chacun
+    <lb/>face selon sa nature.</hi>
+</p>
+</egXML>
+								
+ 
+ 	<p>Si la mise en forme dans l'exemplaire est un tableau, l'élément <gi>table</gi> est utilisé avec d'autres éléments imbriqués pour constituer un tableau : l'élément <gi>row</gi> (rangée) constitue une ligne de la table et l'élément <gi>cell</gi> (cellule) chaque colonne ; on peut y ajouter un élément <gi>head</gi> pour donner un titre au tableau. Les attributs @rows ou @cols (colonnes) indiquent le nombre de lignes ou de colonnes du tableau.</p>
+ 	<p>Il s'agit d'effectuer un choix éditorial entre les différents modes : liste, table ou tableau. Lorsqu'on veut respecter la présentation d'une œuvre comme dans le projet BVH, le choix sera dicté par la représentation la plus fidèle à l'original.</p>
+ 
+								
+							
+						
+						
+							<div>
+								
+ <head>Table des matières</head>
+								
+								
+ 
+ 	
+ 		
+ 			<p>Une table des matières a une spécificité : l'alignement à droite du numéro de page, comme dans le Tiers livre de 1546.</p>
+ 			<figure><graphic url="media/11tdm1546.png"/></figure>
+ 			<p>Voici l'encodage qui en résulte :</p>
+ 		
+ 	
+ 	<egXML xmlns="http://www.tei-c.org/ns/Examples"><div type="sommaire">
+    <fw place="top-left" type="pageNum">[356]</fw>
+    <head rend="center">
+        <lb/>TABLE DES MATIE-
+        <lb/><hi rend="it">res contenues en ce praesent trois-
+        <lb/>iesme livre des faictz &amp; dictz
+        <lb/>Heroïcques du bon
+        <lb/><name>Pantagruel</name>.</hi>
+    </head>
+    <lb/>
+    <cb/>
+    <p rend="columns_small">
+        <lb/> Prologue de l'auteur.
+        <lb/><abbr>feuil.</abbr> I
+        <lb/> Comment <name>Pantagruel</name> trans
+        <lb/>porta une colonie de U-
+        <lb/>topiens en <geogName>Dipsodie</geogName>. <abbr>f.</abbr> 19.
+        ...
+    </p>
+    <cb/>
+    <p rend="columns_small">
+        <lb/>d'aller en guerre. <abbr>f.</abbr> 57.
+        <lb/> Comment <name>Panurge</name> a-
+        <lb/>voit la pusse a l'aureille,
+        <lb/>&amp; desista porter sa ma-
+        <lb/>gnifique braguette. <abbr>f.</abbr> 62.
+        ...
+</p></div>
+</egXML>
+ 	
+ 		
+ 			<p>Et voici le résultat qui s'affiche :</p>
+ 			<figure><graphic url="media/10tdmTL46XTF.png"/></figure>
+ 			<p>Il reste à mettre le texte en italiques et les retraits de numéro de page pour que le résultat soit approchant de l'original. On pourra en complément encoder les numéros de page avec l'élément <gi>ref</gi> pour pointer vers la page correspondante grâce à l'attribut @target. Il doit être déclaré dans la feuille de style.</p>
+ 		
+ 	
+ 
+								
+							</div>
+						
+						
+							<div>
+								
+ <head>Discours non plus mélancoliques que divers</head>
+								
+								
+ 
+ 	
+ 		
+ 			<p>Prenons un exemple tiré du chapitre 1 des Discours, qui contient un tableau simple à deux colonnes :</p>
+ 			<figure><graphic url="media/06tableaudiscours.png"/></figure>
+ 			<p>La présentation en tableau à deux colonnes a été préférée à une liste de type « glossaire », car la première colonne ne correspond ni à une étiquette ni à un label mais à du texte, ce qui donne le résultat suivant :</p>
+ 		
+ 	
+ 	<egXML xmlns="http://www.tei-c.org/ns/Examples"><table>
+    <row cols="2">
+        <cell>Mousai Pieriethen,</cell><cell><space quantity="0.5" unit="cm"/>ou</cell>
+    </row>
+    <row>
+        <cell>Espete nun moi Mousai,</cell><cell><space quantity="0.5" unit="cm"/>ou</cell>
+    </row>
+    <row>
+        <cell>Quis deus ô Musae,</cell><cell><space quantity="0.5" unit="cm"/>ou</cell>
+    </row>
+</table>
+</egXML>						
+<p>Le résultat à l'écran est approchant de l'original, à savoir :</p>
+<figure><graphic url="media/07tableaudiscours.png"/></figure>
+</div>
+<div>
+								
+ <head>Dépliant inséré page 9 des Discours non plus mélancoliques que divers</head>
+								
+								
+ 
+ 	
+ 		
+ 			<p>Un tableau imprimé se trouve sur le dépliant inséré page 9 du même livre ; il comporte huit colonnes. Nous en présentons les trois premières :</p>
+ 			<figure><graphic url="media/08depliantdisc.png"/></figure>
+ 			<p>Dans cet exemple plus complexe, nous avons disposé verticalement les éléments <gi>cell</gi> par commodité. L'attribut @role a été ajouté dans l'élément <gi>row</gi> : la valeur « label » est suggérée pour des étiquettes – ici les peuples – et la valeur « data » pour les données proprement dites :</p>
+ 		
+ 	
+ 	<egXML xmlns="http://www.tei-c.org/ns/Examples"><table rows="8" cols="9">
+    <row role="label">
+        <cell>Les Juifs les nom-
+            <lb rend="hyphen"/>moient jadis en ceste
+            <lb/>sorte, en leur langage,</cell>
+        <cell>Les Romains
+            <lb/>Chretiens jadis,</cell>
+        <cell>Les Portugalois
+            <lb/>aujourdui,</cell>
+        <cell>Les Castil-
+            <lb rend="hyphen"/>lans aujour-
+            <lb rend="hyphen"/>dui,</cell>
+        <cell>Les Gaulois
+            <lb/> &amp; François</cell>
+        <cell>Italiens,</cell>
+        <cell>Alemans,</cell>
+        <cell>Bretons,</cell>
+        <cell>Basques,</cell>
+    </row>
+    <row role="data">
+        <cell><foreign xml:lang="heb">Prima Sabbati</foreign>,</cell>
+        <cell><foreign xml:lang="lat">Dominica dies</foreign>,</cell>
+        <cell><foreign xml:lang="por">Domingo</foreign>,</cell>
+        <cell><foreign xml:lang="spa">Domingo</foreign>,</cell>
+        <cell>Dimanche,</cell>
+        <cell><foreign xml:lang="ita">Domenica</foreign>,</cell>
+        <cell><foreign xml:lang="deu">Sondach</foreign>,</cell>
+        <cell><foreign xml:lang="bre">Dei Suul</foreign>,</cell>
+        <cell><foreign xml:lang="eus">Igándea</foreign>,</cell>
+    </row>
+    <row role="data">
+        <cell><foreign xml:lang="heb">Secunda Sabbati</foreign>,</cell>
+        <cell><foreign xml:lang="lat">Secunda Feria</foreign>,</cell>
+        <cell><foreign xml:lang="por">Secunda Feira</foreign>,</cell>
+        <cell><foreign xml:lang="spa">Lunes</foreign></cell>
+        <cell>Lundi,</cell>
+        <cell><foreign xml:lang="ita">Lunedi</foreign>,</cell>
+        <cell><foreign xml:lang="deu">Maendach</foreign>,</cell>
+        <cell><foreign xml:lang="bre">Dei luun</foreign>,</cell>
+        <cell><foreign xml:lang="eus">Astelechéna</foreign>,</cell>
+        ...
+</row></table>
+</egXML>
+								<p>Il est bien entendu possible d'ajouter toutes sortes d'attributs dans les éléments des tableaux comme l'attribut @rend.</p>
+ 			<p>Le résultat est proche de la page originale :</p>
+ 			<figure><graphic url="media/09depliantdisc.png"/></figure>
+ 		
+ 	
+ 
+								
+							</div>
+						
+					</div>
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Les interventions éditoriales</head>
+				
+				
+					
+						
+							
+								<p>Les interventions éditoriales sont de deux types : celles que nous signalons, parce qu'elles figurent dans le texte imprimé, comme les abréviations ; celles que nous ajoutons pour une meilleure compréhension du texte ou de la transcription, qui sont des annotations.</p>
+							
+						
+					
+				
+				
+					<div>
+						
+							<head>Annotations imprimées : <gi>note</gi></head>
+						
+						
+							
+								
+ 
+ 	<p>L'élément <gi>note</gi> est utilisé pour indiquer une note située dans la marge qu'elle soit ou non signalée par un appel de note. Dans les <soCalled>Euvres</soCalled> de Louise Labé, une note imprimée figure en marge :</p>
+ 	<figure><graphic url="media/12noteEuvres.png"/></figure>
+ 	<p>Nous proposons l'encodage suivant, au moyen de l'attribut @place et ses valeurs margin-left et margin-right :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><lg rend="it">
+    ...
+    <l>On voit la superbe teste</l>
+    <l>D'un roc de*<note place="margin-left">* aphrese<lb/>pour sapins.</note> pins emplumé,</l>
+    <l>Ravie par la tempeste</l>
+    <l>De son corps acoutumé,</l>
+    ...
+</lg>
+</egXML>
+								
+ 
+ 	<p>Il est possible de dresser une typologie de ces annotations qui sont souvent des explications, des sous-titres, des entrées d'index, grâce à l'attribut @type.</p>
+ 
+								
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>Abréviations : <gi>abbr</gi>, <gi>orig</gi></head>
+						
+						
+							
+								
+ 
+ 	<p>Les abréviations du texte sont de deux types : d'une part, sous la forme d'une suppression de lettres (« F. » pour « François ») et, d'autre part, sous la forme d'un « brévigraphe » qui symbolise la réduc­tion d'un mot comme dans « vous » abrégé en .</p>
+ 	<p>Dans le projet BVH, les mots abrégés de type brévigraphe, très fréquents à la Renaissance, sont développés et généralement encodés avec les balises <gi>choice</gi>, <gi>orig</gi> et <gi>reg</gi> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">qu'il <choice>
+    <orig>cōposera</orig>
+    <reg>composera</reg>
+</choice> &amp; fera par cy apres.
+</egXML>
+								
+ 
+ 	<p>L'autre type d'abréviation concerne les suppressions de lettres comme dans les <soCalled>Euvres</soCalled> de Louise Labé où les noms des locuteurs « Amour » et « Folie » sont abrégés en « AM. » et « FOL. » :</p>
+ 	<figure><graphic url="media/13Euvres.png"/></figure>
+ 	<p>Ce second type d'abréviation est encodé avec <gi>abbr</gi> et peut faire l'objet d'un développement grâce à l'élément <gi>expan</gi> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><choice>
+    <abbr>AM.</abbr>
+    <expan>AMOUR</expan>
+</choice>
+</egXML>
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>État de l'œuvre : <gi>unclear</gi>, <gi>del</gi>, <gi>gap</gi>, <gi>supplied</gi> et <gi>add</gi></head>
+						
+						
+							
+								
+ 
+ 	<p>Des fragments de texte peuvent avoir été ôtés, effacés ou ajoutés par accident ou volontairement par des mains différentes : imprimeur, lecteur, etc. Cinq éléments peuvent être combinés pour signaler ces problèmes de lecture et d'intervention.</p>
+ 	<list>
+ 		<item>
+ 			L'élément <gi>unclear</gi> est rarement utilisé dans les livres imprimés. Cependant, quelques taches et des caractères usés peuvent être marqués ainsi. L'attribut @reason en indique la raison. Prenons un exemple dans le <soCalled>Tiers Livre</soCalled> de 1546 : 
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>...la tierce partie du monde, <unclear reason="damage">bestes</unclear><lb/>...</p> 
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			Le second élément est <gi>del</gi> pour <soCalled>deletion</soCalled>. Dans les <soCalled>Discours</soCalled>, une lettre a été barrée :
+ 			<figure><graphic url="media/14delDisc.png"/></figure>
+ 		</item>
+ 	</list>
+ 
+								
+								
+ 
+ 	<p>Quand le nom du responsable est connu, l'attribut @hand peut être utilisé pour l'identifier . Dans le cas des <soCalled>Discours</soCalled>, il s'agit probablement de l'éditeur Enguilbert de Marnef (selon Marie-Luce Demonet).</p>
+ 	<p>Cette intervention est encodée ainsi :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>...ne se cr<del hand="#editeur" resp="#MLD">o</del>ient immortelz...</p>
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>gap</gi> concerne des passages qui peuvent être absents pour des raisons maté­rielles ou éditoriales, et que l'on renonce à restituer. Il doit être accompagné de l'élément <gi>desc</gi> pour description qui autorise l'insertion d'autres éléments.
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><gap reason="grec">
+    <desc>
+        <bibl><title>ODE GRECQUE</title>, attribuée à <author>Jacques Peletier du Mans</author>, <author>Jean-Antoine de Baïf</author>, <author>Antoine du         Moulin</author> ou <author>Henri Estienne</author></bibl>
+    </desc>
+</gap>
+</egXML>
+								
+ 
+ 	<p>Quand il est vide de contenu, il peut être raccourci ainsi :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><gap reason="illegible"/>
+</egXML>
+								
+ 
+ 	<p>Cet élément peut également être utilisé à la place de l'élément <gi>unclear</gi> quand une partie du texte à transcrire est complètement illisible ; l'attribut @reason y est spécifié également.</p>
+ 
+								
+								
+ 
+ 	<p>Un quatrième élément, <gi>supplied</gi>, est utilisé pour compléter <gi>gap</gi> ou <gi>unclear</gi>. Il marque le texte restitué et sa source grâce à l'attribut @source qui indique l'édition ou l'exemplaire qui a permis la restitution, référence préalablement définie dans le Header. C'est ainsi que pour l'encodage du <soCalled>Courtisan</soCalled> de Baldassare Castiglione de 1538, nous avons consulté une édition de 1537 :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><teiHeader>
+    ...
+    <normalization>
+        <p>Cette transcription suit l'édition de 1538, d'après l'exemplaire du CESR (SR10B).
+            <lb/>Pour la correction du texte de 1538, nous avons consulté
+            <bibl xml:id="ed1537" xml:base="http://gallica2.bnf.fr/ark:/12148/bpt6k49708n.r">
+                <title>Les Quatre livres du Courtisan, </title>
+                <editor>[trad. Jacques Colin]</editor>, <pubPlace>[Lyon]</pubPlace>, 
+                <editor>[Denys de Harsy]</editor>, <date>[1537]</date>, 
+            </bibl>
+             et
+            <bibl xml:id="ed1585" xml:base="http://gallica2.bnf.fr/ark:/12148/bpt6k754790.r">
+                <title>Le Parfait courtisan...</title>, <editor>trad. Gabriel Chapuis</editor>, 
+                <pubPlace>Paris</pubPlace>, <editor>Nicolas Bonfons</editor>, <date>1585</date>
+            </bibl>
+        </p>
+    </normalization>
+    ...
+</teiHeader>
+<text>
+    ...
+    <supplied source="#ed1537">labhorrist</supplied>
+    ...
+</text>
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>add</gi> permet d'ajouter un caractère ou un texte non imprimé dans l'ouvrage ; parmi les attributs possibles, retenons @hand et @place. Dans le privilège du roi des <soCalled>Discours non plus mélancoliques</soCalled>, un exemple nous est donné avec cette correction d'époque en troisième ligne :
+ 			<figure><graphic url="media/15privlg.png"/></figure>
+ 			Nous proposons l'encodage suivant pour représenter le « l » de « livre » ajouté à la main :
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>
+    <lb/>PAR privilege du Roy, donné a <persName>Enguilbert de
+    <lb/>Marnef</persName>, est permis d'Imprimer &amp; vendre le present
+    <lb/><choice><sic>ivre</sic><corr resp="editeur">livre</corr></choice> intitulé le Discours non plus Melancolique
+    <lb/>que divers, de choses mesmement, qui appartien-
+    <lb rend="hyphen"/>nent a nostre <placeName>France</placeName>: &amp; a la fin La maniere de bien
+    <lb/>&amp; justement entoucher les Lucs &amp; Guiternes. &amp;
+    ...
+</p>
+</egXML>
+								
+ 
+ 	<p>Dans cet exemple, l'ajout semble avoir été effectué par l'éditeur, ici Enguilbert de Marnef.</p>
+ 	<p>Quand il s'agit d'ajouts de mains anonymes, nous les encodons sous la forme suivante :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><add place="margin-left" hand="anonyme">...</add>
+</egXML>
+								
+ 
+ 	<p>La feuille de style définit l'emplacement de l'appel de note, qu'il soit à gauche ou à droite.</p>
+ 
+								
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>Erreurs et régularisations : <gi>sic</gi> et <gi>corr</gi>, <gi>orig</gi> et <gi>reg</gi></head>
+						
+						
+							
+								
+ 
+ 	<p>D'autres interventions éditoriales concernent les corrections et les régularisations, base de tout travail d'édition. Elles utilisent les quatre éléments liés deux à deux, à savoir : <gi>sic</gi> et <gi>corr</gi> pour <soCalled>correction</soCalled> , <gi>orig</gi> pour <soCalled>original form</soCalled> et <gi>reg</gi> pour <soCalled>regularization</soCalled>.</p>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>sic</gi> contient le texte original bien qu'il apparaisse incorrect ou inexact. Les erreurs manifestes peuvent être une erreur de pagination ou une inversion de lettres. Dans la <soCalled>Deffence, et illustration de la Langue francoyse</soCalled> de Du Bellay, on lit :
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">... que la Nature a <sic>crées</sic>...
+</egXML>
+								
+ 
+ 	<p>Ici, la correction n'est pas nécessaire, car cette graphie est fréquente. En revanche, les erreurs manifestes peuvent concerner la pagination ou une inversion de lettres. Pour les corriger, nous pouvons utiliser l'élément <gi>corr</gi>.</p>
+ 	<p>L'élément <gi>sic</gi> peut s'employer indépendamment de l'élément <gi>corr</gi>. Si ce dernier est utilisé, le choix éditorial est de privilégier la forme correcte du mot par défaut.</p>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>corr</gi> contient la forme correcte d'un mot rectifié par nous. Dans La <soCalled>Deffence</soCalled> encore (p. 37 recto), « Et tout ainsi qu'entres les Aucteurs » est corrigé ainsi :
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>...
+    Et tout ainsi qu'
+    <sic>entres</sic> 
+    <corr>entre</corr>
+    les Aucteurs...
+</p>
+</egXML>
+								
+ 
+ 	<p>Si la correction est apportée grâce à une autre édition, l'attribut @source peut être ajouté. C'est le cas dans le <soCalled>Tiers Livre</soCalled> de 1546 :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><corr source="#ed1552">ne</corr>
+</egXML>
+								
+ 
+ 	<p>Enfin, certaines interventions éditoriales concernent les régularisations. Un mot (ou une expression) peut être régularisé avec les éléments <gi>orig</gi> et <gi>reg</gi> :</p>
+ 	<figure><graphic url="media/16orig.png"/></figure>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>orig</gi> contient la forme originale de la source, ici le titre de l'ouvrage et le nom de l'auteur :
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><front>
+    <titlePage>
+        <docTitle>
+            <titlePart>
+                <orig>EVVRES</orig>
+            </titlePart>
+        </docTitle>
+        <lb/>
+        <lb/><byline>DE
+        <lb/><name><orig>LOVÏZE LABE'</orig></name>
+        <lb/>LIONNOIZE.</byline>
+    </titlePage>
+</front>
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			L'élément <gi>reg</gi> contient la forme régularisée<note place="foot" target="Notes/reg.refs">La normalisation des noms de personnes et de lieux peut s'effectuer grâce aux index régularisés sur une plate-forme de travail adéquate.</note>.
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><front>
+    <titlePage>
+        <docTitle>
+            <titlePart>
+                <reg>EUVRES</reg>
+            </titlePart>
+        </docTitle>
+        <lb/>
+        <lb/><byline>DE
+        <lb/><name><reg>LOUISE LABÉ</reg></name>
+        <lb/>LIONNOIZE.</byline>
+    </titlePage>
+</front>
+</egXML>
+								
+ 
+ 	<p>Pour afficher le texte, des choix édito­riaux sont nécessaires pour les éléments concernant les erreurs, les régularisations mais également les abréviations : nous utilisons alors l'élément <gi>choice</gi>. Reprenons les exemples précédents auxquels nous appliquons ce nouvel élément :</p>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			Les éléments <gi>orig</gi> et <gi>reg</gi> avec <gi>choice</gi>
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><front>
+    <titlePage>
+        <docTitle>
+            <titlePart>
+                <choice> 
+                    <orig>EVVRES</orig>
+                    <reg>EUVRES</reg>
+                </choice>
+            </titlePart>
+        </docTitle>
+        <lb/>
+        <lb/><byline>DE
+        <lb/><name>
+                <choice>
+                    <orig>LOVÏZE LABE'</orig>
+                    <reg>LOUISE LABÉ</reg>
+                </choice>
+</name>
+<lb/>LIONNOIZE.</byline>
+</titlePage>
+</front>
+</egXML>
+								
+ 
+ 	<p>Selon le choix éditorial, on affichera soit la version originale, « EVVRES », soit la version régularisée, « EUVRES », ou bien on laissera à l'utilisateur la possibilité de passer d'un état à l'autre.</p>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			Les éléments <gi>sic</gi> et <gi>corr</gi> avec <gi>choice</gi>
+ 		</item>
+ 	</list>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>...
+    Et tout ainsi qu'<choice>
+                <sic>entres</sic>
+                <corr>entre</corr>
+    </choice> les Aucteurs...
+</p>
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			Les éléments <gi>abbr</gi> et <gi>expan</gi> avec <gi>choice</gi>
+ 		</item>
+ 	</list>
+ 
+								
+								
+ 
+ 	<egXML xmlns="http://www.tei-c.org/ns/Examples"><choice>
+ 		    <abbr>AM.</abbr>
+								                <expan>AMOUR</expan>
+ 	</choice>
+ 	</egXML>
+ 
+								
+								
+ 
+ 	<p>Enfin, ces éléments peuvent se combiner entre eux. Par exemple, dans le <soCalled>Tiers Livre</soCalled> de Rabelais, une main anonyme a rectifié l'erreur évidente de numérotation du chapitre 38 :</p>
+ 	<figure><graphic url="media/17delsic.png"/></figure>
+ 	<p>Nous proposons l'encodage suivant :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">Chapitre <sic><del>XXXIII.</del></sic><add hand="lecteur" place="online">xxxviij.</add>
+</egXML>
+								
+ 
+ 	<p>L'attribut @place est ajouté pour spécifier l'emplacement de l'ajout dans le texte.</p>
+ 
+								
+							
+						
+					</div>
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Balisage onomastique</head>
+				
+				
+					
+						
+							
+								<p>Ce type de balisage permet de mettre en évidence les noms propres et des éléments temporels comme les dates. Des expressions ou des suites de mots peuvent également faire l'objet d'un marquage permettant de dresser une typologie en vue d'analyses ultérieures.</p>
+							
+						
+					
+				
+				
+					<div>
+						
+							<head>L'onomastique : noms de personnes, dénomination sociale et toponymes</head>
+						
+						
+							
+								
+ 
+ 	<list>
+ 		<item>
+ 			<gi>name</gi>
+ 		</item>
+ 	</list>
+ 	<p>L'élément <gi>name</gi> est générique ; nous l'utilisons pour les noms de personnes, qu'ils soient réels ou fictifs ; par exemple la déesse Minerve sera marquée ainsi :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><name>Minerve</name>
+</egXML>
+								
+ 
+ 	<p>A noter qu'on peut aussi typer les éléments, si cela s'avère utile dans le cadre d'un projet :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><name type="mythologie">Minerve</name>
+</egXML>
+								
+ 
+ 	<list>
+ 		<item>
+ 			<gi>persName</gi>
+ 		</item>
+ 	</list>
+ 	<p>L'élément <gi>persName</gi> pour <soCalled>personal name</soCalled> est plus précis que <gi>name</gi> car il permet une dénomination plus détaillée. Le nom de « maistre François de Connan, maistre des Requestes de l'hostel » peut être marqué par l'élé­ment <gi>name</gi> ou être précisé grâce à ce nouvel élément :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><persName>
+    <foreName>François</foreName> de <surName>Connan</surName>, maistre des Requestes de l'hostel
+</persName>
+</egXML>
+								
+ 
+ 	<p><gi>surName</gi> correspond au nom de famille (ou patronyme) et <gi>foreName</gi> correspond au prénom ;</p>
+ 	<p>A titre d'information on citera les éléments :</p>
+ 	<list rend="ordered">
+ 		<item>
+ 			<gi>genName</gi> pour <soCalled>generational name</soCalled>, employé pour désigner une hiérarchie (at­tribut @type pour « l'aîné » par exemple) ;
+ 		</item>
+ 		<item>
+ 			<gi>roleName</gi>, qui comprend des attributs comme @type pour « religion », par exemple ;
+ 		</item>
+ 		<item>
+ 			<gi>addName</gi> pour <soCalled>additional name</soCalled> concerne les épithètes (@type pour « honorable femme » par exemple) ;
+ 		</item>
+ 		<item>
+ 			<gi>nameLink</gi> pour encoder les particules nobiliaires.
+ 		</item>
+ 	</list>
+ 	<p>Si cela s'avère utile dans le cadre du projet, on pourra compléter l'encodage ainsi:</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><persName>
+    <foreName>François</foreName>
+    <nameLink>de</nameLink>
+    <surName>Connan</surName>,
+    <roleName>maistre des Requestes de l'hostel</roleName>
+</persName>
+</egXML>
+								
+ 
+ 	<p>Parmi les attributs, notons les plus utilisés comme @type et @xml:id que nous connais­sons déjà, et l'attribut @ref pour <soCalled>reference</soCalled> qui peut indiquer un lien vers une notice, soit localement, soit dans un fichier externe grâce à un identifiant. Par exemple :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><name ref= ".../personnes.xml#FR">François Rabelais</name>
+</egXML>
+								
+ 
+ 	<p>qui renvoie à la notice sur François Rabelais dans un fichier externalisé « personnes.xml ».</p>
+ 	<p>Le choix éditorial se pose ici : encoder le plus simplement possible les noms ou effectuer une première analyse et marquer d'une manière plus élaborée les noms de personnes<note place="foot" target="Notes/name.refs">Il est même possible de réaliser une prosopographie grâce à un encodage XML/TEI. Cf. http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html.</note>.</p>
+ 
+								
+								
+ 
+ 	<list>
+ 		<item>
+ 			Toponymes 
+ 			Les toponymes sont encodés grâce aux éléments <gi>placeName</gi> et <gi>geogName</gi>.
+ 		</item>
+ 	</list>
+ 
+								
+								
+ 
+ 	<p> <gi>placeName</gi> correspond à la désignation des lieux absolus ou relatifs (village, ville, pays, région...).</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><placeName type="ville">Lion</placeName>
+</egXML>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><placeName type="ville">Angleterre</placeName>
+</egXML>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><placeName>Savoie</placeName>
+</egXML>
+								
+ 
+ 	<p>Certains attributs sont spécifiques à cet élément: @notBefore et @notAfter dont la valeur est la date à partir de laquelle ou jusqu'à laquelle le nom de ce toponyme est utilisé.</p>
+ 
+								
+								
+ 
+ 	<p><gi>geogName</gi>concerne tout nom associé à une particularité géographique (lac, mont, etc).</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><geogName>Mont Sion</geogName>
+</egXML>
+								
+ 
+ 	<p>Il est bien entendu possible d'utiliser l'attribut @type pour dresser une typologie.</p>
+ 
+								
+								<note type="complement">
+ 
+ 	<p rend="head">Complément</p>
+ 
+ 
+ 	Il est même possible de dresser des cartes grâce aux éléments <gi>location</gi> et <gi>geo</gi> imbriqués dans l'élément <gi>place</gi>. Les coordonnées, longitude et latitude, sont indiquées dans l'élément <gi>geo</gi><note place="foot" target="Notes/geo.refs">Voir le chapitre 13 dans les Guidelines  http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html.</note>.
+ 
+								</note>
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>La datation calendaire : <gi>date</gi></head>
+						
+						
+							
+								
+ 
+ 	<p>L'élément <gi>date</gi> contient une date dans n'importe quel format. Quatre attributs permettent d'en préciser la valeur.</p>
+ 	<p>L'attribut @when donne la valeur de la date sous la forme standard suivante : aaaa, voire aaaa-mm-jj. Par exemple :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="1556-05-13"></date>
+</egXML>
+								
+ 
+ 	<p>Au XVIe siècle, il est fréquent que la date précise ne soit pas connue. Nous utilisons alors les attributs @notBefore et @notAfter :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><date  notBefore="1500"  notAfter="1543">1500-1543</date>
+</egXML>
+								
+ 
+ 	<p>Un quatrième attribut, @cert, précise le degré de certitude de la date indiquée ; il peut avoir comme valeur <soCalled>high</soCalled>, <soCalled>medium</soCalled>, <soCalled>low</soCalled> ou <soCalled>unknown</soCalled> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><date cert="low">1543</date>
+</egXML>
+								
+ 
+ 	<p>L'attribut @calendar n'est pas utilisé mais il serait utile pour signifier à quel système (julien, grégorien ou autre) la date se rattache, notamment pour indiquer les dates antérieures à la réforme du calendrier : l'édit de 1564 fait commencer l'année au 1er janvier (auparavant entre janvier et Pâques). Nous donnons un exemple imaginaire :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="1531-02-02" calendar="julian">deux febvrier 1530</date>
+</egXML>
+								
+ 
+ 	<p>Le choix éditorial est de simplifier le marquage du temps et de n'utiliser en général que l'élément <gi>date</gi> avec @when voire @cert.</p>
+ 
+								
+							
+						
+					</div>
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Images, langues et références</head>
+				
+				
+					<div>
+						
+							<head>Les citations et références bibliographiques</head>
+						
+						
+							
+								
+ 
+ 	<p>Dans le <soCalled>Tiers Livre</soCalled>, on dénombre une multitude de citations qui ne sont pas forcément délimitées par des guillemets ni facilement identifiables :</p>
+ 	<figure><graphic url="media/18citation.png"/></figure>
+ 	<p>Nous envisageons de les encoder : c'est un choix éditorial. Dans cet exemple, nous encodons l'expression « Congnois toy » grâce à l'élément <gi>quote</gi> qui marque un passage ou une expression attribués à un agent extérieur au texte :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><lb/>servir un tel marault. Il ne sçait le premier
+<lb/>traict de philosophie, qui est, <quote>CONGNOIS
+<lb/>TOY</quote>. &amp; se glorifiant veoir un festu en...
+</egXML>
+								
+ 
+ 	<p>Quand l'expression devient une citation littérale, nous utilisons l'élément <gi>quote</gi> imbriqué dans l'élément <gi>cit</gi> pour <soCalled>citation</soCalled>. À la page 37 des <soCalled>Discours</soCalled>, une citation pourrait être encodée avec trois éléments imbriqués : <gi>cit</gi>, <gi>quote</gi> et <gi>l</gi> pour chaque ligne de vers.</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><cit>
+    <quote>
+        <l>Ainsi s'en va chatoulheus de la gorge</l>
+        <l>Ledit valet, monté comme un saint George.</l> </quote>
+</cit>
+</egXML>
+								
+ 
+ 	<p>Par ailleurs, dans certains textes, apparaissent des références bibliographiques plus ou moins précises :</p>
+ 	<figure><graphic url="media/19bibl.png"/></figure>
+ 	<p>Nous utilisons les trois éléments suivants : <gi>bibl</gi> pour <soCalled>bibliographic citation</soCalled>, <gi>author</gi> et <gi>title</gi>, les deux derniers étant imbriqués dans le premier :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><lb/>de Guerre, &amp; <bibl><author>Dion Gregeois</author> au <hi rend="italic">37.</hi>livre de son
+<lb/><title>histoire Romaine</title></bibl>, qu'il a escritte environ l'<date when="0200">an cc</date>.
+<lb/>apres l'incarnation (Frontin peut avoir esté quel-
+</egXML>
+								
+ 
+ 	<p>L'élément <gi>bibl</gi> marque les références bibliographiques ici peu structurées. Dans notre exemple, seuls l'auteur et le titre sont cités<note place="foot" target="Notes/quote.refs">Dans le cas de références complètes, nous conseillons d'autres éléments imbriqués comme <gi>date</gi>, <gi>editor</gi>, <gi>imprint</gi>, <gi>publisher</gi>, <gi>pubPlace</gi>, etc.</note>.</p>
+ 	<p>Nous combinons les citations avec les références bibliographiques quand une mention d'un autre ouvrage est donnée avec ses références :</p>
+ 	<p>La citation qui apparaît littéralement est marquée grâce aux deux éléments complémentaires <gi>quote</gi> et <gi>bibl</gi>.</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><lb/>niere de sort ce vers escript, AEneid. 6.
+<cit>
+    <quote>
+        <l xml:lang="lat"><hi rend="it">Tu regere imperio populos Romane me-
+            <lb rend="hyphen"/><space quantity="2" unit="mm"/>mento</hi>.</l>
+    </quote>
+    <quote>
+        <l>Romain enfant quand viendras a l'Em-
+            <lb rend="hyphen"/><space quantity="2" unit="mm"/>pire,</l>
+        <l>Regiz le monde en sorte qu'il n'empire.</l>
+    </quote>
+</cit>
+</egXML>
+								
+ 
+ 	<p>Dans tous les cas, l'attribut qui est privilégié pour les éléments <gi>cit</gi> et <gi>quote</gi> est @type.</p>
+ 	<p>Dans certains passages, des paroles ou des pensées peuvent être mises en évidence. L'élément <gi>said</gi> est alors retenu. Dans les <soCalled>Discours</soCalled>, la page 38 en est un exemple :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><p>...<said>He, maistre
+<lb/>mon ami,</said> dit il,...</p>
+</egXML>
+								
+ 
+ 	<p>L'attribut @who identifie éventuellement le locuteur.</p>
+ 
+								
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>Les langues</head>
+						
+						
+							
+								
+ 
+ 	<p>Les langues utilisées dans les œuvres sont déclarées dans l'en-tête TEI<note place="foot" target="Notes/langues.refs">Cf. la partie TeiHeader de ce manuel.</note>. Dans le corps du texte, l'élément <gi>foreign</gi> marque le mot ou l'expression écrit dans une autre langue que celle de l'œuvre ; on y associe l'attribut @xml:lang et, en valeur, le code de la langue. La nomenclature des codes standards correspond à la norme ISO 639-3, comme ici pour le latin.</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><foreign xml:lang="lat">restare</foreign>
+</egXML>
+								
+ 
+ 	<p>La norme ISO 639-3 a défini le français de la Renaissance (1400-1600) par le code "frm" (moyen français). Nous proposons de mettre cette valeur grâce à l'attribut @xml:lang dans l'élément <gi>text</gi> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><text xml:lang="frm"></text>
+</egXML>
+								
+ 
+ 	<p>Par défaut le texte est en français de la Renaissance à l'exception des passages dans une autre langue signalée par l'élément <gi>foreign</gi>. La liste des langues et des dialectes que nous utilisons est donnée en annexe de ce manuel.</p>
+ 	<p>Parfois, le mot ou l'expression dans une langue autre que celle de l'œuvre est mise en italiques ; on utilise alors l'attribut @rend et la valeur « it » soit dans l'élément <gi>foreign</gi> soit en ajoutant l'élément <gi>hi</gi>. Ainsi, page 72 des <soCalled>Discours</soCalled>, plusieurs mots sont exprimés dans une autre langue que le français du XVIe siècle et le marquage peut se faire sous deux formes :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><foreign xml:lang="lat" rend="it">restare</foreign>
+<foreign xml:lang="lat"><hi rend="it">restare</hi></foreign>
+</egXML>
+								
+ 
+ 	<p>Les deux balisages sont équivalents. Nous recommandons le second : il est plus long, mais il diffé­rencie nettement un balisage formel d'un balisage sémantique. De plus, la première solution complique le travail sur la feuille de style, le marquage formel et typographique devant être déclaré dans l'élément sémantique.</p>
+ 
+								
+							
+						
+					</div>
+				
+				
+					<div>
+						
+							<head>Les images</head>
+						
+						
+							
+								
+ 
+ 	<p>Le choix éditorial a été de n'encoder que les illustrations liées à une banque d'images grâce à l'adresse « url ». Par exemple, la page de titre des <soCalled>Discours non plus mélancoliques</soCalled> contient une marque d''imprimeur :</p>
+ 	<figure><graphic url="media/21images.png"/></figure>
+ 	<p>Pour encoder la marque d'imprimeur, l'élément <gi>graphic</gi> est utilisé avec l'attribut @url dont la valeur est l'emplacement du fichier image. @xml:base est employé ici pour fournir un lien vers la notice de l'ouvrage. <gi>figDesc</gi> permet de décrire l'image en question. Ces deux éléments sont contenus dans <gi>figure</gi> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><figure>
+    <graphic url="B861946101_DP1139.jpg" xml:base="http://www.bvh.univ-tours.fr/Consult/index.asp?numfiche=71"/>
+    <figDesc>Bibliothèques Virtuelles Humanistes - Médiathèque de Poitiers</figDesc>
+</figure>
+</egXML>
+								
+ 
+ 	<p>L'affichage de l'image peut poser parfois des problèmes de proportion et demande un encodage ou un stylage spécifique.</p>
+ 	<p>L'encodage de la page de titre peut être résumé ainsi<note place="foot" target="Notes/images.refs">L'encodage complet de la page de titre des Discours est étudié dans la section "Page de titre et pièces liminaires"</note> :</p>
+ 
+								
+								<egXML xmlns="http://www.tei-c.org/ns/Examples"><front>
+    <titlePage>
+        <figure>
+            <graphic url="http://www.bvh.univ-tours.fr/B861946101_DP1139/B861946101_DP1139.jpg"/>
+            <figDesc>Bibliothèques Virtuelles Humanistes - Médiathèque de Poitiers</figDesc>
+        </figure>
+        <docTitle>
+            <titlePart>Discours...</titlePart>
+        </docTitle>
+        <docImprint>
+            <lb/>
+            <lb/>A <placeName>POITIERS</placeName>...
+        </docImprint>
+        <imprimatur>Avec privilege du Roy.</imprimatur>
+    </titlePage>
+    <div type="privilege">
+        <p>...</p>
+    </div>
+</front>
+</egXML>
+								
+ 
+ 	<p>Grâce à une connexion au serveur, l'image est récupérée. À l'affichage, le résultat est proche de la page de titre originale :</p>
+ 	<figure><graphic url="media/22images.png"/></figure>
+ 	<p>Dans le projet BVH, la typologie des données graphiques est établie à partir de l'extraction automa­tique. L'encodage TEI en dépend et est en cours de développement.</p>
+ 
+								
+							
+						
+					</div>
+				
+			</div>
+		
+	</div>
+
+	<div>
+		
+			<head>En-tête TEI <gi>teiHeader</gi></head>
+		
+		
+			<div>
+				
+					<head>Vue d'ensemble</head>
+				
+				
+					
+						
+							
+								<p>Tout texte de format TEI est composé d'un en-tête TEI suivi du corps du texte lui-même. L'en-tête contient des informations indispensables à l'identification du fichier :</p>
+								<list rend="ordered">
+ <item>
+ 	<gi>fileDesc</gi>
+ 	une description bibliographique du fichier électronique regroupant le titre électronique, les responsables de l'édition et de la publication, ainsi que la description bibliographique de l'œuvre originale ;
+ </item>
+ <item>
+ 	<gi>encodingDesc</gi>
+ 	 le rapport entre le texte électronique et la source originale,
+ </item>
+ <item>
+ 	<gi>profileDesc</gi>
+ 	 une description des aspects non bibliographiques,
+ </item>
+ <item>
+ 	<gi>revisionDesc</gi>
+ 	 un historique des révisions du fichier électronique.
+ </item>
+								</list>
+								<p>Cet en-tête doit prendre en compte l'aspect juridique lié à la propriété intellectuelle et au droit d'au­teur. Il peut être réduit à quelques lignes : le titre électronique, l'éditeur électronique et une biblio­graphie sommaire de la source originale. Cependant, il est fortement recommandé de le compléter soit en apportant des informations sur la source originale, soit en donnant les modalités de l'édition électronique. Le plus grand nombre de renseignements est requis pour diffuser et échanger les fichiers électroniques. L'expérience a montré que plus riche est l'en-tête, plus le fichier est réutilisé.</p>
+								<p>Nous proposons un en-tête minimal qui doit avoir la structure suivante :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><teiHeader>
+    <fileDesc>
+        <titleStmt>
+            <title>...</title>
+        </titleStmt>
+        <publicationStmt>
+            <authority>...</authority>
+        </publicationStmt>
+        <sourceDesc>
+            <p>...</p>
+        </sourceDesc>
+    </fileDesc>
+</teiHeader>
+</egXML>
+						
+							
+								<p>Dans l'exemple des <soCalled>Discours</soCalled>, l'en-tête peut être réduit selon l'encodage suivant :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><teiHeader>
+    <fileDesc>
+        <titleStmt>
+            <title>Discours non plus mélancoliques que divers, attribué à Elie Vinet, Poitiers, 1556</title>
+        </titleStmt>
+        <publicationStmt>
+            <authority>Université François-Rabelais</authority>
+        </publicationStmt>
+        <sourceDesc>
+            <p>...</p>
+        </sourceDesc>
+    </fileDesc>
+</teiHeader>
+</egXML>
+					
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Description bibliographique du fichier : <gi>fileDesc</gi> file description</head>
+				
+				
+					
+						
+							
+								<p>La description bibliographique du fichier commence par le titre électronique ainsi que l'identité des responsables de son contenu intellectuel. La source, à partir de laquelle le fichier a été généré, fait ensuite l'objet d'une description bibliographique.</p>
+								<p>L'élément <gi>titleStmt</gi> pour <soCalled>title statement</soCalled> contient les éléments suivants :</p>
+								<list>
+ <item>
+ 	<gi>title</gi> désigne le titre électronique de l'ouvrage décidé par l'équipe éditoriale.
+ </item>
+ <item>
+ 	<gi>respStmt</gi> pour <soCalled>statement of responsibility</soCalled> donne le nom du responsable de la collection électronique, ainsi que ceux de l'encodage.
+ </item>
+								</list>
+							
+						
+						
+							
+								<p>L'élément <gi>editionStmt</gi> pour <soCalled>element statement</soCalled> contient les éléments éditoriaux suivants :</p>
+								<list>
+ <item>
+ 	<gi>edition</gi> avec son attribut n et sa valeur, donne le numéro de la présente édition électronique (souvent le numéro « 1 ») ; on y ajoute la date, l'url du fichier en ligne ainsi que son identifiant.
+ </item>
+ <item>
+ 	<gi>respStmt</gi>
+ </item>
+								</list>
+							
+						
+						
+							
+								<p>L'élément <gi>extent</gi> donne la taille matérielle du texte ; nous l'utilisons pour indiquer le nombre de kilos octets du fichier.</p>
+							
+						
+						
+							
+								<p>L'élément <gi>publicationStmt</gi> pour <soCalled>publication statement</soCalled> contient les informations sur l'orga­nisme responsable de la publication.</p>
+								<list>
+ <item>
+ 	<gi>authority</gi> le nom des organismes responsables de l'œuvre électronique.
+ </item>
+ <item>
+ 	<gi>address</gi> l'adresse des organismes.
+ </item>
+ <item>
+ 	<gi>availability</gi> la restriction juridique de sa distribution : copyright.
+ </item>
+								</list>
+								<p>L'élément <gi>seriesStmt</gi> pour <soCalled>series Statement</soCalled> n'a pas été encore utilisé dans le projet BVH. Il permet de regrouper les informations concernant une collection. Il pourra être ajouté s'il est envi­sagé d'encoder une collection : dictionnaires, œuvres complètes d'un auteur, minutes notariales d'une étude, etc.</p>
+							
+						
+						
+							
+								<p>L'élément <gi>notesStmt</gi> pour <soCalled>notes Statement</soCalled> permet d'ajouter des notes sur l'édition.</p>
+							
+						
+						
+							
+								<p>L'élément <gi>sourceDesc</gi> pour <soCalled>source description</soCalled> est une partie obligatoire de l'en-tête car il consigne toutes les informations sur la source originale. Il contient l'élément <gi>msDesc</gi>, pour <soCalled>manuscript description</soCalled> ; il concerne à l'origine la description des manuscrits mais on peut l'étendre aux imprimés anciens. L'élément <gi>origDate</gi> peut s'imbriquer et indiquer la date de la première version connue.</p>
+							
+						
+						
+							
+								<p><gi>msDesc</gi> Contient :</p>
+								<list>
+ <item>
+ 	<gi>msIdentifier</gi> pour <soCalled>manuscript identifier</soCalled> imbriqué dans l'élément <gi>msDesc</gi> ; il contient les informations pour retrouver la source : lieu de conservation, identifiant et ville. Dans le cas des <soCalled>Discours</soCalled>, l'encodage est le suivant :
+ </item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><msIdentifier xml:id="Res_Z_1110">
+    <settlement>Paris</settlement>
+    <institution>Bibliothèque nationale de France</institution>
+    <repository key="751131011">Réserve des livres rares</repository>
+    <idno type="cote">Res-Z-1110</idno>
+</msIdentifier>
+</egXML>
+						
+							
+								<p>L'élément <gi>settlement</gi> est préféré à celui de <gi>placeName</gi> car il s'applique à tous les cas. Le numéro de la bibliothèque issu du répertoire des centres de ressource géré par l'ABES (Agence bibliographique de l'enseignement supérieur) est spécifié dans l'élément <gi>repository</gi>, lieu de conservation de la source. L'élément <gi>idno</gi> donne le numéro de catalogage de l'œuvre au sein de la collection de la bibliothèque.</p>
+								<list>
+ <item>
+ 	<gi>msContents</gi> pour manuscript contents, décrit le contenu intellectuel d'un ouvrage. Cet élément contient <gi>biblStruct</gi> pour structured bibliographic citation, qui comprend d'autres éléments sur les informations bibliographiques contenues principalement dans la page de titre grâce à <gi>monogr</gi> pour monographic level ; ce dernier contient les éléments bibliographiques comme <gi>title</gi>, <gi>author</gi>, <gi>imprint</gi>, <gi>publisher</gi>, <gi>date</gi>, <gi>pubPlace</gi> pour publication place qui reprennent les parties de la page de titre de la source originale.
+ </item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><msContents>
+    <p>
+        <biblStruct>
+            <monogr>
+                <title>...</title>
+                <author>...</author>
+                <imprint>
+                    <publisher>...</publisher>
+                    <date>...</date>
+                </imprint>
+            </monogr>
+        </biblStruct>
+    </p>
+</msContents>
+</egXML>
+						
+							
+								<p>Plusieurs problèmes se posent dans cette partie de l'en-tête TEI. Le premier concerne l'auteur quand celui-ci n'est pas formellement désigné. Par exemple, les <soCalled>Discours non plus mélancoliques...</soCalled> est une œuvre attribuée à Elie Vinet ; nous proposons l'encodage suivant :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><monogr>
+    <title>...</title>
+    <author><persName role="auteur_présumé">
+        <surname>Vinet</surname>
+        <forename>Élie</forename>
+    </persName></author>
+</monogr>
+</egXML>
+						<note type="complement">
+							
+								<p rend="head">Complément</p>
+							
+							
+								L'emploi de <gi>surname</gi> et <gi>forename</gi> permet d'obtenir une forme normalisée pour établir un index des auteurs. Dans <gi>persName</gi>, l'attribut rôle permet d'établir une typologie du statut de l'auteur.
+							
+						</note>
+						
+							
+								<list>
+ <item>
+ 	<gi>physDesc</gi> pour <soCalled>physical description</soCalled>, contient la description physique de la source grâce à deux éléments principaux : <gi>objectDesc</gi> (collation, format) et <gi>bindingDesc</gi> (reliure).
+ </item>
+ <item>
+ 	<gi>history</gi> , où se trouve imbriqué <gi>provenance</gi>, décrit d'éventuels possesseurs de l'exemplaire encodé ;
+ </item>
+ <item>
+ 	<gi>additional</gi> contient <gi>listBibl</gi> pour <soCalled>citation list</soCalled> (liste de citations bibliogra­phiques de la source) ainsi que <gi>surrogates</gi> pour <soCalled>citation list</soCalled> (liste de citation, qui permet de décrire des reproductions numériques de l'édition).
+ </item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><additional>
+    <adminInfo>
+        <recordHist>
+            <source>
+                <listBibl>
+                    <bibl>
+                        <author>Vinet (E.)</author>,
+                        <title>Discours non plus melancoliques que divers</title>,
+                        <pubPlace>Poitiers</pubPlace>, <date>1557</date>,
+                        <idno type="cote">DP1139</idno>.
+                    </bibl>
+                </listBibl>
+            </source>
+        </recordHist>
+    </adminInfo>
+    <surrogates>
+        <bibl>
+            <ref target="http://gallica.bnf.fr/ark:/12148/bpt6k71448r"/>
+        </bibl>
+</surrogates></additional>
+</egXML>
+						
+							
+								<p>Voici un exemple-type de la description du fichier électronique :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><fileDesc>
+    <titleStmt>
+        <title>Discours non plus mélancoliques que divers, Poitiers, 1556</title>
+        <respStmt>
+            <name xml:id="MLD">Marie-Luce Demonet</name>
+            <resp>
+                <date>2009</date>Responsable BVH CESR, relecture
+            </resp>
+        </respStmt>
+    </titleStmt>
+    <editionStmt>
+        <edition n="1" xml:base="http://www.bvh.univ-tours.fr:8080/xtf/view?docId=tei/B861946101_DP1139/B861946101_DP1139_tei.xml;query=;brand=default">
+            <date type="mise_en_ligne" when="2010-07-20" n="1">20 juillet 2010</date>
+        </edition>
+        <respStmt>
+            <name xml:id="TU">Toshinori Uetani</name>
+            <resp>Révision</resp>
+        </respStmt>
+    </editionStmt>
+    <extent>268 Ko</extent>
+    <publicationStmt>
+        <authority xml:base="http://www.cesr.univ-tours.fr">Centre d'Etudes Supérieures de la Renaissance (CESR)</authority>
+        <availability>
+            <p>Utilisation non commerciale libre. Copyright. Université François-Rabelais Creative Commons
+            <date when="2010">2010</date>
+            </p>
+        </availability>
+    </publicationStmt>
+    <sourceDesc>
+        <msDesc>
+            <msIdentifier xml:id="Res_Z_1110">
+                <country>France</country>
+                <settlement>Paris</settlement>
+                <institution>Bibliothèque nationale de France</institution>
+                <repository key="751131011">Réserve des livres rares</repository>
+                <idno type="cote">Res-Z-1110</idno>
+            </msIdentifier>
+            <msContents><p><biblStruct>
+                <monogr>
+                    <author><persName role="auteur_présumé"><surname>Vinet</surname><forename>Élie</forename></persName></author>
+                    <title>Discours non plus melancoliques que divers, de choses mesmement qui appartiennent a notre France: &amp; a la fin La maniere de bien &amp; justement entoucher les Lucs &amp; Guiternes.</title>
+                    <imprint>
+                        <pubPlace>Poitiers</pubPlace>
+                            <publisher><persName role="imprimeur">
+                                <surname>Marnef</surname><forename>Enguilbert de</forename>
+                            </persName></publisher>
+                            <date when="1557">1557</date>
+                    </imprint>
+                </monogr>
+            </biblStruct></p></msContents>
+            <physDesc>
+                <objectDesc>
+                    <supportDesc>
+                        <collation>
+                            <p>60 f., [4] f., 112, [1 bl.] p.</p>
+                            <dimensions>
+                                <dim type="format">4°</dim>
+                            </dimensions>
+                        </collation>
+                        <condition>
+                            <damage>La page 9 (feuille dépliante paginée 9 entre les pages 8 et 10) manque à l'exemplaire de Poitiers, cote DP1139.</damage>
+                        </condition>
+                    </supportDesc>
+                </objectDesc>
+            </physDesc>
+            <additional>
+                <adminInfo>
+                    <recordHist><source><listBibl>
+                        <bibl xml:id="DP1139">
+                            <author>Vinet (E.)</author>,
+                            <title rend="it">Discours non plus melancoliques que divers</title>,
+                            <pubPlace>Poitiers</pubPlace>, <date>1557</date>, 
+                            <orgName key="B861946101">Médiathèque François Mitterrand</orgName>,
+                            <idno type="cote">DP1139</idno>.
+                        </bibl>
+                        ...
+                    </listBibl></source></recordHist>
+                </adminInfo>
+                <surrogates>
+                    <bibl>
+                        <ref target="http://gallica.bnf.fr/ark:/12148/bpt6k71448r"/>
+                        <relatedItem type="original">
+                            <ref target="#Res_Z_1110">Gallica</ref>
+                        </relatedItem>
+                    </bibl>
+                </surrogates>
+            </additional>
+        </msDesc>
+    </sourceDesc>
+</fileDesc>
+</egXML>
+					
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Description de l'encodage : <gi>encodingDesc</gi> encoding description</head>
+				
+				
+					
+						
+							
+								<p>La description relative au codage précise les méthodes et les principes éditoriaux qui ont permis la transcription du texte et l'élaboration du fichier.</p>
+								<list>
+ <item>
+ 	L'élément <gi>projectDesc</gi> pour <soCalled>project description</soCalled> comprend la description succincte du projet électronique.
+ </item>
+ <item>
+ 	L'élément <gi>editorialDecl</gi> pour <soCalled>editorial declaration</soCalled> comprend les pratiques édito­riales de l'encodage dont celles du présent manuel :
+ 	<list>
+ 		<item>
+ 			<gi>correction</gi> Les erreurs détectées dans la source sont listées.
+ 		</item>
+ 		<item>
+ 			<gi>hyphenation</gi> Les consignes au sujet des coupures de mots en fin de ligne sont écrites.
+ 		</item>
+ 		<item>
+ 			<gi>normalization</gi> Normes de transcription pour l'édition électronique. Les descriptions des symboles graphiques sont définies ici.
+ 			Voici un exemple type tiré des <soCalled>Discours</soCalled> :
+ 		</item>
+ 	</list>
+ </item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><encodingDesc>
+    <projectDesc>
+        <p>BVH : programme "bibliothèques virtuelles humanistes"</p>
+    </projectDesc>
+    <editorialDecl>
+        <correction>
+            <p><title>LISTE DES VARIANTES ET DES CORRECTIONS</title></p>
+            <p>...</p>
+        </correction>
+        <hyphenation>
+            <p>La division des mots en fin de ligne respecte l'original. </p>
+        </hyphenation>
+        <normalization>
+            <p>Cette transcription suit l'édition de 1556.</p>
+        </normalization>
+    </editorialDecl>
+</encodingDesc>
+</egXML>
+					
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Description non bibliographique : <gi>profileDesc</gi> text-profile descrip­tion</head>
+				
+				
+					
+						
+							
+								<p>Cette partie concerne les informations non bibliographiques décrivant un document.</p>
+							
+						
+						
+							
+								<p>L'élément <gi>langUsage</gi> spécifie la ou les langues utilisées. S'y associe l'élément <gi>language</gi> : l'identification est indiquée par l'attribut @ident auquel est associé le code de la langue. La nomenclature des codes standards correspond à la norme ISO 639-3. De nombreuses langues figurent dans les <soCalled>Discours</soCalled> et doivent être déclarées dans l'en-tête TEI avant de les encoder dans le texte, ainsi :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><profileDesc>
+    <langUsage>
+        <language ident="frm">Français</language>
+        <language ident="lat">Latin</language>
+        <language ident="ell">Grec</language>
+        <language ident="deu">Allemand</language>
+        <language ident="ita">Italien</language>
+        <language ident="por">Portugais</language>
+        <language ident="spa">Espagnol</language>
+        <language ident="bre">Breton</language>
+        <language ident="eus">Basque</language>
+    </langUsage>
+</profileDesc>
+</egXML>
+						
+							
+								<p>Les informations sur la création du texte peuvent être données ici grâce à l'élément <gi>creation</gi>.D'autres éléments comme <gi>textClass</gi> pour <soCalled>text classification</soCalled> ou <gi>handNotes</gi> peuvent être incorporés dans la liste des éléments susceptibles d'être utilisés pour établir respectivement une taxonomie et une liste des différentes mains identifiées dans le texte-source.</p>
+							
+						
+					
+				
+			</div>
+		
+		
+			<div>
+				
+					<head>Journal de modifications : <gi>revisionDesc</gi> revision description</head>
+				
+				
+					
+						
+							
+								<p>À chaque révision du fichier, une description des modifications apportées est marquée grâce à l'élé­ment <gi>revisionDesc</gi>. Elle alimente un journal des modifications.</p>
+								<list>
+ <item>
+ 	L'élément <gi>change</gi> enregistre les séquences. On y ajoutera l'élément <gi>date</gi>.
+ </item>
+ <item>
+ 	Un second élément <gi>name</gi>, imbriqué dans <gi>change</gi>, indique le nom de l'encodeur et de la personne qui contrôle l'encodage. On peut ajouter le motif du changement en texte libre.
+ </item>
+								</list>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples"><revisionDesc>
+    <change>
+        <date>2007-05-18</date>
+        <name>Nicole Dufournaud</name>
+        Création du fichier en TEI P5 pour encodage
+    </change>
+</revisionDesc>
+</egXML>
+					
+				
+			</div>
+		
+	</div>
+
+	<div>
+		
+			<head>Le codage des caractères</head>
+		
+		
+			<div>
+				
+					<head>Caractères spéciaux</head>
+				
+				
+					
+						
+							
+								<p>Pour les textes en langue française (unicode UTF-8), le fichier doit commencer par la ligne de code suivante :</p>
+							
+						
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">&lt;?xml version="1.0" encoding="UTF-8"?>
+</egXML>
+						
+							
+								<p>Elle permet de résoudre les problèmes posés par les caractères accentués et le « ç ». Il est fortement recommandé de ne jamais mettre ni d'accent ni de caractère français dans les valeurs d'attribut ; il faut renoncer aux caractères suivants : « é », « è », « ç », « à » et « ù ». Ces recommandations valent également pour les noms de fichiers. En revanche, dans le texte, ces mêmes caractères peuvent être utilisés grâce au standard Unicode<note place="foot" target="Notes/unicode.refs">Les ordinateurs codent les lettres et autres caractères sous forme de nombres. Il existe plusieurs systèmes de codage pour couvrir toutes les langues en usage. Unicode est un standard qui attribue spécifiquement un numéro unique à chaque caractère quel que soit le logiciel et quelle que soit la langue.</note>. Nous soulignons des exceptions. Dans les fichiers XML, trois caractères ne peuvent pas être utilisés tels quels : « &lt; », « &gt; », « &amp; » ; deux autres caractères ne peuvent pas être utilisés dans les attributs : « ' » et les guille­mets. Les raisons sont évidentes pour les deux premiers : ce sont les chevrons d'ouverture et ferme­ture de balises XML ; pour le troisième, la raison est identique car le « &amp; » est utilisé pour définir les entités ; les guillemets sont également utilisés ainsi que l'apostrophe. Exemples :</p>
+								<list>
+ <item>
+ 	pour &amp; : saisir &amp;amp; dans le texte ;
+ </item>
+ <item>
+ 	pour ' : saisir &amp;#x2019; dans l'attribut de la balise ;
+ </item>
+ <item>
+ 	pour " : saisir &amp;quote; dans l'attribut de la balise.
+ </item>
+								</list>
+								<p>Ces développements sont invisibles dans l'affichage en HTML.</p>
+								<p>Pour les textes de la Renaissance, le caractère « &amp; » pose particulièrement problème car il est utilisé de façon très régulière par les scripteurs de l'époque.</p>
+								<p>Si l'on part d'un texte déjà transcrit à l'aide d'un traitement de texte, il est recommandé de le convertir d'abord au format « texte unicode » (ou d'utiliser LibreOffice/OpenOffice) pour éviter les problèmes des caractères accentués et spéciaux.</p>
+							
+						
+					
+				
+			</div>
+		
+	</div>
+</body><back>
+            <div>
+                
+                    <head>Index des illustrations</head>
+                
+                
+                    <div>
+                        
+                            <head>Illustrations</head>
+                        
+                        
+                            
+                                
+                                    
+                                        <p>Illustration 1: Chapitre 23 du <soCalled>Tiers Livre</soCalled> de Rabelais, édition 1546</p>
+                                        <p>Illustration 2: Transcription du chapitre 23 du <soCalled>Tiers Livre</soCalled></p>
+                                        <p>Illustration 3: Fins de ligne dans le <soCalled>Tiers Livre</soCalled> de Rabelais 1546, prologue (p. 2)</p>
+                                        <p>Illustration 4: Titre courant des <soCalled>Euvres</soCalled> de Louise Labé (p. 19)</p>
+                                        <p>Illustration 5: Pied de page des <soCalled>Euvres</soCalled> de Louise Labé (p. 3)</p>
+                                        <p>Illustration 6: Tableau simple à deux colonnes tiré des <soCalled>Discours</soCalled> (p. 1)</p>
+                                        <p>Illustration 7: Affichage d'un tableau simple à deux colonnes tiré des <soCalled>Discours</soCalled> (p. 1)</p>
+                                        <p>Illustration 8: Dépliant des <soCalled>Discours</soCalled> (p. 9)</p>
+                                        <p>Illustration 9: Affichage du dépliant des <soCalled>Discours</soCalled> (p. 9)</p>
+                                        <p>Illustration 10: Table des matières du <soCalled>Tiers Livre</soCalled> de Rabelais 1546.</p>
+                                        <p>Illustration 11: Affichage d'un extrait de la table des matières du <soCalled>Tiers Livre</soCalled> de Rabelais 1546.</p>
+                                        <p>Illustration 12: Appel de note dans les <soCalled>Euvres</soCalled> de Louise Labé (p. 154)</p>
+                                        <p>Illustration 13: <soCalled>Euvres</soCalled> de Louise Labé (p. 11)</p>
+                                        <p>Illustration 14: Rature dans les <soCalled>Discours</soCalled> (p. 66)</p>
+                                        <p>Illustration 15: Ajout dans le privilège du roi des <soCalled>Discours</soCalled></p>
+                                        <p>Illustration 16: Extrait de la page de titre des <soCalled>Euvres</soCalled> de Louise Labé</p>
+                                        <p>Illustration 17: Ajout et rature dans le <soCalled>Tiers Livre</soCalled> de Rabelais de 1552, exemplaire de la Gordon Collection</p>
+                                        <p>Illustration 18: Expression tirée du <soCalled>Tiers Livre</soCalled> de Rabelais (p. 83 verso)</p>
+                                        <p>Illustration 19: Référence bibliographique dans les <soCalled>Discours</soCalled> (p. 8)</p>
+                                        <p>Illustration 20: Citation avec une référence biblio­graphique (<soCalled>Tiers Livre</soCalled> de 1552 p. 38)</p>
+                                        <p>Illustration 21: Illustration de la page de titre des <soCalled>Discours</soCalled></p>
+                                        <p>Illustration 22: Affichage de l'illustration de la page de titre des <soCalled>Discours</soCalled></p>
+                                    
+                                
+                            
+                        
+                    </div>
+                
+            </div>
+	<div>
+		<head>Liste des éléments décrits</head>
+		<!-- schemaspec à insérer quand terminé -->
+	</div>
+        </back></text></TEI>

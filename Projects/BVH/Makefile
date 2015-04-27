@@ -14,7 +14,6 @@ CURRENT=`pwd`
 
 FILES= \
 	B330636101_D55869_tei.xml \
-	B330636101_S1238_encodage_EG_LivreII.xml \
 	B330636101_S1238_encodage_EG_LivreI.xml \
 	B360446201_B343_1_tei.xml \
 	B360446201_B343_2_tei.xml \
@@ -75,21 +74,25 @@ generate:
 		saxon -it:main -o:generated.odd \
 	$(OBE) \
 	corpus=$(CORPUS) ; \
-	teitorelaxng generated.odd ; mv generated.odd.relaxng $(BVHRNG)
-
-checkSpec:
-	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
-		echo $$f; \
-		jing $(BVHRNG) \
-		$$f ; done; cd $(CURRENT);
+	teitorelaxng generated.odd 
+# generated.odd needs handediting to produce bvh.odd 
 
 copy:
+echo Running identity transform ...
 	cd $(CORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		saxon \
 		$$f $(IDENTITY) >$(NEWCORPUS)/$$f; done; cd $(CURRENT);
 
+checkSpec:
+echo Validate  against BVH schema
+	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
+		echo $$f; \
+		jing $(BVHRNG) \
+		$$f ; done; cd $(CURRENT);
+
 cleanup:
+echo Do cleanup 
 	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		saxon  \
@@ -97,6 +100,7 @@ cleanup:
 
 
 checkClean:
+echo Validate cleaned corpus  against BVH schema
 	cd $(CLEANCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		jing $(BVHRNG) \
