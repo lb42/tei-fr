@@ -75,7 +75,7 @@ generate:
 		saxon -it:main -o:generated.odd \
 	$(OBE) \
 	corpus=$(CORPUS) ; \
-	teitorelaxng generated.odd ; mv generated.odd.relaxng $(BVHRNC)
+	teitorelaxng generated.odd ; mv generated.odd.relaxng $(BVHRNG)
 
 checkSpec:
 	cd $(NEWCORPUS); 	for f in $(FILES) ; do \

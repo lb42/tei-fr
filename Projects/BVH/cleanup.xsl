@@ -31,18 +31,21 @@
 </xsl:attribute>
 </xsl:template>
 
-<!-- remove xml:id on bibl for consistency -->
+<!-- change to scheme and make valid pointer -->
+<xsl:template match="tei:taxonomy/@xml:id">
+  <xsl:attribute name="scheme">
+    <xsl:value-of select="concat('#',.)"/>       
+  </xsl:attribute>
+</xsl:template>
+    
+<!-- remove xml:id, used haphazardly on various elements -->
 <xsl:template match="tei:bibl/@xml:id"/>
-
-<!-- remove redundant xml:id on milestone -->
 <xsl:template match="tei:milestone/@xml:id"/>
-
-<!-- remove xml:id on handnote since there are no handshifts -->
-<xsl:template match="tei:handNote/@xml:id"/>
-
-<!-- remove xml:id on zone pending clarification of its use -->
+<xsl:template match="tei:handNote/@xml:id"/> <!-- no handshifts!-->
 <xsl:template match="tei:zone/@xml:id"/>
-
+<xsl:template match="tei:abbr/@xml:id"/>
+<xsl:template match="tei:add/@xml:id"/>
+  
 
 <!-- (2) next we validate  all pointer attributes -->
   
@@ -102,7 +105,6 @@
   </xsl:template>  
   
   <!-- change @corresp to @ref on name -->
-
   <xsl:template match="tei:name/@corresp">
     <xsl:attribute name="ref">
       <xsl:value-of select="."/>       
@@ -123,9 +125,30 @@
   </xsl:if>
   </xsl:template>  
   
-  <!-- 3 : suppress bizarre hapax -->
+  <!-- remove empty taxonomy and its parent classDecl for now -->
+  <xsl:template match="tei:taxonomy[@corresp]"/>
+  <xsl:template match="tei:classDecl"/>
+  
+  <!-- turn @corresp on textClass/keywords/list/item into proper catRef -->
+<!--
+<xsl:template match="tei:textClass/tei:keywords/tei:list/tei:item/@corresp">
+  <catRef scheme="bvh:matiere">
+    <xsl:attribute name="target">
+      <xsl:value-of select="concat('#',.)"/>
+    </xsl:attribute>
+  </catRef>  
+</xsl:template>-->
+
+  <!-- 3 : suppress some misc oddities/errors -->
   
   <xsl:template match="@rendition"/>
+  <xsl:template match="tei:ab/@rend"/>
+  <xsl:template match="tei:sp/@xml:id">
+    <xsl:attribute name="who">
+      <xsl:value-of select="concat('#',.)"/>       
+    </xsl:attribute>
+  </xsl:template>
+  
   
   <!-- 4: fix things no longer valid -->
   
@@ -141,6 +164,9 @@
       <xsl:copy-of select="."/>
     </xsl:if>  
   </xsl:template>
+  
+  <!-- remove outdated @version -->
+  <xsl:template match="tei:TEI/@version"/>
   
 <!-- copy everything else -->
 
