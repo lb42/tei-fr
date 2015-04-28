@@ -44,7 +44,7 @@
 <xsl:template match="tei:handNote/@xml:id"/> <!-- no handshifts!-->
 <xsl:template match="tei:zone/@xml:id"/>
 <xsl:template match="tei:abbr/@xml:id"/>
-<xsl:template match="tei:add/@xml:id"/>
+<!--xsl:template match="tei:add/@xml:id"/-->
   
 
 <!-- (2) next we validate  all pointer attributes -->
@@ -142,7 +142,7 @@
   <!-- 3 : suppress some misc oddities/errors -->
   
   <xsl:template match="@rendition"/>
-  <xsl:template match="tei:ab/@rend"/>
+  <!--xsl:template match="tei:ab/@rend"/-->
   <xsl:template match="tei:sp/@xml:id">
     <xsl:attribute name="who">
       <xsl:value-of select="concat('#',.)"/>       

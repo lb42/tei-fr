@@ -15,7 +15,9 @@
    cdata-section-elements="tei:eg teix:egXML"
    omit-xml-declaration="yes"/>
 
-
+<xsl:strip-space elements="*"/>
+  
+  
  <xsl:template match="*">
  <xsl:copy>
   <xsl:apply-templates select="@*"/>
