@@ -36,10 +36,10 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:for-each>
-      <xsl:apply-templates select="doc('../Schematron1.xml')//svrl:failed-assert"/>
+<!--      <xsl:apply-templates select="doc('../Schematron1.xml')//svrl:failed-assert"/>
       <xsl:apply-templates select="doc('../Schematron1.xml')//svrl:successful-report"/>
       <xsl:apply-templates select="doc('../Schematron2.xml')//svrl:failed-assert"/>
-      <xsl:apply-templates select="doc('../Schematron2.xml')//svrl:successful-report"/>
+      <xsl:apply-templates select="doc('../Schematron2.xml')//svrl:successful-report"/>-->
     </Messages>
   </xsl:template>
   

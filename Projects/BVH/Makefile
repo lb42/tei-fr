@@ -1,4 +1,3 @@
-#SCHEMA=/usr/share/xml/tei/custom/schema/relaxng/tei_all.rng
 ECHO=
 SCHEMA=/home/lou/Public/TEI-SF/P5/Exemplars/tei_all.rng
 CORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/testBed
@@ -78,21 +77,21 @@ generate:
 # generated.odd needs handediting to produce bvh.odd 
 
 copy:
-echo Running identity transform ...
+	echo Running identity transform ...
 	cd $(CORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		saxon \
 		$$f $(IDENTITY) >$(NEWCORPUS)/$$f; done; cd $(CURRENT);
 
 checkSpec:
-echo Validate  against BVH schema
+	echo Validate  against BVH schema
 	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		jing $(BVHRNG) \
 		$$f ; done; cd $(CURRENT);
 
 cleanup:
-echo Do cleanup 
+	echo Do cleanup 
 	cd $(NEWCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		saxon  \
@@ -100,7 +99,7 @@ echo Do cleanup
 
 
 checkClean:
-echo Validate cleaned corpus  against BVH schema
+	echo Validate cleaned corpus  against BVH schema
 	cd $(CLEANCORPUS); 	for f in $(FILES) ; do \
 		echo $$f; \
 		jing $(BVHRNG) \
