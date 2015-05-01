@@ -6,7 +6,7 @@ namespace rng = "http://relaxng.org/ns/structure/1.0"
 namespace sch = "http://purl.oclc.org/dsdl/schematron"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2015-04-22T15:30:45Z. .
+# Schema generated from ODD source 2015-05-01T13:15:45Z. .
 # TEI Edition: Version 2.8.1a. Last updated on
 #	17th April 2015, revision 13207
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.8.1a./
@@ -615,6 +615,7 @@ model.pPart.transcriptional =
   | unclear
   | app
   | damage
+  | handShift
   | supplied
   | mod
 model.pPart.transcriptional_alternation =
@@ -627,10 +628,22 @@ model.pPart.transcriptional_alternation =
   | unclear
   | app
   | damage
+  | handShift
   | supplied
   | mod
 model.pPart.transcriptional_sequence =
-  sic, corr, reg, orig, add, del, unclear, app, damage, supplied, mod
+  sic,
+  corr,
+  reg,
+  orig,
+  add,
+  del,
+  unclear,
+  app,
+  damage,
+  handShift,
+  supplied,
+  mod
 model.pPart.transcriptional_sequenceOptional =
   sic?,
   corr?,
@@ -641,6 +654,7 @@ model.pPart.transcriptional_sequenceOptional =
   unclear?,
   app?,
   damage?,
+  handShift?,
   supplied?,
   mod?
 model.pPart.transcriptional_sequenceOptionalRepeatable =
@@ -653,6 +667,7 @@ model.pPart.transcriptional_sequenceOptionalRepeatable =
   unclear*,
   app*,
   damage*,
+  handShift*,
   supplied*,
   mod*
 model.pPart.transcriptional_sequenceRepeatable =
@@ -665,6 +680,7 @@ model.pPart.transcriptional_sequenceRepeatable =
   unclear+,
   app+,
   damage+,
+  handShift+,
   supplied+,
   mod+
 model.pPart.edit = model.pPart.editorial | model.pPart.transcriptional
@@ -782,12 +798,20 @@ model.qLike_sequenceOptionalRepeatable =
 model.qLike_sequenceRepeatable =
   model.quoteLike_sequenceRepeatable+, said+, q+
 model.respLike = author | editor | respStmt
-model.divWrapper = byline | dateline | epigraph | salute | docDate
+model.divWrapper =
+  byline | dateline | epigraph | salute | docAuthor | docDate
 model.divTopPart = model.headLike | opener | signed
 model.divTop = model.divWrapper | model.divTopPart
 model.frontPart.drama = castList
 model.pLike.front =
-  head | byline | epigraph | docTitle | titlePart | docImprint | docDate
+  head
+  | byline
+  | epigraph
+  | docTitle
+  | titlePart
+  | docAuthor
+  | docImprint
+  | docDate
 model.divBottomPart = trailer | closer | signed
 model.divBottom = model.divWrapper | model.divBottomPart
 model.titlepagePart =
@@ -796,6 +820,7 @@ model.titlepagePart =
   | epigraph
   | docTitle
   | titlePart
+  | docAuthor
   | imprimatur
   | docImprint
   | docDate
@@ -1277,167 +1302,14 @@ add =
     att.source.attribute.source,
     
     ## specifies where this item is placed
+    ## Sample values include: 1] above; 2] add37v_2; 3] argin-left; 4] below; 5] bot; 6] bottom; 7] bottom_f142r; 8] bottom_previousPage; 9] endPage; 10] end_Page; 11] end_nextPage; 12] indéterminée; 13] interligne; 14] interligne_margin-right; 15] left; 16] magin-left; 17] margin-above; 18] margin-bottom; 19] margin-buttom; 20] margin-gauche; 21] margin-left; 22] margin-left_vertical; 23] margin-left_verticalement; 24] margin-right; 25] margin-right_vertical; 26] margin-right_verticalement; 27] margin-rigt_verticalement; 28] margin-top; 29] margin_left; 30] margin_right; 31] margn-left; 32] mrgin-left; 33] next; 34] next-Page_bottom; 35] next-page_bottom; 36] page_end; 37] previousPage; 38] previousPage_bottom; 39] previousPage_verticalement; 40] right; 41] suite_bottom; 42] superposition; 43] superpositon; 44] superpostion; 45] superpotion; 46] top; 47] top-left; 48] top-right; 49] top_page; 50] top_superposition
     attribute place {
-      list {
-        (
-         ##
-         "above"
-         | 
-           ##
-           "add37v_2"
-         | 
-           ##
-           "argin-left"
-         | 
-           ##
-           "below"
-         | 
-           ##
-           "bot"
-         | 
-           ##
-           "bottom"
-         | 
-           ##
-           "bottom_f142r"
-         | 
-           ##
-           "bottom_previousPage"
-         | 
-           ##
-           "endPage"
-         | 
-           ##
-           "end_Page"
-         | 
-           ##
-           "end_nextPage"
-         | 
-           ##
-           "indéterminée"
-         | 
-           ##
-           "interligne"
-         | 
-           ##
-           "interligne_margin-right"
-         | 
-           ##
-           "left"
-         | 
-           ##
-           "magin-left"
-         | 
-           ##
-           "margin-above"
-         | 
-           ##
-           "margin-bottom"
-         | 
-           ##
-           "margin-buttom"
-         | 
-           ##
-           "margin-gauche"
-         | 
-           ##
-           "margin-left"
-         | 
-           ##
-           "margin-left_vertical"
-         | 
-           ##
-           "margin-left_verticalement"
-         | 
-           ##
-           "margin-right"
-         | 
-           ##
-           "margin-right_vertical"
-         | 
-           ##
-           "margin-right_verticalement"
-         | 
-           ##
-           "margin-rigt_verticalement"
-         | 
-           ##
-           "margin-top"
-         | 
-           ##
-           "margin_left"
-         | 
-           ##
-           "margin_right"
-         | 
-           ##
-           "margn-left"
-         | 
-           ##
-           "mrgin-left"
-         | 
-           ##
-           "next"
-         | 
-           ##
-           "next-Page_bottom"
-         | 
-           ##
-           "next-page_bottom"
-         | 
-           ##
-           "page_end"
-         | 
-           ##
-           "previousPage"
-         | 
-           ##
-           "previousPage_bottom"
-         | 
-           ##
-           "previousPage_verticalement"
-         | 
-           ##
-           "right"
-         | 
-           ##
-           "suite_bottom"
-         | 
-           ##
-           "superposition"
-         | 
-           ##
-           "superpositon"
-         | 
-           ##
-           "superpostion"
-         | 
-           ##
-           "superpotion"
-         | 
-           ##
-           "top"
-         | 
-           ##
-           "top-left"
-         | 
-           ##
-           "top-right"
-         | 
-           ##
-           "top_page"
-         | 
-           ##
-           "top_superposition")+
-      }
+      list { data.enumerated+ }
     }?,
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
-    attribute type {
-      
-      ##
-      "provenance"
-    }?,
+    ## Sample values include: 1] provenance
+    attribute type { data.enumerated }?,
     empty
   }
 del =
@@ -1466,11 +1338,8 @@ del =
     att.ranging.attribute.confidence,
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
-    attribute type {
-      
-      ##
-      "censure"
-    }?,
+    ## Sample values include: 1] censure
+    attribute type { data.enumerated }?,
     empty
   }
 unclear =
@@ -1911,7 +1780,10 @@ note =
          "margin-left"
          | 
            ##
-           "margin-right")+
+           "margin-right"
+         | 
+           ##
+           "center")+
       }
     }?,
     
@@ -5206,6 +5078,19 @@ fw =
     }?,
     empty
   }
+handShift =
+  
+  ## marks the beginning of a sequence of text written in a new hand, or the beginning of a scribal stint. [11.3.2.1. Document Hands]
+  element ns2:handShift {
+    empty,
+    att.global.attributes,
+    att.handFeatures.attributes,
+    att.source.attributes,
+    
+    ## indicates a handNote element describing the hand concerned.
+    attribute new { data.pointer }?,
+    empty
+  }
 space =
   
   ## indicates the location of a significant space in the text. [11.5.1. Space]
@@ -5581,6 +5466,9 @@ TEI =
       | 
         ##
         "traite"
+      | 
+        ##
+        "essais"
     }?,
     
     ## provides a sub-categorization of the element, if needed
@@ -5982,7 +5870,7 @@ byline =
   
   ## contains the primary statement of responsibility given for a work on its title page or at the head or end of the work. [4.2.2. Openers and Closers 4.5. Front Matter]
   element ns2:byline {
-    (text | model.gLike | model.phrase | model.global)*,
+    (text | model.gLike | model.phrase | docAuthor | model.global)*,
     att.global.attribute.xmlid,
     att.global.attribute.n,
     att.global.attribute.xmllang,
@@ -6202,6 +6090,15 @@ titlePart =
         ##
         "subtitle"
     }?,
+    empty
+  }
+docAuthor =
+  
+  ## (document author) contains the name of the author of the document, as given on the title page (often but not always contained in a byline). [4.6. Title Pages]
+  element ns2:docAuthor {
+    macro.phraseSeq,
+    att.global.attributes,
+    att.canonical.attributes,
     empty
   }
 imprimatur =
