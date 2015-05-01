@@ -104,3 +104,5 @@ checkClean:
 		echo $$f; \
 		jing $(BVHRNG) \
 		$$f ; done; cd $(CURRENT);
+checkLinks:
+	saxon -xi $(CLEANCORPUS)/driver.xml checkSharps.xsl | grep ERROR | sort | uniq > failedLinks.txt
