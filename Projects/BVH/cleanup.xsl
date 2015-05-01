@@ -5,15 +5,16 @@
  xmlns:rng="http://relaxng.org/ns/structure/1.0"
  extension-element-prefixes="exsl"
  exclude-result-prefixes="exsl teix rng tei"
- xmlns:exsl="http://exslt.org/common"
+ xmlns:exsl="http://exslt.org/common"  xpath-default-namespace="http://www.tei-c.org/ns/1.0"
  version="2.0">
 
 <xsl:output 
    method="xml"
    encoding="utf-8"
    indent="yes"
-   cdata-section-elements="tei:eg teix:egXML"
-   omit-xml-declaration="yes"/>
+  xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+   
+ omit-xml-declaration="yes"/>
 
 <!-- (1)  get rid of duplicate xml:id values -->
 
@@ -31,6 +32,13 @@
 </xsl:attribute>
 </xsl:template>
 
+  <!-- likewise for handNote -->
+  <xsl:template match="tei:handNote/@xml:id">
+    <xsl:attribute name="xml:id">
+      <xsl:value-of select="concat(substring-before(ancestor::tei:TEI/@xml:id,'tei'), .)"/>
+    </xsl:attribute>
+  </xsl:template>
+
 <!-- change to scheme and make valid pointer -->
 <xsl:template match="tei:taxonomy/@xml:id">
   <xsl:attribute name="scheme">
@@ -41,7 +49,7 @@
 <!-- remove xml:id, used haphazardly on various elements -->
 <xsl:template match="tei:bibl/@xml:id"/>
 <xsl:template match="tei:milestone/@xml:id"/>
-<xsl:template match="tei:handNote/@xml:id"/> <!-- no handshifts!-->
+<!--xsl:template match="tei:handNote/@xml:id"/--> 
 <xsl:template match="tei:zone/@xml:id"/>
 <xsl:template match="tei:abbr/@xml:id"/>
 <!--xsl:template match="tei:add/@xml:id"/-->
@@ -143,11 +151,53 @@
   
   <xsl:template match="@rendition"/>
   <!--xsl:template match="tei:ab/@rend"/-->
+  
   <xsl:template match="tei:sp/@xml:id">
     <xsl:attribute name="who">
       <xsl:value-of select="concat('#',.)"/>       
     </xsl:attribute>
   </xsl:template>
+  
+  
+  <xsl:template match="source/listBibl/bibl/@xml:base"> 
+      <xsl:choose>
+      <xsl:when test="starts-with(.,'http')">
+        <tei:ref>
+          <xsl:attribute name="target">
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+          <xsl:apply-templates/>
+        </tei:ref>
+      </xsl:when>
+      <xsl:when test="starts-with(.,'#')"/>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
+    </xsl:choose>
+  
+  </xsl:template>
+  
+  <xsl:template match="tei:normalization/tei:p/tei:bibl/@xml:base"> 
+    <xsl:choose>
+      <xsl:when test="starts-with(.,'http')">
+        <xsl:element name="ref">
+          <xsl:attribute name="target">
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+          <xsl:apply-templates/>
+        </xsl:element>
+      </xsl:when>
+      <xsl:when test="starts-with(.,'#')"/>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <!-- remove some typos -->
+  <xsl:template match="tei:restore"/>
+  <xsl:template match="tei:author/@corresp"/>
+  
   
   
   <!-- 4: fix things no longer valid -->

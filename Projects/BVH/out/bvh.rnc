@@ -6,7 +6,7 @@ namespace rng = "http://relaxng.org/ns/structure/1.0"
 namespace sch = "http://purl.oclc.org/dsdl/schematron"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2015-05-01T13:15:45Z. .
+# Schema generated from ODD source 2015-05-01T23:40:57Z. .
 # TEI Edition: Version 2.8.1a. Last updated on
 #	17th April 2015, revision 13207
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.8.1a./
@@ -3821,7 +3821,9 @@ taxonomy =
   
   ## defines a typology either implicitly, by means of a bibliographic citation, or explicitly by a structured taxonomy. [2.3.7. The Classification Declaration]
   element ns2:taxonomy {
-    ((model.glossLike | model.descLike)* | model.biblLike),
+    ((model.glossLike | model.descLike)*
+     | category+
+     | (model.biblLike, category*)),
     att.global.attribute.xmlid,
     att.global.attribute.n,
     att.global.attribute.xmllang,
@@ -3835,6 +3837,15 @@ taxonomy =
     att.global.change.attribute.change,
     att.global.responsibility.attribute.cert,
     att.global.responsibility.attribute.resp,
+    empty
+  }
+category =
+  
+  ## contains an individual descriptive category, possibly nested within a superordinate category, within a user-defined taxonomy. [2.3.7. The Classification Declaration]
+  element ns2:category {
+    (((model.descLike | model.glossLike)*),
+     category*),
+    att.global.attributes,
     empty
   }
 profileDesc =

@@ -3,7 +3,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2015-05-01T13:15:35Z. .
+Schema generated from ODD source 2015-05-01T23:40:44Z. .
 TEI Edition: Version 2.8.1a. Last updated on
 	17th April 2015, revision 13207
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.8.1a./
@@ -5705,10 +5705,16 @@ Licensing, etc.]</a:documentation>
                   <ref name="model.descLike"/>
                </choice>
             </zeroOrMore>
+            <oneOrMore>
+               <ref name="category"/>
+            </oneOrMore>
             <group>
                <group>
                   <ref name="model.biblLike"/>
                </group>
+               <zeroOrMore>
+                  <ref name="category"/>
+               </zeroOrMore>
             </group>
          </choice>
          <ref name="att.global.attribute.xmlid"/>
@@ -5724,6 +5730,26 @@ Licensing, etc.]</a:documentation>
          <ref name="att.global.change.attribute.change"/>
          <ref name="att.global.responsibility.attribute.cert"/>
          <ref name="att.global.responsibility.attribute.resp"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="category">
+      <element name="category">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an individual descriptive category, possibly nested within a superordinate category, within a user-defined taxonomy. [2.3.7. The Classification Declaration]</a:documentation>
+         <group>
+            <choice>
+               <zeroOrMore>
+                  <choice>
+                     <ref name="model.descLike"/>
+                     <ref name="model.glossLike"/>
+                  </choice>
+               </zeroOrMore>
+            </choice>
+            <zeroOrMore>
+               <ref name="category"/>
+            </zeroOrMore>
+         </group>
+         <ref name="att.global.attributes"/>
          <empty/>
       </element>
    </define>
