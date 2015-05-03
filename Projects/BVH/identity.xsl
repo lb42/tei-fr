@@ -20,7 +20,10 @@
   
  <xsl:template match="*">
  <xsl:copy>
-  <xsl:apply-templates select="@*"/>
+  <xsl:apply-templates select="@*">
+    <xsl:sort select="name()"/>
+    <!-- we do this so that subsequent rules which turn some attributes into elements wont fail -->
+  </xsl:apply-templates>
   <xsl:apply-templates 
       select="*|comment()|processing-instruction()|text()"/>
  </xsl:copy>

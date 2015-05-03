@@ -3,25 +3,21 @@
  xmlns:tei="http://www.tei-c.org/ns/1.0"
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:rng="http://relaxng.org/ns/structure/1.0"
- extension-element-prefixes="exsl"
- exclude-result-prefixes="exsl teix rng tei"
- xmlns:exsl="http://exslt.org/common"  xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+  exclude-result-prefixes="tei"
  version="2.0">
 
 <xsl:output 
    method="xml"
    encoding="utf-8"
    indent="yes"
-  xpath-default-namespace="http://www.tei-c.org/ns/1.0"
-   
- omit-xml-declaration="yes"/>
+   omit-xml-declaration="yes"/>
 
 <!-- (1)  get rid of duplicate xml:id values -->
 
-<!-- change xml:id on name to @key -->
+<!-- change xml:id on name to @ref -->
 <xsl:template match="tei:name/@xml:id">
-<xsl:attribute name="key">
-<xsl:value-of select="."/>
+<xsl:attribute name="ref">
+<xsl:value-of select="concat('#',.)"/>
 </xsl:attribute>
 </xsl:template>
 
@@ -133,6 +129,8 @@
   </xsl:if>
   </xsl:template>  
   
+  <xsl:template match="tei:edition/@corresp"/> <!-- or make them both into child <ref>s -->
+  
   <!-- remove empty taxonomy and its parent classDecl for now -->
   <xsl:template match="tei:taxonomy[@corresp]"/>
   <xsl:template match="tei:classDecl"/>
@@ -158,41 +156,37 @@
     </xsl:attribute>
   </xsl:template>
   
+  <!-- all about the base -->
   
-  <xsl:template match="source/listBibl/bibl/@xml:base"> 
-      <xsl:choose>
-      <xsl:when test="starts-with(.,'http')">
-        <tei:ref>
-          <xsl:attribute name="target">
-            <xsl:value-of select="."/>
-          </xsl:attribute>
-          <xsl:apply-templates/>
-        </tei:ref>
-      </xsl:when>
-      <xsl:when test="starts-with(.,'#')"/>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
-  
+  <xsl:template match="tei:bibl/@xml:base">
+    <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:attribute name="target">
+        <xsl:value-of select="."/>
+       </xsl:attribute>
+    </xsl:element>
   </xsl:template>
   
-  <xsl:template match="tei:normalization/tei:p/tei:bibl/@xml:base"> 
-    <xsl:choose>
-      <xsl:when test="starts-with(.,'http')">
-        <xsl:element name="ref">
-          <xsl:attribute name="target">
-            <xsl:value-of select="."/>
-          </xsl:attribute>
-          <xsl:apply-templates/>
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="starts-with(.,'#')"/>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
+  <xsl:template match="tei:authority/@xml:base">
+    <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:attribute name="target">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:element>
   </xsl:template>
+  
+  <xsl:template match="tei:edition/@xml:base">
+    <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:attribute name="target">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+  
+  
+  <xsl:template match="tei:listBibl/@xmlbase"/>
+  
+  
+    
   
   <!-- remove some typos -->
   <xsl:template match="tei:restore"/>
