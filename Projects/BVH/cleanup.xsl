@@ -115,6 +115,13 @@
     </xsl:attribute>
   </xsl:template>  
 
+  <!-- change @corresp to @source on corr -->
+  <xsl:template match="tei:corr/@corresp">
+    <xsl:attribute name="source">
+      <xsl:value-of select="."/>       
+    </xsl:attribute>
+  </xsl:template>  
+  
   <!-- change @corresp to @facs on p -->
    <xsl:template match="tei:p/@corresp">
     <xsl:if test=".">  
@@ -129,6 +136,7 @@
   </xsl:if>
   </xsl:template>  
   
+  <xsl:template match="tei:resp/@corresp"/> <!-- redundant with sibling <resp> -->
   <xsl:template match="tei:edition/@corresp"/> <!-- or make them both into child <ref>s -->
   
   <!-- remove empty taxonomy and its parent classDecl for now -->
@@ -136,15 +144,25 @@
   <xsl:template match="tei:classDecl"/>
   
   <!-- turn @corresp on textClass/keywords/list/item into proper catRef -->
-<!--
-<xsl:template match="tei:textClass/tei:keywords/tei:list/tei:item/@corresp">
-  <catRef scheme="bvh:matiere">
-    <xsl:attribute name="target">
-      <xsl:value-of select="concat('#',.)"/>
-    </xsl:attribute>
-  </catRef>  
-</xsl:template>-->
 
+<xsl:template match="tei:textClass">
+  <xsl:element name="textClass" namespace="http://www.tei-c.org/ns/1.0">
+    <xsl:apply-templates/>
+  <xsl:choose>
+  <xsl:when test="tei:keywords/tei:list/tei:item/@corresp">
+  <xsl:element name="catRef" namespace="http://www.tei-c.org/ns/1.0">
+    <xsl:attribute name="scheme">bvh:unknown</xsl:attribute>
+    <xsl:attribute name="target">
+      <xsl:value-of select="concat('#',tei:keywords/tei:list/tei:item/@corresp)"/>
+    </xsl:attribute>
+  </xsl:element> 
+  </xsl:when>
+    <xsl:otherwise></xsl:otherwise>
+</xsl:choose>
+  </xsl:element>
+</xsl:template>
+  <xsl:template match="tei:keywords/tei:list/tei:item/@corresp"/>
+  
   <!-- 3 : suppress some misc oddities/errors -->
   
   <xsl:template match="@rendition"/>
@@ -183,7 +201,7 @@
   </xsl:template>
   
   
-  <xsl:template match="tei:listBibl/@xmlbase"/>
+  <xsl:template match="tei:listBibl/@xml:base"/>
   
   
     
