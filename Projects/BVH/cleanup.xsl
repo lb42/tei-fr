@@ -108,6 +108,13 @@
     </xsl:attribute>
   </xsl:template>  
   
+  <!-- remove redundant resp=#transcription -->
+  <xsl:template match="tei:respStmt/tei:persName[@resp='#transcription']">
+    <xsl:element name="name"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:value-of select="."/>
+    </xsl:element>
+  </xsl:template>
+  
   <!-- change @corresp to @ref on name -->
   <xsl:template match="tei:name/@corresp">
     <xsl:attribute name="ref">
@@ -153,7 +160,14 @@
   <xsl:element name="catRef" namespace="http://www.tei-c.org/ns/1.0">
     <xsl:attribute name="scheme">bvh:unknown</xsl:attribute>
     <xsl:attribute name="target">
-      <xsl:value-of select="concat('#',tei:keywords/tei:list/tei:item/@corresp)"/>
+      <xsl:variable name="target">
+        <xsl:value-of select="tei:keywords/tei:list/tei:item/@corresp"/>
+      </xsl:variable>
+      <xsl:choose>
+        <xsl:when test="starts-with($target,'#')"> <xsl:value-of select="$target"/></xsl:when>
+      <xsl:otherwise>
+      <xsl:value-of select="concat('#',$target)"/>
+    </xsl:otherwise></xsl:choose>
     </xsl:attribute>
   </xsl:element> 
   </xsl:when>
