@@ -3,10 +3,10 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2015-05-05T17:33:06Z. .
-TEI Edition: Version 2.8.1a. Last updated on
-	17th April 2015, revision 13207
-TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.8.1a./
+Schema generated from ODD source 2015-05-07T11:36:44Z. .
+TEI Edition: Version 2.8.0. Last updated on
+	6th April 2015, revision 13197
+TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 2.8.0/
   
 --><!---->
    <define name="macro.paraContent">
@@ -2365,6 +2365,7 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
       <choice>
          <ref name="langUsage"/>
          <ref name="textClass"/>
+         <ref name="handNotes"/>
       </choice>
    </define>
    <define name="att.source.attributes">
@@ -7209,6 +7210,16 @@ The element <name/> may appear once only
          <empty/>
       </element>
    </define>
+   <define name="handNotes">
+      <element name="handNotes">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains one or more handNote elements documenting the different hands identified within the source texts. [11.3.2.1. Document Hands]</a:documentation>
+         <oneOrMore>
+            <ref name="handNote"/>
+         </oneOrMore>
+         <ref name="att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
    <define name="handShift">
       <element name="handShift">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">marks the beginning of a sequence of text written in a new hand, or the beginning of a scribal stint. [11.3.2.1. Document Hands]</a:documentation>
@@ -9235,7 +9246,8 @@ The element <name/> may appear once only
          </attribute>
       </optional>
    </define>
-   <start>      <choice>
+   <start>
+      <choice>
          <ref name="TEI"/>
          <ref name="teiCorpus"/>
       </choice>

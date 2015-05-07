@@ -43,7 +43,7 @@
 </xsl:template>
     
 <!-- remove xml:id, used haphazardly on various elements -->
-<xsl:template match="tei:bibl/@xml:id"/>
+<!--xsl:template match="tei:bibl/@xml:id"/--> <!-- needed for @source and ? @resp pointers -->
 <xsl:template match="tei:milestone/@xml:id"/>
 <!--xsl:template match="tei:handNote/@xml:id"/--> 
 <xsl:template match="tei:zone/@xml:id"/>
@@ -180,7 +180,12 @@
   <!-- 3 : suppress some misc oddities/errors -->
   
   <xsl:template match="@rendition"/>
+  
   <!--xsl:template match="tei:ab/@rend"/-->
+  
+  <xsl:template match="tei:relatedItem"/> <!-- all but one are type="original" and that one is empty -->
+  
+  <!--xsl:template match="tei:msIdentifier/@xml:id"/-->
   
   <xsl:template match="tei:sp/@xml:id">
     <xsl:attribute name="who">
@@ -190,6 +195,19 @@
   
   <!-- all about the base -->
   
+  <xsl:template match="tei:bibl">
+    <xsl:element name="bibl" namespace="http://www.tei-c.org/ns/1.0">
+      <xsl:if test="@xml:id">
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="@xml:id"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+
+<xsl:template match="tei:bibl/@xml:base[.='#ref1']"/>
+
   <xsl:template match="tei:bibl/@xml:base">
     <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
       <xsl:attribute name="target">
@@ -217,8 +235,7 @@
   
   <xsl:template match="tei:listBibl/@xml:base"/>
   
-  
-    
+     
   
   <!-- remove some typos -->
   <xsl:template match="tei:restore"/>
@@ -234,12 +251,7 @@
       <xsl:value-of select="."/>
     </xsl:attribute></xsl:template>
   
-  <!-- vacuous relatedItem not permitted -->
-  <xsl:template match="tei:bibl/tei:relatedItem">
-    <xsl:if test="string-length() gt 1">
-      <xsl:copy-of select="."/>
-    </xsl:if>  
-  </xsl:template>
+ 
   
   <!-- remove outdated @version -->
   <xsl:template match="tei:TEI/@version"/>
