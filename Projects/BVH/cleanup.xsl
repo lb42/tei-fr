@@ -12,7 +12,7 @@
    indent="yes"
    omit-xml-declaration="yes"/>
 
-<!-- (1)  get rid of duplicate xml:id values -->
+<!--(1) adjust use of xml:id--> 
 
 <!-- change xml:id on name to @ref -->
 <xsl:template match="tei:name/@xml:id">
@@ -51,9 +51,9 @@
 <!--xsl:template match="tei:add/@xml:id"/-->
   
 
-<!-- (2) next we validate  all pointer attributes -->
+<!-- (2) pointer attributes -->
   
-<!-- remove empty <g> -->
+<!-- remove empty <g> with invalid @ref -->
 <xsl:template match="tei:g[@ref='']"/>
   
 <!-- fix local refs starting with "n"  --> 
@@ -86,6 +86,40 @@
       </xsl:choose>
     </xsl:attribute>
   </xsl:template>  
+  
+  <!-- make name/@key into name/@ref -->
+  
+  <xsl:template match="tei:teiHeader//tei:name/@key">
+    <xsl:attribute name="ref">
+      <xsl:choose>
+        <xsl:when test="starts-with(.,'#')"><xsl:value-of select="."/>
+        </xsl:when>
+        <xsl:otherwise> <xsl:value-of select="concat('#',.)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+    
+  </xsl:template>
+  
+  <!-- make other @key links use bvh URI rather than # (if valid) -->
+  
+  <xsl:template match="tei:text//@key">
+    <xsl:attribute name="key">
+      <xsl:choose>
+        <xsl:when test="starts-with(.,'#loc_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#locf_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#loch_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#locm_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#pers_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#persf_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#persh_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="starts-with(.,'#persm_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
+        <xsl:when test="matches(.,'B\d+')"><xsl:value-of select="concat('bvh:',.)"/></xsl:when>
+        
+        <xsl:otherwise><xsl:value-of select="concat('#_',.)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:template>
+  
   
   <!-- fix @who attribute values -->
   <xsl:template match="@who[substring(.,1,1)!='#']">
@@ -177,23 +211,8 @@
 </xsl:template>
   <xsl:template match="tei:keywords/tei:list/tei:item/@corresp"/>
   
-  <!-- 3 : suppress some misc oddities/errors -->
   
-  <xsl:template match="@rendition"/>
-  
-  <!--xsl:template match="tei:ab/@rend"/-->
-  
-  <xsl:template match="tei:relatedItem"/> <!-- all but one are type="original" and that one is empty -->
-  
-  <!--xsl:template match="tei:msIdentifier/@xml:id"/-->
-  
-  <xsl:template match="tei:sp/@xml:id">
-    <xsl:attribute name="who">
-      <xsl:value-of select="concat('#',.)"/>       
-    </xsl:attribute>
-  </xsl:template>
-  
-  <!-- all about the base -->
+  <!-- rationalise use of xml:base -->
   
   <xsl:template match="tei:bibl">
     <xsl:element name="bibl" namespace="http://www.tei-c.org/ns/1.0">
@@ -205,14 +224,14 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-
-<xsl:template match="tei:bibl/@xml:base[.='#ref1']"/>
-
+  
+  <xsl:template match="tei:bibl/@xml:base[.='#ref1']"/>
+  
   <xsl:template match="tei:bibl/@xml:base">
     <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
       <xsl:attribute name="target">
         <xsl:value-of select="."/>
-       </xsl:attribute>
+      </xsl:attribute>
     </xsl:element>
   </xsl:template>
   
@@ -235,7 +254,39 @@
   
   <xsl:template match="tei:listBibl/@xml:base"/>
   
+  
+  <!-- misc oddities/errors -->
+  
+  <xsl:template match="@rendition"/>
+  
+  <!--xsl:template match="tei:ab/@rend"/-->
+  
+  <xsl:template match="tei:relatedItem"/> <!-- all but one are type="original" and that one is empty -->
+  
+  <!--xsl:template match="tei:msIdentifier/@xml:id"/-->
+  
+  <xsl:template match="tei:sp/@xml:id">
+    <xsl:attribute name="who">
+      <xsl:value-of select="concat('#',.)"/>       
+    </xsl:attribute>
+  </xsl:template>
+  
+  
+  <!-- use <name> in header and <persName> in text  -->
+  
+  <xsl:template match="tei:titleStmt/tei:respStmt/tei:persName">
+    <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
+      <xsl:apply-templates select="@*"/>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
      
+  <xsl:template match="tei:change/tei:persName">
+    <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
+      <xsl:apply-templates select="@*"/>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
   
   <!-- remove some typos -->
   <xsl:template match="tei:restore"/>
@@ -250,8 +301,6 @@
     <xsl:attribute name="unit">  
       <xsl:value-of select="."/>
     </xsl:attribute></xsl:template>
-  
- 
   
   <!-- remove outdated @version -->
   <xsl:template match="tei:TEI/@version"/>
