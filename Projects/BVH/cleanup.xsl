@@ -120,6 +120,8 @@
     </xsl:attribute>
   </xsl:template>
   
+  <!-- @who: 1363 out of 2397 have a # -->
+  
   
   <!-- fix @who attribute values -->
   <xsl:template match="@who[substring(.,1,1)!='#']">
@@ -265,7 +267,7 @@
   
   <!--xsl:template match="tei:msIdentifier/@xml:id"/-->
   
-  <xsl:template match="tei:sp/@xml:id">
+  <xsl:template match="tei:sp/@xml:id"> <!-- just a couple of these -->
     <xsl:attribute name="who">
       <xsl:value-of select="concat('#',.)"/>       
     </xsl:attribute>
