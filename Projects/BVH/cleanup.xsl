@@ -12,6 +12,10 @@
    indent="yes"
    omit-xml-declaration="yes"/>
 
+  <xsl:key name="Peeps1" match="tei:sp/@who" use="1"/>
+  <xsl:key name="Peeps2" match="tei:said/@who" use="1"/>
+  
+
 <!--(1) adjust use of xml:id--> 
 
 <!-- change xml:id on name to @ref -->
@@ -123,6 +127,46 @@
   <!-- @who: 1363 out of 2397 have a # -->
   
   
+ <!-- <xsl:template match="tei:sourceDesc">
+    <xsl:copy>
+      <xsl:apply-templates/>
+      <xsl:element name="listPerson" xmlns="http://www.tei-c.org/ns/1.0">
+        <xsl:for-each-group select="key('Peeps1', 1)" group-by=".">
+          <xsl:sort select="current-grouping-key()"/>
+          <xsl:variable name="pid" select="current-grouping-key()"/>
+          <xsl:element name="person" xmlns="http://www.tei-c.org/ns/1.0">
+            <xsl:attribute name="xml:id">
+              <xsl:choose>
+                <xsl:when test="starts-with($pid, '#')">
+                  <xsl:value-of select="substring-after($pid, '#')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$pid"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </xsl:element>
+        </xsl:for-each-group>
+        <xsl:for-each-group select="key('Peeps2', 1)" group-by=".">
+          <xsl:sort select="current-grouping-key()"/>
+          <xsl:variable name="pid" select="current-grouping-key()"/>
+          <xsl:element name="person" xmlns="http://www.tei-c.org/ns/1.0">
+            <xsl:attribute name="xml:id">
+              <xsl:choose>
+                <xsl:when test="starts-with($pid, '#')">
+                  <xsl:value-of select="substring-after($pid, '#')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$pid"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </xsl:element>
+        </xsl:for-each-group>
+      </xsl:element>
+    </xsl:copy>
+  </xsl:template>-->
+  
   <!-- fix @who attribute values -->
   <xsl:template match="@who[substring(.,1,1)!='#']">
     <xsl:attribute name="who">
@@ -145,12 +189,13 @@
   </xsl:template>  
   
   <!-- remove redundant resp=#transcription -->
-  <xsl:template match="tei:respStmt/tei:persName[@resp='#transcription']">
+  <xsl:template match="tei:respStmt/tei:persName[@resp='transcription']">
     <xsl:element name="name"  namespace="http://www.tei-c.org/ns/1.0" >
       <xsl:value-of select="."/>
     </xsl:element>
   </xsl:template>
   
+   
   <!-- change @corresp to @ref on name -->
   <xsl:template match="tei:name/@corresp">
     <xsl:attribute name="ref">
@@ -260,6 +305,7 @@
   <!-- misc oddities/errors -->
   
   <xsl:template match="@rendition"/>
+  <xsl:template match="tei:tagsDecl"/> <!-- only used once and that wrongly -->
   
   <!--xsl:template match="tei:ab/@rend"/-->
   
@@ -276,12 +322,12 @@
   
   <!-- use <name> in header and <persName> in text  -->
   
-  <xsl:template match="tei:titleStmt/tei:respStmt/tei:persName">
+ <!-- <xsl:template match="tei:titleStmt/tei:respStmt/tei:persName">
     <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
     </xsl:element>
-  </xsl:template>
+  </xsl:template>-->
      
   <xsl:template match="tei:change/tei:persName">
     <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
