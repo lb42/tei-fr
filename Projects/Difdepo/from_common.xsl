@@ -152,7 +152,7 @@
             <xsl:sequence select="normalize-space($pres)"/>
           </xsl:attribute>
         </persName></item>
-        <item><persName role="secretaire">
+        <item><persName role="secrétaire">
           <xsl:attribute name="ref">
             <xsl:text>#</xsl:text>
           <xsl:value-of select="normalize-space($sec)"/></xsl:attribute>
