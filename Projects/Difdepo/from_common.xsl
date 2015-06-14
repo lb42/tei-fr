@@ -322,9 +322,14 @@
 
   <xsl:template match="tei:text" mode="pass3">
     <xsl:element name="text">
-      <xsl:attribute name="decls">
+    <!--  <xsl:attribute name="decls">
         <xsl:text>#</xsl:text>
         <xsl:value-of
+          select='normalize-space(substring-before(substring-after(//tei:body/tei:p[3], ":"), "("))'
+        />
+      </xsl:attribute>-->
+      <xsl:attribute name="type">
+         <xsl:value-of
           select='normalize-space(substring-before(substring-after(//tei:body/tei:p[3], ":"), "("))'
         />
       </xsl:attribute>

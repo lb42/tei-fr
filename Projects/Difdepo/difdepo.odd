@@ -24,11 +24,13 @@
          <schemaSpec ident="difdepo" start="TEI " docLang="fr">
             <moduleRef key="tei"/>
             <!-- manually deleted these classes -->
+            <classSpec type="atts" ident="att.global.responsibility" mode="delete"/>
+            <classSpec type="atts" ident="att.declaring" mode="delete"/>
             <classSpec type="atts" ident="att.global.linking" mode="delete"/>
             <classSpec type="atts" ident="att.declarable" mode="delete"/>
             <classSpec type="atts" ident="att.editLike" mode="delete"/>
-            <classSpec type="atts" ident="att.datable-iso" mode="delete"/>
-            <classSpec type="atts" ident="att.datable-custom" mode="delete"/>
+            <classSpec type="atts" ident="att.datable-iso" mode="delete" module="namesdates"/>
+            <classSpec type="atts" ident="att.datable-custom" mode="delete" module="namesdates"/>
             <classSpec type="atts" ident="att.datcat" mode="delete"/>
             <classSpec type="atts" ident="att.cReferencing" mode="delete"/>
             <classSpec type="atts" ident="att.edition" mode="delete"/>
@@ -40,15 +42,21 @@
                   <attDef ident="evaluate" mode="delete"/>
                </attList>
             </classSpec>
-            <classSpec ident="att.responsibility" type="atts" mode="delete"/>
-
-            <!--Checking module textcrit-->
+            <classSpec ident="att.global.rendition" type="atts" mode="change">
+               <attList>
+                         <attDef ident="rendition" mode="delete"/>
+               </attList>
+            </classSpec>
+              <!--Checking module textcrit-->
 
             <!--Checking module namesdates-->
             <classRef key="model.persNamePart"/>
-            <moduleRef key="namesdates" include="orgName persName placeName"/>
-
-            <elementSpec ident="persName" mode="change">
+      <!--      <moduleRef key="namesdates" include="orgName persName placeName"/>-->
+<elementRef key="orgName"/>
+            <elementRef key="persName"/>
+            <elementRef key="placeName"/>
+            
+            <elementSpec ident="persName"  mode="change">
                <attList>
                   <attDef ident="role" mode="change">
                      <valList mode="add" type="closed">
@@ -117,12 +125,12 @@
                   <attDef ident="period" mode="delete"/>
                </attList>
             </classSpec>
-            <classSpec ident="att.datable.w3c" type="atts" mode="change">
+          <!--  <classSpec ident="att.datable.w3c" type="atts" mode="change">
                <attList>
                   <attDef ident="from" mode="delete"/>
                   <attDef ident="to" mode="delete"/>
                </attList>
-            </classSpec>
+            </classSpec>-->
             <classSpec ident="att.damaged" type="atts" mode="change">
                <attList>
                   <attDef ident="hand" mode="delete"/>
@@ -317,19 +325,31 @@
             <!--Checking module msdescription-->
             <!--Checking module transcr-->
             <!--Checking module linking-->
-            <moduleRef key="linking" include="seg"/>
+           <!-- <moduleRef key="linking" include="seg"/>
             <elementSpec ident="seg" mode="change">
                <attList>
                   <attDef ident="resp" mode="delete"/>
                </attList>
             </elementSpec>
-            <!--Checking module analysis-->
+     -->       <!--Checking module analysis-->
             <!--Checking module textstructure-->
             <!-- added div manually -->
             <moduleRef key="textstructure" include="TEI text body div front"/>
             <elementSpec ident="TEI" mode="change">
                <attList>
                   <attDef ident="version" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="text" mode="change">
+               <attList>
+                  <attDef ident="type" mode="replace">
+                     <valList type="closed">
+                        <valItem ident="CR"><desc>compte rendu d'une reunion</desc></valItem>
+                        <valItem ident="CV"><desc>convocation a une reunion</desc></valItem>
+                        <valItem ident="OJ"><desc>ordre du jour d'une reunion</desc></valItem>
+                        <valItem ident="AUTRE"><desc>autre document</desc></valItem>
+                     </valList>
+                  </attDef>
                </attList>
             </elementSpec>
             <!--Checking module corpus-->
