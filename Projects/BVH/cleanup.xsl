@@ -48,7 +48,7 @@
     
 <!-- remove xml:id, used haphazardly on various elements -->
 <!--xsl:template match="tei:bibl/@xml:id"/--> <!-- needed for @source and ? @resp pointers -->
-<xsl:template match="tei:milestone/@xml:id"/>
+<xsl:template match="tei:milestone/@xml:id"/> <!-- Laranne to check if used -->
 <!--xsl:template match="tei:handNote/@xml:id"/--> 
 <xsl:template match="tei:zone/@xml:id"/>
 <xsl:template match="tei:abbr/@xml:id"/>
@@ -210,7 +210,7 @@
     </xsl:attribute>
   </xsl:template>  
   
-  <!-- change @corresp to @facs on p -->
+  <!-- change @corresp to @facs on p --><!-- if only in figure shd be suppressed -->
    <xsl:template match="tei:p/@corresp">
     <xsl:if test=".">  
     <xsl:attribute name="facs">
@@ -329,7 +329,7 @@
     </xsl:element>
   </xsl:template>-->
      
-  <xsl:template match="tei:change/tei:persName">
+  <xsl:template match="tei:change/tei:persName"><!-- no! wrong way round -->
     <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
@@ -337,9 +337,8 @@
   </xsl:template>
   
   <!-- remove some typos -->
-  <xsl:template match="tei:restore"/>
+  <!--xsl:template match="tei:restore"/-->
   <xsl:template match="tei:author/@corresp"/>
-  
   
   
   <!-- 4: fix things no longer valid -->
