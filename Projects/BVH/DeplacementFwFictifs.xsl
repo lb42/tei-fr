@@ -26,7 +26,10 @@
         <xsl:choose>
             <xsl:when test="following-sibling::tei:fw[@type='pageNum']">
                 <pb>
-                    <xsl:copy-of select="@*[not(@n)]"/>
+                    <!-- xsl:copy-of select="@*[not(@n)]"/-->
+                    <!-- The attribute axis starting at an attribute node will never select anything-->
+                    <xsl:copy-of select="@*[not(local-name(.)='n')]"/>
+                   
                     <xsl:attribute name="n">
                         <xsl:value-of select="following-sibling::tei:fw[@type='pageNum'][1]/text()"/>
                     </xsl:attribute>
@@ -42,7 +45,7 @@
     
     <!-- suppression des fw qui contiennent des num entre crochets -->
     
-    <xsl:template match="tei:fw[contains(., '[')]"/>
-    
+    <xsl:template match="tei:fw[@type='pageNum' and contains(., '[')]"/>
+   
     
 </xsl:stylesheet>
