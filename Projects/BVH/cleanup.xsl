@@ -15,6 +15,24 @@
   <xsl:key name="Peeps1" match="tei:sp/@who" use="1"/>
   <xsl:key name="Peeps2" match="tei:said/@who" use="1"/>
   
+  
+  <!-- make all xml:lang 3 chars -->
+  <xsl:template
+    match="tei:*/@xml:lang">
+    <xsl:attribute name="xml:lang">
+      <xsl:choose>
+         <xsl:when test=".='el'">ell<!--2--></xsl:when>
+         <xsl:when test=".='gascon'">oci-gascon<!--1--></xsl:when>
+         <xsl:when test=".='it'">ita<!--12--></xsl:when>
+        <xsl:when test=".='la'">lat<!--63--></xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:template>
+  
+
 
 <!--(1) adjust use of xml:id--> 
 

@@ -106,7 +106,7 @@
       <xsl:value-of select='substring-before(substring-after(//tei:body/tei:p[8], ":"), "(")'/>
     </xsl:variable>
     <xsl:variable name="invites">
-      <xsl:value-of select='substring-after(//tei:body/tei:p[9], ":")'/>
+      <xsl:value-of select='normalize-space(substring-after(//tei:body/tei:p[9], ":"))'/>
     </xsl:variable>
     <xsl:variable name="pres">
       <xsl:value-of select='normalize-space(substring-after(//tei:body/tei:p[6], ":"))'/>
@@ -151,25 +151,33 @@
                   </item>
                 </xsl:if>
               </xsl:for-each>
+              <xsl:if test="$invites ne ''">
+                
               <item>
                 <persName role="invité">
                   <xsl:value-of select="normalize-space($invites)"/>
                 </persName>
               </item>
+              </xsl:if>
               <item>
                 <persName role="président">
+                  <xsl:if test="$pres ne ''">
                   <xsl:attribute name="ref">
                     <xsl:text>#</xsl:text>
                     <xsl:sequence select="normalize-space($pres)"/>
                   </xsl:attribute>
+                  </xsl:if>
                 </persName>
               </item>
+              
               <item>
                 <persName role="secrétaire">
-                  <xsl:attribute name="ref">
+                  <xsl:if test="$sec ne ''">
+                    <xsl:attribute name="ref">
                     <xsl:text>#</xsl:text>
                     <xsl:value-of select="normalize-space($sec)"/>
                   </xsl:attribute>
+                  </xsl:if>      
                 </persName>
               </item>
             </list>
