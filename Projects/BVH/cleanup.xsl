@@ -223,11 +223,18 @@
   </xsl:template>
   
  
-  <!-- change @corresp to @ref on name -->
+  <!-- change @corresp to @key on name -->
   <xsl:template match="tei:name/@corresp">
-    <xsl:attribute name="ref">
-      <xsl:value-of select="."/>       
-    </xsl:attribute>
+    <xsl:attribute name="key">
+      <xsl:choose>
+        <xsl:when test="starts-with(.,'#')">
+          <xsl:value-of select="substring-after(.,'#')"/>       
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
+      </xsl:attribute>
   </xsl:template>  
 
   <!-- change @corresp to @source on corr -->
