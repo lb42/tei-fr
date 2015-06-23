@@ -195,7 +195,7 @@
   </xsl:template>  
   
   <!-- fix @resp attribute values -->
-  <xsl:template match="@resp[substring(.,1,1)!='#']">
+  <xsl:template match="@resp[substring(.,1,1)!='#']" priority="2">
    <xsl:if test="not(.='transcription')"> 
      <xsl:attribute name="resp">
       <xsl:value-of select="concat('#',.)"/>       
@@ -211,7 +211,7 @@
   
   <!-- remove redundant resp=#transcription -->
   
-  <xsl:template match="@resp[.='transcription']"/>
+  <xsl:template match="@resp[.='transcription']" priority="1"/>
   
   <!-- use persName passim -->
   
