@@ -36,10 +36,11 @@
 
 <!--(1) adjust use of xml:id--> 
 
-<!-- change xml:id on name to @ref -->
+<!-- change xml:id on name to @key -->
 <xsl:template match="tei:name/@xml:id">
-<xsl:attribute name="ref">
-<xsl:value-of select="concat('#',.)"/>
+<xsl:attribute name="key">
+<!--xsl:value-of select="concat('#',.)"/-->
+  <xsl:value-of select="."/> 
 </xsl:attribute>
 </xsl:template>
 
@@ -65,8 +66,7 @@
 </xsl:template>
     
 <!-- remove xml:id, used haphazardly on various elements -->
-<!--xsl:template match="tei:bibl/@xml:id"/--> <!-- needed for @source and ? @resp pointers -->
-<xsl:template match="tei:milestone/@xml:id"/> <!-- Laranne to check if used -->
+<xsl:template match="tei:milestone/@xml:id"/> <!-- Lauranne to check if used -->
 <!--xsl:template match="tei:handNote/@xml:id"/--> 
 <xsl:template match="tei:zone/@xml:id"/>
 <xsl:template match="tei:abbr/@xml:id"/>
@@ -79,12 +79,14 @@
 <xsl:template match="tei:g[@ref='']"/>
   
 <!-- fix local refs starting with "n"  --> 
-<xsl:template match="tei:ref[@target]">
-  <xsl:if test="starts-with(.,'n')">
+<xsl:template match="tei:ref[starts-with(@target,'n')]">
+  <xsl:element name="ref" namespace="http://www.tei-c.org/ns/1.0">
     <xsl:attribute name="target">
-      <xsl:value-of select="concat('#',concat(substring-before(ancestor::tei:TEI/@xml:id,'tei'), .))"/>
-    </xsl:attribute>
-  </xsl:if>
+      <xsl:value-of select="concat('#',concat(substring-before(ancestor::tei:TEI/@xml:id,'tei'), @target))"/>
+    </xsl:attribute>  
+    <xsl:apply-templates/>
+  </xsl:element>
+     
 </xsl:template>  
   
 <!-- fix @scheme attribute values -->
@@ -109,9 +111,9 @@
     </xsl:attribute>
   </xsl:template>  
   
-  <!-- make name/@key into name/@ref -->
+  <!-- make name/@key into name/@ref in the header -->
   
-  <xsl:template match="tei:teiHeader//tei:name/@key">
+  <!--<xsl:template match="tei:teiHeader//tei:name/@key">
     <xsl:attribute name="ref">
       <xsl:choose>
         <xsl:when test="starts-with(.,'#')"><xsl:value-of select="."/>
@@ -120,7 +122,7 @@
       </xsl:choose>
     </xsl:attribute>
     
-  </xsl:template>
+  </xsl:template>-->
   
   <!-- make other @key links use bvh URI rather than # (if valid) -->
   
@@ -194,10 +196,11 @@
   
   <!-- fix @resp attribute values -->
   <xsl:template match="@resp[substring(.,1,1)!='#']">
-    <xsl:attribute name="resp">
+   <xsl:if test="not(.='transcription')"> 
+     <xsl:attribute name="resp">
       <xsl:value-of select="concat('#',.)"/>       
     </xsl:attribute>
-  </xsl:template>  
+   </xsl:if></xsl:template>  
   
   <!-- fix @hand attribute values -->
   <xsl:template match="@hand[substring(.,1,1)!='#']">
@@ -284,8 +287,9 @@
   
   
   <!-- rationalise use of xml:base -->
-  
-  <xsl:template match="tei:bibl">
+
+  <xsl:template match="tei:bibl"> 
+    <!-- this template needed to avoid error in the following one -->
     <xsl:element name="bibl" namespace="http://www.tei-c.org/ns/1.0">
       <xsl:if test="@xml:id">
         <xsl:attribute name="xml:id">
@@ -296,15 +300,16 @@
     </xsl:element>
   </xsl:template>
   
-  <xsl:template match="tei:bibl/@xml:base[.='#ref1']"/>
-  
-  <xsl:template match="tei:bibl/@xml:base">
+   <xsl:template match="tei:bibl/@xml:base">
     <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
       <xsl:attribute name="target">
         <xsl:value-of select="."/>
       </xsl:attribute>
     </xsl:element>
   </xsl:template>
+  
+  <xsl:template match="tei:bibl/@xml:base[.='#ref1']"/>
+  
   
   <xsl:template match="tei:authority/@xml:base">
     <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
@@ -324,6 +329,26 @@
   
   
   <xsl:template match="tei:listBibl/@xml:base"/>
+  
+  <xsl:template match="tei:graphic/@xml:base"/>
+  
+  <!-- simplify biblio info -->
+  
+  <xsl:template match="tei:additional">
+    <xsl:element name="additional" namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:element name="listBibl" namespace="http://www.tei-c.org/ns/1.0" >
+        <xsl:for-each select="tei:adminInfo/tei:recordHist/tei:source/tei:listBibl/tei:bibl">
+          <xsl:apply-templates select="."/>
+        </xsl:for-each>
+        <xsl:for-each select="tei:surrogates/tei:bibl">
+          <xsl:apply-templates select="."/>
+        </xsl:for-each>
+      </xsl:element>
+     
+      
+    </xsl:element>
+    
+  </xsl:template>
   
   
   <!-- misc oddities/errors -->
