@@ -1,13 +1,14 @@
 ECHO=
 SCHEMA=/home/lou/Public/TEI-SF/P5/Exemplars/tei_all.rng
-CORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/testBed
-NEWCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/Corpus
-CLEANCORPUS=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanCorpus
-OBE=/home/lou/Public/Stylesheets.git/trunk/tools/oddbyexample.xsl
-BVHRNG=/home/lou/Public/tei-fr/trunk/Projects/BVH/out/bvh.rng
-CLEANUP=/home/lou/Public/tei-fr/trunk/Projects/BVH/cleanup.xsl
-IDENTITY=/home/lou/Public/tei-fr/trunk/Projects/BVH/identity.xsl
 CURRENT=`pwd`
+ROOT=/home/lou/Public/tei-fr/trunk/Projects/BVH
+CORPUS=$(ROOT)/testBed
+NEWCORPUS=$(ROOT)/Corpus
+CLEANCORPUS=$(ROOT)/cleanCorpus
+OBE=/home/lou/Public/Stylesheets.git/trunk/tools/oddbyexample.xsl
+BVHRNG=$(ROOT)/out/bvh.rng
+CLEANUP=$(ROOT)/cleanup.xsl
+IDENTITY=$(ROOT)/identity.xsl
 #	M0275_01_tei.xml \
 #	M0275_02_tei.xml \
 
