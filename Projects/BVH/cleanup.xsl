@@ -9,7 +9,7 @@
 <xsl:output 
    method="xml"
    encoding="utf-8"
-   indent="yes"
+   indent="no"
    omit-xml-declaration="yes"/>
 
   <xsl:key name="Peeps1" match="tei:sp/@who" use="1"/>
