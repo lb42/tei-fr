@@ -139,7 +139,7 @@
         <xsl:when test="starts-with(.,'#persm_')"><xsl:value-of select="concat('bvh:',substring-after(.,'#'))"/></xsl:when>
         <xsl:when test="matches(.,'B\d+')"><xsl:value-of select="concat('bvh:',.)"/></xsl:when>
         
-        <xsl:otherwise><xsl:value-of select="concat('#_',.)"/></xsl:otherwise>
+        <xsl:otherwise><xsl:value-of select="concat('bvh:_',.)"/></xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
   </xsl:template>
