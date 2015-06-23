@@ -207,13 +207,19 @@
   </xsl:template>  
   
   <!-- remove redundant resp=#transcription -->
-  <xsl:template match="tei:respStmt/tei:persName[@resp='transcription']">
-    <xsl:element name="name"  namespace="http://www.tei-c.org/ns/1.0" >
-      <xsl:value-of select="."/>
+  
+  <xsl:template match="@resp[.='transcription']"/>
+  
+  <!-- use persName passim -->
+  
+  <xsl:template match="tei:name">
+    <xsl:element name="persName" namespace="http://www.tei-c.org/ns/1.0">
+      <xsl:apply-templates select="@*"/>
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
   
-   
+ 
   <!-- change @corresp to @ref on name -->
   <xsl:template match="tei:name/@corresp">
     <xsl:attribute name="ref">
@@ -337,22 +343,9 @@
     </xsl:attribute>
   </xsl:template>
   
-  
-  <!-- use <name> in header and <persName> in text  -->
-  
- <!-- <xsl:template match="tei:titleStmt/tei:respStmt/tei:persName">
-    <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
-      <xsl:apply-templates select="@*"/>
-      <xsl:apply-templates/>
-    </xsl:element>
-  </xsl:template>-->
+
      
-  <xsl:template match="tei:change/tei:persName"><!-- no! wrong way round -->
-    <xsl:element name="name" namespace="http://www.tei-c.org/ns/1.0">
-      <xsl:apply-templates select="@*"/>
-      <xsl:apply-templates/>
-    </xsl:element>
-  </xsl:template>
+  
   
   <!-- remove some typos -->
   <!--xsl:template match="tei:restore"/-->
