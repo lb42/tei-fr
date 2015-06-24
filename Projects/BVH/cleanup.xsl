@@ -9,7 +9,7 @@
 <xsl:output 
    method="xml"
    encoding="utf-8"
-   indent="no"
+   indent="yes"
    omit-xml-declaration="yes"/>
 
   <xsl:key name="Peeps1" match="tei:sp/@who" use="1"/>
@@ -343,16 +343,16 @@
   
   <xsl:template match="tei:additional">
     <xsl:element name="additional" namespace="http://www.tei-c.org/ns/1.0" >
-      <xsl:element name="listBibl" namespace="http://www.tei-c.org/ns/1.0" >
-        <xsl:for-each select="tei:adminInfo/tei:recordHist/tei:source/tei:listBibl/tei:bibl">
-          <xsl:apply-templates select="."/>
-        </xsl:for-each>
-        <xsl:for-each select="tei:surrogates/tei:bibl">
+      <xsl:element name="surrogates" namespace="http://www.tei-c.org/ns/1.0" >
+     <xsl:for-each select="tei:surrogates/tei:bibl">
           <xsl:apply-templates select="."/>
         </xsl:for-each>
       </xsl:element>
-     
-      
+      <xsl:element name="listBibl" namespace="http://www.tei-c.org/ns/1.0" >
+        <xsl:for-each select="tei:adminInfo/tei:recordHist/tei:source/tei:listBibl/tei:bibl">
+          <xsl:apply-templates select="."/>
+        </xsl:for-each>        
+      </xsl:element>      
     </xsl:element>
     
   </xsl:template>
