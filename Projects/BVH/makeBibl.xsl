@@ -24,20 +24,20 @@
                     <p>Description détaillée du bibliographie à compléter </p>
                  <listBibl>
                      <xsl:for-each select="//tei:bibl">
+                         <xsl:if test='count(child::*) gt 1'>
                          <xsl:if test="ancestor::tei:teiHeader">
                          <xsl:copy>
                              <xsl:if test='not(@xml:id)'>
                                  <xsl:attribute name="xml:id">
                                      <xsl:text>BIB_</xsl:text>
-                                     <xsl:number format="001" level="any"/>
-                                 
+                                     <xsl:number format="001" level="any"/>                             
                                  </xsl:attribute>
                              </xsl:if>
                              <xsl:apply-templates select="@*"/>
                              <xsl:apply-templates 
                                  select="*|comment()|processing-instruction()|text()"/>
                          </xsl:copy>
-                         </xsl:if>
+                         </xsl:if></xsl:if>
                      </xsl:for-each>
                  </listBibl>   
                 </body>
