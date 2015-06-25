@@ -33,17 +33,22 @@
   </xsl:template>
   
 
+  
+  
 
 <!--(1) adjust use of xml:id--> 
 
-<!-- change xml:id on name to @key -->
+<!-- change xml:id on name and persName to @ref -->
 <xsl:template match="tei:name/@xml:id">
-<xsl:attribute name="key">
-<!--xsl:value-of select="concat('#',.)"/-->
-  <xsl:value-of select="."/> 
+<xsl:attribute name="ref">
+<xsl:value-of select="concat('#',.)"/>
 </xsl:attribute>
 </xsl:template>
-
+  <xsl:template match="tei:persName/@xml:id">
+    <xsl:attribute name="ref">
+      <xsl:value-of select="concat('#',.)"/>
+    </xsl:attribute>
+  </xsl:template>
 <!-- add prefix to make div xml:ids unique -->
 <xsl:template match="tei:div/@xml:id">
 <xsl:attribute name="xml:id">
@@ -223,15 +228,16 @@
   </xsl:template>
   
  
-  <!-- change @corresp to @key on name -->
+  <!-- change @corresp to @ref on name -->
   <xsl:template match="tei:name/@corresp">
-    <xsl:attribute name="key">
+    <xsl:attribute name="ref">
       <xsl:choose>
         <xsl:when test="starts-with(.,'#')">
-          <xsl:value-of select="substring-after(.,'#')"/>       
-        </xsl:when>
-        <xsl:otherwise>
           <xsl:value-of select="."/>
+         </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat('#',.)"/>       
+          
         </xsl:otherwise>
       </xsl:choose>
       </xsl:attribute>
