@@ -31,7 +31,14 @@
                     <xsl:copy-of select="@*[not(local-name(.)='n')]"/>
                    
                     <xsl:attribute name="n">
-                        <xsl:value-of select="following-sibling::tei:fw[@type='pageNum'][1]/text()"/>
+                        <xsl:choose>
+                            <xsl:when test="following-sibling::tei:fw[@type='pageNum'][1]/tei:choice">
+                        <xsl:value-of select="following-sibling::tei:fw[@type='pageNum'][1]/tei:choice/tei:corr/text()"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="following-sibling::tei:fw[@type='pageNum'][1]/text()"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:attribute>
                 </pb>
             </xsl:when>
