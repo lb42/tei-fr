@@ -363,6 +363,26 @@
     
   </xsl:template>
   
+  <!-- make usage of @rend on titles consistent -->
+  
+  <xsl:template match="tei:bibl/tei:title">
+    <xsl:element name="title" namespace="http://www.tei-c.org/ns/1.0">
+    <xsl:choose>
+      
+   <xsl:when test="tei:hi[@rend='it']">
+       <xsl:attribute name="rend">it</xsl:attribute>
+      <xsl:value-of select="tei:hi"/>
+  </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="@*"/>
+      <xsl:value-of select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="tei:bibl/tei:title/tei:hi[@rend='it']"/>
+    
   
   <!-- misc oddities/errors -->
   

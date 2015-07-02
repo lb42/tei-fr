@@ -24,9 +24,11 @@
                     <p>Description détaillée du bibliographie à compléter </p>
                  <listBibl>
                      <xsl:for-each select="//tei:bibl">
+                         <xsl:sort />
                          <xsl:if test='count(child::*) gt 1'>
                          <xsl:if test="ancestor::tei:teiHeader">
                          <xsl:copy>
+                             
                              <xsl:if test='not(@xml:id)'>
                                  <xsl:attribute name="xml:id">
                                      <xsl:text>BIB_</xsl:text>
