@@ -343,6 +343,15 @@
   
   <xsl:template match="tei:listBibl/@xml:base"/>
   
+  <xsl:template match="tei:titlePage/tei:figure/tei:figDesc">
+    <xsl:element name="figDesc"  namespace="http://www.tei-c.org/ns/1.0" >
+    <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:attribute name="target"><xsl:value-of select="preceding-sibling::tei:graphic/@xml:base"/></xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="tei:graphic/@xml:base"/>
   
   <!-- simplify biblio info -->
