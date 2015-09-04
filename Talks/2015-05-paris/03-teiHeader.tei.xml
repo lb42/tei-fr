@@ -1,0 +1,465 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Le teiHeader</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>from markdown</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>emchateau, ENC 2015</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2015-05-24">conversion du fichier en TEI</change>
+      <change when="2014-10-30">première rédaction</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <!--<p>title: 05-teiHeader</p>
+         <p>description: emchateau, ENC 27-30 octobre 2014</p>
+         <p>theme: theme/remark-dark.css</p>
+         <p>name: inverse</p>
+         <p>layout: true</p>
+         <p>class: inverse</p>
+         <p>-\-\-</p>
+         <p>class: center middle</p>-->
+    <front>
+      <titlePage xml:lang="fr">
+        <titlePart>03-Le teiHeader et la description des manuscrits</titlePart>
+        <docImprint>Formation TEI | ENC 26-29 mai 2015</docImprint>
+        <note><ref target="https://github.com/tei-fr/formationEnc2015-05"
+          >Répertoire GitHub</ref></note>
+        <note><ref target="00-programme.html">Programme</ref></note>
+      </titlePage>
+      <div type="sommaire" xml:lang="fr" xml:id="index">
+        <div>
+          <head>L’en-tête TEI et la description des manuscrits</head>
+          <list type="ordered">
+            <item><ref target="#part1">L’importance des métadonnées</ref></item>
+            <item><ref target="#part2">Les composants du header</ref></item>
+            <item><ref target="#part3">La description du manuscrit</ref></item>
+          </list>
+        </div>
+      </div>
+    </front>
+    <body>
+      <div type="part">
+        <div type="title" xml:lang="fr"  xml:id="part1">
+          <div>
+            <head>1. L’importance des métadonnées</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>L’importance des métadonnées</head>
+            <list>
+              <head>Pourquoi</head>
+              <item>documenter la source</item>
+              <item>renseigner l’édition et ses attributions</item>
+              <item>intégration possible dans des bibliothèques numériques</item>
+            </list>
+            <list>
+              <head>Choix des modèles descriptifs</head>
+              <item>cohérent avec la politique de votre établissement</item>
+              <item>possibilité de <soCalled>mapping</soCalled> avec d’autres modèles</item>
+              <item>conformité aux bonnes pratiques</item>
+            </list>
+            <p>Glorieux, Frédéric, et Jolivet, Vincent, <ref
+                target="http://sourceforge.net/p/weboai/wiki/Home/"
+                >« weboai, Human web interface on OAI repository »</ref>, SourceForge.</p>
+          </div>
+          <div>
+            <head>L’importance des métadonnées</head>
+            <div>
+              <p>L’entête TEI ou <gi>teiHeader</gi> vous permet de renseigner finement les métadonnées concernant votre fichier. Comme ces métadonnées qui comportent des informations sur l’information font partie du document, on peut dire qu’elles sont auto-portées. Ces métadonnées peuvent aussi bien concerner la source du document édité que votre édition et ses attributions. La qualité de ces information et la granularité du modèle descriptif utilisé déterminent en grande partie les possibilité d’agrégation dans des bibliothèques numériques.</p>
+            </div>
+            <div>
+            <p>Dans la production d’une édition numérique il est souvent nécessaire de traiter avec soin les en-têtes TEI et de produire des métadonnées de qualité. Icic, pour arrêter les choix d’encodages, il convient d’examiner un certain nombre de pratiques documentaires existantes et de rechercher des guides de bonnes pratiques pour la TEI.</p>
+            <p>Un travail en vue de permettre un moissonnage des en-têtes TEI en OAI-PMH (Open Archives Initiative Protocol for Metadata Harvesting) des éditions produites au sein du Consortium cahier a permis de se diriger vers la définition de pratiques commune pour la communauté francophone. Il serait dommage de ne pas s’y conformer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div type="part" >
+        <div type="title" xml:lang="fr" xml:id="part2">
+          <div>
+            <head>2. Les composants du teiHeader</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Les composants du teiHeader</head>
+            <div>
+              <head><gi>fileDesc</gi> la description de fichier</head>
+              <list>
+                <head>3 éléments facultatifs</head>
+                <item><gi>encodingDesc</gi> description des convention d’encodage</item>
+                <item><gi>profileDesc</gi> information classificatoires</item>
+                <item><gi>revisionDesc</gi> révisions</item>
+              </list>
+            </div>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>teiHeader minimal</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiHeader>
+                <fileDesc>
+                  <titleStmt>
+                    <title><!-- titre --></title>
+                  </titleStmt>
+                  <publicationSmt>
+                    <p><!-- mentions de publication --></p>
+                  </publicationSmt>
+                  <sourceDesc>
+                    <p/>
+                  </sourceDesc>
+                </fileDesc>
+              </teiHeader></egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>fileDesc</head>
+            <list>
+              <head>trois éléments mandataires</head>
+              <item><gi>titleStmt</gi> mentions de titre et de responsabilité</item>
+              <item><gi>publicationStmt</gi> mentions de publication (du texte électronique)</item>
+              <item><gi>sourceDesc</gi> renseignements sur la source dont est issu le fichier numérique</item>
+            </list>
+            <list>
+              <head>trois éléments facultatifs</head>
+              <item><gi>editionStmt</gi> informations relatives à l'édition</item>
+              <item><gi>extent</gi> taille du fichier</item>
+              <item><gi>seriesStmt</gi> informations relatives à la collection</item>
+              <item><gi>noteStmt</gi> notes fournissant des informations sur le texte</item>
+            </list>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Mentions de titre et de responsabilité <gi>titleStmt</gi></head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <titleStmt>
+                <title xml:lang="fre" type="main">Sauval 1724</title>
+                <principal>
+                  <persName ref="#MCL">
+                    <forename>Marianne</forename>
+                    <surname>Cojannot-Le Blanc</surname>
+                  </persName>
+                </principal>
+                <funder>
+                  <orgName>Labex Les Passés dans le Présent</orgName>
+                  <date from="2013" to="2018">2013-2018</date>
+                </funder>
+                <respStmt>
+                  <resp key="mrk">encodage XML-TEI</resp>
+                  <persName ref="#EC">
+                    <forename>Emmanuel</forename>
+                    <surname>Château</surname>
+                  </persName>
+                </respStmt><!-- ... -->
+              </titleStmt>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head><gi>encodingDesc</gi></head>
+            <p>Élément optionnel destiné à documenter l’encodage.</p>
+            <list>
+              <head>Il accueille :</head>
+              <item>soit des structures simples avec des paragraphes <gi>p</gi></item>
+              <item>une description structurée à l’aide des éléments ci-dessous : 
+                <list>
+                  <item><gi>projectDesc</gi> description de l’objectif de l’édition électronique</item>
+                  <item><gi>samplingDesc</gi> méthode d’échantillonnage</item>
+                  <item><gi>tagsDecl</gi> description du balisage employé</item>
+                  <item><gi>refDecl</gi> précision sur la construction des références canoniques</item>
+                  <item><gi>geoDecl</gi> système de notation des coordonnées géographiques</item>
+                  <item><gi>schemaSpec</gi> spécification de schéma</item>
+                </list></item>
+            </list>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>exemple d’<gi>encodingDesc</gi></head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <encodingDesc>
+                <charDecl>
+                  <glyph xml:id="uut">
+                    <glyphName>two latin small letter u with macron and vertical
+                      line</glyphName>
+                    <charProp>
+                      <localName>entity</localName>
+                      <value>omega2</value>
+                    </charProp>
+                    <mapping type="composed"
+                      >&#117;&#862;&#117;&#862;&#124;</mapping>
+                    <graphic url="x2.jpg"/>
+                  </glyph>
+                </charDecl>
+                <editorialDecl>
+                  <normalization>
+                    <p>La ponctuation a été ajoutée, conformément...</p>
+                    <p>les mots ont été séparés lorsque l'usage actuel...</p>
+                  </normalization>
+                </editorialDecl>
+              </encodingDesc>
+            </egXML>
+          </div>
+          <div>
+            <head>Par exemple, pour les ouvrages imprimés</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <hyphenation>
+                <p>Pour les ouvrages imprimés, il n’a pas été tenu compte de l’hyphénation.</p>
+              </hyphenation>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head><gi>profileDesc</gi></head>
+            <list>
+              <item><gi>abstract</gi> bref résumé</item>
+              <item><gi>creation</gi> informations sur la création du texte</item>
+              <item><gi>langUsage</gi> langues présentes dans le texte</item>
+              <item><gi>textClass</gi> nature du texte d’après un thesaurus interne ou externe</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <profileDesc>
+                <creation><date when="2009-04-20">20 avril 2009</date></creation>
+                <langUsage>
+                  <language indent="fre" scope="60">Français</language>
+                  <language ident="lat" scope="40">Latin</language>
+                </langUsage>
+              </profileDesc>
+            </egXML>
+          </div>
+          <div type="slide" xml:lang="fr">
+            <div>
+              <head><gi>revisionDesc</gi></head>
+              <p>Enregistre les révisions et modifications du fichier</p>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <revisionDesc>
+                  <change when="2009-11" who="#VJ">Deuxième édition éclectronique</change>
+                  <change when="2009-10" who="#FG">Schéma et transformations</change>
+                  <change when="2009-10" who="#CD">Encodage de l'apparat critique</change>
+                </revisionDesc>
+              </egXML>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div type="part">
+        <div type="title" xml:lang="fr" xml:id="part3">
+          <div>
+            <head>La description des manuscrits</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head><gi>msDesc</gi> (dans <gi>sourceDesc</gi>)</head>
+            <p>L’élément <gi>sourceDesc</gi> est obligatoire et sert à la description des manuscrits.</p>
+            <p>Ici, le module <ident>msdescription</ident> fournit de nombreux éléments spécialisés.</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <msDesc>
+                <msIdentifier>
+                  <country>France</country>
+                  <settlement>Paris</settlement>
+                  <repository>Archives Nationales</repository>
+                  <collection>Commerce et industrie</collection>
+                  <idno>F/12/5080</idno>
+                </msIdentifier>
+                <msContents>
+                  <p><!-- description du contenu --></p>
+                </msContents>
+                <physDesc>
+                  <p><!-- description physique --></p>
+                </physDesc>
+              </msDesc>
+            </egXML>
+          </div>
+          <div>
+            <head><gi>msDesc</gi> (dans <gi>sourceDesc</gi>)</head>
+            <p>L’élément <gi>sourceDesc</gi> est obligatoire et sert à la description des manuscrits. Ici, le module <ident>msdescription</ident> fournit de nombreux éléments spécialisés.</p>
+            <list>
+              <item>l’élément <gi>msDesc</gi> accueille la description du manuscrit.</item>
+              <item>un seul élément obligatoire : <gi>msIdentifier</gi></item>
+              <item><gi>idno</gi> c’est une bonne pratique que de fournir un identifiant unique</item>
+              <item>collection, etc.</item>
+              <item><gi>msContents</gi> : contenu intellectuel, il accueille une présentation succinte du contenu</item>
+              <item><gi>physDesc</gi> descripton physique</item>
+            </list>
+            <p><label>Rmq :</label> Les éléments sont ordonnés.</p>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head><gi>msContents</gi> (dans <gi>msDesc</gi>)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <msContents>
+                <msItemStruct>
+                  <author>
+                    <persName xml:lang="fre" full="yes" ref="#desgodets"
+                      >Desgodets,
+                          Antoine (1653-1728)</persName>
+                  </author>
+                  <respStmt>
+                    <resp key="com">collationneur</resp>
+                    <persName xml:lang="fre" full="yes" ref="#pinardJean"
+                      >Pinard,
+                            Jean</persName>
+                  </respStmt>
+                  <title type="supplied">Traité de la Commodité</title>
+                  <title type="full"
+                    >Traité de la Commodité de l’architecture
+                          concernant la distribution et les proportions des édifices</title>
+                  <note>
+                    <p>Suite du cours d’architecture prononcé par Antoine Desgodets
+                            à l’Académie d’architecture concernant les Ordres.
+                            Manuscrit incomplet, divisé en trois sections, la première
+                            en cinq chapitres, la deuxième en deux chapitres, les
+                            autres chapitres et la troisième section manquent.</p>
+                  </note>
+                  <textLang mainLang="fre" otherLangs="lat ita"
+                    >texte en français, quelques passages en latin et en italien.</textLang>
+                </msItemStruct>
+              </msContents>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Description du support (dans msContent)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <physDesc>
+                <objectDesc form="codex">
+                  <supportDesc material="paper">
+                    <support>
+                      <p><objectType>codex</objectType>, <material>papier à la cuve</material> avec filigranes, <watermark>raisins</watermark> similaire à <ref>[référence]</ref>, <date>1570-1758</date></p>
+                    </support>
+                    <extent>
+                      <dimensions type="leaves">
+                        <dim quantity="286" unit="leaves"
+                          >286 pages, dont 42 planches</dim>
+                        <height quantity="410" unit="mm"/>
+                        <width quantity="250" unit="mm"/>
+                        <depth quantity="40" unit="mm"/>
+                      </dimensions>
+                      <!-- dimensions est répétable -->
+                    </extent>
+                    <foliation>foliotées au crayon en haut, au centre des pages</foliation>
+                    <collation>le manuscrit est monté sur onglet</collation>
+                    <condition>bon</condition>
+                  </supportDesc>
+                  <layoutDesc>
+                    <layout columns="1" ruledLines="25 30"
+                      >texte sur une colonne, 25 à 30 lignes réglées à la mine de plomb</layout>
+                    <!-- layout est répétable -->
+                  </layoutDesc>
+                </objectDesc>
+              </physDesc>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Autres éléments pour la description physique (dans <gi>physDesc</gi>)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <physDesc>
+                <!-- ... -->
+                <handDesc>
+                  <handNote xml:id="c2Hand1" scope="major"
+                    >à l’encre noire</handNote>
+                  <!-- handNote est répétable, localisation avec locus -->
+                  <handNote xml:id="c2Hand2" scope="minor"
+                    >à l’encre noire</handNote>
+                </handDesc>
+                <decoDesc>
+                  <decoNote>le manuscrit contient 42 planches au lavis d’une grande
+                        qualité d’exécution</decoNote>
+                  <!-- decoNote est répétable, localisation avec locus -->
+                </decoDesc>
+                <bindingDesc>
+                  <binding>
+                    <p>relié en <material>veau</material></p>
+                    <condition>bon</condition>
+                    <decoNote>dorure au fer</decoNote>
+                  </binding>
+                </bindingDesc>
+              </physDesc>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>L’historique du manuscrit (dans <gi>msDesc</gi>)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <history>
+                <origin>
+                  <p>Copié au cours du <origDate notBefore="1725"
+                      notAfter="1785">XVIII<hi rend="superscript"
+                      >e</hi> siècle</origDate> ce manuscrit est pour ainsi dire en tous points identique à celui conservé au Rijk. La numérotation des planches semble indiquer qu’il a pu être copié d’après un même original.</p>
+                </origin>
+                <provenance>
+                  <p>[Si nous avions eu des informations sur la provenance].</p>
+                </provenance>
+                <acquisition>
+                  <p>Entré par le biais d’une acquisition du cabinet des Estampes de la bibliothèque du roi circa 1785.</p>
+                </acquisition>
+              </history>
+              <additional>
+                <surrogates>
+                  <idno>microfilm R 710124-710264</idno>
+                </surrogates>
+                <!-- références bibliographiques sur l’exemplaire -->
+                <listBibl>
+                  <bibl corresp="#scheurleer1964"/>
+                </listBibl>
+              </additional>
+            </egXML>
+          </div>
+        </div>
+      </div>
+    </body>
+    <back>
+      <div type="title" xml:lang="fr">
+        <head>Sources et bibliographie</head>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <div>
+          <head>Orientations bibliographiques</head>
+          <list>
+            <item><bibl>Glorieux, Frédéric, et Jolivet, Vincent, <ref
+                  target="http://weboai.sourceforge.net"
+                  >« weboai, Human web interface on OAI repository »</ref>, SourceForge.</bibl></item>
+            <item>
+              <bibl><ref
+                  target="http://www.bnf.fr/fr/professionnels/normes_catalogage/a.ead_demarch.html"
+                  >DeMArch Description des manuscrits et fonds d'archives modernes et contemporains en bibliothèque</ref>.</bibl></item>
+            <item><bibl>Hawkins, Kevin, Dalmau, Michelle, et Bauman, Syd, <ref
+                  target="http://www.tei-c.org/SIG/Libraries/teiinlibraries/main-driver.html"
+                  >Best Practices for TEI in Libraries</ref></bibl>.</item>
+            <item><bibl>Lou Burnard ed., <ref
+                  target="http://projects.oucs.ox.ac.uk/ENRICH/"
+                  >The ENRICH Schema – A Reference Guide</ref>.</bibl></item>
+            <item><bibl>Driscoll. "P5-MS: A General Purpose Tagset for Manuscript Description." Digital Medievalist 1 (2006). <ref
+                  target="http://www.digitalmedievalist.org/journal/2.1/driscoll/"
+                  >http://www.digitalmedievalist.org/journal/2.1/driscoll/</ref> (accessed February 23, 2014).</bibl></item>
+          </list>
+        </div>
+      </div>
+      <div type="title" xml:lang="fr">
+        <div>
+          <head>Mettre <ref target="ex03-teiHeader.html">en pratique</ref></head>
+          <note><ref target="#index">revenir au début</ref><ref target="00-programme.html">Programme</ref></note>
+        </div>
+      </div>
+    </back>
+  </text>
+</TEI>

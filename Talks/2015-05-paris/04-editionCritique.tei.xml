@@ -1,0 +1,285 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>L’édition critique des sources manuscrites</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>from markdown</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>emchateau, ENC 2015</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2015-05-24">conversion du fichier en TEI</change>
+      <change when="2014-10-30">première rédaction</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <!--<p>title: 06-editionCritique</p>
+         <p>description: emchateau, ENC 27-30 octobre 2014</p>
+         <p>theme: theme/remark-dark.css</p>
+         <p>name: inverse</p>
+         <p>layout: true</p>
+         <p>class: inverse</p>
+         <p>-\-\-</p>
+         <p>class: center middle</p>-->
+      <titlePage xml:lang="fr">
+        <titlePart>04-Édition critique</titlePart>
+        <titlePart>L’édition critique des sources manuscrites</titlePart>
+        <docImprint>Formation TEI | ENC 26-29 mai 2015</docImprint>
+        <note><ref target="https://github.com/tei-fr/formationEnc2015-05"
+          >Répertoire GitHub</ref></note>
+        <note><ref target="00-programme.html">Programme</ref></note>
+      </titlePage>
+      <div type="title" xml:lang="fr">
+        <div>
+          <head>Introduction</head>
+        </div>
+        <div>
+          <head>Introduction</head>
+          <p>La TEI présente de nombreux mécanismes spécialement destinés à la prise en charge des éditions critiques.</p>
+          <p>La plupart de ces éléments sont compris dans le module <ident>transcr</ident>, d’autres dabs <ident>msdescription</ident>.</p>
+          <p>Ces modules peuvent parfois être augmentés à propos par <ident>certainty</ident>.</p>
+        </div>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <div>
+          <head>Sommaire</head>
+          <list>
+            <item><ref target="#part1">L’inscription du texte sur le support</ref></item>
+            <item><ref target="#part2">Les corrections éditoriales</ref></item>
+            <item><ref target="#part3">Les variantes</ref></item>
+          </list>
+        </div>
+      </div>
+    </front>
+    <body>
+      <div type="part" xml:id="part1">
+        <div type="title" xml:lang="fr">
+          <div>
+            <head>L’inscription du texte sur le support</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Ajouts et surplus</head>
+            <div>
+              <head>
+                <gi>add</gi> texte ajouté</head>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <add place="above">nous</add>
+              </egXML>
+            </div>
+            <div>
+              <head>
+                <gi>del</gi> texte supprimé</head>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <del rend="overstrike">claustra</del>
+              </egXML>
+            </div>
+          </div>
+          <div type="slide" xml:lang="fr">
+            <div>
+              <head>
+                <gi>subst</gi> substitutions (génétique textuelle)</head>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <subst>
+                  <del>claustra</del>
+                  <add place="margin">fenêtre</add>
+                </subst>
+              </egXML>
+            </div>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Prise en charge des lacunes</head>
+            <p><gi>gap</gi> passage ne pouvant pas être restitué pour des raisons matérielles</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <gap reason="illegible" agent="ink-blot" />
+            </egXML>
+            <p><gi>unclear</gi> passage en partie illisible</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <unclear agent="ink-blot" cert="low" resp="#EC" />
+            </egXML>
+            <p>
+              <gi>suplied</gi> restitution d'un passage manquant</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <supplied reason="hole" source="#autreEd">les</supplied>
+            </egXML>
+          </div>
+          <div>
+            <head>Prise en charge des lacunes</head>
+            <p>Ne pas confondre <gi>gap</gi> et <gi>space</gi> qui sert à désigner un espace blanc jugé significatif</p>
+            <p>Plusieurs attributs issus du module <ident>certainty</ident> qui peuvent vous permettre de préciser le niveau de certitude des restitutions.</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <space quantity="1" unit="cm"/>
+            </egXML>
+          </div>
+        </div>
+      </div>
+      <div type="part" xml:id="part2">
+        <div type="title" xml:lang="fr">
+          <div>
+            <head>Les corrections éditoriales</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Passages fautifs</head>
+            <list>
+              <item><gi>sic</gi> passage fautif, ou segment syntaxiquement incorrect</item>
+              <item><gi>corr</gi> correction de l'éditeur</item>
+              <item><gi>abbr</gi> abréviation</item>
+              <item>utilisation de <gi>choice</gi></item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <choice>
+                <abbr>M<hi rend="superscript">r</hi></abbr>
+                <expan>Monsieur</expan>
+              </choice>
+            </egXML>
+          </div>
+          <div>
+            <head>Passages fautifs</head>
+            <p>La même utilisation de <gi>choice</gi> est possible pour les segments syntaxiquement incorrects.</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <choice>
+                <sic>charbone</sic>
+                <corr>charbon</corr>
+              </choice>
+            </egXML>
+            <p>Partout, les attributs <att>cert</att>, <att>resp</att> et <att>source</att> peuvent s’avérer utile.</p>
+          </div>
+        </div>
+      </div>
+      <div type="part" xml:id="part3">
+        <div type="title" xml:lang="fr">
+          <div>
+            <head>Les variantes et les mains</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>La description des mains</head>
+            <list>
+              <item><att>hand</att></item>
+              <item><att>handDesc</att> et ses sous-éléments dans le <gi>teiHeader</gi></item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <handDesc>
+                <handNote xml:id="c2Hand1" scope="major">à l’encre noire</handNote>
+                <handNote xml:id="c2Hand2" scope="minor">au crayon</handNote>
+              </handDesc>
+            </egXML>
+            <p>handNote est répétable et peut contenir une localisation avec <att>locus</att>.</p>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Trois approches pour l’enregistrement et l’<hi>alignement</hi> des variantes</head>
+            <p>Les Guidelines proposent trois approches différentes pour aligner des passages textuels lorsque l’on établit une édition critique :</p>
+            <list>
+              <item>la <hi>méthode de localisation référencée</hi>, où les entrées d’apparat critique sont liées aux blocs de texte identifiés qui contiennent les lemmes respectifs</item>
+              <item>la <hi>méthode d’attachement à double point</hi>, où les entrées d’apparat critique sont liées à des ponts de départ et de fin identifiées dans un texte</item>
+              <item>la <hi>méthode de segmentation parallèle</hi>, où les entrées d’apparat critique son encodées au moyen d’une transcription du texte connu invariable et de tous les témoins.</item>
+            </list>
+          </div>
+          <div>
+            <head>Trois approches pour l’enregistrement et l’<hi>alignement</hi> des variantes</head>
+            <p>Les Guidelines proposent trois approches différentes pour aligner des passages textuels lorsque l’on établit une édition critique :</p>
+            <list>
+              <item>la <hi>méthode de localisation référencée</hi>, où les entrées d’apparat critique sont liées aux blocs de texte identifiés qui contiennent les lemmes respectifs</item>
+              <item>la <hi>méthode d’attachement à double point</hi>, où les entrées d’apparat critique sont liées à des ponts de départ et de fin identifiées dans un texte</item>
+              <item>la <hi>méthode de segmentation parallèle</hi>, où les entrées d’apparat critique son encodées au moyen d’une transcription du texte connu invariable et de tous les témoins.</item>
+            </list>
+            <p>La méthode par segmentation parallèle est le plus couramment utilisée lors de l’encodage de sources en XML-TEI pour comparer des témoins. Cette méthode correspond également à une méthode de travail pour l’établissement du texte. Mais son emploi qui présente une certain nombre de limites est sujet à discussion.</p>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Segmentation parallèle</head>
+            <list>
+              <item><gi>app</gi> entrée d'apparat critique</item>
+              <item><gi>lem</gi> lemme ou leçon retenue du texte</item>
+              <item><gi>rdg</gi> variante (lecture)</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <app>
+                <lem>remener</lem>
+                <rdg wit="#l-1-C #l-1-D #l-1-E #l-1-F">remettre</rdg>
+                <rdg wit="#l-#-a">conduire dehors</rdg>
+              </app>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Variantes</head>
+            <list>
+              <item><gi>rdgGrp</gi> pour regrouper plusieurs variantes ayant un lien entre elles</item>
+              <item><att>type</att> pour catégoriser la variante</item>
+              <item><att>cause</att> pour expliciter la cause de la variante</item>
+            </list>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Tableau de tradition</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <listWit>
+                <witness xml:id="A">
+                  <msDesc>
+                    <msIdentifier>
+                      <country>France</country>
+                      <settlement>Paris</settlement>
+                      <repository>Archives nationales</repository>
+                      <collection>Monuments ecclésiastiques</collection>
+                      <idno>S 2364 n° 5</idno>
+                    </msIdentifier>
+                  </msDesc>
+                </witness>
+                <witness xml:id="B">
+                  <msDesc>
+                    <!-- ... -->
+                  </msDesc>
+                </witness>
+                <!-- répéter l'élément witness autant de fois que de témoins -->
+              </listWit>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Localisation référencée</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <div type="alignmentText" xml:id="cAlignmentText">
+                <linkGrp>
+                  <!-- Front -->
+                  <link target="#c1Front #c2Front"/>
+                  <link target="#c1FrontFr #c2FrontFr02"/>
+                  <link target="#c1FrontFr01 #c2FrontFr01"/>
+                  <link
+                    target="#c1FrontFr01.p001 #c2FrontFr01.p001"/>
+                  <!-- ... -->
+                </linkGrp>
+              </div>
+            </egXML>
+          </div>
+        </div>
+      </div>
+    </body>
+    <back>
+      <div type="slide" xml:lang="fr">
+        <div>
+          <head>Exemple d’<ref target="ex04-witness.html">apparat critique</ref></head>
+          <note><ref target="#index">Revenir au début</ref></note>
+          <note><ref target="00-programme.html">Programme</ref></note>
+        </div>
+      </div>
+    </back>
+  </text>
+</TEI>

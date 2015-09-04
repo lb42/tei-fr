@@ -1,0 +1,338 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title/>
+         </titleStmt>
+         <publicationStmt>
+            <p>from markdown</p>
+         </publicationStmt>
+        <sourceDesc>
+          <p>emchateau, ENC 2015</p>
+        </sourceDesc>
+      </fileDesc>
+     <revisionDesc>
+       <change when="2015-05-24">conversion du fichier en TEI</change>
+       <change when="2014-10-30">première rédaction</change>
+     </revisionDesc>
+   </teiHeader>
+  <text>
+    <front>
+      <!--<p>title: 07-teiCorpus</p>
+       <p>description: emchateau, ENC 27-30 octobre 2014</p>
+       <p>theme: theme/remark-dark.css</p>
+       <p>name: inverse</p>
+       <p>layout: true</p>
+       <p>class: inverse</p>
+       <p>-\-\-</p>
+       <p>class: center middle</p>-->
+      <titlePage xml:lang="fr">
+        <titlePart>05-Liens et structures complexes</titlePart>
+        <docImprint>Formation TEI | ENC 26-29 mai 2015</docImprint>
+        <note><ref target="00-programme.html">Programme</ref></note>
+      </titlePage>
+      <div type="title">
+        <div>
+          <head>Introduction</head>
+        </div>
+        <div>
+          <head>Introduction</head>
+          <p>On l’a vu, la Text Encoding Initiative fournit un grand nombre de balises dans lesquelles il est possible de puiser pour modéliser son texte. Personne ne les utilise toutes dans le cadre d’un même projet. En d’autres termes, on doit construire des représentations du texte source qui reflètent les phénomènes que l’on observe d’un point de vue structurel, sémantique ou linguistique, et que l’on va modéliser d’après la manière dont on espère les exploiter par la suite. À cet égard, la modélisation XML-TEI est une opération intrinsèque au processus éditorial et qui a directement trait au caractère scientifique de l’édition numérique. Puisqu’il s’agit bel et bien de produire un artefact orienté.</p>
+        </div>
+      </div>
+      <div type="sommaire" xml:lang="fr" xml:id="index">
+        <div>
+          <head>Sommaire</head>
+          <list>
+            <item><ref target="#part1">Les liens</ref></item>
+            <item><ref target="#part2">Les Corpus</ref></item>
+            <item><ref target="#part3">Les figures et facsimili</ref></item>
+          </list>
+        </div>
+      </div>
+    </front>
+    <body>
+      <div type="part">
+        <div type="title" xml:lang="fr" xml:id="part1">
+          <div>
+            <head>Les liens</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <div>
+              <head>Créer des liens</head>
+              <p><gi>ptr</gi> pointeur vers un autre emplacement (élément vide)</p>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <ptr target="url.fr"/>
+              </egXML>
+              <p><gi>ref</gi> référence vers un autre emplacement (complément d’information)</p>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <ref type="note" target="#nH201">Passage annoté</ref>
+              </egXML>
+            </div>
+            <div>
+              <head>Attributs</head>
+              <list>
+                <item>
+                  <att>xml:id</att> ancre pour identifier l'élément de référence</item>
+                <item><att>target</att> spécifie la destination de la référence</item>
+                <item><att>corresp</att> indique un élément correspondant</item>
+              </list>
+            </div>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Notes de commentaire historique</head>
+            <p><code>note</code> élément pour l’enregistrement d’une note</p>
+            <list>
+              <item>soit encodée directement dans le texte</item>
+              <item>soit regroupées à un autre endroit</item>
+            </list>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Le fût de chaque colonne est cannelé de vingt
+                quatre canneaux dans son pourtour<ref
+                  type="noteHistorical" target="#c2Nh0081"/>. En...
+              </p>
+              <!-- ... -->
+              <note xml:id="c2Nh0081"><p>texte de la note</p></note>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Localisation référencée</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <div type="alignmentText" xml:id="cAlignmentText">
+                <linkGrp>
+                  <!-- Front -->
+                  <link target="#c1Front #c2Front"/>
+                  <link target="#c1FrontFr #c2FrontFr02"/>
+                  <link target="#c1FrontFr01 #c2FrontFr01"/>
+                  <link
+                    target="#c1FrontFr01.p001 #c2FrontFr01.p001"/>
+                  <!-- ... -->
+                </linkGrp>
+              </div>
+            </egXML>
+          </div>
+          <div>
+            <head>Localisation référencée</head>
+            <p>L’utilisation d’identifiants uniques rassemble plusieurs avantages, ceux-ci permettent d’identifier précisément, à l’exclusion de tout autre, une unité textuelle ou un passage dans l’un des manuscrits.</p>
+            <p>Ils constituent donc une bonne pratique notamment pour la citabilité.</p>
+            <p>Comme on utilise ici l’attribut global de XML <att>xml:id</att> qui doit nécessairement être unique dans un fichier XML, il y a un contrôle d’unicité (ce contrôle s’applique à l’ensemble du corpus car il est compris dans une arborescence de fichiers XML).</p>
+            <p>Enfin, le fait d’utiliser des identifiants uniques, a surtout l’avantage de permettre de traiter les regroupements de paragraphes, les interversions, les ajouts, indépendamment du manuscrit édité (et donc par la suite éventuellement d’éditer toutes les variantes du texte ou le réemploi des sources XML-TEI dans d’autres projets).</p>
+          </div>
+        </div>
+      </div>
+      <div type="part">
+        <div type="title">
+          <div>
+            <head>Les corpus</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr" xml:id="part2">
+          <div>
+            <head>Macrostructures de texte composite</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <TEI>
+                <teiHeader><!-- ... --></teiHeader>
+                <text>
+                  <front><!-- ... --></front>
+                  <group>
+                    <text>
+                      <front><!-- ... --></front>
+                      <body><!-- ... --></body>
+                      <back><!-- ... --></back>
+                    </text>
+                    <text><!-- ... --></text>
+                    <text><!-- ... --></text>
+                  </group>
+                  <back><!-- ... --></back>
+                </text>
+              </TEI>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Macrostructure</head>
+            <!-- image -->
+          </div>
+          <div>
+            <head>Macrostructure</head>
+            <p>Exemple de l’édition desgodets : Les manuscrits que nous avions à traiter présentaient généralement une structure textuelle relativement commune qui pouvait facilement être prise en charge à l’aide des éléments structurels offerts par la TEI. Il a systématiquement été établi une division tripartite dans l’édition avec les éléments &lt;front&gt; pour les parties liminaires, &lt;body&gt; pour le corps de texte et &lt;back&gt; pour les paries postérieures.</p>
+            <p>À l’intérieur de ces différentes parties, &lt;titlePage&gt; avec ses sous-composants permettait de prendre en charge les pages de titre, et une combinaison des éléments &lt;div&gt;, &lt;p&gt;, &lt;list&gt; et tous ses composants, ainsi que &lt;seg&gt; a paru adaptée et suffisante pour traiter presque tous les cas de figure. Un système de typage des divisions a toutefois été établi pour préciser cette macrostructure en utilisant l’attribut @type. La liste fermée des types de division doit encore être restreinte par le schéma.</p>
+            <p>Pour des groupes de textes, des documents composites, ou des corpus hétérogènes, on aura probablement besoin de structures plus complexes</p>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>teiCorpus</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiCorpus>
+                <teiCorpus>
+                  <TEI>
+                    <!-- témoin manuscrit -->
+                    <teiHeader><!-- ... --></teiHeader>
+                    <text>
+                      <body><!-- ... --></body>
+                    </text>
+                  </TEI>
+                  <TEI>
+                    <!-- témoin manuscrit -->
+                  </TEI>
+                  <TEI>
+                    <!-- témoin manuscrit -->
+                  </TEI>
+                </teiCorpus>
+                <teiCorpus>
+                  <!-- ... -->
+                </teiCorpus>
+              </teiCorpus>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Utilisation de XInclude</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiCorpus xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+                <teiHeader>
+                  <!-- ... -->
+                </teiHeader>
+                <!-- Inclusion du fichier TEI du manuscrit des Ordres (O) -->
+                <xi:include href="o/desgodetsO.tei.xml" parse="xml">
+                  <xi:fallback>Fichier des Ordres non trouvé</xi:fallback>
+                </xi:include>
+                <!-- Inclusion du fichier TEI du manuscrit des Commodités (C) -->
+                <xi:include href="c/desgodetsC.tei.xml" parse="xml">
+                  <xi:fallback>Fichier des Commodités non trouvé</xi:fallback>
+                </xi:include>
+              </teiCorpus>
+            </egXML>
+            <p><ref target="http://www.w3.org/TR/xinclude/">XML Inclusions (XInclude) Version 1.0 (Second Edition), W3C Recommendation 15 November 2006.</ref></p>
+          </div>
+        </div>
+        <div>
+          <div>
+            <head>Utilisation de XInclude</head>
+            <p>Pour faciliter la mise en œuvre du travail (par exemple pour répartir l'encodage entre des participants), il peut parfois être utile de traiter les éléments du corpus dans des fichiers séparés.</p>
+            <p>Pour l’inclusion, on s'appuie ici sur le standard XML du W3C XInclude.</p>
+            <p>Attention ! il ne faut pas oublier de déclarer l'espace de nom XInclude.</p>
+          </div>
+          <div>
+            <head>Utilisation de XInclude</head>
+            <p>équivaut à :</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiCorpus xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+                <teiHeader><!-- ... --></teiHeader>
+                <!-- Inclusion du fichier TEI du manuscrit des Ordres (O) -->
+                <TEI><!-- contenu du fichier TEI --></TEI>
+                <TEI><!-- contenu du fichier TEI --></TEI>
+              </teiCorpus>
+            </egXML>
+          </div>
+        </div>
+      </div>
+      <div type="part">
+        <div type="title" xml:id="part3">
+          <div>
+            <head>Les figures et facsimili</head>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Description des figures (simple)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <figure xml:id="c2Pl0001" type="plate" facs="#c2FacsPl0001">
+                <head>L'église de Sainte-Sabine à Rome</head>
+                <figDesc>Plan de l'église</figDesc>
+                <graphic url="facs/full/facsC2Pl0001.jpg" />
+              </figure>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Description des figures (plus élaborée)</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <figure xml:id="c2Pl0001" type="plate" facs="#c2FacsPl0001">
+                <head>Plan de l'église de Sainte-Sabine à Rome</head>
+                <figDesc>
+                  <locus from="#c2F9v" n="p16">p. 16</locus>
+                  <label>
+                    <num n="1">1</num>
+                  </label>
+                  <title>Plan de l’église de Sainte-Sabine à Rome</title>
+                  <desc>plume et encre noire, lavis</desc>
+                  <dimensions>
+                    <height quantity="21" unit="mm"/>
+                    <width quantity="42" unit="mm"/>
+                  </dimensions>
+                </figDesc>
+              </figure>
+            </egXML>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Traitement des facsimili</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiHeader><!-- ... --></teiHeader>
+              <facsimile corresp="#c2ImagesLicence" xml:id="c2Facs">
+                <surface xml:id="c2FacsPl0001">
+                  <graphic n="full" mimeType="image/jpg"
+                    url="facs/full/facsC2Pl0001.jpg" />
+                  <graphic n="thumb" mimeType="image/jpg"
+                    url="facs/thumbs/facsC2Pl0001.jpg" />
+                </surface>
+                <!-- ... -->
+              </facsimile>
+              <text>
+                <!-- ... -->
+              </text>
+            </egXML>
+          </div>
+          <div>
+            <head>Traitement des facsimili</head>
+            <p>L’élément <gi>facsimile</gi> permet de fournir des artefacts numériques référencés par ailleurs dans le texte.</p>
+          </div>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <div>
+            <head>Traitement des facsimili</head>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <teiHeader><!-- ... --></teiHeader>
+              <facsimile corresp="#c2ImagesLicence" xml:id="c2Facs">
+                <surface xml:id="c2FacsPl0001">
+                  <graphic n="full" mimeType="image/jpg"
+                    url="facs/full/facsC2Pl0001.jpg" />
+                  <graphic n="thumb" mimeType="image/jpg"
+                    url="facs/thumbs/facsC2Pl0001.jpg" />
+                </surface>
+                <!-- ... -->
+              </facsimile>
+              <text>
+                <!-- ... -->
+                <pb facs="#c2Facs"/>
+              </text>
+            </egXML>
+          </div>
+        </div>
+      </div>
+    </body>
+    <back>
+      <div type="title">
+        <div>
+          <head>Pour finir, les <ref target="06-namedEntities.html"
+              >entités nommées</ref></head>
+          <note><ref target="#index">revenir au début</ref> | <ref target="00-programme.html">programme</ref></note>
+        </div>
+      </div>
+    </back>
+  </text>
+</TEI>
