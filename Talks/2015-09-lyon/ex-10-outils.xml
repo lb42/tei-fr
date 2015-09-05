@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Outils web pour l'affichage des documents TEI </title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>mai 2014</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      
+      <p>Dans cet exercice, nous allons expérimenter deux systèmes modestes pour afficher les
+      documents TEI XML sur le web.
+      </p>
+      <div>
+        <head>TEI Boilerplate</head>
+        <p>Il s'agit d'un outil élaboré par John Walsh de l'Université
+          d'Indiana sous le nom de TEI Boilerplate. Vous pouvez le télécharger du site <ptr
+            target="http://teiboilerplate.org"/>, où vous trouverez également des renseignements sur
+          la motivation et les particularités de ce projet si cela vous interesse (en anglais,
+          seulement). </p>
+        <list>
+          <item>Téléchargez le fichier <ident>TEI-Boilerplate.zip</ident> sur votre bureau ou
+            ailleurs  </item>
+          <item>Après avoir dézippé l'archive quelque part (peu importe où), vous aurez un dossier
+              <ident>TEI-Boilerplate-master</ident>, qui contient entre autre un dossier
+              <ident>content</ident>. Il faut copier tous les fichiers que vous souhaitez afficher
+            avec TEI Boilerplate dans ce dossier. </item>
+          <item>Pour faire fonctionner Boilerplate, il faut aussi ajouter au début des fichiers un
+              <term>processing instruction</term></item>
+        </list>
+        <p>Nous ne disposons pas d'un serveur web, mais la même démarche serait nécessaire en ce
+          cas. L'intérêt principal de TEI Boilerplate (à part sa simplicité) est qu'il vous permet
+          de contrôler directement l'affichage des parties de votre document en associant des
+          stylages CSS avec ces éléments TEI, sans nécessité de conversion HTML intermédiaire. </p>
+        <list>
+          <item>Réouvrez un de vos fichiers bien balisés, ou bien le fichier
+              <ident>pv61-corr.xml</ident> avec oXygen</item>
+          <item>Insérez au début de fichier cette formule magique <code> &lt;?xml-stylesheet
+              type="text/xsl" href="teibp.xsl"?> </code></item>
+          <item>Enregistrez cette version du fichier dans le dossier <ident>content</ident></item>
+          <item>Si vous souhaitez les afficher, il faut aussi copier les fichiers images
+              <ident>pv61_07.png</ident> etc. dans ce même dossier.</item>
+          <item>Lancez votre navigateur web préfére (chrome, firefox, explorer ...) et 
+            retrouvez l'option qui permet d'ouvrir un fichier local (pour firefox, cette option se trouve sur
+            le menu <ident>Fichier</ident>)</item>
+          <item>Naviguez jusqu'au fichier modifié que vous venez d'enregistrez dans le dossier
+              <ident>content</ident> et ouvrez-le</item>
+        </list>
+        <p>Joli, hein? Si vous avez bien fait, les pages images sont disponibles en parallèle, en
+          cliquant sur l'icône à droite de l'écran. Mais par défaut, la présence des noms de
+          personnes, de lieux, etc. n'est pas signalée. Nous allons régler cela en ajoutant des
+          spécifications à l'entête.</p>
+        <list>
+          <item>Revenez dans votre fichier XML en oXygen</item>
+          <item>Mettez le curseur juste après la balise fermante du <gi>fileDesc</gi></item>
+          <item>Sélectionnez <ident>Fichier -> Insérer un fichier</ident> dans le menu
+              <ident>Document</ident> et insérez le fichier <ident>renditions.xml</ident> que vous
+            trouvez dans votre dossier <ident>Travaux</ident></item>
+          <item>N'oubliez pas d'enregistrer cette nouvelle version de votre fichier au bon
+            endroit. </item>
+          <item>Rechargez le fichier dans votre navigateur. Cest mieux?</item>
+        </list>
+        <p>Comment est-ce que cela marche? L'élément <gi>tagsDecl</gi> (déclaration de balises) que
+          vous venez d'ajouter contient deux parties. D'abord, il y a une série de déclarations
+          comme par exemple <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <rendition xml:id="blue" scheme="css"> color:blue; </rendition></egXML> Chacune de ces
+          déclarations définit un style d'affichage. En ce cas, le style porte l'identifiant
+            <code>blue</code>. Le style concerné est exprimé en langue CSS (une langue standard W3C
+          pour la définition des styles). Par exemple, le style <code>blue</code> va afficher du
+          texte bleu, le style <code>i</code> va afficher du texte en italique etc.</p>
+        <p>En dessous, il y an un élément <gi>namespace</gi> qui contient une série de déclarations
+          comme ceci: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <namespace name="http://www.tei-c.org/ns/1.0">
+              <tagUsage gi="placeName" render="#blue"/>
+              <tagUsage gi="orgName" render="#i #blue"/> ...</namespace></egXML>
+        </p>
+        <p>Ces déclarations servent à spécifier que toute occurrence de l'élément <gi>placeName</gi>
+          sera affichée (par défaut) en bleu (plus précisement, avec le style identifié par
+            <code>blue</code>) : d'ailleurs tout occurrence de <gi>orgName</gi> sera affiché en bleu
+          et aussi en italique. </p>
+        <p>Si par contre vous souhaitez modifier l'affichage d'un seul élément dans votre document,
+          vous pouvez l'indiquer en utilisant l'attribut <att>rendition</att> pour pointer sur le
+          style concerné. Essayez, par exemple, de faire en sorte que le deuxième item soit affiché
+          en italique: il suffit de modifier sa balise ouvrante ainsi : <code>&lt;item n="2"
+            rendition="#i"></code></p>
+        <p>Continuez vos explorations... Vous trouverez dans le fichier <ident>teibp.xml</ident> une
+          liste plus complète des styles ce dont vous pourriez vous servir.</p>
+      </div>
+      <div>
+        <head>Extraction de données avec une feuille de style XSLT</head>
+        <p>TEI Boilerplate nous propose l'affichage de nos documents XML mais il est moins bien
+          adapté pour en extraire de données ou pour les enrichir. Par contre, une feuille de style
+          XSLT nous permettrait d'extraire des données, de réorganiser, ou d'enrichir un document
+          sans problème. Dans cette deuxième partie de l'exercice nous proposons d'afficher une
+          liste des personnes mentionnées dans le document, séparamment du document lui même, en
+          nous servant d'une feuille de style déjà disponible. </p>
+        <p>D'abord il faut indiquer où dans notre document nous souhaitons voir la liste générée. <list>
+            <item>Rouvrez votre document XML TEI avec oXygen (la version originelle, non pas celle que vous venez de modifier pour Boilerplate)</item>
+            <item>Insérez un élément <gi>front</gi> comme premier composant de l'élément
+                <gi>text</gi> (i.e. <emph>avant</emph> le début de l'élément <gi>body</gi>) si votre
+              document ne contient pas encore cet élément</item>
+            <item>Au sein de cet élément <gi>front</gi>, insérez un élément <gi>divGen</gi> de type
+                <code>namelist</code></item>
+            <item>Ainsi <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <front><divGen type="namelist"/></front>
+              </egXML></item>
+            <item>N'oubliez pas d'enregistrer le fichier!</item>
+          </list></p>
+        <p>Nous avons besoin d'une transformation XSLT qui va retrouver tous les noms de
+          personnes référencés dans le document, les trier par ordre alphabétique, éliminer les
+          doublons, et enfin afficher une liste bien stylisée à l'endroit où nous avons inséré
+          l'élément <gi>divGen</gi>. Cette transformation doit également transformer la suite du
+          document en HTML. C'est un emploi classique des TEI Stylesheets -- et en effet on l'a déjà
+          effectué pour un projet francais qui concerne l'archive de l'OuLiPo. Ce stylesheet
+          est donc déjà accessible ce qui simplifie beaucoup notre démarche...</p>
+        <list>
+          <item>Dans votre browser, visitez <ptr target="www.tei-c.org/oxgarage/"/></item>
+          <item>Sélectionnez TEI P5 XML comme format de saisi (input format) et XHTML comme format
+            de sortie (output format)</item>
+          <item>Naviguez jusqu'au fichier que vous venez de modifier dans l'étape précédente, et 
+            sélectionnez-le</item>
+          <item>Avant de cliquer sur le bouton <ident>Convert</ident>, cliquez <ident>Show advanced
+              options</ident></item>
+          <item>Sélectionnez <ident>oulipo</ident> dans la liste des profiles qui s'affiche</item>
+          <item>Ensuite, cliquez sur <ident>Convert</ident> et patientez ... </item>
+          <item>Enregistrez le fichier HTML envoyé par oxGarage quelquepart sur votre bureau </item>
+      <!--  </list>
+        <p><graphic url="../Graphics/saveOutput.png" height="11cm"/>(Ceci est le dialog de Firefox:
+          d'autres navigateurs peuvent se comporter d'autres manières)</p>
+        <list>-->
+          <item>Ouvrez ce fichier avec votre navigateur et regardez le joli <hi>index nominorum</hi>
+            généré au début du fichier. </item>
+        </list>
+        <p>Enfin, nous vous invitons de considérer les questions suivantes : <list>
+            <item>Quelles modifications souhaiterez vous apporter à l'affichage de votre document? </item>
+            <item>Est-ce que ces modifications nécessiteraient des modifications à l'encodage XML de
+              votre document?</item>
+            <item>Quels sont les (dés)avantages de ces deux méthodes? (affichage direct comme
+              Boilerplate vs. transformation en HTML)</item>
+          </list>
+        </p><p>S'il vous reste du temps, essayez d'afficher une (ou plusieurs) de vos cartes postales avec Boilerplate! </p>
+      </div>
+    </body>
+  </text>
+</TEI>

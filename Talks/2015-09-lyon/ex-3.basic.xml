@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Un encodage TEI</title>
+        <author>Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>TEI</publisher>
+        <availability>
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>mai 2014</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Some bits may be lifted from previous talks/workshops by the TEI Community.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+   
+        <p>Dans cet exercice, nous allons nous servir d'oXygen pour : <list>
+            <item>le balisage structurel d'un document existant </item>
+            <item>l'addition automatique des balises TEI à un document OCRisé</item>
+          </list>
+        </p>
+        <p>Comme cas d'étude nous prenons un document concret les <title>Exercices</title> du CCMAA.
+          Dans votre dossier <ident>Travaux</ident> vous trouverez des fichiers page-image, et des
+          fichiers de texte OCRisé, tous les deux extraits automatiquement d'un fichier PDF. Les
+          fichiers sont nommés de manière constante  <code>pv</code> (procès-verbal) ou
+            <code>rapport</code>, suivi du numéro du procès ou du rapport, et (dans le cas des
+          fichiers images, type <code>.png</code>) le numéro de la page. Vous trouverez également
+          l'ensemble des images sur <ptr target="http://www.islamic-art.org/comitte/BArchMain.asp "
+          />. </p>
+        <p>Nous proposons deux étapes distinctes pour ce travail: <list type="ordered">
+            <item>correction textuelle du fichier OCRisé</item>
+            <item>conversion en doc TEI valide</item>
+          </list>
+        </p>
+      
+      <div>
+        <head>Correction du fichier OCRisé </head>
+        <p>C'est un travail fastidieux et inintéressant, mais nécessaire. D'un point de vue technique
+          il n'y a pas grand chose à dire là dessus : il faut faire une relecture attentive et
+          corriger les fautes d'OCR sous contrôle des pages images, voilà tout. Cela pourrait peut-être s'effectuer comme un travail collectif
+          en mode crowd sourcing par exemple sur Google Docs ou avec n'importe quel autre outil en
+          ligne ou locale. </p>
+        <p>Nous vous proposons en tout cas de profiter d'un travail de correction déjà fait! Dans le
+          fichier <ident> pv61.txt</ident> vous trouverez une version plus ou moins exacte du
+          premier Procès Verbale du livre que nous allons traiter dans la suite de ces exercices.
+          (Pour les curieux un morceau de la version originale est aussi disponible dans le fichier
+            <ident>pv61-debut-orig.txt</ident>)</p>
+      </div>
+      <div>
+        <head>Création d'un document TEI</head>
+        <p>Comme toujours quand on crée un document TEI XML, il faut penser au schéma concerné.
+          Demain, nous allons voir l'interêt de créer un schéma plus adapté à notre projet ; pour le
+          moment nous nous contentons d'un schéma très générique, qui permet de faire tout ce qui est
+          possible dans la TEI. </p>
+        <list>
+          <item>Démarrez oXygen....</item>
+          <item>Cliquez sur l'icône Nouveau en haut à gauche (ou sélectionnez Nouveau du menu
+            Fichier, ou tapez CTRL-N) pour ouvrir la boîte de dialogue Nouveau</item>
+          <item>Dans le dialogue Nouveau, choisissez <ident>Cadre des modèles</ident>, ensuite
+              <ident>TEI P5</ident>, puis <ident>All</ident>, pour sélectionner le schéma TEI-All. </item>
+          <item>Cliquez le bouton <ident>Créer</ident> en bas. Un document gabarit s'affiche que
+            nous allons compléter. </item>
+          <item>Pour l'instant nous laissons de côté le TEI Header. Enlevez d'abord le contenu du
+              <gi>body</gi> (<code>&lt;p>Some text here.&lt;/p></code>). Nous allons remplacer cela. </item>
+          <item>Notre document n'est plus conforme : le <gi>body</gi> doit contenir un autre élément
+            (vous voyez en bas une liste des possibilités assez nombreuses offertes par ce schéma)</item>
+          <item>Tapez <code>&lt;div type="proces"></code></item>
+          <item>oXygen ajoute la balise fermante <code>&lt;/div></code> et le curseur reste en
+            attente de contenu pour cet élément <gi>div</gi></item>
+          <item>Dans le menu <ident>Document</ident>, sélectionnez <ident>Fichier</ident>, et
+            ensuite <ident>Insérer un fichier</ident> ; puis naviguez jusqu'au fichier
+              <ident>pv61.txt</ident> dans le dossier Travaux et séléctionnez-le.</item>
+          <!-- problem if Windows doesnt recognise this as a Unicode file :    resolved by doing cut and paste -->
+          <item>Votre document est plein de taches rouges! ne vous inquiétez-pas...</item>
+        </list>
+      </div>
+      <div>
+        <head>Balisage minimale de la structure du document</head>
+        <list>
+          <item>En tête du document se trouvent les titres. Sélectionnez avec la souris toute l'étendue
+            de texte <code>COMITE DE CONSERVATION...Proces-verbal no 61</code>. </item>
+          <item>Tapez CTRL-E, et balisez ce morceau de texte comme <gi>head</gi></item>
+          <item>Mettez le curseur entre <code>ARABE</code> et <code>Procès</code>. Tapez ALT-MAJ-D
+            pour diviser en deux ce <gi>head</gi>. </item>
+          <item>De la même façon, sélectionnez l'étendue de texte de <code>(Voir</code> jusqu'à
+              <code>étaient presents</code> et balisez-le comme deux éléments <gi>p</gi></item>
+          <item>Sélectionnez la liste des noms de personnes présentes, et balisez-la d'abord comme
+            une <gi>list</gi> avec CTRL-E </item>
+          <item>Le texte de la liste reste séléctionné, qui vous permet de le baliser encore avec
+              <gi>item</gi></item>
+          <item>Divisez ce seul item en plusieurs, un pour chacun des noms, de sorte que le début de
+            votre document maintenant ressemble à ceci :</item>
+        </list>
+        <p><graphic url="../Graphics/pv-start.png" height="8cm"/></p>
+        <list>
+          <item>Effectivement, le reste du document est encore un <gi>list</gi>. Donc, même jeu :
+            séléctionnez tout le document à partir de <code>1° Lecture est faite</code> jusqu'à la
+            fin du document inséré, juste avant la balise <tag>/div</tag>.</item>
+          <item>Avec CTRL-E, balisez tout cela avec un <gi>list</gi>, et puis avec un <gi>item</gi>
+          </item>
+          <item>Toutes les taches rouges disparaissent! Est-ce que votre document est valide? Oui au
+            sens syntaxique, mais evidemment non, parce qu'il est plein de mensonges! Cette liste
+            devrait contenir plus d'un seul <gi>item</gi>!</item>
+          <item>Remonter au début du document. Mettez le curseur devant le chiffre <code>2°</code>
+            qui signale le début du deuxième item. Tapez CTRL-E.</item>
+          <item>Faites pareil pour tous les items numérotés qui suivent ... attention à celui
+            numéroté 4! Il contient une liste imbriquée avec trois items, numérotés <code>a)</code>
+            <code>b)</code> (qui lui même contient <emph>encore</emph> une liste de deux items
+            numérotés 1° et 2° ) et <code>c)</code> ... </item>
+          <item>Pour contrôler si vos listes sont bien structurées, vous pouvez utiliser la vue
+              <ident>Sommaire</ident>: séléctionner <ident>afficher la vue</ident> dans le menu <ident>Fenêtre</ident>
+            et choisir Sommaire pour l'afficher si nécessaire. Il devrait ressembler à ceci: </item>
+        </list>
+        <p><graphic url="../Graphics/pv-sommaire.png" height="7cm"/></p>
+</div><div><head>Balisage d'une table  </head>      <p>A la fin de la page 8, dans l'<gi>item</gi> 5°, on voit cette petite table : </p>
+        <p><graphic url="../Graphics/pv-table.png" height="5cm"/>.</p>
+        <p>Comment baliser cela? La TEI nous propose les balises <gi>table</gi>, contenant des
+            <gi>row</gi> (rang), contenant des <gi>cell</gi> (cellule). Vous pouvez utiliser la même
+          stratégie que vous avez déjà apprivoisée pour les listes...</p>
+        <list>
+          <item>Sélectionnez tout le contenu de la liste, de <code>TRAITEMENT ACTUEL</code> jusqu'à
+              <code>Total 336</code></item>
+          <item>En utilisant CTRL-E, balisez cela avec <gi>table</gi>, puis avec <gi>row</gi>, puis
+            avec <gi>cell</gi></item>
+          <item>Le premier rang contient les titres des colonnes. La première colonne n'a aucun
+            titre, donc il faut ajouter un <gi>cell</gi> vide : mettez votre curseur
+              <emph>avant</emph> le mot <code>TRAITEMENT</code> et diviser le <gi>cell</gi> avec
+            ALT-MAJ-D</item>
+          <item>Diviser encore, après le mot <code>ACTUEL</code>, après le mot <code>CLASSE</code>,
+            et après le mot <code>ALLOUE</code>
+          </item>
+          <item>Maintenant il faut diviser non pas les <gi>cell</gi>, mais les <gi>row</gi>. Pour
+            faire cela, mettez le curseur <emph>avant</emph> la balise <gi>cell</gi> que vous venez
+            d'ajouter. Cette balise devrait indiquer le début de la première cellule du deuxième rang.
+            Tapez ALT-MAJ-D pour créer ce deuxième rang, et voilà !</item>
+          <item>Maintenant, considérons les deux mentions <code>L.E.</code>. Par simplicité, nous
+            vous proposons de les considérer comme des labels de colonnes, et donc d'ajouter des
+              <gi>cell</gi> vides autour d'eux. Mettez le curseur avant le premier <code>L.E.</code>
+            et divisez avec ALT-MAJ-D.</item>
+          <item>Mettez le curseur avant le deuxième <code>L.E.</code> et divisez encore -- et
+            encore, car le deuxième s'applique au 4ème colonne, non pas au 3ème.</item>
+          <item>Mettez le curseur avant le mot <code>Elias</code> et divisez encore. </item>
+          <item>Maintenant on va créer le 3ème rang. Mettez le curseur avant la balise <gi>cell</gi>
+            qui précède le mot Elias, et divisez !</item>
+          <item>Continuez ainsi... si tout va bien, dans la vue <ident>Sommaire</ident> vous allez voir quelque
+            chose comme ceci :</item>
+        </list>
+        <p><graphic url="../Graphics/pv-table-sommaire.png" height="5cm"/></p>
+      </div>
+      <div>
+        <head>Balisage des pages</head>
+        <p>Notre balisage se focalise sur la structuration logique du document : il est aussi très
+          utile de représenter quelques aspects de sa structuration physique, notamment d'indiquer
+          les frontières des pages, qui sont indiquées dans cette transcription par des lignes
+          telles que <code>--12--</code>, indiquant le début de la page numérotée 12. </p>
+        <p>oXygen intègre plusieurs outils pour faire systématiquement des recherches et des
+          remplacements dans le texte Nous allons nous servir d'une recherche par <term>expression
+            régulière</term>, pour retrouver tous ces codes et puis les remplacer avec la balise
+          souhaitée (<gi>pb</gi>)</p>
+        <list>
+          <item>Mettez le curseur au début du document</item>
+          <item>Sélectionnez <ident>Rechercher/Remplacer</ident> dans le menu
+              <ident>Recherche</ident> (ou tapez CTRL-F)</item>
+          <item>Dans la fenêtre de  dialogue qui s'affiche: <list>
+              <item>Tapez <code>--(\d+)--</code> dans la fenêtre <ident>Texte à rechercher</ident>
+              </item>
+              <item>Tapez <code>&lt;pb facs="pv61_\1.png" n="\1"/></code> dans la fenêtre
+                  <ident>Remplacer par</ident></item>
+              <item>En bas, cochez la case <ident>Expression régulière</ident></item>
+            </list></item>
+          <item>Cliquez le bouton <ident>Tout remplacer</ident></item>
+        </list>
+        <p><graphic url="../Graphics/pv-recherche.png" height="8cm"
+          /></p>
+      </div>
+      <div>
+        <head>Pour terminer...</head>
+        <p>Il y a évidemment beaucoup de choses qui restent à faire pour enrichir notre
+          balisage. Nous terminerons avec quelques propositions d'amélioration que nous vous invitons
+          à explorer... </p>
+        <list>
+          <item>Tout au fond du document il y a la phrase <code>La séance est levée...</code> suivi
+            des signatures. Cela ne fait pas partie du 19ème item! Enlever ces deux phrases, et
+            mettez-les dans une meilleure situation. Vous pouvez les baliser avec <gi>p</gi>, ou
+            avec les balises plus spécifiques <gi>closer</gi> et <gi>signed</gi></item>
+          <item>La numérotation des items n'est pas forcément une partie de leur contenu. Vous
+            pourriez systématiquement enlever les <code>2°</code>, <code>3°</code> etc. Si vous
+            souhaitez les garder vous pourriez les encoder comme valeur d'un attribut <att>n</att>
+            par ex <code>&lt;item n="2°">Le proces-verbal...&lt;/item></code></item>
+          <item>Il y a plusieures phrases qui sont des renvois, comme par exemple <code>Voir le 157°
+              rapport de la deuxième Commision</code>. Vous pourriez les baliser avec
+            <gi>ref</gi></item>
+          <item>Ajouter le numéro du procès-verbal (61) comme valeur d'un attribut <att>n</att> sur
+            le <tag>div type="proces"</tag>
+          </item>
+          <item>Il y a des descriptions bibliographiques, notamment dans le 14ème item, que vous
+            pourriez baliser avec <gi>bibl</gi></item>
+          <item>Il reste encore une liste à encoder dans le 15ème item </item>
+          <item>Il y a des noms de personnes et de lieux partout : on reviendra sur cet aspect plus tard; donc
+            laissez cela pour l'instant</item>
+          <item>Il y a toujours l'entête (<gi>teiHeader</gi>) ... que nous allons aborder tout de
+            suite !</item>
+        </list>
+        <!--p>S'il vous reste du temps, nous vous invitons de répéter cet exercice avec un des Rapports
+          : <ident>rapport161.txt</ident> par exemple est déjà corrigé des fautes OCR ! </p-->
+        <p>N'oubliez pas d'enregistrer votre travail : nous allons le retravailler plus tard.
+        </p>
+      </div>
+    </body>
+  </text>
+</TEI>
