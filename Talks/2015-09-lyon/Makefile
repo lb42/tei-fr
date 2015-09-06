@@ -20,7 +20,7 @@ EXERCISES= \
 	ex-3-basic \
 	ex-4-header \
 	ex-5-roma \
-	ex-6-msDesc \
+	ex-6-msdesc \
 	ex-7-transcr \
 	ex-8-names \
 	ex-9-cartes \
