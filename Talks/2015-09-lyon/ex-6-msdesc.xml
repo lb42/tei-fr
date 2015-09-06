@@ -27,18 +27,16 @@
 
         <p>Dans votre dossier <ident>Travaux</ident> retrouvez le fichier <ident>msDesc.xml</ident>,
           et ouvrez-le avec oXygen. C'est une description tres basique que nous avons telechargee du
-          site eCodices (). Vous trouverez egalement une jolie version PDF du meme site dans le fichier
-        <ident>msDesc.pdf</ident></p>
+          site eCodices (). Vous trouverez egalement un saisi d'ecran de la description, telle
+          qu'elle est affichee sur le site. Ce dernier (fichier <ident>msDesc.png</ident>) va nous
+          aider a distinguer les parties de cette description, meme si on n'est pas germanophone. </p>
 
-
-        <p>The information to categorise our manuscript description will be taken from a the PDF of
-          the description. There is no requirement with TEI <gi>msDesc</gi> to divide it into all
-          the possible categories of information, instead all it requires is at least a
-            <gi>msIdentifier</gi>, other information could be stored in a few accompanying
-          paragraphs. This is useful for the retrospective conversion of catalogues in other legacy
-          formats to TEI XML. However, in our case we want to make as structured a version as we
-          can. The current <gi>msDesc</gi> looks like: <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
+        <p>Comme vous le savez, la seule partie obligatoire d'un <gi>msDesc</gi> est son
+          identifiant, le <gi>msIdentifier</gi>. Tout autre renseignement peut etre balise avec un
+          ou plusiers paragraphes. Cela simplifie la vie pour la conversion retrospective des
+          catalogues existants, mais nous empeche de profiter au maximum de l'informatisation de ce
+          catalogue. Nous proposons dans cet exercice d'enrichir le balisage minimal qui suit:
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <msDesc xml:lang="de" xml:id="zbz-C0010i">
               <msIdentifier>
                 <settlement>Zürich</settlement>
@@ -62,68 +60,64 @@
                 Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
                 56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
             </msDesc>
-          </egXML> You will notice this manuscript description is in German(the xml:lang="de" on the
-            <gi>msDesc</gi> element). You do not need to know German to recatalogue it since we have
-          the PDF output as an indication. Each of the paragraphs covers a different kind of output
-          in a standard manuscript descript. </p>
-        <p>
-          <hi rend="bold">Don't worry that your file will be invalid for large parts of this
-            exercise. You should get a <hi rend="italic">happy green square</hi> at the end of
-            it.</hi>
+          </egXML>
         </p>
-      </div>
 
+        <list>
+          <label>Identifiant</label>
+          <item>La presence d'un <gi>msIdentifier</gi> au debut d'un <gi>msDesc</gi> est
+            obligatoire, ainsi que la sequence de ces composants. Supposant que nous souhaitons
+            preciser qu'il s'agit de la ville de Zurich en Suisse, et non pas de celle au Canada ou
+            aux Etats Unis, ajoutez un element <gi>country</gi> dans le bon endroit. </item>
+          <label>Sommaire</label>
+          <item>L'element <gi>head</gi> que vous connaissez deja peut etre utilise dans un
+              <gi>msDesc</gi> pour fournir une description breve, comme celle du premier paragraphe
+            de notre <gi>msDesc</gi>. Transformez ce premier <gi>p</gi> donc en
+            <gi>head</gi> (avec le curseur a l'interieur de la balise <gi>p</gi> vous pouvez effectuer cela en utilisant la commande
+            <code>Document - Markup - Rename element </code>)
+         Ce paragraphe en effet contient trois sous-parties: <list>
+              <item>Un titre (<mentioned>Passionarius maior</mentioned>) en Latin, a baliser donc
+                avec <tag>title xml:lang="la"</tag></item>
+              <item>Une mention du lieu d'origine de ce manuscrit (<mentioned>St.
+                Gallen</mentioned>), a signaller avec la balise specifique <gi>origPlace</gi></item>
+              <item>Une mention de la date supposee d'origine du manuscrit, a signaller avec la
+                balise specifique <gi>origDate</gi></item>
+              <item>La mention <code>9. Jahrh</code> signifie <q>neuvieme siecle</q>; pour rendre
+                cette expression plus precise, utilisez les attributs <att>notBefore</att> and
+                  <att>notAfter</att></item>
+ </list>
+            Le premier <gi>p</gi> est maintenant remplace par:
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <head>
+                <title>Passionarius maior</title>
+                <origPlace>St. Gallen</origPlace>
+                <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
+              </head>
+            </egXML> </item>
+        
+        <label>Sommaire du contenu</label>
+          <item>Le paragraphe suivant contient une serie de renseignements sur le contenu du manuscrit. Remplacez ce <gi>p</gi> par <gi>msContents</gi> donc. Il contient
+            quatre items distincts, chacun suivi d'un point-virgule et commencant avec une indication d'ou il se trouve dans le manuscrit, son locus. Donc on balise chacun avec 
+            <gi>msItem</gi>, et (a l'interieur du <gi>msItem</gi>), on balise le locus avec <gi>locus</gi>, le titre (par ex. <q>Vita s. Areleffi</q>) avec <gi>title</gi>, et 
+            la reference bibliographique (par ex <q>BHL. Nr. 1568</q>) avec <gi>bibl</gi>. Ce qui nous donne
+            
+            <list>
+              <item><mentioned>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568);</mentioned> devient <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <msItem>
+                  <locus from="1v" to="7r">pp. 1v-7r</locus>
+                  <title>Vita s. Areleffi</title>
+                  <bibl>(BHL. Nr. 1568)</bibl>
+                </msItem>
+              </egXML></item><item>Le deuxieme msItem (<mentioned>273r-273v, Vita s. Elegii, (BHL. Nr. 2477);</mentioned>) est pareil</item><item>Le troiseme ne contient pas de titre, e</item>
+            </list>et utilisez
+            CTRL-E pour balisez  chacun des items distincts par un element <gi>msItem</gi>. Par exemple, le premier item  n effet 
+            ;la phrasre Unvollständige Inhaltsangabe, (12. Jahrh.) set traduit par Unvollständige Inhaltsangabe, (12. Jahrh.)
+            comme ceci <q></q>: un point-virgfule.
+            pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568);</item>
+        </list>
 
-
-      <div>
-        <head>Look at the <gi>msIdentifier</gi></head>
-        <p>Every <gi>msDesc</gi> must have an <gi>msIdentifier</gi> and this must be structured with
-          the element allowed inside it. You need an <gi>msIdentifier</gi> because if you have no
-          way to refer to the object (its name, id number, where it is) then it will be hard to
-          write a description of it.</p>
-        <p>Note how elements are prescribed to appear in a particular order (from greatest level of
-          granularity to more specific). Notice that most elements cannot be repeated (some like
-            <gi>collection</gi> and <gi>altIdentifier</gi> can be). </p>
-      </div>
-
-      <div>
-        <head>Giving our description a <gi>head</gi></head>
-        <p>The <gi>head</gi> element is used for headings in divisions, but also has a special use
-          in manuscript descriptions to provide a place for easy summary information for the
-          description. <list>
-            <item>In this case immediately after the closing <tag>/msIdentifier</tag> you should
-              rename the first paragraph element to <gi>head</gi></item>
-            <item>Removing any stray commas as you go, you should then mark "Passionarius maior" as
-              a <gi>title</gi></item>
-            <item>"St. Gallen" is its place of origin. The TEI provides a special element (other
-              than <gi>placeName</gi> to mark place of origin. This is called <gi>origPlace</gi>.
-              Use this to wrap around "St. Gallen".</item>
-            <item>The "9. Jahrh" refers to the 9th Century. Like <gi>origPlace</gi> the TEI also
-              provides <gi>origDate</gi> for an origin date. Wrap this around "9. Jahrh.".</item>
-            <item>We can be more specific with the <gi>origDate</gi> and give it some attributes
-                <att>notBefore</att> and <att>notAfter</att> [Note: although these are printed with
-              an "@" in front of them, that is just a convention to note they are attributes, there
-              is not an "@" in the XML file.] These take dates in a YYYY (or YYYY-MM or YYYY-MM-DD)
-              format. If we want to say the 9th Century provide a <att>notBefore</att> attribute of
-              "0800" and a <att>notAfter</att> date of "0899". (Yes, we could be more specific down
-              to the day if we were being really pedantic.)</item>
-            <item>Basically, you should take this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
-              </egXML> and make it into: <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                <head>
-                  <title>Passionarius maior</title>
-                  <origPlace>St. Gallen</origPlace>
-                  <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
-                </head>
-              </egXML>
-            </item>
-          </list>
-        </p>
-      </div>
-
-
-
-      <div>
+      
         <head>Providing an <gi>msContents</gi></head>
         <p>The next paragraph has some basic information for creating an <gi>msContents</gi>
           element. This is filled with a series of bibliographic references and other notes
@@ -338,18 +332,7 @@
         </p>
       </div>
 
-      <!-- Saving Your Work -->
-      <div>
-        <head>Saving Your Work</head>
-        <p> Let's save our work: <list>
-            <item>Is your work well-formed? Do you have a happy green square or an angry red one? If
-              it is an angry red one, make sure you solve any problems before saving!</item>
-            <item>Have you formatted and indented your work automatically? </item>
-            <item>From the 'File' menu select 'Save' or click on the Save icon (looks like a
-              old-style 3.5" disk).</item>
-            <item>Or if you prefer use the 'File' then 'Save As' menu item to save the file.</item>
-          </list></p>
-      </div>
+
     </body>
   </text>
 </TEI>
