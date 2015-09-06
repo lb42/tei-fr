@@ -3,8 +3,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Creating  a Manuscript Description</title>
-        <author>James Cummings</author>
+        <title>Creation d'une description de manuscrit</title>
       </titleStmt>
       <publicationStmt>
         <publisher>DEMM</publisher>
@@ -21,314 +20,321 @@
   <text>
     <body>
       <div>
-        <head>Learning Outcomes</head>
-        <p>When you successfully complete this exercise you should be able to: <list type="bulleted">
-            <item>Modify a text manuscript description to provide more structure</item>
-            <item>Understand the general categories of manuscript description </item>
-            <item>Have some experience editing a <gi>teiHeader</gi></item>
-          </list>
+        <head>Sommaire</head>
+        <p>L'objet de cet exercice est de vous introduire les composants potential d'une description
+          standardisee de manuscrit. Vous allez elaborer une description existante, pour lui donner
+          plus de precision, et ainsi connaitre les composants du <gi>msDesc</gi> TEI. </p>
+
+        <p>Dans votre dossier <ident>Travaux</ident> retrouvez le fichier <ident>msDesc.xml</ident>,
+          et ouvrez-le avec oXygen. C'est une description tres basique que nous avons telechargee du
+          site eCodices (). Vous trouverez egalement une jolie version PDF du meme site dans le fichier
+        <ident>msDesc.pdf</ident></p>
+
+
+        <p>The information to categorise our manuscript description will be taken from a the PDF of
+          the description. There is no requirement with TEI <gi>msDesc</gi> to divide it into all
+          the possible categories of information, instead all it requires is at least a
+            <gi>msIdentifier</gi>, other information could be stored in a few accompanying
+          paragraphs. This is useful for the retrospective conversion of catalogues in other legacy
+          formats to TEI XML. However, in our case we want to make as structured a version as we
+          can. The current <gi>msDesc</gi> looks like: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <msDesc xml:lang="de" xml:id="zbz-C0010i">
+              <msIdentifier>
+                <settlement>Zürich</settlement>
+                <repository>Zentralbibliothek</repository>
+                <idno>Ms. C 10i</idno>
+                <altIdentifier type="catalog">
+                  <idno>47</idno>
+                </altIdentifier>
+              </msIdentifier>
+              <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
+              <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 273r-273v, Vita s. Elegii, (BHL. Nr.
+                2477); Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 274r-274v, Folgt: 91.
+                Bruchstück von BHL. 4992. </p>
+              <p>Perg., 274 Bll., 43,0 x 30,5 cm; (5. 6.) Drei primitive Zeichnungen. Initialen. Das
+                Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. Ebenso die
+                Passiones Cornelii, Mariae, Luciae, Thomae. (132) Klosterwappen.; Weisser Lederband
+                mit Linnenzeichnung. </p>
+              <p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I,
+                Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
+              <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer
+                Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
+                56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
+            </msDesc>
+          </egXML> You will notice this manuscript description is in German(the xml:lang="de" on the
+            <gi>msDesc</gi> element). You do not need to know German to recatalogue it since we have
+          the PDF output as an indication. Each of the paragraphs covers a different kind of output
+          in a standard manuscript descript. </p>
+        <p>
+          <hi rend="bold">Don't worry that your file will be invalid for large parts of this
+            exercise. You should get a <hi rend="italic">happy green square</hi> at the end of
+            it.</hi>
         </p>
-      </div>
-
-      <!-- Summary -->
-      <div>
-        <head>Summary</head>
-        <p>In this exercises you will edit a basic manuscript description in an existing TEI document. 
-          You'll modify the <gi>msDesc</gi> element to categorise manuscript description information into a more detailed
-          structure.</p>
-      </div>
-
-      <div>
-        <head>Starting Up</head>
-        <p>Download <ref target="http://tei.it.ox.ac.uk/Talks/2015-03-lyon/msDesc.xml?style=raw">http://tei.it.ox.ac.uk/Talks/2015-03-lyon/msDesc.xml?style=raw</ref>. Save it as 'msDesc.xml'.  Read through the file.</p>
-        <p>Have a look at <ref target="http://tei.it.ox.ac.uk/Talks/2015-03-lyon/msDesc.pdf">http://tei.it.ox.ac.uk/Talks/2015-03-lyon/msDesc.pdf</ref> which is printed output from the final version of this description.</p>
-      </div>
-
-
-      <div>
-        <head>A basic <gi>msDesc</gi></head>
-        <p>The information to categorise our manuscript description will be taken from a the PDF of the description. 
-          There is no requirement with TEI <gi>msDesc</gi> to divide it into all the possible categories
-          of information, instead all it requires is at least a <gi>msIdentifier</gi>, other
-          information could be stored in a few accompanying paragraphs. This is useful for the
-          retrospective conversion of catalogues in other legacy formats to TEI XML. However, in our
-          case we want to make as structured a version as we can.
-   The current <gi>msDesc</gi> looks like:
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            
-            
-<msDesc xml:lang="de" xml:id="zbz-C0010i">
-  <msIdentifier>
-    <settlement>Zürich</settlement>
-    <repository>Zentralbibliothek</repository>
-    <idno>Ms. C 10i</idno>
-    <altIdentifier type="catalog">
-      <idno>47</idno>
-    </altIdentifier>
-  </msIdentifier>
-  <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
-  <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 
-    273r-273v, Vita s. Elegii, (BHL. Nr. 2477); 
-    Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 
-    274r-274v, Folgt: 91. Bruchstück von BHL. 4992. 
-  </p>
-  <p>Perg., 274 Bll., 43,0 x 30,5 cm; 
-    (5. 6.) Drei primitive Zeichnungen. Initialen. 
-    Das Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. 
-    Ebenso die Passiones Cornelii, Mariae, Luciae, Thomae. 
-    (132) Klosterwappen.; 
-    Weisser Lederband mit Linnenzeichnung. 
-  </p>
-  <p>Mohlberg Leo Cunibert, Katalog der Handschriften 
-    der Zentralbibliothek Zürich I, Mittelalterliche
-    Handschriften, Zürich 1952, S. 18-19.</p>
-  <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und 
-    ihrer Handschriften in Cod. Sangall. Nr. 566, in: 
-    Texte und Arbeiten I, 3 4 (1918) S. 42 56.; 
-    Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
-</msDesc>   
-          </egXML>
-          
-You will notice this manuscript description is in German(the xml:lang="de" on the <gi>msDesc</gi> element). You do not need to know German to recatalogue it since we have the PDF output as an indication.  Each of the paragraphs covers a different kind of output in a standard manuscript descript.
-        </p><p>
-          <hi rend="bold">Don't worry that your file will be invalid for large parts of this exercise. You should
-              get a <hi rend="italic">happy green square</hi> at the end of it.</hi>
-          </p>
       </div>
 
 
 
       <div>
         <head>Look at the <gi>msIdentifier</gi></head>
-        <p>Every <gi>msDesc</gi> must have
-          an <gi>msIdentifier</gi> and this must be structured with the element allowed inside it. You need an
-            <gi>msIdentifier</gi> because if you have no way to refer to the object (its name, id
-          number, where it is) then it will be hard to write a description of it.</p>
-            <p>Note how elements are prescribed to appear in a particular order (from greatest
-              level of granularity to more specific). Notice that most elements cannot be repeated
-              (some like <gi>collection</gi> and <gi>altIdentifier</gi> can be). </p>
-           </div>
+        <p>Every <gi>msDesc</gi> must have an <gi>msIdentifier</gi> and this must be structured with
+          the element allowed inside it. You need an <gi>msIdentifier</gi> because if you have no
+          way to refer to the object (its name, id number, where it is) then it will be hard to
+          write a description of it.</p>
+        <p>Note how elements are prescribed to appear in a particular order (from greatest level of
+          granularity to more specific). Notice that most elements cannot be repeated (some like
+            <gi>collection</gi> and <gi>altIdentifier</gi> can be). </p>
+      </div>
 
-<div>
-  <head>Giving our description a <gi>head</gi></head>
-  <p>The <gi>head</gi> element is used for headings in divisions, but also has a special use in manuscript descriptions to 
-  provide a place for easy summary information for the description.  
-  <list>
-  <item>In this case immediately after the closing <tag>/msIdentifier</tag> 
-  you should rename the first paragraph element to <gi>head</gi></item>
-    <item>Removing any stray commas as you go, you should then mark "Passionarius maior" as a <gi>title</gi></item>
-    <item>"St. Gallen" is its place of origin. The TEI provides a special element (other than <gi>placeName</gi> to mark place of origin. This is called <gi>origPlace</gi>.  Use this to wrap around "St. Gallen".</item>
-    <item>The "9. Jahrh" refers to the 9th Century. Like <gi>origPlace</gi> the TEI also provides <gi>origDate</gi> for an origin date. Wrap this around "9. Jahrh.".</item>
-    <item>We can be more specific with the <gi>origDate</gi> and give it some attributes <att>notBefore</att> and <att>notAfter</att> [Note: although these are printed with an "@" in front of them, that is just a convention to note they are attributes, there is not an "@" in the XML file.]  These take dates in a YYYY (or YYYY-MM or YYYY-MM-DD) format.  If we want to say the 9th Century provide a <att>notBefore</att> attribute of "0800" and a <att>notAfter</att> date of "0899".  (Yes, we could be more specific down to the day if we were being really pedantic.)</item>
-    <item>Basically, you should take this:
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p>Passionarius maior, St. Gallen, 9. Jahrh</p>
-</egXML>
-  and make it into:
-  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-    <head>
-      <title>Passionarius maior</title>
-      <origPlace>St. Gallen</origPlace>
-      <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
-    </head>
-  </egXML>
-      </item>
-  </list>
-  </p>
-</div>
+      <div>
+        <head>Giving our description a <gi>head</gi></head>
+        <p>The <gi>head</gi> element is used for headings in divisions, but also has a special use
+          in manuscript descriptions to provide a place for easy summary information for the
+          description. <list>
+            <item>In this case immediately after the closing <tag>/msIdentifier</tag> you should
+              rename the first paragraph element to <gi>head</gi></item>
+            <item>Removing any stray commas as you go, you should then mark "Passionarius maior" as
+              a <gi>title</gi></item>
+            <item>"St. Gallen" is its place of origin. The TEI provides a special element (other
+              than <gi>placeName</gi> to mark place of origin. This is called <gi>origPlace</gi>.
+              Use this to wrap around "St. Gallen".</item>
+            <item>The "9. Jahrh" refers to the 9th Century. Like <gi>origPlace</gi> the TEI also
+              provides <gi>origDate</gi> for an origin date. Wrap this around "9. Jahrh.".</item>
+            <item>We can be more specific with the <gi>origDate</gi> and give it some attributes
+                <att>notBefore</att> and <att>notAfter</att> [Note: although these are printed with
+              an "@" in front of them, that is just a convention to note they are attributes, there
+              is not an "@" in the XML file.] These take dates in a YYYY (or YYYY-MM or YYYY-MM-DD)
+              format. If we want to say the 9th Century provide a <att>notBefore</att> attribute of
+              "0800" and a <att>notAfter</att> date of "0899". (Yes, we could be more specific down
+              to the day if we were being really pedantic.)</item>
+            <item>Basically, you should take this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
+              </egXML> and make it into: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <head>
+                  <title>Passionarius maior</title>
+                  <origPlace>St. Gallen</origPlace>
+                  <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
+                </head>
+              </egXML>
+            </item>
+          </list>
+        </p>
+      </div>
 
 
-      
-        <div>
-          <head>Providing an <gi>msContents</gi></head>
-          <p>The next paragraph has some basic information for creating an <gi>msContents</gi> element.
-            
-            This is filled with a series of bibliographic references and other notes concerning particular locations in the manuscripts. 
-            
-            <list>
-              
-              <item>After the closing <tag>/head</tag> rename the next paragraph <gi>msContents</gi></item>
-              <item>Highlight from "pp.1v-7r" until the first semi-colon, and use surround-with-element (control 'e') to wrap an <gi>msItem</gi>. 
-              Inside this <gi>msItem</gi> create a <gi>locus</gi> element for the page location (with a <att>from</att> and <att>to</att> attribute of "1v" and "7r" respectively. The wrap "Vita s. Areleffi" in a <gi>title</gi> element, and the "(BHL. Nr. 1578)" in a <gi>bibl</gi> element.</item>
-              <item>Your first <gi>msItem</gi> should look something like this:
-                <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<msItem>
-  <locus from="1v" to="7r">pp. 1v-7r</locus>
-  <title>Vita s. Areleffi</title>
-  <bibl>(BHL. Nr. 1568)</bibl>
-</msItem>
-</egXML>
-              </item>
-              <item>The next <gi>msItem</gi>, up to the next semi-colon, should end up looking similar. Make it look like:
-                <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<msItem>
-  <locus from="273r" to="273v">273r-273v</locus>
-  <title>Vita s. Elegii</title>
-  <bibl>(BHL. Nr. 2477)</bibl>
-</msItem>       
-</egXML>
-              </item>
-              <item>The next <gi>msItem</gi>is really a specialised sort of note. So we're got to wrap it in a note element inside the <gi>msItem</gi>.  It should end up looking like: <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<msItem>
-  <note> Voraus: <locus from="1r">1r</locus> 
-    Unvollständige Inhaltsangabe (<date>12. Jahrh.</date>).
-  </note>
-</msItem>
-</egXML>
-Note that we haven't really classified the date in a machine-processable way this time. We could, but we're just being lazy.                
-</item>
-<item> The remaining bit of text inside the <gi>msContents</gi> makes the last msItem.  
-  It is a combination of <gi>locus</gi>, a <gi>note</gi> and a <gi>bibl</gi> elements.
-<egXML xmlns="http://www.tei-c.org/ns/Examples"><msItem>
-    <locus from="274r" to="274v">274r-274v</locus>
-    <note>Folgt:</note>
-    <bibl>91. Bruchstück von BHL. 4992.</bibl>
-  </msItem>
-  </egXML>
-</item>
-              
-              <item>
-  Basically, overall you want to take:
-  
-  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-    <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 273r-273v, Vita s. Elegii, (BHL. Nr. 2477); Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 274r-274v, Folgt: 91. Bruchstück von BHL. 4992. </p>
-    </egXML>
-  and turn it into:
-  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<msContents>
-  <msItem>
-    <locus from="1v" to="7r">pp. 1v-7r</locus>
-    <title>Vita s. Areleffi</title>
-    <bibl>(BHL. Nr. 1568)</bibl>
-  </msItem>
-  <msItem>
-    <locus from="273r" to="273v">273r-273v</locus>
-    <title>Vita s. Elegii</title>
-    <bibl>(BHL. Nr. 2477)</bibl>
-  </msItem>
-  <msItem>
-      <note> Voraus: <locus from="1r">1r</locus> 
-        Unvollständige Inhaltsangabe (<date>12. Jahrh.</date>).
-      </note>
-    </msItem>
-  <msItem>
-    <locus from="274r" to="274v">274r-274v</locus>
-    <note>Folgt:</note>
-    <bibl>91. Bruchstück von BHL. 4992.</bibl>
-  </msItem>
-</msContents>    
-  </egXML>
-</item>
 
-            </list></p></div>
-      
-      
-      
+      <div>
+        <head>Providing an <gi>msContents</gi></head>
+        <p>The next paragraph has some basic information for creating an <gi>msContents</gi>
+          element. This is filled with a series of bibliographic references and other notes
+          concerning particular locations in the manuscripts. <list>
+
+            <item>After the closing <tag>/head</tag> rename the next paragraph
+              <gi>msContents</gi></item>
+            <item>Highlight from "pp.1v-7r" until the first semi-colon, and use
+              surround-with-element (control 'e') to wrap an <gi>msItem</gi>. Inside this
+                <gi>msItem</gi> create a <gi>locus</gi> element for the page location (with a
+                <att>from</att> and <att>to</att> attribute of "1v" and "7r" respectively. The wrap
+              "Vita s. Areleffi" in a <gi>title</gi> element, and the "(BHL. Nr. 1578)" in a
+                <gi>bibl</gi> element.</item>
+            <item>Your first <gi>msItem</gi> should look something like this: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <msItem>
+                  <locus from="1v" to="7r">pp. 1v-7r</locus>
+                  <title>Vita s. Areleffi</title>
+                  <bibl>(BHL. Nr. 1568)</bibl>
+                </msItem>
+              </egXML>
+            </item>
+            <item>The next <gi>msItem</gi>, up to the next semi-colon, should end up looking
+              similar. Make it look like: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <msItem>
+                  <locus from="273r" to="273v">273r-273v</locus>
+                  <title>Vita s. Elegii</title>
+                  <bibl>(BHL. Nr. 2477)</bibl>
+                </msItem>
+              </egXML>
+            </item>
+            <item>The next <gi>msItem</gi>is really a specialised sort of note. So we're got to wrap
+              it in a note element inside the <gi>msItem</gi>. It should end up looking like: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <msItem>
+                  <note> Voraus: <locus from="1r">1r</locus> Unvollständige Inhaltsangabe (<date>12.
+                      Jahrh.</date>). </note>
+                </msItem>
+              </egXML> Note that we haven't really classified the date in a machine-processable way
+              this time. We could, but we're just being lazy. </item>
+            <item> The remaining bit of text inside the <gi>msContents</gi> makes the last msItem.
+              It is a combination of <gi>locus</gi>, a <gi>note</gi> and a <gi>bibl</gi> elements.
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><msItem>
+                  <locus from="274r" to="274v">274r-274v</locus>
+                  <note>Folgt:</note>
+                  <bibl>91. Bruchstück von BHL. 4992.</bibl>
+                </msItem>
+              </egXML>
+            </item>
+
+            <item> Basically, overall you want to take: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 273r-273v, Vita s. Elegii, (BHL.
+                  Nr. 2477); Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 274r-274v,
+                  Folgt: 91. Bruchstück von BHL. 4992. </p>
+              </egXML> and turn it into: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <msContents>
+                  <msItem>
+                    <locus from="1v" to="7r">pp. 1v-7r</locus>
+                    <title>Vita s. Areleffi</title>
+                    <bibl>(BHL. Nr. 1568)</bibl>
+                  </msItem>
+                  <msItem>
+                    <locus from="273r" to="273v">273r-273v</locus>
+                    <title>Vita s. Elegii</title>
+                    <bibl>(BHL. Nr. 2477)</bibl>
+                  </msItem>
+                  <msItem>
+                    <note> Voraus: <locus from="1r">1r</locus> Unvollständige Inhaltsangabe
+                        (<date>12. Jahrh.</date>). </note>
+                  </msItem>
+                  <msItem>
+                    <locus from="274r" to="274v">274r-274v</locus>
+                    <note>Folgt:</note>
+                    <bibl>91. Bruchstück von BHL. 4992.</bibl>
+                  </msItem>
+                </msContents>
+              </egXML>
+            </item>
+
+          </list></p>
+      </div>
+
+
+
 
       <div>
         <head>Giving a <gi>physDesc</gi></head>
-        <p>The next paragraph has information about the physical aspects of the manuscript.
-          Let's turn it into a <gi>physDesc</gi>! After the closing <tag>/msContents</tag> tag add a new
+        <p>The next paragraph has information about the physical aspects of the manuscript. Let's
+          turn it into a <gi>physDesc</gi>! After the closing <tag>/msContents</tag> tag add a new
             <gi>physDesc</gi> element. </p>
-        
-        
-        
+
+
+
         <list>
-<item>Create inside this an <gi>objectDesc</gi> with a <att>form</att> attribute of "codex".</item>
-          <item>Inside the <gi>objectDesc</gi> create a <gi>supportDesc</gi> with an attribute of <att>material</att> with a value of "perg". Inside the <gi>supportDesc</gi> create a <gi>support</gi> element with the text content "Perg."</item>
-<item>As a sibling to the <gi>support</gi> create an <gi>extent</gi> element with two <gi>measure</gi> children.
-The first should have a <att>type</att> attribute of "leavesCount", a <att>quantity</att> of "274", 
-  and a <att>unit</att> of "leaves".  The content of the element should be "274 Bll".
+          <item>Create inside this an <gi>objectDesc</gi> with a <att>form</att> attribute of
+            "codex".</item>
+          <item>Inside the <gi>objectDesc</gi> create a <gi>supportDesc</gi> with an attribute of
+              <att>material</att> with a value of "perg". Inside the <gi>supportDesc</gi> create a
+              <gi>support</gi> element with the text content "Perg."</item>
+          <item>As a sibling to the <gi>support</gi> create an <gi>extent</gi> element with two
+              <gi>measure</gi> children. The first should have a <att>type</att> attribute of
+            "leavesCount", a <att>quantity</att> of "274", and a <att>unit</att> of "leaves". The
+            content of the element should be "274 Bll". </item>
 
-</item>          
+          <item>After the closing <tag>/extent</tag> tag, create a <gi>decoDesc</gi> with a
+              <gi>decoNote</gi> inside. Mark the locuses as 5v and 6r, the first <gi>decoNote</gi>
+            should extend to "Thomae".</item>
+          <item> Create a second <gi>decoNote</gi> from "(132) Klosterwappen." marking the locus as
+            from 132r.</item>
+          <item>As a sibling to <gi>decoDesc</gi> create a <gi>bindingDesc</gi> with a
+              <gi>binding</gi> element in it, which in turn has a <gi>p</gi> element inside
+            that.</item>
+          <item>Add the text "Weisser Lederband mit Linnenzeichnung." to this, wrapping the
+              <gi>locus</gi> element around "Lederband".</item>
 
-<item>After the closing <tag>/extent</tag> tag, create a <gi>decoDesc</gi> with a <gi>decoNote</gi> inside. Mark the locuses as 5v and 6r, the first <gi>decoNote</gi> should extend to "Thomae".</item><item> 
-  Create a second <gi>decoNote</gi> from "(132) Klosterwappen." marking the locus as from 132r.</item>
-          <item>As a sibling to <gi>decoDesc</gi> create a <gi>bindingDesc</gi> with a <gi>binding</gi> element in it, which in turn has a <gi>p</gi> element inside that.</item>
-          <item>Add the text "Weisser Lederband mit Linnenzeichnung." to this, wrapping the <gi>locus</gi> element around "Lederband".</item>
-          
-          <item>
-            Basically, turn this:
-            
-            <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p>Perg., 274 Bll., 43,0 x 30,5 cm; (5. 6.) Drei primitive Zeichnungen. Initialen. Das Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. Ebenso die Passiones Cornelii, Mariae, Luciae, Thomae. (132) Klosterwappen.; Weisser Lederband mit Linnenzeichnung. </p>
+          <item> Basically, turn this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Perg., 274 Bll., 43,0 x 30,5 cm; (5. 6.) Drei primitive Zeichnungen. Initialen. Das
+                Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. Ebenso die
+                Passiones Cornelii, Mariae, Luciae, Thomae. (132) Klosterwappen.; Weisser Lederband
+                mit Linnenzeichnung. </p>
+            </egXML> into this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <physDesc>
+                <objectDesc form="codex">
+                  <supportDesc material="perg">
+                    <support>Perg.</support>
+                    <extent>
+                      <measure type="leavesCount" quantity="274" unit="leaves">274 Bll.</measure>
+                      <measure type="pageDimensions">
+                        <height unit="mm" quantity="430">43,0</height> x <width unit="mm"
+                          quantity="305">30,5</width> cm</measure>
+                    </extent>
+                  </supportDesc>
+                </objectDesc>
+                <decoDesc>
+                  <decoNote> (<locus from="5v">5</locus>. <locus from="6r">6</locus>.) Drei
+                    primitive Zeichnungen. Initialen. Das Fest <quote>VIII Inventio crucis</quote>
+                    in der Inhaltsangabe fehlt im Bande. Ebenso die Passiones Cornelii, Mariae,
+                    Luciae, Thomae. </decoNote>
+                  <decoNote> (<locus from="132r">132r</locus>) Klosterwappen. </decoNote>
+                </decoDesc>
+                <bindingDesc>
+                  <binding>
+                    <p> Weisser <locus from="Vorderseite">Lederband</locus> mit Linnenzeichnung.
+                    </p>
+                  </binding>
+                </bindingDesc>
+              </physDesc>
             </egXML>
-            into this:
-            <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<physDesc>
-  <objectDesc form="codex">
-    <supportDesc material="perg">
-      <support>Perg.</support>
-      <extent>
-        <measure type="leavesCount" quantity="274" unit="leaves">274 Bll.</measure>
-        <measure type="pageDimensions">
-          <height unit="mm" quantity="430">43,0</height> x <width unit="mm" quantity="305"
-            >30,5</width> cm</measure>
-      </extent>
-    </supportDesc>
-  </objectDesc>
-  <decoDesc>
-    <decoNote> (<locus from="5v">5</locus>. <locus from="6r">6</locus>.) Drei primitive Zeichnungen. Initialen. Das Fest <quote>VIII Inventio crucis</quote> in der Inhaltsangabe fehlt im Bande. Ebenso die Passiones Cornelii, Mariae, Luciae, Thomae. </decoNote>
-    <decoNote> (<locus from="132r">132r</locus>) Klosterwappen. </decoNote>
-  </decoDesc>
-  <bindingDesc>
-    <binding>
-      <p> Weisser <locus from="Vorderseite">Lederband</locus> mit Linnenzeichnung. </p>
-    </binding>
-  </bindingDesc>
-</physDesc>
-
-            </egXML>
-            
-            
           </item>
-          
+
         </list>
       </div>
-      
+
       <div>
         <head>Noting <gi>additional</gi> Information</head>
-        <p>At the very end of your <gi>msDesc</gi> you can include an <gi>additional</gi> element which
-          stores other information such as <gi>adminInfo</gi> (for recording administrative events
-          of the object), <gi>listBibl</gi> (for listing bibliographic citations about the object),
-          and <gi>surrogates</gi> (for listing additional representations of the object). In our case we have a couple paragraphs left:
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I, Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
-<p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42 56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>            
-          </egXML>
-          The first paragraph has information about the source of the information for the manuscript description. The second has a couple bibliographic citations we 
-          want to record.
-          <list>
-            <item>As a sibling to <gi>physDesc</gi> add an <gi>additional</gi> element with an <gi>adminInfo</gi> with a <gi>recordHist</gi> with a <gi>source</gi> with a <gi>bibl</gi> inside it. Phew!  This should contain the text of the first paragraph.</item>
-            <item>Mark up "Mohlberg Leo Cunibert" as a personal name using the <gi>persName</gi> element, and "1952" as a <gi>date</gi> (optionally use a <att>when</att> attribute on that)</item>
-            <item>As a sibling to <gi>adminInfo</gi> add a <gi>listBibl</gi> element with two <gi>bibl</gi> elements in it. Use the text before the semi-colon in the first one, and the text after the semi-colon in the second one.</item>
-            <item>Mark "Munding" and "Lehmann" as small capitals by using a <gi>hi</gi> element with a <att>rend</att> attribute of "small-caps".</item>
-            <item>
-              Basically, turn this:
-               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-<p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I, Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
-<p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42 56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>            
-                </egXML>
-              into this:<egXML xmlns="http://www.tei-c.org/ns/Examples">
-<additional>
-  <adminInfo>
-    <recordHist>
-      <source>
-        <bibl>
-          <persName>Mohlberg Leo Cunibert</persName> , Katalog der Handschriften der Zentralbibliothek Zürich I, Mittelalterliche Handschriften, Zürich <date>1952</date> , S. 18-19. </bibl>
-      </source>
-    </recordHist>
-  </adminInfo>
-  <listBibl>
-    <bibl> Beschr. E. <hi rend="small-caps">Munding</hi> , Das Verzeichnis der St. Galler Heiligenleben und ihrer Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42 56. </bibl>
-    <bibl> Vgl. P. <hi rend="small-caps">Lehmann</hi> , Mittelalterliche Bibliothekskataloge I (1918) S. 91 99. </bibl>
-  </listBibl>
-</additional></egXML>
-
+        <p>At the very end of your <gi>msDesc</gi> you can include an <gi>additional</gi> element
+          which stores other information such as <gi>adminInfo</gi> (for recording administrative
+          events of the object), <gi>listBibl</gi> (for listing bibliographic citations about the
+          object), and <gi>surrogates</gi> (for listing additional representations of the object).
+          In our case we have a couple paragraphs left: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples">
+            <p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I,
+              Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
+            <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer
+              Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
+              56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
+          </egXML> The first paragraph has information about the source of the information for the
+          manuscript description. The second has a couple bibliographic citations we want to record. <list>
+            <item>As a sibling to <gi>physDesc</gi> add an <gi>additional</gi> element with an
+                <gi>adminInfo</gi> with a <gi>recordHist</gi> with a <gi>source</gi> with a
+                <gi>bibl</gi> inside it. Phew! This should contain the text of the first
+              paragraph.</item>
+            <item>Mark up "Mohlberg Leo Cunibert" as a personal name using the <gi>persName</gi>
+              element, and "1952" as a <gi>date</gi> (optionally use a <att>when</att> attribute on
+              that)</item>
+            <item>As a sibling to <gi>adminInfo</gi> add a <gi>listBibl</gi> element with two
+                <gi>bibl</gi> elements in it. Use the text before the semi-colon in the first one,
+              and the text after the semi-colon in the second one.</item>
+            <item>Mark "Munding" and "Lehmann" as small capitals by using a <gi>hi</gi> element with
+              a <att>rend</att> attribute of "small-caps".</item>
+            <item> Basically, turn this: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I,
+                  Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
+                <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer
+                  Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
+                  56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
+              </egXML> into this:<egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <additional>
+                  <adminInfo>
+                    <recordHist>
+                      <source>
+                        <bibl>
+                          <persName>Mohlberg Leo Cunibert</persName> , Katalog der Handschriften der
+                          Zentralbibliothek Zürich I, Mittelalterliche Handschriften, Zürich
+                            <date>1952</date> , S. 18-19. </bibl>
+                      </source>
+                    </recordHist>
+                  </adminInfo>
+                  <listBibl>
+                    <bibl> Beschr. E. <hi rend="small-caps">Munding</hi> , Das Verzeichnis der St.
+                      Galler Heiligenleben und ihrer Handschriften in Cod. Sangall. Nr. 566, in:
+                      Texte und Arbeiten I, 3 4 (1918) S. 42 56. </bibl>
+                    <bibl> Vgl. P. <hi rend="small-caps">Lehmann</hi> , Mittelalterliche
+                      Bibliothekskataloge I (1918) S. 91 99. </bibl>
+                  </listBibl>
+                </additional></egXML>
             </item>
-            <item>Delete any bits of punctuation or <gi>p</gi> elements from the original description. Ensure you have a happy green square.</item>
-          </list>
-          Congratulations! You've encoded a full (and real) manuscript description in TEI!
+            <item>Delete any bits of punctuation or <gi>p</gi> elements from the original
+              description. Ensure you have a happy green square.</item>
+          </list> Congratulations! You've encoded a full (and real) manuscript description in TEI!
         </p>
       </div>
 
@@ -336,8 +342,8 @@ The first should have a <att>type</att> attribute of "leavesCount", a <att>quant
       <div>
         <head>Saving Your Work</head>
         <p> Let's save our work: <list>
-            <item>Is your work well-formed? Do you have a happy green square or an angry red
-              one? If it is an angry red one, make sure you solve any problems before saving!</item>
+            <item>Is your work well-formed? Do you have a happy green square or an angry red one? If
+              it is an angry red one, make sure you solve any problems before saving!</item>
             <item>Have you formatted and indented your work automatically? </item>
             <item>From the 'File' menu select 'Save' or click on the Save icon (looks like a
               old-style 3.5" disk).</item>

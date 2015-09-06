@@ -3,6 +3,7 @@ ECHO=
 TALKS= \
 	talk-01 \
 	talk-02-tei \
+	ex-2-analyse \
 	talk-03-basic \
 	talk-04-header \
 	talk-05-univers \
@@ -16,7 +17,6 @@ TALKS= \
 
 EXERCISES= \
 	ex-1-oxygen \
-	ex-2-analyse \
 	ex-3-basic \
 	ex-4-header \
 	ex-5-roma \
