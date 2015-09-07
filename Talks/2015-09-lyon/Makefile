@@ -16,14 +16,14 @@ TALKS= \
 	talk-11-xslt 
 
 EXERCISES= \
-	ex-1-oxygen \
-	ex-3-basic \
-	ex-4-header \
-	ex-5-roma \
-	ex-6-msdesc \
-	ex-7-transcr \
-	ex-8-names \
-	ex-9-cartes \
+	ex-01-oxygen \
+	ex-03-basic \
+	ex-04-header \
+	ex-05-roma \
+	ex-06-msdesc \
+	ex-07-transcr \
+	ex-08-names \
+	ex-09-cartes \
 	ex-10-outils \
 	ex-11-xslt
 
