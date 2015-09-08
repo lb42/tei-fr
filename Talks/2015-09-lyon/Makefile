@@ -7,7 +7,7 @@ TALKS= \
 	talk-03-basic \
 	talk-04-header \
 	talk-05-univers \
-	talk-06-msDesc \
+	talk-06-msdesc \
 	talk-07-ms \
 	talk-07a-ednum \
 	talk-08-names \
