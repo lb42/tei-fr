@@ -3,7 +3,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Creation d'une description de manuscrit</title>
+        <title>Création d'une déscription de manuscrit</title>
       </titleStmt>
       <publicationStmt>
         <publisher>DEMM</publisher>
@@ -19,95 +19,76 @@
   </teiHeader>
   <text>
     <body>
-      
-      <p>L'objet de cet exercice est d'introduire quelques-uns des composants possibles d'une description de manuscrit
-          standardisée. Vous allez élaborer une description existante, pour lui donner
-          plus de précision, et ainsi connaître les composants du <gi>msDesc</gi> TEI. </p>
-        <p>Dans votre dossier <ident>Travaux</ident> retrouvez le fichier <ident>msDesc.xml</ident>,
-          et ouvrez-le avec oXygen. C'est une description tres basique que nous avons téléchargée du
-          site eCodices (www.e-codices.unifr.ch). Vous trouverez également un saisi d'écran de la description, telle
-          qu'elle est affichée sur le site. Ce dernier (fichier <ident>msDesc.png</ident>) va nous
-          aider à distinguer les parties de la description, meme si on n'est pas germanophone. </p>
-        <p>Comme vous le savez, la seule partie obligatoire d'un <gi>msDesc</gi> est son
-          identifiant, le <gi>msIdentifier</gi>. Tout autre renseignement peut etre fourni en utilisant simplement  un
-          ou plusieurs paragraphes. Cela simplifie la vie pour la conversion retrospective des
-          catalogues existants, mais nous empeche de profiter au maximum de l'informatisation de ce
-          catalogue. Nous proposons dans cet exercice d'enrichir le balisage minimal qui suit:
-            <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <msDesc xml:lang="de" xml:id="zbz-C0010i">
-              <msIdentifier>
-                <settlement>Zürich</settlement>
-                <repository>Zentralbibliothek</repository>
-                <idno>Ms. C 10i</idno>
-                <altIdentifier type="catalog">
-                  <idno>47</idno>
-                </altIdentifier>
-              </msIdentifier>
-              <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
-              <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 273r-273v, Vita s. Elegii, (BHL. Nr.
-                2477); Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 274r-274v, Folgt: 91.
-                Bruchstück von BHL. 4992. </p>
-              <p>Perg., 274 Bll., 43,0 x 30,5 cm; (5. 6.) Drei primitive Zeichnungen. Initialen. Das
-                Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. Ebenso die
-                Passiones Cornelii, Mariae, Luciae, Thomae. (132) Klosterwappen.; Weisser Lederband
-                mit Linnenzeichnung. </p>
-              <p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I,
-                Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
-              <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer
-                Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
-                56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91 99.</p>
-            </msDesc>
-          </egXML>
-        </p>
-        <list>
+      <p>L'objet de cet exercice est d'introduire quelques-uns des composants possibles d'une
+        déscription de manuscrit standardisée. Vous allez élaborer une déscription éxistante, pour
+        lui donner plus de précision, et ainsi connaître les composants du <gi>msDesc</gi> TEI. </p>
+      <p>Dans votre dossier <ident>Travaux</ident> retrouvez le fichier <ident>passMaj.xml</ident>,
+        et ouvrez-le avec oXygen. C'est une description tres basique que nous avons téléchargée du
+        site eCodices (www.e-codices.unifr.ch). Vous trouverez également un saisi d'écran de la
+        description, telle qu'elle est affichée sur le site. Ce dernier (fichier
+          <ident>passMaj.png</ident>) va nous aider à distinguer les parties de la description, même
+        si on n'est pas germanophone. </p>
+      <p>Comme vous le savez, la seule partie obligatoire d'un <gi>msDesc</gi> est son identifiant,
+        le <gi>msIdentifier</gi>. Tout autre renseignement peut être fourni en utilisant simplement
+        un ou plusieurs paragraphes. Cela simplifie la vie pour la convérsion rétrospective des
+        catalogues existants, mais empêche de profiter au maximum de l'informatisation. Nous
+        proposons dans cet exercice d'enrichir cette balisage minimaliste. <list>
           <label>Identifiant</label>
           <item>La présence d'un <gi>msIdentifier</gi> au début d'un <gi>msDesc</gi> est
             obligatoire, ainsi que la séquence de ces composants. Supposant que nous souhaitons
             préciser qu'il s'agit de la ville de Zurich en Suisse, et non pas de celle au Canada ou
             aux Etats Unis, ajoutez un élément <gi>country</gi> dans le bon endroit. </item>
           <label>Sommaire</label>
-          <item>L'élément <gi>head</gi> que vous connaissez déjà peut être utilisé dans un
-              <gi>msDesc</gi> pour fournir une description brève, comme celle du premier paragraphe
-            de notre <gi>msDesc</gi>. Transformez ce premier <gi>p</gi> donc en <gi>head</gi> (avec
-            le curseur à l'interieur de la balise <gi>p</gi> vous pouvez effectuer cela en utilisant
-            la commande <code>Document - Markup - Rename élément</code>) Ce paragraphe en effet
-            contient trois sous-parties: <list>
-              <item>un titre (<mentioned>Passionarius maior</mentioned>) en Latin, à baliser donc
-                avec <tag>title xml:lang="la"</tag></item>
-              <item>une mention du lieu d'origine de ce manuscrit (<mentioned>St.
-                Gallen</mentioned>), à signaller avec la balise spécifique <gi>origPlace</gi></item>
-              <item>une mention de la date supposée d'origine du manuscrit, à signaller avec la
-                balise specifique <gi>origDate</gi></item>
-              <item>la mention <code>9. Jahrh</code> signifie <q>neuvieme siècle</q>; pour rendre
-                cette expression plus précise, utilisez les attributs <att>notBefore</att> and
-                  <att>notAfter</att></item>
-            </list> Le premier <gi>p</gi> est maintenant remplacé par: <egXML
-              xmlns="http://www.tei-c.org/ns/Examples">
-              <head>
-                <title>Passionarius maior</title>
-                <origPlace>St. Gallen</origPlace>
-                <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
-              </head>
-            </egXML>
+          <item><p>Regardons d'abord le premier des paragraphes qui suivent l'identifiant <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <p>Passionarius maior, St. Gallen, 9. Jahrh</p>
+              </egXML> Cette brève déscription fonctionne comme une espèce de sommaire des
+              essentiels du manuscrit. L'élément <gi>head</gi> que vous connaissez déjà peut être
+              utilisé dans un <gi>msDesc</gi> pour satisfaire de tels usages.</p>
+            <p>Transformez ce premier <gi>p</gi> donc en <gi>head</gi> (avec le curseur à
+              l'interieur de la balise <gi>p</gi> vous pouvez effectuer cela en utilisant la
+              commande <code>Document - Markup - Rename élément</code>) </p><p>Ce paragraphe en
+              effet contient trois sous-parties: <list>
+                <item>un titre (<mentioned>Passionarius maior</mentioned>) en Latin, à baliser donc
+                  avec <tag>title xml:lang="la"</tag></item>
+                <item>une mention du lieu d'origine de ce manuscrit (<mentioned>St.
+                    Gallen</mentioned>), à signaller avec la balise spécifique
+                  <gi>origPlace</gi></item>
+                <item>une mention de la date supposée d'origine du manuscrit, à signaller avec la
+                  balise specifique <gi>origDate</gi></item>
+                <item>la mention <code>9. Jahrh</code> signifie <q>neuvieme siècle</q>; pour rendre
+                  cette expression plus précise, utilisez les attributs <att>notBefore</att> and
+                    <att>notAfter</att></item>
+              </list></p><p> Le premier <gi>p</gi> est maintenant remplacé par: <egXML
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <head>
+                  <title>Passionarius maior</title>
+                  <origPlace>St. Gallen</origPlace>
+                  <origDate notBefore="0800" notAfter="0899">9. Jahrh.</origDate>
+                </head>
+              </egXML></p>
           </item>
           <label>Sommaire du contenu</label>
           <item>Le paragraphe suivant contient une série de renseignements sur le contenu du
-            manuscrit. Remplacez ce <gi>p</gi> par <gi>msContents</gi> donc. Il contient quatre
-            items distincts, chacun suivi d'un point-virgule et commencant avec une indication d'où
-            il se trouve dans le manuscrit, son locus. Donc on balise chacun avec <gi>msItem</gi>,
-            et (à l'interieur du <gi>msItem</gi>), on balise le locus avec <gi>locus</gi>, le titre
-            (par ex. <q>Vita s. Areleffi</q>) avec <gi>title</gi>, et la reference bibliographique
-            (par ex <q>BHL. Nr. 1568</q>) avec <gi>bibl</gi> ... <list>
-              <item><mentioned>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568);</mentioned> devient
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                  <msItem>
-                    <locus from="1v" to="7r">pp. 1v-7r</locus>
-                    <title>Vita s. Areleffi</title>
-                    <bibl>(BHL. Nr. 1568)</bibl>
-                  </msItem>
-                </egXML>
-              Notez l'usage des attributs <att>from</att> et <att>to</att> sur <gi>locus</gi>. Ils contiennent une forme normalisée 
-              du numéro de folio, qui peut ainsi être traité automatiquement par ex pour générer un lien vers un image. </item>
+            manuscrit. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>pp. 1v-7r, Vita s. Areleffi, (BHL. Nr. 1568); 273r-273v, Vita s. Elegii, (BHL. Nr.
+                2477); Voraus: 1r, Unvollständige Inhaltsangabe, (12. Jahrh.); 274r-274v, Folgt: 91.
+                Bruchstück von BHL. 4992. </p>
+            </egXML> Remplacez ce <gi>p</gi> par <gi>msContents</gi> donc. Il contient quatre items
+            distincts, chacun suivi d'un point-virgule et commençant avec une indication d'où il se
+            trouve dans le manuscrit, sa location en termes des folios. Donc on balise chacun avec
+              <gi>msItem</gi>, et (à l'interieur du <gi>msItem</gi>), on balise la location (par ex.
+              <q>pp. 1v-7r</q>) avec <gi>locus</gi>, le titre (par ex. <q>Vita s. Areleffi</q>) avec
+              <gi>title</gi>, et la référence bibliographique (par ex <q>BHL. Nr. 1568</q>) avec
+              <gi>bibl</gi> ainsi : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <msItem>
+                <locus from="1v" to="7r">pp. 1v-7r</locus>
+                <title>Vita s. Areleffi</title>
+                <bibl>(BHL. Nr. 1568)</bibl>
+              </msItem>
+            </egXML> Notez l'usage des attributs <att>from</att> et <att>to</att> sur
+            <gi>locus</gi>. Ils contiennent une forme normalisée du numéro de folio, qui peut ainsi
+            être traité automatiquement par ex pour générer un lien vers un image. <list>
               <item>Le deuxième item (<mentioned>273r-273v, Vita s. Elegii, (BHL. Nr.
                   2477);</mentioned>) est pareil</item>
               <item>Le troisième ne contient ni titre ni référence bibliographique: la mention
@@ -115,80 +96,85 @@
                   <q>synopsis incomplète (12eme siecle)</q>: vous pourriez considérer cela soit
                 comme une note (<gi>note</gi>), soit comme un type de titre</item>
               <item>Et le quatrième est pareil (<mentioned>Bruchstück von BHL. 4992</mentioned> veut
-                dire <q>fragment de BHL. 4992</q></item>
-              <item>Voici donc notre proposition : <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                  <msContents>
-                    <msItem>
-                      <locus from="1v" to="7r">pp. 1v-7r</locus>
-                      <title>Vita s. Areleffi</title>
-                      <bibl>(BHL. Nr. 1568)</bibl>
-                    </msItem>
-                    <msItem>
-                      <locus from="273r" to="273v">273r-273v</locus>
-                      <title>Vita s. Elegii</title>
-                      <bibl>(BHL. Nr. 2477)</bibl>
-                    </msItem>
-                    <msItem>
-                      <note> Voraus: <locus from="1r">1r</locus> Unvollständige Inhaltsangabe
-                          (<date>12. Jahrh.</date>). </note>
-                    </msItem>
-                    <msItem>
-                      <locus from="274r" to="274v">274r-274v</locus>
-                      <note>Folgt:</note>
-                      <bibl>91. Bruchstück von BHL. 4992.</bibl>
-                    </msItem>
-                  </msContents>
-                </egXML>
-              </item>
+                dire <q>fragment de BHL. 4992</q>) </item>
             </list></item>
-          <label>Description physique</label>
-          <item>Le troisième paragraphe concerne les aspects physiques du manuscrit. La balise
-              <gi>physDesc</gi> est prévu pour encoder ces aspects. <list>
+          <label>Déscription physique</label>
+          <item>Le troisième paragraphe concerne les aspects physiques du manuscrit. <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Perg., 274 Bll., 43,0 x 30,5 cm; (5. 6.) Drei primitive Zeichnungen. Initialen. Das
+                Fest "VIII Inventio crucis" in der Inhaltsangabe fehlt im Bande. Ebenso die
+                Passiones Cornelii, Mariae, Luciae, Thomae. (132) Klosterwappen.; Weisser Lederband
+                mit Linnenzeichnung. </p>
+            </egXML> La balise <gi>physDesc</gi> est prévu pour encoder ces aspects. <list>
               <item>Ajoutez un élément <gi>physDesc</gi> après le <gi>msContents</gi></item>
-              <item>A l'interieur de l'élément <gi>physdesc</gi>, créez un <gi>objectDesc</gi> dont
+              <item>A l'intérieur de l'élément <gi>physdesc</gi>, créez un <gi>objectDesc</gi> dont
                 l'attribut <att>form</att> porte la valeur <val>codex</val></item>
-              <item>A l'interieur de l'élément <gi>objectDesc</gi> créez un <gi>supportDesc</gi>
+              <item>A l'intérieur de l'élément <gi>objectDesc</gi> créez un <gi>supportDesc</gi>
                 dont l'attribut <att>material</att> porte la valeur <val>perg</val></item>
-              <item>A l'interieur de l'élément <gi>supportDesc</gi> creez <list>
-                <item>un élément <gi>support</gi> qui contient le mot <code>Perg.</code></item>
-                <item>un élément <gi>extent</gi> élément qui contient <list>
-                      <item>un <gi>measure</gi> dont l'attribut <att>type</att> porte la valeur
-                        <val>leafCount</val> avec le contenu <code>274 Bll</code></item>
+              <item>A l'intérieur de l'élément <gi>supportDesc</gi> créez <list>
+                  <item>un élément <gi>support</gi> qui contient le mot <code>Perg.</code></item>
+                  <item>un élément <gi>extent</gi> élément qui contient <list>
+                      <item>un <gi>measure</gi> avec le contenu <code>274 Bll</code> et trois
+                        attributs : <att>type</att> portant la valeur <val>leafCount</val>,
+                          <att>quantity</att> portant la valeur <val>274</val> et <att>unit</att>
+                        portant la valeur <val>leaves</val>
+                      </item>
                       <item>un deuxième <gi>measure</gi> qui contient une balise <tag>height
                           unit="mm" quantity="430"</tag> et une balise <tag>width unit="mm"
-                          quantity="305"</tag>
-                      </item>
+                          quantity="305"</tag></item>
                     </list>
                   </item>
                 </list>
               </item>
               <item>Ajoutez un élément <gi>decoDesc</gi> après l'élément <gi>objectDesc</gi>. </item>
-              <item>A l'interieur de cet élément <gi>decodesc</gi> ajoutew
-                deux <gi>decoNote</gi>,
+              <item>A l'interieur de cet élément <gi>decoDesc</gi> ajoutez deux <gi>decoNote</gi>,
                 chacun avec ses <gi>locus</gi>, et son texte pour décrire une type specifique de
-                decoration</item>
+                decoration, ainsi : <egXML xmlns="http://www.tei-c.org/ns/Examples"><decoNote>
+                      (<locus from="5v">5</locus>. <locus from="6r">6</locus>.) Drei primitive
+                    Zeichnungen. Initialen. Das Fest <quote>VIII Inventio crucis</quote> in der
+                    Inhaltsangabe fehlt im Bande. Ebenso die Passiones Cornelii, Mariae, Luciae,
+                    Thomae. </decoNote>
+                  <decoNote> (<locus from="132r">132r</locus>) Klosterwappen. </decoNote>
+                </egXML></item>
               <item>Et enfin ajoutez un élément <gi>bindingDesc</gi> après l'élément
                   <gi>decoDesc</gi>
               </item>
               <item>A l'interieure du <gi>bindingDesc</gi> ajoutez un <gi>binding</gi> qui contient
-                un <gi>p</gi> qui contient la description de reliure <mentioned>Weisser Lederband mit
-                  Linnenzeichnung</mentioned></item>
+                un <gi>p</gi> qui contient la description de reliure <mentioned>Weisser Lederband
+                  mit Linnenzeichnung</mentioned></item>
             </list>
           </item>
           <label>Notices bibliographiques</label>
-          <item>Les deux paragraphes qui restent contiennent des notices bibliographiques. La première
-            est la source d'où est dérivé notre <gi>msDesc</gi>; les deux autres sont des
-            descriptions indépendentes du même manuscrit. L'élément <gi>bibl</gi> peut être
-            utilisé pour tous les trois, mais il va apparaître dans deux contextes differentes: <list>
-              <item>celui qui décrit la source du <msDesc>msDesc</msDesc> apparait dans un <gi>source</gi>, dans
-                un <gi>recordHist</gi>, dans un <gi>adminInfo</gi></item>
+          <item>Les deux paragraphes qui restent contiennent des notices bibliographiques. <egXML
+              xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Mohlberg Leo Cunibert, Katalog der Handschriften der Zentralbibliothek Zürich I,
+                Mittelalterliche Handschriften, Zürich 1952, S. 18-19.</p>
+              <p>Beschr. E. Munding , Das Verzeichnis der St. Galler Heiligenleben und ihrer
+                Handschriften in Cod. Sangall. Nr. 566, in: Texte und Arbeiten I, 3 4 (1918) S. 42
+                56.; Vgl. P. Lehmann, Mittelalterliche Bibliothekskataloge I (1918) S. 91
+              99.</p></egXML>La première est la source d'où est dérivé notre <gi>msDesc</gi> ; les
+            deux autres sont des descriptions indépendentes du même manuscrit. L'élément
+              <gi>bibl</gi> peut être utilisé pour tous les trois, mais il va apparaître dans deux
+            contextes différentes: <list>
+              <item>celui qui décrit la source du <gi>msDesc</gi> apparait dans un <gi>source</gi>,
+                dans un <gi>recordHist</gi>, dans un <gi>adminInfo</gi></item>
               <item>les deux autres apparaissent dans un <gi>listBibl</gi></item>
             </list> Ces éléments <gi>adminInfo</gi> et <gi>listBibl</gi> doivent être entourés d'un
             élément <gi>additional</gi> à la fin du <gi>msDesc</gi></item>
-        </list>
-        
-        <p>Vous trouverez dans le fichier <ident>Corrections/msDesc-corr.xml</ident> notre proposition pour cet exercice...</p>
-        <!--
+        </list> Assurez-vous que votre document reste valide, avec un petit carré vert.
+        Félicitations! Vous avez construit un déscription de manuscrit complete (et veritable). S'il
+        vous reste un peu de temps pour tenter d'en faire encore une, voici l'ensemble des
+        informations disponibles sur le site web du BVH concernant le manuscrit d'Elie Vinet que
+        vous avez encodé dans l'exercice précédant: <graphic url="vinet-doc.png" width="90%"/></p>
+      <p> Sauriez vous créer un <gi>msDesc</gi> à partir de cela ? Pour vous aider, vous trouverez
+        dans le fichier <ident>vinet-desc.txt</ident> les parties essentielles à saisir et à
+        baliser. Quand vous aurez fini votre encodage, sauriez-vous insérer les résultats au bon
+        endroit dans la transcription que vous avez créée précedemment ? astuce: il s'agit de
+        remplacer le <gi>p</gi> dans le <gi>sourceDesc</gi> du <gi>teiHeader</gi></p>
+      <p>Vous trouverez des versions corrigées des deux documents dans les fichiers
+          <ident>Corrections/passMaj-corr.xml</ident> et <ident>Corrections/vinet-corr.xml</ident> :
+        ne les regardez pas tout de suite! </p>
+      <!--
 
 
 
