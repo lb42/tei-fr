@@ -150,7 +150,7 @@
         <egXML xmlns="http://www.tei-c.org/ns/Examples"> ...<persName ref="#CS">Clara
             Schumann</persName>.... <persName ref="#CS">Clara</persName> .... <persName key="CS123"
             >Frau Schumann</persName>
-          <!-- ... elsewhere -->
+          <!-- ... ailleurs -->
           <person xml:id="CS">
             <persName xml:lang="de">
               <forename type="first">Clara</forename>
@@ -158,13 +158,14 @@
               <surname type="maiden">Wieck</surname>
               <surname type="married">Schumann</surname>
             </persName>
+            <idno>CS123</idno>
           </person>
         </egXML>
         <p rend="box">Un <gi>persName</gi> n'est pas un <gi>person</gi> !</p>
       </div>
       <div>
         <head>Les entités (1)</head>
-        <p>TEI offre des éléments spécifiques pour gerer de l'information structurée au sujet des
+        <p>TEI offre des éléments spécifiques pour gérer de l'information structurée au sujet des
           entités nommés (au dela de leur noms): <list>
             <item><gi>person</gi>, <gi>place</gi>, <gi>event</gi></item>
             <item>elles peuvent être regroupées en <gi>listPerson</gi>, <gi>listPlace</gi>, etc. </item>
@@ -186,10 +187,10 @@
       </div>
       <div>
         <head>Traits, états et événements</head>
-        <p>La portée des éléments que l'on peut retenir pour une entité nommée est
+        <p>La portée des éléments que l'on peut retenir pour une entité nommé est
             <emph>vaste</emph>. La TEI fournit trois éléments génériques, et quelques-uns plus
           spécifiques. </p>
-        <p>Nous identifions trois classes principales d'information <list>
+        <p>Nous identifions trois classes principales d'information : <list>
             <item>des caractéristiques ou des <term>traits</term> qui en gros ne changement pas avec
               le temps </item>
             <item>des caractéristiques ou des <term>états</term> qui se maintiennent seulement
@@ -200,7 +201,7 @@
         </p>
       </div>
       <div>
-        <head>Exemples d'éléments plus specifiqes</head>
+        <head>Exemples d'éléments plus spécifiqes</head>
         <p>Pour des personnes: <list type="gloss">
             <label>traits</label>
             <item>des choses telles que <gi>faith</gi> la foi, <gi>sex</gi> le sexe,
@@ -346,7 +347,7 @@
       </div>
       <div>
         <head>Et finalement, n'oublions pas qu'un nom soit un entité!</head>
-        <p>Pour certaines raisons (onomastique, étymologie...) les noms propres existent
+        <p>De certaines perspectives (onomastique, étymologique...) les noms propres existent
           indépendamment de leur relation à une entité.</p>
         <p>Les éléments <gi>nym</gi> et <gi>listNym</gi> peuvent être utilisés pour rappeler une
           information concernant un nom considéré comme une entité, et l'attribut <att>nymRef</att>
@@ -377,14 +378,14 @@
           <item>par ex. occupation, adresse, mais aussi nom, affiliation religieuse, sexe,
             etc.</item>
           <item>pour cette raison, tout élément déscriptif d'une entité est membre de la classe
-            att.datable</item>
+            <ident>att.datable</ident></item>
         </list>
       </div>
       <div>
-        <head>Encodage des dates</head>
+        <head>La classe att.datable fournit plusieurs attributs</head>
         <list>
-          <item><gi>date</gi> est utilisé pour encoder les dates et associé à des attributs pour
-            proposer une forme normalisée</item>
+          <item>Ces attributs permettent l'expression des 
+           formes normalisées des dates </item>
           <item><att>when</att> : date exacte. <egXML xmlns="http://www.tei-c.org/ns/Examples"
               rend="tiny">
               <date when="2012-10-02">Deux octobre 2012</date> ou <date when="1552">M.D.LII</date>
@@ -407,9 +408,9 @@
         <p>L'attribut <att>calendar</att> sert à indiquer le calendrier dans lequel une date est
           exprimée</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <date calendar="*cal_AH">20 Rajab, 56</date>
+          <date calendar="#calAH">20 Rajab, 56</date>
           <!-- nécessite une définition dans l'entête par ex -->
-          <calendarDesc><calendar xml:id="cal_AH">
+          <calendarDesc><calendar xml:id="calAH">
               <p>Anno Hegirae (Muhammedan Era)</p>
             </calendar></calendarDesc>
         </egXML>
@@ -418,9 +419,9 @@
       </div>
       <div>
         <head>Epoques historiques</head>
-        <p>On peut aussi définir un <gi>period</gi> (epoque) et référer à cela de la même manière :
+        <p>On peut faire référence à un époque en utilisant l'attribut <att>period</att> de la même manière :
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <placeName period="#christian">Stauropolis</placeName>
+            <placeName period="#hellenistic">Stauropolis</placeName>
             <!-- nécessite une définition dans l'entête par ex  -->
             <category xml:id="hellenistic">
               <catDesc>
