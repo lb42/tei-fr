@@ -1,0 +1,426 @@
+@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@namespace aid url(http://ns.adobe.com/AdobeInDesign/4.0/);
+
+/*
+Styles CSS pour l'édition TEI.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+This programme is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+<http://www.gnu.org/licenses/>
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+This stylesheet is derived from the work of Sebastian Rahtz / University of Oxford (copyright 2005)
+
+
+Copyright (c) 2009-2015 
+   Pôle Document Numérique
+   Maison de la Recherche en Sciences Humaines
+   Université de Caen Basse-Normandie
+   Esplanade de la Paix
+   Campus 1
+   14032 Caen Cedex
+*/
+
+teiHeader {
+	display:none;
+}
+/* Par défaut */
+TEI {
+  font-family:Arial;
+  font-size:14px;
+  color:black;
+  line-height:1.5;
+}
+address,
+addrLine,
+argument,
+back,
+bibl,
+biblFull,
+biblStruct,
+body,
+byline,
+category,
+cit,
+closer,
+dateline,
+div,
+div0,
+div1,
+div2,
+div3,
+div4,
+div5,
+div6,
+div7,
+docAuthor,
+eg,
+epigraph,
+figDesc,
+figure,
+front,
+graphic,
+group,
+head,
+item,
+lb,
+list,
+listBibl,
+listWit,
+lg,
+opener,
+p,
+quote,
+salute,
+signed,
+sp,
+speaker,
+TEI,
+text,
+titlePage,
+trailer,
+witness {
+	display:block;
+}
+/*
+BLOCS ET CARACTÈRES
+
+Les styles de niveau bloc sont déclarés une première fois à un seul endroit,
+afin d’assurer l'écoulement du texte avant de le décorer.
+
+
+*/
+
+div[type=chapitre]  {
+display:inline-block;
+}
+
+titlePage {
+  display:block;
+  font-size:11px;
+  text-align:center;
+  border-width:1px;
+  border-color:black;
+  border-style: solid;
+  padding:1;
+}
+
+docTitle,
+titlePart,
+byline,
+docAuthor,
+affiliation,
+email {
+  display:block;
+}
+  
+head {
+  margin-bottom:20px;
+  padding:15px;
+  font-size:15px;
+  text-align:left;
+  color:maroon;
+}
+
+head[aid|pstyle='T_inv'] {
+  text-align:right;
+}
+
+head[aid|pstyle='T_sousT_inv'] {
+  text-align:right;
+}
+
+pb:after {
+  content: attr(n);
+  font-weight: bold;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: center;
+}
+
+/*
+TABLES
+*/
+table {
+  display:table;
+  collapsed:yes;
+}
+table > head{
+  display:table-caption;
+  font-style: italic;
+  margin-bottom: 6pt;
+}
+
+row {
+  display:table-row;
+  collapsed:yes;
+}
+cell{
+  display:table-cell;
+  border-width:1px;
+  border-color:black;
+  border-style: solid;
+  padding:1;
+  collapsed:yes;
+  text-align:center;
+}
+/* Gestion des fusion de cellules */
+cell[cols] {
+    column-span: concatenate(attr(cols));
+}
+cell[rows] {
+    row-span: concatenate(attr(rows));
+}
+/*
+BLOCS
+*/
+
+
+/*p {
+  display:block;
+  width:550px;
+  border: 1px solid red;
+}*/
+
+/*note {
+  display:inline-block;
+  border: 1px solid blue;
+}*/
+
+
+quote {
+  font-size:13px;
+  margin-left:50px;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+
+lb {
+	content:"\A";
+}
+/*ajout EC*/
+body,
+div {
+	display:block;
+}
+p {
+	display:block;
+	color:blue;
+	text-align:justify;
+	margin-bottom:25px;
+}
+note {
+	display:inline;
+	font-size: 75%;
+    text-align:left;
+    width: 45%;
+}
+/*
+ NOTES
+*/
+
+/*note[place] {
+  counter-increment:note;
+  font-family:verdana;
+  display:inline;
+  font-size:12px;
+  font-style:normal;
+  content: "{"counter(note)"}";
+  color:blue;
+  background-color:#FFFFFF;
+}*/
+
+
+/*index:before {
+  content:" "icon(right)" "attributes();
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:#afafaf;
+}
+
+index:after {
+  content:" "icon(left)" ";
+  color:#afafaf;
+}
+
+index::attribute() {
+  attribute-content-left: attribute-label() ":";
+  attribute-content-middle: value-editor(attribute, attribute());
+  show-attribute: when-added;
+  font-size: smaller;
+}*/
+
+term {
+  font-family:verdana;
+  display:inline;
+  font-size:12px;
+  font-style:normal;
+  color:#000000;
+  padding-left:5px;
+  padding-right:5px;
+  background-color: #efefef;
+}
+
+stage {
+  display:block;
+  text-align:left;
+  color:#333333;
+}
+
+l {
+  display:block;
+  text-align:center;
+}
+
+/*
+CARACTÈRES
+*/
+
+hi[rend="i"],
+hi[rend="it"],
+hi[rend="italic"],
+mentioned,
+placeName,
+soCalled {
+  font-style:italic;
+}
+hi[rend="b"],
+hi[rend="bold"]{
+		font-weight:bold;
+}
+hi[rend="sc"],
+hi[rend="smallcaps"]{
+  color:red;
+}
+hi[rend="sup"]{
+  vertical-align:super;
+  font-size:80%;
+}
+hi[rend="sub"]{
+  vertical-align:sub;
+  font-size:80%;
+}
+hi[rend="underline"]{
+  text-decoration:underline;
+}
+hi[rend="line-through"]{
+  text-decoration:line-through;
+}
+hi[rend="ul"],
+hi[rend="u"],
+ref {
+  text-decoration: underline;
+}
+
+
+
+/*
+DIVERS
+*/
+
+include {
+  content:attr(href)" : "attr(xpointer);
+  display:block;
+}
+
+
+/* quote {
+    display:block;}*/
+
+gloss {
+  display:block;
+  /*font-style:italic;*/
+  margin-left:50px;
+}
+
+quote > list {
+  /*counter-reset:item; */
+  margin-left:15px;
+}
+
+list > item:before {
+  /*counter-increment:item;
+  content: counter(item,lower-alpha)" "; */
+  color:red;
+  font-weight:bold;
+}
+
+figure > head > bibl {
+    display:inline;
+    color:inherit;
+    font-size:inherit;
+    text-decoration: underline;
+}
+
+bibl {
+  line-height:1.5;
+}
+
+
+speaker {
+  margin-top:10px;
+  margin-bottom:5px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+
+figure > head {
+  margin-bottom:20px;
+  padding:15px;
+  font-family:arial;
+  font-size:12px;
+  text-align:center;
+  color:maroon;
+}
+
+
+figDesc:before {
+  counter-increment:figDesc;
+  content: "Fig. "counter(figDesc)" : ";
+}
+
+figDesc {
+  text-align:center;
+  margin-top:5px;
+  margin-bottom:20px;
+}
+
+graphic {
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:20px;
+  border:1px solid black;
+  content:image-viewport(attribute,url,data-type,anyURI,viewport-width,450,content-width,scale-to-fit,smooth,yes);
+}
+
+media:after{
+	display:block;
+	content:""
+				combo-box(attribute, mimeType, 
+					labels, "audio-wav\A audio-mp3\A video-mov\A video-mp4\A",
+					values, "audio/wav\A audio/mp3\A video/mov\A video/mp4\A");
+}
+
+media > desc {
+  display:block;
+  margin-left:150px;
+  margin-right:25px;
+  margin-top:20px;
+  border:1px solid black;
+}
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+

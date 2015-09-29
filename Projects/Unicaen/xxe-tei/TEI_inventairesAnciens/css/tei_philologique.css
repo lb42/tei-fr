@@ -1,0 +1,382 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+/*
+Notes
+*/
+
+note[type="commentaire"]{
+    display:block;
+    background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+note[type="philologie"]:before{
+    content:"Note philologique [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="philologie"]{
+    display:inline;
+    background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+note[type="histoire"]:before{
+    content:"Note historique [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="histoire"]{
+    display:inline;
+    background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+
+
+note[type="manuscrit"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="identification"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="source_ms_edition"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+ note[type="addition"]{
+    display:inline;
+    background-color:#d1d3d4;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+note[type="cote"]:after{
+content:"          ";
+}
+
+note[type="commentaire"]:before{
+    content:"Note de commentaire [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="apparat"]{
+    display:inline;
+    background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px; 
+    margin-right:20px;
+    padding:3px;  
+	font-size:12px;
+	line-height:1.3;  
+}
+
+note[type="apparat"]:before{
+    content:" Note d'apparat [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="commentaire"][subtype="item"]{
+    display:block;
+     background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px; 
+    margin-right:20px; 
+    padding:3px;
+    font-size:12px;
+	line-height:1.3;   
+}
+
+note[type="commentaire"][subtype="item"]:before{
+    content:"Note sur l'item [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="commentaire"][subtype="inventaire"]{
+    font-size:12px;
+    line-height:1.3;
+    font-weight:normal;
+    color:black;
+    display:block;
+    background-color:#e2f0fa;
+    border:1px dotted #afafaf;
+    margin:10px; 
+    margin-right:20px;
+    padding:3px;    
+}
+
+note[type="commentaire"][subtype="inventaire"]:before{
+    content:"Note sur l'inventaire [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="commentaire"][subtype="inventaire"]{
+   display:block;
+	padding:3px;
+	font-size:12px;
+	line-height:1.3;
+}
+
+
+/* Par défaut */
+
+foreign:after {
+	content:" "combo-box(attribute, xml|lang, labels, "Albanais\A Albanais (groupe)\A Allemand\A Allemand (ancien haut, 750-1050)\A Allemand (moyen bas)\A Allemand, moyen haut (1050-1600)\A Anglais\A Anglais, ancien (450-1100)\A Anglais, moyen (1100-1500)\A Anglo-normand\A Arabe\A Balte (groupe)\A Breton\A Catalan\A Celtique (groupe)\A Chaldéen\A Corse\A Espagnol\A Finno-ougrien (groupe)\A Français\A Ancien français (842-1400)\A Moyen français (1400-1600)\A Germanique occidental (groupe)\A Germanique septentrional (groupe)\A Géorgien\A Géorgien ancien\A Grec (groupe)\A Grec ancien (jusque 1453)\A Grec moderne (depuis 1453)\A Hébreu\A Hébreu ancien\A Hongrois\A Irlandais\A Italien\A Italique (groupe)\A Latin\A Letton\A Néerlandais\A Occitan (moderne, après 1500)\A Portugais\A Provençal (ancien) / occitan (ancien), avant 1500\A Roman (groupe)\A Romanche\A Russe\A Russe (ancien)\A Sémitique\A Sicilien\A Slave (groupe)\A Suisse-allemand\A Syriaque\A", values, "sq\A sqi\A ge\A goh\A gml\A gmh\A en\A ang\A enm\A xno\A ar\A bat\A br\A ca\A cel\A cld\A co\A es\A fiu\A fr\A fro\A frm\A gmw\A gmq\A kat\A oge\A grk\A grc\A el\A he\A hbo\A hu\A ga\A it\A itc\A la\A lv\A nl\A oc\A pt\A pro\A roa\A rm\A ru\A orv\A sem\A scn\A sla\A ghw\A syc\A");
+	display:inline;
+	font-size:70%; 
+	font-style:italic;
+	background-color:#FFFFFF;
+}
+
+foreign{
+	color:#4f4e4e;
+	display:inline;
+}
+
+
+mod[type="soulignage"]:before{
+    content: " Souligné : [", attr(hand) "]  ";
+vertical-align:super;
+  font-size:80%;
+  background-color:#FFFFFF;
+  text-decoration:none;
+}
+
+mod[type="intervention"]:before{
+    content: " "icon(right)" Intervention : [", attr(hand) "]  ";
+vertical-align:super;
+  font-size:80%;
+  background-color:#FFFFCC;
+  text-decoration:none;
+}
+
+mod[type="intervention"]:after{
+content: " "icon(left)" ";
+    
+}
+
+mod[type="soulignage"]{
+    text-decoration:underline;
+}
+
+hi[rend="line-through"]{
+   text-decoration:line-through;
+}
+
+
+ref{
+text-decoration:underline;
+}
+
+
+
+
+/*ADDITIONS / SUPPRESSIONS / CORRECTIONS / */
+
+del[hand]:before{
+    content: " Suppr. (", attr(hand) ") : ";
+vertical-align:super;
+  font-size:80%;
+text-decoration:none;
+    background-color:#FFFFFF;
+}
+
+del:before{
+    content: " Suppr. : ";
+vertical-align:super;
+  font-size:80%;
+text-decoration:none;
+background-color:#FFFFFF;
+}
+
+del{
+      background-color:#FFCC99;
+    text-decoration:line-through;
+}
+
+add {
+    display:inline;
+    background-color:#E0FFE0;
+}
+
+
+add:before{
+    content: " Ajout : ";
+    vertical-align:super;
+  font-size:80%;
+    background-color:#FFFFFF;
+}
+add[hand]:before{
+    content: " Ajout (", attr(hand) ") : ";
+  	font-size:80%;
+    background-color:#FFFFFF;
+    text-decoration:none;
+}
+
+sic:after {
+	content:" [sic]";
+	font-style:italic;
+}
+choice > sic {
+	color:#9a1f15;
+	font-weight:bold;
+}
+choice > sic:after {
+	content:"";
+}
+choice > corr {
+	color:red;
+	vertical-align:inherit;
+}
+choice > corr:before {
+	content:"[";
+}
+choice > corr:after {
+	content:"]";
+}
+
+add[place=surcharge] {
+	font-weight:bold;
+}
+del[rend=biffe] {
+	text-decoration:line-through;
+}
+
+del[rend=surcharge] {
+	text-decoration:line-through;
+	font-weight:normal;
+	color:#000000;
+}
+
+ex {
+	color:black;
+	vertical-align:inherit;
+
+} 
+
+ex:before {
+	content:"[";
+	vertical-align:inherit;
+}
+ex:after {
+	content:"]";
+	vertical-align:inherit;
+}
+expan {
+	color:black;
+	
+	vertical-align:inherit;
+}
+expan:before {
+	content:"[";
+	vertical-align:inherit;
+}
+expan:after {
+	content:"]";
+	vertical-align:inherit;
+}
+
+unclear:before {
+	color:navy;
+	content:"[";
+} 
+
+unclear:after {
+	color:navy;
+	content:"]";
+} 
+abbr {
+	display:inline;
+	color:#9a1f15;
+	font-weight:bold;
+}
+am {
+	display:inline;
+	color:#9a1f15;
+	font-weight:bold;
+}
+orig {
+	display:inline;
+	color:#9a1f15;
+	font-weight:bold;
+}
+reg {
+	display:inline;
+	color:black;
+}
+reg:before {
+	content:"[";
+}
+reg:after {
+	content:"]";
+}
+
+
+/*
+Fin notes
+*/
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}

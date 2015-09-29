@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<!-- Baliser une cote -->
+
+  <command name="cote">
+    <macro>
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}idno"/>
+        <command name="confirm" parameter="Préciser la cote ?"/>
+        <command name="pick"
+          parameter="'Choisir un type de cote' false 'a. fourchette' 'b. autre cote/autre numérotation'"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'a. fourchette'"/>
+            <command name="putAttribute" parameter="[implicitElement] n"/>
+            <command name="identifNoms"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'b. autre cote/autre numérotation'"/>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}label"/>
+            <command name="putAttribute" parameter="[implicitElement] type autre_numerotation"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+<!--  Baliser une information sur le ou les volumes  -->
+  <command name="info_volume">
+    <macro>
+      <sequence>
+        <command name="pick"
+          parameter="'Choisir une information' false 'a. format' 'b. volumes/tomaison/nombre de références/nombre unités textuelles' 'c. codicologie' 'd. localisation' 'e. type objet'"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'a. format'"/>
+            <command name="format"/>
+          </sequence>
+          <sequence>
+            <test
+              expression="$typeIndex = 'b. volumes/tomaison/nombre de références/nombre unités textuelles'"/>
+            <command name="pick"
+              parameter="'Choisir une information' false 'a. volumes' 'b. tomaison' 'c. nombre de références' 'd. nombre unités textuelles"/>
+            <set variable="typeIndex" expression="%_" plainString="true"/>
+            <get expression="$typeIndex"/>
+            <choice>
+              <sequence>
+                <test expression="$typeIndex = 'a. volumes'"/>
+                <command name="volumes"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'b. tomaison'"/>
+                <command name="tomaison"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'c. nombre de références'"/>
+                <command name="nombre_references"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'd. nombre unités textuelles'"/>
+                <command name="nombre_unites_textuelles"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'c. codicologie'"/>
+            <command name="carac_codico"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'd. localisation'"/>
+            <command name="localisation"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'e. type objet'"/>
+            <command name="objectType"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="tomaison">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}measure"/>
+            <command name="putAttribute" parameter="[implicitElement] type tomaison"/>
+            <command name="putAttribute" parameter="[implicitElement] unit tome"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <command name="putAttribute" parameter="[implicitElement] type tomaison"/>
+            <command name="putAttribute" parameter="[implicitElement] unit tome"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+  <command name="volumes">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}measure"/>
+            <command name="putAttribute" parameter="[implicitElement] type volumes"/>
+            <command name="putAttribute" parameter="[implicitElement] unit volume"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <command name="putAttribute" parameter="[implicitElement] type volumes"/>
+            <command name="putAttribute" parameter="[implicitElement] unit volume"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+  <command name="formatNew">
+    <macro>
+      <sequence>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}measure"/>
+            <command name="putAttribute" parameter="[implicitElement] type format"/>
+      </sequence>
+    </macro>
+  </command> 
+  
+ 
+  
+  <command name="nombre_references">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}measure"/>
+            <command name="putAttribute" parameter="[implicitElement] type nombre_references"/>
+            <command name="putAttribute" parameter="[implicitElement] unit reference"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <command name="putAttribute" parameter="[implicitElement] type nombre_references"/>
+            <command name="putAttribute" parameter="[implicitElement] unit reference"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+
+  <command name="nombre_unites_textuelles">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}measure"/>
+            <command name="putAttribute" parameter="[implicitElement] type nombre_unites_textuelles"/>
+            <command name="putAttribute" parameter="[implicitElement] unit unite_textuelle"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <command name="putAttribute" parameter="[implicitElement] type nombre_unites_textuelles"/>
+            <command name="putAttribute" parameter="[implicitElement] unit unite_textuelle"/>
+            <command name="putAttribute" parameter="[implicitElement] quantity"/>
+            <choice>
+              <sequence>
+                <command name="removeAttribute" parameter="[implicitElement] xml:id"/>
+              </sequence>
+              <sequence>
+                <command name="pass"/>
+              </sequence>
+            </choice>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+
+
+	
+  <command name="codico">
+    <macro>
+      <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}term"/>
+            <command name="putAttribute" parameter="[implicitElement] type codicologie"/>					
+      </sequence>
+    </macro>
+  </command>
+  
+  <command name="localisation">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}term"/>
+            <command name="addAttribute" parameter="[implicitElement] type localisation"/>
+          </sequence>
+          <sequence>
+            <command name="pass"/>
+          </sequence>
+        </choice>
+        <command name="indexation_bibliotheconomie_locatif"></command>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="objectType">
+    <macro>
+      <sequence>
+        <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}objectType"/>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+    <command name="indexation_bibliotheconomie_locatif">
+    <macro>	
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}term"/>
+        <command name="xsl_indexCodico" parameter="Bibliotheconomie_locatif"/>
+        <command name="pick"
+          parameter="'choisir une référence' true @ '%C%Sressources%SindexBibliotheconomie_locatif.txt' UTF-8 "/>
+        <command name="putAttribute" parameter="ref indexBibliotheconomie_locatif.xml#%_"/>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+  
+  </configuration>

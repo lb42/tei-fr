@@ -1,0 +1,387 @@
+﻿@import url(formulaire_indexBiblio.css);
+@import url(formulaire_indexPers.css);
+@import url(formulaire_indexOeuvres.css);
+@import url(formulaire_indexLieux.css);
+@namespace tei url(http://www.tei-c.org/ns/1.0);
+@extension "fr.unicaen.mrsh.poledoc.idrefsresolver.IdRefsResolver";
+
+/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+
+
+/*Gestion du header*/
+
+teiHeader:before { 
+		content: collapser();
+}
+
+teiHeader { 
+		collapsible:yes; 
+		not-collapsible-head: 1; 
+		collapsed:yes;
+		collapsed-content: "Métadonnées"; 
+		collapsed-content-align:center;
+			font-weight:bold; 
+			font-size:120%;
+}
+
+
+
+teiHeader { 
+		display: block; 
+		width:600px; 
+		border: 1px solid; 
+		margin-left:10px;
+		margin-right:auto; 
+		margin-bottom:20px;
+		padding:15px; 
+		background-color:#efefef;
+		font-size: 80%; 
+		color:#000000;
+}
+
+fileDesc { 
+		display:block;
+}
+
+titleStmt:before { 
+		display:block; 
+		content:"Informations bibliographiques";
+		margin-bottom:15px; 
+		font-size:100%; 
+		font-weight:bold;
+}
+
+titleStmt { 
+		display:block; 
+		margin-left:30px;
+}
+
+titleStmt > title { 
+		display: block; 
+		content:"Titre :\A"text-area(columns,40,rows,2,wrap,word); 
+		margin-bottom:10px;
+}
+
+titleStmt > author { 
+		display:block; 
+		content:"Auteur : \A"text-field(columns,20);
+		margin-bottom:10px;
+}
+
+
+
+publicationStmt:before { 
+		display:block; 
+		margin-top:10px; 
+		margin-bottom:10px;
+		font-size:90%; 
+		content:"Publication";
+}
+
+publicationStmt { 
+		display:block; 
+		margin-left:30px;
+}
+
+publicationStmt > publisher { 
+		display:block; 
+		margin-bottom:10px;
+		content:"Editeur : \A"text-field(columns,20);
+}
+
+publicationStmt > pubPlace { 
+		display:block; 
+		margin-bottom:10px; 
+		content:"Lieu :\A"text-field(columns,20);
+}
+
+
+
+sourceDesc:before { 
+		display:block; 
+		margin-top:10px; 
+		margin-bottom:10px;
+		font-size:90%; 
+		font-weight:bold; 
+		content:"Document source ";
+}
+
+sourceDesc { 
+		display:block; 
+		margin-left:30px;
+}
+
+sourceDesc > bibl { 
+		display:block;	
+}
+
+sourceDesc > bibl > author { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Auteur : "text-field(columns,20);
+}
+
+sourceDesc > bibl > author:after { 
+		display:inline; 
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > title { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Titre : "text-field(columns,20);
+}
+
+sourceDesc > bibl > title:after { 
+		display:inline; 
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > name { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Dans : "text-field(columns,20);
+}
+
+sourceDesc > bibl > name:after { 
+		display:inline;
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > orgName { 
+		display:block; 
+		margin-bottom:5px;
+		content:"Organisme : "text-field(columns,20);
+}
+
+sourceDesc > bibl > orgName:after { 
+		display:inline;
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+profileDesc:before { 
+		display:block; 
+		margin-top:20px; 
+		margin-bottom:15px;
+		font-size:100%; 
+		font-weight:bold; 
+		content:"Profil du texte : ";
+}
+
+profileDesc { 
+		display:block; 
+		margin-bottom:20px;
+}
+
+
+
+textDesc:before { 
+		display:block; 
+		margin-bottom:15px; 
+		font-size:90%;
+		content:"Caractéristiques";
+}
+
+
+
+revisionDesc:before { 
+		display:block; 
+		margin-top:15px; 
+		margin-bottom:10px;
+		font-size:100%; 
+		font-weight:bold; 
+		content:"Informations de révision "delete-button(tool-tip, "Supprimer");;        
+}
+
+revisionDesc { 
+		display:block;
+}
+
+change:before { 
+		display:block; 
+		margin-left:30px; 
+		content:"Date :\A"text-field(attribute,when,columns,30)"\AResponsable :\A"text-field(attribute,who,columns,30);
+}
+
+change { 
+		display:block; 
+		margin-left:30px; 
+		content:"Type :\A"text-field(columns,30);
+}
+
+change:after:last-child { 
+		display:block;
+		margin-left:30px;
+		margin-bottom:15px;
+		color:blue;
+		text-decoration:underline;
+		content:command-button(text, "Insérer une révision", command, "insertNode", parameter, "sameElementAfter");
+}
+
+/*Gestion du texte*/
+
+text { 
+		display: block; 
+		width:600px; 
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:20px; 
+		padding:15px; 
+		font-size:95%; 
+		color:#000000;
+}
+
+/*Front*/
+
+front { 
+		display:block;
+}
+
+
+/*Body*/
+
+body {
+		display: block; 
+		
+		}
+
+		p{
+			display:block;
+		}
+		/*Back*/
+
+		back { 
+			display:block;
+		}
+	
+		/*Typo*/
+
+		*[rend=normal] {
+				font-style:normal;
+		}
+
+		*[rend=sup] {
+				vertical-align:super; 
+				font-size:66%;
+		}
+
+		*[rend=sub] {
+				vertical-align:sub; 
+				font-size:66%;
+		}
+
+		*[rend=italic] {
+				font-style:italic;
+		}
+
+		*[rend=smcaps] {
+				font-weight:bold;
+				color:#999999;
+		}
+
+		*[rend=smcaps-italic] {
+				font-style:italic;
+		}
+
+		*[rend=underline] {
+				display:inline;
+				text-decoration:underline;
+		}
+
+		*[rend=bold] {
+				font-weight:bold;
+		}
+
+		lb {
+			display:inline;
+		}
+
+		lb:after {
+			display:inline;
+			content:" \A";
+		}	
+		/* ************* Notes *************** */
+note:before {
+	content:combo-box(attribute, type, labels, "Commentaire\A Bibliographie\A Travail", values, "commentaire\A bibliographie\A travail")"Note ("attr(resp)") : ";
+	font-weight:normal;
+	color:#353738;
+	background-color:#e9e8e8;
+
+}
+note[type=bibliographie]:before {
+	content:combo-box(attribute, subtype, labels, "Sources\A Études\A", values, "source\A etude\A")combo-box(attribute, type, labels, "Commentaire\A Bibliographie\A Travail", values, "commentaire\A bibliographie\A travail")"Note ("attr(resp)") : ";
+	font-weight:normal;
+	color:#353738;
+	background-color:#e9e8e8;
+
+}
+note[type=commentaire]:before {
+	content:combo-box(attribute, subtype, labels, "Relation\A Autres\A Main\A", values, "relation\A autres\A main\A")combo-box(attribute, type, labels, "Commentaire\A Bibliographie\A Travail", values, "commentaire\A bibliographie\A travail")"Note ("attr(resp)") : ";
+	font-weight:normal;
+	color:#353738;
+	background-color:#e9e8e8;
+
+}
+note {
+	display:block;
+	color:#353738;
+	background-color:#e9e8e8;
+	font-weight:normal;
+	padding-left:50px;
+	padding-top:2px;
+	padding-bottom:2px;
+	margin-left:100px;
+	margin-right:50px;
+	margin-top:5px;
+	margin-bottom:10px;
+	line-height:1.2;
+	}
+
+note[subtype=relation] > name {
+	color:#1a689f;
+}
+note[subtype=relation] > name:after {
+	content:combo-box(attribute, role, labels, "Ami\A Cousin\A Frère\A Fils\A Mère\A Neveu\A Oncle\A Parrain\A Père\A Seigneur\A Sœur\A Vassal\A", values, "ami\A cousin\A frere\A fils\A mere\A neveu\A oncle\A parrain\A pere\A seigneur\A soeur\A vassal\A ");
+}
+
+note[subtype=main] > ref{
+		display:block;
+		margin-left:0px;
+		margin-right:auto;
+		content:image-viewport(attribute,target,content-width,attr(width),scale-to-fit,smooth,yes);
+}
+
+note[subtype=main] > ref {
+		display:block;
+		margin-left:0px;
+		margin-right:auto;
+vertical-align: middle;
+		content:image-viewport(attribute,target,data-type,anyURI,viewport-width,auto,content-width,scale-to-fit,smooth,yes);
+}
+
+

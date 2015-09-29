@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<!-- Production du fichier XML erudit pour cairn -->
+<command name="doc2cairn">
+    <macro>
+      <sequence>
+      <!-- ajouter la demande du dossier icono -->
+        <command name="confirm" parameter="Exporter le fichier pour cairn?"/>
+        <command name="XXE.save" parameter="[ifNeeded]"/>
+        <command name="tocairn"/>
+		<command name="alert" parameter="Le résultat n'est pas visualisable, le zip a fournir à carin.info est dans le dossier CAIRN"/>
+      </sequence>
+    </macro>
+</command>
+	
+<command name="tocairn">
+    <process>
+    	<mkdir dir="%P%SCAIRN%S" quiet="true"/>
+		<mkdir dir="%P%SCAIRN%S%R" quiet="true"/>
+		<transform file="%D" label="Export Cairn"
+                 stylesheet="xsl%SexportCairn.xsl" to="%P%SCAIRN%S%R%Scairn_%N"
+                 version="2.0">
+				<parameter name="directory">%p</parameter>
+        		<parameter name="filename">%N</parameter>
+		</transform>
+		<copyProcessResources resources="@%p%SCAIRN%S%R%SlinksToImages.txt" to="%P%SCAIRN%S%R%S"/>
+	<delete files="%P%SCAIRN%S%R%SlinksToImages.txt" quiet="true"/>
+    <shell command="zip -ju %P%SCAIRN%S%R.zip %P%SCAIRN%S%R%S*" 
+    	   label="Compression du dossier pour cairn" 
+    	   platform="Mac"/>
+    <shell command="7z.exe a -tzip &quot;%P%SCAIRN%S%R.zip&quot; %P%SCAIRN%S%R%S* -aoa"
+           label="Compression du dossier pour cairn" 
+           platform="Windows"/>
+    <delete files="%P%SCAIRN%S%R" quiet="true" recurse="true"/>   
+    </process>
+  </command>
+  	
+</configuration>

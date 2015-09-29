@@ -1,0 +1,606 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+/*@import url(tei_Header.css);*/
+@namespace aid url(http://ns.adobe.com/AdobeInDesign/4.0/);
+@namespace xi url(http://www.w3.org/2001/XInclude);
+
+/*
+Styles CSS pour l'édition TEI.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+This programme is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+<http://www.gnu.org/licenses/>
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+This stylesheet is derived from the work of Sebastian Rahtz / University of Oxford (copyright 2005)
+
+Copyright (c) 2009-2015 
+   Pôle Document Numérique
+   Maison de la Recherche en Sciences Humaines
+   Université de Caen Basse-Normandie
+   Esplanade de la Paix
+   Campus 1
+   14032 Caen Cedex
+*/
+
+teiHeader {
+	display:none;
+}
+
+/* Par défaut */
+TEI {
+  font-family: Junicode;
+  font-size:14px;
+  color:black;
+  line-height:1.5;
+  /*background-color:#D6D6D6;*/
+}
+/*
+BLOCS ET CARACTÈRES
+
+Les styles de niveau bloc sont déclarés une première fois à un seul endroit,
+afin d’assurer l'écoulement du texte avant de le décorer.
+
+
+*/
+* {
+  display:inline;
+}
+back,
+bibl,
+biblFull,
+biblStruct,
+body,
+byline,
+div,
+docAuthor,
+epigraph,
+figure,
+front,
+graphic,
+group,
+head,
+item,
+lb,
+list,
+listBibl,
+p,
+quote,
+TEI,
+text,
+titlePage {
+	display:block;
+}
+
+/* Front Body Back */
+
+front,
+group[type=book],
+back,
+figure {
+  border: 1px solid #000000;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  margin-bottom:15px;
+  collapsible:yes;
+}
+
+/* Front */
+
+front:before {
+	content:" PRELIMINAIRES", command-button(
+			icon, disc,
+			padding-left, 25px,
+			/*padding-top, 6px,*/
+			menu, menu("1. Inserer une page de credits", "insert_titlepage", 0,
+					   "2. Inserer du texte", "insert_limin", 0));
+}
+
+titlePage {
+  display:block;
+  font-size:120%;
+  text-align:left;
+  border: 2px solid;
+  border-color: #777777;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  margin-right:5px;
+  margin-left:5px;
+  padding-left:5px;
+}
+
+titlePage[type=pagedetitre]:before {
+	content:" "command-button(
+						icon, url('../xxe/container/affichage/icons/pdt.png'),
+						icon-position, right,
+						menu, menu(
+						"1. Inserer un sous-titre", "insert_subtitle", 0,
+						"2. Inserer titre complementaire", "insert_compltitle", 0,
+						"3. Inserer titre traduit", "insert_alttitle", 0,
+						"4. Inserer titre original", "insert_origtitle", 0,
+					   "5. Inserer titre de collection", "insert_colltitle", 0,
+					   "6. Inserer un auteur", "insert_auteur", 0,
+					   "7. Inserer un responsable", "insert_resp", 0)
+	);
+	display:block;
+	text-align:right;
+}
+
+titlePage[type=pagedecredits]:before {
+	content:" "command-button(
+						icon, url('../xxe/container/affichage/icons/pdc.png'),
+						icon-position, right,
+						menu, menu(
+						"1. Inserer publieur", "insert_publieur", 0,
+					   "2. Inserer ref. bibliographique", "insert_refbibl", 0,
+					   "3. Inserer droits", "insert_licence", 0,
+					   "4. Inserer editeur", "insert_editeur", 0,
+					   "5. Inserer partenaire financier", "insert_parten", 0)
+	);
+	display:block;
+	text-align:right;
+}
+
+div[type=liminaires]:before {
+	content:" "command-button(
+						icon, url('../xxe/container/affichage/icons/limin.png'),
+						icon-position, right,
+						menu, menu(
+						"1. Inserer du texte (bio de l'auteur, remerciements, dedicace ou texte liminaire)", "insert_titlepage", 0,
+					   "2. Inserer une epigraphe", "insert_epigraphe", 0)
+	);
+	display:block;
+	text-align:right;
+}
+
+group[type=book]:before {
+	content:" CORPS DU TEXTE",
+		command-button(
+			icon, disc,
+			padding-left, 25px,
+			menu, menu(/*"1. Inserer une partie", "insert", "into #template({http://www.tei-c.org/ns/1.0}group,part)"*/
+						"1. Inserer des parties", "nbOfPart", 0,
+					   "2. Inserer un document", "insert_include", 0,
+					   "3. Saisir texte", "insert_text",0));
+}
+
+group[type=section1]:before {
+	content:"Partie (" simple-counter(n,upper-roman) ")";
+}
+group[type=section2]:before {
+	content:"Sous-partie (" simple-counter(nn,upper-roman) ")";
+}
+group[type=section3]:before {
+	content:"Sous-partie (" simple-counter(nnn,upper-roman) ")";
+	font-size:13px;
+}
+
+group[rend] {
+	display:block;
+	content:"";
+	background-color:#D6D6D6;
+}
+
+text[xml|id=book]:before {
+	content:"";
+}
+text[xml|id=book] {
+	margin:0px;
+}
+
+text:before {
+	content:"Texte";
+}
+
+text {
+	margin:15px;
+}
+
+group > text:after {
+	display:block;
+	content:command-button(
+			icon, square,
+			/*padding-left, 638px,
+			padding-top, 6px,*/
+			menu, menu("Inserer une partie", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,part)",
+					   "Inserer un document", "insert_include_after", 0));
+}
+
+/*back:before {
+	content:" POSTLIMINAIRES"
+			command-button(
+			icon, disc,
+			padding-left, 25px,
+			menu, menu("1. Saisir texte", "insert_text_back", 0));
+}*/
+
+/* "into #template({http://www.tei-c.org/ns/1.0}div,txtInBack)" */
+
+group[type=section1] {
+	margin:15px;
+	/*background-color:#CCCCCC;*/
+}
+
+group[type=section1]:after {
+	display:block;
+	content:"" command-button(icon,icon(insert),
+						   icon-position, right,
+						   command, "insert",
+						   parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,part)");
+}
+
+group[type=section2] {
+	margin:30px;
+	/*background-color:#A3A3A3;*/
+}
+
+group[type=section3] {
+	margin:45px;
+	/*background-color:#828282;*/
+}
+
+group[type=section2]:after {
+	display:block;
+	content:"" command-button(icon,icon(insert),
+						   icon-position, right,
+						   command, "insert",
+						   parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,subpart)");
+}
+
+group[type=section3]:after {
+	display:block;
+	content:"" command-button(icon,icon(insert),
+						   icon-position, right,
+						   command, "insert",
+						   parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,subsubpart)");
+}
+
+div[type=liminaires] > p:after {
+	display:block;
+	content:" "
+			combo-box(attribute, aid\:pstyle,
+					  labels, "Bio auteur\A Dedicace\A Texte liminaire\A",
+					  values, "book-bio-auteur\A vol_dedicace\A txt-book-txt-limi\A")
+			command-button(icon,icon(insert),
+						   icon-position, left,
+						   command,"insert_plimin_after");
+}
+ 
+/*group:not([type])*/
+/*group[type=book]:after {
+	content:command-button(
+			icon, disc,
+			menu, menu("Inserer une partie", "insert", "into #template({http://www.tei-c.org/ns/1.0}group,part)",
+					   "Inserer un document", "insert_include", 0,
+					   "Saisir texte", "insert_text",0));
+}*/
+  
+docTitle,
+titlePart,
+byline,
+affiliation,
+email {
+  display:block;
+}
+  
+head {
+  display:block;
+  margin-bottom:5px;
+  padding:5px;
+  font-family: Times;
+  font-size:160%;
+  text-align:left;
+}
+
+group[type=section1] > head:after {
+  display:block;
+  content:command-button(
+			icon, square,
+			/*padding-left, 838px,
+			padding-top, 6px,*/
+			menu, menu("Inserer une sous partie", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,subpart)",
+					   "Inserer un document", "include-after", 0,
+					   "Saisir texte", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}text,txt)"));
+}
+
+group[type=section2] > head:after {
+  display:block;
+  content:command-button(
+			icon, square,
+			/*padding-left, 838px,
+			padding-top, 6px,*/
+			menu, menu("Inserer une sous-partie", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,subsubpart)",
+					   "Inserer un document", "include-after", 0,
+					   "Saisir texte", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}text,txt)"));
+}
+
+group[type=section3] > head:after {
+  display:block;
+  content:command-button(
+			icon, square,
+			/*padding-left, 538px,
+			padding-top, 6px,*/
+			menu, menu("Inserer un document", "include-after", 0,
+					   "Saisir texte", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}text,txt)"));
+}
+
+/*
+TABLES
+*/
+table {
+  display:table;
+  collapsed:yes;
+}
+table > head{
+  display:table-caption;
+  font-style: italic;
+  margin-bottom: 6pt;
+}
+
+row {
+  display:table-row;
+  collapsed:yes;
+}
+cell{
+  display:table-cell;
+  border-width:1px;
+  border-color:black;
+  border-style: solid;
+  padding:1;
+  collapsed:yes;
+  text-align:center;
+}
+/* Gestion des fusion de cellules */
+cell[cols] {
+    column-span: concatenate(attr(cols));
+}
+cell[rows] {
+    row-span: concatenate(attr(rows));
+}
+
+/*
+BLOCS
+*/
+p {
+  text-align:left;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+p[aid|pstyle=book-txt]:after {
+	display:block;
+	content:"" command-button(icon,icon(insert),
+					   icon-position, right,
+					  /* padding-left,600px,*/
+					   command,"insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}p,paraBack)");
+}
+
+byline[aid|pstyle=Vol_resp]:after {
+	content:"" command-button(icon,icon(insert),
+				icon-position, right,
+				 command,"insert_resp_after");
+}
+
+docAuthor:after {
+	content:"" command-button(icon,icon(insert),
+				icon-position, right,
+				 command,"insert_auteur_after");
+}
+
+/*
+CARACTÈRES
+*/
+
+hi[rend="i"],
+hi[rend="it"],
+hi[rend="italic"] {
+  font-style:italic;
+}
+hi[rend="b"],
+hi[rend="bold"]{
+		font-weight:bold;
+}
+hi[rend="sc"],
+hi[rend="smallcaps"]{
+  color:red;
+}
+hi[rend="sup"]{
+  vertical-align:super;
+  font-size:80%;
+}
+hi[rend="sub"]{
+  vertical-align:sub;
+  font-size:80%;
+}
+hi[rend="underline"]{
+  text-decoration:underline;
+}
+hi[rend="line-through"]{
+  text-decoration:line-through;
+}
+hi[rend="ul"],
+hi[rend="u"],
+ref {
+  text-decoration: underline;
+}
+
+/* INCLUSION */
+
+@property-value xi-include-content() 
+    paragraph(content("Document", attr(href)));
+                      
+@property-value xi-text-include-content() 
+    paragraph(content(icon(pop-se), " ", element-name(), 
+                      " href=", attr(href)));
+
+
+xi|include {
+    display: block;
+    margin-bottom: 1.33ex;
+}
+
+xi|include[xpointer=text]:before {
+    content: xi-text-include-content();
+}
+
+xi|include:empty {
+    display: inherit;
+    content: xi-include-content();
+    font-style: normal;
+    color: black;
+    font-size:100%;
+    margin-left: 50px;
+	padding:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-right:0px;
+}
+
+xi|include[xpointer=text]:empty {
+    content: attr(href);
+}
+
+xi|include[xpointer=text]:empty:before {
+    content: "";
+}
+
+/*front > xi|include:after {
+	content:command-button(
+				icon, icon(insert),
+				icon-position, left,
+				command, "insert_include_after" )
+}*/
+
+/*back > xi|include:after {
+	content:command-button(
+				icon, icon(insert),
+				icon-position, left,
+				command, "insert_include_after" )
+}*/
+
+group[type=section1] > xi|include:after {
+	display:block;
+	content:command-button(
+				icon, square,
+				icon-position, right,
+				/*padding-left, 600px,*/
+				menu, menu("Inserer une partie", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,part)",
+					   "Saisir texte", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}text,txt)")
+				)
+			command-button(
+				icon, icon(insert),
+				icon-position, left,
+				command, "insert_include_after" );
+}
+
+group[type=section2] > xi|include:after {
+	display:block;
+	content:command-button(
+				icon, square,
+				icon-position, right,
+				/*padding-left, 600px,*/
+				menu, menu("Inserer une sous partie", "insert", "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}group,subpart)")
+				)
+			command-button(
+				icon, icon(insert),
+				icon-position, left,
+				command, "insert_include_after" );
+}
+
+figure > head > bibl {
+    display:inline;
+    color:inherit;
+    font-size:inherit;
+    text-decoration: underline;
+}
+
+bibl {
+  line-height:1.5;
+}
+
+figure > head,
+figure > p {
+  margin-right:50px;
+  margin-left:40px;
+  font-size:100%;
+  text-align:right;
+  color:#3D3D3D;
+}
+
+graphic {
+  margin-top:10px;
+  margin-left:10px;
+  border:1px solid black;
+  content:image-viewport(attribute,url,data-type,anyURI,viewport-width,180,content-width,scale-to-fit,smooth,yes);
+}
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+group[rend]:before {
+	display:inline;
+	content:"Type : "	combo-box(attribute, type,
+					  labels, "avertissement\A avant-propos\A introduction\A prologue\A préface\A préambule\A list\A UE chapitre\A UE article\A postface\A épilogue\A conclusion\A annexe\A contributors\A glossaire\A bibliographie\A liste des tables\A liste des ill.\A autres crédits\A"
+					  values, "warning\A foreword\A introduction\A prologue\A preface\A preamble\A list\A chapter\A chapter\A afterword\A epilogue\A conclusion\A appendix\A contributors\A glossary\A bibliography\A lot\A loi\A other-credits\A")
+			"Rendu OE : "  combo-box(attribute, rend,
+					  labels, "Avant Propos\A Preface\A Editorial\A Article\A Chapitre\A Compte rendu\A Note de lecture\A Chronique\A Source\A Postface\A Bibliographie\A Index\A Annexe\A",
+					  values, "avantpropos\A preface\A editorial\A article\A chapitre\A compterendu\A notedelecture\A chronique\A source\A postface\A bibliographie\A index\A annexe\A");
+	background-color:#D6D6D6;
+}
+
+/*group[type=preamble] {
+	display:inline-block;
+	content:"subtype" combo-box(attribute, subtype,
+					  labels, "présentation\A editorial\A"
+					  values, "presentation\A editorial\A");	
+}*/
+
+group[type=preamble]:before {
+	display:inline;
+	content:"Type : "	combo-box(attribute, type,
+					  labels, "avertissement\A avant-propos\A introduction\A prologue\A préface\A préambule\A liste\A UE chapitre\A UE article\A postface\A épilogue\A conclusion\A annexe\A contributors\A glossaire\A bibliographie\A liste des tables\A liste des ill.\A autres crédits\A"
+					  values, "warning\A foreword\A introduction\A prologue\A preface\A preamble\A list\A chapter\A chapter\A afterword\A epilogue\A conclusion\A appendix\A contributors\A glossary\A bibliography\A lot\A loi\A other-credits\A")
+			
+	"" combo-box(attribute, subtype,
+					  labels, "présentation\A editorial\A"
+					  values, "presentation\A editorial\A")
+	"Rendu OE : "  combo-box(attribute, rend,
+					  labels, "Avant Propos\A Preface\A Editorial\A Article\A Chapitre\A Compte rendu\A Note de lecture\A Chronique\A Source\A Postface\A Bibliographie\A Index\A Annexe\A",
+					  values, "avantpropos\A preface\A editorial\A article\A chapitre\A compterendu\A notedelecture\A chronique\A source\A postface\A bibliographie\A index\A annexe\A");
+	padding-left:200px;
+}
+
+group[type=appendix]:before {
+	display:inline;
+	content:"Type : "	combo-box(attribute, type,
+					  labels, "avertissement\A avant-propos\A introduction\A prologue\A préface\A préambule\A liste\A UE chapitre\A UE article\A postface\A épilogue\A conclusion\A annexe\A contributors\A glossaire\A bibliographie\A liste des tables\A liste des ill.\A autres crédits\A"
+					  values, "warning\A foreword\A introduction\A prologue\A preface\A preamble\A list\A chapter\A chapter\A afterword\A epilogue\A conclusion\A appendix\A contributors\A glossary\A bibliography\A lot\A loi\A other-credits\A")
+			
+	"" combo-box(attribute, subtype,
+					  labels, "compte-rendu\A collection de CR\A note de lecture\A coll. notes lect.\A recom. auteurs\A doc. com/promo\A source\A addenda\A"
+					  values, "cr\A cr_coll\A nl\A nl_coll\A submission\A doc_com\A source\A addenda\A")
+	"Rendu OE : "  combo-box(attribute, rend,
+					  labels, "Avant Propos\A Preface\A Editorial\A Article\A Chapitre\A Compte rendu\A Note de lecture\A Chronique\A Source\A Postface\A Bibliographie\A Index\A Annexe\A",
+					  values, "avantpropos\A preface\A editorial\A article\A chapitre\A compterendu\A notedelecture\A chronique\A source\A postface\A bibliographie\A index\A annexe\A");
+	padding-left:200px;
+}
+
+group[type=list]:before {
+	display:inline;
+	content:"Type : "	combo-box(attribute, type,
+					  labels, "avertissement\A avant-propos\A introduction\A prologue\A préface\A préambule\A liste\A UE chapitre\A UE article\A postface\A épilogue\A conclusion\A annexe\A contributors\A glossaire\A bibliographie\A liste des tables\A liste des ill.\A autres crédits\A"
+					  values, "warning\A foreword\A introduction\A prologue\A preface\A preamble\A list\A chapter\A chapter\A afterword\A epilogue\A conclusion\A appendix\A contributors\A glossary\A bibliography\A lot\A loi\A other-credits\A")
+			
+	"" combo-box(attribute, subtype,
+					  labels, "abréviations\A chronologie\A comité\A résumés\A catalogue\A"
+					  values, "abbreviations\A timeline\A committee\A abstract\A catalog\A")
+	"Rendu OE : "  combo-box(attribute, rend,
+					  labels, "Avant Propos\A Preface\A Editorial\A Article\A Chapitre\A Compte rendu\A Note de lecture\A Chronique\A Source\A Postface\A Bibliographie\A Index\A Annexe\A",
+					  values, "avantpropos\A preface\A editorial\A article\A chapitre\A compterendu\A notedelecture\A chronique\A source\A postface\A bibliographie\A index\A annexe\A");
+	padding-left:200px;
+}

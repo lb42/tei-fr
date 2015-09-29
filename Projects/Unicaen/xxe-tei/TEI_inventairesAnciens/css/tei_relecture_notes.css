@@ -1,0 +1,218 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+note[type="commentaire"]:before{
+    content:"Note de commentaire [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note[type="commentaire"]{
+    display:block;
+    background-color:#95d8ff;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+note[type="apparat"]:before{
+    content:" Note d'apparat [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+
+note[type="apparat"]{
+    display:inline;
+    background-color:#CCFF33;
+    border:1px dotted #afafaf;
+    margin:10px; 
+    margin-right:20px;
+    padding:3px;  
+	font-size:12px;
+	line-height:1.3;  
+}
+
+
+
+note:before{
+    content:"Note " attr(type)" [", attr(resp) "] :  ";
+    font-weight:normal;
+    font-style:italic;
+}
+
+note{
+    display:inline;
+    background-color:#ffee66;
+    border:1px dotted #afafaf;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3; 
+ 
+}
+
+
+note[type="identification"]:before{
+	 content:"Note d'identification de manuscrit [", attr(resp) "] :  ";
+	 font-weight:normal;
+    font-style:italic;
+     display:inline;
+    background-color:#9eb4fe;
+    margin:0px;
+/*    margin-right:20px;*/
+    padding:0px; 
+	font-size:12px;
+	line-height:1; 
+}
+
+note[type="identification"] {
+    display:block;
+    background-color:#9eb4fe;
+    margin:0px;
+    margin-right:20px;
+    padding:0px;
+	font-size:12px;
+	line-height:1;
+}
+
+note[type="identification"] > p {
+    display:block;
+    background-color:#9eb4fe;
+    margin:0px;
+    padding:0px; 
+		line-height:1;
+}
+note[type="attestation"] {
+    display:block;
+    background-color:#9eb4fe;
+}
+note[type="conservation"] {
+    display:block;
+    background-color:#9eb4fe;
+}
+note[type="attestation"]:before{
+content:"Attestation : ";
+}
+note[type="conservation"]:before{
+content:"Conservation : ";
+}
+note[type="notice"]:before{
+content:"Notice [" attr(resp)"]   : ";
+font-style:italic;
+}
+note[type="notice"] {
+display:block;
+  background-color:#efefef;
+  margin:10px;
+  margin-right:20px;
+  padding:3px; 
+font-size:12px;
+line-height:1.3; 
+
+}
+note[type="notice"] > p{
+	display:block;
+  background-color:#efefef;
+  margin:5px;
+  margin-right:20px;
+  padding:0px; 
+}
+
+note[type="notice"] > p:before{
+	content:attr(n)" : ";
+}
+
+head:after {
+	content:"       Ajouter une notice " command-button(icon, icon(plus), command, "inserNotice",margin-right,60px);
+	font-size:60%;
+	display:block;
+}
+
+
+additional > listBibl {
+ display:inline;
+    background-color:#9eb4fe;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3
+
+}
+
+additional > listBibl > bibl {
+display:inline;
+    background-color:#9eb4fe;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3
+}
+
+additional > listBibl > bibl:before {
+content:" ";
+}
+
+note > bibl {
+display:inline;
+    background-color:#9eb4fe;
+    margin:10px;
+    margin-right:20px;
+    padding:3px; 
+	font-size:12px;
+	line-height:1.3
+}
+
+msIdentifier > settlement > placeName:before {
+content:" ";
+}
+
+msIdentifier > repository:before {
+content:" ";
+}
+
+bibl > ref:before {
+content:" (url :";
+}
+
+bibl > ref:after {
+content:") ";
+}
+
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+

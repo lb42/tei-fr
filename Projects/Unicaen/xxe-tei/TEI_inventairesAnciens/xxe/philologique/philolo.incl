@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+  
+<!-- Editer un texte normalisé -->
+
+	<command name="am-ex"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="am" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}am" />
+				<get expression="$am" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}ex" />
+				<command name="xsl_correspRespPhil" parameter="Resp"/>
+				<command name="pick"
+			  parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp.txt' UTF-8 "/>
+				<command name="putAttribute" parameter="resp #%_"/>				
+			</sequence>
+		</macro>
+	</command> 
+	<command name="abbr-expan"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="abbr" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}abbr" />
+				<get expression="$abbr" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}expan" />
+				<command name="xsl_correspRespPhil" parameter="Resp"/>
+				<command name="pick"
+			  parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp.txt' UTF-8 "/>
+				<command name="putAttribute" parameter="resp #%_"/>				
+			</sequence>
+		</macro>
+	</command>
+	<command name="casse">
+		<macro undoable="true"> 
+		  <sequence>
+				<set variable="casse" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}orig" />
+				<get expression="$casse" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}reg" />
+				<command name="putAttribute" parameter="[implicitElement] type casse"/>
+			</sequence>
+		  </macro>	
+	</command>
+	<command name="ponctuation"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="ponctuation" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}orig" />
+				<get expression="$ponctuation" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}reg" />
+				<command name="putAttribute" parameter="[implicitElement] type ponctuation"/>
+			</sequence>
+			</macro>
+	</command>
+	<command name="ramiste"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="ramiste" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}orig" />
+				<get expression="$ramiste" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}reg" />
+				<command name="putAttribute" parameter="[implicitElement] type lettres-ramistes"/>
+			</sequence>
+	</macro>
+	</command>
+	<command name="diphtongues"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="diphtongues" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}orig" />
+				<get expression="$diphtongues" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}reg" />
+				<command name="putAttribute" parameter="[implicitElement] type diphtongue"/>
+			</sequence>
+			</macro>
+	</command>
+	<command name="correction"> 
+		<macro undoable="true">
+		  <sequence>
+				<set variable="diphtongues" expression="$selectedChars" />
+				<command name="cut" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}choice" />
+				<command name="insert"  parameter="into {http://www.tei-c.org/ns/1.0}sic" />
+				<get expression="$diphtongues" />
+				<command name="paste" parameter="into %_" />
+				<command name="selectNode" parameter="self[implicitElement]" />
+				<command name="insert"  parameter="after {http://www.tei-c.org/ns/1.0}corr" />
+				<command name="xsl_correspRespPhil" parameter="Resp"/>
+				<command name="pick"
+			  parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp.txt' UTF-8 "/>
+				<command name="putAttribute" parameter="resp #%_"/>
+			</sequence>
+			</macro>
+	</command>
+	
+	<command name="substitution"> 
+	  <macro>
+	    <sequence>
+	      <command name="wrap" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}mod"></command>
+	      <command name="putAttribute" parameter="[implicitElement] type substitution"/>
+	      <command name="xsl_correspHand" parameter="Hand"/>
+	      <command name="pick"
+	        parameter="'choisir une main' true @ '%C%Sressources%SindexHand.txt' UTF-8 "/>
+	      <command name="putAttribute" parameter="hand #%_"/>
+	    </sequence>
+	  </macro>
+	</command>
+
+	<elementTemplate name="abrdev" selectable="true">
+	<choice xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<am>abréviation</am>
+		<ex>dévelopement</ex>
+	</choice>
+	</elementTemplate>
+	<elementTemplate name="motsabrdev" selectable="true">
+	<choice xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<abbr>mot abrégé</abbr>
+		<expan>mot développé</expan>
+	</choice>
+	</elementTemplate>
+	<elementTemplate name="regularisation" selectable="true">
+	<choice xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<orig>origine</orig>
+		<reg>regularisation</reg>
+	</choice>
+	</elementTemplate>
+	<elementTemplate name="correction" selectable="true">
+	<choice xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<sic>origine</sic>
+		<corr>regularisation</corr>
+	</choice>
+	</elementTemplate>
+	
+	<command name="englober">
+  <macro>
+    <sequence>
+      <command name="wrap" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}mod"></command>
+      <command name="putAttribute" parameter="[implicitElement] type intervention"/>
+      <command name="xsl_correspHand" parameter="Hand"/>
+      <command name="pick"
+        parameter="'choisir une main' true @ '%C%Sressources%SindexHand.txt' UTF-8 "/>
+      <command name="putAttribute" parameter="hand #%_"/>
+    </sequence>
+  </macro>
+</command>
+
+
+<command name="addition">
+  <macro>
+    <sequence>
+			<sequence>
+	          <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}add"/>
+         </sequence>
+					<sequence>
+          <command name="selectNode"
+            parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}add"/>
+          <command name="xsl_correspHand" parameter="Hand"/>
+          <command name="pick"
+            parameter="'choisir une main' true @ '%C%Sressources%SindexHand.txt' UTF-8 "/>
+          <command name="putAttribute" parameter="hand #%_"/>        
+          <command name="pick"
+            parameter="'Choisir un emplacement' false 'après le texte' 'marge gauche' 'marge droite' 'marge supérieure' 'marge inférieure' interlinéaire 'dans le texte' 'au-dessus' 'en-dessous' 'en surcharge'"/>
+          <set variable="typeIndex" expression="%_" plainString="true"/>
+          <get expression="$typeIndex"/>
+          <choice>
+            <sequence>
+              <test expression="$typeIndex = 'après le texte'"/>
+              <command name="putAttribute" parameter="[implicitElement] place apres_texte"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'marge gauche'"/>
+              <command name="putAttribute" parameter="[implicitElement] place margin-left"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'marge droite'"/>
+              <command name="putAttribute" parameter="[implicitElement] place margin-right"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'marge supérieure'"/>
+              <command name="putAttribute" parameter="[implicitElement] place margin-top"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'marge inférieure'"/>
+              <command name="putAttribute" parameter="[implicitElement] place margin-bottom"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'interlinéaire'"/>
+              <command name="putAttribute" parameter="[implicitElement] place interligne"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'dans le texte'"/>
+              <command name="putAttribute" parameter="[implicitElement] place inline"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'au-dessus'"/>
+              <command name="putAttribute" parameter="[implicitElement] place above"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'en-dessous'"/>
+              <command name="putAttribute" parameter="[implicitElement] place below"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'en surcharge'"/>
+              <command name="putAttribute" parameter="[implicitElement] place surcharge"/>
+            </sequence>
+          </choice>
+					<command name="xsl_correspRespPhil" parameter="Resp"/>
+					<command name="pick"
+				  parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp.txt' UTF-8 "/>
+					<command name="putAttribute" parameter="resp #%_"/>				
+        </sequence>
+    </sequence>
+  </macro>
+</command>
+  
+  <elementTemplate name="Add" selectable="true">
+    <add xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></add>
+  </elementTemplate>
+  
+
+  <command name="indiquerSuppression">
+    <macro label="Texte corrigé" repeatable="true" undoable="true">
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="insert"
+              parameter="into {http://www.tei-c.org/ns/1.0}del"/>
+          </sequence>
+          <sequence>
+            <choice>
+              <sequence>
+                <command name="selectNode"
+                  parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}del"/>
+              </sequence>
+              <sequence>
+                <command name="convert"
+                  parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}del"/>
+              </sequence>
+            </choice>
+          </sequence>
+        </choice>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}del"/>
+        <command name="xsl_correspHand" parameter="Hand"/>
+        <command name="pick"
+          parameter="'choisir une main' true @ '%C%Sressources%SindexHand.txt' UTF-8 "/>
+        <command name="putAttribute" parameter="hand #%_"/>
+        <command name="pick"
+          parameter="'Choisir un rendu' false biffe exponctuation grattage soulignement surcharge"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'biffe'"/>
+            <command name="putAttribute" parameter="rend biffe"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'surcharge'"/>
+            <command name="putAttribute" parameter="rend surcharge"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'exponctuation'"/>
+            <command name="putAttribute" parameter="rend exponctuation"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'grattage'"/>
+            <command name="putAttribute" parameter="rend grattage"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'soulignement'"/>
+            <command name="putAttribute" parameter="rend soulignement"/>
+          </sequence>					
+        </choice>
+				<command name="xsl_correspRespPhil" parameter="Resp"/>
+				<command name="pick"
+			  parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp.txt' UTF-8 "/>
+				<command name="putAttribute" parameter="resp #%_"/>
+      </sequence>
+    </macro>
+  </command>
+
+
+  <command name="soulignage">
+    <macro label="Texte souligné" repeatable="true" undoable="true">
+      <sequence>
+        <command name="confirm" parameter="Voulez-vous indiquer un soulignage ?"/>
+        <sequence>
+          <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}mod"/>
+          <command name="xsl_correspHand" parameter="Hand"/>
+          <command name="pick"
+            parameter="'choisir une main' true @ '%C%Sressources%SindexHand.txt' UTF-8 "/>
+          <command name="putAttribute" parameter="hand #%_"/>
+          <command name="putAttribute" parameter="type soulignage"/>
+        </sequence>
+      </sequence>
+    </macro>
+  </command>
+  
+<command name="mentionLang">
+    <macro label="Mention de langue" repeatable="true" undoable="true">
+        <sequence>
+          <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}lang"/>
+        </sequence>
+    </macro>
+  </command>
+
+	<command name="unclear">
+	    <macro label="passage difficilement lisible" repeatable="true" undoable="true">
+	        <sequence>
+		        <choice>
+		          <sequence>
+		            <command name="insert"
+		              parameter="into {http://www.tei-c.org/ns/1.0}unclear"/>
+		          </sequence>
+		          <sequence>
+		            <choice>
+		              <sequence>
+		                <command name="selectNode"
+		                  parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}unclear"/>
+		              </sequence>
+		              <sequence>
+		                <command name="convert"
+		                  parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}unclear"/>
+		              </sequence>
+		            </choice>
+							</sequence>
+							</choice>
+	        </sequence>
+	    </macro>
+	  </command>
+
+		<command name="gap">
+		    <macro label="passage illisible ou trou" repeatable="true" undoable="true">
+		        <sequence>
+	            <command name="insert"
+	              parameter="into {http://www.tei-c.org/ns/1.0}gap"/>
+		        </sequence>
+		    </macro>
+		  </command>
+
+
+  <command name="xsl_correspRespPhil">
+  <process>
+    <transform stylesheet="ressources%SindexResp.xsl" file="%D"
+      to="%C%Sressources%Sindex%0.txt" version="2.0"
+      label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+
+  <command name="xsl_correspHand">
+  <process>
+    <transform stylesheet="ressources%SindexHand.xsl" file="%D"
+      to="%C%Sressources%Sindex%0.txt" version="2.0"
+      label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+
+
+  
+  </configuration>

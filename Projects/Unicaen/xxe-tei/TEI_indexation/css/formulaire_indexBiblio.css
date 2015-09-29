@@ -1,0 +1,513 @@
+﻿@namespace tei url(http://www.tei-c.org/ns/1.0);
+@extension "fr.unicaen.mrsh.poledoc.idrefsresolver.IdRefsResolver";
+
+/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+
+
+/* liste de la bibliographie avec biblStruct */
+
+
+listBibl  {
+		display: block; 
+		}
+		
+/*listBibl:before  {
+		display: block; 
+		content:"Sélectionner un type d'ouvrage : " command-button(text,"Article",
+		command, "ajoutArticle",
+					icon, icon(plus), 
+					margin-bottom,20px,
+					font-size,100%,
+					margin-left, 30px);
+		}*/
+
+biblStruct{
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#7d2c13;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+}
+
+listBibl > biblStruct {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:5px;
+		margin-left:50px;
+}
+listBibl > biblStruct:before {
+	display: inline;
+	content: simple-counter(n, decimal)".  Type d'ouvrage "combo-box(attribute, type, labels, "ouvrage\A contribution\A article\A thèse\A mémoire",values, "ouvrage\A contribution\A article\A thèse\A mémoire"); 
+color:#5a5757;
+}
+
+listBibl > biblStruct[type="thèse"]:before {
+	display: inline;
+	content: simple-counter(n, decimal)". Type d'ouvrage "combo-box(attribute, type, labels, "ouvrage\A contribution\A article\A thèse\A mémoire",values, "ouvrage\A contribution\A article\A thèse\A mémoire") combo-box(attribute, subtype, labels, "doctorat\A habilitation\A PhD",values, "doctorat\A habilitation\A PhD"); 
+color:#5a5757;
+}
+
+listBibl > biblStruct[type="mémoire"]:before {
+	display: inline;
+	content: simple-counter(n, decimal)". Type d'ouvrage "combo-box(attribute, type, labels, "ouvrage\A contribution\A article\A thèse\A mémoire",values, "ouvrage\A contribution\A article\A thèse\A mémoire") combo-box(attribute, subtype, labels, "maîtrise\A Master 1\A Master 2",values, "maîtrise\A Master1\A Master2"); 
+color:#5a5757;
+}
+
+listBibl > biblStruct:last-child:after {
+	display: block;
+	text-align:center;
+	margin-top:10px;
+	content:"Créer une nouvelle fiche "command-button(icon, icon(plus), command, "inserFiche", parameter, ""); 
+color:#5a5757;
+}
+
+
+analytic:before {
+	display: block;
+	content:"Référence de l'article";
+	font-weight:bold;
+	margin-top:10px;
+		font-size:100%;
+}
+
+analytic {
+	display: block;
+	line-height:1.2;
+}
+
+analytic > author:first-of-type:before {
+	display: block;
+	content:"Auteur(s) :";
+}
+/*analytic > author:last-of-type:after {
+	display: block;
+	content:"Insérer un auteur "command-button(icon, icon(plus), command, "inserAuteur", parameter, "");
+	margin-left:40px;
+}*/
+
+analytic > author {
+	display: block;
+	margin-left:20px;
+	margin-bottom:5px;
+}
+
+
+
+analytic > author > forename:before {
+	content:"Prénom : ";
+	display: inline;
+	color:#353738;
+}
+
+analytic > author > forename {
+	display: block;
+	color:#7d2c13;
+}
+
+analytic > author > surname:before {
+	content:"Nom : ";
+	display: block;
+	color:#353738;
+}
+
+analytic > author > surname {
+	color:#7d2c13;
+}
+
+analytic > title {
+	font-style: normal;
+	color:#7d2c13;
+}
+
+analytic > title:before {
+	content:"Titre : ";
+	font-style:normal;
+	color:#353738;
+}
+
+
+
+analytic > title[type="soustitre"]:before {
+	display: inline;
+	content:"Sous-titre : "attr(n);
+	font-style:normal;
+	color:#353738;
+}
+
+analytic > title[type="soustitre"] {
+	display: block;
+	color:#7d2c13;
+}
+
+analytic > title[type="soustitre"]:after {
+	display: inline;
+	content:" ";
+}
+
+
+monogr:before {
+	display: block;
+	content:"Référence de l'ouvrage";
+	font-weight:bold;
+	margin-top:10px;
+	font-size:100%;
+}
+
+biblStruct:contains-element(analytic) > monogr:before {
+	display: block;
+	content:"Référence de l'ouvrage / revue";
+	font-weight:bold;
+	margin-top:10px;
+	font-size:100%;
+}
+
+monogr {
+display: block;
+line-height:1.2;
+}
+
+monogr > author:first-of-type:before {
+display: block;
+content:"Auteur(s) :";
+color:#353738;
+}
+
+monogr > author:last-of-type:after {
+	display: block;
+	content:"Insérer un auteur "command-button(icon, icon(plus), command, "inserAuteur", parameter, "")"   Insérer un éditeur "command-button(icon, icon(plus), command, "inserEdit", parameter, "")"   Insérer un directeur "command-button(icon, icon(plus), command, "inserDirect", parameter, "");
+	margin-left:40px;
+	margin-bottom:5px;
+	font-style:normal;
+	color:#353738;
+}
+
+monogr > author[role]:before {
+	display: block;
+	content:"Auteur "combo-box(attribute, role, labels, "éd.\A dir.\A collab.\A trad.",values, "éd.\A dir.\A collab.\A trad.");
+		font-style:italic;
+	
+}
+
+
+
+
+monogr > author[role] {
+margin-left:20px;
+
+	color:#353738;
+}
+
+monogr > author {
+	display: block;
+	margin-left:20px;
+	color:#7d2c13;
+	margin-bottom:5px;
+}
+
+monogr > author > forename:before {
+	content:"Prénom : ";
+	display: inline;
+	color:#353738;
+}
+
+monogr > author > forename {
+	display: block;
+	color:#7d2c13;
+}
+
+monogr > author > surname:before {
+	content:"Nom : ";
+	display: block;
+	color:#353738;
+}
+
+monogr > author > surname {
+	display: inline;
+	color:#7d2c13;
+}
+
+monogr > editor {
+	display: block;
+	margin-left:20px;
+	color:#7d2c13;
+	margin-bottom:5px;
+}
+
+monogr > editor > forename:before {
+	content:"Prénom : ";
+	display: inline;
+	color:#353738;
+}
+
+monogr > editor > forename {
+	display: block;
+	color:#7d2c13;
+}
+
+monogr > editor > surname:before {
+	content:"Nom : ";
+	display: block;
+	color:#353738;
+}
+
+monogr > editor > surname {
+	display: inline;
+	color:#7d2c13;
+}
+
+monogr > editor:first-of-type:before {
+display: block;
+content:"Auteur(s) :";
+color:#353738;
+}
+
+monogr > editor[role] {
+display: block;
+	margin-left:20px;
+	color:#7d2c13;
+	margin-bottom:5px;
+
+}
+
+monogr > title {
+	display: block;
+	font-style: italic;
+	color:#7d2c13;
+}
+
+monogr> title:before {
+	content:"Titre : ";
+	font-style:normal;
+	color:#353738;
+}
+
+
+
+monogr > title[type="soustitre"]:before {
+	display: inline;
+	content:"Sous-titre t. "attr(n)" : ";
+	font-style:normal;
+	color:#353738;
+}
+
+monogr > title[type="soustitre"] {
+	display: block;
+	color:#7d2c13;
+}
+
+monogr > title[type="soustitre"]:after {
+	display: inline;
+	content:" ";
+}
+
+
+
+
+imprint {
+	display: block;
+}
+
+imprint > pubPlace {
+	display: block;
+	color:#7d2c13;
+}
+
+imprint > pubPlace:before {
+	display: inline;
+	content:"Lieu d'édition : ";
+	color:#353738;
+}
+
+imprint > publisher {
+	display: block;
+	color:#7d2c13;
+}
+
+
+imprint > publisher:before {
+	display: inline;
+	content:"Éditeur : ";
+	color:#353738;
+}
+
+
+imprint > date:before {
+	content:"Date : ";
+	color:#353738;
+}
+
+imprint > date {
+	display: block;
+	color:#7d2c13;
+}
+
+imprint > date:after {
+	color:#353738;
+	display:block;
+	margin-bottom:10px;
+}
+
+imprint > biblScope:before {
+	content:"Numéro (année) : ";
+	color:#353738;
+}
+
+imprint > biblScope {
+	display: block;
+	color:#7d2c13;
+}
+
+
+imprint:after {
+display: block;
+content:"Insérer un numéro "command-button(icon, icon(plus), command, "inserNum", parameter, "");
+	color:#353738;
+	margin-left:40px;
+
+
+}
+
+
+biblScope[type="collection"]:before {
+	content:"Collection : ";
+	color:#353738;
+}
+
+
+biblScope[type="collection"] {
+	display: block;
+	color:#7d2c13;
+}
+
+biblScope[unit="no"]:before {
+	content:"Numéro : ";
+	color:#353738;
+}
+
+biblScope[unit="no"] {
+	display: block;
+	color:#7d2c13;
+}
+extent > measure[unit="p."]:before {
+	content:"Nombre de pages : ";
+	color:#353738;
+}
+
+extent > measure[unit="p."] {
+	display: block;
+	color:#7d2c13;
+}
+
+
+biblScope[unit="t."]:before {
+	content:"Tome : ";
+	color:#353738;
+}
+
+biblScope[unit="t."] {
+	display: block;
+	color:#7d2c13;
+}
+
+biblScope[from]:before {
+content:"Section de pages (de "text-field(attribute, from, columns, 4)" à  "text-field(attribute, to, columns, 4)") : ";
+	color:#353738;
+}
+
+biblScope[from] {
+display: block;
+	color:#7d2c13;
+}
+
+extent > measure[unit="vol."]:before {
+	content:"Nombre de volumes : ";
+	color:#353738;
+}
+
+extent > measure[unit="fasc."]:before {
+	content:"Nombre de fascicules : ";
+	color:#353738;
+}
+
+extent > measure[unit="fasc."] {
+	display: block;
+	color:#7d2c13;
+}
+
+
+
+extent {
+	display: block;
+}
+
+extent > measure[unit="vol."] {
+	display: block;
+	color:#7d2c13;
+}
+
+
+
+series:before {
+content:"Collection : ";
+	color:#353738;
+}
+series {
+	display: block;
+	margin-top:10px;
+	font-weight:bold;
+	color:#7d2c13;
+}
+
+
+editor:last-of-type > forename:after {
+content:" (éd.)";
+}
+
+editor[role="dir."] > forename:after {
+content:" (dir.)";
+}
+
+
+editor > forename:before {
+	content:", ";
+}
+
+editor > forename:after {
+	content:" ";
+}
+
+foreign {
+font-style:normal;
+}
+

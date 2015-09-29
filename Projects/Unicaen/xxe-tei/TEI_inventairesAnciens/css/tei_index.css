@@ -1,0 +1,1488 @@
+﻿@namespace tei url(http://www.tei-c.org/ns/1.0);
+@extension "fr.unicaen.mrsh.poledoc.idrefsresolver.IdRefsResolver";
+
+/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2014
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+
+*[rend=normal] {
+		font-style:normal;
+}
+
+*[rend=sup] {
+		vertical-align:super; 
+		font-size:66%;
+}
+
+*[rend=sub] {
+		vertical-align:sub; 
+		font-size:66%;
+}
+
+*[rend=italic] {
+		font-style:italic;
+}
+
+*[rend=smcaps] {
+		font-weight:bold;
+		color:#999999;
+}
+
+*[rend=smcaps-italic] {
+		font-style:italic;
+}
+
+*[rend=underline] {
+		display:inline;
+		text-decoration:underline;
+}
+
+*[rend=bold] {
+		font-weight:bold;
+}
+
+lb {
+	display:inline;
+}
+
+lb:after {
+	display:inline;
+	content:" \A";
+}
+
+/*Gestion du header*/
+
+teiHeader:before { 
+		content: collapser();
+}
+
+teiHeader { 
+		collapsible:yes; 
+		not-collapsible-head: 1; 
+		collapsed:yes;
+		collapsed-content: "Métadonnées"; 
+		collapsed-content-align:center;
+			font-weight:bold; 
+			font-size:120%;
+}
+
+
+
+teiHeader { 
+		display: block; 
+		width:600px; 
+		border: 1px solid; 
+		margin-left:10px;
+		margin-right:auto; 
+		margin-bottom:20px;
+		padding:15px; 
+		background-color:#efefef;
+		font-size: 80%; 
+		color:#000000;
+}
+
+fileDesc { 
+		display:block;
+}
+
+titleStmt:before { 
+		display:block; 
+		content:"Informations bibliographiques";
+		margin-bottom:15px; 
+		font-size:100%; 
+		font-weight:bold;
+}
+
+titleStmt { 
+		display:block; 
+		margin-left:30px;
+}
+
+titleStmt > title { 
+		display: block; 
+		content:"Titre :\A"text-area(columns,40,rows,2,wrap,word); 
+		margin-bottom:10px;
+}
+
+titleStmt > author { 
+		display:block; 
+		content:"Auteur : \A"text-field(columns,20);
+		margin-bottom:10px;
+}
+
+
+
+publicationStmt:before { 
+		display:block; 
+		margin-top:10px; 
+		margin-bottom:10px;
+		font-size:90%; 
+		content:"Publication";
+}
+
+publicationStmt { 
+		display:block; 
+		margin-left:30px;
+}
+
+publicationStmt > publisher { 
+		display:block; 
+		margin-bottom:10px;
+		content:"Editeur : \A"text-field(columns,20);
+}
+
+publicationStmt > pubPlace { 
+		display:block; 
+		margin-bottom:10px; 
+		content:"Lieu :\A"text-field(columns,20);
+}
+
+
+
+sourceDesc:before { 
+		display:block; 
+		margin-top:10px; 
+		margin-bottom:10px;
+		font-size:90%; 
+		font-weight:bold; 
+		content:"Document source ";
+}
+
+sourceDesc { 
+		display:block; 
+		margin-left:30px;
+}
+
+sourceDesc > bibl { 
+		display:block;	
+}
+
+sourceDesc > bibl > author { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Auteur : "text-field(columns,20);
+}
+
+sourceDesc > bibl > author:after { 
+		display:inline; 
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > title { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Titre : "text-field(columns,20);
+}
+
+sourceDesc > bibl > title:after { 
+		display:inline; 
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > name { 
+		display:block; 
+		margin-bottom:5px; 
+		content:"Dans : "text-field(columns,20);
+}
+
+sourceDesc > bibl > name:after { 
+		display:inline;
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+sourceDesc > bibl > orgName { 
+		display:block; 
+		margin-bottom:5px;
+		content:"Organisme : "text-field(columns,20);
+}
+
+sourceDesc > bibl > orgName:after { 
+		display:inline;
+		content:" "delete-button(tool-tip, "Supprimer");
+}
+
+profileDesc:before { 
+		display:block; 
+		margin-top:20px; 
+		margin-bottom:15px;
+		font-size:100%; 
+		font-weight:bold; 
+		content:"Profil du texte : ";
+}
+
+profileDesc { 
+		display:block; 
+		margin-bottom:20px;
+}
+
+
+
+textDesc:before { 
+		display:block; 
+		margin-bottom:15px; 
+		font-size:90%;
+		content:"Caractéristiques";
+}
+
+
+
+revisionDesc:before { 
+		display:block; 
+		margin-top:15px; 
+		margin-bottom:10px;
+		font-size:100%; 
+		font-weight:bold; 
+		content:"Informations de révision "delete-button(tool-tip, "Supprimer");;        
+}
+
+revisionDesc { 
+		display:block;
+}
+
+change:before { 
+		display:block; 
+		margin-left:30px; 
+		content:"Date :\A"text-field(attribute,when,columns,30)"\AResponsable :\A"text-field(attribute,who,columns,30);
+}
+
+change { 
+		display:block; 
+		margin-left:30px; 
+		content:"Type :\A"text-field(columns,30);
+}
+
+change:after:last-child { 
+		display:block;
+		margin-left:30px;
+		margin-bottom:15px;
+		color:blue;
+		text-decoration:underline;
+		content:command-button(text, "Insérer une révision", command, "insertNode", parameter, "sameElementAfter");
+}
+
+/*Gestion du texte*/
+
+text { 
+		display: block; 
+		width:600px; 
+		margin-left:auto; 
+		margin-right:auto;
+		margin-bottom:20px; 
+		padding:15px; 
+		font-size:100%; 
+		color:#000000;
+}
+
+/*Front*/
+
+front { 
+		display:block;
+}
+
+
+/*Body*/
+
+body {
+		display: block; 
+		
+		}
+		
+/* ********* NOMS DE LIEUX ************/
+
+listPlace {
+		display: block; 
+}
+place {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+}
+
+
+place:before {
+	display: inline;
+	content: attr(xml|id)"  "combo-box(attribute, type, labels, "abbaye\A commune\A comté\A état\A île\A lieu-dit\A nation\A région", values, "abbaye\A commune\A comte\A etat\A ile\A lieu-dit\A nation\A region"); 
+	color:#5a5757;
+}
+
+placeName{
+		display:block;
+		font-weight:bold;
+		color:#0f6c41;
+	}
+
+placeName:before {
+	content:"Nom en" combo-box(attribute, xml|lang, labels, "français\A anglais\A latin\A ancien français\A espagnol\A italien\A grec polytonique\A arabe", values, "fr\A en\A la\A fro\A es\A it\A grc\A ara") " : ";
+	font-weight:bold;
+	margin-top:5px;
+	color:#353738;
+}
+
+placeName:after{
+content:"   "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+placeName > note{
+	color:#0f6c41;
+	font-weight:normal;
+	display:inline;
+}
+
+placeName > note:before{
+	display:inline;
+	content:"  Note : ";
+}	
+
+listPlace > place > location {
+	display: block;
+	color:#0f6c41;
+	font-weight:bold;
+}
+
+listPlace > place > location:before {
+	content:"Identification du lieu";
+	display: block;
+	color:#353738;
+	font-weight:bold;}
+
+place > place {
+	margin-left:30px;
+}
+
+
+place:contains-element(place):after {
+	content:" ";
+	display:inline;
+
+}
+place:after {
+	content:command-button(text, "                  Ajouter sous-entrée + ", command, "ajoutEntree");
+	display:inline;
+
+}
+
+place > trait:before {
+content:"Caractéristique : " ;
+display: inline;
+color:#353738;
+font-weight:bold;
+}
+
+trait > desc:before {
+content:" ";
+}
+
+location {
+display:block; 
+}
+
+region {
+display:block; 
+}
+
+region:before {
+content:combo-box(attribute, type, labels, "abbaye\A commune\A comté\A état\A île\A lieu-dit\A nation\A région", values, "abbaye\A commune\A comte\A etat\A ile\A lieu-dit\A nation\A region")" : "; 
+font-size:80%;
+color:#5a5757;
+}
+
+settlement {
+display:block; 
+}
+
+settlement:before {
+font-size:80%;
+color:#5a5757;
+content:combo-box(attribute, type, labels, "abbaye\A commune\A comté\A état\A île\A lieu-dit\A nation\A région", values, "abbaye\A commune\A comte\A etat\A ile\A lieu-dit\A nation\A region")" : "; 
+}
+
+country:before{
+content:combo-box(attribute, type, labels, "pays\A royaume\A empire\A", values, "pays\A royaume\A empire\A")" : "; 
+font-size:80%;
+color:#5a5757;
+}
+
+country {
+display:block;
+}
+
+place > event:before {
+display:inline; 
+content:", ";
+}
+
+place > event:after {
+display:inline; 
+content:". ";
+}
+
+
+/*Listes Références bibliographiques */
+
+listBibl {
+		display: block; 
+		
+		}
+
+bibl {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#7d2c13;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+}
+
+bibl:before {
+	content: attr(xml|id)". "attr(type)"   "; 
+	color:#5a5757;
+}
+
+bibl > title {
+	display:block;
+	margin-left:20px;	
+	font-style:italic;
+}
+
+bibl > title:after {
+  	content:"          Langue : "combo-box(attribute, xml|lang, labels, "Français\A Latin\A Grec polytonique\A Arabe\A Italien\A  Espagnol\A Anglais\A Hébreux", values, "fr\A la\A grc\A ara\A it\A es\A en\A heb")" )";	
+	font-weight:bold;
+	color:black;
+	font-style:normal;
+	font-size:80%;
+}
+bibl > title:before {
+  	content:"Type : "combo-box(attribute, type, labels, "Titre retenu (langue originale)\A Titre attesté\A Titre usuel\A Titre uniforme", values, "titre_retenu\A titre_atteste\A titre_usuel\A titre_uniforme")"           ";	
+	font-weight:bold;
+	color:black;
+	font-style:normal;
+	font-size:80%;
+}
+bibl > author:before {
+	content:"Auteur : ";
+	font-weight:bold;	
+	color:black;
+}
+bibl > author {
+	display:block;
+	margin-left:20px;	
+}
+bibl > author:after {
+	content:", ";	
+}
+
+
+bibl > date:before {
+	font-weight:bold;
+	content:"Date : ";
+	color:black;
+}
+bibl > date {
+	display:block;
+	margin-left:20px;
+	color:black;
+}
+bibl > author:contains-element(name) {
+color:#1a689f;
+}
+
+bibl > author:contains-element(name):after {
+content:", ";
+color:#1a689f;
+}
+
+/* bibliographie avec biblStruct */
+
+
+listBibl  {
+		display: block; 
+		}
+
+biblStruct{
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+	color:#7d2c13;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+}
+
+listBibl > biblStruct {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:5px;
+		margin-left:50px;
+}
+listBibl > biblStruct:before {
+	display: inline;
+	content: simple-counter(n, decimal)". "attr(type)"   "; 
+color:#5a5757;
+}
+
+bibl > title {
+	font-style:italic;
+	font-size:110%;
+}
+
+
+author > forename:before {
+	content:" ";
+}
+
+author > forename:after {
+	content:", ";
+}
+
+author > forename:last-child:after {
+	content:",";
+}
+monogr > title:before {
+	content:" ";
+}
+
+monogr > title {
+font-style: italic;
+}
+
+analytic > title:before {
+content:" « ";
+}
+analytic > title:after {
+content:" », ";
+}
+
+imprint > pubPlace:before {
+content:", ";
+}
+
+imprint > publisher:before {
+content:", ";
+}
+imprint > date:before {
+content:", ";
+}
+
+imprint > biblScope[type=collection]:before {
+content:", ";
+}
+
+imprint > biblScope[type="t."]:before {
+content:", t.";
+}
+
+
+/* liste de personnes      */
+
+
+
+listPerson {
+		display: block;
+		width:600px; 
+}
+
+person {
+		display: block;
+		width:500px; 
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		margin-bottom:5px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+		}
+		
+person:last-of-type {
+margin-bottom:25px;
+}
+
+
+person:before{
+	content:attr(xml|id)".               Sexe : "radio-buttons(attribute, sex, labels, "feminin\A masculin", values, "2\A 1"); 
+	color:#1a689f;
+}
+
+persName {
+		display: block;
+		width:600px; 
+	}
+
+
+persName[type=ppal]{
+		display:block;
+		font-weight:bold;
+		color:#1a689f;
+}
+
+persName:before {
+content:"Nom "combo-box(attribute, xml|lang, labels, "français\A latin\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A grc\A ara\A it\A es\A en\A heb") " : ";
+font-weight:bold;
+color:#353738;
+}
+
+listPerson > person > persName:contains-element(surname):before {
+content:"Nom / Prénom " combo-box(attribute, xml|lang, labels, "français\A latin\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A grc\A ara\A it\A es\A en\A heb") " : ";
+color:#353738;
+font-weight:bold;
+}
+
+listPerson > person > persName:after {
+		content:" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+listPerson > person >persName > forename:before {
+content:", ";
+}
+
+
+listPerson > person > birth:before{
+content:"Naissance : ";
+color:#353738;
+font-weight:bold;
+}
+
+listPerson > person > birth{
+display: block;
+}
+
+listPerson > person > death {
+display: block;
+}
+
+listPerson > person > death:before {
+content:"Décès : ";
+color:#353738;
+font-weight:bold;
+}
+
+listPerson > person > death:after {
+content :"Elements d'identification : ";
+display: block;
+color:#353738;
+font-weight:bold;
+
+}
+listPerson > person > death:last-child:after {
+content:"  Ajout identification" command-button(text, " + ", command, "ajoutOccupation");
+display: block;
+color:#353738;
+font-weight:bold;
+font-size:80%;
+
+}
+
+listPerson > person > occupation {
+display: inline;
+margin-left:20px;
+margin-top:5px;
+color:#1a689f;
+font-weight:bold;
+}
+
+
+listPerson > person > occupation:before {
+content: "• "; 
+font-weight:bold;
+color:#353738;
+display: inline;
+margin-left:30px;
+}
+
+
+listPerson > person > occupation:after {
+content:attributes();
+font-size:80%;
+color:#494949;
+display: block;
+margin-left:50px;
+}
+
+listPerson > person > occupation:last-of-type:after {
+content:attributes()"           Ajout identification" command-button(text, " + ", command, "ajoutOccupation");
+display: inline;
+
+}
+
+occupation::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+occupation::attribute(xml|id) {
+	attribute-content-left:"";
+	attribute-content-middle:"";
+	attribute-content-right:"";
+}
+
+listPerson > person > occupation[xml|lang=la]:before {
+	content:"Titre (latin) : ";
+	color:#353738;
+	font-weight:bold;
+}
+
+
+listPerson > person > note:before {
+	content:"Note : ";
+	font-weight:bold;
+	color:#353738;
+	background-color:#EEE8AA;
+}
+listPerson > person > note {
+	display:block;
+	color:#353738;
+	background-color:#EEE8AA;
+}
+listPerson > person > note:after {
+		content:" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+listPerson > person > occupation {
+	display: block;
+}
+
+name[type=lieu] {
+	color:#0f6c41;
+}
+name[type=lieu]:before {
+	content:" ";
+}
+
+roleName {
+	color:red;
+}
+roleName:after {
+	content:" ";
+}
+
+bibl > ref > name:after {
+	content:" ";
+}
+bibl > ref > date:after {
+	content:" ";
+}
+
+/* listes Termes */
+
+div {
+	display: block;
+	width:600px; 
+	margin-right:auto; 
+}
+div > entry {
+	display: block;
+	width:600px; 
+	margin-right:auto; 
+}
+
+form > orth {
+	font-weight:bold;
+	display:inline;
+}
+
+form > orth:after {
+	content :" : ";
+	display:inline;
+}
+
+def {
+	display: inline;
+} 
+
+
+/* relation */
+ listPerson > relation:before:first-of-type {
+	content:"Liens de parenté :  ";
+	counter-increment:relation; 
+	display: block;
+
+}
+
+ 
+ 
+
+
+listPerson > relation:after {
+/*content:" [notBefore : "attr(notBefore)" / notAfter : "attr(notAfter)"] "command-button(text, "{ Réf ", command, "refOccupation")attr(ref)"}";*/
+	content:attributes();
+	font-size:90%;
+	color:#494949;
+	display:block;
+	width:500px; 
+	margin-top:5px;
+	margin-right:80px;
+	margin-left:20px;
+	margin-bottom:5px;
+	padding:5px;
+	border: 1px solid #dcdddd;
+}
+
+relation::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+relation::attribute(name) {
+	attribute-content-left:"Type de relation :";
+	attribute-content-middle:  combo-box(attribute,name,labels, "père/mère\A frère/soeur\A époux/épouse\A oncle/tante\A grand-père/grand-mère\A 	cousin/cousine\A", values, "parent\A frère\A époux\A oncle\A grand-père\A cousin\A");
+
+}
+
+relation::attribute(active) {
+	attribute-content-left:"Personne active :";
+	/*attribute-content-middle: value-editor(attribute, attribute());*/
+	attribute-content-middle:invoke("resolveIds", "active", " / ", "ns:persName" );
+	show-attribute: when-added; 
+	attribute-content-right: "liste "command-button(icon, icon(pop-right), icon-position, bottom,command, "listeNoms");
+
+}
+
+/*relation:before {
+display:inline;
+content: "GROU"xpath("//*[@xml:id=substring-after(current()/@active, '#')]/*[1]")"PLOP";
+}*/
+
+relation::attribute(passive) {
+	attribute-content-left:"Personnes(s) passive(s):";
+	attribute-content-middle: invoke("resolveIds", "passive", " / ", "ns:persName");
+	/*value-editor(attribute, attribute());*/
+	show-attribute: when-added; 
+	attribute-content-right: "liste "command-button(icon, icon(pop-right), icon-position, bottom,command, "listeNoms");
+
+}
+
+relation::attribute(mutual) {
+	attribute-content-left:"Personnes (relation réciproque):";
+	attribute-content-middle: invoke("resolveIds", "mutual", " / ", "ns:persName");
+	show-attribute: when-added; 
+	attribute-content-right: "liste "command-button(icon, icon(pop-right), icon-position, bottom,command, "listeNoms");
+
+}
+
+listPerson:after {
+content:command-button(text, "                       Ajouter relation +", command, "ajoutRelation");
+
+}
+editor:last-of-type:after {
+content:" (éd.)";
+}
+
+editor > forename:before {
+	content:", ";
+}
+
+editor > forename:after {
+	content:" ";
+}
+listNym {
+	display:block;
+
+}
+nym{
+	display:block;
+	collapsible:yes;
+	not-collapsible-head: 1; 	
+	margin-left:20px; 
+
+}
+nym > orth{
+	display:block;
+	font-weight:bold;
+}
+nym:before{
+	color:#5a5757;
+	display:block;
+  	content:" Identifiant : "attr(xml|id) "          " collapser() ;
+	
+}
+
+
+/*Back*/
+
+back { 
+	display:block;
+}
+
+
+/*
+Index bibliotheconomie
+*/
+
+listNym[type="bibliotheconomie"][subtype="format"]:before{
+    content:"Indexation des termes de bibliothéconomie : format";
+		font-weight:bold;
+}
+listNym[type="bibliotheconomie"][subtype="locatif"]:before{
+		content:"Indexation des termes de bibliothéconomie : locatif";
+		font-weight:bold;
+}
+listNym[type="bibliotheconomie"][subtype="thematique"]:before{
+	content:"Indexation des termes de bibliothéconomie : thématique";
+	font-weight:bold;
+}
+
+listNym[type="bibliotheconomie"]{
+    display:block;
+    background-color:#D9FFFF;
+    margin:10px;
+}
+
+listNym[type="bibliotheconomie"] > *{
+    display:block;
+    margin:10px;
+    background-color:#BFFFFF;
+    border:1px dotted #afafaf;
+}
+
+
+listNym[subtype="format"] > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme bibliothéconomique : format" command-button(icon, icon(plus), command, "inserBibliotheconomie_format");
+}
+
+listNym[subtype="thematique"] > nym > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme bibliothéconomique : thématique" command-button(icon, icon(plus), command, "inserBibliotheconomie_thematique");
+}
+listNym[subtype="locatif"] > nym > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme bibliothéconomique : locatif" command-button(icon, icon(plus), command, "inserBibliotheconomie_locatif");
+}
+
+
+
+listNym[subtype="thematique"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="locatif"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+nym > ab{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+    
+   listNym[type="bibliotheconomie"][subtype="locatif"] > nym > nym > ab{
+    display:block;
+    margin:5px;
+    background-color:#F2FFFF;
+    font-weight:bold;
+font-size:16px;
+    }
+    
+  seg[type="vedette"]:before{
+        display:inline;
+        content:"Vedette : ";
+        font-style:italic;
+        font-weight:normal;
+        font-size:12px;
+    }
+  
+   seg[type="formes_rejetees"]:before{
+        display:inline;
+        content:"Formes rejetées : ";
+        font-style:italic;
+        font-weight:normal;
+        font-size:12px;
+    }
+    
+  seg{
+        display:block;
+		  margin:5px;
+    background-color:white;
+        
+    }
+seg[type="definition"]:before{
+        display:inline;
+        content:"Définition : ";
+        font-style:italic;
+        font-weight:normal;
+        font-size:12px;
+    }
+
+
+/*
+fin index bibliotheconomie
+*/
+
+
+/*
+Index codicologie
+*/
+
+listNym[type="codicologie"][subtype="reliure"]:before{
+    
+    content:"Indexation des termes de codicologie : reliure";
+font-weight:bold;
+font-size:15px;
+}
+listNym[type="codicologie"][subtype="etat"]:before{
+    
+    content:"Indexation des termes de codicologie : état";
+font-weight:bold;
+font-size:15px;
+
+}
+listNym[type="codicologie"][subtype="decor"]:before{
+    
+    content:"Indexation des termes de codicologie : décor";
+font-weight:bold;
+font-size:15px;
+
+}
+listNym[type="codicologie"][subtype="ecriture"]:before{
+    
+    content:"Indexation des termes de codicologie : écriture";
+font-weight:bold;
+font-size:15px;
+
+}
+listNym[type="codicologie"][subtype="mise_en_page"]:before{
+    
+    content:"Indexation des termes de codicologie : mise en page";
+font-weight:bold;
+font-size:15px;
+
+}
+listNym[type="codicologie"][subtype="support"]:before{
+    
+    content:"Indexation des termes de codicologie : support";
+font-weight:bold;
+font-size:15px;
+
+}
+
+listNym[type="codicologie"]{
+    display:block;
+    background-color:#FFF2F2;
+    margin:10px;
+}
+
+listNym[type="codicologie"] > nym{
+    display:block;
+    margin:10px;
+    background-color:#FFA6A6;
+    border:1px dotted #afafaf;
+}
+
+listNym[type="codicologie"] > nym > nym {
+    display:block;
+    margin:10px;
+    background-color:#FFA6A6;
+    border:1px dotted #afafaf;
+}
+
+listNym[subtype="reliure"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : reliure - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_reliure");
+   
+}
+
+listNym[subtype="etat"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : état - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_etat");
+}
+listNym[subtype="decor"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : décor - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_decor");
+}
+listNym[subtype="ecriture"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : écriture - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_ecriture");
+}
+listNym[subtype="mise_en_page"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : mise en page - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_mise_en_page");
+}
+listNym[subtype="support"] > nym:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un terme codicologique : support - " attr(xml|id) command-button(icon, icon(plus), command, "inserCodicologie_support");
+}
+
+
+listNym[subtype="reliure"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="reliure"] > nym{
+    display:block;
+    background-color:#FFD9D9;
+    margin-top:0px;
+    collapsible:yes;
+    collapsed:no;
+}
+
+listNym[subtype="etat"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="etat"] > nym{
+    display:block;
+    background-color:#FFD9D9;
+    margin-top:0px;
+    collapsible:yes;
+    collapsed:no;
+}
+listNym[subtype="decor"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="decor"] > nym{
+    display:block;
+    background-color:#FFD9D9;
+    margin-top:0px;
+    collapsible:yes;
+    collapsed:no;
+}
+listNym[subtype="ecriture"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="ecriture"] > nym{
+    display:block;
+    background-color:#FFD9D9;
+    margin-top:0px;
+    collapsible:yes;
+    collapsed:no;
+}
+listNym[subtype="mise_en_page"] > nym:before{
+    display:block;
+    font-weight:bold;
+    font-style:italic;
+    margin-left:10px;
+    margin-top:10px;
+    color:#009900;
+    content:attr(n) collapser();
+}
+
+listNym[subtype="mise_en_page"] > nym{
+    display:block;
+    background-color:#FFD9D9;
+    margin-top:0px;
+    collapsible:yes;
+    collapsed:no;
+}
+
+listNym[type="codicologie"] > nym > ab{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+    
+    listNym[type="codicologie"] > nym > nym > ab{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+    
+/*
+fin index codicologie
+*/
+
+/*
+Index langues
+*/
+
+listNym[type="langues"]:before{
+    
+    content:"Indexation des langues";
+font-weight:bold;
+}
+
+listNym[type="langues"]{
+    display:block;
+    background-color:#F0FAFF;
+    margin:5px;
+}
+
+nym[type="langue"]{
+    display:block;
+    margin:10px;
+    background-color:#D9F2FF;
+    border:1px dotted #afafaf;
+}
+
+listNym[type="langues"] > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter une langue" command-button(icon, icon(plus), command, "inserLangue");
+}
+   
+nym[type="langue"]:before{
+   font-weight:bold;
+   content:attr(xml|id);
+}
+
+nym[type="langue"] > nym{
+    display:block;
+    margin:10px;
+    background-color:#B2E6FF;
+    border:1px dotted #afafaf;
+}
+nym[type="langue"] > ab[type="langue"]{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+
+/*
+fin index langues
+*/
+
+/*
+Index type objet
+*/
+
+listNym[type="type_objet"]:before{
+    
+    content:"Typologie des objets";
+font-weight:bold;
+}
+
+listNym[type="type_objet"]{
+    display:block;
+    background-color:#F0FAFF;
+    margin:5px;
+}
+
+nym[type="type_objet"]{
+    display:block;
+    margin:10px;
+    background-color:#D9F2FF;
+    border:1px dotted #afafaf;
+}
+
+listNym[type="type_objet"] > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un type d'objet" command-button(icon, icon(plus), command, "inserTypeObjet");
+}
+ab[type="type_objet"]:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un type d'objet" command-button(icon, icon(plus), command, "inserTypeObjet");
+}
+   
+nym[type="type_objet"]:before{
+   font-weight:bold;
+   content:attr(xml|id);
+}
+
+nym[type="type_objet"] > nym{
+    display:block;
+    margin:10px;
+    background-color:#B2E6FF;
+    border:1px dotted #afafaf;
+}
+nym[type="type_objet"] > ab[type="type_objet"]{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+    
+
+/*
+fin index type objet
+*/
+
+/*
+Index type livre
+*/
+
+listNym[type="type_livre"]:before{
+    
+    content:"Typologie des livres";
+font-weight:bold;
+}
+listNym[type="type_livre"]{
+    display:block;
+    background-color:#D9FFFF;
+    margin:10px;
+}
+
+listNym[type="type_livre"] > *{
+    display:block;
+    margin:10px;
+    background-color:#BFFFFF;
+    border:1px dotted #afafaf;
+}
+
+
+listNym[type="type_livre"] > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un type de livre" command-button(icon, icon(plus), command, "inserTypeLivre");
+}
+
+
+
+nym > ab{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+
+
+/*
+fin index type livre
+*/
+
+/*
+Index type oeuvre
+*/
+
+listNym[type="type_oeuvre"]:before{
+    
+    content:"Typologie des oeuvres";
+font-weight:bold;
+}
+listNym[type="type_oeuvre"]{
+    display:block;
+    background-color:#D9FFFF;
+    margin:10px;
+}
+
+listNym[type="type_oeuvre"] > *{
+    display:block;
+    margin:10px;
+    background-color:#BFFFFF;
+    border:1px dotted #afafaf;
+}
+
+
+listNym[type="type_oeuvre"] > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter un type d'oeuvre" command-button(icon, icon(plus), command, "inserTypeOeuvre");
+}
+
+
+
+nym > ab{
+    display:block;
+    margin:5px;
+    background-color:white;
+    font-weight:bold;
+font-size:16px;
+    }
+
+
+/*
+fin index type oeuvre
+*/

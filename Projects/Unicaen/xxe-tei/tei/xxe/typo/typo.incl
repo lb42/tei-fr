@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+
+<!-- Gestion des enrichissements typo WYSIWYG -->
+
+<!-- annuler enrichissements -->
+	<command name="toPlainText">
+		<macro label="annuler l'enrichissement" repeatable="true" undoable="true">
+			<sequence>
+				<command name="selectNode"
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi"/>
+				 <command name="wrap"
+               				parameter="[implicitElement] #text"/>
+			</sequence>
+		</macro>
+	</command>
+
+<!-- Italique -->
+	<command name="convertToItalic">
+		<macro label="Conversion en italique" repeatable="true" undoable="true">
+			<sequence>
+				<choice>
+					<command name="selectNode"
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi"/>
+					<command name="convert"
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi"/>
+				</choice>
+				<command name="putAttribute" parameter="rend italic"/>
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_Italique"/>
+			</sequence>
+		</macro>
+	</command>
+
+<!-- Gras -->
+	<command name="convertToBold"> 
+		<macro repeatable="true" undoable="true" label="Conversion en gras">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                  			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend bold" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_gras"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- gras italique -->
+	<command name="convertBoldItalique"> 
+		<macro repeatable="true" undoable="true" label="Conversion en gras italique">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                  			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend 'bold italic'" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_gras_italique"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- Petites capitales -->	
+	<command name="convertToSmCaps"> 
+		<macro repeatable="true" undoable="true" label="Conversion en petites capitales">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend small-caps" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_SC"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- Exposants -->
+	<command name="convertToSup"> 
+		<macro repeatable="true" undoable="true" label="Conversion en Exposant">
+			<sequence> 
+				<choice>
+	 				<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+	 				<command name="convert" 
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend sup" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_Exposant"/>
+    </sequence> 
+  </macro> 
+</command> 
+
+<!-- Exposant italique -->
+	<command name="convertToItalSup"> 
+		<macro repeatable="true" undoable="true" label="Conversion en Exposant">
+			<sequence> 
+				<choice>
+	 				<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+	 				<command name="convert" 
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend 'sup italic'" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_Exposant_Italique"/>
+    </sequence> 
+  </macro> 
+</command> 
+
+<!-- Indice -->
+	<command name="convertToSub"> 
+		<macro repeatable="true" undoable="true" label="Conversion en indice">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                  			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend sub" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_Indice"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- Souligné -->
+	<command name="convertToUnderline"> 
+		<macro repeatable="true" undoable="true" label="Conversion en souligne">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                 			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                  			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend underline" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_souligne"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- Barré -->	
+	<command name="convertToStrikeThrough"> 
+		<macro repeatable="true" undoable="true" label="Conversion en barre">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                  			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend line-through" />
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_strike-through"/>
+			</sequence> 
+		</macro> 
+	</command>
+
+<!-- Petites capitales italique -->	
+	<command name="ToSmCapsItal"> 
+		<macro repeatable="true" undoable="true" label="Conversion en petites capitales">
+			<sequence> 
+				<choice>
+					<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+					<command name="convert" 
+                   			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}hi" />
+				</choice>
+				<command name="putAttribute" parameter="rend small-caps-ital" /> 
+				<command name="putAttribute" 
+						 parameter="{http://ns.adobe.com/AdobeInDesign/4.0/}cstyle typo_SC_ital"/>
+			</sequence> 
+		</macro> 
+	</command> 
+
+<!-- expressions régulières et surbalisage des chaîne de caractères -->	
+<command name="regexja">
+	<macro repeatable="true" undoable="true">
+		<sequence>
+			<command name="xpathSearch" parameter="[implicitElement] //ns:text[1]"/>
+			<command name="search" parameter="[r] \p{InKatakana}|\p{InHiragana}"/>
+			<choice>
+				<command name="selectNode" 
+	       			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}foreign" />
+				<command name="convert" 
+           			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}foreign" />
+			</choice>
+			<command name="putAttribute" parameter="xml:lang ja" />
+			<command name="putAttribute" parameter="style typo_lang_alt" />
+			<command name="regexja"/> 
+		</sequence>
+	</macro>
+</command>	
+
+<command name="regexar">
+	<macro repeatable="false" undoable="true" trace="false">
+		<sequence>
+			<command name="xpathSearch" parameter="[implicitElement] //ns:text[1]"/>
+			<command name="search" parameter="[r] \p{InArabic}[\p{InArabic}\p{P}\p{N}\p{S}\p{Z}]+[\p{InArabic}\p{P}\p{N}\p{S}]"/>
+			<choice>
+				<command name="selectNode" 
+	       			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}foreign" />
+				<command name="convert" 
+           			 parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}foreign" />
+			</choice>
+			<command name="putAttribute" parameter="xml:lang ar" />
+			<command name="putAttribute" parameter="rend rtl" />
+			<command name="putAttribute" parameter="style typo_lang_alt" />
+			<command name="regexar"/> 
+		</sequence>
+	</macro>
+</command>	
+	
+</configuration>

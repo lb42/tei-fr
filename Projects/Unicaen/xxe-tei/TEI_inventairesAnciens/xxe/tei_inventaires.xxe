@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration name="INVENTAIRES ANCIENS" 
+			   xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+			   xmlns:tei="http://www.tei-c.org/ns/1.0"
+  			   xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+  <detect>
+    <and>
+    	<schemaType>schema</schemaType>
+		<rootElementAttribute localname="xsi:schemaLocation"
+		namespace="http://www.w3.org/2001/XMLSchema-instance" value="http://www.tei-c.org/ns/1.0 http://www.unicaen.fr/mrsh/pddn/schemas/tei_inventaires.xsd"/>
+    </and>
+  </detect>
+
+  <inclusionScheme name="XInclude">
+    <class>com.xmlmind.xml.xinclude.XIncludeScheme</class>
+  </inclusionScheme>
+
+  <!--<schema>
+    <location>http://www.tei-c.org/ns/1.0 ../xsd/tei_inventaires.xsd</location>
+  </schema>-->
+
+  <include location="toolbarTEI.incl"/>
+
+
+	<css location="../css/tei_transcription.css" name="1. Transcription"/>
+	<css location="../css/tei_philologique.css" name="2. Données philologiques"/>
+	<css location="../css/tei_titre_pers.css" name="3. Titres, personnes, lieux et dates"/>
+	<css location="../css/tei_codicologique.css" name="4. Données codicologiques et sur le volume"/>
+	<css location="../css/tei_identification_mss.css" name="5. Identification des manuscrits"/>	
+	<css location="../css/tei_relecture_notes.css" name="6. Relecture avec notes"/>	
+	
+  <template location="../template/tei.xml" name="Nouvel inventaire"/>
+  
+  <windowLayout>
+  <left/>
+  <center css="1. Transcription" />
+</windowLayout>
+
+
+  <!-- Table edition -->
+
+  <command name="tei.simpleTableEdit">
+    <class>com.xmlmind.xmledit.cmd.table.GenericTableEdit</class>
+  </command>
+
+ <!-- <command name="xmlIDs">
+    <class>fr.unicaen.mrsh.poledoc.identification.TagIDGeneratorCommand</class>
+  </command>-->
+
+  <property name="tei.simpleTableEdit.tableSpecification"> table={http://www.tei-c.org/ns/1.0}table
+    row={http://www.tei-c.org/ns/1.0}row cell={http://www.tei-c.org/ns/1.0}cell columnSpan=cols
+    rowSpan=rows </property>
+
+  <include location="autorites/autorites.incl"/>
+  <include location="codicologie/codico.incl"/>
+  <include location="divers/divers.incl"/>
+  <include location="header/header.incl"/>
+	<include location="liens/liens.incl"/> 
+  <include location="notes/notes.incl"/> 
+  <include location="philologique/philolo.incl"/>
+  <include location="personne_titre_date/pers_titre_date.incl"/>
+  <include location="transcription/transc.incl"/>
+  <include location="typo/typo.incl"/>
+
+  <!-- <include location="edit/toIndesignXML.incl"/>   -->
+  
+  <command name="xsl_corresp">
+    <process>
+      <transform stylesheet="xsl%SlisteIndexCorresp.xsl" file="%D"
+        to="%C%Sindex%0.txt" version="2.0"
+        label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter><parameter name="ressource">%C</parameter></transform>
+    </process>
+  </command>
+  
+  
+
+  
+  <command name="xsl_index">	
+  <process>
+          <transform stylesheet="xsl%Sxmltotxt.xsl" file="%C%Sressources%Sindex%0.xml" to="%C%Sressources%S%Sindex%0.txt" version="2.0" label="Constitution du fichier de clés et de valeurs" ><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+  
+ 
+
+
+</configuration>

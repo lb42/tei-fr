@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+
+
+							 <!-- Formulaire index : commande du bouton + dans barre de menu
+							 pour dupliquer un item (que ce soit place ou person) et lui ajouter un nouvel identifiant--> 
+
+							 <command name="copyItem"> 
+							 	<macro undoable="true">
+							 	<sequence>
+							 		<choice>
+							 			<sequence>
+							 				<pass>
+							 					<command name="selectNode" parameter="parent {http://www.tei-c.org/ns/1.0}div"/>
+							 				</pass> 
+							 			</sequence>
+							 		</choice>
+							 		<command name="selectNode" parameter="ancestor[implicitElement]"/>
+							       	<get expression="serialize($selectedElement)"/>
+      	
+							 <!-- utilisation d'une xsl pour récupérer l'identifiant le plus grand -->
+							       	<transform source="%_">
+							 		<xsl:stylesheet version="2.0" 
+							 				xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+							 				xmlns:ns="http://www.tei-c.org/ns/1.0"
+							 				xmlns="http://www.tei-c.org/ns/1.0"
+							 				exclude-result-prefixes="ns">
+							 		<xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
+							 		<xsl:template match="/">
+							 			<xsl:if test="ns:div">	
+							 				<xsl:apply-templates select="ns:div" />
+							 			</xsl:if>		
+							 		</xsl:template>	
+							 		<xsl:template match="ns:div">
+							 		<xsl:call-template name="rechercheMax" >
+							 					<xsl:with-param name="indice">1</xsl:with-param>
+							 					<xsl:with-param name="max">0</xsl:with-param>
+							 			</xsl:call-template>
+							 		</xsl:template>
+							 		<xsl:template name="rechercheMax">
+							 			<xsl:param name="indice" ></xsl:param>
+							 			<xsl:param name="max"></xsl:param>
+	
+							 		<xsl:if test="ns:entry/@xml:id" >
+							 					<xsl:choose>
+							 			<xsl:when test="count(//ns:entry/@xml:id)=$indice">
+							 				<xsl:choose>
+							 					<xsl:when test="number(substring(ns:entry[position() = $indice]/@xml:id,2)) &gt; number($max)" >
+							 						<xsl:value-of select="substring(ns:entry[position() = $indice]/@xml:id,2)" />
+							 					</xsl:when>
+							 					<xsl:otherwise>
+							 						<xsl:value-of select="$max" />
+							 					</xsl:otherwise>
+							 				</xsl:choose>
+							 			</xsl:when>
+							 			<xsl:otherwise>
+							 				<xsl:choose>
+							 					<xsl:when test="number(substring(ns:entry[position() = $indice]/@xml:id,2)) &gt; number($max)" >
+							 						<xsl:call-template name="rechercheMax" >
+							 							<xsl:with-param name="max"><xsl:value-of select="substring(ns:entry[position()=$indice]/@xml:id,2)" /></xsl:with-param>
+							 							<xsl:with-param name="indice"><xsl:value-of select="$indice +1"/></xsl:with-param>
+							 						</xsl:call-template>
+							 					</xsl:when>
+							 					<xsl:otherwise>
+							 						<xsl:call-template name="rechercheMax" >
+							 							<xsl:with-param name="max"><xsl:value-of select="$max" /></xsl:with-param>
+							 							<xsl:with-param name="indice"><xsl:value-of select="$indice +1"/></xsl:with-param>
+							 						</xsl:call-template>
+							 					</xsl:otherwise>
+							 				</xsl:choose>
+							 			</xsl:otherwise>
+							 			</xsl:choose>	
+							 		</xsl:if>
+							 		</xsl:template>
+							 		</xsl:stylesheet>
+							       </transform>      
+							 <!-- fin de la xsl -->
+							       <set variable="xmlId" expression="(%_)+1" />
+							        <command name="selectNode" parameter="firstChild[implicitElement]"/>
+							       	<choice>
+							 			<sequence>
+							 				<command name="insert" parameter="before[implicitElement] #template({http://www.tei-c.org/ns/1.0}entry,newEntry)"/>
+							 				         <get expression="$xmlId" />
+							          <command name="putAttribute" parameter="xml:id t.%_ " />
+							 			</sequence>
+							 		</choice>
+							          <command name="selectNode" parameter="lastChild[implicitElement]" />
+							          <get expression="$xmlId" />
+							          <set variable="idGenere" expression="concat('p',$xmlId,'_',generate-id())" />
+							          <get expression="$idGenere" />
+							          <command name="putAttribute" parameter="xml:id %_ " />
+							          <command name="selectNode" parameter="firstSibling[implicitElement]" />
+							 	<command name="confirm" parameter="Saisir le nom français puis cliquer sur F5"/>
+							 	<command name="prompt" parameter="question 'Saisir le nom français'"/>
+							 				<command name="paste"
+							 					parameter="into %_" />	
+							 		<command name="copyChars" parameter="[implicitElement]"/>	
+							 		<command name="XXE.save" parameter="[ifNeeded]" />
+							   		<command name="tri" />
+							   		<command name="XXE.open" parameter="[reopen]" />
+							   		<command name="alert" parameter="AAA" />
+							   		<command name="selectText" parameter="line" />
+							   		<command name="selectionNewItem" />
+							 <!--  		  <command name="XXE.open" parameter="%P/%N" />  
+							 <command name="XXE.open" parameter="[reopenIfNewer]" />
+							   		 -->
+							 	</sequence>
+							 	</macro>	
+							 </command>
+
+
+							 <binding>
+							   <keyPressed code="F5" />
+							   <command name="selectionNewItem" />
+							 </binding>
+
+							 <command name="selectionNewItem"> 
+							 	<macro undoable="true">
+							 	<sequence>
+							 	<get expression="$clipboard" />
+							       <command name="search" parameter="%_"/>
+							       <command name="selectNode" parameter="parent[implicitElement]" />
+							 </sequence>
+							 	</macro>	
+							 </command>
+
+							 <!-- Formulaire index appel de la xsl pour trier par ordre alpha -->
+							 <command name="tri">
+							   <process>
+							   <!-- %D est le fichier sur lequel on travaille
+							           <transform stylesheet="xsl%Stri.xsl" file="%D" to="%P%Snew.xml" version="2.0" label="Tri par ordre alphabétique"></transform>  -->
+							           <shell command="xsltproc '%C%Sxsl%Stri.xsl' '%D' > '%P/temp_%N'"
+							   label="Tri alphabétique">
+							 </shell>
+							 	<shell command="mv -f '%P%Stemp_%N' '%P%S%N'"></shell>
+							   </process>
+							 </command>
+
+
+							 <elementTemplate name="newEntry" selectable="true">
+							 <entry  xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"  xml:id="???" ><form><orth></orth></form><def>???</def></entry>
+							 </elementTemplate>
+
+
+							 <!-- Formulaire index : pour le glossaire : dupliquer la balise entry et ajouter un nouvel identifiant--> 
+							 <command name="copyEntry"> 
+							 <macro undoable="true">
+							   <sequence>   
+							          <command name="insert" parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}entry,newEntry)"/> 
+							           <get expression="name($selected)"/>
+							      <get context="$selected"
+							 expression="count(preceding-sibling::%_)+1"/>
+							 <set variable="xmlId" expression="%_"
+							 	   plainString="true" />    
+							 		<get expression="$xmlId" />      
+							 		<command name="putAttribute" parameter="xml:id t.%_ " />
+							   	</sequence>
+							 </macro>	
+							 </command> 
+
+
+							 <!-- commande permettant de générer un identifiant -->
+
+
+							 <command name="creerIdent" >
+							 <macro undoable="true">
+							 	<sequence>
+							         <command name="selectNode" parameter="ancestor[implicitElement]"/>
+							         <get expression="$selectedElement"/>
+							   		<get expression="serialize($selectedElement)"/>
+							 <!-- utilisation d'une xsl pour générer un identifiant sous les sous-entrées -->
+							 		<transform source="%_">
+							 		<xsl:stylesheet version="2.0" 
+							 				xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+							 				xmlns:ns="http://www.tei-c.org/ns/1.0"
+							 				xmlns="http://www.tei-c.org/ns/1.0"
+							 				exclude-result-prefixes="ns">
+							 		<xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>		
+							 		<xsl:template match="/">
+							 			<xsl:call-template name="genererID" />
+							 		</xsl:template>		
+							 		<xsl:template name="genererID">
+							 			<!--<xsl:variable name="identNew" select="generate-id()" />-->
+							 			<xsl:variable name="identNew" select="current-dateTime()" />
+							 		<xsl:value-of select="format-dateTime($identNew, '[M01][D01][Y0001]-[H01][m01][s01]')" /> 
+							 		<!--	<xsl:value-of select="translate($identNew,':','k')" />-->
+							 		</xsl:template>
+							 		</xsl:stylesheet>
+							 		</transform> 
+							 	</sequence>
+							 </macro>
+							 </command>
+
+							 <command name="creerIdent" >
+							 <macro undoable="true">
+							 	<sequence>
+							         <command name="selectNode" parameter="ancestor[implicitElement]"/>
+							         <get expression="$selectedElement"/>
+							   		<get expression="serialize($selectedElement)"/>
+							 <!-- utilisation d'une xsl pour générer un identifiant sous les sous-entrées -->
+							 		<transform source="%_">
+							 		<xsl:stylesheet version="2.0" 
+							 				xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+							 				xmlns:ns="http://www.tei-c.org/ns/1.0"
+							 				xmlns="http://www.tei-c.org/ns/1.0"
+							 				exclude-result-prefixes="ns">
+							 		<xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>		
+							 		<xsl:template match="/">
+							 			<xsl:call-template name="genererID" />
+							 		</xsl:template>		
+							 		<xsl:template name="genererID">
+							 			<!--<xsl:variable name="identNew" select="generate-id()" />-->
+							 			<xsl:variable name="identNew" select="current-dateTime()" />
+							 		<xsl:value-of select="format-dateTime($identNew, '[M01][D01][Y0001]-[H01][m01][s01]')" /> 
+							 		<!--	<xsl:value-of select="translate($identNew,':','k')" />-->
+							 		</xsl:template>
+							 		</xsl:stylesheet>
+							 		</transform> 
+							 	</sequence>
+							 </macro>
+							 </command>
+							 <!-- Formulaire index : appel de la xsl pour créer la liste des référence pour le bouton "cf liste" -->
+							 <command name="xsl_ref">
+							 <process>
+							 <!-- %D est le fichier sur lequel on travaille -->
+							       <transform stylesheet="xsl%Sreference.xsl" file="%D" to="%P%SlistRef.txt" version="2.0" label="Constitution du fichier des références"></transform>  
+							 </process>
+							 </command>
+						
+
+  
+  </configuration>

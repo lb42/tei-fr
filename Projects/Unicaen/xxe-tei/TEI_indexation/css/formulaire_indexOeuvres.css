@@ -1,0 +1,137 @@
+﻿/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+/*Liste des oeuvres */
+
+listBibl {
+		display: block; 
+		
+		}
+
+bibl {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#7d2c13;
+		margin-top:5px;
+		margin-right:40px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+		line-height:1.5;
+}
+
+bibl:before {
+	content: attr(xml|id)". "attr(type)"   "; 
+	color:#5a5757;
+}
+
+bibl > title {
+	display:block;
+	margin-left:5px;	
+	font-style:italic;
+	margin-bottom:10px;
+	color:#7d2c13;
+}
+
+bibl:after {
+content:command-button(text, "Ajouter note + ", command, "ajoutNote",margin-left,50px);
+color:#353738;
+}
+
+
+bibl > title:before {
+  	content:" Titre : "combo-box(attribute, type, labels, "Titre retenu (langue originale)\A Titre attesté\A Titre usuel\A Titre uniforme\A Titre de forme", values, "titre_retenu\A titre_atteste\A titre_usuel\A titre_uniforme\A titre_de_forme")"           ";	
+	font-weight:bold;	
+	color:#353738;
+	font-style:normal;
+	display:block;
+
+}
+
+bibl > title:after {
+  	content:"      "combo-box(attribute, xml|lang, labels, "Français\A Latin\A Grec polytonique\A Arabe\A Italien\A  Espagnol\A Anglais\A Hébreux\A Arabe", values, "fr\A la\A grc\A ara\A it\A es\A en\A heb\A ab")" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");	
+	font-weight:bold;
+	color:#353738;
+	font-style:normal;
+	font-size:80%;
+}
+
+bibl > author:before {
+	content:"Auteur : ";
+	font-weight:bold;	
+	color:#353738;
+}
+bibl > author {
+	display:block;
+	margin-left:5px;	
+	margin-bottom:5px;
+
+}
+
+bibl > author > name[type="personne"]{
+	color: #1a689f;
+	}
+
+
+
+bibl > date:before {
+	font-weight:bold;
+	content:"Date : ";
+	color:#353738;
+}
+
+bibl > date {
+	display:block;
+	margin-left:20px;
+
+}
+
+bibl > date:after {
+	color:#353738;
+	content:attributes();
+	display:block;
+	margin-bottom:10px;
+}
+
+
+bibl > date::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+
+}
+
+
+
+
+
+
+

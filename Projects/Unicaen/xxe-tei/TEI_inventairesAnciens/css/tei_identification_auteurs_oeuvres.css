@@ -1,0 +1,224 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+name[type="auteur"] {
+    
+    color:blue;
+}
+
+name[role="auteur"][type="personne"] {
+    
+    color:#2828f1;
+}
+
+name[type="personne"][role="traducteur"],
+name[type="personne"][role="annotateur"],
+name[type="personne"][role="editeur"],
+name[type="personne"][role="auteur_attribue"],
+name[type="personne"][role="imprimeur"],
+name[type="personne"][role="libraire"],
+name[type="personne"][role="compilateur"],
+name[type="personne"][role="signataire"]{
+    
+    color:#460a99;
+}
+
+
+bibl > title[type="oeuvre"]{
+    display:inline;
+   color:#116332;
+}
+
+bibl > textLang > title[type="oeuvre"]{
+    display:inline;
+   color:#116332;
+}
+
+bibl[type="oeuvre"] > bibl[type="oeuvre"]:before {
+    content:" [";
+    color:#226239;
+    font-weight:normal;
+}
+
+bibl[type="oeuvre"]:before {
+    content:" [";
+    color:#226239;
+    font-weight:bold;
+    font-size:16px;
+}
+
+bibl[type="reference"]:before {
+    content:" [";
+    color:#ee8129;
+    font-weight:bold;
+    font-size:16px;
+    font-style:normal;
+}
+
+bibl{
+    display:inline;
+
+}
+
+bibl[type="oeuvre"]:after {
+    content:" ] ";
+    color:#226239;
+    font-weight:bold;
+    font-size:16px;
+}
+
+bibl[type="reference"]:after {
+    content:" ] ";
+    color:#ee8129;
+    font-weight:bold;
+    font-size:16px;
+    font-style:normal;
+}
+
+bibl[type="oeuvre"] > bibl[type="oeuvre"]:after {
+    content:" ] ";
+    color:#226239;
+    font-weight:normal;
+}
+
+
+
+title[type] {
+    display:inline;
+   color:#12b512;
+}
+
+
+name[type="personne"]{
+    
+    
+    color:#5b2d99;
+}
+
+name[type="lieu"]{
+    
+    
+    color:#00B8DB;
+}
+
+name[type="personne_morale"]{
+    color:#FF3300; 
+}
+
+title[ref]{
+    text-decoration:underline;
+}
+
+name[ref]{
+    text-decoration:underline;
+}
+
+item > ref[type="oeuvre"] {
+    color:#FF1A80;
+}
+
+/*
+Notes
+*/
+
+
+note[type="manuscrit"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="identification"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+
+note[type="inventaire"]{
+    display:block;
+	padding:5px;
+	font-size:14px;
+	font-style:italic;
+	color:#6c6c6c;
+}
+
+note[type="commentaire"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="apparat"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+note[type="commentaire"][subtype="item"]{
+display:inline;
+content:" "icon(file)" ";
+}
+
+note[type="commentaire"][subtype="inventaire"]{
+    content:" "icon(file);
+    display:inline;
+}
+
+
+note[place="foot"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#FFFF00;
+}
+note[place="foot"]:before{
+    content: " NoteDbdp : ";
+    vertical-align:super;
+    background-color:#FFFF00;
+}
+note[place="end"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#66FFFF;
+}
+note[place="end"]:before{
+    content: " NoteDf : ";
+    vertical-align:super;
+    background-color:#66FFFF;
+
+}
+
+/*
+Fin notes
+*/
+
+
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+

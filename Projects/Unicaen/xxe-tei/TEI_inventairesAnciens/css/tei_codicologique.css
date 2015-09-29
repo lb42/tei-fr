@@ -1,0 +1,207 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+
+/* Par défaut */
+
+
+/*
+Codicologie
+*/
+
+term[type=codicologie]:before {
+	content:"{ "combo-box(attribute, subtype, labels, "format\A écriture\A décor\A mise en page\A reliure\A support\A écriture\A état\A", values, "format\A ecriture\A decor\A mise_en_page\A reliure\A support\A ecriture\A etat\A");
+}
+term[type=codicologie]:after {
+	content:" }";
+}
+ref {
+font-weight:bold;
+}
+
+term {
+font-weight:bold;
+}
+
+
+measure[type="tomaison"]:before {
+ content:" "icon(right)" ";
+  color:#0066FF;
+}
+measure[type="tomaison"]:after {
+ content:" "icon(left)" ";
+  color:#0066FF;
+}
+measure[type="volumes"]:before {
+ content:" "icon(right)" ";
+  color:#FF00FF;
+}
+measure[type="volumes"]:after {
+ content:" "icon(left)" ";
+  color:#FF00FF;
+}
+
+measure[type="nombre_references"]:before {
+ content:" "icon(right)" ";
+  color:#33CC33;
+}
+measure[type="nombre_references"]:after {
+ content:" "icon(left)" ";
+  color:#33CC33;
+}
+
+measure[type="nombre_unites_textuelles"]:before {
+ content:" "icon(right)" ";
+  color:#8f1c84;
+}
+measure[type="nombre_unites_textuelles"]:after {
+ content:" "icon(left)" ";
+  color:#8f1c84;
+}
+
+
+measure[type]:after {
+	content:" ["attr(quantity)" "attr(unit) "] "icon(left)" ";
+}
+
+
+idno {
+  font-family:verdana;
+  display:inline;
+  font-size:12px;
+  font-style:normal;
+  color:#000000;
+  font-weight:bold;
+  width:100px;
+}
+
+
+
+
+label[type="autre_numerotation"] {
+  font-family:verdana;
+  display:inline;
+  font-size:12px;
+  font-style:normal;
+  color:#000000;
+ font-weight:bold;
+}
+
+objectType {
+font-weight:bold;
+}
+
+objectType:after {
+	content:combo-box(attribute, n, labels, "Amulette\A Carte\A Charte\A Incunable\A Imprimé\A Indéterminé\A Manuscrit\A Palimpseste\A Plan\A Recueil factice\A Rouleau\A Sceau", values, "amulette\A carte\A charte\A incunable\A imprime\A indetermine\A manuscrit\A palimpseste\A plan\A recueil factice\A rouleau\A sceau",font-weight,normal);
+}
+/*
+fin codicologie
+*/
+
+/*
+Notes
+*/
+
+
+note[type="manuscrit"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="identification"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+
+note[type="inventaire"]{
+    display:block;
+	padding:5px;
+	font-size:14px;
+	font-style:italic;
+	color:#6c6c6c;
+}
+
+note[type="commentaire"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="apparat"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+note[type="commentaire"][subtype="item"]{
+display:inline;
+content:" "icon(file)" ";
+}
+
+note[type="commentaire"][subtype="inventaire"]{
+    content:" "icon(file);
+    display:inline;
+}
+
+
+note[place="foot"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#FFFF00;
+}
+note[place="foot"]:before{
+    content: " NoteDbdp : ";
+    vertical-align:super;
+    background-color:#FFFF00;
+}
+note[place="end"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#66FFFF;
+}
+note[place="end"]:before{
+    content: " NoteDf : ";
+    vertical-align:super;
+    background-color:#66FFFF;
+
+}
+
+/*
+Fin notes
+*/
+
+
+
+
+
+
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+  <!-- Export epub : experimental -->  
+  <!-- File = article ou chapitre -->  
+
+<command name="epubFile">
+  <macro>
+    <sequence>
+    	<!-- ajouter le choix du dossier icono -->
+      <command name="confirm" parameter="Exporter le fichier en ePub ?"/>
+      <command name="XXE.save" parameter="[ifNeeded]"/>
+      <command name="toepubFile"/>
+      <command name="addImgtoEpub"/>
+      <command name="confirm" parameter="Exportation terminée"/>
+    </sequence>
+  </macro>
+</command> 
+
+<command name="toepubFile">
+	<process>
+		<!-- avant : 1ère étape : witchIconoRes -->
+		
+		<mkdir dir="%P%SEPUB%S" quiet="true"/>
+		<mkdir dir="%P%SEPUB%S%R" quiet="true"/>
+		
+		<transform stylesheet="xsl%Sepub%Spre_epub.xsl" file="%D" to="%P%SEPUB%S%R%Sepub1_%N" version="2.0" label="body et back sont rappatriés dans le body + liste les images mobilisées">
+			<parameter name="directory">%p</parameter>
+        	<parameter name="filename">%N</parameter>
+		</transform>
+          
+		<transform stylesheet="xsl%Sepub%Spre_epub2.xsl" file="%P%SEPUB%S%R%Sepub1_%N" to="%P%SEPUB%S%R%Sepub2_%N" version="2.0" label="les encadrés (floatingText) sont détransclus dans des blocs ab"></transform>
+          
+		<transform stylesheet="xsl%Sepub%Stei-to-epub.xsl" file="%P%SEPUB%S%R%Sepub2_%N" to="epub" version="2.0" label="Export to epub"></transform>
+      	
+		<mkdir dir="%P%SEPUB%S%R%SOEBPS%Sicono%Sbr" quiet="true"/>
+		<copy files="%P%S..%Sicono%Scover.jpg" to="OEBPS%S"/>
+	<!--	<copyProcessResources resources="@%P%SEPUB%S%R%SlinksToImages.txt" to="%P%SEPUB%S%R%SOEBPS%Sicono%Sbr%S"/> -->
+		
+		<shell command="zip -0Xq %P%SEPUB%S%R.epub mimetype" label="Pas de compression pour le mimetype" platform="Mac"/>		
+		<shell command="zip -Xr9Dq %P%SEPUB%S%R.epub OEBPS%S* META-INF%S*"  label="Produire le document compressé" platform="Mac"/> 
+		
+                <shell command="7z.exe a -tzip &quot;%P%SEPUB%S%R.epub&quot; OEBPS -r -aoa"
+                       label="Produire le document compressé"
+                       platform="Windows"/>
+
+                <shell command="7z.exe a -tzip &quot;%P%SEPUB%S%R.epub&quot; META-INF%S* -r"
+                       label="Produire le document compressé"
+                       platform="Windows"/>
+
+                <shell command="7z.exe a -tzip &quot;%P%SEPUB%S%R.epub&quot; mimetype -mx0"
+                       label="Pas de compression pour le mimetype"
+                       platform="Windows"/>
+	</process>
+</command> 
+
+<command name="addImgtoEpub">
+	<process>
+		<copy files="%P%SEPUB%S%R.epub" to="%R.epub"/>
+		<delete files="%P%SEPUB%S%R.epub"/>
+		<mkdir dir="OEBPS"/>
+		<mkdir dir="OEBPS%Sicono"/>
+		<mkdir dir="OEBPS%Sicono%Sbr"/>
+		<copyProcessResources resources="@%p%SEPUB%S%R%SlinksToImages.txt" to="OEBPS%Sicono%Sbr%S"/>
+		<shell command="zip -u %R.epub OEBPS%Sicono%Sbr%S*" 
+			   label="Ajout de l'image à l'archive zip" platform="Mac"/>
+		<shell command="7z.exe a -tzip &quot;%R.epub&quot; &quot;OEBPS%Sicono%Sbr%S*&quot;"
+	   		   label="Ajout de l'image à l'archive zip" platform="Windows"/>
+		<copy files="%R.epub" to="%P%SEPUB%S"/>
+		<delete files="%P%SEPUB%S%R" quiet="true" recurse="true"/>
+	</process>
+</command>
+
+<!-- Export HTML4  pour intégration de pages dans sigil -->
+  <command name="epubPart">
+    <macro>
+      <sequence>
+      		<command name="confirm" parameter="Exporter le texte pour l'ajouter à un ePub pré-existant ?"></command>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="callxsl_toepubPart"/>
+      		<command name="confirm" parameter="Exportation terminée : le fichier et les images sont dans le dossier EPUB"></command>
+	  </sequence>
+    </macro>
+  </command>
+
+<command name="callxsl_toepubPart">
+  <process>   
+  
+  		<transform stylesheet="xsl%SepubPart%Spre_epubPart.xsl" file="%D" to="%P%SEPUB%Sepub1_%N" version="2.0" label="body et back sont rappatriés dans le body + liste les images mobilisées">
+			<parameter name="directory">%p</parameter>
+        	<parameter name="filename">%N</parameter>
+		</transform>
+  
+  		<copyProcessResources resources="@%p%SEPUB%S%R_linksToImages.txt" to="%P%SEPUB%S"/>
+             
+        <transform stylesheet="xsl%SepubPart%Stei-to-epub.xsl" file="%P%SEPUB%Sepub1_%N" to="%P%SEPUB%S%R.html" version="2.0" label="Export to epub">
+          <parameter name="directory">%P%D</parameter>
+        </transform>
+        
+        <delete files="%P%SEPUB%S%R.html" quiet="true"/>
+        <copy files="%P%SEPUB%SOEBPS%Sindex.html" to="%P%SEPUB%S%R.html"/>
+        <delete files="%P%SEPUB%Sepub1_%N" quiet="true"/>
+        <delete files="%P%SEPUB%S%R_linksToImages.txt" quiet="true"/>
+        <delete files="%P%SEPUB%SOEBPS" recurse="true" quiet="true"/>
+
+  </process>
+</command>
+	
+</configuration>

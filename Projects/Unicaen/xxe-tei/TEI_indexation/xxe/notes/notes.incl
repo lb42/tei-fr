@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<!-- Insérer un commentaire éditeur -->
+  <command name="noteBiblio">
+    <macro>
+            <sequence>
+              <command name="insert"
+                parameter="into {http://www.tei-c.org/ns/1.0}note"/>
+              <command name="putAttribute" parameter="type bibliographie"/>
+              <command name="putAttribute" parameter="resp"/>    
+            </sequence>
+    </macro>
+  </command>
+
+
+
+<!-- Insérer une note philologique -->  
+<command name="inserNoteCom">   
+	<macro>
+            <sequence>
+              <command name="insert"
+                parameter="into {http://www.tei-c.org/ns/1.0}note"/>
+              <command name="putAttribute" parameter="type commentaire"/>
+              <command name="putAttribute" parameter="resp"/>      
+            </sequence>
+    </macro>
+</command>
+
+<!-- Insérer une note de travail -->  
+<command name="inserNoteTrav">   
+	<macro>
+            <sequence>
+              <command name="insert"
+                parameter="into {http://www.tei-c.org/ns/1.0}note"/>
+              <command name="putAttribute" parameter="type travail"/>
+              <command name="putAttribute" parameter="resp"/>           
+            </sequence>
+    </macro>
+</command>
+
+
+
+
+
+  
+
+<!-- Extraction des notes -->
+<command name="extract_notes">
+  <process>
+    <transform stylesheet="xsl%SextractNotes.xsl" file="%D" to="%P%Stexte_%N" version="2.0" label="Extraction des notes"><parameter name="directory">%P</parameter><parameter name="fileName">%N</parameter></transform>
+  </process>
+</command>
+
+<command name="extractNotes">
+  <macro> 
+    <sequence>
+      <command name="confirm" parameter="Extraire les notes?"/>
+      <command name="XXE.save" parameter="[ifNeeded]"/>
+      <command name="extract_notes"/>
+      <command name="XXE.open" parameter="[reopenIfNewer]"/>
+      <command name="confirm" parameter="Exportation terminée"></command>
+    </sequence>
+  </macro>
+</command>
+
+<!-- Identification des notes -->
+<command name="updateNotesIds">
+	<process>
+          <transform stylesheet="xsl%SupdateNotesIds.xslt" file="%D" to="%P%Stemp_%N" version="1.0" label="Update notes IDs"></transform>
+	  <copy files="%P%Stemp_%N" to="%P%S%N"/>
+	  <delete files="%P%Stemp_%N"/>
+	</process>
+</command>
+
+  <command name="notesIds">
+    <macro>
+      <sequence>
+      		<command name="confirm" parameter="Mettre à jour tous les identifiants des notes?"></command>
+			<command name="XXE.save" parameter="[ifNeeded]">
+			</command>
+			<command name="updateNotesIds">
+			</command>
+			<command name="XXE.open" parameter="%P/%N">
+			</command>
+	  </sequence>
+    </macro>
+  </command>
+	<!-- pour ajouter une note, avec l'identification du responsable -->  
+	<command name="ajoutNote"> 
+	<macro undoable="true">
+	  <sequence> 
+		  <command name="selectNode" parameter="lastChild[implicitElement]"/>
+		  <command name="insert" parameter="after[implicitElement] {http://www.tei-c.org/ns/1.0}note"/>
+		  <command name="putAttribute" parameter="resp" />
+		  <command name="putAttribute" parameter="type" />
+		  <command name="selectNode" parameter="[implicitElement]"/>
+		  <command name="insertNode" parameter="[implicitElement] #text" />      
+	  </sequence>
+	</macro>	
+	</command>
+	
+	<!-- Identification des notes -->
+	<command name="updateNotesIds">
+	<process>
+	      <transform stylesheet="xsl%SupdateNotesIds.xslt" file="%D" to="%P%Stemp_%N" version="1.0" label="Update notes IDs"></transform>
+	  <copy files="%P%Stemp_%N" to="%P%S%N"/>
+	  <delete files="%P%Stemp_%N"/>
+	</process>
+	</command>
+
+	<command name="notesIds">
+	<macro>
+	  <sequence>
+	  		<command name="confirm" parameter="Mettre à jour tous les identifiants des notes?"></command>
+			<command name="XXE.save" parameter="[ifNeeded]">
+			</command>
+			<command name="updateNotesIds">
+			</command>
+			<command name="XXE.open" parameter="%P/%N">
+			</command>
+	  </sequence>
+	</macro>
+	</command>
+  
+  </configuration>

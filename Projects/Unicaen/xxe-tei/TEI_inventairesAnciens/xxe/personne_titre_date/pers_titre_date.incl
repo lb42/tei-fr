@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+
+  
+  
+  
+  <!-- Marquer un élément bibliographique -->
+  <command name="bibl">
+    <macro undoable="true">
+      <sequence>
+        <command name="convert" parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}bibl"/>
+        <command name="addAttribute" parameter="[implicitElement] type oeuvre"/>
+      </sequence>
+    </macro>
+  </command>
+    
+		
+  <!-- Marquer une citation -->
+  <command name="citation">
+    <macro undoable="true">
+      <sequence>
+        <choice>
+          <sequence>
+		        <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}quote"/>
+		        <command name="addAttribute" parameter="[implicitElement] type citation"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode" parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}quote"/>
+						<command name="addAttribute" parameter="[implicitElement] type citation"/>						
+          </sequence>
+        </choice>
+        
+      </sequence>
+    </macro>
+  </command>		
+		
+  <!-- Marquer un titre -->
+    <command name="titre">
+    <macro undoable="true">
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}title"/>
+						<command name="addAttribute" parameter="[implicitElement] type oeuvre"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode" parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}title"/>
+						<command name="addAttribute" parameter="[implicitElement] type oeuvre"/>						
+          </sequence>
+        </choice>
+            <command name="xsl_indexLangues" parameter="Langues"/>
+            <command name="pick"
+              parameter="'choisir une référence' true @ '%C%Sressources%SindexLangues.txt' UTF-8 "/>
+            <command name="putAttribute" parameter="xml:lang %_"/>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+  <!-- Définir un auteur -->
+  
+  <command name="auteur">
+    <macro undoable="true">
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name"/>
+        <command name="addAttribute" parameter="[implicitElement] type personne"/>
+       <command name="addAttribute" parameter="[implicitElement] role auteur"/>
+      </sequence>
+    </macro>
+  </command>
+  
+    <!-- Définir une personne physique-->
+  
+  <command name="namePers">
+    <macro undoable="true">
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name"/>
+        <command name="addAttribute" parameter="[implicitElement] type personne"/>
+      </sequence>
+    </macro>
+  </command>
+  
+  <command name="attr_pers_morale">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name"/>
+          </sequence>
+          <sequence>
+            <command name="pass"/>
+          </sequence>
+        </choice>
+        <command name="addAttribute" parameter="[implicitElement] type personne_morale"/>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+  <command name="date">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}date"/>
+          </sequence>
+          <sequence>
+            <command name="pass"/>
+          </sequence>
+        </choice>
+        <command name="pick"
+          parameter="'Choisir un type de date' false copie rédaction 'publication/impression' autre enlumination acquisition floruit"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <choice>
+              <sequence>
+                <test expression="$typeIndex = 'publication/impression'"/>
+                <command name="putAttribute" parameter="[implicitElement] type publication"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'enlumination'"/>
+                <command name="putAttribute" parameter="[implicitElement] type enlumination"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'autre'"/>
+                <command name="putAttribute" parameter="[implicitElement] type autre"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'rédaction'"/>
+                <command name="putAttribute" parameter="[implicitElement] type redaction"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'acquisition'"/>
+                <command name="putAttribute" parameter="[implicitElement] type acquisition"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'floruit'"/>
+                <command name="putAttribute" parameter="[implicitElement] type floruit"/>
+              </sequence>
+            </choice>
+            <sequence>
+              <command name="pick"
+                parameter="'Choisir un type de date' false exacte fourchette 'terminus ante' 'terminus post' 'appreciation'"/>
+              <set variable="typeIndex" expression="%_" plainString="true"/>
+              <get expression="$typeIndex"/>
+              <choice>
+                <sequence>
+                  <test expression="$typeIndex = 'exacte'"/>
+                  <command name="putAttribute" parameter="[implicitElement] when"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'fourchette'"/>
+                  <command name="putAttribute" parameter="[implicitElement] from"/>
+                  <command name="putAttribute" parameter="[implicitElement] to"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'terminus ante'"/>
+                  <command name="putAttribute" parameter="[implicitElement] notAfter"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'terminus post'"/>
+                  <command name="putAttribute" parameter="[implicitElement] notBefore"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'appreciation'"/>
+                  <command name="putAttribute" parameter="[implicitElement] subtype appreciation"/>
+                </sequence>
+              </choice>
+            </sequence>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'copie'"/>
+            <command name="putAttribute" parameter="[implicitElement] type copie"/>
+            <sequence>
+              <command name="pick"
+                parameter="'Choisir un type de date' false exacte fourchette 'terminus ante' 'terminus post' 'appréciation'"/>
+              <set variable="typeIndex" expression="%_" plainString="true"/>
+              <get expression="$typeIndex"/>
+              <choice>
+                <sequence>
+                  <test expression="$typeIndex = 'exacte'"/>
+                  <command name="putAttribute" parameter="[implicitElement] when"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'fourchette'"/>
+                  <command name="putAttribute" parameter="[implicitElement] from"/>
+                  <command name="putAttribute" parameter="[implicitElement] to"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'terminus ante'"/>
+                  <command name="putAttribute" parameter="[implicitElement] notAfter"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'terminus post'"/>
+                  <command name="putAttribute" parameter="[implicitElement] notBefore"/>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'appréciation'"/>
+                  <command name="putAttribute" parameter="[implicitElement] subtype appreciation"/>
+                  <command name="pick"
+                    parameter="'Choisir une appréciation sur le caractère ancien' false vetus antiquus vetustissimus antiquissimus recens pervetus perantiquus novus novissimus"/>
+                  <set variable="typeIndex" expression="%_" plainString="true"/>
+                  <get expression="$typeIndex"/>
+                  <choice>
+                    <sequence>
+                      <test expression="$typeIndex = 'vetus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n vetus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'antiquus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n antiquus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'vetustissimus'"/>
+                      <command name="putAttribute"
+                        parameter="[implicitElement] n vetustissimus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'antiquissimus'"/>
+                      <command name="putAttribute"
+                        parameter="[implicitElement] n antiquissimus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'recens'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n recens"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'pervetus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n pervetus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'perantiquus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n perantiquus"
+                      />
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'novus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n novus"/>
+                    </sequence>
+                    <sequence>
+                      <test expression="$typeIndex = 'novissimus'"/>
+                      <command name="putAttribute" parameter="[implicitElement] n novissimus"
+                      />
+                    </sequence>
+                  </choice>
+                </sequence>
+              </choice>
+            </sequence>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="lieu">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name"/>
+          </sequence>
+          <sequence>
+            <command name="pass"/>
+          </sequence>
+        </choice>
+        <command name="addAttribute" parameter="[implicitElement] type lieu"/>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="foliotation_source_manuscrite_edition">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}locus"/>
+          </sequence>
+          <sequence>
+            <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}locus"/>
+          </sequence>
+        </choice>
+        <command name="pick" parameter="'Choisir un type de quantité' false nombre fourchette"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'nombre'"/>
+            <command name="putAttribute" parameter="[implicitElement] n"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'fourchette'"/>
+            <command name="putAttribute" parameter="[implicitElement] from"/>
+            <command name="putAttribute" parameter="[implicitElement] to"/>
+          </sequence>
+        </choice>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}locus"/>
+        <command name="xsl_correspTitre" parameter="MsEd"/>
+        <command name="pick"
+          parameter="'faire référence à une source manuscrite' true @ '%C%Sressources%SindexMsEd.txt' UTF-8 "/>
+        <command name="putAttribute" parameter="target #%_"/>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="etendue_biblio">
+    <macro>
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}biblScope"/>
+        <command name="putAttribute" parameter="[implicitElement] unit part"/>
+        
+        <command name="pick"
+          parameter="'Choisir une catégorie' false nombre fourchette"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'nombre'"/>
+            <command name="putAttribute" parameter="[implicitElement] n"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'fourchette'"/>
+            <command name="putAttribute" parameter="[implicitElement] from"/>
+            <command name="putAttribute" parameter="[implicitElement] to"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+   <command name="mots_repere">
+    <macro>
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}title"/>
+        <command name="putAttribute" parameter="[implicitElement] type mot-repere"/>
+      </sequence>
+    </macro>
+  </command>
+  
+<!-- menu 'autre' de titres personnes lieux dates -->  
+   <command name="forme_textuelle">
+    <macro>
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}term"/>
+        <command name="putAttribute" parameter="[implicitElement] type forme_textuelle"/>
+        <command name="pick"
+          parameter="'Choisir une forme textuelle' false glosé résumé traduit extrait versifié noté 'avec figures' compilation dialogue"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'glosé'"/>
+            <command name="putAttribute" parameter="[implicitElement] n glose"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'dialogue'"/>
+            <command name="putAttribute" parameter="[implicitElement] n dialogue"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'résumé'"/>
+            <command name="putAttribute" parameter="[implicitElement] n resume"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'traduit'"/>
+            <command name="putAttribute"
+              parameter="[implicitElement] n traduit"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'extrait'"/>
+            <command name="putAttribute"
+              parameter="[implicitElement] n extrait"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'versifié'"/>
+            <command name="putAttribute" parameter="[implicitElement] n versifie"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'noté'"/>
+            <command name="putAttribute" parameter="[implicitElement] n note"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'avec figures'"/>
+            <command name="putAttribute" parameter="[implicitElement] n avec_figures"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'compilation'"/>
+            <command name="putAttribute" parameter="[implicitElement] n compilation"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+
+    
+    <command name="type_livre">
+    <macro>
+      <sequence>
+        <command name="convert" parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}bibl"/>
+				<command name="putAttribute" parameter="[implicitElement] type œuvre"/>
+       <command name="xsl_correspTypeLivre" parameter="TypeLivre"/>
+		   <command name="pick"
+		     parameter="'choisir un type de livre' true @ '%C%Sressources%SindexTypeLivre.txt' UTF-8 "/>
+				 <!-- <command name="alert" parameter="%_"/>				  -->
+         <command name="putAttribute" parameter="[implicitElement] corresp indexTypeLivre.xml#%_" />
+      </sequence>
+    </macro>
+  </command>
+		
+    <command name="langue">
+    <macro>
+      <sequence>
+            <command name="convert"
+              parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}foreign"/>           
+      </sequence>
+    </macro>
+  </command>
+  
+  <command name="comm_editeur_ancien">
+    <macro>
+      <sequence>
+        <command name="convert"
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}seg"/>
+        <command name="putAttribute" parameter="type commentaire_ancien"/>
+        <command name="xsl_correspResp_ancien" parameter="Resp_ancien"/>
+        <command name="pick"
+          parameter="'choisir un responsable' true @ '%C%Sressources%SindexResp_ancien.txt' UTF-8 "/>
+        <command name="putAttribute" parameter="resp #%_"/>
+        
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="xsl_indexLangues">
+    <process>
+      <transform stylesheet="ressources%SindexLangues.xsl" file="%D"
+        to="%C%Sressources%Sindex%0.txt" version="2.0"
+        label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter></transform>
+    </process>
+  </command>
+	
+  <command name="xsl_correspResp_ancien">
+  <process>
+    <transform stylesheet="ressources%SindexResp_ancien.xsl" file="%D"
+      to="%C%Sressources%Sindex%0.txt" version="2.0"
+      label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+
+   <command name="xsl_correspTypeLivre">	
+  <process>
+          <transform stylesheet="ressources%SindexTypeLivre.xsl" file="%C%Sressources%Sindex%0.xml" to="%C%Sressources%S%Sindex%0.txt" version="2.0" label="Constitution du fichier de clés et de valeurs">
+						<parameter name="typeIndex">%0</parameter>
+					</transform>
+  </process>
+</command>	
+	
+	
+	
+  </configuration>

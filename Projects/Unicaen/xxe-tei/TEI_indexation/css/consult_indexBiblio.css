@@ -1,0 +1,415 @@
+﻿@namespace tei url(http://www.tei-c.org/ns/1.0);
+@extension "fr.unicaen.mrsh.poledoc.idrefsresolver.IdRefsResolver";
+
+/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+
+
+/*Listes Références bibliographiques */
+
+listBibl {
+		display: block; 
+		
+		}
+
+bibl {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#7d2c13;
+		margin-top:5px;
+		margin-right:40px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+		line-height:1.5;
+}
+
+bibl:before {
+	content: attr(xml|id)". "attr(type)"   "; 
+	color:#5a5757;
+}
+
+bibl > title {
+	display:block;
+	margin-left:5px;	
+	font-style:italic;
+	margin-bottom:10px;
+	color:#7d2c13;
+}
+
+
+
+bibl:after {
+content:command-button(text, "            Ajouter note + ", command, "ajoutNote");
+color:#353738;
+}
+
+
+bibl > title:before {
+  	content:" Titre : "combo-box(attribute, type, labels, "Titre retenu (langue originale)\A Titre attesté\A Titre usuel\A Titre uniforme", values, "titre_retenu\A titre_atteste\A titre_usuel\A titre_uniforme")"           ";	
+	font-weight:bold;	
+	color:#353738;
+	font-style:normal;
+	display:block;
+
+}
+
+bibl > title:after {
+  	content:"      "combo-box(attribute, xml|lang, labels, "Français\A Latin\A Grec polytonique\A Arabe\A Italien\A  Espagnol\A Anglais\A Hébreux", values, "fr\A la\A grc\A ara\A it\A es\A en\A heb")" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");	
+	font-weight:bold;
+	color:#353738;
+	font-style:normal;
+	font-size:80%;
+}
+bibl > author:before {
+	content:"Auteur : ";
+	font-weight:bold;	
+	color:#353738;
+}
+bibl > author {
+	display:block;
+	margin-left:5px;	
+	margin-bottom:5px;
+}
+bibl > author:after {
+	content:", ";	
+}
+
+
+
+
+bibl > date:before {
+	font-weight:bold;
+	content:"Date : ";
+	color:#353738;
+}
+
+bibl > date {
+	display:block;
+	margin-left:20px;
+}
+
+bibl > date:after {
+	color:#353738;
+	content:attributes();
+		display:block;
+}
+
+
+bibl > date::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+
+
+
+bibl > author:contains-element(name) {
+color:#1a689f;
+}
+
+bibl > author:contains-element(name):after {
+content:", ";
+color:#1a689f;
+}
+
+/* bibliographie avec biblStruct */
+
+
+listBibl  {
+		display: block; 
+		}
+
+biblStruct{
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+	color:#7d2c13;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+
+}
+
+listBibl > biblStruct {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:5px;
+		margin-left:50px;
+				font-size:120%;
+				line-height:1.5;
+}
+listBibl > biblStruct:before {
+	display: inline;
+	content: simple-counter(n, decimal)". "attr(type)" "attr(subtype)"   "; 
+color:#5a5757;
+}
+
+monogr::after {
+content:".";
+}
+
+monogr:contains-element(extent):after {
+content:" ";
+}
+
+
+
+listBibl > biblStruct[type='mémoire']:before {
+	display: inline;
+	content: simple-counter(n, decimal)". "attr(type)" de "attr(subtype)"   "; 
+color:#5a5757;
+}
+
+bibl > title {
+	font-style:italic;
+	font-size:110%;
+}
+
+author > surname:before {
+	content:" ";
+}
+
+
+
+author > forename:before {
+	content:" ";
+}
+
+author > forename:after {
+	content:", ";
+}
+
+author > nameLink:before {
+display:inline;
+content:" (";
+}
+
+author nameLink:after {
+display:inline;
+content:") ";
+}
+
+monogr > author[role='collab.']:last-of-type > forename:after {
+	content:" (collab.), ";
+}
+
+monogr > author[role='trad.']:last-of-type > forename:after {
+	content:" (trad.), ";
+}
+
+author > forename:last-child:after {
+	content:",";
+}
+
+editor:after {
+content:" (éd.), ";
+}
+
+
+editor > forename:before {
+	content:" ";
+}
+
+
+editor[role="dir."]:after {
+content:" (dir.), ";
+}
+
+
+
+editor > nameLink:before {
+display:inline;
+content:" (";
+}
+
+editor > nameLink:after {
+display:inline;
+content:")";
+}
+
+
+monogr + monogr:before {
+content:" ;"
+}
+
+monogr + monogr > title {
+content:" ";
+}
+
+monogr + monogr > imprint > date:before {
+content:" ";
+}
+
+
+monogr > title:before {
+	content:" ";
+}
+
+monogr > title {
+font-style: italic;
+}
+
+monogr > title + title[type="soustitre"][n]:before {
+content:", t. "attr(n)", ";
+font-style:normal;
+}
+monogr > title + title[type="soustitre"][n='1'] + title[type="soustitre"][n='2']:before {
+content:" ; t. "attr(n)", ";
+font-style:normal;
+}
+
+
+monogr > title + title[type="soustitre"]:before {
+content:" : ";
+}
+
+biblStruct[type="contribution"] > analytic + monogr:before {
+content:" in ";
+}
+
+analytic > title:before {
+content:" « ";
+}
+/*analytic > title:after {
+content:" »,";
+}*/
+
+analytic > title + title[type="soustitre"]:before {
+content:" : ";
+}
+
+analytic > title:last-of-type:after{
+	content:" »,";
+}
+
+analytic > title + title[type="soustitre"]:after {
+content:" »";
+}
+
+imprint > pubPlace:before {
+content:", ";
+}
+
+imprint > publisher:before {
+content:", ";
+}
+imprint > date:before {
+content:", ";
+}
+
+imprint > biblScope[type="collection"]:before {
+content:", ";
+}
+
+imprint > biblScope:before {
+content:", ";
+}
+
+
+series > title:before {
+content:" (coll. ";
+}
+
+series > title:after {
+content:")";
+}
+
+extent > measure[unit="vol."]:before {
+content:", ";
+}
+
+extent > measure[unit="vol."]:after {
+content:" vol.";
+}
+
+extent > measure[unit="fasc."]:before {
+content:", ";
+}
+
+extent > measure[unit="fasc."]:after {
+content:" fasc.";
+}
+
+
+extent > measure[unit="p."]:before {
+content:", ";
+}
+
+extent > measure[unit="p."]:after {
+content:" p.";
+}
+
+biblStruct[type="thèse"] extent > measure[unit="p."]:after {
+content:" p. (dactyl.)";
+}
+
+biblScope[unit="no"]:before {
+content:", n° ";
+}
+
+biblScope[unit="t."]:before {
+content:", t. ";
+}
+
+biblScope[unit="p."]:before  {
+content:", p. ";
+}
+
+biblScope[unit="p."] + biblScope[unit="p."]:before  {
+content:", ";
+}
+
+
+bibl > ref > name:after {
+	content:" ";
+}
+bibl > ref > date:after {
+	content:" ";
+}
+
+
+
+
+foreign {
+font-style:normal;
+}
+
+
+
+
+

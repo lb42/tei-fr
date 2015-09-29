@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<command name="exportOE">
+	<macro repeatable="true" undoable="true">
+		<sequence>
+			<command name="confirm" parameter="Exporter le book pour Open Edition?"/>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="manifest" parameter="%P"/>
+			<command name="links"/>
+			<command name="test_prelim_book"/>
+			<command name="test_prelim_part"/>
+      		<command name="addXi"/>
+      		<command name="confirm" parameter="Exportation terminée"/>
+		</sequence>
+	</macro>
+</command>    
+
+<command name="manifest">
+	<process>
+		<mkdir dir="%P%SOE%S%R" quiet="true"/>
+	
+		<transform file="%D" 
+               label="production du manifest"
+               stylesheet="xsl%Smanifest.xsl" to="MANIFEST.xml"
+               version="2.0">
+        </transform>
+        
+        <shell command="zip -u %P%SOE%S%R.zip MANIFEST.xml" label="Ajout du manifest au zip" platform="Mac"/>
+        <shell command="7z.exe a -tzip &quot;%P%SOE%S%R.zip&quot; &quot;MANIFEST.xml&quot;" label="Ajout du manifest au zip" platform="Windows"/>
+	</process>
+</command>
+
+<command name="links">
+	<process>
+		<mkdir dir="files"/>
+		<mkdir dir="%P%SOE%S%R%Spresources"/>
+		
+		<transform file="%D" label="ressource cover et xml source à copier" stylesheet="xsl%Slinks.xsl" to="temp4cover" version="2.0">
+			<parameter name="directory">%p</parameter>
+       		<parameter name="fileName">%N</parameter>
+		</transform>
+		   	
+    	<copyProcessResources resources="@%p/OE/%R/linksToCover.txt" to="files%S"/>
+    	<copyProcessResources resources="@%p/OE/%R/linksToAllImages.txt" to="files%S"/>
+    	<copyProcessResources resources="@%p/OE/%R/linksToXML.txt" to="%P%SOE%S%R%Spresources%S"/>
+    	
+    	<shell command="zip -u %P%SOE%S%R.zip files%S*" 
+    		label="Ajout du dossier files à l'archive pour Open Edition" platform="Mac"/>
+        <shell command="7z.exe a -tzip &quot;%P%SOE%S%R.zip&quot; &quot;files%S*&quot; -aoa" 
+    	   label="Ajout des dossiers et compression pour Open Edition" 
+    	   platform="Windows"/>
+	</process>
+</command>
+
+<command name="test_prelim_book">
+	<macro>
+		<sequence>
+			<command name="selectNode" parameter="ancestor[implicitElement] {http://www.tei-c.org/ns/1.0}TEI"/>
+			<get expression="serialize($selectedElement)"/>
+			<transform source="%_">
+				<xsl:stylesheet version="2.0" 
+								xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+								xmlns:tei="http://www.tei-c.org/ns/1.0"
+								xmlns="http://www.tei-c.org/ns/1.0"
+								exclude-result-prefixes="tei">
+	  				<xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
+	  				<xsl:template match="/">
+          			<xsl:choose>
+						<xsl:when test="//tei:div[@type='liminaires']">
+							<xsl:text>true</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:text>false</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+					</xsl:template>
+				</xsl:stylesheet>
+			</transform>
+			<set variable="limin" expression="%_" plainString="true" />
+      		<get expression="$limin"/>
+      		<choice>
+      			<sequence>
+      				<test expression="$limin='true'"/>
+					<command name="prelim_export"/>
+      			</sequence>
+      			<sequence>
+      				<test expression="$limin='false'"/>
+      			</sequence>
+      		</choice>
+		</sequence>
+	</macro>
+</command>
+
+<command name="test_prelim_part">
+	<macro>
+		<sequence>
+			<get expression="serialize($selectedElement)"/>
+			<transform source="%_">
+				<xsl:stylesheet version="2.0" 
+								xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+								xmlns:tei="http://www.tei-c.org/ns/1.0"
+								xmlns="http://www.tei-c.org/ns/1.0"
+								exclude-result-prefixes="tei">
+	  				<xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
+	  				<xsl:template match="/">
+          			<xsl:choose>
+						<xsl:when test="//tei:body">
+							<xsl:text>true</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:text>false</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+					</xsl:template>
+				</xsl:stylesheet>
+			</transform>
+			<set variable="txtPart" expression="%_" plainString="true" />
+      		<get expression="$txtPart"/>
+      		<choice>
+      			<sequence>
+      				<test expression="$txtPart='true'"/>
+					<command name="prelim_export"/>
+      			</sequence>
+      			<sequence>
+      				<test expression="$txtPart='false'"/>
+      			</sequence>
+      		</choice>
+		</sequence>
+	</macro>
+</command>
+
+<command name="prelim_export">
+	<process>
+		<mkdir dir="sources"/>	
+		<transform file="%D" label="les préliminaires du book et des parties sont extraites" stylesheet="xsl%SextractPrelim.xsl" to="temp4bookprelim" version="2.0">
+			<parameter name="directory">%p</parameter>
+       		<parameter name="fileName">%N</parameter>
+		</transform>
+	</process>
+</command>
+
+<command name="addXi">
+	<process>
+		<mkdir dir="sources"/>
+		<transform file="%P%SOE%S%R%Spresources%S*.xml"
+				   label="Transformer pour lodel"
+                   stylesheet="../../export/xsl%StoOE.xsl" 
+                   to="sources"
+             	   version="2.0"
+             	   pattern="true">
+			<parameter name="directory">%p</parameter>
+			<parameter name="filename">%N</parameter>
+    	</transform>
+    
+    <shell command="zip -u %P%SOE%S%R.zip sources%S*" 
+    	label="Ajout du dossier sources au zip OE" platform="Mac"/>
+
+    <shell command="7z.exe a -tzip &quot;%P%SOE%S%R.zip&quot; &quot;sources%S*&quot; -aoa" 
+    	   label="Ajout des dossiers et compression pour Open Edition" 
+    	   platform="Windows"/>
+    
+    <delete files="%P%SOE%S%R" quiet="true" recurse="true"/>
+    
+	</process>
+</command>
+
+<!--command name="addPDF">
+	<process>
+		<mkdir dir="sources"/>
+		<copy files="%P%S..%SINDD%SPDF%S*" to="sources%S"/>
+		<shell command="zip -u %P%S%R.zip sources%S*" label="Ajout des pdf éditeurs" platform="Mac"/>
+    </process>
+</command-->
+
+</configuration>

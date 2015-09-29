@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration"
+							 			   xmlns:tei="http://www.tei-c.org/ns/1.0">
+
+							 <!-- Formulaire index : commande pour le bouton "Ajouter sous-entrée" pour la duplication des sous-entrées pour place -->
+							 <command name="ajoutEntree"> 
+							 <macro undoable="true">
+							   <sequence> 
+							   <get context="$selected" expression="parent::tei:place/@xml:id"/>
+							   <set variable="testId" expression="%_"
+							        plainString="true" /> 
+							         <!-- on génère un identifiant via la commande creerIdent -->
+							         <command name="creerIdent" />
+							         <set variable="idGenere" expression="%_" plainString="true" />
+							          <get expression="$testId" />
+							        <!-- test : il n'y a pas de balise place au-dessus, on est donc au premier niveau : il faut ajouter une balise
+							        place à l'intérieur, sinon on est déjà dans une balise place de deuxième niveau, il faut donc en ajouter une après -->
+							      <choice>
+							 			<sequence>
+							 			<test expression="$testId = ''" />
+							 			<command name="selectNode" parameter="child"/>
+							 			<command name="selectNode" parameter="lastChild"/>
+							 			<command name="insert" parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}place,sousEntreePl)"/>
+							 			 <get context="$selected" expression="parent::tei:place/@xml:id"/>
+							   <set variable="testId" expression="%_"
+							        plainString="true" />
+							 			</sequence>
+							 			<sequence>
+							 			<command name="selectNode" parameter="lastChild[implicitElement]"/>
+							 			<command name="insert" parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}place,sousEntreePl)"/>
+							 			</sequence>
+							         </choice>
+							 		<get expression="$idGenere" />
+							 		<get expression="$testId" />
+							 <!--			<command name="alert" parameter="%_"/>-->
+							 		<set variable="concatId" expression="concat('pddn_l._',$idGenere)" />
+							 		<get expression="$concatId" />
+							 		<command name="putAttribute" parameter="xml:id %_" />
+							   	</sequence>
+							 </macro>	
+							 </command> 
+
+
+							 <elementTemplate name="sousEntreePl" selectable="true">
+							 <place xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+							 type="???" xml:id="???"><placeName xml:lang="fr" type="ppal">???</placeName><trait><label>???</label><desc>???</desc></trait></place>
+							 </elementTemplate>
+
+
+
+
+  
+  </configuration>

@@ -1,0 +1,275 @@
+﻿/*
+Styles CSS pour l'édition TEI.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+This programme is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+<http://www.gnu.org/licenses/>
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+This stylesheet is derived from the work of Sebastian Rahtz / University of Oxford (copyright 2005)
+
+
+Copyright (c) 2009-2015 
+   Pôle Document Numérique
+   Maison de la Recherche en Sciences Humaines
+   Université de Caen Basse-Normandie
+   Esplanade de la Paix
+   Campus 1
+   14032 Caen Cedex
+*/
+
+TEI {
+	font-family:Arial;
+}
+
+text {
+	display:none;
+}
+
+teiHeader:before {
+	content: "Edition des métadonnées - En-tête TEI";
+	display:block;
+	font-size:20px;		
+}
+
+teiHeader {
+	display: block;
+    width:95%;
+    border: 1px solid;
+    margin-left:0px;
+    margin-right:auto;
+    margin-bottom:20px;
+    padding:5px;
+    font-size: 15px;
+    color:#000000;
+	background-color:#efefef;
+}
+
+fileDesc,
+encodingDesc,
+profileDesc,
+revisionDesc {
+	collapsible:yes;
+	collapsed:no;
+	display: block;
+	font-size:13px;
+	border: 1px solid;
+	width:90%;
+	margin-bottom:10px;
+	margin-top:20px;
+}
+
+fileDesc:before,
+encodingDesc:before,
+profileDesc:before,
+revisionDesc:before {
+	display:block;
+	font-size:17px;	
+}
+
+fileDesc:before {
+	content:"Description bibliographique du fichier" collapser();
+}
+encodingDesc:before {
+	content:"Description de l'encodage" collapser();
+}
+profileDesc:before {
+	content:"Description du profil" collapser();
+}
+revisionDesc:before {
+	content:"Descriptif des révisions" collapser();
+}
+
+titleStmt,
+editionStmt,
+publicationStmt,
+sourceDesc,
+langUsage,
+textClass,
+abstract,
+change,
+p {
+	collapsible:yes;
+	collapsed:no;
+	display: block;
+	font-size:13px;
+    width:80%;
+	margin-bottom:10px;
+	margin-top:10px;
+	padding:5px;
+	
+}
+
+titleStmt:before,
+editionStmt:before,
+publicationStmt:before,
+sourceDesc:before,
+langUsage:before,
+textClass:before,
+abstract:before,
+change:before {
+	display:block;
+	font-size:15px;	
+}
+
+titleStmt:before {
+	content:"Mention de titre" collapser();
+}
+editionStmt:before {
+	content:"Mention d'édition" collapser();
+}
+publicationStmt:before {
+	content:"Mention de publication" collapser();
+}
+sourceDesc:before {
+	content:"Description de la source" collapser();
+}
+langUsage:before {
+	content:"Description de la source" collapser();
+}
+textClass:before {
+	content:"Description de la source" collapser();
+}
+abstract[rend="4e-couv"]:before {
+	content:"Quatrième de couverture" collapser();
+}
+abstract[rend="resume"]:before {
+	content:"Résumé" attr(xml|lang) collapser();
+}
+abstract[rend="abstract"]:before {
+	content:"Résumé "attr(xml|lang) collapser();
+}
+change:before {
+	content:"Modification " attr(who) " " attr(when) collapser();
+	font-size:13px;
+}
+
+title,
+author,
+edition,
+date,
+resp,
+name,
+affiliation,
+bibl,
+editor,
+sponsor,
+authority,
+respStmt,
+sourceDesc > p,
+sourceDesc > bibl,
+language,
+keywords,
+list,
+item,
+abstract > p {
+	display:block;
+}
+
+title[type='main']:before {content:"Titre principal                 –  ";}
+title[type='sub']:before {content:"Sous-titre                      –  ";}
+title[type='collection']:before {content:"Titre de la collection       –  ";}
+author:before {counter-increment:author;content:"Auteur  (" counter(author) ")       –  ";}
+edition date:before {content:"Date de création du document –  ";}
+respStmt resp:before {content:"Responsable –  ";}
+editor name:before {content:"Éditeur –  ";}
+editor[role]:before {content:"Collaborateur (" attr(role) ") –  ";}
+editor[role] name:before {content:"";}
+sponsor:before {content:"Partenariat : ";}
+authority:before {content:"Responsable de la publication : ";}
+sourceDesc > p:before {content:"Chaîne éditoriale –  ";}
+sourceDesc > bibl:before {content:"Référence bibliographique –  ";}
+language:before {content:"Langue du document : ";}
+keywords:before {content:"Mots-clés " attr(xml|lang) " : ";}
+
+publicationStmt > p {display:none;}
+
+title[type='main'],
+title[type='sub'],
+title[type='collection'],
+author {
+	border-bottom: 1px solid #000000;
+}
+
+author > name,
+author > affiliation,
+editor[role] > name,
+editor[role] > affiliation {margin-left:20px;}
+
+ab {
+	display:block;
+	margin-left:20px;
+	font-size:13px;
+}
+
+ab[type='papier'],
+ab[type='epub'],
+ab[type='pdf'],
+ab[type='site'] {
+	border:1px solid #5C5C5C;
+	border-radius: 0.5em 0.5em 0.5em 0.5em;
+	margin-top:5px;
+	padding-top:1px;
+}
+
+ab[type='papier']:before {content:"Publication papier";font-size:15px;}
+ab[type='epub']:before {content:"Epub"}
+ab[type='pdf']:before {content:"Pdf"}
+ab[type='site']:before {content:"Site internet"}
+
+biblScope[type="pp"]:before {content:"Pagination : "}
+biblScope[type="num"]:before {content:"Numéro : "}
+biblScope[type="volume"]:before {content:"Volume : "}
+biblScope[type="tome"]:before {content:"Tome : "}
+idno[type="ISBN-10"]:before {content:"ISBN-10 : "}
+idno[type="ISBN-13"]:before {content:"ISBN-13 : "}
+dimensions:before {content:"Dimensions : "}
+name[type="imprimeur"]:before {content:"Imprimeur : "}
+ab[type="papier"] > address > name:before {content:"Adresse de l'imprimeur : ";}
+date[type="imprint"]:before {content:"Date d'impression : "}
+date[type="depot-legal"]:before {content:"Date du dépôt légal : "}
+idno[type="price"]:before {content:"Prix : "}
+desc:before {content:"Droits : "}
+name[type="diffuseur"]:before {content:"Diffuseur : "}
+name[type="distributeur"]:before {content:"Distributeur : "}
+date:before {content:"Date : ";}
+idno[type="DOI"]:before {content:"DOI : "}
+desc[type="site"]:before {content:"Droits : "}
+ref:before {content:"Référence du site : ";}
+
+width:after {content:"x";}
+height:after {content:"x";}
+
+biblScope,
+idno,
+dimensions,
+ab > name,
+ab> date,
+ab > address,
+ab > address > name,
+desc,
+ref {
+	display:block;
+	padding-left:10px;	
+}
+
+list {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-bottom: 1em;
+  margin-left: 2em;
+  margin-top: 1em;
+}
+item {
+  display: list-item;
+  margin-left:1em;
+}
+
+abstract p  {display:block; text-align:justify;line-height:1.5;}

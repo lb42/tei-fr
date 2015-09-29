@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<include location="assemblage/assemblage_container.incl"/>
+<include location="epub/epub_container.incl"/>
+<include location="exportOE/exportOE.incl"/>
+<include location="metadata/metaTobook.incl"/>
+ 
+<!--TDM présentation -->
+<command name="tdm">
+	<macro repeatable="false" undoable="true">
+		<sequence>
+			<command name="uninclude" parameter="[all]"/>
+			<!--command name="run" parameter="[Mac] echo '&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;files&gt;' > %P%Smd5.xml"/>
+			<command name="cancelSelection"/>
+			<command name="createChecksum"/-->
+		</sequence>
+	</macro>
+</command>
+
+<command name="Notdm">
+	<macro repeatable="false" undoable="true">
+		<sequence>
+			<command name="reinclude" parameter="[all]"/>
+			<!--command name="run" parameter="[Mac] echo '&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;files&gt;' > %P%Smd5.xml"/>
+			<command name="cancelSelection"/>
+			<command name="createChecksum"/-->
+		</sequence>
+	</macro>
+</command>
+
+<!--Éditer le fichier xml de l'unité-->
+<command name="edit_unit">
+<macro>
+<sequence>
+	<!--<command name="start" parameter="helper(text/xml) '%U'"/>-->
+	<command name="start" parameter="helper(defaultViewer) '%D'"/>
+	<!--command name="XXE.open"/-->
+</sequence>
+</macro>
+</command>
+
+<!--Éditer le fichier xml de l'unité -->
+<command name="editIncl">
+	<macro repeatable="true" undoable="true">
+		<sequence>
+			<command name="reinclude" parameter="[implicitElement]"/> 
+			<command name="XXE.editInclusion" parameter="[implicitElement]"/> 
+		<!--	<command name="overwriteMode" parameter="isOn"/> -->
+			<get context="$selected" expression="@href"/>
+			<!--set variable="IncludedDoc" expression="%_" plainString="true" /-->
+		<!--	<command name="XXE.open" parameter="auteurs-multiples.xml"/> -->
+		</sequence>
+	</macro>
+</command>
+
+<!--<command name="edit_unit">
+<macro repeatable="true" undoabe="true">
+	<sequence>
+		<command name="selectNode" parameter="self[implicitElement]"/>
+		<set variable="xitoedit" expression="%_" plainString="true"/>
+		
+		<get expression="$xitoedit"/>
+		<command name="XXE.edit" parameter="$xitoedit"/>
+		<command name="alert" parameter="checkpoint"/>
+		
+	</sequence>
+</macro>
+</command>-->
+
+<command name="numpart">
+	<process>
+		<transform file="%D" label="Numter les parties"
+                 stylesheet="xsl%Snumpart.xslt" to="%P%Snum_%N"
+                 version="2.0"/>
+	</process>
+</command>
+<command name="docnumpart">
+	<macro>
+		<sequence>
+			<command name="confirm" parameter="Numter les parties?"/>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="numpart"/>
+			<command name="XXE.open" parameter="%P%Snum_%N"/>
+		</sequence>
+	</macro>
+</command>
+
+<command name="numunit">
+	<process>
+		<transform file="%D" label="Numter les unités"
+                 stylesheet="xsl%Snumunit.xslt" to="%P%Snumunit_%N"
+                 version="2.0"/>
+	</process>
+</command>
+<command name="docnumpart">
+	<macro>
+		<sequence>
+			<command name="confirm" parameter="Numter les unités?"/>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="numunit"/>
+			<command name="XXE.open" parameter="%P%Snum_%N"/>
+		</sequence>
+	</macro>
+</command>
+
+</configuration>

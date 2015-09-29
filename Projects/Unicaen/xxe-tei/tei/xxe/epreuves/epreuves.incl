@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<command name="epreuves">
+	<macro>
+		<sequence>
+			<command name="confirm"
+					 parameter="Produire une épreuve"/>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="docToEpreuves"/>
+			<command name="alert" parameter="Épreuves produites, la navigateur va se lancer."/>
+			<command name="start" parameter="helper(text/xhtml) '%P%Sepreuves%S%R%S%R.html'"/>
+		</sequence>
+	</macro>
+</command>
+
+  <command name="docToEpreuves">
+    <process>
+	  
+	  <mkdir dir="%P%Sepreuves%S%R" quiet="true"/>
+	  <mkdir dir="%P%Sepreuves%S%R%Sicono" quiet="true"/>
+      
+      <transform file="%D" label="Epreuves" stylesheet="xsl%Spre_epreuves.xsl"
+                 to="%P%Sepreuves%S%R%Sprev_%N" version="2.0">
+            <parameter name="directory">%p</parameter>
+        	<parameter name="filename">%N</parameter>
+	  </transform>
+	  
+      <transform file="%P%Sepreuves%S%R%Sprev_%N" label="Epreuves" stylesheet="html%Stei.xsl"
+                 to="%P%Sepreuves%S%R%S%R.html" version="1.0"/>
+      
+      <copyProcessResources resources="@%p%Sepreuves%S%R%SlinksToImages.txt" to="%P%Sepreuves%S%R%Sicono%S"/>           
+      
+      <copy files="%C%Scss%Stei.css" to="%P%Sepreuves%S%R%Stei.css"/>
+      <copy files="%C%Scss%Stei-print.css" to="%P%Sepreuves%S%R%Stei-print.css"/>    
+      <copy files="%C%Sfiligrane.png" to="%P%Sepreuves%S%R%Sfiligrane.png"/>
+      
+      <delete files="%P%Sepreuves%S%R%Sprev_%N" quiet="true"/>
+      <delete files="%P%Sepreuves%S%R%SlinksToImages.txt" quiet="true"/>
+    </process>
+  </command>
+	
+</configuration>

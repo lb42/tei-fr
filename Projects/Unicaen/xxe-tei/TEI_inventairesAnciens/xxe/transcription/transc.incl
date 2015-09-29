@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:tei="http://www.tei-c.org/ns/1.0"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<!-- insérer une liste de niveau inférieur -->
+	 <command name="inserItemInf">
+		<macro>
+		  <sequence>
+				<command name="selectNode"
+				  parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}item"/>
+				  <set variable="idParent" context="$selected" expression="@xml:id" />
+				<command name="moveDotTo" parameter="elementEnd"></command>
+				<command name="insert"
+				  parameter="into #template({http://www.tei-c.org/ns/1.0}list,InventaireList)"/>
+				<command name="selectNode"
+				  parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}list"/>
+				<command name="selectNode"
+				  parameter="child[implicitElement] {http://www.tei-c.org/ns/1.0}item"/>
+				<get expression="$idParent"/>
+				<set variable="newAttr" expression="concat($idParent,'.i1')"/>
+				<get expression="$newAttr"/>
+				<command name="putAttribute" parameter="[implicitElement] xml:id %_"/>
+		  </sequence>
+		</macro>
+	  </command>
+		
+		<!-- spécifier une liste : en bloc ou en ligne -->
+	  <command name="liste">
+			<macro>
+				<sequence>
+			  <command name="selectNode" parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}list"/>
+        <command name="pick"
+          parameter="'Qualifier' false 'en bloc' 'en ligne'"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'en bloc'"/>
+            <command name="putAttribute" parameter="[implicitElement] rend blockline"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'en ligne'"/>
+            <command name="putAttribute" parameter="[implicitElement] rend inline"/>
+          </sequence>
+				</choice>
+			</sequence>
+	</macro>
+	</command>		
+		
+	  <elementTemplate name="InventaireList" selectable="true">
+		<list xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+		  <item><?text?></item>
+		</list>
+	  </elementTemplate>
+	
+<!-- insérer un paragraphe avant ou après -->  
+	<command name="inserParagraphe">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}head"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}list"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}div"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}p"/>
+          </sequence>
+        </choice>
+        <command name="pick"
+          parameter="'Avant ou après élément actuel ?' false avant après dans"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'avant'"/>
+            <command name="insert" parameter="before {http://www.tei-c.org/ns/1.0}p"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'après'"/>
+            <command name="insert" parameter="after {http://www.tei-c.org/ns/1.0}p"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'dans'"/>
+            <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}p"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+<!-- Insérer notes de bas de page ou notes de fin -->
+  
+  
+<command name="inserNdBP">
+    <macro>
+      <sequence>
+        <command name="pick"
+          parameter="'Choisir un type de note' false 'note de bas de page' 'note de fin'"/>
+        <set variable="typeIndex" expression="%_" plainString="true"/>
+        <get expression="$typeIndex"/>
+        <choice>
+          <sequence>
+            <test expression="$typeIndex = 'note de bas de page'"/>
+            <command name="insert"
+              parameter="into #template({http://www.tei-c.org/ns/1.0}note,InventaireNote)"/>
+            <set variable="idParent" context="$selected" expression="ancestor::tei:div[1]/@xml:id" />
+			<get expression="$idParent" />
+			<set variable="nbNote" context="$implicitElement" expression="count(preceding::tei:note)"/>
+			<get expression="$nbNote"/>
+			<set variable="newNb" expression="$nbNote+1"/>
+			<get expression="$newNb"/>
+			<set variable="newAttr" expression="concat($idParent,'.n',$newNb)"/>
+			<get expression="$newAttr"/>
+			<command name="putAttribute" parameter="[implicitElement] xml:id %_"/>
+            <command name="putAttribute" parameter="type Ndbdp"/>
+            <command name="putAttribute" parameter="place foot"/>
+          </sequence>
+          <sequence>
+            <test expression="$typeIndex = 'note de fin'"/>
+            <command name="insert"
+              parameter="into #template({http://www.tei-c.org/ns/1.0}note,InventaireNote)"/>
+             <set variable="idParent" context="$selected" expression="ancestor::tei:div[1]/@xml:id" />
+			<get expression="$idParent" />
+			<set variable="nbNote" context="$implicitElement" expression="count(preceding::tei:note)"/>
+			<get expression="$nbNote"/>
+			<set variable="newNb" expression="$nbNote+1"/>
+			<get expression="$newNb"/>
+			<set variable="newAttr" expression="concat($idParent,'.n',$newNb)"/>
+			<get expression="$newAttr"/>
+			<command name="putAttribute" parameter="[implicitElement] xml:id %_"/>
+            <command name="putAttribute" parameter="type Ndf"/>
+            <command name="putAttribute" parameter="place end"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+ <!-- insérer un saut, un espace blanc, une réclame, un numéro de page ou une signature -->
+<command name="inserer_espaceBlanc">  
+    <macro>
+	<sequence>
+		<command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}space"/>          
+		<command name="pick"
+              parameter="'Choisir une étendue' false 'mots' 'lignes' 'pages'"/>
+		<set variable="typeIndex" expression="%_" plainString="true"/>
+		<get expression="$typeIndex"/>
+            <choice>
+              <sequence>
+                <test expression="$typeIndex = 'mots'"/>
+                <command name="putAttribute" parameter="unit mot"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'lignes'"/>
+                <command name="putAttribute" parameter="unit ligne"/>
+              </sequence>
+              <sequence>
+                <test expression="$typeIndex = 'pages'"/>
+                <command name="putAttribute" parameter="unit page"/>
+              </sequence>
+            </choice>
+         <command name="confirm" parameter="Insérer une quantité"/>
+         <command name="putAttribute" parameter="quantity"/>
+      </sequence>
+    </macro>
+  </command>
+  
+
+
+  
+    <!-- Liste en bloc -->
+   <command name="listParagraphe">
+    <macro label="Liste en bloc" repeatable="true" undoable="true">
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}list"/>
+            <command name="putAttribute" parameter="rend paragraphe"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}lg"/>
+            <command name="putAttribute" parameter="rend paragraphe"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+
+   <!-- Ajout de nouvelles div, item ou parag -->
+
+  <command name="inserDiv">
+    <macro>
+      <sequence>
+      <get context="$selected" expression="@xml:id"/>
+       <set variable="oldID" expression="%_" plainString="true"/>     
+		<choice>
+         <!-- on a déjà un préfixe -->
+			<sequence>
+				<test expression="$oldID" />
+				<command name="pass"/>
+			</sequence>
+			<!-- pas de préfixe, il faut en demander un à l'utilisateur -->
+			<sequence>
+				<pass><command name="selectNode"
+		parameter="ancestorOrSelf[implicitElement] {http://www.tei-c.org/ns/1.0}body" /></pass>       	
+				<command name="prompt" parameter="'Choisir un préfixe pour les identifiants' 'Quel préfixe souhaitez-vous ?'"/>
+				<set variable="prefixe" expression="%_" plainString="true"/>
+				<get expression="$prefixe"/>
+				<command name="putAttribute" parameter="xml:id '%_'" />
+			</sequence>
+     	</choice> 
+     	<command name="selectNode" 
+              parameter="ancestorOrSelf[implicitElement] {http://www.tei-c.org/ns/1.0}div" />
+        <command name="selectNode" parameter="lastChild[implicitElement]" />
+              <!-- appel de la commande pour insérer la div -->
+		<command name="ajoutDiv" />
+				<!-- on teste le contexte avec l'attribut type de la div parent pour ajouter le bon attribut type--> 		
+		<set variable="typeParent" context="$selected" expression="../@type" />
+		<get expression="$typeParent"/>
+		<choice>
+			<sequence>
+				<test expression="$typeParent = 'livre'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section1"/>
+ 			</sequence>              
+			<sequence>
+           		<test expression="$typeParent = 'section1'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section2"/>
+        	</sequence>
+        	<sequence>
+           		<test expression="$typeParent = 'section2'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section3"/>
+        	</sequence>
+        	<sequence>
+           		<test expression="$typeParent = 'section3'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section4"/>
+        	</sequence>
+        	<sequence>
+           		<test expression="$typeParent = 'section4'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section5"/>
+        	</sequence>
+        	<sequence>
+           		<test expression="$typeParent = 'section5'"/>
+        			<command name="putAttribute" parameter="[implicitElement] type section6"/>
+        	</sequence>
+        	<sequence>
+           		<test expression="$typeParent = 'section6'"/>
+        		<command name="putAttribute" parameter="[implicitElement] type section7"/>
+        	</sequence>
+        </choice>
+     	<command name="selectNode" 
+              parameter="ancestorOrSelf[implicitElement] {http://www.tei-c.org/ns/1.0}div" />	
+        	<!-- ajout de l'identifiant pour la div en récupérant le préfixe et en comptant le nombre de div -->	
+		<set variable="idParent" context="$selected" expression="../@xml:id" />
+		<get expression="$idParent"/>
+		<set variable="nbDiv" context="$implicitElement" expression="count(preceding-sibling::tei:div)"/>
+		<get expression="$nbDiv"/>
+		<set variable="newNb" expression="$nbDiv+1"/>
+		<get expression="$newNb"/>
+		<set variable="newAttr" expression="concat($idParent,'.',$newNb)"/>
+		<get expression="$newAttr"/>
+		<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+		<!-- ajout de l'identifiant en fonction de la structure : soit sur la balise p soit sur la balise item -->			  
+		<choice>
+			<sequence>
+				<pass><command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}p" /> </pass>
+				<set variable="idParent" context="$selected" expression="@xml:id" />
+				<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}p" /> 
+				<get expression="$idParent"/>
+				<!-- ajout de l'identifiant pour le p, comme c'est le premier on met p.1 -->
+				<set variable="newAttr" expression="concat($idParent,'.p1')"/>
+				<get expression="$newAttr"/>
+				<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+			</sequence>
+			<sequence>
+				<pass><command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}list" /> </pass>
+				<set variable="idParent" context="$selected" expression="@xml:id" />				
+				<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}list" />			
+				<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}item" />
+				<get expression="$idParent"/>
+				<set variable="newAttr" expression="concat($idParent,'.i1')"/>
+				<get expression="$newAttr"/>
+				<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+				<command name="selectNode" parameter="parent {http://www.tei-c.org/ns/1.0}list" />
+			</sequence>
+		</choice> 		
+			<!-- appel de la commande pour le titre -->
+		<command name="ajoutTitre" />		
+       </sequence>
+  </macro>
+  </command>
+  
+<command name="inserDivMemeNiveau">
+    <macro>
+      <sequence>
+		    <command name="selectNode" 
+				  parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}div" />
+				  <!-- ajout de la div -->
+			<command name="ajoutDiv" />
+				<!-- calcul et ajout de l'identifiant pour la div -->
+			<set variable="typePrec" context="$selected" expression="preceding-sibling::tei:div/@type" />
+			<get expression="$typePrec"/>
+			<command name="putAttribute" parameter="[implicitElement] type %_"/>
+			<set variable="idParent" context="$selected" expression="../@xml:id" />
+			<get expression="$idParent"/>
+			<set variable="nbDiv" context="$implicitElement" expression="count(preceding-sibling::tei:div)"/>
+			<get expression="$nbDiv"/>
+			<set variable="newNb" expression="$nbDiv+1"/>
+			<get expression="$newNb"/>
+			<set variable="newAttr" expression="concat($idParent,'.',$newNb)"/>
+			<get expression="$newAttr"/>
+			<command name="putAttribute" parameter="[implicitElement] xml:id %_"/>
+					<!-- ajout de l'identifiant en fonction de la structure : soit sur la balise p soit sur la balise item -->			  
+			<choice>
+				<sequence>
+					<pass><command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}p" /> </pass>
+					<set variable="idParent" context="$selected" expression="@xml:id" />
+					<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}p" /> 
+					<get expression="$idParent"/>
+					<!-- ajout de l'identifiant pour le p, comme c'est le premier on met p.1 -->
+					<set variable="newAttr" expression="concat($idParent,'.p1')"/>
+					<get expression="$newAttr"/>
+					<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+				</sequence>
+				<sequence>
+					<pass><command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}list" /> </pass>
+					<set variable="idParent" context="$selected" expression="@xml:id" />				
+					<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}list" />			
+					<command name="selectNode" parameter="child {http://www.tei-c.org/ns/1.0}item" />
+					<get expression="$idParent"/>
+					<set variable="newAttr" expression="concat($idParent,'.i1')"/>
+					<get expression="$newAttr"/>
+					<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+					<command name="selectNode" parameter="parent {http://www.tei-c.org/ns/1.0}list" />
+				</sequence>
+			</choice> 
+				<!-- appel de la commande pour le titre -->
+			<command name="ajoutTitre" />
+     </sequence>
+  </macro>
+  </command>
+      
+  
+  <command name="ajoutDiv">
+	<macro>
+	 <sequence>
+       	<!-- fenêtre pour proposer l'ajout d'une div avec une liste ou non --> 
+        <command name="pick"
+          parameter="'Ajouter ou non une liste' false 'div avec liste' 'div simple'"/>
+        <set variable="ajoutDiv" expression="%_" plainString="true"/>
+        <get expression="$ajoutDiv"/>
+        <choice>
+			<sequence>
+				<test expression="$ajoutDiv = 'div avec liste'"/>
+					<command name="insert" parameter="after #template({http://www.tei-c.org/ns/1.0}div,InventaireDiv)"/>
+			</sequence>              
+			<sequence>
+				<test expression="$ajoutDiv = 'div simple'"/>		
+					<command name="insert" parameter="after {http://www.tei-c.org/ns/1.0}div"/>
+					<command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}p"/>
+					<command name="selectNode" parameter="parent {http://www.tei-c.org/ns/1.0}div" />
+			</sequence>
+		</choice>  
+      </sequence>
+   	</macro>
+   </command>
+   
+   <command name="ajoutTitre">
+	<macro>
+	 <sequence>
+	         <!-- fenêtre pour proposer l'ajout d'un titre à la nouvelle div --> 
+        <command name="pick"
+              parameter="'Ajouter un titre à cette nouvelle section ?' false oui non"/>
+            <set variable="ajoutTitre" expression="%_" plainString="true"/>
+            <get expression="$ajoutTitre"/>
+            <choice>
+				<sequence>
+              		<test expression="$ajoutTitre = 'oui'"/>
+                		<command name="insert" parameter="before {http://www.tei-c.org/ns/1.0}head"/>
+              	</sequence>
+              	<sequence>
+                	<test expression="$ajoutTitre = 'non'"/>
+                		<command name="pass"/>
+              	</sequence>
+            </choice> 
+            <command name="cancelSelection" />    
+      </sequence>
+	</macro>
+   </command>
+   
+  
+  <elementTemplate name="InventaireDiv" selectable="true">
+    <div xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <list>
+        <item><?text?></item>
+      </list>
+    </div>
+  </elementTemplate>
+
+  
+  <command name="inserItem">
+    <macro>
+      <sequence>
+     	<choice>
+			<sequence>
+			<pass><command name="selectNode" parameter="ancestor {http://www.tei-c.org/ns/1.0}item" />
+			</pass>
+			<set variable="idParent" context="$selected" expression="ancestor::tei:item[1]/@xml:id" />
+			</sequence>
+			<set variable="idParent" context="$selected" expression="ancestor::tei:div[1]/@xml:id" />	
+      	</choice>	     	
+		<get expression="$idParent"/>
+		<command name="insert" parameter="after {http://www.tei-c.org/ns/1.0}item"/>
+		<set variable="nbItem" context="$implicitElement" expression="count(preceding-sibling::tei:item)"/>
+		<get expression="$nbItem"/>
+		<set variable="newNb" expression="$nbItem+1"/>
+		<get expression="$newNb"/>
+		<set variable="newAttr" expression="concat($idParent,'.i',$newNb)"/>
+		<get expression="$newAttr"/>
+		<command name="putAttribute" parameter="[implicitElement] xml:id %_"/>
+      </sequence>
+    </macro>
+  </command>
+  
+    <command name="inserParag">
+    <macro>
+      <sequence>
+		<command name="insert" parameter="after {http://www.tei-c.org/ns/1.0}p"/>
+		<set variable="idParent" context="$selected" expression="ancestor::tei:div[1]/@xml:id" />
+		<get expression="$idParent"/>
+		<set variable="nbParag" context="$implicitElement" expression="count(preceding-sibling::tei:p)"/>
+		<get expression="$nbParag"/>
+		<set variable="newNb" expression="$nbParag+1"/>
+		<get expression="$newNb"/>
+		<set variable="newAttr" expression="concat($idParent,'.p',$newNb)"/>
+		<get expression="$newAttr"/>
+		<command name="putAttribute" parameter="[implicitElement] xml:id %_"/> 
+      </sequence>
+    </macro>
+  </command>
+
+  <elementTemplate name="InventaireItem" selectable="true">
+    <item xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></item>
+  </elementTemplate>
+
+  
+  
+  <!--Marquer un vers ou un groupe de vers-->
+    <command name="vers">
+    <macro>
+      <sequence>
+            <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}lg"/>
+             <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}l"/>
+      </sequence>
+    </macro>
+  </command>
+
+<!--LA MISE EN PAGE -->
+  <command name="inserer_lb">
+    <macro>
+      <sequence>
+        <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}lb"/>
+      </sequence>
+    </macro>
+  </command>
+<command name="inserer_cb">
+    <macro>
+      <sequence>
+        <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}cb"/>
+      </sequence>
+    </macro>
+  </command>
+  <!-- Insérer un changement de page dans la source-->
+
+  <command name="inserer_pb">
+    <macro>
+			<sequence>
+			<command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}pb"/>
+	        <command name="putAttribute" parameter="[implicitElement] n"/>
+	        <command name="putAttribute" parameter="[implicitElement] facs"/>
+					<command name="xsl_correspEd" parameter="Ed"/>
+					<command name="pick"
+				  parameter="'choisir une source' true @ '%C%Sressources%SindexEd.txt' UTF-8 "/>
+					<command name="putAttribute" parameter="ed #%_"/>
+
+			</sequence>
+	</macro>
+  </command>
+  
+  <command name="inserer_reclame">
+    <macro>
+			<sequence>
+			<command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}fw"/>
+	        <command name="putAttribute" parameter="[implicitElement] type catch"/>
+			</sequence>
+	</macro>
+  </command>  
+
+  <command name="inserer_signature">
+    <macro>
+			<sequence>
+			<command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}fw"/>
+	        <command name="putAttribute" parameter="[implicitElement] type sig"/>
+			</sequence>
+	</macro>
+  </command>    
+	<command name="inserer_pagenum">
+	    <macro>
+	      <sequence>
+	        <command name="insert" parameter="into {http://www.tei-c.org/ns/1.0}fw"/>
+	        <command name="putAttribute" parameter="[implicitElement] type pageNum"/>					
+	      </sequence>
+	    </macro>
+	  </command>
+	
+
+
+		<!-- Insérer une séquence centrée -->
+    <command name="centre">
+    <macro>
+			<sequence>
+			<command name="selectNode" parameter="self[implicitElement]"/>
+      <command name="putAttribute" parameter="[implicitElement] rend center"/>			
+		</sequence>
+    </macro>
+  </command>
+
+
+
+	
+  <command name="xsl_correspEd">
+  <process>
+    <transform stylesheet="ressources%SindexEd.xsl" file="%D"
+      to="%C%Sressources%Sindex%0.txt" version="2.0"
+      label="Constitution du fichier de clés et de valeurs"><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+ 
+  
+  
+  </configuration>

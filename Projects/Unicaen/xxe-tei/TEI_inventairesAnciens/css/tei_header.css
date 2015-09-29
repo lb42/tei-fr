@@ -1,0 +1,1452 @@
+﻿/*Gestion du header*/
+
+teiHeader:before { 
+		content: collapser();
+}
+
+
+teiHeader { 
+		collapsible:yes; 
+		not-collapsible-head: 1; 
+		collapsed:yes;
+		collapsed-content: "Métadonnées"; 
+		collapsed-content-align:center;
+		font-weight:bold; 
+		display: block; 
+		width:600px; 
+		border: 1px solid; 
+		margin-left:auto;
+		margin-right:auto; 
+		margin-bottom:5px;
+		padding:5px; 
+		background-color:#efefef;
+		font-size: 13px; 
+		color:#000000;
+}
+
+fileDesc:before {
+		content:"Description du fichier" collapser();
+		width:90%;
+
+		font-size:17px
+}
+
+fileDesc { 
+		collapsible:yes; 
+		not-collapsible-head: 1; 
+		collapsed:no;
+		collapsed-content-align:center;
+		display:block;
+		font-weight:normal;
+		margin-bottom:5px;
+		margin-top:5px;
+}
+
+
+
+titleStmt:before {
+		content:"Description de l'œuvre";
+		width:90%;
+		font-size:15px;
+}
+
+titleStmt {
+		display: block;
+		font-size:13px;
+        border: 1px dashed #afafaf;
+        margin-left:20px;
+        margin-right:20px;
+        padding:5px;
+}
+
+titleStmt > title {
+		display:block;
+		content:"Titre : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px;
+		font-size:13px;
+		color:black;
+}
+titleStmt > title:before{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content: "Ajouter un auteur du texte" command-button(icon, icon(plus), command, "inserDocAuthor", parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}author,DocAuthor)");
+}
+
+titleStmt > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content: "Ajouter un éditeur du texte" command-button(icon, icon(plus), command, "inserDocEditor", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}editor,DocEditor)");
+}
+
+editor:before{
+    display:inline;
+    font-size:14px;
+    color:#999999;
+   /* background-color:#ffffff;*/
+    font-weight:bold;
+    font-style:italic;
+content: "Rôle : " combo-box(attribute, role, labels, "éditeur scientifique\A traducteur\A annotateur\A transcripteur\A autre", values, "editeur_scientifique\A traducteur\A annotateur\A transcripteur\A autre")"\A"  ;
+    }
+
+titleStmt > author {
+		display:block;
+		content:"Auteur : "text-area(columns,40,rows,1,wrap,word)"  Identifiant :"text-field(attribute,xml|id,columns,4);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+titleStmt > author:before{
+    display:inline;
+    font-size:14px;
+    color:#999999;
+   /* background-color:#ffffff;*/
+    font-weight:bold;
+    font-style:italic;
+content: "Rôle : " combo-box(attribute, role, labels, "auteur\A éditeur\A catalographe\A copiste\A autre", values, "auteur\A editeur\A catalographe\A copiste\A autre")"\A"  ;
+    }
+
+titleStmt > editor {
+		display:block;
+		content:"Éditeur scientifique / traducteur / annotateur / autre \A"text-area(columns,40,rows,1,wrap,word)"  Identifiant :"text-field(attribute,xml|id,columns,4);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+
+ 
+titleStmt > sponsor {
+		display:block;
+		content:"Institution / organisme partenaire : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+titleStmt > funder {
+		display:block;
+		content:"Institution / organisme financeur : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;		
+}
+
+titleStmt > principal {
+		display:block;
+		content:"Chercheur principal : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+respStmt:before {
+		display:block;
+		content:" Autres responsables : \A";
+		margin-bottom:10px;
+		margin-left:25px; 
+        font-size: 13px;
+}
+
+
+titleStmt > respStmt > resp {
+		display:block;
+		content:"Statut : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:10px;
+}
+
+titleStmt > respStmt > name {
+		display:block;
+		content:" Nom, Prénom : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		font-size:10px;
+}
+
+editionStmt:before {
+		font-weight:normal;
+		content:"Informations scientifiques supplémentaires sur l'édition" collapser();
+		width:90%;
+		font-size:15px
+}
+
+editionStmt {
+		display: block;
+		font-size:13px;
+		border: 1px dashed #afafaf;
+		margin-left:20px;
+		margin-right:20px;
+		margin-top:10px;
+		padding:5px;
+}
+
+
+editionStmt > edition {
+		display:block;
+		content:"Détails sur l'édition : "text-area(columns,40,rows,1,wrap,word);
+		margin-right:25px;
+		margin-left:25px;
+		margin-bottom:10px; 
+        font-size: 13px;		
+}
+
+editionStmt > respStmt > resp {
+		display:block;
+		content:"Statut : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+        font-size: 10px;
+}
+
+editionStmt > respStmt > name {
+		display:block;
+		content:" Nom, Prénom : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+        font-size: 10px;
+}
+
+editionStmt > p {
+    display:block;
+		content:"Édition : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+extent {
+		display:block;
+		content:"Taille approximative : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px;
+}
+
+publicationStmt:before {
+		content:"Informations sur la publication" ;
+		width:90%;		
+		font-size:15px
+}
+
+
+
+
+
+
+publicationStmt > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter des informations détaillées sur la publication" command-button(icon, icon(plus), command, "inserDocPub", parameter, "[implicitElement] #template({http://www.tei-c.org/ns/1.0}publicationStmt,DocPub)");
+}
+
+publicationStmt {
+		display: block;
+		font-size:13px;
+		border: 1px dashed #afafaf;
+		margin-left:20px;
+		margin-right:20px;
+		margin-top:10px;
+		padding:5px;
+		background-color:#efefef;
+}
+
+publicationStmt > p {
+    display:block;
+		content:"Publication : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+
+
+
+
+publicationStmt > publisher {
+		display:block;
+		content:"Éditeur matériel : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+publicationStmt > distributor {
+		display:block;
+		content:"Diffuseur : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+publicationStmt > authority {
+		display:block;
+		content:"Responsable de la publication : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;	
+}
+
+publicationStmt > pubPlace {
+		display:block;
+		color:black;
+		content:"Lieu de publication : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+address {
+		display:block;
+}
+
+publicationStmt > address:before {
+		display:block;
+		content:"Adresse : ";
+		margin-bottom:10px;
+		font-size:13px;
+		margin-left:25px;
+		margin-top:10px;
+}
+
+publicationStmt > address > addrLine {
+		display:inline;
+		content:"         "text-area(columns,40,rows,1,wrap,word)"\A ";
+		margin-left:25px; 
+		font-size:13px;
+}
+
+publicationStmt > idno {
+		display:block;
+		content:"ISBN : "text-area(columns,15,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		margin-top:10px;
+}
+
+publicationStmt > availability > p {
+		display:block;
+		content:"Disponibilité : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:20px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+publicationStmt > date {
+		display:block;
+		content:"Date de publication : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-top:10px;
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+seriesStmt:before {
+		display:block;
+		content:"Informations sur la collection";
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;		
+		font-size:15px;
+}
+seriesStmt {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+        border: 1px dashed #afafaf;
+}
+
+seriesStmt > title {
+		display:block;
+		content:"Titre : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+seriesStmt > idno {
+		display:block;
+		content:"N° / ISSN : "text-area(columns,15,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+}
+
+seriesStmt > respStmt > resp {
+		display:block;
+		content:"Statut : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:10px;
+}
+
+seriesStmt > respStmt > name {
+		display:block;
+		content:" Nom, Prénom : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		font-size:10px;
+}
+
+notesStmt:before {
+		display:block;
+		content:"Annotations" ;
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;		
+		font-size:15px
+}
+notesStmt {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+        border: 1px dashed #afafaf;
+}
+
+
+/*notesStmt > note {
+		display:block;
+		content:" Note "counter(note)" : "text-area(columns,40,rows,6,wrap,word);
+		margin-bottom:10px;
+		font-size:13px;
+}
+*/
+
+sourceDesc:before {
+		content:"Informations sur les sources du document";
+		width:90%;
+		
+		font-size:15px;
+}
+
+sourceDesc {
+		display: block;
+		font-size:13px;
+        border: 1px dashed #afafaf;
+        padding:5px;
+        margin-left:20px;
+        margin-right:20px;
+		margin-top:10px;
+}
+
+sourceDesc > p {
+    content:" ";
+		background-color:#efefef;
+		border:none;
+		margin:0px;
+		padding:0px;
+}
+
+sourceDesc > *:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter une source manuscrite" command-button(icon, icon(plus), command, "inserSourceDescMs") "          "   "Ajouter une source imprimée" command-button(icon, icon(plus), command, "inserSourceDescEd");
+}
+
+sourceDesc > msDesc:before{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter des informations détaillées sur la source" command-button(icon, icon(plus), command, "inserSourceDesc", parameter, "[implicitElement] #template({http://www.tei-c.org/ns/1.0}sourceDesc,SourceDesc)");
+}
+sourceDesc > listBibl >*:last-child:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+    content:"Ajouter une référence bibliographique" command-button(icon, icon(plus), command, "inserSourceDescEd");
+}
+
+sourceDesc > listBibl {
+		collapsible:yes;
+		collapsed:no;
+		display: block;
+		font-size:13px;
+}
+
+sourceDesc > listBibl:before {
+font-weight:bold;
+		display:block;
+		content:"Références bibliographiques" collapser();
+		margin-bottom:10px;
+		font-size:13px;
+}
+
+sourceDesc > biblStruct {
+    display:block;
+
+}
+sourceDesc > biblStruct:before {
+font-weight:bold;
+		display:block;
+		margin-left:10px;
+				margin-top:20px;
+		content:"Édition                         Identifiant :"text-field(attribute,xml|id,columns,15);
+}
+
+sourceDesc > biblStruct > monogr{
+    display:block;
+}
+
+
+
+sourceDesc > biblStruct > monogr > imprint{
+    display:block;
+}
+
+sourceDesc > biblStruct > analytic > author:before{
+		content:"Auteur : ";
+		font-size:13px;
+		color:black;
+}
+sourceDesc > biblStruct > analytic {
+	display:block;
+}
+sourceDesc > biblStruct > analytic > author{
+    display:block;
+		margin-bottom:10px;
+		margin-left:25px; 
+		margin-right:25px; 
+		font-size:13px;
+		color:black;
+		background-color:white;
+}
+sourceDesc > biblStruct[type="article"] > analytic > title:before{
+		content:"Titre de l'article : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct[type="volume"] > analytic > title:before{
+		content:"Titre du volume : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct > analytic > title{
+    display:block;
+		margin-bottom:10px;
+		margin-left:25px; 
+				margin-right:25px; 
+		font-size:13px;
+		color:black;
+		background-color:white;
+}
+
+sourceDesc > biblStruct > monogr > author:before{
+		content:"Auteur : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+sourceDesc > biblStruct > monogr > author{
+    display:block;
+		margin-bottom:10px;
+				margin-right:25px; 
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+		background-color:white;
+}
+sourceDesc > biblStruct[type="article"] > monogr > title:before{
+		content:"Titre de la revue : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct[type="volume"] > monogr > title:before{
+		content:"Titre de la série : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct[type="monographie"] > monogr > title:before{
+		content:"Titre de la monographie : ";
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct > monogr > title{
+    display:block;
+		margin-bottom:10px;
+		margin-left:25px; 
+				margin-right:25px; 
+		font-size:13px;
+		color:black;
+		background-color:white;
+}
+
+sourceDesc > biblStruct > monogr > biblScope[unit=issue]{	
+	content:"Volume : "text-area(columns,40,rows,1,wrap,word);
+	display:block;
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+
+sourceDesc > biblStruct > monogr > biblScope[unit=page]{
+    display:block;
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+		content:"Pagination : "text-area(columns,40,rows,1,wrap,word);		
+}
+
+sourceDesc > biblStruct > monogr > imprint > publisher:before {
+		content:"Éditeur : ";	
+}
+
+sourceDesc > biblStruct > monogr > imprint > publisher {
+		display:block;
+		background-color:white;
+		margin-bottom:10px;
+		margin-right:25px; 		
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct > monogr > imprint > pubPlace {
+		display:block;
+		content:"Lieu d'édition : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+sourceDesc > biblStruct > monogr > imprint > date {
+		display:block;
+		content:"Date d'édition : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > biblStruct > note:before {
+content:"Responsable :"text-field(attribute,resp,columns,3)"    Note : ";
+		background-color:#efefef;
+}
+sourceDesc > biblStruct > note {
+  display:block;
+	margin-bottom:10px;
+	margin-left:25px; 
+	margin-right:25px; 
+	font-size:13px;
+	color:black;
+	background-color:white;
+}
+
+sourceDesc > msDesc {
+    display:block;
+		margin-top:10px;
+}
+
+
+sourceDesc > msDesc > msIdentifier{
+    display:block;
+   
+}
+
+
+
+sourceDesc > msDesc > msIdentifier > settlement > placeName{
+    display:block;
+				content:"Lieu de conservation : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+
+}
+sourceDesc > msDesc > msIdentifier > country{
+
+		display:block;
+   
+}
+sourceDesc > msDesc > msIdentifier > settlement{
+
+		display:block;   
+}
+
+
+sourceDesc > msDesc > msIdentifier > country > placeName{
+    display:block;
+				content:"Pays de conservation : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > msDesc > msIdentifier > repository{
+    display:block;
+		content:"Institution de conservation : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+
+sourceDesc > msDesc > msIdentifier > idno{
+    display:block;
+		content:"Cote : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+sourceDesc > msDesc > msIdentifier > altIdentifier > idno{
+    display:block;
+		content:"Ancienne cote : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+sourceDesc > msDesc > msIdentifier > msName{
+    display:block;
+		content:"Nom du manuscrit : "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:25px; 
+		font-size:13px;
+		color:black;
+}
+sourceDesc > msDesc:before{
+    display:block;
+		content:"Source manuscrite :                         Identifiant :"text-field(attribute,xml|id,columns,15);
+		margin-top:20px;
+		margin-bottom:10px;
+		color:black;
+		margin-left:10px;
+		font-size:13px;
+		font-weight:bold;
+}
+
+listWit {
+		display:block;
+		width:80%;
+		margin-bottom:10px;
+}
+
+sourceDesc  > listWit:before {
+		display:block;
+		content:"Liste des témoins";
+        margin-bottom:10px;
+		margin-top:20px;
+		font-size:13px;
+		font-weight:bold;
+		}
+sourceDesc > listWit {
+		display: block;
+		font-size:13px;
+}
+
+sourceDesc  > listWit > witness {
+		display:block;
+		content:" — Témoin "attr(xml|id)" : \A"text-area(columns,90,rows,1,wrap,word);
+		margin-bottom:10px;
+		font-size:10px;
+}
+note[type="edition_source"] {
+    display:block;
+    margin-left:25px;
+    margin-right:30px;
+    border:1px dotted #afafaf;
+    margin-bottom:10px;
+}
+
+msDesc[type="source_ms_edition"]:before {
+ content:"[source de l'édition [" attr(xml|id) "] ]";
+ display:inline;
+ font-style:italic;
+ font-size:90%;
+ margin-left:30px;
+
+}
+
+note[type="edition_source"] > msDesc {
+    display:block;
+}
+
+note[type="edition_source"] > msDesc > msIdentifier{
+    display:block;
+}
+
+note[type="edition_source"] > msDesc > msIdentifier > settlement > placeName:before{
+    content:"Lieu de conservation : ";
+	color:black;
+}
+
+note[type="edition_source"] > msDesc > msIdentifier > country > placeName:before{
+    content:"Pays de conservation : ";
+	color:black;
+}
+
+note[type="edition_source"] > msDesc > msIdentifier > country > placeName{
+    display:block;
+   background-color:white;
+   	color:black;
+
+}
+note[type="edition_source"] > msDesc > msIdentifier > settlement > placeName{
+    display:block;
+   background-color:white;
+   	color:black;
+
+}
+
+note[type="edition_source"] > msDesc > msIdentifier > repository{
+display:block;
+    content:"Institution de conservation : "text-area(columns,40,rows,1,wrap,word);
+}
+
+note[type="edition_source"] > msDesc > msIdentifier > idno{
+display:block;
+    content:"Cote : "text-area(columns,40,rows,1,wrap,word);
+}
+msDesc > msContents > msItem {
+	background-color:#efefef;
+	display:block;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+msDesc > msContents > msItem > locus{
+display:block;
+    content:"Folios concernés : "text-area(columns,40,rows,1,wrap,word);
+		margin-left:25px; 
+		margin-bottom:10px;		
+}
+msDesc > msContents > msItem > title{
+	display:block;
+    content:"Contenu : "text-area(columns,40,rows,1,wrap,word);
+		margin-left:25px; 
+		margin-bottom:10px;
+}
+
+msItem > p:after {
+	content:command-button(icon, icon(plus), command, "insererTexte", parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}p,insererTexte)");
+}
+
+note[type="edition_source"] > msDesc:after {
+		
+		content: "Ajouter une note" command-button(icon, icon(plus), command, "inserNoteMsEd", parameter, "after[implicitElement] #template({http://www.tei-c.org/ns/1.0}note,NoteMsEd)");
+		display:block;
+    font-weight:bold;
+    color:#193668;
+}
+note[type="edition_source"] > note{
+display:block;
+    content:"Note : "text-area(columns,40,rows,1,wrap,word);
+}
+note[type="edition_source"] > note:after{
+content:"Responsable : " attr(resp);
+font-weight:bold;
+}
+
+
+encodingDesc:before {
+		display:block;
+		content:"Description de l'encodage";
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:17px
+}
+
+encodingDesc {
+		display: block;
+		font-size:13px;
+		border: 1px solid;
+}
+
+projectDesc, samplingDecl, editorialDecl, tagsDecl, refsDecl, classDecl, appInfo {
+		display:block;
+		width:90%;
+		margin-bottom:10px;
+        border: 1px dashed #afafaf;
+}
+
+encodingDesc > projectDesc:before {
+		display:block;
+		content:"Informations sur les objectifs de l'encodage";
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+encodingDesc > projectDesc {
+		collapsible:yes;
+		collapsed:no;
+		display: block;
+		font-size:13px;
+}
+
+encodingDesc > projectDesc > p {
+		display:block;
+		content:text-area(columns,40,rows,3,wrap,word);
+		margin-bottom:10px;
+		margin-left:15px;
+		font-size:13px;
+
+}
+
+encodingDesc > samplingDecl:before {
+		display:block;
+		content:"Échantillonnage"collapser();
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:17px
+}
+
+encodingDesc >samplingDecl  {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+}
+
+encodingDesc > samplingDecl > p {
+		display:block;
+		content:"Échantillonnage : \A"text-area(columns,40,rows,3,wrap,word);
+		margin-bottom:10px;
+		margin-left:15px;
+		font-size:13px;
+
+}
+encodingDesc > editorialDecl:before {
+		display:block;
+		content:"Déclaration des spécificités éditoriales" collapser();
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+encodingDesc > editorialDecl {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+}
+
+correction, normalization, quotation, hyphenation, segmentation, stdVals, interpretation {
+		display:block;
+		width:80%;
+		margin-bottom:10px;
+}
+
+
+encodingDesc > editorialDecl > correction > p {
+		display:block;
+		content:"Règles de correction : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > normalization > p {
+		display:block;
+		content:"Normalisation : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > quotation > p {
+		display:block;
+		content:"Citation : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > hyphenation > p {
+		display:block;
+		content:"Césurage : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > segmentation > p {
+		display:block;
+		content:"Segmentation : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > stdVals > p {
+		display:block;
+		content:"Valeurs des mesures utilisées : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > editorialDecl > interpretation > p {
+		display:block;
+		content:"Interprétation : \A"text-area(columns,40,rows,7,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > tagsDecl > namespace:before {
+		display:block;
+		content:"Déclaration de balisage";
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+encodingDesc > tagsDecl > namespace {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+}
+
+
+encodingDesc > tagsDecl > rendition  {
+		display:block;
+		content:"Rendu : \A"text-area(columns,60,rows,2,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > tagsDecl > namespace > tagUsage  {
+		display:block;
+		content:"Information sur l'utilisation d'un élément spécifique : \A"text-area(columns,60,rows,2,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+encodingDesc > refsDecl:before {
+		display:block;
+		content:"Déclaration de référence" collapser();
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+encodingDesc > refsDecl  {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:13px;
+}
+
+encodingDesc > refsDecl > cRefPattern  {
+		display:block;
+		content:"Manière de référencer : \A"text-area(columns,60,rows,2,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+encodingDesc > classDecl > taxonomy:before {
+		display:block;
+		content:"Déclaration de classification" collapser();
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+encodingDesc > classDecl > taxonomy {
+		collapsible:yes;
+		collapsed:yes;
+		display: block;
+		font-size:15px;
+}
+
+
+encodingDesc > classDecl > taxonomy > category {
+		display:block;
+		content:"Catégorie : \A"text-area(columns,60,rows,2,wrap,word);
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:13px;
+
+}
+
+
+profileDesc:before {
+		display:block;
+		content:"Autres aspects du texte" collapser();
+		width:90%;
+		font-size:17px;
+		margin-top:20px;
+}
+
+
+
+profileDesc {
+		collapsible:yes;
+		collapsed:no;
+		display: block;
+		font-size:13px;
+		padding:10px;
+		font-weight:normal;
+		margin-left:20px;
+		margin-right:20px;
+		border: 1px dashed #afafaf;
+}
+
+profileDesc > creation:before{
+     content:"Informations sur la création du document";
+    display:block;
+		width:90%;
+		font-size:15px
+}
+
+profileDesc > creation  {
+		display:block;
+		margin-right:25px;
+		margin-left:25px;
+		margin-bottom:10px;
+		font-size:15px;
+		background-color:white;
+}
+
+profileDesc > creation > ref {
+    display:block;
+}
+
+profileDesc > creation > ref:before {
+content:"Référence : ";
+font-weight:bold;
+}
+
+
+profileDesc > langUsage:before  {
+		display:block;
+		content:"Langue(s) : " collapser();
+		margin-bottom:10px;
+		font-size:15px;
+
+}
+langUsage {
+		display:block;
+		width:80%;
+		margin-bottom:10px;
+		collapsible:yes;
+		collapsed:no;
+}
+profileDesc > langUsage > language  {
+		display:block;
+		content:"— "attr(ident)" : "text-area(columns,40,rows,1,wrap,word);
+   		background-color: white;
+    	margin-left:15px;
+		margin-right:50px;
+		margin-bottom:5px;
+
+}
+
+profileDesc > textClass:before  {
+		display:block;
+		content:"Classification du texte : ";
+		margin-bottom:10px;
+		margin-left:20px;
+		font-size:15px;
+}
+
+keywords, classcode, textClass {
+		display:block;
+		width:80%;
+		margin-bottom:10px;
+}
+
+profileDesc > textClass > keywords:before  {
+		display:block;
+		content:"Termes : ";
+		margin-bottom:10px;
+		margin-left:40px;
+		font-size:13px;
+
+}
+
+
+profileDesc > textClass > keywords > term {
+		display:block;
+		content:"—  "text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:40px;
+		font-size:13px;
+
+}
+
+
+profileDesc > textClass > classCode {
+		display:block;
+		content:"Code de classification — "attr(scheme)" : \A"text-area(columns,40,rows,1,wrap,word);
+		margin-bottom:10px;
+		margin-left:40px;
+		font-size:13px;
+
+}
+
+
+
+profileDesc:after{
+    display:block;
+    font-weight:bold;
+    color:#193668;
+  /*  content:"Ajouter des informations sur la création du document" command-button(icon, icon(plus), command, "inserDocCreation", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}creation,DocCreation)") "    Ajouter des informations sur les langues" command-button(icon, icon(plus), command, "inserDocLang", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}langUsage,LangUsage)") "    Ajouter des informations sur les mains" command-button(icon, icon(plus), command, "inserHandNotes", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}handNotes,HandNotes)") ;*/
+  content:"    Ajouter des informations sur les langues" command-button(icon, icon(plus), command, "inserDocLang", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}langUsage,LangUsage)") "    Ajouter des informations sur les mains" command-button(icon, icon(plus), command, "inserHandNotes", parameter, "into[implicitElement] #template({http://www.tei-c.org/ns/1.0}handNotes,HandNotes)") ;
+}
+
+
+/* Notes sur les mains */
+
+handNotes:before{
+    content:"Informations sur les mains" collapser();
+    display:block;
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:15px
+}
+
+handNotes{
+    display:block;
+    collapsible:yes;
+    collapsed:no;
+}
+
+
+handNote{
+font-weight:bold;
+display:block;
+    background-color:white;
+    margin:5px;
+    counter-increment:subsection;
+    content:" Main " counter(subsection)" : " text-area(columns,40,rows,1,wrap,word);
+    
+}
+handNote:after {
+content:"  Identifiant :"text-field(attribute,xml|id,columns,4);
+}
+
+
+revisionDesc:before {
+		display:block;
+		content:"Informations de révision" collapser();
+		width:90%;
+		margin-bottom:10px;
+		margin-top:20px;
+		font-size:17px;
+		font-weight:normal;
+}
+
+revisionDesc {
+		collapsible:yes;
+		collapsed:no;
+		display: block;
+		font-size:13px;
+		font-weight:normal;
+		border: 1px dashed #afafaf;
+		margin-left:20px;
+		margin-right:15px;
+        padding:5px;
+        margin-bottom:10px;
+}
+
+change:before {
+		display:block;
+   		margin-left:30px;
+		margin-bottom:0px;
+		font-size:13px;
+        content:"— Date de la révision : \A"text-area(attribute,when,columns,15,rows,1,wrap,word)"\AResponsable : \A"text-area(attribute,who,columns,15,rows,1,wrap,word);
+}
+
+change {
+        display:block;
+		margin-left:30px;
+		margin-bottom:15px;
+		font-size:13px;
+		content:"\AType de la révision : \A"text-area(columns,15,rows,1,wrap,word);
+}
+
+
+
+text {
+		display:block;
+}
+
+front {
+		display:block;
+}
+
+titlePage {
+		display:block;
+}
+
+body {
+		display:block;
+}
+
+div { 
+		display:block;
+        width:95%;
+        margin-bottom:20px;
+        margin-top:10px;
+ }
+ 
+docAuthor {
+		display:block;
+}
+
+
+
+p {
+		display:block;
+		width:350px;
+		margin-left:10px;;
+		margin-right:auto;
+        font-family:arial;
+        font-size:14px;
+        color:black;
+        line-height:1.5;
+        text-align:left;
+        
+        }
+
+bibl {
+		display:block;
+        font-family:arial;
+        font-size:14px;
+        color:black;
+        line-height:1.5;
+}
+
+listBibl {
+		display:block;
+		width:600px;
+}
+
+speaker {
+		display:block;
+        margin-top:10px;
+        margin-bottom:5px;
+        font-family:arial;
+        font-size:12px;
+        font-weight:bold;
+        color:black;
+}
+
+p {
+		text-align:left;
+        margin-top:10px;
+        margin-bottom:10px;
+}
+
+hi[rend=italic] {
+		font-style:italic;
+}
+
+hi[rend=sup]{
+		vertical-align:super;
+		font-size:80%;
+}
+
+hi[rend=bold]{
+		font-weight:bold;
+}
+
+hi[rend=smallcaps]{
+		color:red;
+}
+
+
+figure {
+		display:block;
+}
+
+figDesc:before {
+		counter-increment:figDesc;
+		content: "Fig. "counter(figDesc)" : ";
+}
+
+figDesc {
+		display:block;
+		text-align:center;
+		margin-top:5px;
+		margin-bottom:20px;
+}
+
+graphic {
+		display:block;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:20px;
+		border:1px solid black;
+		content:image-viewport(attribute,url,data-type,anyURI,viewport-width,450,content-width,scale-to-fit,smooth,yes);
+}
+
+
+
+lb {
+	content:"\A";
+}
+
+
+
+index:before {
+		content:" "icon(right)" "attributes();
+		display:block;
+		font-family:arial;
+		font-size:13px;
+		font-weight:bold;
+		color:#afafaf;		
+}
+
+index:after {
+    content:" "icon(left)" ";
+		color:#afafaf;		
+}
+
+index::attribute() {
+		    attribute-content-left: attribute-label() ":";
+    		attribute-content-middle: value-editor(attribute, attribute());
+    		    show-attribute: when-added;
+    font-size: smaller;
+}

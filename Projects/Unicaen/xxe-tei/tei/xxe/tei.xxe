@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/**
+*  Configuration XMLMind pour environnement TEI
+*
+*  Copyright (c) 2009-2015 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+-->
+
+<configuration name="TEI"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+  <detect>
+  	<rootElementNamespace>http://www.tei-c.org/ns/1.0</rootElementNamespace>
+  </detect>
+
+	<inclusionScheme name="XInclude">
+    	<class>com.xmlmind.xml.xinclude.XIncludeScheme</class>
+  	</inclusionScheme>
+
+	<schema>
+    <location>http://www.tei-c.org/ns/1.0 xsd/tei.xsd</location>
+  </schema>
+
+  <include location="toolbar_icons/toolbar.incl"/>
+ <!-- <include location="toolbar_icons/toolbarbook.incl"/> -->
+
+  <css location="../cssAffichage/tei.css" name="Affichage de base"/>
+  <css location="../cssAffichage/teiAppelNotes.css" name="Texte et appels" alternate="true"/>
+  <css location="../cssAffichage/header.css" name="Métadonnées (teiHeader)" alternate="true"/>
+  <css location="../cssAffichage/book.css" name="Livre" alternate="true"/>
+<!--  <css location="../cssAffichage/WindowNewteiAppelNotes.css" name="TEST" alternate="true"/> -->
+  
+  <!--css location="../cssAffichage/print.css" name="Epreuves"/-->
+  <!--css location="../cssAffichage/onix.css" name="ONIX"/-->
+
+  <template location="template/tei.xml" name="Document TEI (AEDRES)"/>
+  <template location="template/container.xml" name="Livre"/>
+  <template location="template/empty.xml" name="Importer une fiche ONIX"/>
+  
+  <include location="edit/editXMLsource.incl"/>
+  <include location="edit/toIndesignXML.incl"/>
+  <include location="edit/checkvalidity.incl"/>
+  <include location="epub/epub.incl"/>
+  <include location="export/torevuesdotorg.incl"/>
+  <include location="export/tocairn.incl"/>
+  <include location="insert/encadr.incl"/>
+  <include location="notes/extractNotes.incl"/>
+  <include location="notes/updateNoteId.incl"/>
+  <include location="rectifIndex/rectifIndex.incl"/>
+  <include location="tablEdit/tablEdit.incl"/>
+  <include location="typo/typo.incl"/>
+  <include location="xhtml/xhtml.incl"/>
+  <include location="affichElement/affichElement.incl"/>
+  <include location="notes/placeNote.incl"/>
+  <include location="retroconv/retroconvlodel.incl"/>
+  <include location="retroconv/to9.incl"/>
+  <include location="epreuves/epreuves.incl"/>
+  <include location="teitoodt/teitoodt.incl"/> 
+    
+  <include location="container/container.incl"/>
+  <include location="onix/onix.incl"/>
+ 
+<!-- <property name="$c.contextsList">UE,book</property>  
+
+  <property name="$c.UE.css">Affichage de base</property>
+  <property name="$c.UE.toolBar">toolbarUE</property> 
+  <property name="$c.UE.XPath">/ns:TEI/ns:text[@xml:id='text']</property>
+  
+  <property name="$c.book.css">Livre</property>
+  <property name="$c.book.toolBar">toolbarbook</property> 
+  <property name="$c.book.XPath">/ns:TEI/ns:text[@xml:id='book']</property> -->
+  
+</configuration>

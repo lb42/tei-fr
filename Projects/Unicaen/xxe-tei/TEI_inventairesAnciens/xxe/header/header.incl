@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+
+  <command name="inserDocLang">
+    <macro>
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}profileDesc"/>
+        <choice>
+          <sequence>
+            <command name="selectNode" parameter="child[implicitElement]"/>
+            <choice>
+              <sequence>
+                <command name="selectNode"
+                  parameter="followingOrSelf[implicitElement] {http://www.tei-c.org/ns/1.0}langUsage"/>
+				  <command name="selectNode" parameter="lastChild[implicitElement]"/>
+				<command name="insert"
+                  parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}language,Language)"/>
+                <command name="identifLangue"/>
+              </sequence>
+              <sequence>
+                <command name="insert"
+                  parameter="after #template({http://www.tei-c.org/ns/1.0}langUsage,LangUsage)"/>
+                <command name="selectNode" parameter="child[implicitElement]"/>
+                <command name="identifLangue"/>
+              </sequence>
+            </choice>
+          </sequence>
+          <sequence>
+            <command name="insert"
+              parameter="into #template({http://www.tei-c.org/ns/1.0}langUsage,LangUsage)"/>
+            <command name="selectNode" parameter="child[implicitElement]"/>
+            <command name="identifLangue"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="LangUsage" selectable="true">
+    <langUsage xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <language><?text?></language>
+    </langUsage>
+  </elementTemplate>
+  <elementTemplate name="Language" selectable="true">
+    <language xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <?text?>
+    </language>
+  </elementTemplate>
+  
+   <command name="identifLangue">
+    <macro label="Identification de langue" repeatable="true" undoable="true">
+      <choice>
+        <sequence>
+          <command name="selectNode"
+            parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}language"/>
+          <command name="xsl_indexHeader" parameter="Langues"/>
+          <command name="pick"
+            parameter="'choisir une référence' true @ '%C%Sressources%SindexLangues.txt' UTF-8 "/>
+          <command name="putAttribute" parameter="ident %_"/>
+        </sequence>
+      </choice>
+    </macro>
+  </command>
+  
+    <command name="inserMsDescRef">
+    <macro>
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}bibl"/>
+        <choice>
+        <sequence>
+          <command name="selectNode" parameter="lastChild[implicitElement]"/>
+          <command name="insert"
+            parameter="after #template({http://www.tei-c.org/ns/1.0}ref,MsDescRef)"/>
+        </sequence>
+        <sequence><command name="insert"
+          parameter="into #template({http://www.tei-c.org/ns/1.0}ref,MsDescRef)"/></sequence>
+        </choice>
+        <command name="putAttribute" parameter="[implicitElement] type url"/>
+        <command name="confirm" parameter="Indiquer l'URL cible"/>
+        <command name="putAttribute" parameter="[implicitElement] target"/>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="MsDescRef" selectable="true">
+    <ref xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></ref>
+  </elementTemplate>
+
+  <command name="inserHandNotes">
+    <macro>
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}profileDesc"/>
+        <choice>
+          <sequence>
+            <command name="selectNode" parameter="child[implicitElement]"/>
+            <choice>
+              <sequence>
+                <command name="selectNode"
+                  parameter="followingOrSelf[implicitElement] {http://www.tei-c.org/ns/1.0}handNotes"/>
+                <command name="selectNode" parameter="lastChild[implicitElement]"/>
+                <command name="insert"
+                  parameter="after #template({http://www.tei-c.org/ns/1.0}handNote,HandNote)"/>
+                <command name="putAttribute" parameter="[dummy] xml:id"/>
+              </sequence>
+              
+              <sequence>
+                <command name="insert"
+                  parameter="after #template({http://www.tei-c.org/ns/1.0}handNotes,HandNotes)"/>
+                <command name="selectNode"
+                  parameter="child[implicitElement] {http://www.tei-c.org/ns/1.0}handNote"/>
+                <command name="putAttribute" parameter="[dummy] xml:id"/>
+              </sequence>
+            </choice>
+          </sequence>
+          
+          <sequence>
+            <command name="insert"
+              parameter="into #template({http://www.tei-c.org/ns/1.0}handNotes,HandNotes)"/>
+            <command name="selectNode"
+              parameter="child[implicitElement] {http://www.tei-c.org/ns/1.0}handNote"/>
+            <command name="putAttribute" parameter="[implicitElement] xml:id"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="HandNotes" selectable="true">
+    <handNotes xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <handNote><?text?></handNote>
+    </handNotes>
+  </elementTemplate>
+
+
+  <elementTemplate name="HandNote" selectable="true">
+    <handNote xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></handNote>
+  </elementTemplate>
+
+  <command name="inserResp">
+    <macro>
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}titleStmt"/>
+        <command name="insert"
+          parameter="into #template({http://www.tei-c.org/ns/1.0}respStmt,Resp)"/>
+        <command name="putAttribute" parameter="[implicitElement] xml:id"/>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="Resp" selectable="true">
+    <respStmt xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <resp><?text?></resp>
+      <name><?text?></name>
+    </respStmt>
+  </elementTemplate>
+
+  <command name="inserDocAuthor">
+    <macro>
+      <sequence>
+        <command name="selectNode" parameter="self[implicitElement]"/>
+        <command name="insert"
+          parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}author,DocAuthor)"/>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="DocAuthor" selectable="true">
+    <author xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></author>
+  </elementTemplate>
+  
+  <command name="inserDocEditor">
+    <macro>
+      <sequence>
+        <command name="selectNode" parameter="self[implicitElement]"/>
+        <command name="insert"
+          parameter="after #template({http://www.tei-c.org/ns/1.0}editor,DocEditor)"/>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="DocEditor" selectable="true">
+    <editor xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      ><?text?></editor>
+  </elementTemplate>
+
+  <command name="inserDocPub">
+    <macro>
+      <sequence>
+        <command name="selectNode" parameter="parent[implicitElement]"/>
+        <command name="replace"
+          parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}publicationStmt,DocPub)"
+        />
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="DocPub" selectable="true">
+    <publicationStmt xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <authority><?text?></authority>
+      <publisher><?text?></publisher>
+      <pubPlace><?text?></pubPlace>
+      <date><?text?></date>
+    </publicationStmt>
+  </elementTemplate>
+
+
+
+
+
+
+
+  <command name="inserSourceDesc">
+    <macro>
+      <sequence>        
+        <command name="selectNode" parameter="self[implicitElement]"/>
+        <sequence>
+          <command name="pick"
+            parameter="'Choisir un type de source' false 'élément bibliographique' 'manuscrit'"/>
+          <set variable="typeIndex" expression="%_" plainString="true"/>
+          <get expression="$typeIndex"/>
+          <choice>
+            <sequence>
+              <test expression="$typeIndex = 'élément bibliographique'"/>
+              <command name="replace"
+                parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}listBibl,ListBibl)"/>
+              <command name="selectNode" parameter="firstChild[implicitElement]"/>
+              <command name="selectNode" parameter="lastSibling[implicitElement]"/>
+              <command name="pick"
+                parameter="'Choisir un type de publication' false 'article' 'volume de série' 'monographie'"/>
+              <set variable="typeIndex" expression="%_" plainString="true"/>
+              <get expression="$typeIndex"/>
+              <choice>
+                <sequence>
+                  <test expression="$typeIndex = 'article'"/>
+                  <choice>
+                    <sequence>
+                      <command name="replace"
+                        parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructArticle)"/>
+                    </sequence>
+                    <sequence>
+                      <command name="selectNode" parameter="parent[implicitElement]"/>
+                      <command name="insert"
+                        parameter="after #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructArticle)"/>
+                    </sequence>
+                  </choice>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'monographie'"/>
+                  <choice>
+                    <sequence>
+                      <command name="replace"
+                        parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructMonogr)"/>
+                    </sequence>
+                    <sequence>
+                      <command name="selectNode" parameter="parent[implicitElement]"/>
+                      <command name="insert"
+                        parameter="after #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructMonogr)"/>
+                    </sequence>
+                  </choice>
+                </sequence>
+                <sequence>
+                  <test expression="$typeIndex = 'volume de série'"/>
+                  <choice>
+                    <sequence>
+                      <command name="replace"
+                        parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructVolume)"/>
+                    </sequence>
+                    <sequence>
+                      <command name="selectNode" parameter="parent[implicitElement]"/>
+                      <command name="insert"
+                        parameter="after #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructVolume)"/>
+                    </sequence>
+                  </choice>
+                </sequence>
+              </choice>
+              <command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+            </sequence>
+            <sequence>
+              <test expression="$typeIndex = 'manuscrit'"/>
+              <command name="replace"
+                parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}msDesc,SourceMsDesc)"/>
+              <command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+            </sequence>
+          </choice>
+        </sequence>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+	<command name="inserSourceDescEd">
+		<macro>
+					<sequence>
+						<command name="pick"
+							parameter="'Choisir un type de publication' false 'article' 'monographie'"/>
+						<set variable="typeIndex" expression="%_" plainString="true"/>
+						<get expression="$typeIndex"/>
+							<choice>
+								<sequence>
+									<test expression="$typeIndex = 'article'"/>
+									<choice>
+										<sequence>
+											<command name="selectNode"
+												parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}p"/> 
+											<command name="replace"
+													parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructArticle)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+										</sequence>
+										<sequence>
+											<command name="selectNode"
+														parameter="self[implicitElement]"/>
+											<command name="insert"
+															parameter="after #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructArticle)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+										</sequence>
+									</choice>
+								</sequence>
+								<sequence>
+									<test expression="$typeIndex = 'monographie'"/>
+									<choice>
+										<sequence>
+											<command name="selectNode"
+												parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}p"/> 
+											<command name="replace"
+													parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructMonogr)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+										</sequence>
+										<sequence>
+											<command name="selectNode"
+														parameter="self[implicitElement]"/>
+											<command name="insert"
+															parameter="after #template({http://www.tei-c.org/ns/1.0}biblStruct,BiblStructMonogr)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>				
+										</sequence>
+									</choice>
+								</sequence>
+							</choice>
+						</sequence>
+		</macro>
+</command>
+  
+  <command name="inserSourceDescMs">
+    <macro>
+      <sequence>
+        <choice>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}p"/> 
+            <command name="replace"
+              parameter="[implicitElement] #template({http://www.tei-c.org/ns/1.0}msDesc,SourceMsDesc)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}msDesc"/> 
+            <command name="insert"
+              parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}msDesc,SourceMsDesc)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+          </sequence>
+          <sequence>
+            <command name="selectNode"
+              parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}biblStruct"/> 
+            <command name="insert"
+              parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}msDesc,SourceMsDesc)"/>
+						<command name="putAttribute" parameter="[simplePrompt] xml:id"/>
+          </sequence>
+        </choice>
+      </sequence>
+    </macro>
+  </command>
+  
+  
+  
+  
+  <elementTemplate name="ListBibl" selectable="true">
+    <listBibl xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <fw><?text?></fw>
+    </listBibl>
+  </elementTemplate>
+	
+	
+  <elementTemplate name="BiblStructMonogr" selectable="true">
+    <biblStruct xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" type="monographie">
+      <monogr>
+        <author><?text?></author>
+        <title><?text?></title>
+        <imprint>
+          <publisher><?text?></publisher>
+          <pubPlace><?text?></pubPlace>
+          <date><?text?></date>
+        </imprint>
+        <biblScope unit="page"><?text?></biblScope>
+      </monogr>
+			<note type="edition_source"><?text?></note>
+    </biblStruct>
+  </elementTemplate>
+	
+	
+  <elementTemplate name="BiblStructArticle" selectable="true">
+    <biblStruct xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" type="article">
+      <analytic>
+        <author><?text?></author>
+        <title level="a"><?text?></title>
+      </analytic>
+      <monogr>
+        <title level="j"><?text?></title>
+        <imprint>
+          <date><?text?></date>
+        </imprint>
+        <biblScope unit="issue"><?text?></biblScope>
+        <biblScope unit="page"><?text?></biblScope>
+      </monogr>
+    </biblStruct>
+  </elementTemplate>
+  
+  <elementTemplate name="SourceMsDesc" selectable="true">
+    <msDesc xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+      type="source">
+      <msIdentifier>
+        <country><placeName><?text?></placeName></country>
+        <settlement><placeName><?text?></placeName></settlement>
+        <repository><?text?></repository>
+        <idno><?text?></idno>
+      </msIdentifier>
+      <msContents>
+        <msItem>
+          <locus><?text?></locus>
+          <title><?text?></title>
+        </msItem>
+      </msContents>
+    </msDesc>
+  </elementTemplate>
+	
+  <command name="insererTexte">
+    <macro>
+      <sequence>
+        <command name="selectNode"
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}p"/> 
+        <command name="insert"
+          parameter="after[implicitElement] #template({http://www.tei-c.org/ns/1.0}p,insererTexte)"/>
+      </sequence>
+    </macro>
+  </command>
+  <elementTemplate name="insererTexte" selectable="true">
+    <p xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"><locus>???</locus><title>???</title></p>
+  </elementTemplate>
+
+
+  
+   <command name="xsl_indexHeader">	
+  <process>
+          <transform stylesheet="ressources%Sxmltotxt.xsl" file="%C%Sressources%Sindex%0.xml" to="%C%Sressources%S%Sindex%0.txt" version="2.0" label="Constitution du fichier de clés et de valeurs" ><parameter name="typeIndex">%0</parameter></transform>
+  </process>
+</command>
+  
+  </configuration>

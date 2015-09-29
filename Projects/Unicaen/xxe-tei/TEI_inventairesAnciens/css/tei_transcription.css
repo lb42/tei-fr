@@ -1,0 +1,739 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+
+/* Par défaut */
+
+body {
+margin-right:0px;
+margin-left:0px;
+}
+
+div{
+    
+    margin:10px;
+}
+
+div[type="section1"]{
+    /*background-color:#F7FAFA;*/
+    background-color:#FFFFFF;
+}
+div[type="section2"]{
+  /*  background-color:#E8F0F0;*/
+}
+div[type="section3"]{
+    background-color:#D9E6E6;
+}
+div[type="section4"]{
+    background-color:#C9DBDB;
+}
+div[type="section5"]{
+    background-color:#BAD1D1;
+}
+div[type="section6"]{
+    background-color:#ABC7C7;
+}
+div[type="section7"]{
+    background-color:#9CBDBD;
+}
+
+bibl {
+    
+    display:inline;
+    
+}
+
+
+/*
+ LISTES
+*/
+
+
+item {
+  display: block;
+  background-color:#ffffff;
+  padding-left:0px;
+}
+list[type = "gloss"] item {
+  display: block;
+}
+item[n]:before {
+  content: attr(n) ". " ;
+  list-style: none;
+
+}
+
+quote > list {
+  /*counter-reset:item; */
+  margin-left:15px;
+}
+
+
+
+/*
+TABLES
+*/
+
+/*
+BLOCS
+*/
+p {
+  text-align:left;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#FFFFFF;
+  border:1px dotted #afafaf;
+  padding-top:10px;
+  padding-left:15px;
+  padding-right:15px;
+  padding-bottom:10px;
+  margin-right:10px;
+}
+
+p:after{
+    display:inline;
+    font-weight:normal;
+    font-size:12px;
+    color:#4b9e9e;
+     content:" "command-button(icon, icon(plus), command, "inserParag");
+    
+}
+
+
+quote {
+  font-size:13px;
+  margin-left:50px;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+
+
+/*
+CARACTÈRES
+*/
+
+hi[rend="i"],
+hi[rend="it"],
+hi[rend="italic"],
+mentioned,
+soCalled {
+  font-style:italic;
+}
+hi[rend="b"],
+hi[rend="bold"]{
+		font-weight:bold;
+}
+hi[rend="sc"],
+hi[rend="smallcaps"]{
+  color:red;
+}
+hi[rend="sup"]{
+  vertical-align:super;
+  font-size:80%;
+}
+hi[rend="ul"],
+hi[rend="u"] {
+  text-decoration: underline;
+}
+
+
+l {
+    
+   display:block;
+   margin-left:50px;
+   font-style:italic;
+}
+
+l:after {
+    color:#193668;
+    content:" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+lg:after {
+    color:#193668;
+    content:" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter",margin-left,10px);
+}
+
+
+
+lg[rend="paragraphe"] > l {
+    display:inline;
+    margin-left:5px;
+    
+}
+
+head[type="vedette_auteur"]{
+  font-size:16px;
+  color:#660033;
+  text-align:left;
+  text-decoration:underline;
+  margin-bottom:5px;
+  padding:5px;
+}
+head:after {
+	content:"       Ajouter une notice " command-button(icon, icon(plus), command, "inserNotice",margin-right,60px);
+	font-size:60%;
+	display:block;
+}
+
+note[type="notice"]:before{
+content:"Notice [" attr(resp)"]   : ";
+font-style:italic;
+}
+note[type="notice"] {
+display:block;
+  background-color:#efefef;
+  margin:10px;
+  margin-right:20px;
+  padding:3px; 
+font-size:12px;
+line-height:1.3; 
+
+}
+note[type="notice"] > p{
+	display:block;
+  background-color:#efefef;
+  margin:5px;
+  margin-right:20px;
+  padding:0px; 
+}
+
+note[type="notice"] > p:before{
+	content:attr(n)" : ";
+}
+
+
+lg[rend="paragraphe"]{
+    
+   display:inline;
+}
+
+
+
+
+pubPlace{
+    
+   color:#800000;
+}
+del[rend="barre"]{
+    
+    text-decoration:line-through;
+}
+
+
+
+
+hi[rend="line-through"]{
+    text-decoration:line-through;
+}
+
+del{
+    text-decoration:line-through;
+}
+
+
+
+add[place="above"] {
+    vertical-align:super;
+    background-color:#99FF99;
+    font-size:85%;
+}
+
+ rdg:before{
+    content: " [", attr(wit) "]  ";
+vertical-align:super;
+  font-size:80%;
+  background-color:#FFCCFF;
+}
+rdg{
+  background-color:#FFCCFF;
+}
+lacunaStart:before{
+    content: " [", attr(wit) "]  ";
+vertical-align:super;
+  font-size:80%;
+  background-color:#FF0000;
+}
+lacunaEnd:before{
+    content: " [", attr(wit) "]  ";
+vertical-align:super;
+  font-size:80%;
+  background-color:#FF0000;
+}
+
+fw {
+	color:#521295;
+	font-style:normal;
+	font-size:66%;
+}
+fw:before {
+	color:#521295;
+	content:" – ";
+}
+fw:after {
+	color:#521295;
+	content:" – ";
+}
+text > front:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    content:"Ajouter une section (div) à l'en-tête" command-button(icon, icon(plus), command, "inserDiv");
+    text-align:right;
+}
+
+/*text > back:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    content:"Ajouter une section (div) aux parties postérieures" command-button(icon, icon(plus), command, "inserDiv");
+    text-align:right;
+}*/
+
+body > div:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    content:"Ajouter une section (div) au corps du texte" command-button(icon, icon(plus), command, "inserDiv");
+
+}
+
+
+
+div[type="section1"] {
+background-color:#F7FAFA;
+margin-top:0px;
+margin-left:0px;
+margin-right:0px;
+margin-bottom:0px;
+padding-bottom:15px;
+padding-top:10px;
+}
+
+div[type="chapitre"] {
+background-color:#F7FAFA;
+margin-top:0px;
+margin-left:0px;
+margin-right:0px;
+margin-bottom:0px;
+padding-bottom:15px;
+padding-top:10px;
+}
+
+
+
+div[type]:before {
+  display:block;
+  margin-left:0px;
+margin-right:0px;
+  content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"   "  collapser()  ;
+  font-size:12px;
+  background-color:#9d9c9c;
+  text-align:center;
+  margin-top:20px;
+  margin-bottom:0px;
+  font-weight:bold;
+  color:#FFFFFF;
+}
+
+div[type][subtype="inventaire"]:before {
+  	content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"  – n : "combo-box(attribute, n, labels, "Alphabétique\A Aucun\A Autorité\A Format\A Indéterminé\A Langue\A Locatif\A Support / codicologie\A Thématique", values, "alphabetique\A aucun\A autorite\A format\A indetermine\A langue\A locatif\A codicologie\A thematique",color,#193668) collapser()  ;
+}
+div[type][subtype="liste"]:before {
+  	content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"  – n : "combo-box(attribute, n, labels, "Alphabétique\A Aucun\A Autorité\A Format\A Indéterminé\A Langue\A Locatif\A Support / codicologie\A Thématique", values, "alphabetique\A aucun\A autorite\A format\A indetermine\A langue\A locatif\A codicologie\A thematique",color,#193668) collapser()  ;
+}
+
+div[type][subtype="catalogue"]:before {
+  	content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"  – n : "combo-box(attribute, n, labels, "Alphabétique\A Aucun\A Autorité\A Format\A Indéterminé\A Langue\A Locatif\A Support / codicologie\A Thématique", values, "alphabetique\A aucun\A autorite\A format\A indetermine\A langue\A locatif\A codicologie\A thematique",color,#193668) collapser()  ;
+}
+
+div[type][subtype="section_inventaire"]:before {
+  	content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"  – n : "combo-box(attribute, n, labels, "Alphabétique\A Aucun\A Autorité\A Format\A Indéterminé\A Langue\A Locatif\A Support / codicologie\A Thématique", values, "alphabetique\A aucun\A autorite\A format\A indetermine\A langue\A locatif\A codicologie\A thematique",color,#193668) collapser()  ;
+
+}
+
+div[type][subtype="index"]:before {
+	content: attr(type)" – Subtype : "combo-box(attribute, subtype, labels, "Autre\A Bibliothèque\A Bulle\A Catalogue\A Chapitre\A Charte\A Collection\A Édition\A Index\A Inventaire\A Lettre\A Lettre accompagnement\A Lettre dédicatoire\A Liste\A Manuscrit\A Oeuvre\A Pièce liminaire\A Postscript\A Prologue\A Section inventaire\A Table\A Table des chapitres\A Table des matières\A Tome", values, "autre\A bibliotheque\A bulle\A catalogue\A chapitre\A charte\A collection\A edition\A index\A inventaire\A lettre\A lettre_accompagnement\A lettre_dedicatoire\A  liste\A manuscrit\A oeuvre\A piece_liminaire\A postscript\A prologue\A section_inventaire\A table\A table_des_chapitres\A table_des_matieres\A tome",color,#193668)"  – n : "combo-box(attribute, n, labels, "Alphabétique\A Aucun\A Autorité\A Format\A Indéterminé\A Langue\A Locatif\A Support / codicologie\A Thématique", values, "alphabetique\A aucun\A autorite\A format\A indetermine\A langue\A locatif\A codicologie\A thematique",color,#193668) collapser()  ;
+
+}
+
+
+div[type="section2"]:before {
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  background-color:#9d9c9c;
+  color:#FFFFFF;
+  text-align:center;
+  margin-top:20px;
+  margin-left:15px;
+  margin-right:15px;
+  
+}
+
+div[type="section2"] {
+/*background-color:#E8F0F0;*/
+background-color:#E8F0F0;
+padding-top:10px;
+margin-top:0px;
+ margin-left:15px;
+margin-right:15px;
+margin-bottom:0px;
+}
+div[type="section3"]:before {
+  display:block;
+  font-size:12px;
+  background-color:#9d9c9c;
+  color:#FFFFFF;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:0px;
+  margin-left:10px;
+margin-right:10px;
+  font-weight:bold;
+}
+
+div[type="section3"] {
+background-color:#D9E6E6;
+margin-top:0px;
+padding-bottom:5px;
+padding-top:10px;
+margin-bottom:0px;
+}
+
+div[type="section4"]:before {
+  display:block;
+  font-size:12px;
+  background-color:#9d9c9c;
+  color:#FFFFFF;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:0px;
+  margin-left:10px;
+margin-right:10px;
+  font-weight:bold;
+}
+
+div[type="section4"] {
+background-color:#C9DBDB;
+margin-top:0px;
+padding-top:10px;
+padding-bottom:0px;
+margin-bottom:0px;
+}
+
+div[type="section5"]:before {
+  display:block;
+  font-size:12px;
+  background-color:#9d9c9c;
+  color:#FFFFFF;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:0px;
+  font-weight:bold;
+  margin-left:10px;
+	margin-right:10px;
+}
+
+div[type="section5"] {
+
+margin-top:0px;
+padding-top:10px;
+padding-bottom:0px;
+margin-bottom:0px;
+
+}
+
+div[type="section6"]:before {
+  display:block;
+  font-size:12px;
+  background-color:#9d9c9c;
+  color:#FFFFFF;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:0px;
+  margin-left:10px;
+  margin-right:10px;
+  font-weight:bold;
+}
+
+div[type="section6"] {
+  margin-top:0px;
+padding-top:10px;
+padding-bottom:0px;
+margin-bottom:0px;
+}
+div[type="section7"]:before {
+  display:block;
+  font-size:12px;
+  background-color:#9d9c9c;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:0px;
+  font-weight:bold;
+  margin-left:10px;
+  margin-right:10px;
+}
+
+div[type="section7"] {
+  text-align:center;
+  margin-top:0px;
+padding-top:10px;
+padding-bottom:0px;
+margin-bottom:0px;
+  font-size:12px;
+padding-top:10px;
+}
+
+
+
+div[type="section1"]:after{
+    display:block;
+    font-weight:normal;
+    color:#193668;
+    font-size:12px;
+    background-color:#F7FAFA;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    text-align:right;
+    margin-top:0px;
+    padding-top:0px;
+	padding-bottom:10px;
+}
+
+
+div[type="section2"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    background-color:#E8F0F0;
+   content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    text-align:right;
+    margin-top:0px;
+	margin-left:15px;
+	margin-right:15px;
+    padding-top:10px;
+	padding-bottom:10px;
+	
+}
+
+div[type="section3"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    text-align:right;
+    background-color:#D9E6E6;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    margin-top:0px;
+    margin-left:10px;
+	margin-right:10px;
+	padding-top:5px;
+	padding-bottom:10px;
+}
+
+div[type="section4"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    text-align:right;
+    background-color:#C9DBDB;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    margin-top:0px;
+    margin-left:10px;
+	margin-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+div[type="section5"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    text-align:right;
+    background-color:#BAD1D1;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    margin-top:0px;
+    margin-left:10px;
+	margin-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+div[type="section6"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    text-align:right;
+    background-color:#ABC7C7;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,60px)"Ajouter une section interne " command-button(icon, icon(plus), command, "inserDiv", margin-right,20px);
+    margin-top:0px;
+    margin-left:10px;
+	margin-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+div[type="section7"]:after{
+    display:block;
+    font-weight:normal;
+    font-size:12px;
+    color:#193668;
+    text-align:right;
+    background-color:#9CBDBD;
+    content:"       Ajouter une " element-name() " "  attr(type) " " command-button(icon, icon(plus), command, "inserDivMemeNiveau",margin-right,20px);
+    margin-top:0px;
+    margin-left:10px;
+	margin-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+list > item:after{
+    display:inline;
+    font-weight:normal;
+    font-size:12px;
+    color:#4b9e9e;
+    content:" "command-button(icon, icon(plus), command, "inserItem");
+    
+}
+
+
+
+
+
+/*
+Notes
+*/
+note[type="notice"]:before {
+	content:"Notice";
+}
+note[type="notice"] {
+	display:block;
+  background-color:#efefef;
+}
+note[type="notice"]:after {
+	content:" ";
+}
+
+note[type="identification"]{
+	display:inline;
+    content:" "icon(file)" ";
+}
+
+note[type="philologie"]{
+	display:inline;
+    content:" "icon(file)" ";
+}
+
+note[type="inventaire"]{
+    display:block;
+	padding:5px;
+	font-size:14px;
+	font-style:italic;
+	color:#6c6c6c;
+}
+
+note[type="commentaire"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="manuscrit"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="identification"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="histoire"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="apparat"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+
+note[type="source_ms_edition"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+
+note[place="foot"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#FFFF00;
+}
+note[place="foot"]:before{
+    content: " (note bas de p.) ";
+    vertical-align:super;
+    background-color:#FFFF00;
+}
+note[place="end"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#66FFFF;
+}
+note[place="end"]:before{
+    content: " (note de fin) ";
+    vertical-align:super;
+    background-color:#66FFFF;
+
+}
+
+
+/*
+Fin notes
+*/
+
+
+
+
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+

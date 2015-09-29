@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2014 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<!-- Indexer une personne, une oeuvre, un type d'oeuvre, un lieu -->
+<command name="index"> 
+<macro  undoable="true">
+    <sequence> 
+   	  
+      <command name="pick"
+				   parameter="'Choisir un index' false Lieux Auteurs Oeuvres 'Personnes physiques' 'Type oeuvre'" />  
+		<set variable="typeIndex" expression="%_"
+           plainString="true" /> 
+			<get expression="$typeIndex" />
+	<choice>
+	<!-- on veut faire un index de Lieu -->
+	
+	  <sequence>
+		<test expression="$typeIndex = 'Lieux'" />
+		<choice>
+		  <sequence><command name="selectNode" 
+		    parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}name" /> </sequence>
+	    <sequence><command name="convert" 
+                   parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name" />
+		<command name="putAttribute" parameter="[implicitElement] type lieu " /></sequence>
+		</choice>
+		<command name="xsl_index" parameter="Lieux"/>
+		 <command name="pick"
+               parameter="'choisir un lieu' true @ '%C%Sressources%SindexLieux.txt' UTF-8 " />
+	    <set variable="premiereRef" expression="%_" plainString="true" />
+	    <get expression="$premiereRef" />
+         <command name="putAttribute"
+               parameter="[implicitElement] ref indexLieux.xml#%_" /> 
+	    
+	    <sequence>
+	      <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+	      <command name="pick"
+	        parameter="'choisir une référence' true @ '%C%Sressources%SindexLieux.txt' UTF-8 "/>
+	      <set variable="deuxiemeRef" expression="%_" plainString="true" />
+	      <get expression="$premiereRef" />
+	      <get expression="$deuxiemeRef" />
+	      <set variable="ref" expression="concat('indexLieux.xml#',$premiereRef,' ','indexLieux.xml#',$deuxiemeRef)" />
+	      <get expression="$ref" />
+	      <command name="putAttribute" parameter="ref '%_'"/>
+	    </sequence>
+	    
+	    
+    </sequence>  
+	  
+     <sequence>
+		<test expression="$typeIndex = 'Oeuvres'" />
+       <choice>
+         <sequence><command name="selectNode" 
+           parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}title" /> </sequence>
+         <sequence><command name="convert" 
+           parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}title" />
+           <command name="putAttribute" parameter="[implicitElement] type oeuvre " /></sequence>
+       </choice>
+		<command name="xsl_index" parameter="Oeuvres"/>
+		 <command name="pick"
+               parameter="'choisir une oeuvre' true @ '%C%Sressources%SindexOeuvres.txt' UTF-8 " />
+       <set variable="premiereRef" expression="%_" plainString="true" />
+       <get expression="$premiereRef" />
+         <command name="putAttribute"
+               parameter="[implicitElement] ref indexOeuvres.xml#%_" /> 
+       <sequence>
+         <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+         <command name="pick"
+           parameter="'choisir une référence' true @ '%C%Sressources%SindexOeuvres.txt' UTF-8 "/>
+         <set variable="deuxiemeRef" expression="%_" plainString="true" />
+         <get expression="$premiereRef" />
+         <get expression="$deuxiemeRef" />
+         <set variable="ref" expression="concat('indexOeuvres.xml#',$premiereRef,' ','indexOeuvres.xml#',$deuxiemeRef)" />
+         <get expression="$ref" />
+         <command name="putAttribute" parameter="ref '%_'"/>
+       </sequence>
+    </sequence>   
+	  
+	  <sequence>
+	    <test expression="$typeIndex = 'Type oeuvre'" />
+	    <choice>
+	      <sequence><command name="selectNode" 
+	        parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}title" /> </sequence>
+	      <sequence><command name="convert" 
+	        parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}title" />
+	        <command name="putAttribute" parameter="[implicitElement] type oeuvre " /></sequence>
+	    </choice>
+	    <command name="xsl_index" parameter="TypeOeuvre"/>
+	    <command name="pick"
+	      parameter="'choisir un type oeuvre' true @ '%C%Sressources%SindexTypeOeuvre.txt' UTF-8 " />
+	    <set variable="premiereRef" expression="%_" plainString="true" />
+	    <get expression="$premiereRef" />
+	    <command name="putAttribute"
+	      parameter="[implicitElement] corresp indexTypeOeuvre.xml#%_" /> 
+	    <sequence>
+	      <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+	      <command name="pick"
+	        parameter="'choisir une référence' true @ '%C%Sressources%SindexTypeOeuvre.txt' UTF-8 "/>
+	      <set variable="deuxiemeRef" expression="%_" plainString="true" />
+	      <get expression="$premiereRef" />
+	      <get expression="$deuxiemeRef" />
+	      <set variable="ref" expression="concat('indexTypeOeuvre.xml#',$premiereRef,' ','indexTypeOeuvre.xml#',$deuxiemeRef)" />
+	      <get expression="$ref" />
+	      <command name="putAttribute" parameter="corresp '%_'"/>
+	    </sequence>
+	  </sequence>   
+	  
+   <sequence>
+		<test expression="$typeIndex = 'Terme'" />
+		<command name="convert" 
+                   parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}term" />
+		<get expression="$typeIndex" />
+		<command name="indexTerm" parameter="%_"/>
+		<get expression="$typeIndex" />
+      <command name="pick"
+               parameter="'choisir un identifiant' true @ '%C%Sressources%Sindex%_.txt' UTF-8 " />
+    <command name="putAttribute"
+               parameter="[implicitElement] ref indexTerm.xml#%_" />
+    </sequence>   
+
+    <sequence>
+      <test expression="$typeIndex = 'Auteurs'" />
+    
+      <choice>
+        <sequence><command name="selectNode" 
+          parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}name" /> </sequence>
+        <sequence><command name="convert" 
+          parameter="[implicitElement] {http://www.tei-c.org/ns/1.0}name" />
+          <command name="putAttribute" parameter="[implicitElement] type personne " />
+        <command name="putAttribute" parameter="[implicitElement] role auteur " /></sequence>
+      </choice>
+			<command name="xsl_index" parameter="Personnes"/>
+         <command name="pick"
+               parameter="'choisir une personne' true @ '%C%Sressources%SindexPersonnes.txt' UTF-8 " />
+      <set variable="premiereRef" expression="%_" plainString="true" />
+      <get expression="$premiereRef" />
+        <command name="putAttribute"
+               parameter="[implicitElement] ref indexPersonnes.xml#%_" />
+      <sequence>
+        <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+        <command name="pick"
+          parameter="'choisir une référence' true @ '%C%Sressources%SindexPersonnes.txt' UTF-8 "/>
+        <set variable="deuxiemeRef" expression="%_" plainString="true" />
+        <get expression="$premiereRef" />
+        <get expression="$deuxiemeRef" />
+        <set variable="ref" expression="concat('indexPersonnes.xml#',$premiereRef,' ','indexPersonnes.xml#',$deuxiemeRef)" />
+        <get expression="$ref" />
+        <command name="putAttribute" parameter="ref '%_'"/>
+      </sequence>
+    </sequence>
+	  
+	  <sequence>
+	    <test expression="$typeIndex = 'Personnes physiques'" />
+	    <choice>
+	      <command name="selectNode" 
+	        parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}name" /> 
+	    </choice>
+	    <command name="xsl_index" parameter="Personnes"/>
+	    <command name="pick"
+	      parameter="'choisir une personne' true @ '%C%Sressources%SindexPersonnes.txt' UTF-8 " />
+	    <set variable="premiereRef" expression="%_" plainString="true" />
+	    <get expression="$premiereRef" />
+	    <command name="putAttribute"
+	      parameter="[implicitElement] ref indexPersonnes.xml#%_" />
+	    <sequence>
+	      <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+	      <command name="pick"
+	        parameter="'choisir une référence' true @ '%C%Sressources%SindexPersonnes.txt' UTF-8 "/>
+	      <set variable="deuxiemeRef" expression="%_" plainString="true" />
+	      <get expression="$premiereRef" />
+	      <get expression="$deuxiemeRef" />
+	      <set variable="ref" expression="concat('indexPersonnes.xml#',$premiereRef,' ','indexPersonnes.xml#',$deuxiemeRef)" />
+	      <get expression="$ref" />
+	      <command name="putAttribute" parameter="ref '%_'"/>
+	    </sequence>
+	  </sequence>
+	</choice>
+<!--	<command name="alert" parameter="%_"/>-->
+    </sequence> 
+  </macro> 
+</command> 
+
+
+<!--Indexer un type de livre-->
+  <!-- <command name="index_type_livre">
+    <macro  undoable="true">
+      <sequence>
+              <command name="selectNode"
+                parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}bibl" />
+            <command name="xsl_index" parameter="TypeLivre"/>
+            <command name="pick"
+              parameter="'choisir un type de livre' true @ '%C%Sressources%SindexTypeLivre.txt' UTF-8 " />
+            <set variable="premiereRef" expression="%_" plainString="true" />
+            <get expression="$premiereRef" />
+            <command name="putAttribute"
+              parameter="[implicitElement] corresp indexTypeLivre.xml#%_" />
+
+            <sequence>
+              <command name="confirm" parameter="Voulez-vous ajouter une autre référence ?"/>
+              <command name="pick"
+                parameter="'choisir une référence' true @ '%C%Sressources%SindexTypeLivre.txt' UTF-8 "/>
+              <set variable="deuxiemeRef" expression="%_" plainString="true" />
+              <get expression="$premiereRef" />
+              <get expression="$deuxiemeRef" />
+              <set variable="ref" expression="concat('indexTypeLivre.xml#',$premiereRef,' ','indexTypeLivre.xml#',$deuxiemeRef)" />
+              <get expression="$ref" />
+              <command name="putAttribute" parameter="corresp '%_'"/>
+            </sequence>
+      </sequence>
+    </macro>
+  </command> -->
+
+  
+  </configuration>

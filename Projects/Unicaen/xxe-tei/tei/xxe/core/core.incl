@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Configuration XMLMind pour environnement TEI
+
+  Copyright (c) 2009-2015 
+  Pôle Document Numérique
+  Maison de la Recherche en Sciences Humaines
+  Université de Caen Basse-Normandie
+  Esplanade de la Paix
+  Campus 1
+  14032 Caen Cedex
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  <http://www.gnu.org/licenses/>
+
+  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+  for a list of contributors
+-->
+
+<configuration xsi:schemaLocation="http://www.xmlmind.com/xmleditor/schema/configuration ../configuration/xsd/configuration.xsd"
+               xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+
+<command name="addImages">
+	<macro>
+		<sequence>
+			<command name="xpathSearch" 
+					 parameter="[implicitElement] following::{http://www.tei-c.org/ns/1.0}graphic"/>
+			<get context="$selected" expression="@url"/>
+			<set variable="imagePath" expression="%_"  plainString="true"/>
+			<get expression="$imagePath"/>
+			<set variable="imageName" 
+				 expression="substring-after($imagePath,'../icono/')" />
+			<get expression="$imageName"/>
+			<command name="addImage" parameter="%_"/>
+			<command name="addImages"/>
+		</sequence>
+	</macro>
+</command>
+
+<command name="addImage">
+	<process>
+    <!-- Ajout de l'image en paramètre de l'epub -->
+		<copy files="%P%S%R.epub" to="%R.epub"/>
+		<delete files="%P%S%R.epub"/>
+		<mkdir dir="OEBPS"/>
+		<mkdir dir="OEBPS%Sicono"/>
+		<mkdir dir="OEBPS%Sicono%Sbr"/>
+		<copy files="%P%S../%Sicono%S%0" to="OEBPS%Sicono%Sbr%S"/>
+		<shell command="zip -u %R.epub OEBPS%Sicono%S%0" 
+			   label="Ajout de l'image à l'archive zip" platform="Mac"/>
+		<shell command="7z.exe a -tzip &quot;%R.epub&quot; &quot;OEBPS%Sicono%S%0&quot;"
+	   		   label="Ajout de l'image à l'archive zip" platform="Windows"/>
+		<copy files="%R.epub" to="%P%S"/>
+	</process>
+</command>
+
+<command name="findImages">
+	<macro repeatable="true" undoable="true">
+		<sequence>
+			<command name="xpathSearch" 
+					 parameter="[implicitElement] following::{http://www.tei-c.org/ns/1.0}graphic"/>
+			<get context="$selected" expression="@url"/>
+			<command name="copyImage" parameter="%_"/>
+			<command name="findImages"/>
+		</sequence>
+	</macro>
+</command>
+
+<command name="copyImage">
+	<process>
+      <!-- Ajout de l'image à l'archive zip -->
+      <shell command="zip -ju %P%S%R.zip %P%S%0" 
+      		 label="Ajout de l'image à l'archive zip" 
+      		 platform="Mac"/>
+      <shell command="7z.exe a -tzip &quot;%P%S%R.zip&quot; &quot;%P%S%0&quot;"
+             label="Ajout de l'image à l'archive zip" 
+             platform="Windows"/>
+	</process>
+</command>
+
+<!-- Insérer une image à partir de son titre -->
+<command name="insertImg">
+	<macro repeatable="true" undoable="true" label="Conversion en petites capitales">
+		<sequence> 
+			<command name="selectNode" 
+                   			 parameter="self[implicitElement] {http://www.tei-c.org/ns/1.0}head" />
+            <command name="insert" parameter="before {http://www.tei-c.org/ns/1.0}graphic"/>
+            <command name="setObject"
+					 parameter="url"/>
+        </sequence>
+    </macro>
+</command>
+
+<!-- Switch entre le dossier iconographique HR et BR -->
+<command name="xsl_icono">
+	<process>
+		<transform file="%D" 
+				   label="Basculer le dossier iconographique"
+                   stylesheet="xsl%SswitchIconoRes.xsl" 
+                   to="%P%Stemp_%N"
+             	   version="2.0">
+			<parameter name="fromepub">false</parameter>
+		</transform>
+		<copy files="%P%Stemp_%N" to="%P%S%N"/>
+		<delete files="%P%Stemp_%N"/>
+	</process>
+</command>
+
+<command name="switchIconoRes">
+	<macro>
+		<sequence>
+			<command name="confirm"
+					 parameter="Basculer le dossier iconographique?"/>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="xsl_icono"/>
+			<command name="XXE.open" parameter="[reopenIfNewer]"/>
+		</sequence>
+	</macro>
+</command>
+
+<!-- Choix du dossier icono -->
+<command name="IconoDef">
+	<macro>
+		<sequence>
+		<pass>
+			<command name="xpathSearch" 
+					 parameter="[implicitElement] following::{http://www.tei-c.org/ns/1.0}graphic"/>
+			<get context="$selected" expression="substring-before(substring-after(@url,'icono/'),'/')"/>		 
+			<command name="alert" parameter="'%_'"/>
+		</pass>
+		<fail>
+			<command name="alert" parameter="aucune image détectée dans le fichier"/>
+		</fail>
+		</sequence>		
+	</macro>
+</command>
+
+<command name="whichIconoDir">
+	<macro>
+		<sequence>
+			<command name="XXE.save" parameter="[ifNeeded]"/>
+			<command name="pick" parameter="'Quel dossier iconographique utilisé pour cet export ?' false 'basse resolution' 'moyenne resolution' 'haute resolution'"/>
+			<set variable="dirIcono" expression="'%_'"/>
+			<get expression="$dirIcono"/>
+			<choice>
+				<sequence>
+					<test expression="$dirIcono='basse resolution'"/>
+					<command name="iconoResBr"/>
+					<command name="XXE.open" parameter="%P/%N"/>
+				</sequence>
+				<sequence>
+					<test expression="$dirIcono='moyenne resolution'"/>
+					<command name="iconoResMr"/>
+					<command name="XXE.open" parameter="%P/%N"/>
+				</sequence>
+				<sequence>
+					<test expression="$dirIcono='haute resolution'"/>
+					<command name="iconoResHr"/>
+					<command name="XXE.open" parameter="%P/%N"/>
+				</sequence>
+			</choice>
+		</sequence>
+	</macro>
+</command>	
+
+<command name="iconoResHr">
+	<macro repeatable="false" undoable="true">
+		<sequence>
+			<command name="run" parameter="[Mac] echo '&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;figure&gt;' > %P%S..%Sicono%Shr%SimgListTemp.xml"/>
+			<command name="iconoResHrList"/>
+			<command name="run" parameter="echo '&lt;/figure&gt;' >> %P%S..%Sicono%Shr%SimgListTemp.xml"/>
+			<command name="checkImgNameHr"/> 
+		</sequence>
+	</macro>
+</command>
+
+<command name="iconoResHrList">
+	<process>
+		<shell command="ls -m %P%S..%Sicono%Shr >> %P%S..%Sicono%Shr%SimgListTemp.xml" platform="Mac"/>
+	</process>
+</command>
+
+<command name="checkImgNameHr">
+	<process>
+       <transform file="%P%S..%Sicono%Shr%SimgListTemp.xml"
+				   label="formater le ls des fichers en xml parsable"
+                   stylesheet="xsl%SformatLs.xsl" 
+                   to="%P%S..%Sicono%Shr%SimgList.xml"
+             	   version="2.0">
+        </transform>
+		<copy files="%C%Sxsl%SapplyIconoResHr.xsl" to="%P%SapplyIconoResHr.xsl"/>
+		<copy files="%P%S..%Sicono%Shr%SimgList.xml" to="%P%SimgList.xml"/>
+		<transform file="%D"
+				   label="path et extension"
+                   stylesheet="%P%SapplyIconoResHr.xsl" 
+                   to="%P%Stemp_%N"
+             	   version="2.0">
+            <parameter name="dir">hr</parameter>
+        </transform>
+        <copy files="%P%Stemp_%N" to="%P%S%N"/>
+		<delete files="%P%Stemp_%N"/>
+        <delete files="%P%S..%Sicono%Shr%SimgListTemp.xml"/> 
+        <delete files="%P%SimgList.xml"/> 
+        <delete files="%P%SapplyIconoResHr.xsl"/> 
+	</process>
+</command>
+
+<command name="iconoResMr">
+	<macro repeatable="false" undoable="true">
+		<sequence>
+			<command name="run" parameter="[Mac] echo '&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;figure&gt;' > %P%S..%Sicono%Smr%SimgListTemp.xml"/>
+			<command name="iconoResMrList"/>
+			<command name="run" parameter="echo '&lt;/figure&gt;' >> %P%S..%Sicono%Smr%SimgListTemp.xml"/>
+			<command name="checkImgNameMr"/> 
+		</sequence>
+	</macro>
+</command>
+
+<command name="iconoResMrList">
+	<process>
+		<shell command="ls -m %P%S..%Sicono%Smr >> %P%S..%Sicono%Smr%SimgListTemp.xml" platform="Mac"/>
+	</process>
+</command>
+
+<command name="checkImgNameMr">
+	<process>
+       <transform file="%P%S..%Sicono%Smr%SimgListTemp.xml"
+				   label="formater le ls des fichers en xml parsable"
+                   stylesheet="xsl%SformatLs.xsl" 
+                   to="%P%S..%Sicono%Smr%SimgList.xml"
+             	   version="2.0">
+        </transform>
+		<copy files="%C%Sxsl%SapplyIconoResBr_Mr.xsl" to="%P%SapplyIconoResBr_Mr.xsl"/>
+		<copy files="%P%S..%Sicono%Smr%SimgList.xml" to="%P%SimgList.xml"/>
+		<transform file="%D"
+				   label="path et extension"
+                   stylesheet="%P%SapplyIconoResBr_Mr.xsl" 
+                   to="%P%Stemp_%N"
+             	   version="2.0">
+            <parameter name="dir">mr</parameter>
+        </transform>
+        <copy files="%P%Stemp_%N" to="%P%S%N"/>
+		<delete files="%P%Stemp_%N"/>
+        <delete files="%P%S..%Sicono%Smr%SimgListTemp.xml"/> 
+        <delete files="%P%SimgList.xml"/> 
+        <delete files="%P%SapplyIconoResBr_Mr.xsl"/> 
+	</process>
+</command>
+	
+<command name="iconoResBr">
+	<macro repeatable="false" undoable="true">
+		<sequence>
+			<command name="run" parameter="[Mac] echo '&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;figure&gt;' > %P%S..%Sicono%Sbr%SimgListTemp.xml"/>
+			<command name="iconoResBrList"/>
+			<command name="run" parameter="echo '&lt;/figure&gt;' >> %P%S..%Sicono%Sbr%SimgListTemp.xml"/>
+			<command name="checkImgNameBr"/> 
+		</sequence>
+	</macro>
+</command>
+
+<command name="iconoResBrList">
+	<process>
+		<shell command="ls -m %P%S..%Sicono%Sbr >> %P%S..%Sicono%Sbr%SimgListTemp.xml" platform="Mac"/>
+	</process>
+</command>
+
+<command name="checkImgNameBr">
+	<process>
+       <transform file="%P%S..%Sicono%Sbr%SimgListTemp.xml"
+				   label="formater le ls des fichers en xml parsable"
+                   stylesheet="xsl%SformatLs.xsl" 
+                   to="%P%S..%Sicono%Sbr%SimgList.xml"
+             	   version="2.0">
+        </transform>
+		<copy files="%C%Sxsl%SapplyIconoResBr_Mr.xsl" to="%P%SapplyIconoResBr_Mr.xsl"/>
+		<copy files="%P%S..%Sicono%Sbr%SimgList.xml" to="%P%SimgList.xml"/>
+		<transform file="%D"
+				   label="path et extension"
+                   stylesheet="%P%SapplyIconoResBr_Mr.xsl" 
+                   to="%P%Stemp_%N"
+             	   version="2.0">
+            <parameter name="dir">br</parameter>
+        </transform>
+        <copy files="%P%Stemp_%N" to="%P%S%N"/>
+		<delete files="%P%Stemp_%N"/>
+        <delete files="%P%S..%Sicono%Sbr%SimgListTemp.xml"/> 
+        <delete files="%P%SimgList.xml"/> 
+        <delete files="%P%SapplyIconoResBr_Mr.xsl"/> 
+	</process>
+</command>
+
+</configuration>

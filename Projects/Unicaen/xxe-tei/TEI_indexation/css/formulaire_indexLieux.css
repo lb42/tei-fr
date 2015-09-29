@@ -1,0 +1,278 @@
+﻿/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+/* ********* NOMS DE LIEUX ************/
+
+listPlace {
+		display: block; 
+}
+place {
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:5px;
+		margin-right:80px;
+		margin-left:20px;
+		padding:10px;
+		border: 1px solid #dcdddd;
+}
+
+/*si la balise trait dans place, c'est donc une sous-entrée */
+
+place:contains-element(trait):before {
+	display: inline;
+	content: "• Sous-entrée "simple-counter(-n) " \A        Type : "combo-box(attribute, type, labels, "abbaye\A chapelle\A collégiale\A diocèse\A église\A ermitage\A prieuré", values, "abbaye\A chapelle\A collegiale\A diocese\A eglise\A ermitage\A prieure"); 
+	color:#353738;
+	font-weight:bold;
+}
+
+
+listPlace > place:before {
+	display: inline;
+	content: attr(xml|id)"\A\AType de lieu "combo-box(attribute, type, labels, "pays\A commune\A comté\A état\A île\A lieu-dit\A nation\A région", values, "pays\A commune\A comte\A etat\A ile\A lieu-dit\A nation\A region")
+							combo-box(attribute, subtype, labels, "ancienne commune\A ancien fief\A préfecture\A sous-préfecture\A capitale\A canton\A chef-lieu de canton\A", values, "ancienne_commune\A ancien_fief\A prefecture\A sous-prefecture\A capitale\A canton\A chef-lieu_de_canton\A"); 				
+	color:#353738;
+	font-size:100%;
+	font-weight:bold;
+
+}
+
+placeName[type=ppal]{
+		display:block;
+		color:#0f6c41;
+		font-weight:bold;
+	}
+
+placeName{
+		display:block;
+		color:#0f6c41;
+		margin-bottom:15px;
+		margin-top:10px;
+		margin-left:55px;
+		font-weight:normal;
+
+	}
+place[subtype=ancienne]	> placeName{
+		display:block;
+		color:#0f6c41;
+		font-style:italic;
+	}
+placeName:before {
+	content:combo-box(attribute, type, labels, "principal\A",values, "ppal")"Nom "combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb");
+	font-weight:normal;
+	color:#353738;
+}
+
+placeName::attribute(type) {
+attribute-content-left:remove-attribute-button(attribute, attribute());
+show-attribute:always;
+font-size: smaller;
+}
+
+
+placeName[type="ppal"]:before {
+content:attributes(type)"  Nom "combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb", color, #353738)"  ";
+font-weight:bold;
+color:#353738;
+
+}
+placeName:after{
+content:"   "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+
+listPlace > place > location {
+	display: block;
+	color:#0f6c41;
+	font-weight:bold;
+}
+
+listPlace > place > location:before {
+	content:"Identification du lieu :";
+	display: block;
+	color:#353738;
+	font-weight:bold;
+	margin-bottom:0px;
+	}
+
+place > place {
+	margin-left:30px;
+}
+
+
+place:contains-element(place):after {
+	content:" ";
+	display:inline;
+
+}
+place:last-child:after {
+	content:command-button(text, "                  Ajouter sous-entrée + ", command, "ajoutEntree");
+	display:inline;
+
+}
+place:after {
+	content:command-button(text, "                  Ajouter sous-entrée + ", command, "ajoutEntree");
+	display:inline;
+
+}
+
+place > place:last-child:after {
+content:"";
+}
+
+place > place:after {
+content: command-button(text, "Ajouter note + ", command, "ajoutNote",margin-left,100px);
+}
+
+
+location {
+display:block; 
+
+margin-bottom:5px;
+
+}
+
+location:after {
+content:command-button(text, "Ajouter note + ", command, "ajoutNote",margin-left,95px);
+font-size:90%;
+color:#353738;
+
+}
+
+
+country:before{
+content:" — Pays   "; 
+color:#5a5757;
+font-weight:bold;
+}
+
+country {
+display:block;
+margin-left:50px;
+font-weight:normal;
+margin-bottom:5px;
+margin-top:5px;
+}
+
+region {
+display:block; 
+font-weight:normal;
+margin-left:50px;
+margin-bottom:5px;
+}
+
+region:before {
+content:" — "combo-box(attribute, type, labels, "Comté\A Département\A Land\A Nation\A Province\A Canton\A Région\A État\A Diocèse médiéval", values, "comte\A departement\A land\A nation\A province\A canton\A region\A etat\A diocese_medieval")" : "; 
+color:#5a5757;
+font-weight:bold;
+}
+
+region:after {
+content:"   "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+settlement {
+display:block; 
+font-weight:normal;
+margin-left:50px;
+margin-bottom:15px;
+}
+
+settlement:before {
+color:#5a5757;
+font-weight:bold;
+content:" — Commune : "; 
+}
+
+settlement:after {
+content:"   "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+listPlace > place > place{
+		display: block; 
+		width:500px;   
+		font-size:100%; 
+		color:#000000;
+		margin-top:15px;
+		margin-left:50px;
+		margin-bottom:10px;
+}
+
+
+
+place > place:before {
+	display: inline;
+	content: "• Sous-entrée "simple-counter(-n) " \A        Type : "combo-box(attribute, type, labels, "abbaye\A chapelle\A collégiale\A diocèse\A église\A ermitage\A prieuré", values, "abbaye\A chapelle\A collegiale\A diocese\A eglise\A ermitage\A prieure"); 
+	color:#353738;
+	font-weight:bold;
+}
+
+
+
+place > place > placeName{
+	margin-left:30px;
+	display:block;
+	color:#0f6c41;
+}
+
+place > trait:before {
+content:"Caractéristiques : " ;
+display:block;
+color:#353738;
+font-weight:bold;
+
+}
+
+place > trait {
+display:block;
+}
+
+trait > desc {
+display:block;
+color:#0f6c41;
+}
+
+trait > label {
+display:block;
+margin-top:3px;
+color:#0f6c41;
+}
+
+
+trait > desc:before {
+content:"Description : " ;
+color:#353738;
+}
+
+trait > label:before {
+content:"Intitulé : " ;
+color:#353738;
+}
+
+
+
+

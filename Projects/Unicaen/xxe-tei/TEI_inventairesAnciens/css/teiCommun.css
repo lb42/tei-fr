@@ -1,0 +1,689 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+
+/* Par défaut */
+TEI {
+  font-family:Arial;
+  color:black;
+  line-height:1.5;
+}
+/*
+BLOCS ET CARACTÈRES
+
+Les styles de niveau bloc sont déclarés une première fois à un seul endroit,
+afin d’assurer l'écoulement du texte avant de le décorer.
+
+
+*/
+* {
+  display:inline;
+}
+address,
+addrLine,
+argument,
+
+bibl,
+biblFull,
+biblStruct,
+body,
+byline,
+category,
+cit,
+closer,
+dateline,
+div,
+div0,
+div1,
+div2,
+div3,
+div4,
+div5,
+div6,
+div7,
+docAuthor,
+eg,
+epigraph,
+figDesc,
+figure,
+front,
+graphic,
+group,
+head,
+item,
+list,
+listBibl,
+listWit,
+lg,
+opener,
+p,
+quote,
+salute,
+signed,
+sp,
+speaker,
+TEI,
+text,
+titlePage,
+trailer,
+witness {
+	display:block;
+	white-space:normal;
+}
+/* Surcharge des contextes */
+p bibl,
+p biblFull,
+p biblStruct,
+p cit {
+  display:inline;
+}
+
+/*
+SECTIONS ET TITRES
+*/
+
+div0,
+div1,
+div2,
+div3,
+div4,
+div5,
+div6,
+div7,
+group {
+  collapsible:yes;
+  padding-left:5px;
+  margin-left:5px;
+  border: 1px dashed #afafaf;
+  border-top-color:#FFFFFF;
+  border-bottom-color:#FFFFFF;
+  border-right-color:#FFFFFF;
+}
+
+
+div0:before,
+div1:before,
+div2:before,
+div3:before,
+div4:before,
+div5:before,
+div6:before,
+div7:before,
+group:before{
+  display:block;
+  content: " " element-name() " " collapser() " " ;
+  font-size:80%;
+  background-color:#efefef;
+  text-align:right;
+}
+
+
+
+front:before {
+	content: "En-tête "collapser();
+	display:block;
+	font-size:115%;		
+}
+front {
+		collapsible:yes;
+		collapsed:yes;
+		display:block;
+}
+body:before {
+	content: "Corps du texte "collapser();
+	display:block;
+	font-size:115%;		
+}
+body {
+		collapsible:yes;
+		collapsed:no;
+		display:block;
+margin-right:10px;
+margin-left:10px;
+
+}
+
+
+
+
+div:before {
+	content: "div "attr(type) "  "collapser();
+	display:block;
+	text-align:right;
+    color:#193668;
+	font-size:80%;	
+	background-color:#eeeeee;
+	margin-right:10px;
+	margin-left:10px;
+}
+div {
+		collapsible:yes;
+		collapsed:no;
+		display:block;
+}
+
+
+/*div[subtype="inventaire"]:before{
+    content: "Ajouter une note sur l'inventaire" command-button(icon, icon(plus), command, "inserNoteInventaire") "          " " " element-name() " " collapser() " " ;
+}*/
+
+
+group group:before {
+  content: " " simple-counter(nn) " " element-name() " " collapser() " " ;
+}
+group group group:before {
+  content: " " simple-counter(nn) " " element-name() " " collapser() " " ;
+}
+group group group group:before {
+  content: " " simple-counter(nn) " " element-name() " " collapser() " " ;
+}
+
+
+pb:before {
+  content: " {";
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: center;
+}
+
+
+pb:after {
+  content: attr(n)"} ";
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: center;
+}
+
+pb {
+    text-align:left;
+    display:inline;
+    color:black;
+    width:100px;
+}
+
+
+bibl{
+    display:inline;
+
+}
+
+
+
+
+
+
+
+/*
+ LISTES
+*/
+list {
+    border:1px solid #afafaf;
+    margin-right:20px;
+    margin-left:15px;
+ 	padding-top:5px;
+ 	margin-top:10px;
+ 	padding-bottom:10px;
+ 	background-color:white;
+}
+
+
+
+list[rend="runon"] {
+  display: inline;
+}
+
+list[type="bulleted"] {
+  list-style-type: disc;
+  list-style-position: outside;
+}
+list[type="unordered"] {
+  list-style-type: disc;
+  list-style-position: outside;
+}
+list[type="ordered"] {
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+list[type="numbered"] {
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+list[type="none"] {
+  list-style-type: none;
+}
+
+item {
+  display: block;
+  
+}
+list[type = "gloss"] item {
+  display: block;
+}
+item[n]:before {
+  content: attr(n) ". " ;
+  list-style: none;
+}
+
+
+
+quote > list {
+  /*counter-reset:item; */
+  margin-left:15px;
+}
+
+
+list
+{counter-reset:subsection;    
+}
+
+list > item:before {
+  counter-increment:subsection;
+  content: " n° "counter(subsection)" ";  
+  font-weight:normal;
+  font-style:normal;
+  padding-left:5px;
+  padding-right:5px;
+  background-color:#eff1f1;
+      font-size:70%;
+}
+
+list > item{
+    margin-top:10px;
+    margin-left:20px;
+    font-weight:normal;
+    color:black;
+}
+
+list > item > idno:before{
+content:" ";
+}
+
+
+
+list > item > list > item:before {
+  counter-increment:subsection;
+  content: " n° "counter(subsection)" ";  
+  background-color:#eff1f1;
+  font-weight:normal;
+  font-style:normal;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+list > item > list {
+margin-left:15px;
+}
+
+list > item > list > item {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+list[type="vedettes"] > item > list[type="oeuvre"] {
+    counter-reset:none;
+}
+
+list[type="vedettes"] > item > list[type="oeuvre"] > item:before {
+    counter-increment:subsection;
+  content: " n° "counter(subsection)" ";  
+  font-weight:normal;
+  font-style:normal;
+}
+
+
+
+
+
+list > item > list[rend="paragraphe"] > item {
+    background-color:white;
+    display:block;
+    padding-left:5px;
+  padding-right:5px;
+    
+}
+
+
+list > item > list[rend="paragraphe"] > item:before {
+  counter-increment:subsection;
+  content: " n° "counter(subsection)" ";  
+  background-color:#eff1f1;
+  font-weight:normal;
+  font-style:normal;
+  padding-left:5px;
+  padding-right:5px;
+  color:black;
+}
+
+
+
+/*
+TABLES
+*/
+table {
+  display:table;
+  collapsed:yes;
+}
+table > head{
+  display:table-caption;
+  font-style: italic;
+  margin-bottom: 6pt;
+}
+
+row {
+  display:table-row;
+  collapsed:yes;
+}
+cell{
+  display:table-cell;
+  border-width:1px;
+  border-color:black;
+  border-style: solid;
+  padding:1;
+  collapsed:yes;
+  text-align:center;
+}
+/* Gestion des fusion de cellules */
+cell[cols] {
+    column-span: concatenate(attr(cols));
+}
+cell[rows] {
+    row-span: concatenate(attr(rows));
+}
+/*
+BLOCS
+*/
+p {
+  text-align:left;
+  margin-top:10px;
+  margin-bottom:10px;
+  font-weight:normal;
+}
+
+quote {
+  margin-left:50px;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+lb {
+	content:"\A";
+}
+
+
+
+
+
+/*
+CARACTÈRES
+*/
+
+hi[rend="i"],
+hi[rend="it"],
+hi[rend="italic"],
+mentioned,
+soCalled {
+  font-style:italic;
+}
+hi[rend="b"],
+hi[rend="bold"]{
+		font-weight:bold;
+}
+hi[rend="sc"],
+hi[rend="small-caps"]{
+  color:red;
+}
+hi[rend="sup"]{
+  vertical-align:super;
+  font-size:80%;
+}
+hi[rend="sub"]{
+  vertical-align:sub;
+  font-size:80%;
+}
+hi[rend="ul"],
+hi[rend="u"],
+hi[rend="underline"] {
+  text-decoration: underline;
+}
+
+
+
+
+l {
+    
+   display:block;
+   margin-left:50px;
+   font-style:italic;
+   font-weight:normal;
+   font-size:95%;
+   color:black;
+}
+
+lg[rend="paragraphe"] > l {
+    display:inline;
+    margin-left:5px;
+    font-weight:normal;
+   color:black;
+}
+
+
+head[type="vedette_auteur"]{
+  font-size:130%;
+  color:#660033;
+  text-align:left;
+  text-decoration:underline;
+  margin-bottom:5px;
+  padding:5px;
+}
+head[rend=factice]:before {
+	content:"[";
+}
+head[rend=factice]:after {
+	content:"]";
+	font-size:100%;
+	display:inline;
+}
+
+
+
+
+cb:before{
+    content:" [saut de colonne]";
+    color:#a91195;
+    font-size:70%;
+}
+
+
+space:before{
+    content:" [";
+    color:#a91195;
+
+}
+
+space {
+    content:attr(unit);
+    color:#a91195;
+    font-size:70%px;
+}
+
+space[quantity] {
+    content:attr(quantity)" "attr(unit);
+    color:#a91195;
+    font-size:70%px;
+}
+
+
+space:after{
+    content:"]";
+    color:#a91195;
+}
+
+
+div[type="livre"] {
+    font-weight:normal;
+    color:black;
+    text-align:left;
+}
+
+div[type="livre"] > head:before {
+   content: "Titre du document : ";
+    display:inline;
+    font-style:italic;
+    color:black;
+}
+
+div[type="livre"] > head {
+	    text-align:center;
+} 
+
+
+
+div[type="section1"] > head {
+    font-weight:normal;
+    font-size:125%;
+    color:#253c80;
+    margin:5px;
+	text-align:center;
+}
+
+div[type="chapitre"] > head {
+    font-weight:normal;
+    font-size:125%;
+    color:#253c80;
+    margin:5px;
+	text-align:center;
+}
+
+
+div[type="section2"] > head {
+    display:block;
+    font-size:120%;
+    color:#253c80;
+    margin-bottom:20px;
+    padding:15px;
+    text-align:center;
+    font-weight:normal;
+}
+
+
+
+div[type="section3"] > head {
+    display:block;
+    font-weight:normal;
+    font-size:110%;
+    color:#253c80;
+    margin-bottom:10px;
+    padding:13px;
+    text-align:center;
+
+}
+
+
+
+div[type="section4"] > head {
+    display:block;
+    font-size:105%;
+    color:#253c80;
+    margin-bottom:10px;
+    padding:12px;
+   	text-align:center;
+	font-weight:normal;
+}
+
+
+
+div[type="section5"] > head {
+    display:block;
+    font-weight:normal;
+    font-size:105%;
+    color:#253c80;
+    margin-bottom:10px;
+    padding:10px;
+    text-align:center;
+
+}
+
+
+div[type="section6"] > head {
+    display:block;
+    font-weight:normal;
+    font-size:105%;
+    color:#253c80;
+    margin-bottom:10px;
+    padding:10px;
+    text-align:center;
+
+}
+
+
+
+postscript > p {
+padding-top:25px;
+margin-left:15px;
+margin-right:20px;
+/*background-color:#eeeeee;*/
+
+}
+postscript > p:before {
+ content:"[postscript]   ";
+  font-style:italic;
+ font-size:80%;
+ margin-left:30px;
+}
+
+orig {
+display:none;
+}
+
+am {
+display:none;
+}
+
+abbr {
+display:none;
+}
+
+sic {
+display:none;
+}
+
+ref{
+text-decoration:underline;
+}
+
+note[type="cote"]:after {
+content:"       ";
+}
+
+gap {
+	content:" […] ";
+}
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+

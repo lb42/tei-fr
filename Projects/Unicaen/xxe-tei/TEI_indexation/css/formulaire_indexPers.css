@@ -1,0 +1,434 @@
+﻿
+@namespace tei url(http://www.tei-c.org/ns/1.0);
+
+
+/**
+*  Feuilles de style CSS pour la gestion des autorités et des index
+*
+*  Copyright (c) 2009-2013 
+*  Pôle Document Numérique
+*  Maison de la Recherche en Sciences Humaines
+*  Université de Caen Basse-Normandie
+*  Esplanade de la Paix
+*  Campus 1
+*  14032 Caen Cedex
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*  <http://www.gnu.org/licenses/>
+*
+*  See http://www.unicaen.fr/recherche/mrsh/document_numerique/equipe
+*      for a list of contributors
+*/
+
+
+
+/* liste de personnes      */
+
+
+
+listPerson {
+		display: block;
+		width:500px; 
+		margin-top:5px;
+		margin-right:50px;
+		margin-left:20px;
+		margin-bottom:5px;
+		padding:10px;
+		background-color:#fff;
+
+}
+
+person {
+		display: block;
+		border: 1px solid #dcdddd;
+		margin-bottom:20px;
+		padding-top:50px;
+		padding-right:80px;
+		padding-left:20px;
+		padding-bottom:40px;
+		background-color:#fff;
+		}
+		
+
+
+
+person:before{
+	content:"Source "combo-box(attribute, source, labels, "OPP\A CRAHAM\A biblissima\A Ichtya\A University of London",values, "OPP\A CRAHAM\A biblissima\A ichtya\A U_London")"  "attr(xml|id)"               Sexe : "radio-buttons(attribute, sex, labels, "feminin\A masculin\A non applicable", values, "2\A 1\A 9", color, #1a689f,margin-bottom,50px); 
+	color:#353738;
+margin-bottom:10px;
+padding-bottom:20px;
+}
+
+
+
+ persName{
+	display:block;
+	padding: 4;
+	margin-right:10ex;
+	margin-left:3ex;
+	padding-top:10px;
+	margin-top:5px;
+	border: 1px solid #dcdddd;
+	color: #1a689f;
+	font-weight:bold;
+}
+
+persName[type="ppal"] {
+display:block;
+font-weight:bold;
+color: #1a689f;
+padding-top:20px;
+}
+
+
+
+persName > surname {
+display:block;
+ padding: 4;
+color: #1a689f;
+}
+persName > surname:before {
+display:inline;
+ padding: 4;
+ content:"Nom :       ";
+ color:#353738;
+}
+
+persName > surname:after {
+content:"           Particule" command-button(text, " + ", command, "ajoutParticule");
+font-weight:normal;
+color:#353738;
+
+}
+persName > forename:before {
+display:inline;
+ padding: 4;
+ content:"Prénom :  ";
+color:#353738;
+}
+persName > forename {
+display:block;
+ padding: 4;
+ color: #1a689f;
+}
+
+nameLink:before {
+display:inline;
+ padding: 4;
+ content:" Particule :  (";
+color:#353738;
+}
+
+nameLink {
+display:inline;
+ padding: 4;
+}
+
+nameLink:after {
+display:inline;
+ padding: 4;
+ content:")";
+color:#353738;
+}
+
+genName:after {
+display:inline;
+content:"  (n="text-field(attribute,n,columns,2)")";
+font-size:80%;
+}
+
+persName > roleName {
+display:block;
+ padding: 4;
+color: #1a689f;
+}
+persName > roleName:before {
+display:inline;
+ padding: 4;
+ content:"Role :       ";
+ color:#353738;
+}
+persName > addName {
+display:block;
+ padding: 4;
+color: #1a689f;
+}
+persName > addName:before {
+display:inline;
+ padding: 4;
+ content:"Surnom :       ";
+ color:#353738;
+}
+
+
+person > persName:contains-element(surname):after {
+		content:command-button(
+					text,"Ajouter",
+					icon, icon(plus), 
+					margin-bottom,20px,
+					font-size,smaller,
+					margin-left, 30px,
+					menu, menu(
+							"Copier Nom / prénom","copy", 0, 
+							"Insérer Nom / prénom", "paste", "after",
+							"Insérer Nom", "insertNode", "sameElementAfter"
+							));
+}
+
+person > persName:after {
+		content:"   "command-button(
+					icon, icon(plus), 
+					menu, menu(
+							"Insérer Nom", "insertNode", "sameElementAfter"
+							));
+}
+
+persName[type="ppal"]:before {
+content:attributes(type)"  Nom "combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb", color, #353738)"  ";
+font-weight:bold;
+color:#353738;
+
+}
+
+
+persName:before {
+content:combo-box(attribute, type, labels, "principal\A",values, "ppal")"Nom "combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb");
+font-weight:normal;
+color:#353738;
+}
+
+person > persName[type="ppal"]:contains-element(surname):before {
+content:"      "attributes(type)"  ""Nom / Prénom (ppal) "combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb");
+color:#353738;
+font-weight:bold;
+}
+
+
+person > persName:contains-element(surname):before {
+content:combo-box(attribute, type, labels, "principal\A",values, "ppal",color, #1a689f) "Nom / Prénom"combo-box(attribute, xml|lang, labels, "français\A latin\A ancien français\A grec\A arabe\A italien\A  espagnol\A anglais\A hébreux", values, "fr\A la\A fro\A grc\A ara\A it\A es\A en\A heb");
+color:#353738;
+font-weight:normal;
+}
+
+
+
+persName::attribute(type) {
+attribute-content-left:remove-attribute-button(attribute, attribute());
+show-attribute:always;
+font-size: smaller;
+}
+
+
+person > birth:before{
+content:"Naissance : ";
+color:#353738;
+font-weight:bold;
+
+}
+
+person > birth{
+display: block;
+margin-left:3ex;
+margin-bottom:10px;
+margin-top:10px;
+color: #1a689f;
+font-weight:bold;
+content:text();
+}
+
+
+person > birth:after {
+content:attributes();
+font-size:100%;
+color:#494949;
+display: block;
+margin-left:15px;
+margin-bottom:10px;
+}
+
+person > birth::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+
+
+
+person > death {
+display: block;
+margin-left:3ex;
+margin-bottom:10px;
+font-weight:bold;
+color: #1a689f;
+content:text();
+
+}
+
+person > death:before {
+content:"Décès : ";
+color:#353738;
+font-weight:bold;
+}
+
+person > death:after {
+content:attributes();
+font-size:100%;
+color:#494949;
+display: block;
+margin-left:15px;
+margin-bottom:15px;
+
+
+}
+
+person > death::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+
+
+person:last-child:after {
+content:"           Ajouter identification" command-button(text, " + ", command, "ajoutOccupation")" " command-button(text, "            Ajouter une attestation + ", command, "ajoutAttestation")" " command-button(text, "            Ajouter une adresse + ", command, "ajoutAdresse")" "command-button(text, "            Ajouter note + ", command, "ajoutNote")" ";
+display: inline;
+color:#353738;
+font-weight:bold;
+font-size:80%;
+background-color:#fff;
+}
+
+
+
+person > occupation {
+display: block;
+margin-left:20px;
+margin-top:5px;
+margin-bottom:10px;
+color:#353738;
+font-weight:bold;
+
+}
+
+
+person > occupation:first-of-type:before{
+content: "Éléments d'identification : \A    • "; 
+font-weight:bold;
+color:#353738;
+display: inline;
+margin-left:0px;
+line-height:1.3;
+}
+
+person > occupation:before {
+content:"   • ";
+
+}
+
+
+person > occupation:after {
+content:attributes();
+font-size:80%;
+color:#494949;
+display: block;
+margin-left:15px;
+margin-bottom:15px;
+}
+
+
+
+occupation::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+occupation::attribute(xml|id) {
+	attribute-content-left:"";
+	attribute-content-middle:"";
+	attribute-content-right:"";
+}
+
+
+
+
+person > note:after {
+		content:" "command-button(icon, icon(plus), command, "insertNode", parameter, "sameElementAfter");
+}
+
+name[type="lieu"] {
+	color:#0f6c41;
+}
+
+
+roleName {
+	color:#813822;
+}
+
+
+residence:before {
+content:"Adresse : ";
+font-weight:bold;
+}
+residence {
+display:block;
+margin-left:20px;
+margin-top:10px;
+}
+
+floruit:before {
+content:"Attesté en : "attributes();
+font-weight:bold;
+display:block;
+margin-left:20px;
+}
+
+floruit:after{
+margin-bottom:15px;
+}
+
+floruit {
+display:block;
+}
+
+floruit::attribute() {
+	attribute-content-left:"       " attribute-label() ":";
+	attribute-content-middle: value-editor(attribute, attribute());
+	attribute-content-right: remove-attribute-button(attribute, attribute());
+	show-attribute: when-added; 
+	font-size: smaller;
+	display: inline;
+	show-attribute: always;
+}
+
+
+
+
+idno[type=matricule]:before {
+	content:"Numéro de matricule : ";
+	font-weight:bold;
+}
+idno[type=matricule] {
+	display:block;
+}

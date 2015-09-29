@@ -1,0 +1,258 @@
+﻿@extension "com.xmlmind.xmledit.cmd.table.GenericTableEdit";
+@import url(tei_Header.css);
+@import url(teiCommun.css);
+
+/*
+
+
+Styles CSS pour l'édition TEI.
+
+[FG] Frédéric Glorieux <Frederic.Glorieux@enc.sorbonne.fr>
+[VJ] Vincent Jolivet <vincent.jolivet@enc.sorbonne.fr>
+[PYB] Pierre-Yves Buard <pierre-yves.buard@unicaen.fr>
+
+Licence : domaine public.
+
+Particularités de cette feuille :
+ * testée d'abord pour XMLmind
+ * documentée en français
+ * factorisée par types de contenus
+
+Sources :
+ * http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+
+2011-07 [FG] Création
+
+*/
+
+
+/*
+Notes
+*/
+
+
+note[type="identification"]{
+display:inline;
+    content:" "icon(file)" ";
+
+}
+
+
+note[type="commentaire"]{
+    display:inline;
+    content:" "icon(file)" ";
+
+}
+
+note[type="apparat"]{
+    content:" "icon(file)" ";
+    display:inline;
+}
+
+note[type="commentaire"]{
+display:inline;
+content:" "icon(file)" ";
+}
+
+note[type="commentaire"]{
+    content:" "icon(file);
+    display:inline;
+}
+
+
+note[place="foot"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#FFFF00;
+}
+note[place="foot"]:before{
+    content: " NoteDbdp : ";
+    vertical-align:super;
+    background-color:#FFFF00;
+}
+note[place="end"]{
+    vertical-align:super;
+  font-size:80%;
+  background-color:#66FFFF;
+}
+note[place="end"]:before{
+    content: " NoteDf : ";
+    vertical-align:super;
+    background-color:#66FFFF;
+
+}
+
+/*
+Fin notes
+*/
+
+
+div [n="alphabetique"] > head > term:after{
+    content: "            [Lettre :] " combo-box(attribute, n, labels, "A\A B\A C\A D\A E\A F\A G\A H\A I\A J\A K\A L\A M\A N\A O\A P\A Q\A R\A S\A T\A U\A V\A W\A X\A Y\A Z", values, "A\A B\A C\A D\A E\A F\A G\A H\A I\A J\A K\A L\A M\A N\A O\A P\A Q\A R\A S\A T\A U\A V\A W\A X\A Y\A Z",font-weight,normal)  ;
+    font-weight:normal;
+font-style:normal;
+font-size:80%;
+}
+
+head[type="vedette_auteur"]{
+  font-size:110%;
+  color:#660033;
+  text-align:left;
+  text-decoration:underline;
+  margin-bottom:5px;
+  padding:5px;
+}
+
+
+
+name[type="personne"]{    
+    color:#1a689f;
+}
+
+name[type="personne"]:before {
+content: combo-box(attribute, role, labels, "Auteur\A Auteur atttribué\A Annotateur\A Autographe\A Autre\A Commanditaire\A Compilateur\A Copiste\A Dédicataire\A Destinataire\A Donateur\A Éditeur\A Emprunteur\A Graveur\A Imprimeur\A Imprimeur-libraire\A Libraire\A Possesseur\A Rédacteur\A Signataire\A Traducteur", values, "auteur\A auteur_atttribue\A annotateur\A autographe\A autre\A commanditaire\A compilateur\A copiste\A dedicataire\A destinataire\A donateur\A editeur\A emprunteur\A graveur\A imprimeur\A imprimeur_libraire\A libraire\A possesseur\A redacteur\A signataire\A Traducteur",font-size,80%);
+}
+
+name[type="personne_morale"]{    
+    color:#1a689f;
+}
+
+name[type="personne_morale"]:before {
+content: combo-box(attribute, role, labels, "Affiliation\A Auteur\A Autre\A Commanditaire\A Origine\A Possesseur\A Provenance", values, "affiliation\A auteur\A autre\A commanditaire\A origine\A possesseur\A provenance",font-size,80%);
+}
+
+name[type="lieu"]{  
+    color:#0f6c41;
+}
+
+name[type="lieu"]:before{  
+content: combo-box(attribute, role, labels, "Autre\A Conservation\A Copie\A Enlumination\A Origine\A Provenance\A Publication/impression\A Rédaction", values, "autre\A conservation\A copie\A enlumination\A origine\A provenance\A publication\A redaction",font-size,80%);
+}
+
+
+date{
+    color:#D2691E;
+}
+
+bibl:before {
+    content: "   – Él. bibl. : " combo-box(attribute, type, labels, "oeuvre\A référence\A modèle manuscrit", values, "oeuvre\A reference\A modele")"  ";
+/*  color:#000000;*/
+	font-size:60%;
+}
+bibl:after {
+	content:" –    ";
+	font-size:60%;
+}
+
+
+
+title[type]{
+    display:inline;
+	font-style:italic;
+}
+
+title[type="mot-repere"]:before {
+	content: combo-box(attribute, subtype, labels, "Autre\A Explicit\A Explicit antépénultième f.\A Explicit pièce liminaire\A Explicit pièce finale\A Explicit pénultième f.\A Explicit texte principal\A Incipit\A Incipit pièce liminaire\A Incipit pièce finale\A Incipit texte principal\A Incipit 2nd f.\A Incipit 3e f.\A Incipit 4e f.", values, "autre\A explicit\A explicit_antepenultieme\A explicit_piece_liminaire\A explicit_piece_finale\A explicit_penultieme\A explicit_texte_principal\A incipit\A incipit_piece_liminaire\A incipit_piece_finale\A incipit_texte_principal\A incipit_f_2\A incipit_f_3\A incipit_f_4",font-size,80%);
+	font-style:normal;
+}
+
+bibl > title > bibl:before{
+    content: "            "icon(pin-right)"[Type d'oeuvre :] " combo-box(attribute, type, labels, "Oeuvre\A Référence\A Modèle manuscrit", values, "oeuvre\A reference\A modele")  ;
+font-style:italic;
+}
+
+
+bibl > title > bibl:after {
+    content:" "icon(pin-left)" ";
+  color:#000000;
+}
+
+
+
+
+
+
+
+bibl > textLang > title[type="oeuvre"]{
+    display:inline;
+   color:#116332;
+}
+
+biblScope:before {
+ content:" "icon(right)" ";
+  color:#f1ce0b;
+}
+biblScope:after {
+ content:" "icon(left)" ";
+  color:#f1ce0b;
+}
+
+
+
+lang:after {
+	content:" "combo-box(attribute, norm, labels, "Albanais\A Albanais (groupe)\A Allemand\A Allemand (ancien haut, 750-1050)\A Allemand (moyen bas)\A Allemand, moyen haut (1050-1600)\A Anglais\A Anglais, ancien (450-1100)\A Anglais, moyen (1100-1500)\A Anglo-normand\A Arabe\A Balte (groupe)\A Breton\A Catalan\A Celtique (groupe)\A Chaldéen\A Corse\A Espagnol\A Finno-ougrien (groupe)\A Français\A Ancien français (842-1400)\A Moyen français (1400-1600)\A Germanique occidental (groupe)\A Germanique septentrional (groupe)\A Géorgien\A Géorgien ancien\A Grec (groupe)\A Grec ancien (jusque 1453)\A Grec moderne (depuis 1453)\A Hébreu\A Hébreu ancien\A Hongrois\A Irlandais\A Italien\A Italique (groupe)\A Latin\A Letton\A Néerlandais\A Occitan (moderne, après 1500)\A Portugais\A Provençal (ancien) / occitan (ancien), avant 1500\A Roman (groupe)\A Romanche\A Russe\A Russe (ancien)\A Sémitique\A Sicilien\A Slave (groupe)\A Suisse-allemand\A Syriaque\A", values, "sq\A sqi\A ge\A goh\A gml\A gmh\A en\A ang\A enm\A xno\A ar\A bat\A br\A ca\A cel\A cld\A co\A es\A fiu\A fr\A fro\A frm\A gmw\A gmq\A kat\A oge\A grk\A grc\A el\A he\A hbo\A hu\A ga\A it\A itc\A la\A lv\A nl\A oc\A pt\A pro\A roa\A rm\A ru\A orv\A sem\A scn\A sla\A ghw\A syc\A");
+	display:inline;
+	}
+
+lang {	
+	color:#4f4e4e;
+	}
+l {
+   display:block;
+   margin-left:50px;
+   font-style:italic;
+}
+
+lg[rend="paragraphe"] > l {
+    display:inline;
+    margin-left:5px;
+    
+}
+
+
+lg[rend="paragraphe"]{
+   display:inline;
+}
+
+
+title[xml|lang]:after {
+	content:" "combo-box(attribute, xml|lang, labels, "Albanais\A Albanais (groupe)\A Allemand\A Allemand (ancien haut, 750-1050)\A Allemand (moyen bas)\A Allemand, moyen haut (1050-1600)\A Anglais\A Anglais, ancien (450-1100)\A Anglais, moyen (1100-1500)\A Anglo-normand\A Arabe\A Balte (groupe)\A Breton\A Catalan\A Celtique (groupe)\A Chaldéen\A Corse\A Espagnol\A Finno-ougrien (groupe)\A Français\A Ancien français (842-1400)\A Moyen français (1400-1600)\A Germanique occidental (groupe)\A Germanique septentrional (groupe)\A Géorgien\A Géorgien ancien\A Grec (groupe)\A Grec ancien (jusque 1453)\A Grec moderne (depuis 1453)\A Hébreu\A Hébreu ancien\A Hongrois\A Irlandais\A Italien\A Italique (groupe)\A Latin\A Letton\A Néerlandais\A Occitan (moderne, après 1500)\A Portugais\A Provençal (ancien) / occitan (ancien), avant 1500\A Roman (groupe)\A Romanche\A Russe\A Russe (ancien)\A Sémitique\A Sicilien\A Slave (groupe)\A Suisse-allemand\A Syriaque\A", values, "sq\A sqi\A ge\A goh\A gml\A gmh\A en\A ang\A enm\A xno\A ar\A bat\A br\A ca\A cel\A cld\A co\A es\A fiu\A fr\A fro\A frm\A gmw\A gmq\A kat\A oge\A grk\A grc\A el\A he\A hbo\A hu\A ga\A it\A itc\A la\A lv\A nl\A oc\A pt\A pro\A roa\A rm\A ru\A orv\A sem\A scn\A sla\A ghw\A syc\A");
+	
+}
+
+
+
+
+seg[type="commentaire_ancien"]{
+    display:inline;
+    background-color:#F2FAF5;   
+}
+
+
+seg[type="commentaire_ancien"]>ref[type="identification"]:before{
+content:" "icon(right)" ";
+  color:#009933;
+  background-color:#F2FAF5;
+}
+seg[type="commentaire_ancien"]>ref[type="identification"]:after{
+content:" "icon(left)" ";
+  color:#009933;
+  background-color:#F2FAF5;
+}
+
+
+term {
+    font-style:italic;
+}
+
+
+
+
+
+/* TODO isoler le spécifique à XMLMInd */
+@media XMLmind-XML-Editor {
+}
+
+
+
+

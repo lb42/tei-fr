@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
@@ -26,11 +26,30 @@
                 Xinclude. For publishig work.</p>
             <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI" xml:lang="en"
                 targetLang="en">
-                <moduleRef key="core"/>
+                <moduleRef key="core"
+                    include="abbr address analytic author bibl biblScope biblStruct 
+                    cb cit date desc editor email emph expan foreign gloss graphic 
+                    head headItem headLabel hi imprint index item l label lb lg list 
+                    listBibl milestone monogr name note num p pb postBox postCode ptr 
+                    pubPlace publisher q quote ref resp respStmt series sp speaker stage 
+                    street term title"/>
                 <moduleRef key="tei"/>
-                <moduleRef key="header"/>
-                <moduleRef key="textstructure"/>
-                <moduleRef key="figures"/>
+                <moduleRef key="header"
+                    include="appInfo application authority availability biblFull change creation 
+                    edition editionStmt editorialDecl encodingDesc extent fileDesc funder idno 
+                    keywords langUsage language normalization notesStmt profileDesc projectDesc 
+                    publicationStmt quotation revisionDesc seriesStmt sourceDesc sponsor 
+                    teiHeader textClass titleStmt"/>
+                <moduleRef key="textstructure"
+                    include="TEI back body byline dateline div docAuthor docDate docEdition docImprint 
+                    docTitle epigraph floatingText front group imprimatur text titlePage titlePart"/>
+                <moduleRef key="figures" include="cell figDesc figure formula row table"/>
+            
+                <moduleRef key="linking" include="ab anchor seg"/>
+                <moduleRef key="namesdates" include="affiliation orgName roleName"/>
+                <moduleRef key="analysis" include="s"/>
+                
+                
                 <elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" ident="include"
                     ns="http://www.w3.org/2001/XInclude" mode="add">
                     <desc> The W3C XInclude element</desc>
@@ -96,69 +115,6 @@
                         </oneOrMore>
                     </content>
                 </elementSpec>
-                <elementSpec module="core" ident="add" mode="delete"/>
-                <elementSpec module="core" ident="addrLine" mode="delete"/>
-                <elementSpec module="core" ident="binaryObject" mode="delete"/>
-                <elementSpec module="core" ident="choice" mode="delete"/>
-                <elementSpec module="core" ident="corr" mode="delete"/>
-                <elementSpec module="core" ident="del" mode="delete"/>
-                <elementSpec module="core" ident="distinct" mode="delete"/>
-                <elementSpec module="core" ident="divGen" mode="delete"/>
-                <elementSpec module="core" ident="gap" mode="delete"/>
-                <elementSpec module="core" ident="measure" mode="delete"/>
-                <elementSpec module="core" ident="measureGrp" mode="delete"/>
-                <elementSpec module="core" ident="meeting" mode="delete"/>
-                <elementSpec module="core" ident="mentioned" mode="delete"/>
-                <elementSpec module="core" ident="orig" mode="delete"/>
-                <elementSpec module="core" ident="reg" mode="delete"/>
-                <elementSpec module="core" ident="relatedItem" mode="delete"/>
-                <elementSpec module="core" ident="rs" mode="delete"/>
-                <elementSpec module="core" ident="said" mode="delete"/>
-                <elementSpec module="core" ident="sic" mode="delete"/>
-                <elementSpec module="core" ident="soCalled" mode="delete"/>
-                <elementSpec module="core" ident="time" mode="delete"/>
-                <elementSpec module="core" ident="unclear" mode="delete"/>
-                <elementSpec module="header" ident="cRefPattern" mode="delete"/>
-                <elementSpec module="header" ident="catDesc" mode="delete"/>
-                <elementSpec module="header" ident="catRef" mode="delete"/>
-                <elementSpec module="header" ident="category" mode="delete"/>
-                <elementSpec module="header" ident="classCode" mode="delete"/>
-                <elementSpec module="header" ident="classDecl" mode="delete"/>
-                <elementSpec module="header" ident="correction" mode="delete"/>
-                <elementSpec module="header" ident="distributor" mode="delete"/>
-                <elementSpec module="header" ident="geoDecl" mode="delete"/>
-                <elementSpec module="header" ident="handNote" mode="delete"/>
-                <elementSpec module="header" ident="hyphenation" mode="delete"/>
-                <elementSpec module="header" ident="interpretation" mode="delete"/>
-                <elementSpec module="header" ident="principal" mode="delete"/>
-                <elementSpec module="header" ident="refState" mode="delete"/>
-                <elementSpec module="header" ident="refsDecl" mode="delete"/>
-                <elementSpec module="header" ident="rendition" mode="delete"/>
-                <elementSpec module="header" ident="samplingDecl" mode="delete"/>
-                <elementSpec module="header" ident="segmentation" mode="delete"/>
-                <elementSpec module="header" ident="stdVals" mode="delete"/>
-                <elementSpec module="header" ident="tagUsage" mode="delete"/>
-                <elementSpec module="header" ident="tagsDecl" mode="delete"/>
-                <elementSpec module="header" ident="taxonomy" mode="delete"/>
-                <elementSpec module="header" ident="typeNote" mode="delete"/>
-                <elementSpec module="textstructure" ident="argument" mode="delete">
-                    <attList>
-                        <attDef ident="rendition" mode="delete"/>
-                    </attList>
-                </elementSpec>
-                <elementSpec module="textstructure" ident="closer" mode="delete"/>
-                <elementSpec module="textstructure" ident="div1" mode="delete"/>
-                <elementSpec module="textstructure" ident="div2" mode="delete"/>
-                <elementSpec module="textstructure" ident="div3" mode="delete"/>
-                <elementSpec module="textstructure" ident="div4" mode="delete"/>
-                <elementSpec module="textstructure" ident="div5" mode="delete"/>
-                <elementSpec module="textstructure" ident="div6" mode="delete"/>
-                <elementSpec module="textstructure" ident="div7" mode="delete"/>
-                <elementSpec module="textstructure" ident="opener" mode="delete"/>
-                <elementSpec module="textstructure" ident="postscript" mode="delete"/>
-                <elementSpec module="textstructure" ident="salute" mode="delete"/>
-                <elementSpec module="textstructure" ident="signed" mode="delete"/>
-                <elementSpec module="textstructure" ident="trailer" mode="delete"/>
                 <elementSpec ident="back" module="textstructure" mode="change">
                     <attList>
                         <attDef ident="rendition" mode="delete"/>
@@ -175,29 +131,27 @@
                         <attDef ident="xml:base" mode="delete"/>
                         <attDef ident="pstyle" mode="add"
                             ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Correspondance de mise en forme dans Indesign (&#xE0;
-                                l'&#xE9;chelle du paragraphe).</desc>
+                            <desc> Correspondance de mise en forme dans Indesign (à l'échelle du
+                                paragraphe).</desc>
                         </attDef>
                         <attDef ident="cstyle" mode="add"
                             ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Correspondance de mise en forme dans Indesign (&#xE0;
-                                l'&#xE9;chelle de la s&#xE9;quence de caract&#xE8;res).</desc>
+                            <desc> Correspondance de mise en forme dans Indesign (à l'échelle de la
+                                séquence de caractères).</desc>
                         </attDef>
                     </attList>
                 </classSpec>
-                <elementSpec module="core" ident="teiCorpus" mode="delete"/>
-                <elementSpec module="header" ident="namespace" mode="delete"/>
                 <elementSpec ident="cell" module="figures" mode="change">
                     <attList>
                         <attDef ident="table" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Type d'&#xE9;l&#xE9;ment de tableau (pour Indesign)</desc>
+                            <desc> Type d'élément de tableau (pour Indesign)</desc>
                         </attDef>
                         <attDef ident="crows" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Nombre de rang&#xE9;es sur lesquelles une cellule peut
-                                s'&#xE9;tendre (pour Indesign)</desc>
+                            <desc> Nombre de rangées sur lesquelles une cellule peut s'étendre (pour
+                                Indesign)</desc>
                         </attDef>
                         <attDef ident="ccols" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Nombre de colonnes sur lesquelles une cellule peut s'&#xE9;tendre
+                            <desc> Nombre de colonnes sur lesquelles une cellule peut s'étendre
                                 (pour Indesign)</desc>
                         </attDef>
                         <attDef ident="cellstyle" mode="add"
@@ -209,13 +163,13 @@
                 <elementSpec ident="table" module="figures" mode="change">
                     <attList>
                         <attDef ident="table" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Type d'&#xE9;l&#xE9;ment de tableau (pour Indesign)</desc>
+                            <desc> Type d'élément de tableau (pour Indesign)</desc>
                         </attDef>
                         <attDef ident="tcols" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
                             <desc> Nombre de colonnes du tableau (pour Indesign)</desc>
                         </attDef>
                         <attDef ident="trows" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                            <desc> Nombre de rang&#xE9;es du tableau (pour Indesign)</desc>
+                            <desc> Nombre de rangées du tableau (pour Indesign)</desc>
                         </attDef>
                         <attDef ident="tablestyle" mode="add"
                             ns="http://ns.adobe.com/AdobeInDesign/5.0/">
@@ -223,18 +177,7 @@
                         </attDef>
                     </attList>
                 </elementSpec>
-                <moduleRef key="linking"/>
-                <elementSpec module="linking" ident="ab" mode="delete"/>
-                <elementSpec module="linking" ident="alt" mode="delete"/>
-                <elementSpec module="linking" ident="altGrp" mode="delete"/>
-                <elementSpec module="linking" ident="anchor" mode="delete"/>
-                <elementSpec module="linking" ident="join" mode="delete"/>
-                <elementSpec module="linking" ident="joinGrp" mode="delete"/>
-                <elementSpec module="linking" ident="link" mode="delete"/>
-                <elementSpec module="linking" ident="linkGrp" mode="delete"/>
-                <elementSpec module="linking" ident="timeline" mode="delete"/>
-                <elementSpec module="linking" ident="when" mode="delete"/>
-            </schemaSpec>
+              </schemaSpec>
         </body>
     </text>
 </TEI>
