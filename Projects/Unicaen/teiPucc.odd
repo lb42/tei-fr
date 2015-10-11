@@ -214,6 +214,87 @@
                         <specDesc key="zone"/>
                         <specDesc key="line"/>
                     </specList></p>
+            </div><div><head>Class modifications</head>
+            <p>We delete some attribute classes we don't need:
+                <specGrp xml:id="deletions">
+                    <classSpec ident="att.cReferencing" type="atts" mode="delete"/>
+                    <classSpec ident="att.datcat" type="atts" mode="delete"/>
+                    <classSpec ident="att.declarable" type="atts" mode="delete"/>
+                    <classSpec ident="att.declaring" type="atts" mode="delete"/>
+                    <classSpec ident="att.dimensions" type="atts" mode="delete"/>
+                    <classSpec ident="att.divLike" type="atts" mode="delete"/>
+                    <classSpec ident="att.global.linking" type="atts" mode="delete"/>
+                    <classSpec ident="att.sortable" type="atts" mode="delete"/>
+                    <classSpec ident="att.spanning" type="atts" mode="delete"/>
+                    
+                    
+                </specGrp></p>
+            <p>We simplify some attribute classes :
+            
+                <specGrp xml:id="simplified">
+                    <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
+                        <attList>
+                            <attDef ident="rendition" mode="delete"/>
+                        </attList>
+                    </classSpec>
+                   
+                    <classSpec ident="att.global" mode="change" type="atts" module="tei">
+                        <attList>
+                            <attDef ident="xml:base" mode="delete"/>
+                            <attDef ident="pstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
+                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle du paragraphe).</desc>
+                                <datatype><rng:text/></datatype>
+                            </attDef>
+                            <attDef ident="cstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
+                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle de la séquence de
+                                    caractères).</desc>
+                                <datatype><rng:text/></datatype>
+                            </attDef>
+                        </attList>
+                    </classSpec>   
+                </specGrp></p>
+                
+                <classSpec ident="att.datable" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="calendar" mode="delete"/>
+                        <attDef ident="period" mode="delete"/>                      
+                    </attList>
+                </classSpec>
+                
+                <classSpec ident="att.editLike" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="evidence" mode="delete"/>
+                        <attDef ident="instant" mode="delete"/>                      
+                    </attList>
+                </classSpec>
+                
+                <classSpec ident="att.naming" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="nymRef" mode="delete"/>
+                    </attList>
+                </classSpec>
+                
+                <classSpec ident="att.personal" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="full" mode="delete"/>
+                        <attDef ident="sort" mode="delete"/>
+                        
+                    </attList>
+                </classSpec>
+                <classSpec ident="att.pointing" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="targetLang" mode="delete"/>
+                        <attDef ident="evaluate" mode="delete"/>
+                        
+                    </attList>
+                </classSpec>
+                <classSpec ident="att.transcriptional" type="atts" mode="change" module="tei">
+                    <attList>
+                        <attDef ident="status" mode="delete"/>
+                        <attDef ident="cause" mode="delete"/>
+                        <attDef ident="seq" mode="delete"/>
+                    </attList>
+                </classSpec>
             </div>
             <div>
                 <head>Formal definitions</head>
@@ -261,21 +342,9 @@
                         </attList>
                     </elementSpec>
                     
-                    <classSpec ident="att.global" mode="change" type="atts" module="tei">
-                        <attList>
-                            <attDef ident="rendition" mode="delete"/>
-                            <attDef ident="xml:base" mode="delete"/>
-                            <attDef ident="pstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle du paragraphe).</desc>
-                                <datatype><rng:text/></datatype>
-                            </attDef>
-                            <attDef ident="cstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle de la séquence de
-                                    caractères).</desc>
-                                <datatype><rng:text/></datatype>
-                            </attDef>
-                        </attList>
-                    </classSpec>
+                   <specGrpRef target="#deletions"/>
+                    
+                    <specGrpRef target="#simplified"/>
                     
                 <!--    
                     <elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" ident="include"
