@@ -1,67 +1,33 @@
 ECHO=
-SCHEMA=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/out/difdepo.rng
-CORPUS=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/testFiles
+SCHEMA=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/difdepo.odd.relaxng
+CORPUS=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/2015-10-samples
+STYLES=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/norm2ou.xsl
 XSLHOME=/usr/share/xml/tei/stylesheet/profiles/oulipo/
-
+CORPUSHDR=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/corpHeaderStart.txt
 CURRENT=`pwd`
 
-ALLFILES= \
-	10010009-1961-06-CR-V2 \
-	10010010-1961-08-CR \
-	10010011-1961-09-CR \
-	10010011-CR-1961-11 \
-	10010179-1975-11-CV \
-	10010179-1975-11-CV-V2 \
-	10010179-1975-12-CR \
-	10010179-1975-12-CR-V2 \
-	10010200-1977-11-CR \
-	10010200-1977-11-CV \
-	100102242-1981-07-CV \
-	100102242-1981-07-CV-V2 \
-	10010241-1981-07-CR-simple \
-	10010241-1981-07-CV-simple \
-	10010241-1981-07-OJ-simple \
-	10010242-1981-07-CV-simple \
-	10010242-1981-08-CR \
-	10010242-1981-08-CR-simple \
-	10010242-1981-08-CR-V2 \
-	10010242-1981-08-OJ \
-	10010242-1981-08-OJ-simple \
-	10010242-1981-08-OJ-V2 \
-	10010243-1981-10-CR-simple \
-	10010243-1981-10-OJ-simple \
-	10010244-1981-11-CR-simple \
-	10010308-1987-09-CV-simple \
-	1001079-75-11 \
-	1977-11-03-Convoc 
-
-FILES= \
-	10010009-1961-06-CR-V2 \
-	10010179-1975-11-CV-V2 \
-	10010179-1975-12-CR-V2 \
-	10010241-1981-07-CR-simple \
-	10010241-1981-07-CV-simple \
-	10010241-1981-07-OJ-simple \
-	10010242-1981-07-CV-simple \
-	10010242-1981-08-CR-simple \
-	10010242-1981-08-CR-V2 \
-	10010242-1981-08-OJ-simple \
-	10010242-1981-08-OJ-V2 \
-	10010243-1981-10-CR-simple \
-	10010243-1981-10-OJ-simple \
-	10010244-1981-11-CR-simple \
-	10010308-1987-09-CV-simple 
-
 convert:
-	cd $(CORPUS); for f in $(FILES) ; do \
+	cd $(CORPUS); for f in *.docx ; do \
 		echo $$f; \
-		docxtotei --profile=oulipo \
-		$$f.docx ; done; cd $(CURRENT);
+		docxtotei $$f tmp/$$f.xml ; \
+		saxon tmp/$$f.xml $(STYLES) >$$f.xml; done; cd $(CURRENT);
 
 check:
-	cd $(CORPUS); for f in $(FILES) ; do \
+	cd $(CORPUS); for f in *.xml ; do \
 		echo $$f; \
 		jing  $(SCHEMA) \
-		$$f.xml ; done; cd $(CURRENT);
+		$$f ; done; cd $(CURRENT);
+
+corpus:
+	cd $(CORPUS); cp $(CORPUSHDR) driver.xml;\
+ 		for f in 1*.xml ; do \
+		echo "<include xmlns='http://www.w3.org/2001/XInclude' href='$$f'/>" >> driver.xml; \
+	done; echo "</teiCorpus>" >> driver.xml; cd $(CURRENT);
+
+schema: 
+	teitorelaxng --odd difdepo.odd
 updateXSL:
 	cp from_common.xsl $(XSLHOME)
+
+clean:
+	cd $(CORPUS); rm *.xml
