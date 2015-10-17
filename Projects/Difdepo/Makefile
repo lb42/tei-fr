@@ -1,5 +1,5 @@
 ECHO=
-SCHEMA=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/difdepo.odd.relaxng
+SCHEMA=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/out/difdepo.rng
 CORPUS=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/2015-10-samples
 STYLES=/home/lou/Public/tei-fr/trunk/Projects/Difdepo/norm2ou.xsl
 XSLHOME=/usr/share/xml/tei/stylesheet/profiles/oulipo/
