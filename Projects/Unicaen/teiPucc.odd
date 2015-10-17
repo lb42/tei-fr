@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr" xmlns:rng="http://relaxng.org/ns/structure/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -13,44 +14,43 @@
             </sourceDesc>
         </fileDesc>
         <revisionDesc>
-            <change when="2015-08">Convert TEI.xml from PUCC using odd2nuodd; add datatypes for inDesign
-                attribs</change>
+            <change when="2015-08">Convert TEI.xml from PUCC using odd2nuodd; add datatypes for
+                inDesign attribs</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <p>TEI Customization for PUCC editions.</p>
-            <!-- originally generated from 1.9.0 p5 -->
             <div>
                 <head>Overall structure</head>
-                <p>A PUCC edition is a single TEI document, represented using the following elements: <specList>
+                <p>A PUCC edition is a single TEI document, represented using the following
+                    elements: <specList>
                         <specDesc key="TEI"/>
                         <specDesc key="text"/>
                         <specDesc key="teiHeader"/>
                         <specDesc key="facsimile"/>
                     </specList></p>
-                <p>These elements must all be present, except for a <gi>facsimile</gi> which is needed only in the case
-                    where a PUCC edition integrates page images in addition to transcribed text and commentary. </p>
+                <p>These elements must all be present, except for a <gi>facsimile</gi> which is
+                    needed only in the case where a PUCC edition integrates page images in addition
+                    to transcribed text and commentary. </p>
             </div>
             <div>
                 <head>Front, body, and back</head>
-                <p> Each TEI <gi>text</gi> contains the edited transcription of a primary source, including any
-                    annotation, introduction, commentary, indexes, etc. These components are organized using the
-                    following elements: <specList>
+                <p> Each TEI <gi>text</gi> contains the edited transcription of a primary source,
+                    including any annotation, introduction, commentary, indexes, etc. These
+                    components are organized using the following elements: <specList>
                         <specDesc key="front"/>
                         <specDesc key="body"/>
                         <specDesc key="back"/>
                         <specDesc key="div"/>
-                    </specList>A <gi>text</gi> element must have a <gi>body</gi> element, usually preceded by a
-                        <gi>front</gi>, and optionally followed by a <gi>back</gi>. </p>
-                <p>Each of these three components may may be subdivided hierarchically using the <gi>div</gi>
-                    element.</p>
+                    </specList>A <gi>text</gi> element must have a <gi>body</gi> element, usually
+                    preceded by a <gi>front</gi>, and optionally followed by a <gi>back</gi>. </p>
+                <p>Each of these three components may may be subdivided hierarchically using the
+                        <gi>div</gi> element.</p>
             </div>
             <div>
                 <head>Front matter</head>
-                <p>For early print books, it may be useful to capture the original prefatory matter within the
-                        <gi>front</gi> element, using the following specialised elements, in addition to the generic
-                        <gi>div</gi>
+                <p>in addition to the generic <gi>div</gi>
                     <specList>
                         <specDesc key="docAuthor"/>
                         <specDesc key="docDate"/>
@@ -65,14 +65,15 @@
             </div>
             <div>
                 <head>Divisions and their components</head>
-                <p>The <gi>div</gi> element is used for any structural subdivision of a text, such as a chapter,
-                    section, subsection etc. The <att>type</att> attribute is used to distinguish divisions with
-                    different functions; its value should be taken from the following list: <specList>
+                <p>The <gi>div</gi> element is used for any structural subdivision of a text, such
+                    as a chapter, section, subsection etc. The <att>type</att> attribute is used to
+                    distinguish divisions with different functions; its value should be taken from
+                    the following list: <specList>
                         <specDesc key="div" atts="type"/>
                     </specList>
                 </p>
-                <p>A division will typically begin with at least one heading, and may have several. The following
-                    elements are from the divLiminal class are used to mark these: <specList>
+                <p>A division will typically begin with at least one heading, and may have several.
+                    The following elements are from the divLiminal class are used to mark these: <specList>
                         <specDesc key="head"/>
                         <specDesc key="byline"/>
                         <specDesc key="dateline"/>
@@ -83,10 +84,11 @@
                     </specList></p>
                 <div>
                     <head>Chunks</head>
-                    <p>In a prose text, the division will be made up of paragraphs, or other blocks, lists, etc. In a
-                        poetic text, there will be verse lines, possibly grouped into stanzas. In a dramatic text, there
-                        will be speeches, each containing a speaker identifiers and either a paragraph or some verse.
-                        The following elements are used to encode these components: <specList>
+                    <p>In a prose text, the division will be made up of paragraphs, or other blocks,
+                        lists, etc. In a poetic text, there will be verse lines, possibly grouped
+                        into stanzas. In a dramatic text, there will be speeches, each containing a
+                        speaker identifiers and either a paragraph or some verse. The following
+                        elements are used to encode these components: <specList>
                             <specDesc key="p"/>
                             <specDesc key="ab"/>
                             <specDesc key="list"/>
@@ -104,7 +106,8 @@
                 </div>
                 <div>
                     <head>Phrase level components</head>
-                    <p>The following elements are used to indicate commonly distinguished types of phrase : <specList>
+                    <p>The following elements are used to indicate commonly distinguished types of
+                        phrase : <specList>
                             <specDesc key="hi"/>
                             <specDesc key="q"/>
                             <specDesc key="foreign"/>
@@ -112,15 +115,16 @@
                             <specDesc key="title"/>
                             <specDesc key="name"/>
                         </specList></p>
-                    <p>The generic <gi>seg</gi> is available to mark any other word or phrase to be distinguished for any other reason:
-                    <specList>
-                        <specDesc key="seg" atts="type subtype"/>
-                    </specList>
+                    <p>The generic <gi>seg</gi> is available to mark any other word or phrase to be
+                        distinguished for any other reason: <specList>
+                            <specDesc key="seg" atts="type subtype"/>
+                        </specList>
                     </p>
                 </div>
                 <div>
                     <head>Milestones and pointers</head>
-                    <p>The following elements are used to indicate significant milestones occurring throughout the text <specList>
+                    <p>The following elements are used to indicate significant milestones occurring
+                        throughout the text <specList>
                             <specDesc key="milestone"/>
                             <specDesc key="cb"/>
                             <specDesc key="lb"/>
@@ -145,8 +149,8 @@
                 </div>
                 <div>
                     <head>Non-textual components</head>
-                    <p>The following elements are used for non-textual components such as graphics, tables, music, or
-                        formulae: <specList>
+                    <p>The following elements are used for non-textual components such as graphics,
+                        tables, music, or formulae: <specList>
                             <specDesc key="figure"/>
                             <specDesc key="graphic"/>
                             <specDesc key="figDesc"/>
@@ -160,8 +164,9 @@
                 </div>
                 <div>
                     <head>Bibliographic elements</head>
-                    <p>The following specialist elements are used for marking up the internal structure of bibliographic
-                        descriptions <specList>
+                    <p>The following specialist elements are used for marking up the internal
+                        structure of bibliographic descriptions 
+                        <specList>
                             <specDesc key="author"/>
                             <specDesc key="bibl"/>
                             <specDesc key="biblScope"/>
@@ -173,119 +178,117 @@
                             <specDesc key="respStmt"/>
                             <specDesc key="series"/>
                             <specDesc key="listBibl"/>
-                        </specList></p>
+                        </specList>  </p>
                 </div>
             </div>
             <div>
                 <head>Metadata</head>
-                
-                <p><specList><specDesc key="availability"/>
-                    <specDesc key="change"/>
-                    <specDesc key="creation"/>
-                    <specDesc key="edition"/>
-                    <specDesc key="editionStmt"/>
-                    <specDesc key="editorialDecl"/>
-                    <specDesc key="encodingDesc"/>
-                    <specDesc key="extent"/>
-                    <specDesc key="fileDesc"/>
-                    <specDesc key="funder"/>
-                    <specDesc key="idno"/>
-                    <specDesc key="langUsage"/>
-                    <specDesc key="language"/>
-                    <specDesc key="licence"/>
-                    <specDesc key="listChange"/>
-                    <specDesc key="listPrefixDef"/>
-                    <specDesc key="notesStmt"/>
-                    <specDesc key="prefixDef"/>
-                    <specDesc key="profileDesc"/>
-                    <specDesc key="projectDesc"/>
-                    <specDesc key="publicationStmt"/>
-                    <specDesc key="revisionDesc"/>
-                    <specDesc key="sourceDesc"/>
-                    <specDesc key="textClass"/>
-                    <specDesc key="titleStmt"/></specList></p>
+                <p>Nous utilisons un sous ensemble des éléments proposés pour le TEI Header 
+                    <specList>
+                        <specDesc key="availability"/>
+                        <specDesc key="change"/>
+                        <specDesc key="creation"/>
+                        <specDesc key="edition"/>
+                        <specDesc key="editionStmt"/>
+                        <specDesc key="editorialDecl"/>
+                        <specDesc key="encodingDesc"/>
+                        <specDesc key="extent"/>
+                        <specDesc key="fileDesc"/>
+                        <specDesc key="funder"/>
+                        <specDesc key="idno"/>
+                        <specDesc key="langUsage"/>
+                        <specDesc key="language"/>
+                        <specDesc key="licence"/>
+                        <specDesc key="listChange"/>
+                        <specDesc key="listPrefixDef"/>
+                        <specDesc key="notesStmt"/>
+                        <specDesc key="prefixDef"/>
+                        <specDesc key="profileDesc"/>
+                        <specDesc key="projectDesc"/>
+                        <specDesc key="publicationStmt"/>
+                        <specDesc key="revisionDesc"/>
+                        <specDesc key="sourceDesc"/>
+                        <specDesc key="textClass"/>
+                        <specDesc key="titleStmt"/>
+                    </specList></p>
             </div>
             <div>
-                <head>Facsimiles</head>
-                <p>
-                    <specList>
+                <head>Facsimilés</head>
+                <p>Pour les éditions qui comprennent des pages images en facsimilé nous poutrrions
+                    utiliser ces éléments pour gérer la correspondence image texte <specList>
                         <specDesc key="surfaceGrp"/>
                         <specDesc key="surface"/>
                         <specDesc key="zone"/>
                         <specDesc key="line"/>
                     </specList></p>
-            </div><div><head>Class modifications</head>
-            <p>We delete some attribute classes we don't need:
-                <specGrp xml:id="deletions">
-                    <classSpec ident="att.cReferencing" type="atts" mode="delete"/>
-                    <classSpec ident="att.datcat" type="atts" mode="delete"/>
-                    <classSpec ident="att.declarable" type="atts" mode="delete"/>
-                    <classSpec ident="att.declaring" type="atts" mode="delete"/>
-                    <classSpec ident="att.dimensions" type="atts" mode="delete"/>
-                    <classSpec ident="att.divLike" type="atts" mode="delete"/>
-                    <classSpec ident="att.global.linking" type="atts" mode="delete"/>
-                    <classSpec ident="att.sortable" type="atts" mode="delete"/>
-                    <classSpec ident="att.spanning" type="atts" mode="delete"/>
-                    
-                    
-                </specGrp></p>
-            <p>We simplify some attribute classes :
-            
-                <specGrp xml:id="simplified">
-                    <classSpec ident="att.global.rendition" type="atts" mode="change" module="tei">
-                        <attList>
-                            <attDef ident="rendition" mode="delete"/>
-                        </attList>
-                    </classSpec>
-                   
-                    <classSpec ident="att.global" mode="change" type="atts" module="tei">
-                        <attList>
-                            <attDef ident="xml:base" mode="delete"/>
-                            <attDef ident="pstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle du paragraphe).</desc>
-                                <datatype><rng:text/></datatype>
-                            </attDef>
-                            <attDef ident="cstyle" mode="add" ns="http://ns.adobe.com/AdobeInDesign/4.0/">
-                                <desc> Correspondance de mise en forme dans Indesign (à l'échelle de la séquence de
-                                    caractères).</desc>
-                                <datatype><rng:text/></datatype>
-                            </attDef>
-                        </attList>
-                    </classSpec>   
-                </specGrp></p>
-                
+            </div>
+            <div>
+                <head>Class modifications</head>
+                <p>Nous supprimons quelques classes d'attribut non-utilisées : <specGrp
+                        xml:id="deletions">
+                        <classSpec ident="att.cReferencing" type="atts" mode="delete"/>
+                        <classSpec ident="att.datcat" type="atts" mode="delete"/>
+                        <classSpec ident="att.declarable" type="atts" mode="delete"/>
+                        <classSpec ident="att.declaring" type="atts" mode="delete"/>
+                        <classSpec ident="att.dimensions" type="atts" mode="delete"/>
+                        <classSpec ident="att.divLike" type="atts" mode="delete"/>
+                        <classSpec ident="att.global.linking" type="atts" mode="delete"/>
+                  <!--      <classSpec ident="att.global.change" type="atts" mode="delete"/>                 
+                -->        <classSpec ident="att.sortable" type="atts" mode="delete"/>
+                        <classSpec ident="att.spanning" type="atts" mode="delete"/>
+                    </specGrp></p>
+                <p>Nous simplifions d'autres classes d'attribut : <specGrp xml:id="simplified">
+                        <classSpec ident="att.global.rendition" type="atts" mode="change"
+                            module="tei">
+                            <attList>
+                                <attDef ident="rendition" mode="delete"/>
+                                <attDef ident="pstyle" mode="add"
+                                    ns="http://ns.adobe.com/AdobeInDesign/4.0/">
+                                    <desc>correspondance de mise en forme dans Indesign (à l'échelle
+                                        du paragraphe).</desc>
+                                    <datatype><rng:text/></datatype>
+                                </attDef>
+                                <attDef ident="cstyle" mode="add"
+                                    ns="http://ns.adobe.com/AdobeInDesign/4.0/">
+                                    <desc>correspondance de mise en forme dans Indesign (à l'échelle
+                                        de la séquence de caractères).</desc>
+                                    <datatype><rng:text/></datatype>
+                                </attDef>
+                            </attList>
+                        </classSpec>
+                        <classSpec ident="att.global" mode="change" type="atts" module="tei">
+                            <attList>
+                                <attDef ident="xml:base" mode="delete"/>
+                            </attList>
+                        </classSpec>
+                    </specGrp></p>
                 <classSpec ident="att.datable" type="atts" mode="change" module="tei">
                     <attList>
                         <attDef ident="calendar" mode="delete"/>
-                        <attDef ident="period" mode="delete"/>                      
+                        <attDef ident="period" mode="delete"/>
                     </attList>
                 </classSpec>
-                
                 <classSpec ident="att.editLike" type="atts" mode="change" module="tei">
                     <attList>
                         <attDef ident="evidence" mode="delete"/>
-                        <attDef ident="instant" mode="delete"/>                      
+                        <attDef ident="instant" mode="delete"/>
                     </attList>
                 </classSpec>
-                
                 <classSpec ident="att.naming" type="atts" mode="change" module="tei">
                     <attList>
                         <attDef ident="nymRef" mode="delete"/>
                     </attList>
                 </classSpec>
-                
                 <classSpec ident="att.personal" type="atts" mode="change" module="tei">
                     <attList>
                         <attDef ident="full" mode="delete"/>
                         <attDef ident="sort" mode="delete"/>
-                        
                     </attList>
                 </classSpec>
                 <classSpec ident="att.pointing" type="atts" mode="change" module="tei">
                     <attList>
                         <attDef ident="targetLang" mode="delete"/>
                         <attDef ident="evaluate" mode="delete"/>
-                        
                     </attList>
                 </classSpec>
                 <classSpec ident="att.transcriptional" type="atts" mode="change" module="tei">
@@ -296,9 +299,25 @@
                     </attList>
                 </classSpec>
             </div>
+            <div><head>Suppression d'attributs locales</head>
+            <!-- candidates for local suppression:
+                
+                TEI@version
+                change@target
+                docDate@when
+                language@usage
+                listChange@ordered
+                note@anchored
+                note@targetEnd
+                teiHeader@type
+                
+                
+                -->
+                </div>
             <div>
-                <head>Formal definitions</head>
-                <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI" xml:lang="en" targetLang="en">
+                <head>Selection des elements</head>
+                <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI" xml:lang="en"
+                    targetLang="en">
                     <moduleRef key="core"
                         include="add choice corr del author bibl biblScope cb date
                     editor foreign graphic head  hi imprint  item l label 
@@ -312,15 +331,13 @@
                     listChange listPrefixDef notesStmt prefixDef
                     profileDesc projectDesc publicationStmt
                     revisionDesc sourceDesc teiHeader textClass titleStmt"/>
-                    
                     <moduleRef key="textstructure"
                         include="TEI back body byline dateline div docAuthor docDate docEdition 
                     docImprint docTitle epigraph front imprimatur text titlePage titlePart opener closer signed salute"/>
-                    <moduleRef key="figures" include="cell figDesc figure formula notatedMusic row table"/>
+                    <moduleRef key="figures"
+                        include="cell figDesc figure formula notatedMusic row table"/>
                     <moduleRef key="linking" include="ab seg"/>
-                   
                     <moduleRef key="transcr" include="facsimile line surfaceGrp surface zone"/>
-                    
                     <elementSpec ident="div" mode="change" module="textstructure">
                         <attList>
                             <attDef ident="type" mode="change">
@@ -341,12 +358,9 @@
                             </attDef>
                         </attList>
                     </elementSpec>
-                    
-                   <specGrpRef target="#deletions"/>
-                    
+                    <specGrpRef target="#deletions"/>
                     <specGrpRef target="#simplified"/>
-                    
-                <!--    
+                    <!--    
                     <elementSpec xmlns:rng="http://relaxng.org/ns/structure/1.0" ident="include"
                         ns="http://www.w3.org/2001/XInclude" mode="add">
                         <desc> The W3C XInclude element</desc>
@@ -413,7 +427,6 @@
                         </content>
                     </elementSpec>
                     -->
-                   
                     <!--
                     <elementSpec ident="cell" module="figures" mode="change">
                         <attList>
