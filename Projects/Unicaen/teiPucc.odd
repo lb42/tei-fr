@@ -20,38 +20,40 @@
     </teiHeader>
     <text>
         <body>
-            <p>TEI Customization for PUCC editions.</p>
+            <p>Personalisation TEI des éditions scientifiqes PUCC</p>
             <div>
-                <head>Overall structure</head>
-                <p>A PUCC edition is a single TEI document, represented using the following
-                    elements: <specList>
+                <head>Structure globale</head>
+                <p>Une édition PUCC correspond à un document TEI unitaire, encodé avec les éléments
+                    suivants : <specList>
                         <specDesc key="TEI"/>
                         <specDesc key="text"/>
                         <specDesc key="teiHeader"/>
                         <specDesc key="facsimile"/>
                     </specList></p>
-                <p>These elements must all be present, except for a <gi>facsimile</gi> which is
-                    needed only in the case where a PUCC edition integrates page images in addition
-                    to transcribed text and commentary. </p>
+                <p>Tous ces éléments sont obligatoires sauf <gi>facsimile</gi> ce dernier ne
+                    figurant que dans le cas où une édition PUCC  intègre des page images, des
+                    transcriptions, et des commentaires. </p>
             </div>
             <div>
-                <head>Front, body, and back</head>
-                <p> Each TEI <gi>text</gi> contains the edited transcription of a primary source,
-                    including any annotation, introduction, commentary, indexes, etc. These
-                    components are organized using the following elements: <specList>
+                <head>Front, body, etback</head>
+                <p> Tout TEI <gi>text</gi> contient une transcription moderne d'une source primaire
+                    y compris des annotations, introductions, commentaires, indices etc; ces
+                    co;posants sont organisés en utilisant ces éléments : <specList>
                         <specDesc key="front"/>
                         <specDesc key="body"/>
                         <specDesc key="back"/>
                         <specDesc key="div"/>
-                    </specList>A <gi>text</gi> element must have a <gi>body</gi> element, usually
-                    preceded by a <gi>front</gi>, and optionally followed by a <gi>back</gi>. </p>
-                <p>Each of these three components may may be subdivided hierarchically using the
-                        <gi>div</gi> element.</p>
+                    </specList>Un élément <gi>text</gi> doit contenir un élément <gi>body</gi>,
+                    d'habitude précédé d'un <gi>front</gi>, et facultativement suivi d'un
+                        <gi>back</gi>. </p>
+                <p>Chacun de ces composants peut être décomposé hiérarachiquement en utilisant
+                    l'élément <gi>div</gi> .</p>
             </div>
             <div>
                 <head>Front matter</head>
-                <p>in addition to the generic <gi>div</gi>
-                    <specList>
+                <p>Dans le cas où on transcrit les préliminaires de l'édition source, ils peuvent
+                    être encodés en utilisant soit le <gi>div</gi> générique soit des éléments plus
+                    spécifiques,  à savoir <specList>
                         <specDesc key="docAuthor"/>
                         <specDesc key="docDate"/>
                         <specDesc key="docEdition"/>
@@ -64,16 +66,17 @@
                     </specList></p>
             </div>
             <div>
-                <head>Divisions and their components</head>
-                <p>The <gi>div</gi> element is used for any structural subdivision of a text, such
-                    as a chapter, section, subsection etc. The <att>type</att> attribute is used to
-                    distinguish divisions with different functions; its value should be taken from
-                    the following list: <specList>
+                <head>Composants des divisions</head>
+                <p>L'élément <gi>div</gi> s'applique à n'importe quel type de division d'un texte;
+                    par ex: un chapitre, une section, ou sous section etc: Son attribut
+                        <att>type</att> sert à distinguer les divisions selon leur fonction Cet
+                    attribut doit fournir une valeur choisie dans la liste suivante: <specList>
                         <specDesc key="div" atts="type"/>
+                        <!--    à compléter -->
                     </specList>
                 </p>
-                <p>A division will typically begin with at least one heading, and may have several.
-                    The following elements are from the divLiminal class are used to mark these: <specList>
+                <p>D'habitude une division contiendra au moins un titre au début: Les éléments
+                    suivants servent à distinguer d'autres types de texte liminaire : <specList>
                         <specDesc key="head"/>
                         <specDesc key="byline"/>
                         <specDesc key="dateline"/>
@@ -83,12 +86,13 @@
                         <specDesc key="salute"/>
                     </specList></p>
                 <div>
-                    <head>Chunks</head>
-                    <p>In a prose text, the division will be made up of paragraphs, or other blocks,
-                        lists, etc. In a poetic text, there will be verse lines, possibly grouped
-                        into stanzas. In a dramatic text, there will be speeches, each containing a
-                        speaker identifiers and either a paragraph or some verse. The following
-                        elements are used to encode these components: <specList>
+                    <head>morceaux</head>
+                    <p>Pour un texte en prose, les divisions contiendront des paragraphes, ou
+                        d'autres blocs pareils, des listes, etc. Pour un texte poétique, il y aura
+                        des vers, facultativement regroupés en strophes. Pour un texte de theatre,
+                        il y aura des discours, chacun ayant une identification de la personne qui
+                        parle, suivi d'un morceau de prose ou de vers.  Les elements suivants sont
+                        fourni pour encoder de tels composants  : <specList>
                             <specDesc key="p"/>
                             <specDesc key="ab"/>
                             <specDesc key="list"/>
@@ -99,15 +103,16 @@
                             <specDesc key="sp"/>
                             <specDesc key="speaker"/>
                         </specList></p>
-                    <p>Notes and stage directions are represented using the following elements: <specList>
+                    <p>Les notes et les didascalies,  peuveunt apparaitre au sein des autres
+                        morceaux ou entre morceaux Ils sont représentés par les éléments suivants:  <specList>
                             <specDesc key="stage"/>
                             <specDesc key="note"/>
                         </specList></p>
                 </div>
                 <div>
-                    <head>Phrase level components</head>
-                    <p>The following elements are used to indicate commonly distinguished types of
-                        phrase : <specList>
+                    <head>Composants du niveau phrase</head>
+                    <p>Les éléments suivants sont utilisés pour signaller des distinctions au niveau
+                        de phrase : <specList>
                             <specDesc key="hi"/>
                             <specDesc key="q"/>
                             <specDesc key="foreign"/>
@@ -115,29 +120,30 @@
                             <specDesc key="title"/>
                             <specDesc key="name"/>
                         </specList></p>
-                    <p>The generic <gi>seg</gi> is available to mark any other word or phrase to be
-                        distinguished for any other reason: <specList>
+                    <p>L'element <gi>seg</gi> est disponible pour signaller n'importe quel autre
+                        distinction souhaite : <specList>
                             <specDesc key="seg" atts="type subtype"/>
                         </specList>
                     </p>
                 </div>
                 <div>
                     <head>Milestones and pointers</head>
-                    <p>The following elements are used to indicate significant milestones occurring
-                        throughout the text <specList>
+                    <p>Les éléments suivants sont utilisés pour indiquer les frontières
+                        significatives ou bornes d'un texte<specList>
                             <specDesc key="milestone"/>
                             <specDesc key="cb"/>
                             <specDesc key="lb"/>
                             <specDesc key="pb"/>
                         </specList></p>
-                    <p>The following element is used to represent a cross reference of any kind: <specList>
+                    <p>L'élément suivant est utilisé pour indiquer tout type de reférence : <specList>
                             <specDesc key="ref"/>
                         </specList>
                     </p>
                 </div>
                 <div>
                     <head>Editorial interventions</head>
-                    <p>The following elements are used to indicate variation in the transcription.<specList>
+                    <p>Les éléments suivants sont utilisés pour indiquer des interventions
+                        éditoriales dans la transcription d'un document source.<specList>
                             <specDesc key="add"/>
                             <specDesc key="del"/>
                             <specDesc key="corr"/>
@@ -149,8 +155,9 @@
                 </div>
                 <div>
                     <head>Non-textual components</head>
-                    <p>The following elements are used for non-textual components such as graphics,
-                        tables, music, or formulae: <specList>
+                    <p>Les éléments suivants sont utilisés pour indiquer la présence des composants
+                        nontextuels tels les  graphies, les tables, la musique ou les  formules de
+                        math: <specList>
                             <specDesc key="figure"/>
                             <specDesc key="graphic"/>
                             <specDesc key="figDesc"/>
@@ -164,9 +171,8 @@
                 </div>
                 <div>
                     <head>Bibliographic elements</head>
-                    <p>The following specialist elements are used for marking up the internal
-                        structure of bibliographic descriptions 
-                        <specList>
+                    <p>Les éléments suivants sont utilisés  pour l'encodage des descriptions
+                        bibliographiques <specList>
                             <specDesc key="author"/>
                             <specDesc key="bibl"/>
                             <specDesc key="biblScope"/>
@@ -178,13 +184,13 @@
                             <specDesc key="respStmt"/>
                             <specDesc key="series"/>
                             <specDesc key="listBibl"/>
-                        </specList>  </p>
+                        </specList>
+                    </p>
                 </div>
             </div>
             <div>
                 <head>Metadata</head>
-                <p>Nous utilisons un sous ensemble des éléments proposés pour le TEI Header 
-                    <specList>
+                <p>Nous utilisons un sous ensemble des éléments proposés pour le TEI Header <specList>
                         <specDesc key="availability"/>
                         <specDesc key="change"/>
                         <specDesc key="creation"/>
@@ -214,7 +220,7 @@
             </div>
             <div>
                 <head>Facsimilés</head>
-                <p>Pour les éditions qui comprennent des pages images en facsimilé nous poutrrions
+                <p>Pour les éditions qui comprennent des pages images en facsimilé nous pourrions
                     utiliser ces éléments pour gérer la correspondence image texte <specList>
                         <specDesc key="surfaceGrp"/>
                         <specDesc key="surface"/>
@@ -233,8 +239,9 @@
                         <classSpec ident="att.dimensions" type="atts" mode="delete"/>
                         <classSpec ident="att.divLike" type="atts" mode="delete"/>
                         <classSpec ident="att.global.linking" type="atts" mode="delete"/>
-                  <!--      <classSpec ident="att.global.change" type="atts" mode="delete"/>                 
-                -->        <classSpec ident="att.sortable" type="atts" mode="delete"/>
+                        <!--      <classSpec ident="att.global.change" type="atts" mode="delete"/>                 
+                -->
+                        <classSpec ident="att.sortable" type="atts" mode="delete"/>
                         <classSpec ident="att.spanning" type="atts" mode="delete"/>
                     </specGrp></p>
                 <p>Nous simplifions d'autres classes d'attribut : <specGrp xml:id="simplified">
@@ -299,8 +306,9 @@
                     </attList>
                 </classSpec>
             </div>
-            <div><head>Suppression d'attributs locales</head>
-            <!-- candidates for local suppression:
+            <div>
+                <head>Suppression d'attributs locales</head>
+                <!-- candidates for local suppression:
                 
                 TEI@version
                 change@target
@@ -313,9 +321,9 @@
                 
                 
                 -->
-                </div>
+            </div>
             <div>
-                <head>Selection des elements</head>
+                <head>Specification du schéma</head>
                 <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI" xml:lang="en"
                     targetLang="en">
                     <moduleRef key="core"
