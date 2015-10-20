@@ -26,6 +26,7 @@
                 <p>Une édition PUCC correspond à un document TEI unitaire, encodé avec les éléments
                     suivants : <specList>
                         <specDesc key="TEI"/>
+                        <specDesc key="teiCorpus"/>
                         <specDesc key="text"/>
                         <specDesc key="teiHeader"/>
                         <specDesc key="facsimile"/>
@@ -152,6 +153,7 @@
                             <specDesc key="orig"/>
                             <specDesc key="choice"/>
                         </specList></p>
+                    <!-- add app rdg lem rdgGrp ?-->
                 </div>
                 <div>
                     <head>Non-textual components</head>
@@ -185,6 +187,10 @@
                             <specDesc key="series"/>
                             <specDesc key="listBibl"/>
                         </specList>
+                        <!-- remove 
+                            licence@cert
+                            sourceDesc/table 
+                            -->
                     </p>
                 </div>
             </div>
@@ -239,13 +245,13 @@
                         <classSpec ident="att.dimensions" type="atts" mode="delete"/>
                         <classSpec ident="att.divLike" type="atts" mode="delete"/>
                         <classSpec ident="att.global.linking" type="atts" mode="delete"/>
-                        <!--      <classSpec ident="att.global.change" type="atts" mode="delete"/>                 
-                -->
+                      <classSpec ident="att.global.change" type="atts" mode="delete"/>                 
+                
                         <classSpec ident="att.sortable" type="atts" mode="delete"/>
                         <classSpec ident="att.spanning" type="atts" mode="delete"/>
                     </specGrp></p>
                 <p>Nous simplifions d'autres classes d'attribut : <specGrp xml:id="simplified">
-                        <classSpec ident="att.global.rendition" type="atts" mode="change"
+                      <!--  <classSpec ident="att.global.rendition" type="atts" mode="change"
                             module="tei">
                             <attList>
                                 <attDef ident="rendition" mode="delete"/>
@@ -262,7 +268,7 @@
                                     <datatype><rng:text/></datatype>
                                 </attDef>
                             </attList>
-                        </classSpec>
+                        </classSpec>-->
                         <classSpec ident="att.global" mode="change" type="atts" module="tei">
                             <attList>
                                 <attDef ident="xml:base" mode="delete"/>
@@ -324,27 +330,30 @@
             </div>
             <div>
                 <head>Specification du schéma</head>
-                <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI" xml:lang="en"
+                <schemaSpec ident="tei" docLang="fr" prefix="tei_" start="TEI teiCorpus" xml:lang="en"
                     targetLang="en">
                     <moduleRef key="core"
                         include="add choice corr del author bibl biblScope cb date
-                    editor foreign graphic head  hi imprint  item l label 
+                    editor foreign graphic head  hi imprint index item l label 
                     lb lg list listBibl milestone name note orig p pb  pubPlace publisher q 
-                    ref reg resp respStmt series sp speaker stage title"/>
+                    ref reg resp respStmt series sp speaker stage teiCorpus term title"/>
                     <moduleRef key="tei"/>
                     <moduleRef key="header"
-                        include="availability change creation edition 
+                        include="authority availability change creation distributor edition 
                     editionStmt editorialDecl encodingDesc extent
-                    fileDesc funder idno langUsage language licence 
+                    fileDesc funder idno keywords langUsage language licence 
                     listChange listPrefixDef notesStmt prefixDef
                     profileDesc projectDesc publicationStmt
                     revisionDesc sourceDesc teiHeader textClass titleStmt"/>
+                    <!-- publicationstmt shd just have authority and distributor not publisher -->
                     <moduleRef key="textstructure"
                         include="TEI back body byline dateline div docAuthor docDate docEdition 
                     docImprint docTitle epigraph front imprimatur text titlePage titlePart opener closer signed salute"/>
                     <moduleRef key="figures"
                         include="cell figDesc figure formula notatedMusic row table"/>
                     <moduleRef key="linking" include="ab seg"/>
+                    <!-- separate odd for entities person place etc. -->
+                    
                     <moduleRef key="transcr" include="facsimile line surfaceGrp surface zone"/>
                     <elementSpec ident="div" mode="change" module="textstructure">
                         <attList>
@@ -358,6 +367,22 @@
                                     </valItem>
                                     <valItem ident="preface">
                                         <desc>prefatory comments</desc>
+                                    </valItem>
+                                    <valItem ident="other">
+                                        <desc>autre</desc>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            <attDef ident="subtype" mode="change">
+                                <valList mode="replace" type="semi">
+                                    <valItem ident="livre">
+                                        <desc>livre</desc>
+                                    </valItem>
+                                    <valItem ident="chapitre">
+                                        <desc>chapitre</desc>
+                                    </valItem>
+                                    <valItem ident="section">
+                                        <desc>section</desc>
                                     </valItem>
                                     <valItem ident="other">
                                         <desc>autre</desc>
