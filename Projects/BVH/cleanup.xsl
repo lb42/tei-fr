@@ -345,10 +345,12 @@
   
   <xsl:template match="tei:titlePage/tei:figure/tei:figDesc">
     <xsl:element name="figDesc"  namespace="http://www.tei-c.org/ns/1.0" >
+      <xsl:if test="preceding-sibling::tei:graphic/@xml:base">
     <xsl:element name="ref"  namespace="http://www.tei-c.org/ns/1.0" >
       <xsl:attribute name="target"><xsl:value-of select="preceding-sibling::tei:graphic/@xml:base"/></xsl:attribute>
       <xsl:apply-templates/>
     </xsl:element>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
   
@@ -363,11 +365,13 @@
           <xsl:apply-templates select="."/>
         </xsl:for-each>
       </xsl:element>
+      <xsl:if test="tei:surrogates/tei:bibl">
       <xsl:element name="listBibl" namespace="http://www.tei-c.org/ns/1.0" >
         <xsl:for-each select="tei:adminInfo/tei:recordHist/tei:source/tei:listBibl/tei:bibl">
           <xsl:apply-templates select="."/>
         </xsl:for-each>        
-      </xsl:element>      
+      </xsl:element> 
+      </xsl:if>
     </xsl:element>
     
   </xsl:template>
