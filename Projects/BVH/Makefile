@@ -17,11 +17,11 @@ FILES= \
 	B360446201_B343_1_tei.xml \
 	B360446201_B343_2_tei.xml \
 	B360446201_THIA63_1_tei.xml \
-	B372615206_11923_tei.xml \
 	B372615206_1263_tei.xml \
 	B372615206_3436_tei.xml \
 	B372615206_4023_tei.xml \
 	B372615206_4040_tei.xml \
+	B372615206_11923_tei.xml \
 	B372616101_2950_tei.xml \
 	B372616101_3536_tei.xml \
 	B372616101_3537_tei.xml \
@@ -41,30 +41,21 @@ FILES= \
 	B751131011_RES_Y2_2125_tei.xml \
 	B751131011_RES_Y2_2169_tei.xml \
 	B751131011_RES_YD_1184_tei.xml \
+	B751131011_Y2_251_tei.xml \
 	B751131011_Y2_2126_tei.xml \
 	B751131011_Y2_2146_tei.xml \
-	B751131011_Y2_251_tei.xml \
 	B751131011_Y22789_tei.xml \
-	B751131011_YE4769_tei.xml \
 	B751131011_YE645_tei.xml \
+	B751131011_YE4769_tei.xml \
 	B751131015_PYC612_tei.xml \
 	B751131015_X1888_tei.xml \
-	B751131015_YE11562_tei.xml \
 	B751131015_YE1457_1460_tei.xml \
 	B751131015_YE1735_tei.xml \
+	B751131015_YE11562_tei.xml \
 	B751131015_Z1918_tei.xml \
 	B759999999_Y2_2162_tei.xml \
 	B759999999_Y2_2164_tei.xml \
 	B861946101_DP1139_tei.xml \
-	XUVA_Gordon1543_B53_tei.xml \
-	XUVA_Gordon1543_K43_tei.xml \
-	XUVA_Gordon1563_R656b_tei.xml \
-	XUVA_Gordon1563_R656_tei.xml \
-	XUVA_Gordon1563_R65b_2_tei.xml \
-	XUVA_Gordon1563_R66_tei.xml \
-	XUVA_Gordon1563_R67b_tei.xml \
-	XUVA_Gordon1564_R65_tei.xml \
-	XUVA_Gordon1578_L47_tei.xml \
 	FRAD0330635101_1B252_179_tei.xml \
 	FRAD0330635101_1B257_084_tei.xml \
 	FRAD0330635101_1B258_149_tei.xml \
@@ -112,12 +103,15 @@ FILES= \
 	FRAD0330635101_1B305_083_tei.xml \
 	FRAD0330635101_1B305_101_tei.xml \
 	FRAD0330635101_1B305_228_tei.xml \
-	B330636101_S1238I_tei.xml \
-	B330636101_S1238II_tei.xml \
-	B330636101_S1238III_tei.xml \
-	M0275_01_tei.xml \
-	M0275_02_tei.xml \
-	B412696201_FB381_tei.xml \
+	XUVA_Gordon1543_B53_tei.xml \
+	XUVA_Gordon1543_K43_tei.xml \
+	XUVA_Gordon1563_R65b_2_tei.xml \
+	XUVA_Gordon1563_R66_tei.xml \
+	XUVA_Gordon1563_R67b_tei.xml \
+	XUVA_Gordon1563_R656_tei.xml \
+	XUVA_Gordon1563_R656b_tei.xml \
+	XUVA_Gordon1564_R65_tei.xml \
+	XUVA_Gordon1578_L47_tei.xml \
 
 check:
 	cd $(CORPUS); for f in $(FILES) ; do \
