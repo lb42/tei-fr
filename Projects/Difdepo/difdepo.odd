@@ -15,6 +15,8 @@
       </fileDesc>
       <revisionDesc>
          <listChange>
+            <change when="2015-10-15">hand edited extensively</change>
+            
             <change when="2015-02-10">first draft generated</change>
          </listChange>
       </revisionDesc>
@@ -50,8 +52,9 @@
             <!--Checking module namesdates-->
             <classRef key="model.persNamePart"/>
       <!--      <moduleRef key="namesdates" include="orgName persName placeName"/>-->
-<elementRef key="orgName"/>
-            <elementRef key="persName"/>
+
+            <elementRef key="orgName"/>
+           
             <elementRef key="placeName"/>
             
             <elementSpec ident="persName"  mode="change">
@@ -206,6 +209,15 @@
                include="p hi term unclear name date ref label pb respStmt resp teiCorpus title bibl meeting list item"/>
 
             <elementSpec ident="bibl" mode="change">
+                      <content >
+                     <alternate>
+                        <elementRef key="meeting"/>
+                        <elementRef key="p"/>
+                     </alternate>
+                  </content><attList>
+                     <attDef ident="type" mode="delete"/>
+                  </attList>
+                  
 
                <exemplum>
                   <egXML xmlns="http://www.tei-c.org/ns/Examples"><bibl><meeting><date
@@ -254,17 +266,17 @@
                   <attDef ident="subtype" mode="delete"/> 
                </attList>
                <exemplum>
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples"><label type="rubrique">Erudition</label> :
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"><p><label type="rubrique">Erudition</label> :
                         un article d’<persName>E. Sanguineti </persName>( ?) cet été sur l’Oulipo et
                         la <term>littérature définitionnelle</term> (il présente un <term>plagiaire
-                           par anticipation</term>). </egXML>
+                           par anticipation</term>).</p> </egXML>
                </exemplum>
             </elementSpec>
 
             <elementSpec ident="meeting" mode="change">
                <content>
                   <elementRef key="date"/>
-                  <elementRef key="placeName"/>
+                  <elementRef key="placeName" minOccurs="0"/>
                   <elementRef key="list"/>
                </content>
                <exemplum>
@@ -319,6 +331,12 @@
                   <attDef ident="type" mode="delete"/>
                </attList>
             </elementSpec>
+            <elementSpec ident="sourceDesc" mode="change">
+               <content>
+                  <elementRef key="bibl"/>
+               </content>
+            </elementSpec>
+            
             <!--Checking module verse-->
             <!--Checking module msdescription-->
             <!--Checking module transcr-->
