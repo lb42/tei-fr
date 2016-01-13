@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="fr">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Anti-seche : TP sur les manuscrits TEI-XML</title>
+                <author>Lou Burnard Consulting</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>janvier 2016</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Lou Burnard Consulting</publisher>
+                <availability>
+                    <p>Freely available for use and derivative works under a Creative Commons
+                        Attribution license.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Various previous talks, TEI Guidelines, etc.</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+            <change when="2016-01-12"><name>Lou</name>first draft</change>
+           
+        </revisionDesc>
+    </teiHeader><text><body>
+    <div>
+        <head>Ex 1: Jeanne</head>
+        <list>
+            <item>Visualisez les trois fichiers <ident>jeanne-1.jpg</ident>,
+                    <ident>jeanne-2.jpg</ident> et <ident>jeanne-3.jpg</ident></item>
+            <item>Ouvrez le fichier <ident>jeanne-0.xml</ident> avec oXyGen </item>
+            <item>Enlevez les balises &lt;-- et --&gt; : qu'est-ce qui arrive?</item>
+            <item>Avec CTRL-F, cherchez tous les &amp; et les remplacez par des &amp;amp; :
+                qu'est-ce qui arrive?</item>
+            <item>Séléctionnez tout le texte et tapez CTRL-E pour le baliser avec un seul <gi>p</gi>
+                d'abord</item>
+            <item>Divisez le texte en plusieurs <gi>p</gi> en utilisant CTRL-MAJ-d</item>
+            <item>Séléctionnez les mots en Latin ou en Grecque : utilisez CTRL-E pour les baliser
+                    <gi>foreign</gi></item>
+            <item>Ajoutez un attribut <code>xml:lang='LA'</code> pour les phrases latines, ou
+                    <code>xml:lang='GR-LA'</code> pour les phrases grecques</item>
+            <item>Retrouvez les mots qui sont biffés dans l'originel : utilisez CTRL-E pour les
+                baliser <gi>del</gi>
+            </item>
+            <item>En comparaisant soigneusement images et transcription, retrouvez des mots qui ont
+                étés développés d'un mot abrégé en l'originel ; balisez ces mots avec
+                <gi>expan</gi></item>
+            <item>Utilisez CTRL-F pour rendre explicites toutes les coupures de ligne en ajoutant
+                une balise <tag>lb/</tag>. Astuce: vous pouvez signaler une coupure de ligne en
+                tapant CTRL+RETOUR</item>
+         
+        </list>
+    </div>
+    <div>
+        <head>Ex 2: Lettre de Vinet</head>
+        <list>
+            <item>Visualisez le fichier <ident>vinet.jpg</ident> et ouvrez le fichier
+                    <ident>vinet-0.xml</ident> avec oXyGen </item>
+            <item>Enlevez les balises &lt;-- et --&gt; </item>
+            <item>Ajoutez d'abord de la structure : <list><item>balisez le mot initiale
+                            <q>Monsieur</q> comme <gi>salute</gi>; </item><item>balisez la phrase
+                        finale <q>Vostre humble serviteur Elie Vinet</q> comme <gi>signed</gi>;
+                        </item><item>balisez tout la reste (entre les deux) avec <gi>p</gi>.
+                    </item></list></item>
+            <item>Indiquez que <q>Cadinal</q> serait une erreur (avec <gi>sic</gi>)</item>
+            <item>Indiquez que <q>par</q> est un ajout (en dessus de ligne) avec <tag>add place="above"</tag>></item>
+            <item>Indiquez les ratures (avec <gi>del</gi>); si vous n'etes pas certain/e des mots raturés
+               vous pouvez l'indiquer avec <gi>unclear</gi>; si vous n'arrivez pas de tout a les lire,
+                il faut le signaller avec <gi>gap</gi> ; supprimez les asterix</item>
+            <item>Traitez quelques abréviations avec <gi>expan</gi>, <gi>abbr</gi>, et
+                    <gi>choice</gi></item>
+            <item>Indiquez que la phrase <q>apud Medulos</q> est du latin avec la balise <tag>foreign
+                xml:lang="lat"</tag></item>
+          
+            <item>N'oubliez pas de prendre le crédit pour vos travaux en modifiant l'entête ! Il
+                s'agit d'ajouter encore un élément <gi>change</gi> au sein du <gi>revisionDesc</gi>.
+            </item>
+        </list>
+    </div>
+        <div>
+            <head>Ex 3 : Visualisation</head>
+            <list>
+                <item>Revenez sur votre version de la lettre de Vinet, ou la version que je vous propose
+                    dans <ident>vinet-corr.xml</ident>
+                </item>
+                <item>Ajoutez un lien vers le fichier page image, en inserant une balise <code>&lt;pb
+                    n="1" facs="vinet.jpg"/></code> devant le premier <gi>lb</gi> du fichier</item>
+                <item>La mode Auteur permet de visualiser l'effet de quelques uns des balises, mais pas
+                    tous</item>
+                <item>Essayez d'autres transformations avec Oxygen <list>
+                    <item>Ouvrez le dialog <ident>Configurer les Scénario(s) de
+                        Transformation</ident></item>
+                    <item>Dans la liste des scénarios qui s'affiche, selectionnez TEI P5 XHTML et TEI P5
+                        DOCX</item>
+                    <item>Cliquez sur <ident>Appliquer associés (2)</ident></item>
+                </list></item>
+            </list>
+        </div>
+</body></text>
+</TEI>

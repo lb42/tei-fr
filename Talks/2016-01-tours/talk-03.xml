@@ -1,0 +1,1001 @@
+<?xml version="1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xml:lang="fr">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Comment se servir des TEI Guidelines? </title>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>janvier 2015</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <distributor>Lou Burnard Consulting</distributor>
+        <availability>
+          
+          <p>Freely available for use and derivative works under a Creative Commons Attribution
+            license.</p>
+        </availability>
+        <date>2012-01-24</date>
+      </publicationStmt>
+    
+      <sourceDesc>
+        <p>Various previous talks, TEI Guidelines, etc.</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2015-01-15">As used for Tours formation </change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <!-- d'abord un peu de contextualisation -->
+      <div>
+        <head>Les Cinq Etapes du chemin de l'Eveil TEI</head>
+        <list type="ordered">
+          <item>Modelisation : quels sont les buts et les objets de votre projet ?</item>
+          <item>Orientation : est-ce que vos objets sont déjà reconnus par la TEI ?</item>
+          <item>Declaration : comment créer une specification TEI-conforme ? </item>
+          <item>Documentation : comment documenter vos pratiques TEI ?</item>
+          <item>Validation : comment valider vos efforts ?</item>
+        </list>
+      </div>
+      <div xml:id="model">
+        <head>Modelisation</head>
+        <p>La modelisation de vos données est une préalable essentiel. Que vous vous servez de UML,
+          de RDBMS, de SKOS, ou quoique ça soit d'autre, si vous n'avez pas un modèle explicite des
+          choses que vous espérez gérer, vous aurez de grands difficultés.</p>
+        <figure>
+          <graphic url="../Graphics/ceci-nest-pas-une-pipe.jpg" height="72%"/>
+        </figure>
+      </div>
+      <div>
+        <head>Analyse des données classique</head>
+        <p>On identifie... <list>
+            <item>les "objets d'interêt"</item>
+            <item>leurs attributs et propriétés</item>
+            <item>les relations entre objets</item>
+            <item>les procédures/traitements essentiels envisagés </item>
+          </list>
+        </p>
+        <p rend="box">Ce travail est essentiel pour n'importe quel projet d'informatisation</p>
+      </div>
+      <div xml:id="map">
+        <head>Orientation</head>
+        <figure>
+          <graphic url="../Graphics/sweeties.jpg"/>
+        </figure>
+      </div>
+      <div>
+        <head>Comment s'orienter?</head>
+        <p>Les TEI Guidelines, imprimées ou en ligne, se divisent en deux gros parties : <list>
+            <item>une séquence de 23 chapitres, dont la plupart correspondent à un module</item>
+            <item>des listes alphabétiques de définitions exhaustives de classes (183), d'éléments
+              (546), d'attributs (470), de macros(8), et vde types de données (28) .</item>
+          </list>
+        </p>
+        <p rend="box">Comment savoir quel élément (etc) choisir pour tel ou tel entité identifiée
+          dans votre analyse préalable ? Comment savoir que vous avez besoin d'une
+            <soCalled>licorne</soCalled>? </p>
+      </div>
+      <div>
+        <head>La triste vérité...</head>
+        <list>
+          <item>Désolé, mais il n'y a aucune méthode scientifique ; aucun raccourci pour cela... </item>
+          <item>Il faut étudier les exemplaires et les définitions pour savoir si cet élément TEI si
+            prometteur s'applique en effet à votre cas</item>
+          <item>comme c'est le cas pour d'autres types de mapping... </item>
+        </list>
+        <p>Pour chacun(e) des entités/concepts identifiés dans votre modèle, il faut décider : <list>
+            <item>quel objet TEI lui correspond parfaitement? (s'il existe)</item>
+            <item>quel objet TEI lui ressemble et quelles petites modifications seraient nécessaires
+              pour qu'il lui corresponde ?</item>
+            <item>quelle lacune TEI votre analyse vous permettra de corriger (oui, elles existent
+              les licornes !)</item>
+          </list></p>
+      </div>
+      <div>
+        <head>Par exemple... </head>
+        <figure>
+          <graphic url="../Graphics/guyDeWarwick-tp.jpg" height="98%"/>
+        </figure>
+        <cb/>
+        <figure>
+          <graphic url="../Graphics/guyDeWarwick-13.jpg" height="89%"/>
+        </figure>
+      </div>
+      <div>
+        <head>Structuration</head>
+        <list>
+          <item>C'est un livret de la bibliothèque bleue -- un <soCalled>chapbook</soCalled>--
+            organisé de manière traditionelle, avec des piéces liminaires (page à titre, une table
+            des matières) et plusieurs chapitres </item>
+          <item>chacun des chapitres contient : <list>
+              <item>un titre et une sommaire</item>
+              <item>des paragraphes narratives</item>
+              <item>des passages de dialogue</item>
+              <item>des noms de lieux, noms de lieux, noms d'évènement etc.</item>
+            </list></item>
+          <item>chaque page est dôtée de matières paratextuelles (signatures, etc.)</item>
+          <item>Et plusieurs images</item>
+        </list>
+      </div>
+     
+      <div rend="slide">
+        <head>Structure(s) d'un document TEI-XML</head>
+        <list>
+          <item>Chaque document TEI est représenté par un élément <gi>TEI</gi>, regroupant de texte
+            et des metadonnées </item>
+          <item>On peut également regrouper des <gi>TEI</gi> dans un <gi>teiCorpus</gi></item>
+        </list>
+        <p rend="box"> Le terme <term rend="it">document </term> n'a aucune définition formelle,
+          mais d'habitude il correspond à un object complet (un livre par ex). D'autres possibilités
+          ne sont pas exclus... </p>
+      </div>
+      <!-- <div rend="slide">
+        <head> Comment structurer un corpus TEI-XML?</head>
+        <p>
+          <graphic url="../Graphics/struct-2.png" height="80%"/>
+        </p>
+        <p>Le <gi>teiHeader</gi> d'un corpus rassemble les metadonnées communes à un ensemble de
+          documents TEI.</p>
+      </div>
+-->
+      <div>
+        <head>Un document TEI peut rassembler...</head>
+        <list>
+          <item>un ensemble de représentations visuelles (<gi>facsimile</gi>)</item>
+          <item>ou une transcription textuelle (<gi>text</gi>) </item>
+          <item>ou une transcription documentaire (<gi>sourceDoc</gi>) </item>
+          <item>ou ces trois types d'objet conjointement</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <TEI>
+            <teiHeader>
+              <!-- obligatoire :  métadonnées  -->
+            </teiHeader>
+            <facsimile>
+              <!-- facultatif :  rassemble des images de l'objet-->
+            </facsimile>
+            <sourceDoc>
+              <!-- facultatif :  transcription documentaire  de l'objet -->
+            </sourceDoc>
+            <text>
+              <!-- facultatif :  transcription textuelle  de l'objet -->
+            </text>
+          </TEI>
+        </egXML>
+      </div>
+      <div>
+        <head>Un TEI Corpus par contre.... </head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiCorpus>
+              <teiHeader>
+                <!-- obligatoire -->
+              </teiHeader>
+              <TEI>
+                <!-- obligatoire -->
+              </TEI>
+              <!-- encore d'elements <TEI>  -->
+            </teiCorpus>
+          </egXML>
+        </p>
+        <p rend="box">Cette structure servirait par ex à une collection de livres de cette sorte</p>
+      </div>
+      <div type="slide">
+        <head>L’entête TEI</head>
+        <p>Inspiré de la pratique AACR2, il contient quatre éléments principaux </p>
+        <list type="ordered">
+          <item><gi>fileDesc</gi>: une description bibliographique de la ressource et de ses
+            origines</item>
+          <item><gi>encodingDesc</gi>: une description du rapport entre la ressource et la source
+            (ou les sources) dont elle dérive</item>
+          <item><gi>profileDesc</gi>: des informations supplémentaires (non bibliographiques) sur la
+            ressource, par ex. les langues, les participants, les thèmes...</item>
+          <item><gi>revisionDesc</gi>: sommaire de l’historique des modifications de la ressource
+          </item>
+        </list>
+        <p rend="box">tous facultatifs, sauf le premier</p>
+      </div>
+      <div>
+        <head>L’entête minimal</head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <teiHeader>
+              <fileDesc>
+                <titleStmt>
+                  <title>titre de la ressource</title>
+                </titleStmt>
+                <publicationStmt>
+                  <p>agence de distribution de la source</p>
+                </publicationStmt>
+                <sourceDesc>
+                  <p>provenance de la source</p>
+                </sourceDesc>
+              </fileDesc>
+            </teiHeader>
+          </egXML>
+        </p>
+      </div>
+      <div>
+        <head>L'élément <gi>text</gi></head>
+        <p> Un text peut etre simple ou complexe : <list>
+            <item>un text simple est un objet autonome, complète en soi, par ex un roman, un poème </item>
+            <item>un text complèxe ou composé rassemble d'autres textes, par ex une anthologie, une
+              collection de poésies</item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>TEI text structure (1)</head>
+        <p>Un document simple : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <text>
+              <front>
+                <!-- facultatif -->
+              </front>
+              <body>
+                <!-- obligatoire -->
+              </body>
+              <back>
+                <!-- facultatif -->
+              </back>
+            </text>
+          </egXML>
+        </p>
+      </div>
+      <div>
+        <head>TEI text structure (2)</head>
+        <p>Un document composé : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <text>
+              <front>
+                <!-- ... -->
+              </front>
+              <group>
+                <text n="1">
+                  <body>
+                    <p>...</p>
+                  </body>
+                </text>
+                <text n="2">
+                  <body>
+                    <p>...</p>
+                  </body>
+                </text>
+              </group>
+              <back>
+                <!-- ... -->
+              </back>
+            </text>
+          </egXML>
+        </p>
+      </div>
+      <div rend="slide">
+        <head>Entrons dans le <gi>body</gi> d'un <gi>text</gi>... </head>
+        <p>D'habitude, on y trouve des <term>divisions</term>
+          <list type="unordered">
+            <item>qui s'emboitent</item>
+            <item>l'attribut <att>type</att> sert à distinguer les divisions par fonction ou par
+              niveau </item>
+            <item>l'attribut <att>n</att> fournit un nom ou un nombre pour une division déjà
+              numérotée d'une manière quelconque</item>
+            <item>l'attribut <att>xml:id</att> fournit une identifiant unique </item>
+            <item>l'attribut <att>xml:lang</att> identifie la langue (humaine) du contentu de la
+              division</item>
+          </list>
+        </p>
+        <p rend="box">Ces deux derniers sont deux des attributs dits <term>globaux</term> qui
+          peuvent s'attacher à n'importe quel élément TEI</p>
+      </div>
+      <div>
+        <head>Composants des divisions</head>
+        <p>Vous avez déjà rencontré ... </p><list>
+          <item>éléments liminaux spécialisés : <gi>head</gi>, <gi>trailer</gi>, etc.</item>
+          <item>en prose : les <gi>p</gi>, <gi>list</gi> etc. </item>
+          <item>en poésie : les <gi>lg</gi>, <gi>l</gi> ... </item>
+          <item>en drame : les <gi>sp</gi>, <gi>stage</gi> etc.</item>
+          <item>partout : les <gi>note</gi>, les <gi>bibl</gi>, les <gi>figure</gi> ... </item>
+        </list>
+      </div>
+      <div>
+        <head>Composants des composants des divisions</head>
+        <p>Vous avez déjà rencontré ... </p><list>
+          <item>éléments de repérage : les <gi>lb</gi>, <gi>pb</gi> etc.</item>
+          <item>éléments et attributs de mise-en-forme : <gi>hi</gi>, <att>rend</att>,
+              <att>rendition</att> etc.</item>
+          <item>éléments sémantiques : <gi>date</gi>, <gi>name</gi>, <gi>placeName</gi> etc.</item>
+          <item>éléments para-textuels : <gi>sic</gi>, <gi>corr</gi>, <gi>add</gi> etc.</item>
+          <item>etc etc etc</item>
+        </list>
+      </div>
+      <div rend="slide">
+        <head>Par exemple ...</head>
+        <!--<egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <body>
+            <head>Les Chouans</head>
+            <div type="partie" n="I" xml:id="CHOUAN0100">
+              <head>Première partie</head>
+              <head>L'embuscade</head>
+              <div n="1" type="chapitre" xml:id="CHOUAN0101">
+                <head>Chapitre premier</head>
+                <p>Dans les premiers jours de l'an VIII, au commencement de vendémiaire, ou, pour se
+                  conformer au calendrier actuel, vers la fin du mois de septembre 1799... </p>
+                <!-\- suite du chapitre 1 -\->
+              </div>
+              <div n="2" type="chapitre" xml:id="CHOUAN0102">
+                <head>Chapitre deuxieme</head>
+                <!-\- chapitre 2 -\->
+              </div>
+              <!-\- suite du premier livre -\->
+              <trailer> Fin de la premiere partie</trailer>
+            </div>
+            <div type="partie" n="II" xml:id="CHOUAN0200">
+              <head> Deuxieme partie</head>
+              <!-\-  deuxieme livre-\->
+            </div>
+            <!-\- d'autres livres -\->
+          </body>
+        </egXML>
+      </div>
+      <div>
+        <head>Ou, par exemple, le Michna </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <text>
+            <body>
+              <div type="seder" n="zeraim" xml:id="MISH1">
+                <div type="masechet" n="berakhot" xml:id="mish1_1">
+                  <div type="pereq" n="Me'eïmataï" xml:id="mish1_1_1">
+                    <div type="mishnah" n="m001" xml:id="mish1_1_1_1">
+                      <!-\- ... -\->
+                    </div>
+                    <div type="mishnah" n="m002" xml:id="mish1_1_1_2">
+                      <!-\- ... -\->
+                    </div>
+                    <!-\- mishnayot 3 à 9 -\->
+                  </div>
+                  <!-\- chapitres 2 à 9 -\->
+                </div>
+                <div type="masechet" n="peyah" xml:id="mish1_2">
+                  <div type="pereq" n="1" xml:id="mish1_2_1">
+                    <div type="mishnah" n="m0nn" xml:id="mish1_2_1_1">
+                      <!-\- ... -\->
+                    </div>
+                    <!-\- mishnayot 2 à 6 -\->
+                  </div>
+                  <!-\- chapitres  2 à 8 -\->
+                </div>
+                <!-\- masechta 3 à 11 -\->
+              </div>
+              <div type="seder" n="moed" xml:id="MISH2">
+                <!-\- masechta 1 à 12 -\->
+              </div>
+              <!-\- sederim 3 à 6  -\->
+            </body>
+          </text></egXML>
+      </div>
+      <div>
+        <head>Dans notre cas.... </head>-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+          <text>
+            <front>
+              <titlePage> ... </titlePage>
+              <!-- ... -->
+              <div type="prolog" xml:id="P1">
+                <head>Ici commence le prologue de lecteur</head>
+                <!-- ... -->
+                <trailer>Ici fine le prologue</trailer>
+              </div>
+            </front>
+            <body>
+              <div type="chap" xml:id="C1">
+                <head>Comment le conte Roalt avoit une belle fille nomee Felisse sur montant en
+                  beautee toutes autres dames et damoiselles et envoya querir Guyonet filz de son
+                  seneschal pour demeurer en sa court.</head>
+                <!-- ... -->
+              </div>
+            </body>
+            <back>
+              <!-- ... -->
+            </back>
+          </text></egXML>
+        <cb/>
+        <figure>
+          <graphic url="../Graphics/guyDeWarwick-13.jpg" height="89%"/>
+        </figure>
+      </div>
+      <div rend="slide">
+        <head>Composants des divisions</head>
+        <p>Qu'est-ce qu'on trouve dans une division ? <list type="unordered">
+            <item>Un ou plusieurs titres (au debut et/ou à la fin), balisés avec <gi>head</gi> ou
+                <gi>trailer</gi></item>
+            <item>de la prose, divisée en paragraphes (<gi>p</gi>) ou listes (<gi>list</gi>)
+              contenant des <gi>item</gi> et facuiltativement des <gi>label</gi>
+            </item>
+            <item>de la poésie, divisée en vers (<gi>l</gi>), facultativement regroupés en strophes
+                (<gi>lg</gi>)</item>
+            <item>de la théatre, divisée en énoncés (<gi>sp</gi>), contenant une mélange de
+                <gi>p</gi> ou de <gi>l</gi> facultativement entrecoupée de didascalies
+                (<gi>stage</gi>)</item>
+          </list>
+        </p>
+        <p rend="box">... et bien sûr des sous-divisions </p>
+      </div>
+      <div rend="slide">
+        <head>Exemple prosaique ... </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" corresp="#fr-ex-Flaubert_Sal">
+          <div n="1">
+            <head>La Fête</head>
+            <p>C'était à Mégara, faubourg de Carthage, dans les jardins d'Hamilcar.</p>
+            <p>Les soldats qu'il avait commandés en Sicile se donnaient un grand festin pour
+              célébrer le jour anniversaire de la bataille d'Eryx, et comme le maître était absent
+              et qu'ils se trouvaient nombreux, ils mangeaient et ils buvaient en pleine
+              liberté.</p>
+            <!-- ... -->
+          </div>
+        </egXML>
+      </div>
+      <div>
+        <head>Exemple poétique </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" corresp="#fr-ex-Baudelaire-chats"
+          rend="tiny">
+          <div type="sonnet">
+            <lg type="quatrain">
+              <l>Les amoureux fervents et les savants austères</l>
+              <l>Aiment également, dans leur mûre saison,</l>
+              <l>Les chats puissants et doux, orgueil de la maison,</l>
+              <l>Qui comme eux sont frileux et comme eux sédentaires.</l>
+            </lg>
+            <lg type="quatrain">
+              <l>Amis de la science et de la volupté</l>
+              <l>Ils cherchent le silence et l'horreur des ténèbres ;</l>
+              <l>L'Erèbe les eût pris pour ses coursiers funèbres,</l>
+              <l>S'ils pouvaient au servage incliner leur fierté.</l>
+            </lg>
+            <lg type="tercet">
+              <l>Ils prennent en songeant les nobles attitudes</l>
+              <l>Des grands sphinx allongés au fond des solitudes,</l>
+              <l>Qui semblent s'endormir dans un rêve sans fin ;</l>
+            </lg>
+            <lg type="tercet">
+              <l>Leurs reins féconds sont pleins d'étincelles magiques,</l>
+              <l>Et des parcelles d'or, ainsi qu'un sable fin,</l>
+              <l>Etoilent vaguement leurs prunelles mystiques.</l>
+            </lg>
+          </div>
+        </egXML>
+      </div>
+      <div rend="slide">
+        <head>Exemples dramatiques (1) </head>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">
+          <sp who="#V">
+            <speaker>Vladimir</speaker>
+            <p>Relève ton pantalon.</p>
+          </sp>
+          <sp who="#E">
+            <speaker>Estragon</speaker>
+            <p>Que j'enlève mon pantalon ?</p>
+          </sp>
+          <sp who="#V">
+            <speaker>Vladimir</speaker>
+            <p><emph>RE</emph>lève ton pantalon.</p>
+          </sp>
+          <sp who="#E">
+            <speaker>Estragon</speaker>
+            <p>C'est vrai. </p>
+            <stage>Il relève son pantalon. Silence.</stage>
+          </sp>
+          <sp who="#V">
+            <speaker>Vladimir</speaker>
+            <p>Alors, on y va ?</p>
+          </sp>
+          <sp who="#E">
+            <speaker>Estragon</speaker>
+            <p>Allons-y.</p>
+          </sp>
+          <stage>Ils ne bougent pas.</stage>
+          <list type="speakers">
+            <item xml:id="V">Vladimir</item>
+            <item xml:id="E">Estragon</item>
+          </list>
+        </egXML>
+      </div>
+      <div rend="slide">
+        <head>Exemples dramatiques (2)</head>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><sp>
+            <speaker>Alceste.</speaker>
+            <l>Non : j' ai résolu de n' en pas faire un pas.</l>
+            <l part="I">J' ai tort, ou j' ai raison.</l>
+          </sp><sp>
+            <speaker>Philinte.</speaker>
+            <l part="F">Ne vous y fiez pas.</l>
+          </sp><sp>
+            <speaker>Alceste.</speaker>
+            <l part="I">Je ne remuerai point.</l>
+          </sp><sp>
+            <speaker>Philinte.</speaker>
+            <l part="F">Votre partie est forte,</l>
+            <l part="I">et peut, par sa cabale, entraîner...</l>
+          </sp><sp>
+            <speaker>Alceste.</speaker>
+            <l part="F">Il n' importe.</l>
+          </sp><sp>
+            <speaker>Philinte.</speaker>
+            <l part="I">Vous vous tromperez.</l>
+          </sp><sp>
+            <speaker>Alceste.</speaker>
+            <l part="F">Soit. J' en veux voir le suite.</l>
+          </sp></egXML>
+      </div>
+      <div rend="slide">
+        <head>Composants textuels typiques</head>
+        <list type="unordered">
+          <item>des séquences de mots qui sont (par convention) mises en evidence, par exemple pour
+            leur donner une emphase, parce qu'ils sont en langue étranger, ou cités etc, </item>
+          <item> des mots qui pourraient être d'interêt non-lexicale &#x201C;data-like&#x201D; (des
+            noms de lieu ou de personne, des dates, des chiffres ... )</item>
+          <item> des indications d'interventions éditorielles (corrections, normalisations, ajouts,
+            ratures...)</item>
+          <item> des références et des liens</item>
+          <item>listes, notes, annotations, graphies, tables, citations bibliographiques...</item>
+          <item>indications de structuration dans une autre hiérarchie, par exemple frontières de
+            pages</item>
+        </list>
+        <p rend="box">TEI fournit des balises pour toutes ces choses : mais il faut faire une choix,
+          selon les objectifs de son projet</p>
+      </div>
+      <div>
+        <head>La mise en evidence et son interprétation</head>
+        <p>On voit une partie en italique ou en petites capitales : et on se demande pourquoi... par
+          exemple :</p>
+        <figure>
+          <graphic width="80%" url="../Graphics/prevert.png"/>
+        </figure>
+      </div>
+      <div>
+        <head>La mise en evidence, et son interprétation - 1</head>
+        <p>Plusieurs politiques sont envisageables : <list>
+            <item> on signale la présence d'une mise en évidence sans distinction particulière avec
+                <gi>hi</gi> (highlighted : distinction typographique) <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <p>... mais Prévert pense que la <hi>parole</hi> convainc, et il continue « <hi>mais
+                    la brûlure de son regard Les rappelle à de bons sentiments</hi> », plus prompts
+                  à l'accord que les gens du <hi>Dîner de Têtes</hi>, ....</p>
+              </egXML>
+            </item>
+            <item> on essaie de distinguer l' <hi>objectif sémantique</hi> de ces mises en evidence
+              : en ce cas, il y a un <gi>emph</gi> (emphase linguistique), un <gi>quote</gi>
+              (citation) et un <gi>title</gi> (titre): <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples">
+                <p>... mais Prévert pense que la <emph>parole</emph> convainc, et il continue «
+                    <quote>mais la brûlure de son regard Les rappelle à de bons sentiments</quote>
+                  », plus prompts à l'accord que les gens du <title>Dîner de Têtes</title>, ....</p>
+              </egXML></item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>La mise en evidence et son interprétation - 2</head>
+        <p>
+          <list>
+            <item> on peut combiner ces deux niveaux de description ... <egXML rend="tiny"
+                xmlns="http://www.tei-c.org/ns/Examples"><p>... mais Prévert pense que la <emph
+                    rend="italic">parole</emph> convainc, et il continue « <q rend="italic">mais la
+                    brûlure de son regard Les rappelle à de bons sentiments</q> », plus prompts à
+                  l'accord que les gens du <title rend="italic">Dîner de Têtes</title>, ....</p>
+              </egXML>
+            </item>
+            <item>Les valeurs possibles de l'attribut <att>rend</att> sont à définir pour chaque
+              projet.</item>
+            <item>Des attributs complémentaires <att>style</att> ou <att>rendition</att> permettent
+              l'usage des systèmes déjà standardisés, notamment le CSS.</item>
+          </list></p>
+      </div>
+      <div rend="slide">
+        <head>Phrases en langues étrangères </head>
+        <list type="unordered">
+          <item>L'attribut <att>xml:lang</att> peut s'attacher à tout élément TEI</item>
+          <item>L'élément <gi>foreign</gi> est disponible s'il n'y a pas d'autre sémantique à
+            signaler</item>
+          <item>La langue est identifiée par son code normalisé ISO </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> As-tu lu <title xml:lang="de">Die
+            Dreigroschenoper </title>? </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> Tout d'un coup il exclame <foreign xml:lang="de"> himmel!
+          </foreign> </egXML>
+      </div>
+      <div rend="slide">
+        <head>Noms de lieux et de personnes</head>
+        <p>La balise <gi>rs</gi> (referring string) est très générique : <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que <rs
+                type="person">M. de Norpois</rs> fit à la maison, une année où je jouais encore aux
+                <rs type="place">Champs-Élysées</rs>, est resté dans ma mémoire, parce que
+              l’après-midi de ce même jour fut celui où j’allai enfin entendre <rs type="person">la
+                Berma</rs>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
+        <p>Les balises <gi>name</gi>, <gi>persName</gi>, ou <gi>persName</gi> sont plus spécifique :
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><p>Le premier dîner que
+                <persName ref="http://fr.wikipedia.org/wiki/Marquis_de_Norpois">M. de
+                Norpois</persName> fit à la maison, une année où je jouais encore aux
+                <placeName>Champs-Élysées</placeName>, est resté dans ma mémoire, parce que
+              l’après-midi de ce même jour fut celui où j’allai enfin entendre <name>la
+              Berma</name>, en « matinée », dans <title>Phèdre</title>...</p></egXML></p>
+        <p>Nous allons traîter ce sujet en plus de détail la semaine prochaine.</p>
+      </div>
+    
+      <div>
+        <head>Les références croisées et les liens</head>
+        <p>Pour relier deux endroits d’un ou plusieurs textes, on utilise l’un des éléments
+            <gi>ptr</gi> ou <gi>ref</gi>. <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples">Voir <ref target="#pv1894_61"> procès-verbal no
+              61</ref>.</egXML>
+          <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr target="#pv1894_61"
+            />.</egXML></p>
+        <p>L'attribut <att>target</att> spécifie l'objet ciblé par la référence, que ce soit en
+          fournissant l'identifiant d'un autre élément dans le même document, ou en fournissant une
+          adresse complète sur le Web (un URL) <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples">Voir <ptr
+              target="http://www.example.org/example.xml#pv1894_61"/></egXML></p>
+        <p>Dans ces exemples, on pointe sur la section suivante : <egXML rend="tiny"
+            xmlns="http://www.tei-c.org/ns/Examples"><div xml:id="pv1894_61">
+              <!-- ... -->
+            </div></egXML></p>
+        <p>Plusieurs autres attributs de type "pointeur" sont disponibles, fournissant une gamme de
+          type de liens plus spécialisés. </p>
+      </div>
+      <div>
+        <head>Expressions temporelles</head>
+        <p>Les dates qui figurent dans les textes manifestent beaucoup de variation lexicalle, pour
+          ne rien dire des variations des systèmes de calendrier. Pour comparer et contrôler de
+          telles expressions d'une manière efficace, il faut les normaliser. La TEI propose un
+          élément <gi>date</gi> pour identifier ces expressions, et plusieurs attributs pour leur
+          normalisation.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="1980-02-21">21 février
+            1980</date>
+          <date when="1990-02-21" xml:lang="en">21 September, 1990</date></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><date when="2001-09-11T12:48:00">11
+            septembre, neuf heures moins douze, EST</date>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> Décret de la Convention <date
+            when="1794-10-30">9 Brumaire An III</date></egXML>
+      </div>
+      <div>
+        <head>Les images</head>
+        <p>
+          <list>
+            <item><gi>graphic</gi> précise la location d'une image, illustration, etc. faisant
+              partie du texte)</item>
+            <item><gi>figure</gi> précise une partie iconographique plus complexe, rassemblant par
+              exemple plusieurs images, un titre, des <gi>figDesc</gi> pour les decrire</item>
+            <item>L'attribut <att>facs</att> fournit un lien externe sur une représentation
+              supplémentaire de la source encodée</item>
+            <item>L'attribut <att>url</att> par contre (sur <gi>graphic</gi>) fournit un lien sur
+              une image qui est intégrale à cette source </item>
+          </list>
+        </p>
+      </div>
+      <div>
+        <head>Par exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <pb n="15" facs="page_15.png"/>
+          <fw>fueillet premier.</fw>
+          <div><head>Comment le conte Roalt ... en sa court</head><figure>
+              <graphic url="p15_dtl.png"/>
+              <figDesc></figDesc>
+            </figure>
+            <p>En cette honnorable saison la regne dudit roy Athelstan... </p>...</div>
+        </egXML>
+        <cb/>
+        <p>
+          <graphic url="../Graphics/guyDeWarwick-15.jpg"/>
+        </p>
+      </div>
+      <div rend="slide">
+        <head>Bibliographies</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <bibl xml:id="MK_73">Sturm, U. &amp; Drang, F. : <title>Musikalische Katastrophe</title>.
+            (Berlin, W. de Gruyter, 1973)</bibl>
+        </egXML>
+        <list type="unordered">
+          <item>Une référence bibliographique peut être plus ou moins structurée, en se servant
+            d'éléments tels que <gi>author</gi>, <gi>editor</gi>, <gi>title</gi>, <gi>pubPlace</gi>,
+              <gi>publisher</gi>, <gi>series</gi> etc.</item>
+          <item>les conventions de présentation des références ne sont pas forcément à
+            encoder</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <bibl xml:id="MK73"><author>Sturm, U.</author>
+            <author>Drang, F.</author>
+            <title xml:lang="de" level="m">Musikalische Katastrophe </title>
+            <pubPlace>Berlin</pubPlace>
+            <publisher>W. de Gruyter</publisher>
+            <date>1973</date></bibl>
+        </egXML>
+      </div>
+      
+      <div>
+        <head>Et pour terminer, les notes</head>
+        <p>
+          <graphic url="../Graphics/perec.png"/></p>
+        <cb/>
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples" corresp="#fr-ex-Perec-esp"><div
+            n="3">
+            <p>J'écris : j'habite ma feuille de papier, je l'investis, je la parcours.</p>
+            <p>Je suscite des <hi>blancs</hi>, des <hi>espaces</hi> (sauts dans le sens :
+              discontinuités, passages, transitions). <note place="margin">J'écris dans la
+                marge...</note></p>
+            <p rend="indent3">Je vais <lb/>à la ligne. Je renvoie à une note en bas de page<note
+                place="foot">J'aime beaucoup les renvois en bas de page, même si je n'ai rien de
+                particulier à y préciser.</note></p>
+            <p rend="indent2">Je change de feuille.</p>
+          </div><pb n="20"/>
+        </egXML>
+      </div>
+      <div rend="slide">
+        <head>Vous vous sentez un peu accablé ?</head>
+        <p>Tout ceci n'est qu'une des manières de se servir de la TEI. </p>
+        <list type="unordered">
+          <item> TEI est un système <emph>modulaire</emph>. On s'en sert pour créer un système
+            d'encodage selon ses propres besoins, en sélectionnant des <term>modules</term>
+            spécifiés par la TEI</item>
+          <item>Chaque module définit un groupe d'éléments (et leurs attributs)</item>
+          <item>on peut sélectionner les éléments voulus, et même en changer des propriétés </item>
+          <item>on peut y mélanger des éléments nouveaux, ou bien natifs ou bien d'autres
+            standards</item>
+        </list>
+        <p rend="box">Il faut définir ses objets <emph>avant</emph> de se servir la TEI !</p>
+      </div>
+      <div rend="slide">
+        <head>La TEI facilite un balisage <soCalled>intelligent</soCalled>
+        </head>
+        <p>La TEI s'applique à l'encodage des... <list type="bulleted">
+            <item>composants structuraux et fonctionnels d'un texte </item>
+            <item>transcriptions diplomatiques des sources historiques, des images, des
+              annotations</item>
+            <item>liens, correspondances, alignements</item>
+            <item>données et entités : par exemple de temps, personnes, lieux ou événements</item>
+            <item>annotations peritextuelles et métatextuelles (correction, suppression,
+              ajouts)</item>
+            <item>analyses linguistiques</item>
+            <item>métadonnées de plusieurs types</item>
+            <item>... et définitions formelles de schéma XML !</item>
+          </list></p>
+        <p rend="box">On est vraiment gâté de choix ....</p>
+      </div>
+      <!--<div>
+        <head>Le cornucopia de balises TEI</head>
+        <p><graphic url="../Graphics/sweeties.jpg"/></p>
+      </div>
+
+      <div>
+        <head>Les TEI Guidelines</head>
+        <p>Dans ses 1 400 pp imprimées, vous trouverez : <list type="gloss">
+            <label>un lexique et une grammaire</label>
+            <item>22 <soCalled>modules</soCalled> regroupant en total 521 élément aui sont
+              d'ailleurs classifiés en 146 classes</item>
+            <label>des règles d'usage</label>
+            <item>7 185 lignes de règles exprimées en grammaire RELAXNG </item>
+            <label>des contraintes additionelles</label>
+            <item>21 types de données, plusieurs règles formalisées en Schematron</item>
+            <label>des règles / conventions d'utilisation</label>
+            <item><emph>beaucoup</emph> de prose</item>
+            <label>plusieurs exemples d'utilisation</label>
+            <item>dont au moins un par élément</item>
+          </list>
+        </p>
+        <p rend="box">Comment régler ces richesses?</p>
+      </div>
+
+-->
+      <div>
+        <head>Liste des modules TEI</head>
+        <table xmlns:tei="http://www.tei-c.org/ns/1.0" rend="rules" xml:id="tab_modlist">
+          <row>
+            <cell>analysis</cell>
+            <cell>Simple analytic mechanisms</cell>
+          </row>
+          <row>
+            <cell>certainty</cell>
+            <cell>Certainty and uncertainty</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>core</hi>
+            </cell>
+            <cell>éléments common to all TEI documents</cell>
+          </row>
+          <row>
+            <cell>corpus</cell>
+            <cell>Header extensions for corpus texts</cell>
+          </row>
+          <row>
+            <cell>declarefs</cell>
+            <cell>Feature system déclarations</cell>
+          </row>
+          <row>
+            <cell>dictionaries</cell>
+            <cell>Printed dictionaries</cell>
+          </row>
+          <row>
+            <cell>drama</cell>
+            <cell>Performance texts</cell>
+          </row>
+          <row>
+            <cell>figures</cell>
+            <cell>Tables, formulae, and figures</cell>
+          </row>
+          <row>
+            <cell>gaiji</cell>
+            <cell>Character and glyph documentation</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>header</hi>
+            </cell>
+            <cell>The TEI Header</cell>
+          </row>
+          <row>
+            <cell>iso-fs</cell>
+            <cell>Feature structures</cell>
+          </row>
+          <row>
+            <cell>linking</cell>
+            <cell>Linking, segmentation and alignment</cell>
+          </row>
+          <row>
+            <cell>msdescription</cell>
+            <cell>Manuscript Description</cell>
+          </row>
+          <row>
+            <cell>namesdates</cell>
+            <cell>Names and dates</cell>
+          </row>
+          <row>
+            <cell>nets</cell>
+            <cell>Graphs, networks and trees</cell>
+          </row>
+          <row>
+            <cell>spoken</cell>
+            <cell>Transcribed Speech</cell>
+          </row>
+          <row>
+            <cell>tagdocs</cell>
+            <cell>Documentation of TEI modules</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>tei</hi>
+            </cell>
+            <cell>déclarations for datatypes, classes, and macros available to all TEI
+              modules</cell>
+          </row>
+          <row>
+            <cell>textcrit</cell>
+            <cell>Text criticism</cell>
+          </row>
+          <row>
+            <cell>
+              <hi>textstructure</hi>
+            </cell>
+            <cell>Default text structure</cell>
+          </row>
+          <row>
+            <cell>transcr</cell>
+            <cell>Transcription of primary sources</cell>
+          </row>
+          <row>
+            <cell>verse</cell>
+            <cell>Verse structures</cell>
+          </row>
+        </table>
+      </div>
+      <div>
+        <head>Niveaux de validation</head>
+        <p>Un document TEI-XML doit: <list type="ordered">
+            <item>respecter les règles syntaxiques d'XML; </item>
+            <item>être valide par rapport à un schéma quelconque; </item>
+            <item>respecter la sémantique définie de chaque élément TEI utilisé</item>
+          </list></p>
+        <p>Un schéma exprime d'une manière formelle et validable par logiciel une partie importante
+          de ces règles</p>
+        <p rend="box">Un TEI ODD nous permet de construire un schéma adéquat à nos besoins</p>
+      </div>
+      <div>
+        <head>Comment effectuer notre choix de balises?</head>
+        <p>Nous aurons besoins de plusieurs choses : <list>
+            <item>un schéma formel (en langue informatique tel que DTD, RELAXNG, W3C Schema,
+              Schematron) qui peut contrôler : <list>
+                <item>quelles balises sont disponibles ?</item>
+                <item>dans quels contextes ?</item>
+                <item>avec quels attributs ?</item>
+                <item>avec quelles valeurs ?</item>
+                <item>en respectant quelles contraintes ?</item>
+              </list>
+            </item>
+            <item>une documentation pour expliquer nos principes éditoriaux, nos principes de choix
+              de balises, etc. aux utilisateurs/ developpeurs : <list>
+                <item>en plusieurs langues naturelles</item>
+                <item>en plusieurs formats bureautiques (PDF, Word, HTML, epub...) </item>
+              </list></item>
+            <item>des outils informatiques pour transformer et gèrer nos données XML</item>
+          </list></p>
+      </div>
+      <div>
+        <head>Propositions de la TEI</head>
+        <p>Ayant elle-même ces mêmes besoins, la TEI vous propose : <list type="gloss">
+            <label>ODD</label>
+            <item>Un vocabulaire XML pour définir les vocabulaires XML</item>
+            <label>Stylesheets</label>
+            <item>Un ensemble de feuilles de style XSLT très générique pour la conversion des
+              documents XML TEI</item>
+            <label>Roma</label>
+            <item>Un logiciel pour traiter des documents exprimés dans ce vocabulaire, pour en faire
+              ressortir <list>
+                <item>des schémas RELAXNG, DTD, etc. </item>
+                <item>des manuels "mode d'emploi" en HTML, PDF etc.</item>
+              </list></item>
+            <label>OxGarage</label>
+            <item>Un outil web pour effectuer plusieurs transformations documentaires, par ex <list>
+                <item>de DOCX en TEI, et l'inverse</item>
+                <item>de HTML en TEI, et l'inverse</item>
+              </list>
+            </item>
+          </list></p>
+      </div>
+      <div>
+        <head>I18n</head>
+        <p>Nous essayons le mieux possible d'internationaliser la TEI! <list>
+            <item>Suite à un effort financé par le ALLC (entre autres), les définitions, les gloses,
+              et quelques exemples sont traduits en plusieurs langues, notamment le français, mais
+              aussi: <list>
+                <item>espagnol, portugais, allemand, chinois, koréen, japonais...</item>
+              </list></item>
+            <item>Exception faite de quelques épreuves, les chapitres des Guidelines actuels restent
+              jusqu'à présent en anglais.</item>
+          </list>
+        </p>
+        <p rend="box">L'usage de ODD nous permet de séléctionner une documentation française.</p>
+      </div>
+      <div>
+        <head>L'idée essentielle de ODD</head>
+        <p rend="box"><hi>O</hi>ne <hi>D</hi>ocument <hi>D</hi>oes it all</p>
+        <p>Un vocabulaire spécialisé pour la définition <list>
+            <item>des schémas</item>
+            <item>des types d'élément XML, indépendant des schémas</item>
+            <item>des regroupements de tels éléments, publics ou privés </item>
+            <item>des patrons (MLE macros) </item>
+            <item>des classes (et sous-classes) d'éléments</item>
+          </list>
+        </p>
+        <p>Pour la définition des références également, qui permettront de réunir dans un schéma <list>
+            <item>des objets identifiables (dans la liste ci-dessus)</item>
+            <item>des objets appartenant à d'autres espaces de nom</item>
+          </list></p>
+        <p rend="box">et qui serait intégrable à un système de balisage documentaire classique</p>
+      </div>
+      <div>
+        <head>Etre conforme à la TEI veut dire quoi?</head>
+        <list>
+          <item><label>être honnet</label> : Les éléments XML qui se déclarent comme appartenant au
+            namespace TEI doivent respecter les définitions TEI de ces elements</item>
+          <item><label>être explicite</label> : Pour valider un document TEI, un ODD est fortement
+            conseillé, parce que cela mettra en évidence toutes les modifications effectuées</item>
+          <item>Tout document valide TEI est valide par rapport au schéma TEI-ALL</item>
+        </list>
+        <p rend="box">L'objet de ces règles est de faciliter le "blind interchange" des
+          documents.</p>
+      </div>
+      <div>
+        <head>http://www.tei-c.org/Roma/</head>
+        <p>On va experimenter cela... <graphic url="../Graphics/Roma-new.png" height="60%"/>
+        </p>
+        <list>
+          <item>Build up : ajouter ce qu'il vous faut à un schéma minimale</item>
+          <item>Reduce : prenez tout ce qui existe et enlever ce qui ne vous interesse pas</item>
+          <item>Utilisez un template ou un schema prédéfini</item>
+          <item>Retravailler une personalisation déjà faite </item>
+        </list>
+      </div>
+    </body>
+  </text>
+</TEI>
