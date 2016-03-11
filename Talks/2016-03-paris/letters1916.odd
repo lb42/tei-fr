@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:lang="en" xmlns="http://www.tei-c.org/ns/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TEI pour une transcription minimale</title>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Written from scratch.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <head>Une personalisation minimale de la TEI</head>
+      <p>Cette personalisation propose un schema minimale pour la transcription 
+        des documents archivals. 
+      </p><p>Cette version contient uniquement les balises proposes par le projet Letters of 1916 (http://letters1916.maynoothuniversity.ie/images/ProofingXMLGuidelines.pdf)</p>
+      <schemaSpec ident="transMin" start="TEI text" docLang="fr">     
+        <moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
+        <elementRef key="title"/>
+        <moduleRef key="tei"/>
+        <moduleRef key="textstructure" include="TEI text body div"/>
+        <elementRef key="add"/>
+        <elementRef key="address"/><!-- but no addrLine -->
+        <elementRef key="date"/>
+        <elementRef key="del"/>
+        <elementRef key="foreign"/>
+        <elementRef key="gap"/>
+        <elementRef key="lb"/>
+        <elementRef key="note"/>
+        <elementRef key="p"/>
+        <elementRef key="salute"/>
+        <elementRef key="sic"/>
+        <elementRef key="unclear"/>
+        <elementSpec ident="hi" mode="change">
+          <attList>
+            <attDef ident="rend" mode="replace">
+              <valList type="closed">
+                <valItem ident="underline"/>
+                <valItem ident="superscript"/>               
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>        
+        <elementSpec ident="botName" ><desc>nom botanique</desc>
+          <classes><memberOf key="model.phrase"/><memberOf key="att.global"/></classes>  
+          <content><macroRef key="macro.paraContent"/></content>
+        </elementSpec>
+        <classSpec type="atts" ident="att.declaring" mode="delete"/>
+        <classRef key="att.global.rendition"  except="rendition style"/>
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
