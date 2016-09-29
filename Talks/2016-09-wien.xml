@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_minimal.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>What sort of TEI do you want?</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Information about publication or distribution</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div type="slide">
+            <head>What sort of TEI do you want?</head>
+            <p>Specifically, what sort of standard should it be?</p>
+            <list>
+               <item>WKWBFY</item>
+               <!-- we know what's best for you -->
+               <item>DSTM</item>
+               <!-- dont shoot the messenger -->
+               <item>NECPUMP</item>
+               <!-- nobody else can possbly understand my problem -->
+            </list>
+            <p rend="box">Or all three at once...</p>
+         </div>
+         <div type="slide">
+            <head>Why do we even want one?</head>
+            <list>
+               <item>as an interface: helping locate and assess digital resources</item>
+               <item>as a communication layer : helping integrate our own work with that of
+                  others</item>
+               <item>as an investment: resource creation is expensive; standardised resources can be
+                  re-used</item>
+            </list>
+            <p rend="box">Because there are many FAQs</p>
+         </div>
+
+         <div type="slide">
+            <head>What sort of TEI do we have?</head>
+            <p>The current Guidelines contain ... <list>
+                  <item>565 elements, 488 attributes, 189 classes, 62 schematron rules</item>
+                  <item>content models </item>
+                  <item>rules of praxis expressed directly in prose</item>
+                  <item>and indirectly via examples</item>
+               </list></p>
+            <p>A (very) large number of existing use cases leading to many discipline-specific
+               practices</p>
+            <p rend="box">Confused? You may well be... </p>
+         </div>
+         <div>
+            <head>Experts vs beginners...</head>
+            <p><graphic height="50%" url="Graphics/boyhoodRaleigh.jpg"/></p>
+            <list>
+               <item>We got into this to make life easier for beginners, not more difficult!</item>
+               <item>But also to make life easier for the specialist. </item>
+            </list>
+         </div>
+         <div>
+            <head>Researchers vs Technologists ...</head>
+            <p><graphic url="Graphics/scientifique-ingenieur.jpg" height="50%"/></p>
+
+            <list>
+               <item>We rely on, and assume some understanding of, current mainstream
+                  technologies</item>
+               <item> But our conceptual model is firmly rooted in tradition, and a familiar view of
+                     <soCalled>what text really is </soCalled></item>
+            </list>
+
+         </div>
+         <div type="slide">
+            <head>Personalisation is the key</head>
+            <list>
+               <item>TEI All is not the answer!</item>
+               <item>TEI Simple is not the answer!</item>
+            </list>
+         <p> <figure><graphic height="50%" url="Graphics/oddflavours.png"/>
+                  <head>ODD is the answer</head></figure>
+         </p>
+         </div>
+         <div type="slide">
+            <head>One Document Does it all</head>
+
+            <p><figure>
+                  <graphic url="Graphics/SGMLuser.png" height="75%"/>
+                  <head> ICAME Journal, 1992</head>
+               </figure></p>
+            <cb/>
+            <!--       <p>Le système TEI fournit un gabarit ou un kit lego pour la construction d'un système
+                  d'encodage bien adapté aux besoins de l'utilisateur, qui reste en même temps
+                  compréhensible par d'autres personnes ou systèmes, et dans lequel les modifications
+                  éventuelles se déclarent clairement.</p>-->
+            <list>
+               <item>Which TEI elements do you use?</item>
+               <item>What additional constraints do you need?</item>
+               <item>What extensions will you make?</item>
+               <item>And how does your project work anyway?</item>
+            </list>
+            <p>(And if you've identified a unicorn, ODD is what you should use to describe it)</p>
+         </div>
+         <div>
+            <head>TEI Architecture</head>
+            <p><graphic url="Graphics/class-system.png" height="80%"/></p>
+         </div>
+
+         <div>
+            <head>Fictional example (1) </head>
+            <p>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                  <body>
+                     <head>A TEI ODD for crowd sourced transcription </head>
+                     <p>This document describes how we will mark up our crowd-sourced
+                        transcriptions. <!-- several hundred pages missing here -->
+                     </p>
+                     <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
+                        <moduleRef key="tei"/>
+                        <moduleRef key="header"
+                           include="teiHeader fileDesc titleStmt 
+                           publicationStmt sourceDesc"/>
+                        <moduleRef key="textstructure" include="TEI text body div"/>
+                        <elementRef key="ab"/>
+                        <elementRef key="pb"/>
+                        <elementRef key="unclear"/>
+                        <elementRef key="hi"/>
+                        <elementRef key="name"/>
+                        <elementRef key="title"/>
+                        <classRef key="att.global.rendition" except="rendition style"/>
+                        <classSpec type="atts" ident="att.declaring" mode="delete"/>
+                        <classSpec type="atts" ident="att.edition" mode="delete"/>
+                        <classSpec type="atts" ident="att.editLike" mode="delete"/>
+                     </schemaSpec>
+                  </body>
+               </egXML>
+            </p>
+
+         </div>
+         <div>
+            <head>Fictional example, contd </head>
+            <p>On second thoughts, let's constrain the values for <code>hi/@rend</code></p>
+            
+               <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                  <!-- ... -->
+                  <elementSpec ident="hi" mode="change">
+                     <attList>
+                        <attDef ident="rend" mode="replace">
+                           <valList type="closed">
+                              <valItem ident="underline"/>
+                              <valItem ident="superscript"/>
+                           </valList>
+                        </attDef>
+                     </attList>
+                  </elementSpec>
+                  <!-- ... -->
+               </egXML>
+      
+            <cb/>
+            <list>
+               <item>the existing <gi>hi</gi> spec is changed</item>
+               <item>the existing <att>rend</att> spec is replaced</item>
+               <item>the list of available values for it is closed</item>
+            </list>
+         </div>
+         <div>
+            <head>Fictional example (contd) </head>
+            <p rend="it">Oops, we need an element the TEI hasn't got! 
+               </p>
+            <egXML
+                  xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                  <!-- ... -->
+                  <elementSpec ident="botName" ns="http://monexcellentprojet.com">
+                     <desc>botanical name </desc>
+                     <classes>
+                        <memberOf key="model.phrase"/>
+                        <memberOf key="att.global"/>
+                     </classes>
+                     <content>
+                        <macroRef key="macro.paraContent"/>
+                     </content>
+                  </elementSpec>
+                  <!-- ... -->
+               </egXML>
+          
+            <cb/>
+            <list>
+               <item>we supply a new specification for a new element, not in the TEI namespace </item>
+               <item>this spec contains (at least) <list>
+                     <item>a description</item>
+                     <item>a list of the TEI classes to which the new element will belong</item>
+                     <item>information about its content model</item>
+                  </list>
+               </item>
+            </list>
+         </div>
+         <div>
+            <head>Why your project needs an ODD</head>
+            <list>
+               <item>It communicates to others how you use the TEI</item>
+               <item>It will keep you honest</item>
+            </list>
+            <p>ODDs can be <soCalled>chained</soCalled>: define one big one, and then select from it
+               for particular levels or varieties of encoding praxis</p>
+            <p>ODDs can be <soCalled>sourced</soCalled>: i.e. tied to a particular version of the
+               Guidelines</p>
+         </div>
+
+
+  <!--       <div type="slide">
+            <head>Conformance and customization</head>
+
+         </div>-->
+      </body>
+   </text>
+</TEI>
