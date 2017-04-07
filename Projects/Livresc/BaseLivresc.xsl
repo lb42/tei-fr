@@ -214,6 +214,11 @@
         </availability>
     </xsl:template>
     
+    <xsl:template match="fr_description">
+        <!-- link to more detailed description -->
+        <ref><xsl:apply-templates/></ref>
+    </xsl:template>
+    
     <xsl:template match="fr_meta">
         <xsl:apply-templates/>
     </xsl:template>
@@ -222,6 +227,5 @@
     <!-- suppressed as they appear only once -->
     <xsl:template match="fr_subject"/>
      <xsl:template match="fr_tag"/> 
-    <!-- the first of these has some data; the remaining 37 seem to be junk -->
-    <xsl:template match="fr_description"/>
+    
 </xsl:stylesheet>
