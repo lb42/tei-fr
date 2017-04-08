@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xmlns:l="http://www.example.org/ns/nonTEI"
     exclude-result-prefixes="xs tei" version="2.0">
     <xsl:output method="xml"/>
     <xsl:template match="LivrESC">
@@ -218,10 +219,48 @@
         <!-- link to more detailed description -->
         <ref><xsl:apply-templates/></ref>
     </xsl:template>
+   
+    <xsl:template match="meta[starts-with(@type,'collation_detail')]">
+        <l:collation>
+            <xsl:attribute name="l:pp">
+                <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,'collation_nombre')]"/>
+            </xsl:attribute>
+            <xsl:attribute name="l:format">
+                <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,'collation_format')]"/>
+            </xsl:attribute>
+            <ab><xsl:apply-templates/></ab></l:collation>
+    </xsl:template>
+    <xsl:template match="meta[starts-with(@type,'collation_nombre')]"/>
+    <xsl:template match="meta[starts-with(@type,'collation_format')]"/>
     
+    
+    <xsl:template match="meta[@type='edition_justification_03']">
+       <edition>
+           <xsl:attribute name="l:size">
+               <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,'edition_nombre_tirages')]"/>
+           </xsl:attribute>
+           <xsl:attribute name="l:price">
+               <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,'edition_prix_origine')]"/>
+           </xsl:attribute>
+           <pubPlace> <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,'edition_lieu')]"/></pubPlace>
+           <ab><xsl:apply-templates/></ab>
+           <note><xsl:value-of select="parent::fr_meta/meta[@type='edition_autre_05']"/>
+             </note>
+           <l:illus><xsl:value-of select="parent::fr_meta/meta[@type='illustration_nombre_total_09']"/></l:illus>
+       </edition> 
+    </xsl:template>
+   
+    <xsl:template match="meta[starts-with(@type,'edition_nombre_tirages')]"/>
+    <xsl:template match="meta[starts-with(@type,'edition_prix_origine')]"/>
+    <xsl:template match="meta[starts-with(@type,'edition_lieu')]"/>
+    <xsl:template match="meta[starts-with(@type,'edition_autre')]"/>
+    <xsl:template match="meta[starts-with(@type,'illustration_nombre_total_09')]"/>
+    
+   
     <xsl:template match="fr_meta">
         <xsl:apply-templates/>
     </xsl:template>
+    
     <!-- ignore all empty meta elements -->
    <xsl:template match="meta[@type][not(node())]"/>
     <!-- suppressed as they appear only once -->
