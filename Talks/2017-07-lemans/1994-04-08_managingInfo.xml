@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- Pam, here it is. Not quite what I expected it to be, and no -->
+<!-- guarantees that the talk itself will be the same, but something -->
+<!-- to go on the book anyway. Apologies for the delay! -->
+<!-- It parsed last night, but I have made some mods since then... -->
+<!-- Lou -->
+
+<!DOCTYPE article SYSTEM "article.dtd" [
+<!-- ENTITY plgfig1 SYSTEM "plgfig1.tif" NDATA tif -->
+]>
+<article>
+<atl>Managing Information with SGML --- the next frontier
+<au>
+<fnm>Lou
+<snm>Burnard
+<deg>MA MPhil
+<sch>Oxford University 
+<role>European Editor, Text Encoding Initiative
+<role>Director, Oxford Text Archive
+<aff>
+<onm>Oxford University Computing Services
+<str>13 Banbury Road
+<cty>Oxford
+<sbd>
+<cny>UK
+<pc>OX2 6NN
+<san>What on earth is a standard address number?
+<ead>lou@vax.ox.ac.uk
+<abs>
+<!-- The following heading should always be used for Abstracts. -->
+<h>Abstract
+<p>SGML has proved its value as an interchange format for documents
+and other forms of textual data. But that is only half of the story.
+<!-- The abstract should be kept to approximatey 100 words. -->
+This presentation considers whether the ways of representing the kinds
+of information traditionally the preserve of the Management Information
+System or the relational database might not also be handled within the
+SGML paradigm. Whether your application is about producing readable
+documents as output from a nice clean set of facts, or about producing
+plausible facts from nice clean set of documents, SGML documents provide
+a conveniently neutral vehicle for the expression of information.       
+
+</fm><!-- end the front matter -->
+<bdy><!-- beginning of the body matter -->
+<keywords>
+<!-- The following section should always be entitled "Keywords". Each 
+paragraph in the section should consist of one  keyword term. -->
+<st>Keywords
+<p>Text retrieval
+<p>Databases
+<p>Data Analysis
+<sec id="ldb1">
+<!-- 	Please do not number the sections. This will be done automatically 
+	by the rendering software. 
+	This synopsis section should be a minimum of about 1000 
+	words.
+-->
+<st>Retrospective
+<p>In a paper published in 1987, I wrote:
+
+<BQ> Every tagging system is intimately related to the software used
+to process it. Despite welcome efforts towards standardisation
+... there is little sign of an emergent <q>text description
+language</q> analogous to the <q>data definition languages</q> now
+standardised for database management systems</bq><fn>In <q>CAFS: a new
+solution to an old problem</q> (Literary and Linguistiuc Computing
+vol 2, no 1, 1987, p 8)</fn>
+
+<p>Seven years later, can we say that SGML (the outcome of those
+<q>welcome efforts</q>) has now provided us with something like an
+adequate text description language? In this presentation, I'd like to
+get you to think about that question.
+
+<p>We might profitably begin by reviewing a little history. Ten years
+ago, at least from where I was sitting, data modelling techniques
+looked pretty reliable. In an influential book of the
+period,<fn>J.F. Sowa: Conceptual Structures, p 17, 1984</fn> John Sowa
+characterized it as <q>the work of philosophers, lawyers,
+lexicographers, systems analysts and database administrators</q> :
+today might we add DTD writers to the list? The techniques of
+conceptual analysis described by Sowa, Chen, Tschirtzis, and others
+had emerged out of a decade of computer science theorizing and were
+being repeatedly put to the task of designing enormously complex
+fault-tolerant systems for the management of huge flows of complex
+information in administrative databases, in business, industry and
+government. It seemed reasonable to ask why nothing analogous had yet
+appeared for the processing of text --- particularly because existing
+dbms were so conspicuously awful at handling text? What was so special
+about text that it couldnt be handled in the same way as other kinds
+of data?
+
+<p>The 80s orthodoxy was that before attempting to build a database, you
+should first derive an underlying conceptual model. This model (often
+held in a specialised kind of database called a data dictionary) would
+define a <q>universe of discourse</q> -- a meta language with
+specified limits. The data dictionary for an airplane reservation
+system says all there is to say about airplane reservation independent
+of any processing you might want to do, within the constraints of a
+given universe of discourse. So, the data dictionary knows that there
+are such things as airplanes, and airports. It will hold information
+about some attributes of airplanes (such as their payload capabilities
+and other technical characteristics, their ownership, their usage
+history etc) but probably not others (such as their colour). It will
+also hold information about ways in which airplanes and airports can
+be meaningfully related: for example, that a given airplane is able to
+land at a specific airport.
+
+<p>Separating out information about relationships from information about
+real world objects (or <q>entities</q> as they are confusingly known in
+this terminology) can be difficult: for example, an airplane ticket
+could be said to represent a relationship between a given airplane, a
+passenger, and a set of airports --- but has so much additional
+information (seat number, class, price paid etc.) that it would
+probably be defined as an entity in its own right. As with all other
+forms of model, there is no ultimate truth being striven for here:
+only a consistent set of definitions.  The relationship between this
+model and a real world airplanes, tickets, flights and airports is
+thus defined once for all, if only by exclusion. The crucial point is
+that the goal of the exercise is to model the real world, not
+necessarily some selection of pre-existing artefacts designed to help
+you cope with the real world. 
+
+<p> This stress on abstracting the underlying system, rather than its
+outputs, may be explained in historical terms -- the integrated
+database systems of the seventies and eighties were designed to
+replace, integrate or enhance existing processing applications and
+thus needed to clearly establish a broader perspective (rather in the
+way that appeals to nationalism are often used to undermine regional
+or tribal loyalties). Or it may be regarded as simply a recent variant
+of an ontological dispute that can be traced back to Aristotle and
+Plato. Either way, it was conspicuously absent from the way most people
+processed text by computer in the period.
+
+<p>In the seventies, electronic text was the province of a
+subdiscipline of library science called "information retrieval" (as
+opposed to "information management"). It dealt not in abstractions or
+facts but with an unbounded, semi-chaotic world in which countless
+artefacts -- we will call them documents, though they may take no
+substantive form -- compete for attention.  Somewhere in the texts of
+these documents information lies buried, but it is rarely explicit,
+generally requires human comprehension and is often ambiguous or
+misleading. A typical example might be the dossiers of evidence
+amassed by even a moderately competent police force during a criminal
+investigation, or the masses of experimental description associated
+with a patent application: many disparate types of document, all
+concerned with a related set of objects and events in the real world,
+but in each case refracted through a different set of distortions.
+
+<p>Considerations of scale, as much as anything else, preclude the
+handling of these masses of textual data in terms of an underlying
+model of their subject matter: instead, they must be handled as masses
+of words. Sophisticated indexing techniques and pattern-matching
+algorithms, specialised hardware and storage methods are devised to
+overcome the inherent reluctance of human language to be treated as a
+formal system, to cater for its inherent redundancy and complexity.
+Instead of trying to model the real world, IR systems try to model a
+naive reading of texts about the real world, in which all they contain
+is words. 
+
+<p>Now, as any phenomenologist will tell you, meaning is an emergent
+property of language: that is, the meaning of a word is not strictly
+speaking a property of the word alone. Instead, it comes about in the
+mind of the perceiver during a complex interaction with the text,
+involving a host of contextual information, not explicitly present in
+the text. This perception also underlies the emphasis placed by more
+sophisticated IR systems upon user-interaction with the system:
+notions of <q>precision</q> and <q>recall</q>, of <q>relevance
+feedback</q>, and similar metrics, which foreground each users' view
+of the system's usefulness rather than attempting to derive the system
+from any agreed model.  In extremis, some practitioners make a virtue
+out of this lack of design; claiming that to do otherwise is to
+prejudge the issue, to impose a structure which may impede true
+analysis. This seems at best defeatist; at worst
+anti-intellectual. <fn>I argued this case rather more vehemently in an
+article presented at an ASLIB conference in 1990; surprisingly, they
+did not invite me back</fn>
+
+<p>As the me-too eighties rolled on, two new approaches to dealing
+with textual information became fashionable, conveniently polarizing
+the very opposition I have been trying to identify during this rapid
+canter through recent history. 
+
+<p>Firstly: the rise of the <q>expert system</q> as the answer to all
+your information handling needs. This approach to information modelling
+placed all its emphasis on predication -- the abstract observation that
+planes fly between airports, or that if something flies it cannot be an
+airport -- using text only as a more or less convenient vehicle for
+articulating factual information. The claim was that huge amounts of
+detailed knowledge could be represented in this way, as collections of
+assertions and inferences. So far as I know, such systems have not yet
+been developed for anything other than highly restricted domains, such
+as lunar rock samples, medical diagnosis or oil prospecting; scaling up
+such systems to handle the real world often turns out to require
+quantitative changes approximating to qualitative metamorphosis. 
+
+<p>Secondly, the rise and rise of that most perniciously seductive of
+all the text handling technologies developed during the eighties:
+desktop publishing. Here, the emphasis is all on texts as physical
+objects, either on paper or on the screen, at the expense of their
+true function as information-bearing (or engendering) artefacts.  In a
+landmark article published in 1987, Coombs, Renear and DeRose nicely
+characterized this tendency as the subversion of the scholarly
+intellect away from its true mission <fn>See <q>Markup systems and the
+future of scholarly text processing</q> Communications of the ACM, vol
+30 no 11, pp 933-47</fn> -- conveniently forgetting perhaps that much
+scholarship is very intimately concerned with the appearance of
+texts.  Now that the SGML Revolutionaries have taken up high office,
+it may be difficult to remember what all the fuss was about. This
+audience will need little persuasion that a text should be considered
+independently of its rendition.  Perhaps therefore, I should remind
+you how very difficult it can be to disentangle the two.  In the case
+of many ancient texts, for example, it's not so much "What You See Is
+What You Get" as "What You See Is All There Is".
+
+<sec id="ldb2">
+
+<st>The Present
+
+<p>The lesson I'd like to draw from this survey of trends over the last
+twenty years is a simple one: that we should stop trying to decide
+between abstraction and representation, and warmly embrace both. And I
+will add the rider that SGML is exactly the enabling technology that
+makes it possible for us to do so.
+
+<p>The first step on the road to this conclusion is to accept that
+computer-held information is only the most recent of a variety of ways
+human intelligence has devised for its self-propagation and
+preservation. <fn>The distinguished linguist Tom McArthur argues
+plausibly for this continuum in his <q>Worlds of Reference:
+Lexicography, Learning and Language from the Clay-tablet to the
+Computer</q>, Cambridge 1986</fn>. Written texts are not a special
+type of data: data is a special type of written text.
+ 
+<p>This being granted, we should perhaps consider the nature of text a
+little more closely. In a presentation given at the Modern Language
+Association in 1990, my colleague Michael Sperberg McQueen listed the
+following important characteristics of texts:
+<l>
+<li>texts are linguistic objects: they cannot be fully understood without an
+understanding of linguistic constructs such as sentences and words.
+<li>texts are also physical objects: the medium may not be the whole of
+the message, but it is often a very significant part of it.
+<li>texts are both linear and hierarchic: they may be read in a linear
+manner, but are typically organized into at least one hierarchy,
+of nested structural components and often several.
+<li>texts have cross-referring structures: there is nothing new about
+hypertext!
+<li>texts refer to objects in a real or fictional universe: they
+provide a medium through which real world entities and relationships
+may be more or less clearly identified.
+<li>texts have a history: as cultural objects, texts evolve and
+change, and our perceptions of their significance consequently shift. 
+</l>
+
+<p>Parenthetically, note that we can express an analogous list for data:
+<l>
+<li>data may be expressed as attribute/value pairs
+<li>data may be summarized or expressed in many forms
+<li>data items may be aggregated into data structures
+<li>data items may be copied or linked
+<li>data relates to objects in the real world
+<li>data may exist in multiple versions
+</l>
+
+The key technology which enables us to support this range of textual
+features is <it>markup</it>. 
+
+<p>Textual markup is the way in which we make explicit our theory about a
+text. I hope no-one will be too much perturbed by my reminding you
+that there are very few atheoretical <q>objective</q> facts about how texts
+should be read, possibly none. Despite this, since the whole purpose of
+creating texts is to share them, it is crucially important to make
+explicit the conventions used in marking them up. The great gift which
+the designers of SGML gave the world was a markup language which was
+<it>generalized</it>: more exactly, a language for the description
+and definition of <it>many</it> markup languages -- as many as there
+are theories about a text. No markup language which is finite can
+also be complete, since no reading of a text can claim to be complete.
+However, all markup languages can -- and should -- claim to be
+describable.
+
+<p>Theories about a text encompass the full range of features listed
+above and it is therefore reasonable to require of a markup scheme
+that it provide ways to make explicit:
+
+<l>
+<li>the linguistic organization of a text (its division into words or
+other linguistic units; its semantic organization; patterns of
+significance, topoi etc)
+<li>the physical characteristics of a non-electronic version of a
+text, whether this is a precursor of the electgronic form, or
+generated from it
+<li>the internal structural units of a text
+<li>linkage and alignments between text units, both within single
+texts and across multiple text collections
+<li>abstract representations of events, objects, etc. described in the
+text, linked to those descriptions 
+<li>the history of successive stages of the text, together with
+indications of uncertainty or ambiguity in its content or encoding 
+</l>
+
+<p>You will not be surprised to hear me claim that the recently published
+<fn>Or so I devoutly hope</fn> <q>Recommendations</q> of the Text Encoding
+Initiative include provisions for the representation of all of the
+above, and more besides, using a modular SGML document type
+definition; nor that I don't plan to substantiate the claim in the
+remainder of this presentation. Instead I would like to return to the
+issue of data modelling.
+
+<p>A data model seems to have two distinct roles.  Firstly, it serves
+to limit complexity, by defining legal combinations and organizations
+for all the data described by it, by providing a
+<it>syntax</it>. Secondly, it defines a framework within which the
+intended significance of the data described should be understood, by
+providing a <it>semantics</it>. The first role comes into play when
+the model tells us in which record types the field EMPLOYEE-NUM may
+appear, in which its value should be unique across the domain, and so
+on. The second role enables the model to specify not only that record
+type EMPLOYEE contains information about <Q>employees</q> but also
+exactly what kind of an object an employee may be.
+
+<p>It is often said of SGML that it provides for the first role very
+well, and for the second not at all. Like most things often said, this
+is both true and untrue. SGML in itself has no semantic component:
+that is the source of its strength. An SGML <it>application</it>
+however is all semantics: it defines a mapping between textual
+features and a given set of SGML elements and attributes. This mapping
+may be thought of as defining an interchange space in which there can
+be agreement about both syntax and semantics of a given set of documents.
+The challenge is to make this interchange space sufficiently large and
+flexible to accomodate many different SGML applications. 
+
+<p>One key notion in making this kind of information interchange
+possible is what the TEI terms a <q>tag set</q>: that is, a set of
+SGML elements, each of which is explicitly associated with some
+textual feature, as well as being syntactically defined in the normal
+SGML way. A collection of such tag sets functions in
+much the same way as an <q>object store</q> does in an object-oriented
+database: specific applications can pick and choose from this
+repository to build customized views which are overlapping and
+complementary. 
+
+<p>A second key notion, also derived from the object-oriented
+paradigm, is that of element classes. Any kind of classification
+scheme helps to control complexity: the assignment of individual
+components of a tag set to semantically meaningful classes also
+enables an additional part of the interchange space to be mapped out,
+orthogonal to that defined by the modularisation facilities provided
+by the use of tag sets. Allocation to a class is a convenient way also of
+allowing for controlled extensions to the information space, very
+similar to HyTime's architectural forms.
+
+<p>Finally, we should regard as a strength the relative simplicity opf
+the SGML formalism, which encourages us to encode isomorphically both
+the representation of information, and one or more interpretations of
+it. The ability to represent meta-information such as links enables this
+to be done with a high degree of complexity, even with a very simply
+syntax. To take a trivial example, consider today's date. There are any
+number of ways in which I might represent this, ranging from the
+pronominal ("today") to the periphrastic ("the last day I shall be in
+the office this week") as well as more obvious variations such as "8
+April", "1994-08-04" etc. Any one of these may be marked as a date
+simply by using a &lt;date> tag, thus alerting a processor interested in
+temporal information to the fact that this stretch of PCDATA may be
+relevant to it. The task of such a processor can be simplified by
+inspection of the context (a &lt;date> element appearing inside a
+&lt;birth> element probably means something different from one inside a
+&lt;death> element), or of any associated attributes (a common practice
+might be to include a normalised version of a date for example: &lt;date
+value='1994-04-08'>8th April&lt;/date> ). Or I may decide that the whole
+business of temporal information is too complex to handle in this simple
+way, choosing instead to define an abstract structure of feature value
+pairs, represented directly as analytic elements, and linked to the
+humble text phrases by pointers. SGML is not restricted to the
+representation of  textual information.  
+                                
+<sec id="ldb3">
+<st>The future
+
+<p>Mechanisms such as those mentioned in the previous section point the
+way to the future development of SGML as a processing interlingua. In
+the beginning, the first sign that someone might be serious about using
+SGML was when they started to ask such questions as "Where can I get one
+of those ddt things? Do I really have to build one of my own?". At
+first, I am told, people did believe that it might be possible to define
+a few massive dtds adequate to the needs of whole sectors of the
+information processing industry. There's a persistent tendency in most
+human endeavours to start with the grand consolidated imperialist
+vision, and it rarely lasts: the sun sets on all empires, including IBM. 
+What's interesting is to see whether what follows is balkanization and
+chaos or genuinely open communication between equal partners. I think
+most practioners will agree that an open market for element definitions,
+whose semantics are clearly and consistently specified, and which can be
+combined, modified or extended according to application-specific rules
+is the best way forward from here. After all, if no consensus can be
+reached on the semantics of an element, interchanging the information
+represented by it would be somewhat nugatory. All that we need is a
+mechanism for representing those semantics clearly and consistently.
+
+<p>When we faced this problem in the TEI, there was some discussion
+about whether to adopt a traditional database approach for what was then
+called the "tags database" or whether to stick to our principles and
+document each element in SGML. Being principled academics, naturally we
+chose the latter route, and thus found ourselves having to design and
+implement an object oriented database system, document formatter and
+retrieval system all rolled into one.<fn>The ODD (One Document Does it
+all) System will be presented in a paper by Sperberg-McQueen and myself
+at the ALLC-ACH Interbnational Conference "Consensus ex machina" in
+Paris in April 1994</fn> This quixotic task would have been impossible
+without the central notion of the SGML document as the basic entity on
+which independent processors can operate, to generate (in our case)
+variously formatted documentation or dtd fragments, and on which
+SGML-aware editors can operate to manipulate and modify a dynamic
+document database. 
+
+<p>Because all of our processors create, modify or read the same basic set
+of elements, we might have taken the database approach and defined
+record types or views appropriate to each processor. Instead we chose to
+define document types corresponding with  the selection of such elements
+appropriate. When creating documentation for an element class, for
+example, we do not yet know what all of its members will be: the
+corresponding &lt;classdoc> element  consequently has no &ltmembers>
+subelement in the dtd used by the editing processor -- but such an
+element is present in the dtd used by the formatting processor and
+additionally in the processor which generates SGML dtd fragments from
+our document database. 
+
+<p>A system in which all inter-process communication is carried
+out exclusively by SGML-conformant documents turns out to be a
+surprisingly effective way of implementing EDI <fn>J P Gaspart gave an
+impressive presentation on this topic at an OII Workshop in Luxembourg
+last year</fn>. The difficulties lie not in any theoretical inadequacy
+of SGML but in the difficulty of finding and integrating good  modular
+SGML aware software  tools: surely only a transient difficulty. We
+should not be surprised by news of this sort: data interchange and
+document interchange are two sides of the same coin. But SGML is the
+name milled round the edge.
+
+<bm><!-- this is back matter information -->
+<vt><!-- speaker vita -->
+<h>Lou Burnard
+<p>Lou Burnard has worked at Oxford University Computing Services since
+1974.  He has been director of the  Oxford Text Archive since 1976 and
+active in the development of Humanities Computing facilities both at
+Oxford and nationally. His publications include papers on Snobol,
+database design, CAFS, text retrieval systems, research applications for
+IT and book reviews.  His main interests are in database design and
+construction, free text retrieval systems, and the encoding of text for
+research purposes. He has been European Editor of the Text Encoding
+Initiative since 1989.
+</article>
+
+
