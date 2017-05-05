@@ -20,45 +20,219 @@
    <text>
       <front>
          <div type="abstract">
-            <p>For more than three decades, the recommendations of the Text Encoding Initiative (TEI) have been a defining feature of the methodological framework of the Digital Humanities, despite recurrent concerns that the system they define is at the same time both too rigorous for the manifold variability of humanistic text, and not precise enough to guarantee interoperability of resources
-               defined using it. In this talk I propose to explore the notion of conformance proposed by the Guidelines, which seems to operate at both a technical syntactic level, and a less easily verifiable semantic level. I shall suggest that one of the more curious features of the Guidelines is their desire to have (as the French say) both the butter and the money for the butter, and that
-               maybe their continued relevance is in no small part due to this flexibility and adaptability. </p>
+            <p>For more than three decades, the recommendations of the Text Encoding Initiative
+               (TEI) have been a defining feature of the methodological framework of the Digital
+               Humanities, despite recurrent concerns that the system they define is at the same
+               time both too rigorous for the manifold variability of humanistic text, and not
+               precise enough to guarantee interoperability of resources defined using it. In this
+               talk I propose to explore the notion of conformance proposed by the Guidelines, which
+               seems to operate at both a technical syntactic level, and a less easily verifiable
+               semantic level. I shall suggest that one of the more curious features of the
+               Guidelines is their desire to have (as the French say) both the butter and the money
+               for the butter, and that maybe their continued relevance is in no small part due to
+               this flexibility and adaptability. </p>
          </div>
       </front>
       <body>
          <div n="1">
             <head>What are encoding standards actually for?</head>
-            <p>As the old joke says, the good thing about standards is that there are so many to choose from. You can choose to follow a dictatorial, centrally-imposed, we-know-what's-best-for-you encoding method like using Microsoft Word. You can choose to follow a hand-crafted, idiosyncratic, don't-shoot-the-messenger kind of encoding standard made up and maintained by the leading lights of a
-               particular research community, like Epidoc. Or you can just go ahead and do your own encoding thing, which I like to characterize as the nobody-will-ever-understand-my-problems kind of standard. In academia, there's a good argument for each of these flavours. WKWBFY saves a lot of time and effort reinventing the wheel and ensures that your work will be processable and usable in at
-               least one kind of application environment: the downside is that you may not want or like the world view that the system embodies, but you can't change it. DSTM probably means you are dealing with congenial and familiar views and are guaranteed respect within your community, but no-one outside that community will know what to do with your stuff, and you may be a bit limited if you
-               want to push the boundaries of knowledge or praxis within it. And, of course, NWEUMP guarantees you the luxury of making all your own decisions, getting everything just the way you want, but consequently having to spend lots of time and effort doing tecchie things that have nothing to do with your real scholarly preoccupations. </p>
-            <p>When the choice is so hard to make, it may be a good idea to reconsider the motivation for making it in the first place. What do we gain from adopting an explicit encoding encoding standard? What scholarly (as opposed to social, if the two are distinguishable) advantage do we gain in defining formally the methods and formats by which we choose to represent in digital form our
-               understanding of cultural artefacts? We may do it simply in order to be seen to be ticking the right boxes in a funding agency's list of criteria; we may do it because our elders and betters have told us we should; we may do it because we know no better. But none of these can be considered well-founded motivations. How does the use of explicit standards in the markup of digital
-               resources contribute to the success or failure of a scholarly enterprise based on the use of such resources? </p>
-            <p>Firstly, I suggest, we should not forget that the application of markup is an inherently scholarly act: it expresses a scholarly interpretation. It is a hermeneutic activity. Consequently, the markup vocabulary chosen has consequences. It may make it harder to conceive of the truth about a document or a document's intentions; it may make it much easier to say something which is
-               convenient, but false. To dismiss as "mere semantics" concerns about the proper application of markup is thus to embark upon a very dangerous path, assuming that you share my belief that every scholarly encoding should truthfully represent without convenient distortion a scholarly reading. I make no claim here for the absolute truth or otherwise of the interpretation itself : that
-               is, as they say, beyond my pay grade. </p>
-            <p>Secondly, if the function of markup is to express an interpretation, then the markup language itself should as far as possible eschew ambiguity. Markup defines and determines the interface between algorithmic processing and human interpretation. Life is complicated enough without introducing additional fuzziness and inconsistency into the processing stack. We would like to live in a
-               world where two equally well informed observers looking at the same encoding will reach similar or identical conclusions as to the interpretations which occasioned that encoding. We would also like to be confident that two equally well-informed encoders, considering the same textual phenomenon, and having the same interpretation of it, will encode that interpretation in the same
-               way. (This is not, of course, the same as wishing that all well-informed encoders should reach the same interpretative conclusions about a given text. Quite the contrary.) Consequently, as far as possible, we expect the claims embodied by a marked up document to be formally verifiable in some way. Verifiability implies the existence of some formal definition for the markup language,
-               against which productions using that markup language can be checked, preferably using an automated system such as a parser or other automaton. Talking solely of XML documents, it is commonplace to require that the concept of "well-formedness" -- purely syntactic correctness -- be completed by the concept of "validity" -- conformance to a specific XML markup vocabulary, as defined by
-               a schema of some sort. </p>
-            <p>Scholarly markup however requires more than simple XML validity. It may be necessary to do more than constrain the context or name of a given markup component; indeed we might argue that it is always necessary to do so. The surface components of a marked up document (the start and end tags, the attribute value pairs etc.) have intention beyond what an XML schema can express. A
-               typical XML schema will allow me to say that the XML element <gi>p</gi> must appear within the XML element <gi>div</gi> and not the reverse, but it won't easily let me say that the content of my <gi>p</gi> elements should correspond to a paragraph rather than, say, a list item, heading, or page of text in the source document being encoded. For that, I will need to consult the
-               project-specific documentation, which should spell out how exactly this set of encoded documents can legitimately be interpreted. </p>
-            <p>Thirdly, therefore, we need to complement the automatic verifiability of our markup with semantic controls which, in our present state of knowledge, are not automatable, but require human judgment. It is no coincidence that SGML, the ancestor of XML, was produced by a lawyer: the rules embodied by an SGML DTD, like those in the statute book, must be interpreted to be used. In the
-               field of the law, the statute book is completed by precedents; in the case of an XML schema used by a broad community such as the TEI, the rules incarnated in the TEI Guidelines must be completed by the customizations used by individual projects. A TEI customization expresses how a given project has interpreted the general principles enumerated by the Guidelines, as well as formally
-               specifying which particular components of the Guidelines it uses. It also provides ample opportunity, through documentation and exemplification, to guide the formulation of a human judgment as to the way in which the markup should be understood. </p>
+            <p>As the old joke says, the good thing about standards is that there are so many to
+               choose from. You can choose to follow a dictatorial, centrally-imposed,
+               we-know-what's-best-for-you encoding method like using Microsoft Word. You can choose
+               to follow a hand-crafted, idiosyncratic, don't-shoot-the-messenger kind of encoding
+               standard made up and maintained by the leading lights of a particular research
+               community, like Epidoc. Or you can just go ahead and do your own encoding thing,
+               which I like to characterize as the nobody-will-ever-understand-my-problems kind of
+               standard. In academia, there's a good argument for each of these flavours. WKWBFY
+               saves a lot of time and effort reinventing the wheel and ensures that your work will
+               be processable and usable in at least one kind of application environment: the
+               downside is that you may not want or like the world view that the system embodies,
+               but you can't change it. DSTM probably means you are dealing with congenial and
+               familiar views and are guaranteed respect within your community, but no-one outside
+               that community will know what to do with your stuff, and you may be a bit limited if
+               you want to push the boundaries of knowledge or praxis within it. And, of course,
+               NWEUMP guarantees you the luxury of making all your own decisions, getting everything
+               just the way you want, but consequently having to spend lots of time and effort doing
+               tecchie things that have nothing to do with your real scholarly preoccupations. </p>
+            <p>When the choice is so hard to make, it may be a good idea to reconsider the
+               motivation for making it in the first place. What do we gain from adopting an
+               explicit encoding encoding standard? What scholarly (as opposed to social, if the two
+               are distinguishable) advantage do we gain in defining formally the methods and
+               formats by which we choose to represent in digital form our understanding of cultural
+               artefacts? We may do it simply in order to be seen to be ticking the right boxes in a
+               funding agency's list of criteria; we may do it because our elders and betters have
+               told us we should; we may do it because we know no better. But none of these can be
+               considered well-founded motivations. How does the use of explicit standards in the
+               markup of digital resources contribute to the success or failure of a scholarly
+               enterprise based on the use of such resources? </p>
+            <p>Firstly, I suggest, we should not forget that the application of markup is an
+               inherently scholarly act: it expresses a scholarly interpretation. It is a
+               hermeneutic activity. Our choice of markup vocabulary is therefore not an arbitrary
+               one. It has consequences. It may make it harder to conceive of the truth about a
+               document or a document's intentions; it may make it much easier to say something
+               which is convenient, but false. To dismiss as <q>mere semantics</q> concerns about
+               the proper application of markup is thus to embark upon a very dangerous path,
+               assuming that you share my belief that every scholarly encoding should truthfully
+               represent without convenient distortion a scholarly reading. I make no claim here for
+               the absolute truth or otherwise of the interpretation itself : that is, as they say,
+               beyond my pay grade. </p>
+            <p>Secondly, if the function of markup is to express an interpretation, then the markup
+               language itself should as far as possible eschew ambiguity. Markup defines and
+               determines the interface between algorithmic processing and human interpretation.
+               Life is complicated enough without introducing additional fuzziness and inconsistency
+               into the processing stack. We would like to live in a world where two equally well
+               informed observers looking at the same encoding will reach similar or identical
+               conclusions as to the interpretations which occasioned that encoding. We would also
+               like to be confident that two equally well-informed encoders, considering the same
+               textual phenomenon, and having the same interpretation of it, will encode that
+               interpretation in the same way. (This is not, of course, the same as wishing that all
+               well-informed encoders should reach the same interpretative conclusions about a given
+               text. Quite the contrary.) Consequently, as far as possible, we expect the claims
+               embodied by a marked up document to be formally verifiable in some way. Verifiability
+               implies the existence of some formal definition for the markup language, against
+               which productions using that markup language can be checked, preferably using an
+               automated system such as a parser or other automaton. Talking solely of XML
+               documents, it is commonplace to require that the concept of <q>well-formedness</q> --
+               purely syntactic correctness -- be completed by the concept of "validity" --
+               conformance to a specific XML markup vocabulary, as defined by a schema of some sort. </p>
+            <p>Scholarly markup however requires more than simple XML validity. It may be necessary
+               to do more than constrain the context or name of a given markup component; indeed we
+               might argue that it is always necessary to do so. The surface components of a marked
+               up document (the start and end tags, the attribute value pairs etc.) have intention
+               beyond what an XML schema can express. A typical XML schema will allow me to say that
+               the XML element <gi>p</gi> must appear within the XML element <gi>div</gi> and not
+               the reverse, but it won't easily let me say that the content of my <gi>p</gi>
+               elements should correspond to a paragraph of text rather than, say, a list item,
+               heading, or page in the source document being encoded. For that, I will need to
+               consult the project-specific documentation, which should spell out how exactly this
+               set of encoded documents can legitimately be interpreted. </p>
+            <p>Thirdly, therefore, we need to complement the automatic verifiability of our markup
+               with semantic controls which, in our present state of knowledge, are not automatable,
+               and require human judgment. It is no coincidence that SGML, the ancestor of XML, was
+               produced by a lawyer: the rules embodied by an SGML DTD, like those in the statute
+               book, must be interpreted to be used. In the field of the law, the statute book is
+               completed by precedents; in the case of an XML schema used by a broad community such
+               as the TEI, the rules incarnated in the TEI Guidelines must be completed by the
+               customizations used by individual projects. A TEI customization expresses how a given
+               project has interpreted the general principles enumerated by the Guidelines, as well
+               as formally specifying which particular components of the Guidelines it uses. It also
+               provides ample opportunity, through documentation and exemplification, to guide the
+               formulation of a human judgment as to the way in which the markup should be
+               understood. </p>
          </div>
          <div n="2">
             <head>How are encoding standards to be documented?</head>
-            <p> As a minimum, the documentation of an encoding standard has to be able to specify the same things as the schema does: the names of the elements and attributes used, their possible contents, how elements may be validly combined, what kinds of values are permitted for their attributes, and so on. The three schema languages currently available to us do not provide an entirely
-               identical range of facilities of this kind, nor do they conceptualise the validation of documents in exactly the same way, but they are in sufficiently broad agreement for it to be possible to model the information they require using a simple XML language. Earlier versions of the TEI did not attempt to duplicate the features of existing schema languages, but simply embedded
-               expressions in the DTD language (in versions prior to P4), or in RELAXNG schema language (in TEI P4 and early version of P5). From TEI P5 version 3.0 however, the XML vocabulary in which the TEI is written was expanded to include facilities for expressing content models directly in TEI. (see Rahtz and Burnard 2001). One motivation for this was to reduce the dependence of the TEI
-               documentation scheme on other modelling langages.  </p>
-            <p>However, if schema models were all that the TEI tag documentation system provided, it would be hard to persuade anyone to use it. The full ODD language allows a rich and well organized specification to be created for individual elements and attributes, for datatypes, for classes, and for macros (i.e. strings). The TEI itself is composed of xxx such specifications. To use the TEI,
-               one selects from this set of specifications, optionally modifying or extending its components. </p>
-            <p> </p>
+            <p>As a minimum, the documentation of an encoding standard has to be able to specify the
+               same things as a schema does: the names of the elements and attributes used, their
+               possible contents, how elements may be validly combined, what kinds of values are
+               permitted for their attributes, and so on. The three schema languages currently
+               available to us do not provide an entirely identical range of facilities of this
+               kind, nor do they conceptualise the validation of documents in exactly the same way,
+               but they are in sufficiently broad agreement for it to be possible to model the
+               information they require using a simple XML language. Earlier versions of the TEI did
+               not attempt to duplicate the features of existing schema languages, but simply
+               embedded expressions in the DTD language (in versions prior to P4), or in RELAXNG
+               schema language (in TEI P4 and early version of P5). From TEI P5 version 3.0 however,
+               the XML vocabulary in which the TEI is written was expanded to include facilities for
+               expressing content models directly in TEI. (see Rahtz and Burnard 2001). One
+               motivation for this was to reduce the dependence of the TEI documentation scheme on
+               other modelling langages, in line with the priorities expressed in the TEI's
+               foundational design goals (see EDP01), according to which <q>The Text Encoding
+                  Initiative will develop a conforming SGML application, if it can meet the needs of
+                  researchers by doing so. Where research needs require constructs unavailable with
+                  SGML, however, research must take precedence over the standard</q>. </p>
+            <p>However, if schema models were all that the TEI tag documentation system supported,
+               it would be hard to persuade anyone to use it. The full ODD language allows a rich
+               and well organized specification to be created for individual elements and
+               attributes, for datatypes, for classes, and for macros (i.e. strings). The TEI itself
+               is composed of xxx such specifications. To use the TEI, one selects from this set of
+               specifications, optionally modifying or extending its components. </p>
+            <p>A full TEI element specification contains: <!--  ( model.glossLike | model.descLike )*,
+      classes?,
+      content?,
+      valList?,
+      constraintSpec*,
+      attList?,
+      ( model | modelGrp | modelSequence )*,
+      exemplum*,
+      remarks*,
+      listRef* -->
+               <list>
+                  <item>a <hi>canonical name</hi> for the element, together with (as necessary)
+                     explanatory glosses for the name in various languages; alternative names in
+                     other languages; equivalents in other markup schemes; </item>
+                  <item>a summary <hi>description</hi> of the meanings and usages intended for the
+                     element; </item>
+                  <item>information about the element and attribute <hi>classes</hi> to which the
+                     element begins; </item>
+                  <item>information about the element's <hi>content model</hi> as already indicated; </item>
+                  <item>formal specifications for any <hi>constraints</hi> additional to those
+                     expressed by the content model;</item>
+                  <item>a list of specifications for any <hi>attributes</hi> defined as local to the
+                     element rather than being inherited from an attribute class; </item>
+                  <item>formal specifications for the recommended <hi>processing model</hi>
+                     applicable to the element;</item>
+                  <item>annotated <hi>examples</hi> of usage; </item>
+                  <item>additional <hi>commentary</hi> or usage notes; </item>
+                  <item>a list of <hi>references</hi> to the chapter of the Guidelines text where
+                     the element is discussed more fully.</item>
+               </list></p>
+            <p>Without going into too much detail, it should be evident that a TEI specification
+               potentially provides data which can be used to facilitate many different markup
+               processes in a more intelligent way, making it easier for example to provide context
+               sensitive help in different languages, to generate automatically formal schema
+               specifications in different schema languages, to provide user-oriented tutorial
+               manuals, or simply to provide a point of entry into the canonical TEI documentation.
+               A criticism sometimes made of XML systems in general and the TEI in particular has
+               been that their focus on data independence leads to a focus on the platonic essence
+               of the data model at the expense of an engagement with the rugosities of making the
+               data actually useful or usable. The <q>processing model</q> mentioned above is a
+               recent addition to the TEI ODD language intended to redress that balance a little: it
+               allows for a more formal specification of the kind of processing that the encoder
+               considers appropriate for a given element. At its simplest, this might simply
+               indicate the class of formatting which is appropriate for it; or it might indicate
+               that this is one of the so-called <q>janus</q> elements which present alternative
+               encodings for the same phenomenon. In either case, the intention is to simplify the
+               task of the application programmer faced with a specific customization of the TEI. </p>
+            <p>As noted above, a simple TEI customization can be made by selecting from the
+               available specifications. To facilitate that task, the specifications are grouped
+               together into named <q>modules</q>, each containing a varying number of related
+               declarations. In earlier versions of the Guidelines, a distinction was made between
+               modules which provided elements specific to a particular kind of document (the
+                  <q>base</q> tagsets) and those which provided elements specific to a particular
+               kind of analysis (the <q>topping</q> tagsets). The idea was that a schema would
+               typically use a single base and multiple toppings, though it was also possible to
+               combine multiple bases. This, the so-called pizza model, did not however survive into
+               TEI P5, where all modules are considered equal even though there are some modules
+               some of whose components are needed for almost any schema:<note> The
+                     <ident>tei</ident> module supplies declarations for generally useful macros,
+                  datatypes, model and attribute classes; the <ident>core</ident> module which
+                  supplies declarations for elements needed in <q>all kinds of document</q>; the
+                     <ident>header</ident> module which supplies metadata elements; and the
+                     <ident>textstructure</ident> module which supports the basic organization of
+                  book like objects, for example</note>. At its simplest, a customization may just
+               specify a number of modules. For almost every practical application of the TEI, this
+               will however over-generate, not only in the sense that the resulting schema will
+               contain specifications for elements or attributes that will never be used, but in
+               that the TEI often provides multiple ways of encoding the same phenomenon, even in
+               the same module. The TEI core module provides both <gi>bibl</gi> and
+               <gi>biblStruct</gi> as ways of representing a bibliographic record; the same module provides a
+               variety of elements designed to signal the function associated with visual distinctions such as
+               italicisation or quote marks, while also providing a way of simply signalling the
+               fact of visual salience or highlighting itself. With or without use of three quite
+               different ways of representing the form that the visual salience takes, provided by the attribute class
+               att.global.rendition. Similarly, the TEI datable
+               attribute class provides two distinct sets of attributes for normalising dates and
+               times, one conforming to W3C, the other conforming to ISO. Plus, for good measure, a
+               sub class called "att.datable.custom" which allows the user to specify their own
+               conventions. This multiplicity of choice can be bewildering and may seem absurd. Yet
+               every element and attribute in the TEI Guidelines is there because some member of the
+            scholarly community has plausibly argued that it is essential to the needs of that
+            community; where there is a choice, it is not because the TEI is indecisive,  it is
+            because all of the available options are considered useful by someone, even if no-one
+            (except those blessed with the task of maintaining the TEI) considers all of them
+            equally useful. 
+            </p>
          </div>
          <div n="3">
             <head>What is TEI conformance? </head>
@@ -68,36 +242,94 @@
                </figure></p>
             <p>Each of the blobs here represents three subtly different things: <list>
                   <item>an ODD : that is, a collection of TEI specifications</item>
-                  <item>a formal schema generated from that ODD, and its natural language documentation</item>
+                  <item>a formal schema generated from that ODD, and its natural language
+                     documentation</item>
                   <item>the set of documents considered valid by that schema</item>
                </list></p>
-            <p>The TEI provides tei_all : a set of over 500 uniquely identifiable elements, classes, attributes, etc. and a schema in which they are all permitted. For all practical purposes a user of the TEI must make a selection from this cornucopia, and we call that selection a <q>TEI subset</q>. Of course there are many many possible TEI subsets, each making different choices of elements or
-               attributes or classes, but the sets of documents which each consequent schema will validate all have in common that they will also be considered valid by the schema tei_all. </p>
-            <p>A user of the TEI may however do more than simply choose a subset of the provided specifications. They may also provide additional constraints for aspects of an encoding left underspecified by the TEI, for example by requiring that attribute values be taken from a closed list of possible values rather than being any syntactically valid token. They may change the datatype of an
-               attribute, for example from a string to an integer or a date. They may provide an alternative identifier for an element or an attribute, for example to change its canonical English name for one from another language. They may change the content model of an element, for example so that child elements may appear in an order different from that specified by the TEI. They may change the
-               class memberships of an existing TEI element, for example so that it gains attributes not expected by the existing element, or so that it may appear in different contexts.</p>
-            <p> In some cases, these modifications result in a schema which continues to regard as valid a subset of the documents considered valid by tei_all. In others this is not the case. Renaming operations, for example, cannot ever result in a subset: a document in which the element names have all been changed to their French equivalents cannot be validated by an English language version of
-               tei_all. A change to the content model or the class memberships of existing TEI elements may or may not be equivalent to a subsetting operation. For example, if the order of child elements within some element is changed from unspecified to specified, the resulting schema will still be a subset of tei_all; the reverse is not the case, as some documents considered valid by the new
-               schema will be considered invalid by tei_all. </p>
-            <p> We use the term <q>customised subset</q> for all these kinds of personalisation because they result in something which is not necessarily a further subset of the TEI subset concerned, but a further modification of it. In the general case, their conformance with tei_all can be determined only by inspection, and their validation may require some additional processing.</p>
-            <p>Finally, a user of the TEI is at liberty to define entirely new elements and attributes, and to make such components members of existing TEI classes so that existing TEI elements may refer to them. They may also modify the content models of existing TEI elements to refer explicitly to such new elements. This results in an <q>extended subset</q>, since it contains elements or
-               attributes additional to those provided by the tei_all schema. Such additional components should always be labelled as belonging to a non-TEI namespace. A processor can then determine that these components may be left out of consideration when determining the validity of a document with respect to tei_all.</p>
-            <p>In additional to these formal considerations, TEI conformance involves attention to some less easily verifiable constraints, specifically the twin requirements of <q>honesty</q> and <q>explicitness</q>. By honesty we mean that elements in the TEI namespace must respect the semantics which the TEI Guidelines supply as a part of their definition. By explicitness we mean that all
-               modifications (i.e. both customized and extended subsets) should be expressed using an ODD to document exactly how the TEI declarations on which they are based have been derived. (An ODD need not of course be based on the TEI at all, but in that case the question of TEI conformance does not arise)</p>
+            <p>The TEI provides tei_all : a set of over 500 uniquely identifiable elements, classes,
+               attributes, etc. and a schema in which they are all permitted. For all practical
+               purposes a user of the TEI must make a selection from this cornucopia, and we call
+               that selection a <q>TEI subset</q>. Of course there are many many possible TEI
+               subsets, each making different choices of elements or attributes or classes, but the
+               sets of documents which each consequent schema will validate all have in common that
+               they will also be considered valid by the schema tei_all. </p>
+            <p>A user of the TEI may however do more than simply choose a subset of the provided
+               specifications. They may also provide additional constraints for aspects of an
+               encoding left underspecified by the TEI, for example by requiring that attribute
+               values be taken from a closed list of possible values rather than being any
+               syntactically valid token. They may change the datatype of an attribute, for example
+               from a string to an integer or a date. They may provide an alternative identifier for
+               an element or an attribute, for example to change its canonical English name for one
+               from another language. They may change the class memberships of an existing TEI
+               element, for example so that it gains attributes not expected by the existing
+               element, or so that it may appear in different contexts. They may change the content
+               model of an element, for example so that it may contain different child elements, or
+               so that its existing children may appear in a different order or with different
+               cardinalities.</p>
+            <p> In some cases, these modifications will result in a schema which continues to regard
+               as valid a subset of the documents considered valid by tei_all. In others this is not
+               the case. Renaming operations, for example, cannot ever result in a subset: a
+               document in which the element names have all been changed to their French equivalents
+               cannot be validated by an English language version of tei_all. A change to the
+               content model or the class memberships of existing TEI elements may or may not be
+               equivalent to a subsetting operation. For example, if the order of child elements
+               within some element is changed from unspecified to specified, the resulting schema
+               will still be a subset of tei_all; however, the reverse is not the case: some
+               documents considered valid by the new schema will be considered invalid by tei_all. </p>
+            <p>Finally, a user of the TEI is at liberty to define entirely new elements and
+               attributes, and to make such components members of existing TEI classes so that
+               existing TEI elements may refer to them. They may also modify the content models of
+               existing TEI elements to refer explicitly to such new elements. </p>
+            <p> We propose the term <q>customised subset</q> for all these kinds of personalisation
+               because they result in something which is not necessarily a further subset of the TEI
+               subset concerned, but a further modification of it. In the general case, their
+               conformance with tei_all can be determined only by inspection, and their validation
+               may require some additional processing.</p>
+            <p>This results in an <q>extended subset</q>, since it contains elements or attributes
+               additional to those provided by the tei_all schema. Such additional components should
+               always be labelled as belonging to a non-TEI namespace. A processor can then
+               determine that these components may be left out of consideration when determining the
+               validity of a document with respect to tei_all.</p>
+            <p>In additional to these formal considerations, TEI conformance involves attention to
+               some less easily verifiable constraints, specifically the twin requirements of
+                  <q>honesty</q> and <q>explicitness</q>. By honesty we mean that elements in the
+               TEI namespace must respect the semantics which the TEI Guidelines supply as a part of
+               their definition. By explicitness we mean that all modifications (i.e. both
+               customized and extended subsets) should be expressed using an ODD to document exactly
+               how the TEI declarations on which they are based have been derived. (An ODD need not
+               of course be based on the TEI at all, but in that case the question of TEI
+               conformance does not arise)</p>
             <p>Formally speaking, we can say of a document that it is <q>TEI conformant</q> if : <list>
                   <item>it is a well formed XML document; and </item>
                   <item>it is valid against the tei_all schema : <list>
                         <item>without modification (it is a TEI subset), or </item>
-                        <item>after deletion of any elements it contains which are not in the TEI namespace, including their children irrespective of namespace (it is a TEI extension), or </item>
-                        <item>after application of any canonicalization algorithm specified by its associated documentation (it is a TEI customized subset); and </item>
+                        <item>after deletion of any elements it contains which are not in the TEI
+                           namespace, including their children irrespective of namespace (it is a
+                           TEI extension), or </item>
+                        <item>after application of any canonicalization algorithm specified by its
+                           associated documentation (it is a TEI customized subset); and </item>
                      </list></item>
-                  <item>its usage of TEI elements respects the intended function of those elements as defined by the TEI Guidelines; and </item>
-                  <item>its usage of the TEI markup scheme is fully described by a TEI-conformant ODD or analogous documentation. </item>
+                  <item>its usage of TEI elements respects the intended function of those elements
+                     as defined by the TEI Guidelines; and </item>
+                  <item>its usage of the TEI markup scheme is fully described by a TEI-conformant
+                     ODD or analogous documentation. </item>
                </list></p>
-            <p>The purpose of these rules is to make interchange of documents easier. They do not however guarantee it, and they certainly do not provide any guarantee of interoperability. Unlike many other standards, the goal of the TEI is not to enforce consistency of encoding, but to provide a means by which encoding choices and policies may be more readily understood, and hence (to some
-               extent) algorithmically comparable.</p>
+            <p>The purpose of these rules is to make interchange of documents easier. They do not
+               however guarantee it, and they certainly do not provide any guarantee of
+               interoperability. Unlike many other standards, the goal of the TEI is not to enforce
+               consistency of encoding, but to provide a means by which encoding choices and
+               policies may be more readily understood, and hence (to some extent) algorithmically
+               comparable.</p>
          </div>
-         <!-- 
+         <!--   
+               <list type="ordered">
+                  <item>suffice to represent the textual features needed for research</item>
+                  <item>be simple, clear, and concrete</item>
+                  <item>be easy for researchers to use without special-purpose software</item>
+                  <item>allow the rigorous definition and efficient processing of texts</item>
+                  <item>provide for user-defined extensions</item>
+                  <item>conform to existing and emergent standards</item>
+               </list>
             
             https://github.com/TEIC/TEI/issues/1586#issuecomment-289770709 (HC)
             
@@ -139,6 +371,50 @@ For that matter, I think the same is true of P5.  The ODD vocabulary of P5 provi
 As for customizations that accept only a subset of documents accepted by TEI All, I think formal language theory has already provided a useful term:  subset.
 
 -->
+         <!-- I like the concepts of honesty and explicitness, at least within limits.  
+
+The main problem with honesty is that while it provides simple and useful guidance to users of TEI and constructors of TEI modifications, it may be very hard to reach agreement on whether a specific use of TEI is honest or not, and even harder to check mechanically.  
+
+Explicitness is good, though some eyebrows might be raised at the implicit suggestion that TEI ODDs provide the only relevant standard of comparison for explicitness in vocabulary definition.  Given that the purpose of an ODD is to customize the document grammar specified in the TEI Guidelines, it does seem a bit odd that it provides so few mechanisms for relating one element or content model to another:  no way to say whether a revised content model is intended to be a restriction, an extension, or an equivalent restatement of the original; no way to say "this element in my namespace is exactly like that element in the TEI namespace, except for ..."; no way to say "this element can appear in exactly the same places as / as an alternative to that TEI element" (as the XSD substitution-group mechanism allows), etc., etc.  I'm not suggesting that ODDs need to be revised or redefined, only that some formulaic expressions of humility will make the prescription of ODD as *the* mechanism for achieving explicitness less likely to elicit rude laughter from observers familiar with other mechanisms.
+
+I'm a little less enthusiastic about the mechanism described in the final bulleted list (which I take to be a gesture in the direction of formalizing honesty).  You say that conformance testing involves construction of "a schema ... to validate those elements [the document] contains from the TEI namespace", and then checking to see whether the language accepted by that schema is a subset of the language accepted by TEI All.  (Well, strictly speaking, that's not true.  You don't say this is how to check for conformance.  You only say that in a conformant document, the properties described will hold.  I'm assuming a direct attempt to check the property, because you don't describe any other mechanism.) 
+
+Before one can consider whether this is a good idea or not (looks like a bad idea to me, at first glance, or at best an unmotivated one), the idea needs to be made more precise.  Several questions arise:
+
+How does one define the schema of which you speak?  
+
+Given that the document we are starting from may contain some elements in other namespaces, what does the schema we are constructing say about those elements?
+
+What is the relation of the schema to the document whose conformance we are testing?
+
+Most documents for which the question of TEI conformance is of interest are constructed to conform (if I may use that word) to a particular profile or modification of TEI specified in an ODD document.  What is the relationship of the language accepted by this constructed schema to the language defined by the schema generated from that ODD document?
+
+Is it necessary to construct a separate schema for each TEI document whose conformance is to be tested?  Would it be possible to construct the schema by modifying the schema defined by the relevant ODD document?
+
+Is it necessary to construct a special TEI-only schema in the first place?  Is it not possible to define an appropriate relation between the ODD-specified schema and TEI All, or between the languages defined by them?  Or to impose an appropriate constraint on the elements of the TEI namespace within documents valid against the ODD-defined schema?  What is the motivation for defining an ODD document, generating a schema from it, constructing a document to be valid against that schema, and then ignoring that schema for purposes of conformance testing and constructing instead a different schema?
+
+-->
+         <!-- But if one wants terms which are less likely to slip into terms of approbation and disapproval, one could try
+
+    restriction: L(C) is a subset of L(TEI)
+    extension: L(C) is a superset of L(TEI)
+    extended restriction: L(C) is neither a superset nor a subset of L(TEI)
+
+where L(TEI) is to be defined (at a first approximation, one can think of it as the set of documents accepted by the tei_all schema).
+
+Or
+
+    subset: L(C) is a subset of L(TEI)
+    superset: L(C) is a superset of L(TEI)
+    overlapping: L(C) and L(TEI) have a non-empty intersection but neither is a superset of the other
+    disjoint: L(C) and L(TEI) are both non-empty and they have an empty intersection
+
+But none of these terms actually matches the relation that Lou has been arguing for.
+-->
+         <!-- clean : means both subset and superset in P3 : i.e. a tei_all plus schema is clean,
+            since it is a superset of tei_all; one in which titleStmt is replaced by notTitleStmt is
+            not -->
+         <!-- curl https://github.com/TEIC/TEI/issues/1588 - 91; 1586 -->
       </body>
    </text>
 </TEI>
