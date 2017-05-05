@@ -52,8 +52,9 @@
                that community will know what to do with your stuff, and you may be a bit limited if
                you want to push the boundaries of knowledge or praxis within it. And, of course,
                NWEUMP guarantees you the luxury of making all your own decisions, getting everything
-               just the way you want, but consequently having to spend lots of time and effort doing
-               tecchie things that have nothing to do with your real scholarly preoccupations. </p>
+               just the way you want, but consequently not only risking isolation from your peers
+               but also having to spend lots of time and effort doing tecchie things that have
+               nothing to do with your real scholarly preoccupations. </p>
             <p>When the choice is so hard to make, it may be a good idea to reconsider the
                motivation for making it in the first place. What do we gain from adopting an
                explicit encoding encoding standard? What scholarly (as opposed to social, if the two
@@ -93,7 +94,7 @@
                which productions using that markup language can be checked, preferably using an
                automated system such as a parser or other automaton. Talking solely of XML
                documents, it is commonplace to require that the concept of <q>well-formedness</q> --
-               purely syntactic correctness -- be completed by the concept of "validity" --
+               purely syntactic correctness -- be completed by the concept of <q>validity</q> --
                conformance to a specific XML markup vocabulary, as defined by a schema of some sort. </p>
             <p>Scholarly markup however requires more than simple XML validity. It may be necessary
                to do more than constrain the context or name of a given markup component; indeed we
@@ -210,29 +211,58 @@
                   supplies declarations for elements needed in <q>all kinds of document</q>; the
                      <ident>header</ident> module which supplies metadata elements; and the
                      <ident>textstructure</ident> module which supports the basic organization of
-                  book like objects, for example</note>. At its simplest, a customization may just
-               specify a number of modules. For almost every practical application of the TEI, this
-               will however over-generate, not only in the sense that the resulting schema will
-               contain specifications for elements or attributes that will never be used, but in
-               that the TEI often provides multiple ways of encoding the same phenomenon, even in
-               the same module. The TEI core module provides both <gi>bibl</gi> and
-               <gi>biblStruct</gi> as ways of representing a bibliographic record; the same module provides a
-               variety of elements designed to signal the function associated with visual distinctions such as
-               italicisation or quote marks, while also providing a way of simply signalling the
-               fact of visual salience or highlighting itself. With or without use of three quite
-               different ways of representing the form that the visual salience takes, provided by the attribute class
-               att.global.rendition. Similarly, the TEI datable
-               attribute class provides two distinct sets of attributes for normalising dates and
-               times, one conforming to W3C, the other conforming to ISO. Plus, for good measure, a
-               sub class called "att.datable.custom" which allows the user to specify their own
+                  book like objects, for example</note>. </p>
+            <p>At its simplest, a customization may just specify a number of modules. For almost
+               every practical application of the TEI, this will however over-generate, not only in
+               the sense that the resulting schema will contain specifications for elements or
+               attributes that will never be used, but in that the TEI often provides multiple ways
+               of encoding the same phenomenon, even in the same module. The TEI core module
+               provides both <gi>bibl</gi> and <gi>biblStruct</gi> as ways of representing a
+               bibliographic record; the same module provides a variety of elements designed to
+               signal the function associated with visual distinctions such as italicisation or
+               quote marks, while also providing a way of simply signalling the fact of visual
+               salience or highlighting itself. With or without use of three quite different ways of
+               representing the form that the visual salience takes, provided by the attribute class
+               att.global.rendition. Similarly, the TEI datable attribute class provides two
+               distinct sets of attributes for normalising dates and times, one conforming to W3C,
+               the other conforming to ISO. Plus, for good measure, a sub class called
+                  <ident>att.datable.custom</ident> which allows the user to specify their own
                conventions. This multiplicity of choice can be bewildering and may seem absurd. Yet
                every element and attribute in the TEI Guidelines is there because some member of the
-            scholarly community has plausibly argued that it is essential to the needs of that
-            community; where there is a choice, it is not because the TEI is indecisive,  it is
-            because all of the available options are considered useful by someone, even if no-one
-            (except those blessed with the task of maintaining the TEI) considers all of them
-            equally useful. 
-            </p>
+               scholarly community has plausibly argued that it is essential to their needs; where
+               there is a choice, therefore, it is not because the TEI is indecisive, it is because
+               all of the available options are considered essential by someone, even if no-one
+               (except those blessed with the task of maintaining the TEI) considers all of them
+               equally useful. </p>
+            <p>A project wishing to use the TEI is therefore required, expected, advised to consider
+               carefully how to use it. Simply selecting a few promising modules is not necessarily
+               the best approach: you will also need to select from the components provided by those
+               modules. Those unwilling or inadequately resourced to make this effort can use one or
+               other of the generic TEI customizations made available by the TEI itself (TEI Simple
+               Print, for example), or by specific research communities (Epidoc is an excellent
+               example). But it is my contention that adopting an off-the-peg encoding system is
+               always going to be less satisfactory than customizing one that fits more precisely
+               the actual needs of your project and the actual data you have modelled within it.
+               (You did do a data analysis before you started, didn't you?)</p>
+            <p>A user of the TEI may however do more than simply choose a subset of the provided
+               specifications. They may also provide additional constraints for aspects of an
+               encoding left underspecified by the TEI, for example by requiring that attribute
+               values be taken from a closed list of possible values rather than being any
+               syntactically valid token. They may change the datatype of an attribute, for example
+               from a string to an integer or a date. They may provide an alternative identifier for
+               an element or an attribute, for example to change its canonical English name for one
+               from another language. They may change the class memberships of an existing TEI
+               element, for example so that it gains attributes not available for the existing
+               element, or so that it may appear in different contexts. They may change the content
+               model of an element, for example so that it may contain different child elements, or
+               so that its existing children may appear in a different order or with different
+               cardinalities.</p>
+            <p>Finally, a user of the TEI is at liberty to define entirely new elements, macros,
+               classes or attributes. These new components should be added to a different namespace,
+               and the content models, member lists, or attribute lists of existing TEI components
+               can be modified to refer to them explicitly. For new elements or attributes,
+               recommended practice is to make them members of existing TEI classes so that existing
+               TEI elements may refer to them. </p>
          </div>
          <div n="3">
             <head>What is TEI conformance? </head>
@@ -253,19 +283,6 @@
                subsets, each making different choices of elements or attributes or classes, but the
                sets of documents which each consequent schema will validate all have in common that
                they will also be considered valid by the schema tei_all. </p>
-            <p>A user of the TEI may however do more than simply choose a subset of the provided
-               specifications. They may also provide additional constraints for aspects of an
-               encoding left underspecified by the TEI, for example by requiring that attribute
-               values be taken from a closed list of possible values rather than being any
-               syntactically valid token. They may change the datatype of an attribute, for example
-               from a string to an integer or a date. They may provide an alternative identifier for
-               an element or an attribute, for example to change its canonical English name for one
-               from another language. They may change the class memberships of an existing TEI
-               element, for example so that it gains attributes not expected by the existing
-               element, or so that it may appear in different contexts. They may change the content
-               model of an element, for example so that it may contain different child elements, or
-               so that its existing children may appear in a different order or with different
-               cardinalities.</p>
             <p> In some cases, these modifications will result in a schema which continues to regard
                as valid a subset of the documents considered valid by tei_all. In others this is not
                the case. Renaming operations, for example, cannot ever result in a subset: a
@@ -276,10 +293,6 @@
                within some element is changed from unspecified to specified, the resulting schema
                will still be a subset of tei_all; however, the reverse is not the case: some
                documents considered valid by the new schema will be considered invalid by tei_all. </p>
-            <p>Finally, a user of the TEI is at liberty to define entirely new elements and
-               attributes, and to make such components members of existing TEI classes so that
-               existing TEI elements may refer to them. They may also modify the content models of
-               existing TEI elements to refer explicitly to such new elements. </p>
             <p> We propose the term <q>customised subset</q> for all these kinds of personalisation
                because they result in something which is not necessarily a further subset of the TEI
                subset concerned, but a further modification of it. In the general case, their
