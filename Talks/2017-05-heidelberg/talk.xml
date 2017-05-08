@@ -104,22 +104,24 @@
                the XML element <gi>p</gi> must appear within the XML element <gi>div</gi> and not
                the reverse, but it won't easily let me say that the content of my <gi>p</gi>
                elements should correspond to a paragraph of text rather than, say, a list item,
-               heading, or page in the source document being encoded. For that, I will need to
-               consult the project-specific documentation, which should spell out how exactly this
-               set of encoded documents can legitimately be interpreted. </p>
+               heading, or page in the source document being encoded. For that information, I will
+               need to consult the project-specific documentation, which should spell out how
+               exactly this set of encoded documents can legitimately be interpreted. </p>
             <p>Thirdly, therefore, we need to complement the automatic verifiability of our markup
                with semantic controls which, in our present state of knowledge, are not automatable,
                and require human judgment. It is no coincidence that SGML, the ancestor of XML, was
                produced by a lawyer: the rules embodied by an SGML DTD, like those in the statute
                book, must be interpreted to be used. In the field of the law, the statute book is
                completed by precedents; in the case of an XML schema used by a broad community such
-               as the TEI, the rules incarnated in the TEI Guidelines must be completed by the
-               customizations used by individual projects. A TEI customization expresses how a given
-               project has interpreted the general principles enumerated by the Guidelines, as well
-               as formally specifying which particular components of the Guidelines it uses. It also
-               provides ample opportunity, through documentation and exemplification, to guide the
-               formulation of a human judgment as to the way in which the markup should be
-               understood. </p>
+               as the TEI, the rules incarnated in the TEI Guidelines must be completed by practice
+               of those using them, whether we are thinking about the Guidelines as a whole, or the
+               customizations of them used by individual projects. A TEI customization expresses how
+               a given project has interpreted the general principles enumerated by the Guidelines,
+               as well as formally specifying which particular components of the Guidelines it uses.
+               It also provides ample opportunity, through documentation and exemplification, to
+               guide the formulation of a human judgment as to the way in which the markup should be
+               understood, and therefore the extent to which different datasets using it can be
+               integrated or rendered interoperable, a point to which we will return. </p>
          </div>
          <div n="2">
             <head>How are encoding standards to be documented?</head>
@@ -145,20 +147,15 @@
             <p>However, if schema models were all that the TEI tag documentation system supported,
                it would be hard to persuade anyone to use it. The full ODD language allows a rich
                and well organized specification to be created for individual elements and
-               attributes, for datatypes, for classes, and for macros (i.e. strings). The TEI itself
-               is composed of xxx such specifications. To use the TEI, one selects from this set of
-               specifications, optionally modifying or extending its components. </p>
-            <p>A full TEI element specification contains: <!--  ( model.glossLike | model.descLike )*,
-      classes?,
-      content?,
-      valList?,
-      constraintSpec*,
-      attList?,
-      ( model | modelGrp | modelSequence )*,
-      exemplum*,
-      remarks*,
-      listRef* -->
-               <list>
+               attributes, for datatypes, for classes, and for macros (i.e. strings), in each case
+               providing much more than the basic information required to create a schema from them.
+               The TEI itself is composed of several hundred such specifications, from which are
+               generated formal schemas and the two volumes of reference documentation which we no
+               longer print, but instead provide online at http://www.tei-c.org/Guidelines/. To use
+               the TEI, one also selects from this set of specifications, optionally modifying or
+               extending its components, to generate a cuustomized schema with accompanying
+               documentation. </p>
+            <p>A full TEI element specification contains: <list>
                   <item>a <hi>canonical name</hi> for the element, together with (as necessary)
                      explanatory glosses for the name in various languages; alternative names in
                      other languages; equivalents in other markup schemes; </item>
@@ -180,11 +177,12 @@
                </list></p>
             <p>Without going into too much detail, it should be evident that a TEI specification
                potentially provides data which can be used to facilitate many different markup
-               processes in a more intelligent way, making it easier for example to provide context
-               sensitive help in different languages, to generate automatically formal schema
-               specifications in different schema languages, to provide user-oriented tutorial
-               manuals, or simply to provide a point of entry into the canonical TEI documentation.
-               A criticism sometimes made of XML systems in general and the TEI in particular has
+               processes in a more intelligent way, making it possible for example to provide
+               context sensitive help in different languages, to generate formal schema
+               specifications in different schema languages automatically, to provide user-oriented
+               tutorial manuals, to develop more intelligent data entry and validation systems, or
+               simply to provide a point of entry into the canonical TEI documentation.</p>
+            <p> A criticism sometimes made of XML systems in general and the TEI in particular has
                been that their focus on data independence leads to a focus on the platonic essence
                of the data model at the expense of an engagement with the rugosities of making the
                data actually useful or usable. The <q>processing model</q> mentioned above is a
@@ -194,13 +192,13 @@
                indicate the class of formatting which is appropriate for it; or it might indicate
                that this is one of the so-called <q>janus</q> elements which present alternative
                encodings for the same phenomenon. In either case, the intention is to simplify the
-               task of the application programmer faced with a specific customization of the TEI. </p>
+               task of the application developer faced with a specific customization of the TEI. </p>
             <p>As noted above, a simple TEI customization can be made by selecting from the
                available specifications. To facilitate that task, the specifications are grouped
                together into named <q>modules</q>, each containing a varying number of related
                declarations. In earlier versions of the Guidelines, a distinction was made between
-               modules which provided elements specific to a particular kind of document (the
-                  <q>base</q> tagsets) and those which provided elements specific to a particular
+               modules which provided components specific to a particular kind of document (the
+                  <q>base</q> tagsets) and those which provided components specific to a particular
                kind of analysis (the <q>topping</q> tagsets). The idea was that a schema would
                typically use a single base and multiple toppings, though it was also possible to
                combine multiple bases. This, the so-called pizza model, did not however survive into
@@ -214,119 +212,201 @@
                   book like objects, for example</note>. </p>
             <p>At its simplest, a customization may just specify a number of modules. For almost
                every practical application of the TEI, this will however over-generate, not only in
-               the sense that the resulting schema will contain specifications for elements or
-               attributes that will never be used, but in that the TEI often provides multiple ways
-               of encoding the same phenomenon, even in the same module. The TEI core module
-               provides both <gi>bibl</gi> and <gi>biblStruct</gi> as ways of representing a
-               bibliographic record; the same module provides a variety of elements designed to
-               signal the function associated with visual distinctions such as italicisation or
-               quote marks, while also providing a way of simply signalling the fact of visual
-               salience or highlighting itself. With or without use of three quite different ways of
-               representing the form that the visual salience takes, provided by the attribute class
-               att.global.rendition. Similarly, the TEI datable attribute class provides two
-               distinct sets of attributes for normalising dates and times, one conforming to W3C,
-               the other conforming to ISO. Plus, for good measure, a sub class called
-                  <ident>att.datable.custom</ident> which allows the user to specify their own
-               conventions. This multiplicity of choice can be bewildering and may seem absurd. Yet
-               every element and attribute in the TEI Guidelines is there because some member of the
+               the sense that the resulting schema will contain specifications for components that
+               will never be used, but in that the TEI often provides multiple ways of encoding the
+               same phenomenon, even in the same module. The TEI core module provides both
+                  <gi>bibl</gi> and <gi>biblStruct</gi> as ways of representing a bibliographic
+               record; the same module provides a variety of elements designed to signal the
+               function associated with visual distinctions such as italicisation or quote marks,
+               while also providing a way of simply signalling the fact of visual salience or
+               highlighting itself. With or without use of three quite different ways of
+               representing the form that the visual salience actually takes in the source, provided
+               by the attribute class att.global.rendition. Similarly, the TEI datable attribute
+               class provides two distinct sets of attributes for normalising dates and times, one
+               conforming to W3C, the other conforming to ISO. Plus, for good measure, a sub class
+               called <ident>att.datable.custom</ident> which allows the user to specify their own
+               conventions. The TEI is scruplously agnostic even about how a TEI document itself is
+               to be constructed: the classic TEI document comprises a TEI Header and a transcribed
+               text; the transcribed text may however be combined with a set of digitized images, or
+               replaced by one; it is also possible to replace (or complement) the traditional text
+               transcription (which aims to capture the logical organization of the source document)
+               with a <q>source-oriented</q> transcription which captures just its physical
+               organization and aims to eschew interpretive gestures. And there are plans to add a
+               further text-level component to contain annotations made upon the text in a
+                  <q>standoff</q> manner.</p>
+            <p> This multiplicity of choice can be bewildering and may seem absurd. Yet every
+               element and attribute in the TEI Guidelines is there because some member of the
                scholarly community has plausibly argued that it is essential to their needs; where
                there is a choice, therefore, it is not because the TEI is indecisive, it is because
-               all of the available options are considered essential by someone, even if no-one
-               (except those blessed with the task of maintaining the TEI) considers all of them
-               equally useful. </p>
+               all of the available options have been considered necessary by someone, even if
+               no-one (except those blessed with the task of maintaining the TEI) ever considers all
+               of them together. </p>
             <p>A project wishing to use the TEI is therefore required, expected, advised to consider
                carefully how to use it. Simply selecting a few promising modules is not necessarily
                the best approach: you will also need to select from the components provided by those
-               modules. Those unwilling or inadequately resourced to make this effort can use one or
-               other of the generic TEI customizations made available by the TEI itself (TEI Simple
-               Print, for example), or by specific research communities (Epidoc is an excellent
-               example). But it is my contention that adopting an off-the-peg encoding system is
-               always going to be less satisfactory than customizing one that fits more precisely
-               the actual needs of your project and the actual data you have modelled within it.
-               (You did do a data analysis before you started, didn't you?)</p>
-            <p>A user of the TEI may however do more than simply choose a subset of the provided
-               specifications. They may also provide additional constraints for aspects of an
-               encoding left underspecified by the TEI, for example by requiring that attribute
-               values be taken from a closed list of possible values rather than being any
-               syntactically valid token. They may change the datatype of an attribute, for example
-               from a string to an integer or a date. They may provide an alternative identifier for
-               an element or an attribute, for example to change its canonical English name for one
-               from another language. They may change the class memberships of an existing TEI
-               element, for example so that it gains attributes not available for the existing
-               element, or so that it may appear in different contexts. They may change the content
-               model of an element, for example so that it may contain different child elements, or
-               so that its existing children may appear in a different order or with different
-               cardinalities.</p>
-            <p>Finally, a user of the TEI is at liberty to define entirely new elements, macros,
-               classes or attributes. These new components should be added to a different namespace,
-               and the content models, member lists, or attribute lists of existing TEI components
-               can be modified to refer to them explicitly. For new elements or attributes,
-               recommended practice is to make them members of existing TEI classes so that existing
-               TEI elements may refer to them. </p>
+               modules, since selecting everything available is a recipe for confusion. Those
+               unwilling or inadequately resourced to make this effort can use one or other of the
+               generic TEI customizations made available by the TEI itself (TEI Simple Print, for
+               example), or by specific research communities (Epidoc is an excellent example). But
+               it is my contention that adopting an off-the-peg encoding system is always going to
+               be less satisfactory than customizing one that fits more precisely the actual needs
+               of your project and the actual data you have modelled within it. (You did do a data
+               analysis before you started, didn't you?). </p>
+            <p>And whether or not you did, it's painfully true that nothing in digital form is ever
+               really finished. It's almost inevitable that as your project evolves, you will come
+               across things you would do differently if you could start all over again. In the
+               light of experience, you may well want to change the list of available elements to
+               match more closely your actual encoding practices. Beginners often think that it's
+               better to allow almost any kind of content in their schema: an extreme case of this
+               misapprehension leads people to use TEI All for everything. It may well be that your
+               project started out a bit uncertain about the kind of data it would have to be able
+               to handle. But as an encoding project matures, these uncertainties disappear and
+               project-specific praxis becomes better understood. Surely it is better to have a
+               schema that matches all and only the elements you now know you need, than one which
+               allows anything? Every element you allow for in your schema is another element you
+               need to explain to your encoders, document, find examples for, and check that it is
+               being used consistently (if it is used at all). It's also another element that the
+               poor over-worked software developer has to be prepared to handle. Reducing the number
+               of elements permitted by your schema also makes it easier for you to concentrate on
+               the quality of your documentation, for example by introducing examples more
+               appropriate to your project than those provided by vanilla TEI (which somehow manage
+               to be both general and very specialised).</p>
+            <p>Similar considerations apply to attributes, and in particular to their range of
+               values. At the outset you may not have been sure what values to permit for the
+                  <att>foo</att> attribute on your <gi>bar</gi> elements, so you allowed anything.
+               Now you have discovered that some of your encoders gave this attribute the value
+                  <val>centre</val>, others used <val>center</val>, and yet others used
+                  <val>middle</val>, all meaning (probably) the same thing. Now that you know which
+               values you want, you will want to add a <gi>valList</gi> to your ODD to enforce them,
+               even if this entails some additional work cleaning up existing data. </p>
+
+            <p>Customization is thus first and foremost a matter of selection, or formally speaking
+               a subsetting operation. However, as just indicated, a customization may also provide
+               additional constraints for aspects of an encoding left underspecified by the TEI,
+               which may not necessarily be considered as subsetting. For example, a customization
+               which specifies that attribute values be taken from a closed list of possible values
+               rather than being any token of the appropriate datatype is a subsetting operation:
+               the set of documents considered valid by that customization is a pure subset of the
+               set of documents considered valid by an unmodified TEI schema. This is also true of a
+               modification which changes the datatype of an attribute, for example from a string to
+               an integer or a date, but not of the reverse modification, for example from date to
+               string. A modification may also provide an alternative identifier for an element or
+               an attribute, for example to change its canonical English name for one from another
+               language: this cannot be regarded as a subsetting operation without doing some
+               violence to the meaning of the term. A modification may change the class memberships
+               of an existing TEI element, for example so that it acquires attributes not available
+               for the existing element, or so that it may appear in different contexts. A
+               modification may change the content model of an element, for example so that it may
+               contain different child elements, or so that its existing children may appear in a
+               different order or with different cardinalities, and it may introduce additional
+               constraints on the content of an element or the value of an attribute formaliing
+               rules not otherwise (or not readily) expressible in formal schema languages such as
+               DTD or RELAXNG. </p>
+            <p>A user of the TEI is also at liberty to define entirely new elements, macros, classes
+               or attributes, and to reference them from existing TEI components, within certain
+               limits. New elements or attributes should be explicitly attached to a different, non
+               TEI, namespace, and new elements should be included in existing content models by
+               making them members of existing TEI classes for example, rather than by explicitly
+               modifying the content model of an existing element. </p>
+            <p>Despite this flexibility, there are still a few hard wired rules built into the TEI
+               model, which the customizer ignores at their peril. For example, a TEI Header really
+               must have a title statement (which must contain at least a title), a publication
+               statement and a source description, even if the latter two are entirely vacuous. A
+               TEI <gi>text</gi> element must contain a <gi>body</gi> element. TEI <gi>div</gi>
+               elements must tesselate. The structural classes in terms of which content models are
+               defined should be respected: hence one <gi>p</gi> cannot contain another, and a
+               phrase level element such as <gi>hi</gi> cannot contain a block like element such as
+                  <gi>p</gi>. Some of these rules are regularly debated on TEI forums, but for the
+               most part they remain integral to the TEI model. It is a part of the definition of a
+               TEI <gi>div</gi> that it should tessellate its parent; this is not to say that a
+               non-tessellating division element might not be useful, but if one is defined it most
+               be distinguished clearly from the existing TEI <gi>div</gi>, for example by placing
+               it in a different namespace. Breaking these rules may have unexpected consequences.
+               For example, a customization which removes the element <gi>title</gi> will result in
+               a schema in which the TEI Header element cannot ever be validated, since the
+               mandatory components of the TEI Header are an essential part of that construct; a TEI
+               Header which lacks them is a different kind of object, and should not present itself
+               as being something which it is not. </p>
+
          </div>
          <div n="3">
             <head>What is TEI conformance? </head>
-            <p>It seems helpful to begin with a little picture: <figure>
+            <!--   <p>It seems helpful to begin with a little picture: <figure>
                   <graphic url="media/oddflavours.png"/>
                   <head>Varieties of customization</head>
                </figure></p>
-            <p>Each of the blobs here represents three subtly different things: <list>
+       -->
+
+
+            <p>Umberto Eco remarks somewhere that a novel is a machine for generating
+               interpretations. We might say that the TEI is a machine for generating schemas to
+               formally represent such interpretations. However, just as not all interpretations of
+               a novel have equivalent explanatory force, so the schemas generated by different TEI
+               customizations may vary in their effectiveness or appropriateness. A schema
+               represents a view of what it is meaningful to assert about a set of documents. As we
+               have seen, a TEI schema does this with reference to the existing range of TEI
+               specifications, selecting the particular distinctions it wishes to make, modifying
+               some of them in ways which may or may not result in schema that is a subset of the
+               full TEI, and possibly adding new categories of distinction entirely. It is
+               reasonable to want to know how the original TEI schema has been modified, since this
+               enables us to make comparisons amongst different customizations, to assess their
+               relative closeness to the original Guidelines, and to determine what might be
+               necessary to make documents using different customizations interchangeable, if not
+               interoperable. As Martin Holmes points out [DHQ], the pursuit for general
+               interoperability amongst TEI documents is largely chimerical, whereas the information
+               provided by a TEI customization will often be all that is needed to make them
+               interchangeable.</p>
+            <p> The existing Chapter 23 of the TEI Guidelines introduces a notion of TEI conformance
+               though it falls short of providing a full formal definition, either of what
+               conformance means, or how it should be assessed. The following diagram is intended to
+               demonstrate some of the notions discussed in that chapter, and elsewhere. </p>
+            <p>Each of the shapes here may be understood to represent three different things: <list>
                   <item>an ODD : that is, a collection of TEI specifications</item>
                   <item>a formal schema generated from that ODD, and its natural language
                      documentation</item>
                   <item>the set of documents considered valid by that schema</item>
                </list></p>
-            <p>The TEI provides tei_all : a set of over 500 uniquely identifiable elements, classes,
-               attributes, etc. and a schema in which they are all permitted. For all practical
-               purposes a user of the TEI must make a selection from this cornucopia, and we call
-               that selection a <q>TEI subset</q>. Of course there are many many possible TEI
-               subsets, each making different choices of elements or attributes or classes, but the
-               sets of documents which each consequent schema will validate all have in common that
-               they will also be considered valid by the schema tei_all. </p>
-            <p> In some cases, these modifications will result in a schema which continues to regard
-               as valid a subset of the documents considered valid by tei_all. In others this is not
-               the case. Renaming operations, for example, cannot ever result in a subset: a
-               document in which the element names have all been changed to their French equivalents
-               cannot be validated by an English language version of tei_all. A change to the
-               content model or the class memberships of existing TEI elements may or may not be
-               equivalent to a subsetting operation. For example, if the order of child elements
-               within some element is changed from unspecified to specified, the resulting schema
-               will still be a subset of tei_all; however, the reverse is not the case: some
-               documents considered valid by the new schema will be considered invalid by tei_all. </p>
-            <p> We propose the term <q>customised subset</q> for all these kinds of personalisation
-               because they result in something which is not necessarily a further subset of the TEI
-               subset concerned, but a further modification of it. In the general case, their
-               conformance with tei_all can be determined only by inspection, and their validation
-               may require some additional processing.</p>
-            <p>This results in an <q>extended subset</q>, since it contains elements or attributes
-               additional to those provided by the tei_all schema. Such additional components should
-               always be labelled as belonging to a non-TEI namespace. A processor can then
-               determine that these components may be left out of consideration when determining the
-               validity of a document with respect to tei_all.</p>
-            <p>In additional to these formal considerations, TEI conformance involves attention to
-               some less easily verifiable constraints, specifically the twin requirements of
-                  <q>honesty</q> and <q>explicitness</q>. By honesty we mean that elements in the
-               TEI namespace must respect the semantics which the TEI Guidelines supply as a part of
-               their definition. By explicitness we mean that all modifications (i.e. both
-               customized and extended subsets) should be expressed using an ODD to document exactly
-               how the TEI declarations on which they are based have been derived. (An ODD need not
-               of course be based on the TEI at all, but in that case the question of TEI
-               conformance does not arise)</p>
-            <p>Formally speaking, we can say of a document that it is <q>TEI conformant</q> if : <list>
+            <p>The TEI provides a completely unmodified schema called tei_all : this contains all of
+               the elements, classes, macros, erc. defined by the TEI. As noted above, for all
+               practical purposes a user of the TEI must make a selection from this cornucopia, and
+               we call that selection a <q>TEI customization</q>. Of course there are many many
+               possible TEI customizations, each involving different choices of elements or
+               attributes or classes, but there are at least two different kinds of customization: a
+               subset and an extension. </p>
+
+            <p> In some cases, the modifications result in a schema which regards as valid a subset
+               of the documents considered valid by tei_all: we will call this a <q>TEI subset</q>.
+               In others, this is not the case. Renaming operations, for example, cannot ever result
+               in a subset: a document in which the element names have all been changed to their
+               French equivalents cannot be validated by an English language version of tei_all.
+               Equally, a customization which adds new elements or attributes cannot ever result in
+               a subset. A change to the content model or the class memberships of existing TEI
+               elements may or may not result in a subset. For example, if the order of child
+               elements within some element is changed from unspecified to specified, the resulting
+               schema will still be a subset of tei_all; however, the reverse is not the case: some
+               documents considered valid by the new schema will be considered invalid by tei_all,
+               others not. We propose the term <q>TEI extension</q> for all such customizations. </p>
+
+
+            <p>We would like to be able to say of a document that it is <q>TEI conformant</q> if : <list>
                   <item>it is a well formed XML document; and </item>
-                  <item>it is valid against the tei_all schema : <list>
-                        <item>without modification (it is a TEI subset), or </item>
-                        <item>after deletion of any elements it contains which are not in the TEI
-                           namespace, including their children irrespective of namespace (it is a
-                           TEI extension), or </item>
-                        <item>after application of any canonicalization algorithm specified by its
-                           associated documentation (it is a TEI customized subset); and </item>
-                     </list></item>
-                  <item>its usage of TEI elements respects the intended function of those elements
-                     as defined by the TEI Guidelines; and </item>
+                  <item>its usage of elements in the TEI namespace is compatible with the intended
+                     function of those elements as defined by the TEI Guidelines; and </item>
                   <item>its usage of the TEI markup scheme is fully described by a TEI-conformant
                      ODD or analogous documentation. </item>
                </list></p>
+
+            <p>In additional to these formal considerations, an assessment of TEI conformance
+               involves attention to some less easily verifiable constraints, specifically the twin
+               requirements of <q>honesty</q> and <q>explicitness</q>. By honesty we mean that
+               elements in the TEI namespace must respect the semantics which the TEI Guidelines
+               supply as a part of their definition. By explicitness we mean that all modifications
+               (i.e. both customized and extended subsets) should be expressed using an ODD to
+               document exactly how the TEI declarations on which they are based have been derived.
+               (An ODD need not of course be based on the TEI at all, but in that case the question
+               of TEI conformance does not arise)</p>
+
+
             <p>The purpose of these rules is to make interchange of documents easier. They do not
                however guarantee it, and they certainly do not provide any guarantee of
                interoperability. Unlike many other standards, the goal of the TEI is not to enforce
@@ -349,13 +429,19 @@
             There are a bunch of different threads here, and I'm going to try to unpack them:
 
     Martin and I are both worried about a standard for "conformance" that isn't machine-checkable.
-    Michael is worried that perfectly reasonable extensions to TEI will be disallowed by a restrictive definition of conformance. If I'm understanding correctly, he actually has a project that needs to be able to say it's doing TEI, but which is also extending TEI.
-    I think we'd all agree there's nothing wrong with extending TEI. We want people to do it. We don't want to prevent people from saying they're using TEI just because they're also going beyond what TEI does.
+    Michael is worried that perfectly reasonable extensions to TEI will be disallowed by a restrictive 
+    definition of conformance. If I'm understanding correctly, he actually has a project that needs to be able to say 
+    it's doing TEI, but which is also extending TEI.
+    I think we'd all agree there's nothing wrong with extending TEI. We want people to do it. We don't want to prevent 
+    people from saying they're using TEI just because they're also going beyond what TEI does.
     There's more than one sort of conformance, and schema validation can only check structural conformance, not semantic conformance.
     We can imagine, and there already exist in the world, formats that are semantically conformant with TEI, but are not at all valid TEI.
     This all rather hijacks the original point of the ticket, which was about what "clean" means in reference to modifications.
 
-if (4) is true, then there's no possibility of a strictly machine-checkable standard for conformance. So either we should stop worrying so much about (1) or we should give up on the idea of conformance. Elsewhere I've argued that perhaps "compatibility" is a better standard (i.e. you can prove compatibility by producing valid TEI as one output). So possibly we shouldn't be talking about conformance at all. BUT, this may be trumped by the needs of our users to be able to legitimately say they're doing things the TEI way, so that their funders will not get annoyed with them. This seems like an overriding concern to me. I'm also increasingly concerned about (5), and I very much want any definition of conformance not to exclude it.
+if (4) is true, then there's no possibility of a strictly machine-checkable standard for conformance. So either we should stop worrying so much about (1) or we should give up on the idea of conformance. 
+Elsewhere I've argued that perhaps "compatibility" is a better standard (i.e. you can prove compatibility by producing 
+valid TEI as one output). So possibly we shouldn't be talking about conformance at all. BUT, this may be trumped by the 
+needs of our users to be able to legitimately say they're doing things the TEI way, so that their funders will not get annoyed with them. This seems like an overriding concern to me. I'm also increasingly concerned about (5), and I very much want any definition of conformance not to exclude it.
 
 So where are we? The target I would like to hit is something that makes it clear what TEI cares about but encourages experimentation and extension and does not pull any rugs out from under anyone.
 
