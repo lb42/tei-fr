@@ -7,14 +7,16 @@
             <author>Lou Burnard</author>
          </titleStmt>
          <publicationStmt>
-            <p>Unpublished draft for presentation at <title>Digital
-               Classics III: Re-thinking Text Analysis</title> (Heidelberg, May 11-13, 2017)</p>
+            <p>Unpublished draft for presentation at <title>Digital Classics III: Re-thinking Text
+                  Analysis</title> (Heidelberg, May 11-13, 2017)</p>
          </publicationStmt>
          <sourceDesc>
             <p>All my own work</p>
          </sourceDesc>
       </fileDesc>
-      <revisionDesc><change when="2017-05-10">Pretty much complete</change></revisionDesc>
+      <revisionDesc>
+         <change when="2017-05-10">Pretty much complete</change>
+      </revisionDesc>
    </teiHeader>
    <text>
       <front>
@@ -38,19 +40,19 @@
             <p>As the old joke says, the good thing about standards is that there are so many to
                choose from. You can choose to follow a dictatorial, centrally-imposed,
                we-know-what's-best-for-you encoding method like using Microsoft Word. You can choose
-               to follow a hand-crafted, idiosyncratic, don't-shoot-the-messenger kind of encoding
-               standard made up and maintained by the leading lights of a particular research
-               community, like Epidoc. Or you can just go ahead and do your own encoding thing,
-               which I like to characterize as the nobody-will-ever-understand-my-problems kind of
+               to follow a hand-crafted, idiosyncratic, the-customer-is-always-right kind of
+               encoding standard made up and maintained by the leading lights of a particular
+               research community, like Epidoc. Or you can just go ahead and do your own encoding
+               thing, which I like to characterize as the nobody-understands-my-problems kind of
                standard. In academia, there's a good argument for each of these flavours. WKWBFY
                saves a lot of time and effort reinventing the wheel and ensures that your work will
                be processable and usable in at least one kind of application environment: the
                downside is that you may not want or like the world view that the system embodies,
-               but you can't change it. DSTM probably means you are dealing with congenial and
+               but you can't change it. TCIAR probably means you are dealing with congenial and
                familiar views and are guaranteed respect within your community, but no-one outside
                that community will know what to do with your stuff, and you may be a bit limited if
                you want to push the boundaries of knowledge or praxis within it. And, of course,
-               NWEUMP guarantees you the luxury of making all your own decisions, getting everything
+               NUMP guarantees you the luxury of making all your own decisions, getting everything
                just the way you want, but consequently not only risking isolation from your peers
                but also having to spend lots of time and effort doing tecchie things that have
                nothing to do with your real scholarly preoccupations. </p>
@@ -224,7 +226,7 @@
                distinct sets of attributes for normalising dates and times, one conforming to W3C,
                the other conforming to ISO. Plus, for good measure, a sub class called
                   <ident>att.datable.custom</ident> which allows the user to specify their own
-               conventions. The TEI is scruplously agnostic even about how a TEI document itself is
+               conventions. The TEI is scrupulously agnostic even about how a TEI document itself is
                to be constructed: the classic TEI document comprises a TEI Header and a transcribed
                text; the transcribed text may however be combined with a set of digitized images, or
                replaced by one; it is also possible to replace (or complement) the traditional text
@@ -310,20 +312,22 @@
                must have a title statement (which must contain at least a title), a publication
                statement and a source description, even if the latter two are entirely vacuous. A
                TEI <gi>text</gi> element must contain a <gi>body</gi> element. TEI <gi>div</gi>
-               elements must tesselate. The structural classes in terms of which content models are
-               defined must be respected: hence one <gi>p</gi> cannot contain another, and a phrase
-               level element such as <gi>hi</gi> cannot contain a block like element such as
-                  <gi>p</gi>. Some of these rules are regularly debated on TEI forums, but for the
-               most part they remain integral to the TEI model. It is a part of the definition of a
-               TEI <gi>div</gi> that it should tessellate its parent; this is not to say that a
-               non-tessellating division element might not be useful, but if one is defined it most
-               be distinguished clearly from the existing TEI <gi>div</gi>, for example by placing
-               it in a different namespace. Breaking these rules may have unexpected consequences.
-               For example, a customization which removes the element <gi>title</gi> will result in
-               a schema in which the TEI Header element cannot ever be validated, since the
-               mandatory components of the TEI Header are an essential part of that construct; a TEI
-               Header which lacks them is a different kind of object, and should not present itself
-               as being something which it is not. </p>
+               elements must nest correctly within one other. The structural classes in terms of
+               which content models are defined must be respected: hence one <gi>p</gi> cannot
+               contain another, and a phrase level element such as <gi>hi</gi> cannot contain a
+               block like element such as <gi>p</gi>. Some of these rules are regularly debated on
+               TEI forums, but for the most part they remain integral to the TEI model. It is a part
+               of the definition of a TEI <gi>div</gi> that once you have encountered a nested
+                  <gi>div</gi> element within it, only div elements at the same hierarchic level are
+               permitted until it finishes ; this is not to say that a non-tessellating division
+               element might not be useful, but if one is defined it most be distinguished clearly
+               from the existing TEI <gi>div</gi>, for example by placing it in a different
+               namespace. Breaking these rules may have unexpected consequences. For example, a
+               customization which removes the element <gi>title</gi> will result in a schema in
+               which the TEI Header element cannot ever be validated, since the mandatory components
+               of the TEI Header are an essential part of that construct; a TEI Header which lacks
+               them is a different kind of object, and should not present itself as being something
+               which it is not. </p>
             <!-- 20 mins this section-->
          </div>
          <div n="3">
@@ -343,10 +347,10 @@
                enables us to make comparisons amongst different customizations, to assess their
                relative closeness to the original Guidelines, and to determine what might be
                necessary to make documents using different customizations interchangeable, if not
-               interoperable. As Martin Holmes and others have pointed out [DHQ], the pursuit for general
-               interoperability amongst TEI documents is largely chimerical, whereas the information
-               provided by a TEI customization will often be all that is needed to make them
-               interchangeable.</p>
+               interoperable. As Martin Holmes and others have pointed out [DHQ], the pursuit for
+               general interoperability amongst TEI documents is largely chimerical, whereas the
+               information provided by a TEI customization will often be all that is needed to make
+               them interchangeable.</p>
             <p> The existing Chapter 23 of the TEI Guidelines introduces a notion of TEI conformance
                though it falls short of providing a full formal definition, either of what
                conformance means, or how it should be assessed. The following diagram is intended to
@@ -366,9 +370,9 @@
                subset and an extension. </p>
 
             <p> In some cases, the modifications result in a schema which regards as valid a subset
-               of the documents considered valid by tei_all: we call this a <q>TEI subset</q>. In
-               others, this is not the case. Renaming operations, for example, cannot ever result in
-               a TEI subset: a document in which the element names have all been changed to their
+               of the documents considered valid by tei_all: I will call this a <q>TEI subset</q>.
+               In others, this is not the case. Renaming operations, for example, cannot ever result
+               in a TEI subset: a document in which the element names have all been changed to their
                French equivalents cannot be validated by an English language version of tei_all.
                Equally, a customization which adds new elements or attributes cannot ever result in
                a subset. A change to the content model or the class memberships of existing TEI
@@ -377,7 +381,7 @@
                constrains that order will regard as valid a subset of the documents considered valid
                by tei_all. The reverse is not the case, however: if tei_all does specify an order, a
                modification which relaxes that constraint will result in a schema that considers
-               valid some documents considered invalid by tei_all. We propose the term <q>TEI
+               valid some documents considered invalid by tei_all. I propose the term <q>TEI
                   extension</q> for any customization which results in a schema that considers as
                valid a set of documents which is not a proper subset of the documents regarded as
                valid by the tei_all schema. </p>
@@ -458,6 +462,6 @@
                policies may be more readily understood, and hence (to some extent) algorithmically
                comparable.</p>
          </div>
-            </body>
+      </body>
    </text>
 </TEI>
