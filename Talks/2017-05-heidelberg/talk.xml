@@ -37,7 +37,7 @@
       <body>
          <div n="1">
             <head>What are encoding standards actually for?</head>
-            <!-- slide 1 -->
+            <p><hi rend="italic">slide 1 </hi></p>
             <p>As the old joke says, the good thing about standards is that there are so many to
                choose from. You can choose to follow a dictatorial, centrally-imposed,
                we-know-what's-best-for-you encoding method like using Microsoft Word. You can choose
@@ -68,7 +68,7 @@
                considered well-founded motivations. How does the use of explicit standards in the
                markup of digital resources contribute to the success or failure of a scholarly
                enterprise based on the use of such resources? </p>
-            <!-- slide 2 -->
+            <p><hi rend="italic">slide 2 </hi></p>
             <p>Firstly, I suggest, we should not forget that the application of markup is an
                inherently scholarly act: it expresses a scholarly interpretation. It is a
                hermeneutic activity. Our choice of markup vocabulary is therefore not an arbitrary
@@ -127,8 +127,8 @@
                rendered interoperable, a point to which we will return. </p>
          </div>
          <div n="2">
-            <!-- 10 mins to here-->
             <head>How are encoding standards to be documented?</head>
+            <p rend="italic">slide 3</p>
             <p>As a minimum, the documentation of an encoding language has to be able to specify the
                same things as a schema does: the names of the elements and attributes used, their
                possible contents, how elements may be validly combined, what kinds of values are
@@ -161,7 +161,7 @@
                use the TEI, one also selects from this set of specifications, optionally modifying
                or extending its components, to generate a customized schema with accompanying
                documentation. </p>
-            <!-- slide 4 -->
+            <p><hi rend="italic">slide 4 </hi></p>
             <p>A full TEI element specification contains: <list rend="numbers">
                   <item>a <hi>canonical name</hi> for the element, together with (as necessary)
                      explanatory glosses for the name in various languages; alternative names in
@@ -200,9 +200,11 @@
                is one of the so-called <q>janus</q> elements which present alternative encodings for
                the same phenomenon. In either case, the intention is to simplify the task of the
                application developer faced with a specific customization of the TEI. </p>-->
+            <p rend="italic">slide 5</p>
             <p>A simple TEI customization can be made by selecting from the available
-               specifications. To facilitate that task, the specifications are grouped together into
-               named <q>modules</q>, each containing a varying number of related declarations. In
+               specifications. To facilitate that task, the specifications are grouped together both physically
+               into
+               named <q>modules</q>, and logically into named <q>classes</q>. Each module contains a varying number of related declarations. In
                earlier versions of the Guidelines, a distinction was made between modules which
                provided components specific to a particular kind of document (the <q>base</q>
                tagsets) and those which provided components specific to a particular kind of
@@ -215,9 +217,11 @@
                   classes; the <ident>core</ident> module which supplies declarations for elements
                   needed in <q>all kinds of document</q>; the <ident>header</ident> module which
                   supplies metadata elements; and the <ident>textstructure</ident> module which
-                  supports the basic organization of book like objects, for example</note>. </p>
-            <!-- slide 6 -->
-            <p>At its simplest then, a customization just specifies a number of modules. For almost
+                  supports the basic organization of book like objects, for example</note>. A class 
+            is an abstract object to which elements point in order to express their semantic
+            or structural status. </p>
+            <p><hi rend="italic">slide 6 </hi></p>
+            <p>At its simplest, a customization just specifies a number of modules. For almost
                every practical application of the TEI, this will over-generate, not only in the
                sense that the resulting schema will contain specifications for components that will
                never be used, but in that the TEI often provides multiple ways of encoding the same
@@ -249,7 +253,7 @@
                all of the available options have been considered necessary by someone, even if
                no-one (except those blessed with the task of maintaining the TEI) ever considers all
                of them together. </p>
-            <!-- slide 7 -->
+            <p><hi rend="italic">slide 7 </hi></p>
             <p>A project wishing to use the TEI is therefore required, expected, advised to consider
                carefully how to use it. Simply selecting a few promising modules is not necessarily
                the best approach: you will also need to select from the components provided by those
@@ -287,7 +291,7 @@
                   <val>middle</val>, all meaning (probably) the same thing. Now that you know which
                values you want, you will want to add a <gi>valList</gi> to your customization to
                enforce them, even if this entails some additional work cleaning up existing data. </p>
-
+<p rend="italic">slide 8</p>
             <p>Customization is thus first and foremost a matter of selection, or formally speaking
                a subsetting operation. However, as just indicated, a customization may also provide
                additional constraints for aspects of an encoding left underspecified by the TEI,
@@ -312,18 +316,18 @@
             <p>A user of the TEI is also at liberty to define entirely new elements, macros, classes
                or attributes, and to reference them from existing TEI components, within certain
                limits. New elements or attributes should be explicitly attached to a different, non
-               TEI, namespace, and new elements should, as far as possible,  be included in existing content models by
-               making them members of existing TEI classes, rather than by explicitly
-               modifying the content model of an existing element. </p>
+               TEI, namespace, and new elements should, as far as possible, be included in existing
+               content models by making them members of existing TEI classes, rather than by
+               explicitly modifying the content model of an existing element. </p>
             <p>Despite this flexibility, there are still a few hard wired rules built into the TEI
                model, which the customizer ignores at their peril. For example, a TEI Header really
                must have a title statement (which must contain at least a title), a publication
-               statement and a source description, even if the latter two have no significant content. A
-               TEI <gi>text</gi> element must contain a <gi>body</gi> element. TEI <gi>div</gi>
-               elements must nest correctly within one other. The structural classes in terms of
-               which content models are defined must be respected: hence one <gi>p</gi> cannot
-               contain another, and a phrase level element such as <gi>hi</gi> cannot contain a
-               block like element such as <gi>p</gi>. Some of these rules are regularly debated on
+               statement and a source description, even if the latter two have no significant
+               content. A TEI <gi>text</gi> element must contain a <gi>body</gi> element. TEI
+                  <gi>div</gi> elements must nest correctly within one other. The structural classes
+               in terms of which content models are defined must be respected: hence one <gi>p</gi>
+               cannot contain another, and a phrase level element such as <gi>hi</gi> cannot contain
+               a block like element such as <gi>p</gi>. Some of these rules are regularly debated on
                TEI forums, but for the most part they remain integral to the TEI model. It is a part
                of the definition of a TEI <gi>div</gi> that once you have encountered another nested
                   <gi>div</gi> element within it, only div elements at the same hierarchic level are
@@ -354,7 +358,7 @@
                enables us to make comparisons amongst different customizations, to assess their
                relative closeness to the original Guidelines, and to determine what might be
                necessary to make documents using those different customizations interchangeable, if
-               not interoperable. As Martin Holmes and others have pointed out [DHQ], the pursuit of
+               not interoperable. As Martin Holmes and others have pointed out, the pursuit of
                general unmediated interoperability amongst TEI documents is largely chimerical,
                whereas the information provided by a TEI customization will often be all that is
                needed to make them interchangeable.</p>
@@ -362,11 +366,11 @@
                though it falls short of providing a full formal definition, either of what
                conformance means, or how it should be assessed. The following diagram is intended to
                demonstrate some of the notions discussed in that chapter, and elsewhere. </p>
-            <figure>
-               <graphic url="oddFlavours.png"/>
+       <!--     <figure>
+               <graphic url="../Graphics/oddFlavours.png"/>
                <head>Varieties of Customization</head>
             </figure>
-            <!-- slide 9-->
+    -->        <p><hi rend="italic">slide 9</hi></p>
             <p>Each of the shapes here may be understood to represent three different things: <list>
                   <item>an ODD : that is, a collection of TEI specifications</item>
                   <item>a formal schema generated from that ODD, and its natural language
@@ -397,7 +401,7 @@
                   extension</q> for any customization which results in a schema that considers as
                valid a set of documents which is not a proper subset of the documents regarded as
                valid by the tei_all schema. </p>
-            <!-- slide 10 -->
+            <p><hi rend="italic">slide 10 </hi></p>
             <p>It is natural that particular importance should be attached to validity against a
                schema, since this is something which can be automatically tested. But it would be a
                mistake to consider that validity against tei_all has any particular significance in
@@ -429,7 +433,7 @@
                TEI subset, an assessment of TEI conformance involves attention to some less easily
                verifiable constraints. In particular, I suggest, there are two important if largely
                unenforceable requirements of <q>honesty</q> and <q>explicitness</q>. </p>
-            <!-- slide 11 -->
+            <p><hi rend="italic">slide 11 </hi></p>
             <p>By <q>honesty</q> I mean that elements in the TEI namespace must respect the
                semantics which the TEI Guidelines supply as a part of their definition. For example,
                the TEI defines an element <gi>l</gi> as containing <q>a single, possibly incomplete,
@@ -453,15 +457,15 @@
                interpreted or processed from an ODD than it is from the many pages of human-readable
                documentation which may be needed to explain everything about an idiosyncratic
                encoding scheme. </p>
-            <!-- slide 12 -->
+            <p><hi rend="italic">slide 12 </hi></p>
             <p>In 1991, I made an attempt to summarize the kind of conformance envisaged by what was
                then the newly published TEI P3. With the possible exception of the first, these four
                humorously presented <q>TEI Commandments</q> have much in common with the more
                nuanced statement of what conformance should be that we might produce today. </p>
-            <figure>
-               <graphic url="../Graphics/1991-tei-commandments.png"/>
+            <!--<figure>
+               <graphic url="../Graphics/1991-TEI-commandments.png"/>
                <head>1991 version</head>
-            </figure>
+            </figure>-->
 
             <p>Today, I suggest that we should say of a document that it is <q>TEI conformant</q>
                iff : <list>
@@ -476,7 +480,7 @@
 
             <p>The purpose of these rules is to make interchange of documents easier. They do not
                guarantee it, and they certainly do not provide any guarantee of interoperability.
-               But they make much simpler for example the kind of scenario envisaged by Holmes in
+               But they make much simpler for example the kind of scenario envisaged by <ref target="#holmes">Holmes</ref> in
                which a richly encoded highly personalised TEI encoding can be simply down-translated
                to other, possibly less expressive, semi-standardized encodings for purposes of
                interchange. As more and more independent agencies undertake mass digitization and
@@ -487,11 +491,16 @@
                sophisticated and scholarly standards. One which promotes permissiveness and
                extensibility, as the TEI does, has to balance the sophistication of what it makes
                feasible with a clear and accessible definition of its markup. Unlike many other
-               standards, the goal of the TEI <soCalled>standard</soCalled> is not to enforce
+               standards, the goal of the TEI <q>standard</q> is not to enforce
                consistency of encoding, but to provide a means by which encoding choices and
                policies may be more readily understood, and hence more easily made algorithmically
                comparable.</p>
          </div>
       </body>
+      <back>
+         <listBibl>
+            <bibl xml:id="holmes">Holmes, Martin <title></title>DQ </bibl>
+         </listBibl>
+      </back>
    </text>
 </TEI>
