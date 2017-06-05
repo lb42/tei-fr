@@ -138,7 +138,7 @@
     <xsl:template match="contributor_name"/>
     <xsl:template match="contributor_firstname"/>
     <!-- a publisher who isn't a "editeur" is another kind of contributor -->
-    <xsl:template match="publisher[contains(publisher_job, 'Editeur')]">
+    <xsl:template match="publisher[publisher_job[contains(., 'Editeur')]]">
         <publisher>
             <xsl:attribute name="type">
                 <xsl:value-of select="publisher_type"/>
@@ -221,8 +221,10 @@
         </ref>
     </xsl:template>
 
+<!-- TEMPLATES FOR nonempty META TAGS -->
+
     <xsl:template match="meta[starts-with(@type, 'collation_detail')]">
-        <l:collation>
+        <xsl:if test="node()">  <l:collation>
             <xsl:attribute name="l:pp">
                 <xsl:value-of select="parent::fr_meta/meta[starts-with(@type, 'collation_nombre')]"
                 />
@@ -234,28 +236,29 @@
             <ab>
                 <xsl:apply-templates/>
             </ab>
-        </l:collation>
+        </l:collation></xsl:if>
     </xsl:template>
+    
     <xsl:template match="meta[starts-with(@type, 'collation_nombre')]"/>
     <xsl:template match="meta[starts-with(@type, 'collation_format')]"/>
 
     <xsl:template match="meta[@type = 'genese_autre_18']">
-        <creation>
+        <xsl:if test="node()">  <creation>
             <ab>
                 <xsl:apply-templates/>
             </ab>
-        </creation>
+        </creation></xsl:if>
     </xsl:template>
 
     <xsl:template match="meta[@type = 'lieu_impression']">
-        <pubPlace>
+        <xsl:if test="node()"><pubPlace>
             <xsl:apply-templates/>
-        </pubPlace>
+        </pubPlace></xsl:if>
     </xsl:template>
 
 
     <xsl:template match="meta[@type = 'edition_justification_03']">
-        <edition>
+      <xsl:if test="node()">  <edition>
             <xsl:attribute name="l:size">
                 <xsl:value-of
                     select="parent::fr_meta/meta[starts-with(@type, 'edition_nombre_tirages')]"/>
@@ -277,12 +280,12 @@
                 <xsl:value-of select="parent::fr_meta/meta[@type = 'illustration_nombre_total_09']"
                 />
             </l:illus>
-        </edition>
+        </edition></xsl:if>
     </xsl:template>
 
 
     <xsl:template match="meta[starts-with(@type, 'exemplaire_')]">
-        <xsl:choose>
+       <xsl:if test="node()"> <xsl:choose>
             <xsl:when test="contains(@type, 'cote_bljd')">
                 <idno type="coteBLJD">
                     <xsl:apply-templates/>
@@ -297,17 +300,53 @@
                     <xsl:apply-templates/>
                 </note>
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose></xsl:if>
     </xsl:template>
 
     <xsl:template match="meta[starts-with(@type, 'notes_')]">
-        <note>
+        <xsl:if test="node()">
+            <note>
             <xsl:attribute name="type">
                 <xsl:value-of select="substring-after(@type, 'notes_')"/>
             </xsl:attribute>
             <xsl:apply-templates/>
         </note>
+        </xsl:if>
     </xsl:template>
+    
+    <xsl:template match="meta[starts-with(@type, 'reliure_editeur')]">
+   <xsl:if test="node()">
+        <l:reliure>     
+       <xsl:apply-templates/>
+  </l:reliure> 
+    </xsl:if>
+    </xsl:template>
+   
+  
+    <xsl:template match="meta[starts-with(@type,'mise_en_page_image_collation_notes')]">
+       <l:images>
+           <xsl:attribute name="l:quotient">
+               <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,
+                   'mise_en_page_image_quotient')]"/>
+           </xsl:attribute>
+          <l:imagesTech>
+              <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,
+                  'mise_en_page_image_nombre_par_technique')]"/>
+          </l:imagesTech> 
+           <l:imagesType>
+               <xsl:value-of select="parent::fr_meta/meta[starts-with(@type,
+                   'mise_en_page_image_nombre_par_type')]"/>
+           </l:imagesType>  
+           <desc>     <xsl:apply-templates/></desc>
+       </l:images>  
+    </xsl:template>
+
+    <xsl:template match="meta[@type='mise_en_page_image_nombre_par_technique_21']"/>
+     <xsl:template match="meta[@type='mise_en_page_image_nombre_par_type_22']"/>
+    <xsl:template match="meta[@type='mise_en_page_image_quotient_23']"/>
+    
+   
+   
 
     <xsl:template match="meta[starts-with(@type, 'edition_nombre_tirages')]"/>
     <xsl:template match="meta[starts-with(@type, 'edition_prix_origine')]"/>
@@ -320,8 +359,8 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <!-- ignore all empty meta elements -->
-    <xsl:template match="meta[@type][not(node())]"/>
+    <!-- ignore all empty meta elements 
+    <xsl:template match="meta[@type][not(node())]" /-->
     <!-- suppressed as they appear only once -->
     <xsl:template match="fr_subject"/>
     <xsl:template match="fr_tag"/>
