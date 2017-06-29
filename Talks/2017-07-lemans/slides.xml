@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="file:/home/lou/Public/tei-fr/Talks/teitalks.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../TEIslides/teislides.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader>
         <fileDesc>
@@ -125,14 +125,24 @@
                     this requires the use of techniques which are not currently automatable.</p>
             </div>
             <div>
+                <head>What's that noise in the digital library?</head>
+                <p><graphic url="otlet-lib.png" height="50%"/></p>
+                <list>
+                    <item>A digital edition should capture the intentions and meaning of a text, not
+                        simply its appearance </item>
+                    <item>Otherwise, there can be no analysis beyond the documentary level, no
+                            <q>conversation between books</q></item>
+                </list>
+            </div>
+            <div>
                 <head>Enrichment or Representation?</head>
                 <figure>
-                    <graphic url="../Graphics/beowulf-ms.png"/>
+                    <graphic url="../Graphics/beowulf-ms.png" height="60%"/>
                     <head>From this...</head>
                 </figure>
                 <cb/>
                 <figure>
-                    <graphic url="../Graphics/beowulf-wrenn.png"/>
+                    <graphic url="../Graphics/beowulf-wrenn.png" height="60%"/>
                     <head>... to this.</head>
                 </figure>
             </div>
@@ -141,6 +151,202 @@
                 <figure>
                     <graphic url="../Graphics/model.png"/>
                 </figure>
+            </div>
+            <div>
+                <head>Enrichment</head>
+                <list>
+                    <item/>
+                </list>
+            </div>
+            <div>
+                <head>Some background theory</head>
+                <p><term>Reference</term> is a fundamental semiotic concept <list>
+                        <item>Natural languages often distinguish words associated with abstract
+                            concepts from words associated with (concepts concerning) specific
+                            objects </item>
+                        <item>Proper names, technical terms, etc behave differently from other kinds
+                            of word and often have a different linguistic status <list>
+                                <item>they do not appear in lexicons</item>
+                                <item>they are often <q>non-translatable</q></item>
+                            </list></item>
+                        <item>What distinguishes them is chiefly their association with real (or
+                            fictive) <term>entities</term>. <q>king</q> is a noun with no particular
+                            referent; <q>Martin Luther King</q> refers to a specific person, as does
+                            (in context) <q>the king</q>. </item>
+                        <item>Likewise with places, <q>city</q> refers to a type of place, not a
+                            particular one; <q>City of London</q> refers to a particular place, as
+                            does (in context) <q>the city</q></item>
+                    </list>
+                </p>
+            </div>
+            <div>
+                <head>Full <term>named entity recognition</term> is a multi-stage operation</head>
+                <list type="numbered">
+                    <item>decide which input strings reference named entities </item>
+                    <item>decide which particular entities are intended</item>
+                    <item>(optionally) assemble and associate other information about each
+                        referenced entity </item>
+                </list>
+                <p rend="box">Only the first of these is (more or less) automatable</p>
+            </div>
+            <div>
+                <head>Kinds of entity</head>
+                <list>
+                    <item>persons, historical or fictional : <q>Lou Burnard</q>, <q>Harry
+                        Potter</q>, <q>Pseudo-Dionysius the Areopagite</q></item>
+                    <item>named places, of any kind <q>Le Mans</q>, <q>Atlantis</q>, <q>Prussia</q>,
+                            <q>the Eiffel Tower</q></item>
+                    <item>named groupings of people <q>The Drones</q>, <q>Gallimard</q>, <q>the
+                            Thracians</q></item>
+                    <item>Physical objects, works of art etc. <q>the Alfred Jewel</q>,
+                            <q>Excalibur</q>, <q>the Mona Lisa</q></item>
+                    <item>etc. (Are animals objects or people?) </item>
+                </list>
+            </div>
+            <div>
+                <head>Entity properties </head>
+                <p>What might you want to record about an entity? Some things are obvious, but the
+                    list is in principle unbounded: <list>
+                        <item>the various names associated with them at different times</item>
+                        <item>their chronology (birth, death, creation etc.)</item>
+                        <item>composition, dimensions, classification, association, affiliation,
+                            etc. </item>
+                        <item>associations with other entities </item>
+                        <item>identifiers used for them in standard authority control lists</item>
+                    </list></p>
+                <p rend="box">The last is particularly important for work in the LOD paradigm. </p>
+            </div>
+            <div>
+                <head>Kinds of entity reference</head>
+                <p>TEI provides several elements for the markup of names and nominal expressions: <list>
+                        <item><gi>rs</gi> (<q>referring string</q>) -- any phrase which refers to a
+                            person or place, e.g. <q>the girl you mentioned</q>, <q>my
+                            husband</q>... </item>
+                        <item><gi>name</gi> -- any lexical item recognized as a proper name e.g.
+                                <q>Budleigh Salterton</q> , <q>Bouallebec</q>, <q>John Doe</q>
+                            ...</item>
+                        <item><gi>persName</gi>, <gi>placeName</gi>, <gi>orgName</gi>: specific
+                            types of name: <soCalled>syntactic sugar</soCalled> for <tag>name
+                                type="person"</tag> etc.</item>
+                        <item>A rich set of proposals for the <emph>components</emph> of such
+                            elements<!--, e.g. <gi>surname</gi>, <gi>forename</gi>, <gi>geogName</gi>,
+                                <gi>geogFeat</gi> etc.--></item>
+                    </list>
+                </p>
+                <p rend="box">A project must decide which approach best suits its needs</p>
+            </div>
+            <div>
+                <head>Components of <gi>persName</gi> elements</head>
+                <p>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <persName xml:lang="de">
+                            <forename type="first">Johann</forename>
+                            <forename type="middle">Sebastian</forename>
+                            <surname>Bach</surname>
+                        </persName></egXML>
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <persName xml:lang="fr">
+                            <forename type="composé">Jean-Sébastien</forename>
+                            <surname>Bach</surname>
+                        </persName></egXML>
+                     Not to mention... <gi>roleName</gi> (<q>Emperor</q>), <gi>genName</gi> ( <q>the
+                        Elder</q>) <gi>addName</gi> (<q>Hammer of the Scots</q>), <gi>nameLink</gi>
+                        (<q>van der</q>) ... </p>
+            </div>
+            <div>
+                <head>Components of place names</head>
+                <list>
+                    <item>one or more generic names of a specific geo-political type
+                            (<gi>district</gi>, <gi>settlement</gi>, <gi>region</gi>,
+                            <gi>country</gi>, <gi>bloc</gi>)
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <placeName>
+                                <district>6ème arr.</district>
+                                <settlement type="city">Paris, </settlement>
+                                <country>France</country>
+                            </placeName></egXML>
+                    </item>
+                    <item>names of geographical features such as a mountains or rivers and terms for
+                        such features (<gi>geogName</gi> and <gi>geogFeat</gi>)
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <placeName><geogFeat>Mont</geogFeat>
+                                <geogName>Blanc</geogName>
+                            </placeName></egXML>
+                    </item>
+                    <item>a relational expression
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><rs type="place">
+                                <measure>10 miles</measure>
+                                <offset>Northeast of</offset>
+                                <settlement>Attica</settlement>
+                            </rs></egXML>
+                    </item>
+                </list>
+            </div>
+            <div>
+                <head>References are frequently ambiguous</head>
+                <p>Even within a single language, in a single document, there may be many ways of
+                    referencing the same person:
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"> ...<persName>Clara
+                            Schumann</persName>.... <persName>Clara</persName> ....<persName>Frau
+                            Schumann</persName>
+                    </egXML>
+                </p>
+                <p>The <att>ref</att> can be used simply to combine all references to a specified
+                    person
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"> .... <persName ref="#CS">Clara
+                            Schumann</persName>.... <persName ref="#CS">Clara</persName> ....
+                            <persName ref="#CS">Frau Schumann</persName>
+                    </egXML>
+                </p>
+            </div>
+            <div>
+                <head>Associating reference and entity</head>
+                <list>
+                    <item>the value of <att>ref</att> can be any form of URI, pointing to a place
+                        where there is more information about this entity, provided locally or
+                        externally
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <persName ref="https://en.wikipedia.org/wiki/Clara_Schumann">Clara
+                                Schumann</persName>
+                            <persName ref="#CS">Clara Schumann</persName>
+                            <persName ref="myBib:CS">Clara Schumann</persName>
+                        </egXML>
+                    </item>
+                    <item>All we want to say about CS can be provided using a <gi>person</gi>
+                        element somewhere
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <person xml:id="CS">
+                                <persName xml:lang="de" notAfter="1840-09-12">Clara Wieck</persName>
+                                <birth when="1819-09-13"><placeName>Leipzig</placeName></birth>
+                                <ref type="VIAF" target="http://viaf.org/viaf/44499359"/>
+                                <idno type="ISNI">ISN:0000000121305653</idno>
+                                <!--etc -->
+                            </person>
+                        </egXML>
+                    </item>
+                </list>
+            </div>
+            <div>
+                <head>Resolving ambiguity </head>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes <name ref="#NN123"
+                            >Nancy</name></s></egXML>
+                <p>Using a more precise element (<gi>persName</gi> or <gi>placeName</gi>) is one way
+                    of resolving the ambiguity; another is to check the associated entity :
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><person xml:id="NN123">
+                            <persName><forename>Nancy</forename>
+                                <surname>Ide</surname>
+                            </persName>
+                            <!-- ... -->
+                        </person></egXML>
+                </p>
+                <p>or...
+                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        <place xml:id="NN123">
+                            <placeName notBefore="1400">Nancy</placeName>
+                            <placeName notAfter="0056">Nantium</placeName>
+                            <!-- ... -->
+                        </place></egXML>
+                </p>
             </div>
         </body>
     </text>
