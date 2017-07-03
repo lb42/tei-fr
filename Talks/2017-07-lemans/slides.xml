@@ -305,17 +305,16 @@
                         <persName xml:lang="fr">
                             <forename type="composé">Jean-Sébastien</forename>
                             <surname>Bach</surname>
-                        </persName></egXML>
-                     Not to mention... <gi>roleName</gi> (<q>Emperor</q>, <q>conseiller</q>),
-                        <gi>genName</gi> (<q>the Elder</q>) <gi>addName</gi> (<q>Hammer of the
-                        Scots</q>), <gi>nameLink</gi> (<q>van der</q>) ... </p>
+                        </persName></egXML> Not to mention... <gi>roleName</gi> (<q>Emperor</q>,
+                        <q>conseiller</q>), <gi>genName</gi> (<q>the Elder</q>) <gi>addName</gi>
+                        (<q>Hammer of the Scots</q>), <gi>nameLink</gi> (<q>van der</q>) ... </p>
             </div>
             <div>
                 <head>Components of place names</head>
                 <list>
                     <item>names of a specific geo-political type (<gi>district</gi>,
                             <gi>settlement</gi>, <gi>region</gi>, <gi>country</gi>, <gi>bloc</gi>)
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <placeName>
                                 <district>6ème arr.</district>
                                 <settlement type="city">Paris, </settlement>
@@ -323,14 +322,14 @@
                             </placeName></egXML>
                     </item>
                     <item>names of geographical features such as a mountains or rivers and terms for
-                        such features (<gi>geogName</gi> and <gi>geogFeat</gi>)
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        such features (<gi>geogName</gi> and <gi>geogFeat</gi>) <egXML
+                            xmlns="http://www.tei-c.org/ns/Examples">
                             <placeName><geogFeat>Mont</geogFeat>
                                 <geogName>Blanc</geogName>
                             </placeName></egXML>
                     </item>
-                    <item>a relational expression
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples"><rs type="place">
+                    <item>a relational expression <egXML xmlns="http://www.tei-c.org/ns/Examples"
+                                ><rs type="place">
                                 <measure>10 miles</measure>
                                 <offset>Northeast of</offset>
                                 <settlement>Attica</settlement>
@@ -341,17 +340,16 @@
             <div>
                 <head>Resolving referents</head>
                 <p>Within a single language, in a single document, the same person is referred to in
-                    different ways:
-                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    different ways: <egXML xmlns="http://www.tei-c.org/ns/Examples">
                         <persName>Clara Schumann</persName> .... <persName>Clara</persName> ....
                             <persName>Frau Schumann</persName>
                     </egXML>
                 </p>
                 <p>The <att>ref</att> can be used to show that these are all references to the same
-                    person
-                    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                    person <egXML xmlns="http://www.tei-c.org/ns/Examples">
                         <persName ref="#CS">Clara Schumann</persName> .... <persName ref="#CS"
-                            >Clara</persName> .... <persName ref="#CS">Frau Schumann</persName>
+                            >Clara</persName> .... <persName>Clara Wieck</persName> ... <persName
+                            ref="#CS">Frau Schumann</persName>
                     </egXML>
                 </p>
             </div>
@@ -360,8 +358,7 @@
                 <list>
                     <item>the value of <att>ref</att> can be any form of URI, pointing to a place
                         where there is more information about this entity, provided locally or
-                        externally
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        externally <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <persName ref="https://en.wikipedia.org/wiki/Clara_Schumann"> Clara
                                 Schumann</persName>
                             <persName ref="#CS">Clara Schumann</persName>
@@ -369,10 +366,9 @@
                         </egXML>
                     </item>
                     <item>All we want to say about CS can be provided using a <gi>person</gi>
-                        element somewhere
-                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                        element somewhere <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <person xml:id="CS">
-                                <persName xml:lang="de" notAfter="1840-09-12">Clara Wieck</persName>
+                                <persName notAfter="1840-09-12">Clara Wieck</persName>
                                 <birth when="1819-09-13"><placeName>Leipzig</placeName></birth>
                                 <ref type="VIAF" target="http://viaf.org/viaf/44499359"/>
                                 <idno type="ISNI">ISN:0000000121305653</idno>
@@ -384,16 +380,14 @@
             </div>
             <div>
                 <head>Resolving ambiguity </head>
-                <p>Person or place?
-                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes
-                            <name>Nancy</name></s></egXML>
+                <p>Person or place? <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes
+                                <name>Nancy</name></s></egXML>
                 </p>
                 <p>We could clarify this by using a more precise tag (<gi>persName</gi> or
                         <gi>placeName</gi>) rather than <gi>name</gi>. Or we could resolve it by
                     supplying the appropriate target for the <att>ref</att> attribute on
-                        <gi>name</gi>:
-                    <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes <name
-                                ref="#PLACE123">Nancy</name></s>
+                        <gi>name</gi>: <egXML xmlns="http://www.tei-c.org/ns/Examples"><s>Jean likes
+                                <name ref="#PLACE123">Nancy</name></s>
                         <!-- ... -->
                         <person xml:id="PERS123">
                             <persName><forename>Nancy</forename>
@@ -419,11 +413,31 @@
                         text.</q></p>
             </div>
             <div>
-                <head>An example: Paris, BnF, ms. français 16753</head>
+                <head>For example</head>
+                <figure>
+                    <graphic url="regChan.png"/>
+                    <head>Extract from <title>Histoire Chronologique de la Chancelerie de
+                        France...</title>, p. 5</head>
+                </figure>
+                <!--  <p>We can distinguish : </p>--><list>
+                    <item>personal names (Odolric, Adalric, Gezon, Lothaire, Adaleron, Arnoul)
+                        ...</item>
+                    <item>names of social positions (Grand Chancelier, Secretaire,
+                        Roi...)</item>
+                    <item>a nick name (<q>dit Le Faineant</q>)</item>
+                    <item> titles of other sources (pour la donation de l'Abbaie de Bonneval,
+                        Antiquitez de Troyes)</item>
+                    <item>explicit quotation (<q>Sinum Lotarii gloriosissimi Regis... </q>) </item>
+                    
+                </list>
+                <p rend="box">The formatting helps... but only a bit: we need to make these things
+                    explicit.</p>
+                
+            </div> <div>
+                <head>Another example: Paris, BnF, ms. français 16753</head>
                 <p>First page of <title>Registres de permis d'imprimer...</title></p>
                 <figure>
                     <graphic url="regImprim1.png"/>
-          
                 </figure>
                 <!--   <figure>
    <graphic url="regImprim2.png" height="40%"/>
@@ -432,7 +446,7 @@
             </div>
             <div>
                 <head>One possible encoding...</head>
-           <!-- <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                <!-- <egXML xmlns="http://www.tei-c.org/ns/Examples">
                  <div>
                    <head><surname>Billaine</surname> scellé</head>
                    <ab>Permission d'imprimer un breviere intitullé 
@@ -449,7 +463,7 @@
                     <signed>signée <surname ref="#VICTON">Victon</surname></signed>
                   </div>
                 </egXML>-->
-               <p><graphic url="billaine.png" height="70%"/></p>
+                <p><graphic url="billaine.png" height="70%"/></p>
                 <p>This seems to be text as data...</p>
             </div>
             <div>
@@ -498,16 +512,16 @@ sans que l'on connaisse la date exacte de sa réception. Un arrêt du parlement 
 1618 lui ordonne de retirer son étalage du Pont-Neuf. Gendre du libraire et fondeur Jean Méjat.
 Sépulture le 9 mai 1639 à Paris, paroisse Saint-Hilaire ; inventaire après décès le 19 mai suivant-->
             </div>
+           
             <div>
-                <head>Another example</head>
-                <figure>
-                    <graphic url="regChan.png"/>
-                    <head>Extract from <title>Histoire Chronologique de la Chancelerie de
-                            France...</title>, p. 5</head>
-                </figure>
-            </div>
-            <div>
-                <head/>
+                <head>Tentative conclusions, intended to provoke debate</head>
+                <list type="numbered">
+                    <item>reading a text involves identifying and understanding its data</item>
+                    <item>reading many texts at a distance contributes to, but does not replace,
+                    an understanding of the data they represent</item>
+                    <item>data is itself a kind of text, requiring the same nuanced interpretive
+                    judgment</item>
+                </list>
             </div>
         </body>
     </text>
