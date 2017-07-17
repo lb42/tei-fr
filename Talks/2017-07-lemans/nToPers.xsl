@@ -29,7 +29,7 @@
                    </xsl:choose>
                </persName>
                <ref>
-                   <xsl:attribute name="target">#<xsl:value-of select="ancestor::*/@xml:id[1]"/></xsl:attribute>
+                   <xsl:attribute name="target">#page<xsl:value-of select="preceding::t:pb[1]/@n"/></xsl:attribute>
                </ref>
            </person>
        </xsl:for-each>
