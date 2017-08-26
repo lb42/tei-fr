@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--Need to find a way to insert the current date-->
+<head>
+<title>How did we try to solve those problems?</title>
+<meta name="copyright" content="Copyright &#xa9; MMXVI Black Mesa Technologies LLC, All Rights Reserved."></meta>
+
+<link rel="stylesheet" type="text/css" media="screen, projection" href="../../../lib/Slidy/slidy.css"></link>
+<link rel="stylesheet" type="text/css" media="screen, projection" href="../../../lib/Slidy/takahashi.css"></link>
+<link rel="stylesheet" type="text/css" media="screen, projection" href="../../../styles/bmtslidy.css"></link>
+<script src="../../../lib/Slidy/slidy.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" media="print" href="../../../lib/Slidy/print.css"></link>
+
+
+</head>
+
+<body>
+<div class="doc">
+<div class="slide cover">
+<!--* cover image goes here, if you have one *-->
+<div><h1>The TEI:  where did it come from and why is it still here?</h1><h1>2017 Zampolli Award Lecture</h1><h1>Part 2:  How did we try to solve those problems?</h1></div><h3>C. M. Sperberg-McQueen, Black Mesa Technologies LLC</h3><h3>10 August 2017</h3><h3>http://blackmesatech.com/2017/08/Zampolli/</h3></div><hr></hr>
+<div class="guide slide">
+<h1>Overview</h1>
+<ul><li>Nancy Ide<ul><li>How and why was the TEI started?</li>
+<li>What problems was TEI trying to solve?</li>
+</ul></li>
+<li>Michael Sperberg-McQueen<ul><li>How did we try to solve those problems?  <span style="color: red; font-weight: bold;">&#x2190; [You are here]</span></li>
+<li>What were the core design decisions?</li>
+</ul></li>
+<li>Lou Burnard<ul><li>Given that TEI is now so very old, why is it still here?</li>
+</ul></li>
+</ul></div>
+<div class="slide" style="">
+<h2 class="slidehead">Decisions</h2><ul><li>Use descriptive markup.</li>
+<li>Provide in-document metadata.</li>
+<li>Over-generate.</li>
+<li>Design for extensibility.</li>
+<li>Modularize.</li>
+<li>Use open standards.</li>
+<li>Exploit document structure.</li>
+<li>Make a data format not a program.</li>
+</ul></div>
+<div class="slide" style="">
+<h2 class="slidehead">Use descriptive markup.</h2><div class="Real-P">Use descriptive markup.  <span class="incremental">Specifically, SGML.</span></div><ul><li>Documents have structure.</li>
+<li>We can make that structure accessible to software.</li>
+<li>Don't ask &#x201c;What should the program do with this?&#x201d;
+    <br></br>but &#x201c;What <em>is</em> this?&#x201d;</li>
+<li>Document grammars can constrain and validate documents.</li>
+<li>Parse structure yields a tree; pointers yield a digraph.</li>
+</ul><div class="Real-P"><span class="incremental">The three-legged stool:  Serial format; data structures; validation.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">SGML</h2><ul><li>An international standard.</li>
+<li>A data format not tied to a single program.</li>
+<li>Application independence.</li>
+<li>Vendor independence.</li>
+<li>SGML specifies syntax; SGML users specify semantics.</li>
+<li>User ownership of data.</li>
+</ul><div class="Real-P"><span class="incremental">Most document formats lack most of this.</span></div><div class="Real-P"><span class="incremental">Even other descriptive formats (LaTeX, GML) lack validation.</span></div><div class="Real-P"><span class="incremental">SGML had no real competition.</span>
+  <span class="incremental">Still doesn't.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Provide in-document metadata (<tt>teiHeader</tt>).</h2><div class="Real-P">External metadata gets lost.</div><div class="Real-P"><i><span class="incremental">Always?</span></i></div><div class="Real-P"><i><span class="incremental">Well, almost always.</span></i></div><div class="Real-P"><span class="incremental">For all practical purposes, always.</span></div><div class="Real-P"><span class="incremental">So says long experience with Oxford Text Archive and on
+  help desks.</span></div><div class="Real-P"><span class="incremental">Learn from Osiris and ICPSR!  Learn from incunabula!</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Over-generate, in preference to under-generating.</h2><div class="Real-P">Grammars err in two ways:
+  <ul><li>They fail to generate some legitimate sentences.  (Undergeneration.)</li>
+<li>They generate some illegitimate sentences.  (Overgeneration.)</li>
+</ul>
+  </div><div class="Real-P">Overgeneration weakens validation and quality assurance.</div><div class="Real-P">Undergeneration requires victims to extend the schema.</div><div class="Real-P">Who is better positioned to fix a problem?
+  <ul class="incremental"><li>People who care about quality assurance and want tighter validation?</li>
+<li>People who study unusual / odd texts?</li>
+</ul></div><div class="Real-P"><span class="incremental">Assign the burden accordingly.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Allow modification, require documentation.</h2><div class="Real-P">Basic premise of SGML / XML:  no single markup language
+  suffices for everyone and everything.</div><div class="Real-P">SGML users get to define their own rules.  <span class="incremental">(SGML specifies
+  syntax; SGML users specify semantics.)</span></div><p class="incremental">The same should apply, within scholarly work, to TEI and TEI users.</p><p class="incremental">Of course, there is also a political dimension.</p></div>
+<div class="slide" style="">
+<h2 class="slidehead">TEI Conformance in TEI P3 (1994)</h2><div class="Real-P">Simplifying slightly:
+  <ul><li>Every element can be redefined.</li>
+<li>There must be a header.</li>
+<li>It must contain an element giving the title.  (Which may be
+    empty, or contain the string <i>Unknown</i>.)</li>
+<li>All changes must be documented with a TSD (Tag Set
+    Documentation) document.<br></br>
+    <span class="incremental">So users of your customization have the same level of
+    documentation as users of vanilla TEI.</span></li>
+</ul></div><div class="Real-P"><span class="incremental">In short, we seek / sought</span>
+  <ul class="incremental"><li>maximal intellectual self-determination</li>
+<li>re-usability / comprehensibility for later users</li>
+<li>but NOT plug-and-play interoperability</li>
+</ul></div><div class="Real-P"><span class="incremental">Frustrating, of course, if you want plug-and-play.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Structure as core plus optional modules.</h2><div class="Real-P">Base plus mix-ins.<ul><li>choice of basic text type (prose, drama, verse, dictionaries, ...)</li>
+<li>text structure (there's a default, which you can replace)</li>
+<li>core (everyone uses this)</li>
+<li>mix-and-match add-ins</li>
+</ul></div><div class="Real-P"><span class="incremental">Like a pizza:  crust, tomato sauce, toppings.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Use open standards.</h2><div class="Real-P">Use open standards.  But roll your own if need be.</div><div class="Real-P">We used:
+  <ul><li>SGML</li>
+<li>XML, Unicode, URIs</li>
+</ul>
+  </div><div class="Real-P">We invented (and later replaced)
+  <ul><li>extended pointer notation (now:  XPointer)</li>
+<li>writing system declaration (now:  Unicode and <tt>g</tt>
+    element)</li>
+<li>TEI blind-interchange format (now:  XML)</li>
+<li>tag set documentation (now folded into TEI proper)</li>
+</ul>
+  </div><div class="Real-P"><span class="incremental">Also:  open working style (public drafts, public discussion).</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Exploit document structure.</h2><div class="Real-P">You can distinguish chapter heads from
+  sub-sub-heads <em>by examining structural context.</em></div><div class="Real-P">Not
+  <ul><li><tt>chapter</tt>, <tt>chapter-head</tt></li>
+<li><tt>section</tt>, <tt>section-head</tt></li>
+<li><tt>subsec</tt>, <tt>subsec-head</tt></li>
+<li><tt>subsubsec</tt>, <tt>subsub-head</tt></li>
+<li>...</li>
+</ul></div><div class="Real-P">But <ul><li><tt>div</tt>, <tt>head</tt>.</li>
+</ul></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">Provide a data format, not a program.</h2><div class="Real-P">TEI should define a data format, not software.</div><div class="Real-P">Data lives a lot longer, and has much wider interest.</div><div class="Real-P"><span class="incremental">And we don't know exactly how TEI documents will be used.</span></div><div class="Real-P"><span class="incremental">That makes software development harder.</span></div><div class="Real-P"><span class="incremental">Frustrating, of course, if you want off-the-shelf solutions.</span></div></div>
+<div class="slide" style="">
+<h2 class="slidehead">How have they worn?</h2><div class="Real-P">On the whole, reasonably well.</div><div class="Real-P">Even partial success<br></br>changes the situation.</div></div>
+<div class="slide" style="">
+<h2 class="slidehead">And now ...</h2><div class="Real-P">Over to you, Lou.</div></div></div></body>
+</html>
