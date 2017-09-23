@@ -525,14 +525,15 @@ l'apparence d'un document existant</p> -->
          </div>
          <div>
             <head>Qu'est-ce que la Text Encoding Initiative (TEI) ?</head>
-            <p><graphic url="../Graphics/whatistei.png" height="50%"/></p>
+            <p><graphic url="../Graphics/whatistei.png"/></p>
+            <cb/>
             <list>
                <item>Une organisation, une institution ?</item>
                <item>un <soCalled>club</soCalled>, une mode, une religion ?</item>
                <item>une spécification technique ?</item>
                <item>un gabarit pour la construction des spécifications techniques?</item>
             </list>
-            <p rend="box">version francaise: http://books.openedition.org/oep/1237</p>
+            <p rend="box"> http://books.openedition.org/oep/1237</p>
          </div>
          <div>
             <head>Concrètement la Text Encoding Initiative (TEI) c'est quoi ?</head>
@@ -1018,6 +1019,108 @@ l'apparence d'un document existant</p> -->
                <head>TEI Community</head>
             </figure>
          </div>-->
+
+         <div>
+            <head>Comment se servir de CSS ?</head>
+            <p><figure>
+                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
+               </figure></p>
+            <p rend="box">CSS est un langage d'affichage </p>
+         </div>
+         <div>
+            <head>Principes de CSS </head>
+            <list>
+               <item>Sont definis par le standard CSS un ensemble de <code>propretes</code> (style
+                  et taille de police, couleur, aligneament etc.)</item>
+               <item>Une feuille de style CSS definit des regles associant des valeurs pour ce
+                  propretes avec tout element de type x, ou tout element dans tel contexte, ou avec
+                  telle valeur d'attribut etc</item>
+               <item>Par defaut, les propretes applicables a un element sont herites par defaut de
+                  son parent </item>
+               <item>les regles d'association peuvent etre specifies par un document externe, ou
+                  explicitement dans un doc HTML</item>
+            </list>
+            <p rend="box">Bemol: on ne peut rien changer du document traite: CSS ne definit que son
+               affichage</p>
+         </div>
+
+         <div>
+            <head>Comment se servir d' XSLT ?</head>
+            <p><figure>
+                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
+               </figure></p>
+            <p rend="box">XSLT est un langage de transformation</p>
+         </div>
+         <div>
+            <head>Principes de XSLT</head>
+            <list>
+               <item>Un document XML est transforme en traversant toute l'arborescrence, sous
+                  controle d'une feuille de style XSLT contenant des <code>templates</code>
+               </item>
+               <item>Si un noeud du document correspond a un de ces templates, le template est
+                  actionne </item>
+               <item>Un templatre peut acceder a tout partie du document, en utilisant un langage
+                  standardise XPath </item>
+               <item>Si aucun template n'est specifie pour un element, par defaut le contenu textuel
+                  de l'element est emis</item>
+            </list>
+         </div>
+
+
+         <div>
+            <head>Une transformation typique</head>
+            <p>A partir de ceci : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <div type="recette" n="34">
+                     <head>Pasta pour les debutants</head>
+                     <list>
+                        <item>pates</item>
+                        <item>fromage râpé</item>
+                     </list>
+                     <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+                  </div>
+               </egXML> on veut produire : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <html xmlns="http://www.w3.org/1999/xhtml">
+                     <h1>34: Pasta pour les novices</h1>
+                     <p>Ingrédients: pates fromage râpé</p>
+                     <p>Faire bouiller les pates, et melanger avec le fromage.</p>
+                  </html>
+               </egXML>
+            </p>
+         </div>
+         <div>
+            <head>Comment exprimer cela en XSL?</head>
+            <p>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                     xpath-default-namespace="http://www.tei-c.org/ns/1.0" version="2.0">
+                     <xsl:template match="div">
+                        <html>
+                           <h1>
+                              <xsl:value-of select="@n"/>: <xsl:value-of select="head"/>
+                           </h1>
+                           <p>Ingrédients: <xsl:apply-templates select="list/item"/>
+                           </p>
+                           <p>
+                              <xsl:value-of select="p"/>
+                           </p>
+                        </html>
+                     </xsl:template>
+                  </xsl:stylesheet>
+               </egXML>
+            </p>
+         </div>
+        
+         <div>
+            <head>Comment se servir de XQuery ?</head>
+            <p><figure>
+                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
+               </figure></p>
+            <p rend="box">Xquery est un langage d'interrogation de base de donnees XML </p>
+         </div>
+        
+         <!-- processing environment with xquery -->
+         
+         
          <div xml:lang="fr">
             <head>L’esprit TEI</head>
             <p>Qu’est-ce que cela veut dire : « être conforme » à la TEI ?</p>
@@ -1051,83 +1154,14 @@ l'apparence d'un document existant</p> -->
                   effectuées</item>
             </list>
             <p rend="box">L'objet de ces règles est de faciliter le "blind interchange" des
-               documents.</p>
+               documents -- mais ils ne le garantissent pas.</p>
          </div>
-         <div>
-            <head>Comment se servir d' XSLT ?</head>
-            <p><figure>
-                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
-               </figure></p>
-            <p rend="box">XSLT est un langage de transformation</p>
-         </div>
-         <div>
-            <head>Une transformation typique</head>
-            <p>A partir de ceci :
-               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                  <div type="recette" n="34">
-                     <head>Pasta pour les debutants</head>
-                     <list>
-                        <item>pates</item>
-                        <item>fromage râpé</item>
-                     </list>
-                     <p>Faire bouiller les pates, et melanger avec le fromage.</p>
-                  </div>
-               </egXML>
-                on veut produire :
-               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                  <html xmlns="http://www.w3.org/1999/xhtml">
-                     <h1>34: Pasta pour les novices</h1>
-                     <p>Ingrédients: pates fromage râpé</p>
-                     <p>Faire bouiller les pates, et melanger avec le fromage.</p>
-                  </html>
-               </egXML>
-            </p>
-         </div>
-         <div>
-            <head>Comment exprimer cela en XSL?</head>
-            <p>
-               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                     xpath-default-namespace="http://www.tei-c.org/ns/1.0" version="2.0">
-                     <xsl:template match="div">
-                        <html>
-                           <h1>
-                              <xsl:value-of select="@n"/>: <xsl:value-of select="head"/>
-                           </h1>
-                           <p>Ingrédients: <xsl:apply-templates select="list/item"/>
-                           </p>
-                           <p>
-                              <xsl:value-of select="p"/>
-                           </p>
-                        </html>
-                     </xsl:template>
-                  </xsl:stylesheet>
-               </egXML>
-            </p>
-         </div>
-         <div>
-            <head>Une feuille de style XSLT</head>
-            <list>
-               <item>est un document XML, contenant des éléments de l'espace de noms
-                     <code>http://www.w3.org/1999/XSL/Transform</code>
-               </item>
-               <item><gi>xsl:stylesheet</gi> (élément racine de tout stylesheet) permet de spécifier
-                  tous les noms d'espace utilisés, un nom d'espace par defaut, et la version du
-                  norme XSLT employé (1 ou 2)</item>
-               <item><gi>xsl:output</gi> : spécifie quelques options pour l'arbre de sortie, par
-                  exemple son format (HTML, XML, TEXT...), encodage (ISO-8859-1, UTF-8 ...)
-                  etc.</item>
-            </list>
-            <egXML xmlns="http://www.tei-c.org/ns/Examples"
-               xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-               <xsl:stylesheet xpath-default-namespace="http://www.tei-c.org/ns/1.0" version="2.0">
-                  <xsl:output method="html" encoding="ISO-8859-1"/>
-                  <xsl:template match="/">
-                     <xsl:apply-templates/>
-                  </xsl:template>
-               </xsl:stylesheet>
-            </egXML>
-         </div>
+   
+         <!-- COMMUNAUTE TEI --> 
+         
+         <!-- POUR EN SAVOIR PLUS -->
+         
+         
       </body>
    </text>
 </TEI>
