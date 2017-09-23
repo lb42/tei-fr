@@ -1040,15 +1040,15 @@ l'apparence d'un document existant</p> -->
                <item>mais il faut le construire! </item>
             </list>
             <p rend="box">Heureusement, la construction des outils devient beacoup plus simple
-               a cause du disponibilite de quelques technologies standardises tres generiques...
-              par ex. CSS, XSLT, XQuery...</p>
+               à cause du disponibilité de quelques technologies standardisés très génériques...
+              notamment CSS, XSLT, XPath et XQuery</p>
           
          </div>
          
          <div>
             <head>Comment se servir de CSS ?</head>
             <p><figure>
-                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
+                  <graphic url="../Graphics/css-use.png" height="80%"/>
                </figure></p>
             <p rend="box">CSS est un langage d'affichage </p>
          </div>
@@ -1135,11 +1135,18 @@ l'apparence d'un document existant</p> -->
             </p>
          </div>
          <div>
-            <head>Comment se servir de XQuery ?</head>
-            <p><figure>
-                  <graphic url="../Graphics/xslt-use.png" height="80%"/>
-               </figure></p>
-            <p rend="box">Xquery est un langage d'interrogation de base de donnees XML </p>
+            <head>Quid de XPath et XQuery ?</head>
+            <p>XPath est un langage standardise pour addresser les parties dune arborescence XML</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              document("books.xml")/bookstore/book[price>30]../title
+            </egXML>
+            <p>Xquery est un langage d'interrogation de base de donnees XML </p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               for $x in doc("books.xml")/bookstore/book
+               where $x/price>30
+               order by $x/title
+               return $x/title
+            </egXML>
          </div>
        <!-- <div><head>Comment mettre ensemble ces technologies ? </head>
         <p>Une methode tres repandue</p>
