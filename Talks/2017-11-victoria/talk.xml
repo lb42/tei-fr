@@ -310,21 +310,19 @@
                specifies that attribute values be taken from a closed list of possible values rather
                than being any token of the appropriate datatype is a subsetting operation: the set
                of documents considered valid by that customization is a pure subset of the set of
-               documents considered valid by a schema lacking that particular customization. This is
-               also true of a modification which changes the datatype of an attribute, for example
-               from a string to an integer or a date, but not of the reverse modification, for
-               example from date to string. A modification may also provide an alternative
-               identifier for an element or an attribute, for example to translate its canonical
-               English name into another language: this cannot be regarded as a subsetting operation
-               without doing some violence to the meaning of the term. A modification may change the
-               class memberships of an existing TEI element, so that it acquires attributes not
-               previously available, or so that it may appear in contexts where it previously could
-               not. A modification may change the content model of an element, so that it may
-               contain different child elements, or so that its existing children may appear in a
-               different order or with different cardinalities, and it may introduce additional
-               constraints on the content of an element or the value of an attribute using rules not
-               otherwise (or not readily) expressible in formal schema languages such as DTD or
-               RELAXNG. </p>
+               documents considered valid by a schema lacking that particular customization. But
+               this may or may not be true of a modification which changes the datatype of an
+               attribute : for example a change from string to integer or date is a subsetting
+               operation, whereas the reverse modification, (say from date to string) is not. A
+               modification may also provide an alternative identifier for an element or an
+               attribute, for example to translate its canonical English name into another language,
+               which cannot be regarded as a subsetting operation without doing some violence to the
+               meaning of the term. A modification may change the class memberships of an existing
+               TEI element, so that it acquires attributes not previously available, or so that it
+               may appear in contexts where it previously could not. A modification may change the
+               content model of an element, so that it may contain different child elements, or so
+               that its existing children may appear in a different order or with different
+               cardinalities. </p>
             <p>A user of the TEI is also at liberty to define entirely new elements, macros, classes
                or attributes, and to reference them from existing TEI components, within certain
                limits. New elements or attributes should be explicitly attached to a different, non
@@ -353,6 +351,22 @@
                ever be considered valid, since the mandatory components of the TEI Header are an
                essential part of it; a TEI Header which lacks them is a different kind of object,
                and should not present itself as being something which it is not. </p>
+            <p>As noted above, TEI extensions which include TEI elements whose properties or
+               semantics have been significantly changed should place those elements in a different
+               namespace. On the face of it, this means that any element containing these redefined
+               elements will have a different content model, and should therefore be in a different
+               namespace too. And the same ought to apply to their parent elements, and so on up to
+               the TEI element itself. <note>We might call this the <soCalled>turtles all the way
+                     up</soCalled> scenario, in hommage to Douglas Hoftstadter.</note> Fortunately,
+               there is a nuance of detail which means we do not need to invoke this doomsday
+               scenario: TEI content models are explicitly defined not in terms of explicit elements
+               but in terms of references to model classes. A class reference will be dereferenced
+               to a specific set of elements only when an ODD is converted to a schema; this is
+               necessary because the set in question will depend on what elements have been included
+               in the ODD. Hence we should assess conformance only with respect to the class
+               references. Any element, including one from a non-TEI namespace, may claim membership
+               in a TEI model class and hence legitimately appear in the content of a TEI element
+               referencing that class. </p>
          </div>
          <div n="3">
             <head>What is TEI conformance? </head>
@@ -434,20 +448,20 @@
                others less so. For example, the TEI Guidelines require that a modification should
                use namespaces in a coherent manner: in particular, that elements not defined by the
                TEI, or TEI elements whose definition has been modified to such an extent that they
-               are arguably no longer the same element
-               <!--in such a way that instances
-               of them would no longer be regarded as valid by tei_all,-->
-               should not be defined within the TEI namespace, but instead use a
-               customization-specific namespace. Software such as <ident>onvdl</ident> can be used
-               to check (within limits) the validity of a document using multiple namespaces<note
-                  place="end">onvdl routes different parts of an XML document for validation against
-                  possibly many different schemas, using the Namespace-based Validsation Despatching
-                  Language, defined as part 4 of ISO 19757</note>. But the ability to extend the
-               range of encodings supported by the TEI simply and straightforwardly remains a
-               fundamental principle for a scheme which is intended to serve the needs of research.
-               This principle has several important benefits: <list>
-                  <item>it enables the TEI to leverage with comparative ease otherODD specialised
-                     XML vocabularies, such as MathML, SVG, or most recently MML;</item>
+               are arguably no longer the same element should not be defined within the TEI
+               namespace, but instead use a customization-specific namespace. Software such as
+                  <ident>onvdl</ident> can be used to check (within limits) the validity of a
+               document using multiple namespaces<note place="end">onvdl routes different parts of
+                  an XML document for validation against possibly many different schemas, using the
+                  Namespace-based Validation Despatching Language, defined as part 4 of ISO
+                  19757</note> but in the general case validation of a TEI extension can only
+               reliably be performed by a schema generated from the ODD which defines the extension. </p>
+            <p>The ability to extend the range of encodings supported by the TEI simply and
+               straightforwardly remains a fundamental requirement for a scheme which is intended to
+               serve the needs of research. Recognition of this requirement has several important
+               benefits: <list>
+                  <item>it enables the TEI to leverage with comparative ease other specialised XML
+                     vocabularies, such as MathML, SVG, or most recently MML;</item>
                   <item>it facilitates and encourages the development of new TEI components by the
                      broader community;</item>
                   <item>it simplifies the task of interchange by reducing the possibility of
