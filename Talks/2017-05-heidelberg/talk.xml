@@ -1,25 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_jtei.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_jtei.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" rend="jTEI">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>What is TEI conformance, and why should you care?</title>
-            <author>Lou Burnard</author>
+            <title type="main">What is TEI conformance, and why should you care?</title>
+            
+            <author>
+               <name>
+                  <forename>Lou</forename> 
+                  <surname>Burnard</surname>
+               </name>
+               <affiliation/>
+               <email>lou.burnard@retired.ox.ac.uk</email>
+            </author>
          </titleStmt>
          <publicationStmt>
-            <p>Revised draft of presentation at <title>Digital Classics III: Re-thinking Text
-                  Analysis</title> (Heidelberg, May 11-13, 2017)</p>
+            <publisher>Lou Burnard Consulting</publisher>
+            <date>December 2017</date>
+            <availability>
+               <p>Creative Commons Attribution 4.0 International</p>
+            </availability>
          </publicationStmt>
          <sourceDesc>
-            <p>All my own work</p>
+            <p>Lightly revised version of the presentation given at <title>Digital Classics III:
+               Re-thinking Text Analysis</title> (Heidelberg, May 11 to 13, 2017)</p>
          </sourceDesc>
       </fileDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en">en</language>
+         </langUsage>
+         <textClass>
+            <keywords xml:lang="en">               
+               <term/>
+            </keywords>
+         </textClass>
+      </profileDesc>
       <revisionDesc>
-         <change when="2017-12-10">Added some changes from Victoria</change>
-         
+         <change when="2017-12-11">Revised for publication</change>
          <change when="2017-05-10">Pretty much complete</change>
       </revisionDesc>
    </teiHeader>
+   <!--  <encodingDesc>
+         <projectDesc>
+            <p>Revues.org -centre for open electronic publishing- is the platform for journals in the
+               humanities and social sciences, open to quality periodicals looking to publish full-text
+               articles online.</p>
+         </projectDesc>
+      </encodingDesc>
+     
+    -->
    <text>
       <front>
          <div type="abstract">
@@ -36,7 +69,7 @@
                noticeable features of the Guidelines is their desire to have (as the French say)
                both the butter and the money for the butter; I will suggest that this polymorphous
                multiplicity is an essential component of the system, and has been a key factor in
-               determining the TEI's continued relevance. </p>
+               determining the TEI’s continued relevance. </p>
          </div>
       </front>
       <body>
@@ -46,16 +79,16 @@
       -->
             <p>As the old joke says, the good thing about standards is that there are so many to
                choose from. You can choose to follow a dictatorial, centrally-imposed,
-               we-know-what's-best-for-you encoding method like using Microsoft Word. You can choose
-               to follow a hand-crafted, idiosyncratic, we-know-what-we're-doing kind of encoding
+               we-know-what’s-best-for-you encoding method like using Microsoft Word. You can choose
+               to follow a hand-crafted, idiosyncratic, we-know-what-we’re-doing kind of encoding
                standard made up and maintained by the leading lights of a particular research
                community, like Epidoc. Or you can just go ahead and do your own encoding thing,
                which I like to characterize as the nobody-understands-my-problems kind of standard.
-               In academia, there's a good argument for each of these flavours. WKWBFY saves a lot
+               In academia, there’s a good argument for each of these flavours. WKWBFY saves a lot
                of time and effort reinventing the wheel and ensures that your work will be
                processable and usable in at least one kind of application environment: the downside
                is that you may not want or like the world view that the system embodies, but you
-               can't change it. WKWWD probably means you are dealing with congenial and familiar
+               can’t change it. WKWWD probably means you are dealing with congenial and familiar
                views and are guaranteed respect within your community, but no-one outside that
                community will know what to do with your stuff, and you may be a bit limited if you
                want to push the boundaries of knowledge or praxis within it. And, of course, NUMP
@@ -69,7 +102,7 @@
                distinguishable) advantage do we gain in defining formally the methods and formats by
                which we choose to represent in digital form our understanding of cultural artefacts?
                We may do it simply in order to be seen to be ticking the right boxes in a funding
-               agency's list of criteria; we may do it because our elders and betters have told us
+               agency’s list of criteria; we may do it because our elders and betters have told us
                we should; we may do it because we know no better. But none of these can be
                considered well-founded motivations. How does the use of explicit standards in the
                markup of digital resources contribute to the success or failure of a scholarly
@@ -80,7 +113,7 @@
                inherently scholarly act: it expresses a scholarly interpretation. It is a
                hermeneutic activity. Our choice of markup vocabulary is therefore not an arbitrary
                one. It has consequences. It may make it harder to conceive of the truth about a
-               document or a document's intentions; it may make it much easier to say something
+               document or a document’s intentions; it may make it much easier to say something
                which is convenient, but false. To dismiss as <q>mere semantics</q> concerns about
                the proper application of markup is thus to embark upon a very dangerous path,
                assuming that you share my belief that every scholarly encoding should truthfully
@@ -103,8 +136,8 @@
                implies the existence of some formal definition for the markup language, against
                which productions using it can be checked, preferably using an automated system such
                as a parser or other automaton. Talking solely of XML documents, it is commonplace to
-               require that the concept of <q>well-formedness</q> -- purely syntactic correctness --
-               be completed by the concept of <q>validity</q> -- conformance to a specific XML
+               require that the concept of <q>well-formedness</q> — purely syntactic correctness —
+               be completed by the concept of <q>validity</q> — conformance to a specific XML
                markup vocabulary, as defined by a schema of some sort. </p>
             <p>Scholarly markup however requires more than simple XML validity. It may be necessary
                to do more than constrain the context or name of a given markup component; indeed we
@@ -112,7 +145,7 @@
                up document (the start and end tags, the attribute value pairs etc.) have intention
                beyond what an XML schema can express. A typical XML schema will allow me to say that
                the XML element <gi>p</gi> must appear within the XML element <gi>div</gi> and not
-               the reverse, but it won't easily let me say that the content of my <gi>p</gi>
+               the reverse, but it won’t easily let me say that the content of my <gi>p</gi>
                elements should correspond to a paragraph of text rather than, say, a list item,
                heading, or page in the source document being encoded. For that information, I will
                need to consult the project-specific documentation, which should spell out how
@@ -143,27 +176,27 @@
                to us do not provide an entirely identical range of facilities of this kind, nor do
                they conceptualise the validation of documents in exactly the same way, but they are
                in sufficiently broad agreement for it to be possible to model the information they
-               require using a simple XML language.<note place="end">Earlier versions of the TEI
+               require using a simple XML language.<note >Earlier versions of the TEI
                   did not attempt to duplicate the features of existing schema languages, but simply
                   embedded expressions in the DTD language (in versions prior to P4), or in RELAXNG
                   schema language (in TEI P4 and early version of P5). From TEI P5 version 3.0
                   however, the XML vocabulary in which the TEI is written was expanded to include
-                  facilities for expressing content models directly in TEI. (see <ref
+                  facilities for expressing content models directly in TEI. (see <ref type="bibl" 
                      target="#durandcon">Burnard 2013</ref>). One motivation for this was to reduce
                   the dependence of the TEI documentation scheme on other modelling langages, in
-                  line with the priorities expressed in the TEI's foundational design goals (see
-                     <ref target="#edp01">TEI 1988</ref>), according to which <q>The Text Encoding
+                  line with the priorities expressed in the TEI’s foundational design goals (see
+                     <ref type="bibl" target="#edp01">TEI 1988</ref>), according to which <q>The Text Encoding
                      Initiative will develop a conforming SGML application, if it can meet the needs
                      of researchers by doing so. Where research needs require constructs unavailable
                      with SGML, however, research must take precedence over the standard</q>.</note>
             </p>
             <p>However, if schema models were all that the TEI tag documentation system supported,
                it would be hard to persuade anyone to use it. The full ODD language, as this tag set
-               is known<note place="end"><ref target="#rahtzburnard">Rahtz &amp; Burnard 2004</ref>
+               is known, <note ><ref type="bibl"  target="#rahtzBurnard">Rahtz &amp; Burnard 2004</ref>
                   introduces this <q>One Document Does it all</q> system as currently
-                  instantiated.</note>, allows a rich and well organized specification to be created
+                  instantiated.</note> allows a rich and well organized specification to be created
                for individual elements and attributes, for datatypes, for classes, and for macros
-               (i.e. strings), in each case providing much more than the basic information required
+               (predefined strings), in each case providing much more than the basic information required
                to create a schema using them. The TEI itself is composed of several hundred such
                specifications, from which are generated formal schemas and the two volumes of
                reference documentation which we no longer print, but instead provide online at
@@ -171,7 +204,7 @@
                specifications, optionally modifying or extending its components, to generate a
                customized schema with accompanying documentation. </p>
       <!--      <p><hi rend="italic">slide 4 </hi></p>
-      -->      <p>A full TEI element specification contains: <list rend="numbers">
+      -->      <p>A full TEI element specification contains: <list rend="bulleted">
                   <item>a <hi>canonical name</hi> for the element, together with (as necessary)
                      explanatory glosses for the name in various languages; alternative names in
                      other languages; equivalents in other markup schemes; </item>
@@ -179,7 +212,7 @@
                      intended for the element; </item>
                   <item>information about the element and attribute <hi>classes</hi> to which the
                      element belongs; </item>
-                  <item>information about the element's <hi>content model</hi> as already indicated; </item>
+                  <item>information about the element’s <hi>content model</hi> as already indicated; </item>
                   <item>formal specifications for any <hi>constraints</hi> additional to those
                      expressed by the content model;</item>
                   <item>a list of specifications for any <hi>attributes</hi> defined as local to the
@@ -223,12 +256,12 @@
                though it was also possible to combine multiple bases. This, the so-called pizza
                model, did not survive into TEI P5, where all modules are considered equal even
                though there are some modules some of whose components are needed for almost any
-                  schema<note place="end">The <ident>tei</ident> module supplies declarations for
+                  schema.<note >The <ident>tei</ident> module supplies declarations for
                   generally useful macros, datatypes, model and attribute classes; the
                      <ident>core</ident> module which supplies declarations for elements needed in
                      <q>all kinds of document</q>; the <ident>header</ident> module which supplies
                   metadata elements; and the <ident>textstructure</ident> module which supports the
-                  basic organization of book like objects, for example. </note>. A class is an
+                  basic organization of book like objects, for example. </note> A class is an
                abstract object to which elements point in order to express their semantic or
                structural status. In SGML-based versions of the Guidelines, classes were represented
                by parameter entities which could be modified at the document instance level, thus
@@ -280,12 +313,12 @@
                it is my contention that adopting an off-the-peg encoding system is always going to
                be less satisfactory than customizing one that fits more precisely the actual needs
                of your project and the actual data you have modelled within it. (You did do a data
-               analysis before you started, didn't you?). </p>
-            <p>And whether or not you did, it's painfully true that nothing in digital form is ever
-               really finished. It's almost inevitable that as your project evolves, you will come
+               analysis before you started, didn’t you?). </p>
+            <p>And whether or not you did, it’s painfully true that nothing in digital form is ever
+               really finished. It’s almost inevitable that as your project evolves, you will come
                across things you would do differently if you could start all over again. In the
                light of experience, you may well want to change the list of available elements to
-               match more closely your actual encoding practices. Beginners often think that it's
+               match more closely your actual encoding practices. Beginners often think that it’s
                better to allow almost any kind of content in their schema: an extreme case of this
                misapprehension leads people to use TEI_all for everything. It may well be that your
                project started out a bit uncertain about the kind of data it would have to be able
@@ -294,7 +327,7 @@
                schema that matches all and only the elements you now know you need, than one which
                allows anything? Every element you allow for in your schema is another element you
                need to explain to your encoders, document, find examples for, and check that it is
-               being used consistently (if it is used at all). It's also another element that the
+               being used consistently (if it is used at all). It’s also another element that the
                poor over-worked software developer has to be prepared to handle. Reducing the number
                of elements permitted by your schema makes it easier for you to concentrate on the
                quality of your documentation, by introducing examples more appropriate to your
@@ -366,7 +399,7 @@
                namespace. On the face of it, this means that any element containing these redefined
                elements will have a different content model, and should therefore be in a different
                namespace too. And the same ought to apply to their parent elements, and so on up to
-               the TEI element itself. <note place="foot">We might call this the <soCalled>turtles all the way
+               the TEI element itself. <note >We might call this the <soCalled>turtles all the way
                      up</soCalled> scenario, in hommage to Douglas Hoftstadter.</note> Fortunately,
                there is a nuance of detail which means we do not need to invoke this doomsday
                scenario: TEI content models are defined not in terms of specific elements
@@ -402,13 +435,14 @@
                conformance means, or how it should be assessed. The following diagram is intended to
                demonstrate some of the notions discussed in that chapter, and elsewhere. </p>
             <figure>
-               <graphic url="../Graphics/oddFlavours.png" width="70%"/>
-               <head>Varieties of Customization</head>
+               <graphic url="../Graphics/oddFlavours.png" width="500px" height="350px"/>
+               <head type="legend">Varieties of Customization</head>
             </figure>
 
             <!--    <p><hi rend="italic">slide 9</hi></p>
        -->
-            <p>Each of the shapes here may be understood to represent three different things: <list>
+            <p>Each of the shapes here may be understood to represent three different things: <list
+               rend="bulleted">
                   <item>an ODD : that is, a collection of TEI specifications</item>
                   <item>a formal schema generated from that ODD, and its natural language
                      documentation</item>
@@ -422,7 +456,7 @@
                attributes or classes, but there are at least two different kinds of customization: a
                   <term>TEI subset</term> and a <term>TEI extension</term>. (In proposing this
                terminology, I am unconsciously recalling distinctions proposed by David Birnbaum in
-               a 2000 article (<ref target="#birnb2000">Birnbaum 2000, esp section 5.1</ref>) which
+               a 2000 article (<ref type="bibl" target="#birnb2000">Birnbaum 2000, esp section 5.1</ref>) which
                talks of modifications as <soCalled>supersets</soCalled> or
                   <soCalled>subsets</soCalled>.) </p>
 
@@ -449,7 +483,7 @@
                document
                using multiple namespaces is also feasible (within some limits) using software such as
                <ident>onvdl</ident> <note
-                  place="end">onvdl routes different parts of
+                  >onvdl routes different parts of
                   an XML document for validation against possibly many different schemas, using the
                   Namespace-based Validation Despatching Language, defined as part 4 of ISO
                   19757</note> but in the general case validation of a document claiming conformance
@@ -472,16 +506,16 @@
                people may reasonably disagree about whether two concepts are semantically
                different, just as they may in identifying either concept in the first place. That is
                part of what Darrell Raymond memorably called the <q>hellfire of ontology</q> into which the
-               descriptive markup project has plunged an entire generation<note>(<ref
+               descriptive markup project has plunged an entire generation (<ref type="bibl"
                   target="#raymond1996">Raymond et al
-                  1996</ref>)</note> and I do not think it invalidates the general principle that
+                  1996</ref>) and I do not think it invalidates the general principle that
                 TEI conformance entails a respect for the consensus, just as
                much as it facilitates autonomy.</p>
 
             <p>The ability to extend the range of encodings supported by the TEI simply and
                straightforwardly remains a fundamental requirement for a scheme which is intended to
                serve the needs of research. Recognition of this requirement has several important
-               benefits: <list>
+               benefits: <list rend="bulleted">
                   <item>it enables the TEI to leverage with comparative ease other specialised XML
                      vocabularies, such as MathML, SVG, or most recently MML;</item>
                   <item>it facilitates and encourages the development of new TEI components by the
@@ -524,12 +558,12 @@
                humorously presented <q>TEI Commandments</q> have much in common with the more
                nuanced statement of what conformance should be that we might produce today. </p>
             <figure>
-               <graphic url="../Graphics/1991-TEI-commandments.png" width="70%"/>
-               <head>1991 version</head>
+               <graphic url="../Graphics/1991-TEI-commandments.png" width="500px" height="605px"/>
+               <head type="legend">Conformance : 1991 version</head>
             </figure>
 
             <p>Today, I suggest that we should say of a document that it is <q>TEI conformant</q>
-               iff : <list>
+               iff : <list rend="ordered">
                   <item>it is a well formed XML document; and </item>
                   <item>it is valid against one or more schemas, which may be either a TEI subset or
                      a TEI extension; and </item>
@@ -541,13 +575,13 @@
 
             <p>The purpose of these rules is to make interchange of documents easier. They do not
                guarantee it, and they certainly do not provide any guarantee of interoperability.
-               But they make much simpler for example the kind of scenario envisaged by <ref
+               But they make much simpler for example the kind of scenario envisaged by <ref type="bibl"
                   target="#holmes2016">Holmes 2016</ref> in which a richly encoded highly personalised
                TEI encoding can be simply down-translated to other, possibly less expressive,
                semi-standardized encodings for purposes of interchange. As more and more independent
                agencies undertake mass digitization and encoding projects, the risk of a new
-               confusion of tongues -- the threatened Tower of Babel which the TEI was specifically
-               created to resist -- has not retreated. A definition of conformance which relies on
+               confusion of tongues — the threatened Tower of Babel which the TEI was specifically
+               created to resist — has not retreated. A definition of conformance which relies on
                an enforced lowest common denominator standard (Dublin Core springs to mind) makes it
                hard to benefit from truly sophisticated and scholarly standards. One which promotes
                permissiveness and extensibility, as the TEI does, has to balance the sophistication
@@ -559,22 +593,20 @@
          </div>
       </body>
       <back>
+         <div type="bibliography">
          <listBibl>
-            <head>References</head>
-            <bibl xml:id="birnb2000">Birnbaum, David J. <title>The Relationship Between General and
+               <bibl xml:id="birnb2000">Birnbaum, David J. <title level="a">The Relationship Between General and
                   Specific DTDs: Criticizing TEI Critical Editions</title> in <title level="j"
                   >Markup Languages: Theory and Practice,</title> Volume 3 Issue 1, December 2000,
-               Pages 17-53); online at <ptr target="http://www.obdurodon.org/djb/tei-crit/"/></bibl>
-            <bibl xml:id="rahtzBurnard"><date>2004</date> Burnard, Lou and Sebastian Rahtz:
-                  <title>RelaxNG with Son of ODD</title>. Extreme Markup Languages. </bibl>
-            <bibl xml:id="durandCon">Burnard, Lou <title>Resolving the Durand Conundrum</title>, <title level="j"
-                  > Journal of the Text Encoding Initiative</title>[Online], Issue 6 | December
-               2013, URL : http://jtei.revues.org/842 ; DOI : 10.4000/jtei.842 </bibl>
-            <bibl xml:id="edp01"><title>Design principles for text encoding guidelines</title> (TEI
-               ED P1, 1988, revised 1990) <ref target="http://www.tei-c.org/Vault/EDP01.html"
-               /></bibl>
-            <bibl xml:id="holmes2016">Holmes, Martin <title>Whatever happened to
-                  interchange?</title>
+                  Pages 17–53); online at <ptr target="http://www.obdurodon.org/djb/tei-crit/"/></bibl>
+            <bibl xml:id="rahtzBurnard">Burnard, Lou and Sebastian Rahtz:
+                  <title level="a">RelaxNG with Son of ODD</title>. (Conference presentation)
+               Extreme Markup Languages, <date>2004</date>; online at <ptr target="www.tei-c.org/cms/Talks/extreme2004/paper.html"/></bibl>
+
+            <bibl xml:id="durandcon">Burnard, Lou <title level="a">Resolving the Durand Conundrum</title>, <title level="j"
+                  > Journal of the Text Encoding Initiative</title> Issue 6, December
+               2013; DOI : 10.4000/jtei.842; online at <ptr target="http://jtei.revues.org/842"/>  </bibl>
+            <bibl xml:id="holmes2016">Holmes, Martin <title level="a">Whatever happened to interchange?</title> in 
                <title level="j"> Digital Scholarship in the Humanities</title>, 2016. </bibl>
          <bibl xml:id="raymond1996"><author>Darrell Raymond</author>,
                <author>Frank Tompa</author> and <author>Derick
@@ -582,12 +614,12 @@
                      Data Model: Meta-Semantic Issues in the Evolution of
                      SGML.</title> in <title level="s">Computer Standards &amp;
                         Interfaces</title> 18 (<date>1996</date>): <biblScope
-                           unit="page">25-36</biblScope>.
-               doi:10.1016/0920-5489(96)00033-5</bibl>
+                           unit="page">25–36</biblScope>.
+            doi:10.1016/0920–5489(96)00033–5</bibl>
             <bibl xml:id="edp01">Sperberg-McQueen, C.M. and Lou Burnard <title>Design principles for
-                  text encoding guidelines</title> (TEI ED P1, 1988, revised 1990) <ref
+               text encoding guidelines</title> (TEI ED P1, 1988, revised 1990); online at  <ptr
                   target="http://www.tei-c.org/Vault/EDP01.html"/></bibl>
-         </listBibl>
+         </listBibl></div>
       </back>
    </text>
 </TEI>
