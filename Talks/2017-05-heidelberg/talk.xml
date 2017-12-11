@@ -7,7 +7,7 @@
             <author>Lou Burnard</author>
          </titleStmt>
          <publicationStmt>
-            <p>Unpublished draft for presentation at <title>Digital Classics III: Re-thinking Text
+            <p>Revised draft of presentation at <title>Digital Classics III: Re-thinking Text
                   Analysis</title> (Heidelberg, May 11-13, 2017)</p>
          </publicationStmt>
          <sourceDesc>
@@ -15,6 +15,8 @@
          </sourceDesc>
       </fileDesc>
       <revisionDesc>
+         <change when="2017-12-10">Added some changes from Victoria</change>
+         
          <change when="2017-05-10">Pretty much complete</change>
       </revisionDesc>
    </teiHeader>
@@ -317,7 +319,8 @@
                documents considered valid by an unmodified TEI schema. This is also true of a
                modification which changes the datatype of an attribute, for example from a string to
                an integer or a date, but not of the reverse modification, for example from date to
-               string. A modification may also provide an alternative identifier for an element or
+               string. It is easy to think of apparently benign and useful
+               modifications which inevitably result in an extension, rather than a subset. A modification may also provide an alternative identifier for an element or
                an attribute, for example to translate its canonical English name into another
                language: this cannot be regarded as a subsetting operation without doing some
                violence to the meaning of the term. A modification may change the class memberships
@@ -334,7 +337,7 @@
                TEI, namespace, and new elements should, as far as possible, be included in existing
                content models by making them members of existing TEI classes, rather than by
                explicitly modifying the content model of an existing element. </p>
-            <p>Despite this flexibility, there are still a few hard wired rules built into the TEI
+            <p>Despite all this flexibility, there are still a few hard wired rules built into the TEI
                model, which the customizer ignores at their peril. For example, a TEI Header really
                   <emph>must</emph> have a title statement (which must contain at least a title), a
                publication statement and a source description, even if the latter two have no
@@ -344,18 +347,35 @@
                are defined really <emph>must</emph> be respected: hence one <gi>p</gi> cannot
                contain another, and a phrase level element such as <gi>hi</gi> cannot contain a
                block like element such as <gi>p</gi>. </p>
-            <p>Some of these rules are regularly debated on TEI forums, but for the most part they
-               remain integral to the TEI model. It is a part of the definition of a TEI
-                  <gi>div</gi> that once you have encountered another nested <gi>div</gi> element
+            <p>Some of these restrictions are regularly debated on TEI forums, but for the most part they
+               remain integral parts of the TEI model. It is a part of the definition of a TEI
+                  <gi>div</gi> that once you have encountered another nested <gi>div</gi>
                within it, only div elements at the same hierarchic level are permitted until it
                finishes ; this is not to say that a non-tessellating division element might not be
                useful, but if one is defined it most be distinguished clearly from the existing TEI
-                  <gi>div</gi>, for example by placing it in a different namespace. Breaking these
+                  <gi>div</gi>, for example by placing it in a different namespace. 
+               </p><p>Breaking these
                rules may have unexpected consequences. For example, a customization which removes
                the element <gi>title</gi> will result in a schema in which no TEI Header element can
                ever be considered valid, since the mandatory components of the TEI Header are an
                essential part of it; a TEI Header which lacks them is a different kind of object,
                and should not present itself as being something which it is not. </p>
+            <p>As noted above,
+               TEI extensions which include TEI elements whose properties or
+               semantics have been significantly changed should place those elements in a different
+               namespace. On the face of it, this means that any element containing these redefined
+               elements will have a different content model, and should therefore be in a different
+               namespace too. And the same ought to apply to their parent elements, and so on up to
+               the TEI element itself. <note place="foot">We might call this the <soCalled>turtles all the way
+                     up</soCalled> scenario, in hommage to Douglas Hoftstadter.</note> Fortunately,
+               there is a nuance of detail which means we do not need to invoke this doomsday
+               scenario: TEI content models are defined not in terms of specific elements
+               but in terms of references to model classes. A class reference will be dereferenced
+               to a specific set of elements only when an ODD is converted to a schema; this is
+               necessary because the set in question will depend on which elements are available in
+               the customization. Any element, including one from a non-TEI namespace, may claim membership
+               in a TEI model class and hence legitimately appear in the content of a TEI element
+               referencing that class. </p>
          </div>
          <div n="3">
             <head>What is TEI conformance? </head>
@@ -363,13 +383,12 @@
             <p>Umberto Eco remarks somewhere that a novel is a machine for generating
                interpretations. We might say that the TEI is a machine for generating schemas to
                formally represent such interpretations. However, just as not all interpretations of
-               a novel have equivalent explanatory force, so the schemas generated by different TEI
-               customizations may vary in their effectiveness or appropriateness. A schema
-               represents a view of what it is meaningful to assert about a set of documents. As we
-               have seen, a TEI schema does this with reference to the existing range of TEI
-               specifications, selecting the particular distinctions it wishes to make, modifying
-               some of them in ways which may or may not result in schema that is a subset of the
-               full TEI, and possibly adding new categories of distinction entirely. It is
+               a novel have equivalent explanatory force, so not all TEI
+               customizations are of equal effectiveness or appropriateness. A customization
+               documents a view of what it is meaningful to assert about a set of documents. As we
+               have seen, a TEI customization does this with reference to the existing range of
+               concepts defined by the TEI, selecting the particular distinctions it wishes to make, modifying
+               some of them in various ways and possibly adding new categories of distinction entirely. It is
                reasonable to want to know how the original TEI schema has been modified, since this
                enables us to make comparisons amongst different customizations, to assess their
                relative closeness to the original Guidelines, and to determine what might be
@@ -378,7 +397,7 @@
                general unmediated interoperability amongst TEI documents is largely chimerical,
                whereas the information provided by a TEI customization will often be all that is
                needed to make them interchangeable.</p>
-            <p> The existing Chapter 23 of the TEI Guidelines introduces a notion of TEI conformance
+            <p> The existing Chapter 23 of the TEI Guidelines introduces a notion of TEI Guidelines
                though it falls short of providing a full formal definition, either of what
                conformance means, or how it should be assessed. The following diagram is intended to
                demonstrate some of the notions discussed in that chapter, and elsewhere. </p>
@@ -401,7 +420,11 @@
                I will call that selection a <q>TEI customization</q>. Of course there are many many
                possible TEI customizations, each involving different choices of elements or
                attributes or classes, but there are at least two different kinds of customization: a
-                  <term>TEI subset</term> and a <term>TEI extension</term>. </p>
+                  <term>TEI subset</term> and a <term>TEI extension</term>. (In proposing this
+               terminology, I am unconsciously recalling distinctions proposed by David Birnbaum in
+               a 2000 article (<ref target="#birnb2000">Birnbaum 2000, esp section 5.1</ref>) which
+               talks of modifications as <soCalled>supersets</soCalled> or
+                  <soCalled>subsets</soCalled>.) </p>
 
             <p> In some cases, the modifications result in a schema which regards as valid a subset
                of the documents considered valid by tei_all: I will call this a <q>TEI subset</q>.
@@ -422,37 +445,50 @@
             <!--   <p><hi rend="italic">slide 10 </hi></p>
         -->
             <p>It is natural that particular importance should be attached to validity against a
-               schema, since this is something which can be automatically tested. But it would be a
+               schema, since this is something which can be automatically tested. Validation of a
+               document
+               using multiple namespaces is also feasible (within some limits) using software such as
+               <ident>onvdl</ident> <note
+                  place="end">onvdl routes different parts of
+                  an XML document for validation against possibly many different schemas, using the
+                  Namespace-based Validation Despatching Language, defined as part 4 of ISO
+                  19757</note> but in the general case validation of a document claiming conformance
+               with a TEI extension can only
+               reliably be performed by a schema generated from the ODD  defining that
+               customization.</p><p>
+               This is one reason why it would be a
                mistake to consider that validity against tei_all has any particular significance in
                assessing the status of a customization, other than to determine whether it is a TEI
-               subset or a TEI extension. The TEI was designed to support either kind of
+               subset or a TEI extension. The TEI was designed to facilitate either kind of
                customization, and either should be considered equally <q>conformant</q>, if that
                term is meant to imply something about coherence with the design goals or
-               recommendations of the Initiative. Those recommendations do however include a variety
-               of constraints about modifications, some of them well formulated and verifiable,
-               others less so. For example, the TEI Guidelines require that a modification should
+               recommendations of the Initiative. As noted earlier, those recommendations do include a variety
+               of constraints on what modifications are permissible, some of them readily verifiable,
+               others less so. For example, the Guidelines require that a modification should
                use namespaces in a coherent manner: in particular, that elements not defined by the
                TEI, or TEI elements whose definition has been modified to such an extent that they
-               are arguably no longer the same element
-               <!--in such a way that instances
-               of them would no longer be regarded as valid by tei_all,-->
-               should not be defined within the TEI namespace, but instead use a
-               customization-specific namespace. Software such as <ident>onvdl</ident> can be used
-               to check (within limits) the validity of a document using multiple namespaces<note
-                  place="end">onvdl routes different parts of an XML document for validation against
-                  possibly many different schemas, using the Namespace-based Validsation Despatching
-                  Language, defined as part 4 of ISO 19757</note>. But the ability to extend the
-               range of encodings supported by the TEI simply and straightforwardly remains a
-               fundamental principle for a scheme which is intended to serve the needs of research.
-               This principle has several important benefits: <list>
-                  <item>it enables the TEI to leverage with comparative ease otherODD specialised
-                     XML vocabularies, such as MathML, SVG, or most recently MML;</item>
+               arguably no longer represent the same concept should not be defined within the TEI
+               namespace. Of course, reasonable
+               people may reasonably disagree about whether two concepts are semantically
+               different, just as they may in identifying either concept in the first place. That is
+               part of what Darrell Raymond memorably called the <q>hellfire of ontology</q> into which the
+               descriptive markup project has plunged an entire generation<note>(<ref
+                  target="#raymond1996">Raymond et al
+                  1996</ref>)</note> and I do not think it invalidates the general principle that
+                TEI conformance entails a respect for the consensus, just as
+               much as it facilitates autonomy.</p>
+
+            <p>The ability to extend the range of encodings supported by the TEI simply and
+               straightforwardly remains a fundamental requirement for a scheme which is intended to
+               serve the needs of research. Recognition of this requirement has several important
+               benefits: <list>
+                  <item>it enables the TEI to leverage with comparative ease other specialised XML
+                     vocabularies, such as MathML, SVG, or most recently MML;</item>
                   <item>it facilitates and encourages the development of new TEI components by the
                      broader community;</item>
                   <item>it simplifies the task of interchange by reducing the possibility of
                      ambiguous or incoherent encoding. </item>
-               </list></p>
-
+               </list></p> <p> </p>
             <p>Even in the case of a customization which has eschewed extension and appears to be a
                straightforward TEI subset, an assessment of TEI conformance involves attention to
                some less easily verifiable constraints. In particular, I suggest, there are two
@@ -524,9 +560,14 @@
       </body>
       <back>
          <listBibl>
+            <head>References</head>
+            <bibl xml:id="birnb2000">Birnbaum, David J. <title>The Relationship Between General and
+                  Specific DTDs: Criticizing TEI Critical Editions</title> in <title level="j"
+                  >Markup Languages: Theory and Practice,</title> Volume 3 Issue 1, December 2000,
+               Pages 17-53); online at <ptr target="http://www.obdurodon.org/djb/tei-crit/"/></bibl>
             <bibl xml:id="rahtzBurnard"><date>2004</date> Burnard, Lou and Sebastian Rahtz:
                   <title>RelaxNG with Son of ODD</title>. Extreme Markup Languages. </bibl>
-            <bibl xml:id="durandCon"><title>Resolving the Durand Conundrum</title>, <title level="j"
+            <bibl xml:id="durandCon">Burnard, Lou <title>Resolving the Durand Conundrum</title>, <title level="j"
                   > Journal of the Text Encoding Initiative</title>[Online], Issue 6 | December
                2013, URL : http://jtei.revues.org/842 ; DOI : 10.4000/jtei.842 </bibl>
             <bibl xml:id="edp01"><title>Design principles for text encoding guidelines</title> (TEI
@@ -535,6 +576,17 @@
             <bibl xml:id="holmes2016">Holmes, Martin <title>Whatever happened to
                   interchange?</title>
                <title level="j"> Digital Scholarship in the Humanities</title>, 2016. </bibl>
+         <bibl xml:id="raymond1996"><author>Darrell Raymond</author>,
+               <author>Frank Tompa</author> and <author>Derick
+                  Wood</author>. <title level="a">From Data Representation to
+                     Data Model: Meta-Semantic Issues in the Evolution of
+                     SGML.</title> in <title level="s">Computer Standards &amp;
+                        Interfaces</title> 18 (<date>1996</date>): <biblScope
+                           unit="page">25-36</biblScope>.
+               doi:10.1016/0920-5489(96)00033-5</bibl>
+            <bibl xml:id="edp01">Sperberg-McQueen, C.M. and Lou Burnard <title>Design principles for
+                  text encoding guidelines</title> (TEI ED P1, 1988, revised 1990) <ref
+                  target="http://www.tei-c.org/Vault/EDP01.html"/></bibl>
          </listBibl>
       </back>
    </text>
