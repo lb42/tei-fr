@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../TEI/P5/Exemplars/tei_jtei.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>What is TEI conformance, and why should you care?</title>
+            <title type="main">What is TEI conformance, and why should you care?</title>
             <author>Lou Burnard</author>
+            <author>
+               <name><forename>Lou</forename> <surname>Burnard</surname></name>
+               <affiliation>Independent Consultant</affiliation>
+               <email>lou.burnard@retired.ox.ac.uk</email>
+            </author>
          </titleStmt>
          <publicationStmt>
             <p>Revised for publication in TEI Journal, following presentation at <title>TEI MM
@@ -23,7 +29,7 @@
    </teiHeader>
    <text>
       <front>
-         <div type="abstract">
+         <div type="abstract" xml:id="abstract">
             <p>The recommendations of the Text Encoding Initiative (TEI) seem to have become a
                defining feature of the methodological framework of the Digital Humanities, despite
                recurrent concerns that the system they define is at the same time both too rigorous
@@ -121,11 +127,10 @@
                paragraph of text rather than, say, a page or a potato. For that information, I must
                consult project-specific documentation, which should spell out how exactly the
                intentions behind this set of encoded documents are realised by its surface
-               components (the start and end tags, he attribute value pairs etc.) In the absence of
-               that documentation, all I have to fall back on is my knowledge of common practice and
-               expectations. </p>
+               components (the start and end tags, the attribute value pairs etc.) In the absence of
+               that documentation, all I have to fall back are expectations based on my knowledge of common practice. </p>
             <p>Thirdly, therefore, we need to complement the automatic validation of our markup with
-               semantic controls which, in our present state of knowledge, are not automatable, and
+               semantic checks which, in our present state of knowledge, are not automatable, and
                require human judgment. It is no coincidence that SGML, the ancestor of XML, was
                produced by a lawyer: the rules embodied by an SGML DTD, like those in the statute
                book, must be interpreted to be used. In the field of the law, the statute book is
@@ -157,7 +162,7 @@
             <p>Of course, if schema models were all that ODD supported, it would be hard to persuade
                anyone to use it. The full ODD language provides for much more than the basic
                information required to create a schema model. For example, a full TEI element
-               specification may contain: <list rend="numbers">
+               specification may contain: <list rend="ordered">
                   <item>a <hi>canonical name</hi> for the element, together with explanatory glosses
                      for the name in various languages; alternative names in other languages;
                      equivalents in other markup schemes; </item>
@@ -165,7 +170,7 @@
                      intended for the element; </item>
                   <item>information about the element and attribute <hi>classes</hi> to which the
                      element belongs; </item>
-                  <item>information about the element's <hi>content model</hi> as already noted; </item>
+                  <item>information about the element's <hi>content model</hi>; </item>
                   <item>formal specifications for any <hi>constraints</hi> additional to those
                      expressed by the content model;</item>
                   <item>a list of specifications for any <hi>attributes</hi> defined as local to the
@@ -189,7 +194,7 @@
                   target="#robinson2009">Robinson 2009</ref> is not alone in asserting that <q>the
                   concept of what ‘text’ is, upon which (for instance) the Text Encoding Initiative
                   principles are based ... is positivist, overconfident, simplistic and neglects the
-                  materiality of actual text instances</q>. TEI markup is intended to convey what a
+                  materiality of actual text instances</q>. TEI markup is believed to convey what a
                text <soCalled>really is</soCalled> (<ref target="#deRose1990">De Rose et al,
                   1990</ref>), discarding as secondary distractions all the rugosities of real text
                such as choice of typeface or accidentals of printing. But when choosing and defining
@@ -201,15 +206,17 @@
                richer set of elements enabling it to represent (for example) digital facsimiles,
                detailed manuscript transcriptions and descriptions, or genetic editions. The cost of
                this enrichment is evidently that the TEI model becomes more complex, so much so that
-               it is doubtful whether it makes any sense to talk of a single TEI model. The benefit
+               it is doubtful whether it makes any sense to talk of a single TEI model, even though
+               some parts of it seem to be universal. The benefit
                of this enrichment is, equally evidently, the ability it confers for a far broader
                community of users to define models precisely fitted to their particular textual
                perspective, even if those models differ widely in the importance they attribute to
                particular textual features. Those for whom the digital edition is a carefully
                constructed textual reading or set of readings can use the TEI to encode them, just
                as effectively as those for whom it is a collection of scrupulously represented and
-               analysed page images. </p>
-            <p> It is often plausibly claimed that by focussing on the platonic essence of some
+               analysed page images. Both communities benefit moreover from the availability of a
+               set of common concepts which do not need to be redefined or disputed. </p>
+            <p> It is often claimed that by focussing on the platonic essence of some
                collection of data, a data model will facilitate equally effectively many possible
                applications for that data. But in the real world, a compromise must be found: in the
                absence of any engagement at all with the way the data being modelled is intended to
@@ -229,9 +236,9 @@
                assured. The experience of those who have tried to re-use existing TEI resources
                suggests that this is true, if only <q>up to a point, Lord Copper</q>. One of the
                take-home messages from ambitious re-use projects such as Project Monk (<ref
-                  target="#monk2009">Unsworth and Mueller, 2009</ref>) appears to be that reuse is
-               feasible in inverse proportion to the extent that precise documentation of the way
-               different projects used or intended to use the TEI is available. </p>
+                  target="#monk2009">Unsworth and Mueller, 2009</ref>) appears to be that ease of reuse is
+               directly proportionate to the availability of precise documentation concerning the way
+               different projects used or intended to use the TEI. </p>
             <p>We should conclude therefore that the way a data model is recorded and documented is
                likely to be of critical importance in determing its long term 
                usefulness, as well as its immediate effectiveness. Today's digital projects are
@@ -383,7 +390,7 @@
                      documentation</item>
                   <item>the set of documents considered valid by that schema</item>
                </list></p>
-            <p>The TEI provides a completely unmodified schema called tei_all which contains all of
+            <p>The TEI provides a monolithic unmodified schema called tei_all which contains all of
                the elements, classes, macros, etc. defined by the TEI. As noted above, for all
                practical purposes a user of the TEI must make a selection from this cornucopia,
                which I will call a <q>TEI customization</q>, represented as a named set of
@@ -482,29 +489,31 @@
                rules of thumb for assessing it, are surely needed if the TEI Guidelines are to be
                more than increasingly stale dogma. I suggest that the most useful definition of TEI
                conformance is one that takes into account the original design goals and
-               recommendations of the Initiative, which were formulated to benefit a very broad
+               recommendations of the Initiative (<ref target="#edp01">Sperberg-McQueen and Burnard
+                  1988</ref>), which are explicitly formulated to benefit a very broad
                range of applications and disciplines, rather than to impose a single
                one-size-fits-all standard. It follows that an assessment of TEI conformance involves
                more than simply checking whether the customization is a subset of TEI All or an
                extension of it in which all non-TEI components have been clearly identified as such.
                It must also take into account the extent to which the encoding respects the TEI
-               semantic model: that is, the extent to which the customization represents concepts
-               defined by the TEI using appropriate TEI terminology, enlarges that set of concepts
-               in a way consistent with TEI practice, or where it addresses concepts not addressed
-               at all by the TEI does so in an explicit manner. </p>
+               semantic model. Where the encoding uses TEI-defined elements, these should represent 
+               the concepts associated with those elements by the TEI. Where an encoding  
+               enlarges that set of concepts, it should not misuse TEI elements to do so, but
+               make explicit that it addresses concepts not addressed
+               by the TEI, for example by placing elements in a non-TEI namespace. </p>
             <p>In assessing conformance, there is a natural tendency to attach particular importance
                to validity against a schema, since this is something which can be automatically
-               tested. Validation of a document which uses a TEI extension can only
-               properly be performed by a schema generated from the ODD defining that extension, and
+               tested, whereas checking the semantic validity of an encoding is not in principle
+               automatable. Validation of a document which uses a TEI extension
                may additionally require the use of a namespace-aware validator such as
                   <ident>onvdl</ident>, which routes different parts of an XML document for
                validation against possibly many different schemas, using the Namespace-based
                Validation Despatching Language, defined as part 4 of the ISO standard for Document
-               Schema Definition Languages (<ref target="#ISO197574">ISO/IEC 19757-4</ref>). This is
+               Schema Definition Languages (<ref target="#ISO197574">ISO/IEC 19757-4</ref>).  This is
                one reason why validity against <ident>tei_all</ident> has limited significance in
-               assessing the status of a customization, other than to determine whether it is a TEI
-               subset or a TEI extension. The TEI was designed to facilitate customization by
-               subsetting or by extension, and either process therefore has the potential to result
+               assessing the conformance of a customization, other than to determine whether it is a TEI
+               subset or a TEI extension. The TEI was designed to facilitate customization both by
+               subsetting and by extension; either process therefore has the potential to result
                in something which should be considered <q>conformant</q>.</p>
             <p>Earlier versions of the P5 Guidelines introduced a notion of <soCalled>TEI
                   conformable</soCalled> or <soCalled>algorithmic conformance</soCalled> to identify
@@ -528,6 +537,8 @@
                something else, given
                sufficient ingenuity, and it no longer features in the Guidelines discussion of
                conformance. </p>
+            
+            
             <p>Although I do not claim that TEI conformance is simply a matter of validity against a
                schema, it should not be forgotten that there are a few hard wired-rules built into
                the TEI model, which the customizer ignores at their (or rather, their potential
@@ -554,6 +565,8 @@
                components of the TEI Header are an essential part of it; a TEI Header which lacks
                them is a different kind of object, and should not present itself as being something
                which it is not. </p>
+            
+            
             <p>The ability to extend the range of encodings supported by the TEI simply and
                straightforwardly remains a fundamental requirement for a scheme which is intended to
                serve the needs of research. This requirement has several important benefits: <list>
@@ -633,7 +646,7 @@
                algorithmically comparable.</p>
          </div>
       </body>
-      <back>
+      <back><div type="bibliography" xml:id="bibliography">
          <listBibl>
             <bibl xml:id="birnb2000">Birnbaum, David J. <title>The Relationship Between General and
                   Specific DTDs: Criticizing TEI Critical Editions</title> in <title level="j"
@@ -694,7 +707,7 @@ plots in the same book
             <bibl xml:id="monk2009">Unsworth, John and Martin Mueller.<title>The MONK Project Final
                   Report</title>. <date>September 2, 2009</date>. Online at
                <ref target="http://www.monkproject.org/MONKProjectFinalReport.pdf"/></bibl>
-         </listBibl>
+         </listBibl></div>
       </back>
    </text>
 </TEI>
