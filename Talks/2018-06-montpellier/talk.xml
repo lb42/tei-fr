@@ -39,7 +39,7 @@
  <head>Initiation ODD</head>
         </div>
       </div>-->
-      <div>
+      <div type="slide">
         <head>En attendant... </head>
         <p>Installez le logiciel <ident>oXygen XML editor</ident> ! <list>
           <item>visitez <ref target="https://www.oxygenxml.com/download.html"
@@ -54,6 +54,7 @@
             première fois que vous activez oXygen</item>
         </list></p>
       </div>
+      
       
       <div xml:lang="en" type="slide">
         <head>ODD : what is it good for ?</head>
@@ -71,7 +72,7 @@
            ...</p>
       </div>
       
-      <div xml:lang="en" type="slide">
+     <!-- <div xml:lang="en" type="slide">
         <head>ODD : what is it good for ?</head>
         <list>
           <item>Creation of a new markup system and its documentation</item>
@@ -81,7 +82,7 @@
         </list>
         <p rend="block">or just a means of exploration ...</p>
       </div>
-      
+      -->
       
       <div xml:lang="en">
         <head>Why might you need an ODD?</head>
@@ -261,6 +262,147 @@
         <p rend="box">(Nous reviendrons plus loin sur ce point, et sur les composants documentaire
           d’un ODD)</p>
       </div>-->
+      
+      
+      <div  type="slide">
+        <head>Exemple fictif (1) </head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <body>
+              <head>Une personalisation TEI pour la transcription collaborative</head>
+              <p>Cette personalisation propose un schéma minimal pour la transcription
+                collaborative des documents archivals. </p>
+              <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
+                <moduleRef key="tei"/>
+                <moduleRef key="header"
+                  include="teiHeader fileDesc titleStmt 
+                  publicationStmt sourceDesc"/>
+                <moduleRef key="textstructure" include="TEI text body div"/>
+                <elementRef key="ab"/>
+                <elementRef key="pb"/>
+                <elementRef key="unclear"/>
+                <elementRef key="hi"/>
+                <elementRef key="name"/>
+                <elementRef key="title"/>
+                <classRef key="att.global.rendition" except="rendition style"/>
+                <classSpec type="atts" ident="att.declaring" mode="delete"/>
+                <classSpec type="atts" ident="att.edition" mode="delete"/>
+                <classSpec type="atts" ident="att.editLike" mode="delete"/>
+              </schemaSpec>
+            </body>
+          </egXML>
+        </p>
+        <cb/>
+        <list>
+          <item>un peu de documentation</item>
+          <item>un <gi>schemaSpec</gi> identifiable, précisant une langue de documentation et des
+            éléments racine</item>
+          <item>une séléction d'éléments</item>
+          <item>suppression de plusieurs attributs</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Exemple fictif (2) </head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <body>
+              <head>Une personalisation TEI pour la transcription collaborative</head>
+              <p>Cette personalisation propose un schéma minimal pour la transcription 
+                collaborative des documents archivals. </p>
+              <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
+                <!-- ... -->
+                <elementSpec ident="hi" mode="change">
+                  <attList>
+                    <attDef ident="rend" mode="replace">
+                      <valList type="closed">
+                        <valItem ident="underline"/>
+                        <valItem ident="superscript"/>
+                      </valList>
+                    </attDef>
+                  </attList>
+                </elementSpec>
+                <!-- ... -->
+              </schemaSpec>
+            </body>
+          </egXML>
+        </p>
+        <cb/>
+        <list>
+          <item>la spécification existante pour <gi>hi</gi> est modifiée</item>
+          <item>la spécification de son attribut <att>rend</att> est remplacée</item>
+          <item>la liste des valeurs possibles pour cet attribut est fermée</item>
+        </list>
+      </div>
+      <div  type="slide">
+        <head>Exemple fictif (3) </head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <body>
+              <head>Une personalisation TEI pour la transcription collaborative</head>
+              <p>Cette personalisation propose un schéma minimal pour la transcription 
+                collaborative des documents archivals. </p>
+              <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
+                <!-- ... -->
+                <elementSpec ident="botName" ns="http://monexcellentprojet.com">
+                  <desc>nom botanique</desc>
+                  <classes>
+                    <memberOf key="model.phrase"/>
+                    <memberOf key="att.global"/>
+                  </classes>
+                  <content>
+                    <macroRef key="macro.paraContent"/>
+                  </content>
+                </elementSpec>
+                <!-- ... -->
+              </schemaSpec>
+            </body>
+          </egXML>
+        </p>
+        <cb/>
+        <list>
+          <item>nous ajoutons une spécification pour un élément non-TEI, appartenant à une autre
+            espace de nommage </item>
+          <item>cette spécification comporte <list>
+            <item>une description</item>
+            <item>une indication des classes TEI auxquelles l'élément appartiendrait</item>
+            <item>une indication de son contenu possible</item>
+          </list>
+          </item>
+        </list>
+      </div>
+      
+      
+      <div  type="slide" xml:lang="fr">
+        <head>Comment faire mûrir une théorie ?</head>
+        <p>Dans son TEI ODD, on peut : <list>
+          <item>limiter les valeurs possibles d’un attribut plus ou moins strictement</item>
+          <item>proposer des règles Schematron sur le contenu (p.e. co-dependency)</item>
+          <item>enlever quelques éléments facultatifs</item>
+          <item>ajouter de nouveaux éléments, labellisés dans votre propre espace de
+            nommage</item>
+        </list></p>
+        <p rend="box">Donc on peut évoluer et tester une théorie précoce, en restant toujours
+          TEI-conforme. </p>
+      </div>
+      <div xml:lang="fr"  type="slide">
+        <head>Not Invented Here?</head>
+        <list>
+          <item>TEI P5 a des possibilités très extensives pour l'I18N...</item>
+          <item>TEI héberge volontairement d’autres espaces de noms</item>
+          <item>Donc on peut se servir des autres schémas existants : <list>
+            <item>SVG pour les graphiques</item>
+            <item>MathML pour les maths</item>
+            <item>DCMI pour les metadonnées</item>
+            <item>…</item>
+          </list></item>
+          <item>La définition d’un élément TEI peut inclure (s’il y en a) son mapping avec d’autres
+            ontologies, formalisé par un élément <gi>equiv</gi> (équivalent)</item>
+        </list>
+        <p rend="box">Mais, au fond, le modèle textuel proposé par la TEI reste proche à un modèle
+          très répandu: très intuitif</p>
+      </div>
+      
+      
       <div xml:lang="en">
         <head>A simple example</head>
         <p rend="box">Our markup uses a <gi>book</gi> element, which contains a mixture of
@@ -281,6 +423,7 @@
           </schemaSpec>
         </egXML>
       </div>
+      
       <div type="slide" xml:lang="fr">
         <head>Un premier exemple simplissime</head>
         <p rend="box">Nous utilisons un élément <gi>book</gi>, qui contient un mélange d’éléments
