@@ -17,11 +17,28 @@
   </teiHeader>
   <text>
       <body>
-       
+         <div type="slide">
+            <head>En attendant... </head>
+            <p>Comment installer le logiciel <ident>oXygen XML editor</ident> ! <list>
+               <item>visitez <ref target="https://www.oxygenxml.com/download.html"
+                  >https://www.oxygenxml.com/download.html</ref></item>
+               <item>séléctionnez <ident>XML Editor</ident> et cliquez Download </item>
+               <item>séléctionnez votre plateforme (Windows, Mac, Linux...) et cliquez
+                  <ident>Download</ident></item>
+               <item>completez le formulaire en fournissant votre adresse email, votre pays, votre
+                  désir de pub, et le code secret en bas</item>
+               <item>enregistrez l’installeur et l’activez</item>
+               <item>controllez votre email pour le licence d’essai: vous en aurez besoin la première
+                  fois que vous activez oXygen</item>
+            </list></p>
+         </div>
       <div type="slide" xml:lang="fr">
-        <head>Un premier exemple simplissime</head>
-        <p rend="box">Nous utilisons un élément <gi>book</gi>, qui contient un mélange d’éléments
-            <gi>para</gi>s et <gi>image</gi>s. Nous ne connaissons rien de la TEI, et n’en avons pas
+        <head>Pour commencer: un premier exemple simplissime</head>
+        <p rend="box">Nous pouvons utiliser ODD pour definir n’importe quel systeme de balisage. </p>
+         <p >
+           Imaginons un projet qui souhaite baliser dans ses documents des éléments <gi>book</gi>, 
+            qui contiennent un mélange d’éléments
+            <gi>para</gi>s et <gi>image</gi>s. Ce projet ne connait rien de la TEI, et n’en a pas
           envie. De même pour les espaces de noms.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
           <schemaSpec ns="" start="book" ident="bookSchema">
@@ -56,7 +73,7 @@
               <content/>
               <attList>
                 <attDef ident="href">
-                  <desc>fournit l’URI de l'objet ciblé</desc>
+                  <desc>fournit l’URI de l’objet ciblé</desc>
                   <datatype>
                     <dataRef name="anyURI"/>
                   </datatype>
@@ -82,6 +99,7 @@
             </specList></egXML>
         </p>
         <p>Ce balisage généra quelque chose comme </p>
+         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
         <list>
           <item>
             <label><gi>para</gi></label> : un paragraphe de texte </item>
@@ -89,6 +107,7 @@
             <label><gi>picture</gi></label> : un élément vide qui pointe sur un fichier
             graphique</item>
         </list>
+      </egXML>
       </div>
      
       <div rend="slide" xml:lang="fr">
@@ -98,7 +117,7 @@
           <item>Créez un nouveau fichier (CTRL-N)</item>
           <item>Sélectionnez <ident>TEI-P5 -> ODD Customization</ident> dans le menu <ident>Cadre
               des modèles</ident> du dialog <ident>Nouveau</ident></item>
-          <item>Remplacer l'élément <gi>schemaSpec</gi> proposé par le contenu du fichier
+          <item>Remplacer l’élément <gi>schemaSpec</gi> proposé par le contenu du fichier
               <ident>oddex-1.xml</ident></item>
           <item>Insérez le contenu du fichier <ident>oddex-1-doc.xml </ident>
             <emph>avant</emph> le nouveau <gi>schemaSpec</gi></item>
@@ -108,31 +127,38 @@
             documentation à partir de cet ODD</item>
           <item>Lire la documentation</item>
           <item>Validez le fichier test <ident>oddex-1-test.xml</ident> contre le schéma
-              <ident>out/oddex-1.rnc</ident> que vous venez de générer</item>
+              <ident>out/oddex-1.rnc</ident> que vous venez de générer: Ou créez un nouveau document
+          XML conforme à ce schéma et controlez les balises proposées par oXygen.</item>
         </list>
       </div>
      
       <div type="slide" xml:lang="fr">
         <head>Notions de classe (1)</head>
+        
         <p>Dans le monde réel, le contenu de nos <gi>book</gi> ne se limite pas uniquement aux
-            <gi>para</gi>s et aux <gi>image</gi>s... on peut regrouper tous les éléments qui peuvent
+            <gi>para</gi>s et aux <gi>image</gi>s. On peut regrouper tous les éléments qui peuvent
           apparaître au sein d’un <ident>book</ident> : nous appelons ce regroupement une
             <term>classe</term>, pour laquelle nous proposons le nom <ident>bookPart</ident>.</p>
-        <p>Nous utilisons l’élément <gi>classes</gi> pour indiquer l’association d’un élément avec
-          sa ou ses classe/s :
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-            <elementSpec ident="para">
-              <classes>
-                <memberOf key="bookPart"/>
-              </classes>
-            </elementSpec></egXML>
-        </p>
-        <p>Et voici la définition de la classe <ident>bookPart</ident>.</p>
+       
+        <p>Voici la définition de la classe <ident>bookPart</ident> :
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <classSpec ident="bookPart" type="model">
             <desc>éléments qui ont la possibilité de figurer dans un <gi>book</gi></desc>
           </classSpec>
-        </egXML>
+        </egXML></p>
+        
+        <p>Pour indiquer son adhésion à une classe, la spécification d’un élément utilise l’élément <gi>classes</gi> :
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <elementSpec ident="para">
+              <desc>un paragraphe de text </desc>
+              <classes>
+                <memberOf key="bookPart"/>
+              </classes>
+              <content>
+                <textNode/>
+              </content>            
+            </elementSpec></egXML>
+        </p>
       </div>
       
       <div type="slide" xml:lang="fr">
@@ -157,7 +183,7 @@
         <p>Dans le monde réel, il est très probable que plusieurs éléments différents comportent les
           même attributs : il sera donc très pratique de les définir en une seule fois</p>
         <p> ODD nous permet de dire que tous les éléments ayant en commun un ensemble d’attributs
-          constituent une <term>classe attributs</term> que nous définissons ainsi
+          constituent une <term>classe d’attribut</term>;  nous la définissons ainsi:
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <classSpec ident="pointing" type="atts">
               <desc>regroupe les éléments comportant l’attribut <att>href</att></desc>
@@ -171,6 +197,11 @@
               </attList>
             </classSpec></egXML>
         </p>
+        <p>Les attributs d’un élément sont ainsi spécifiables :
+        <list>
+          <item>directement avec un <gi>attList</gi> dans son <gi>elementSpec</gi></item>
+          <item>indirectement par l’adhésion de l’élément à une classe d’attribut</item>
+        </list></p>
       </div>
      
       <div type="slide" xml:lang="fr">
@@ -189,8 +220,8 @@
         <head>Contrôle des valeurs d’un attribut</head>
         <p>Les valeurs possibles d’un attribut peuvent être contrôlées de plusieurs manières : <list>
             <item>Par référence à un <term>datatype</term> (type de donnée) externe, par ex
-                <code>anyURI </code> ou <code>ID</code> (ce sont des datatypes standard, définis par
-              le W3C)</item>
+              <code>anyURI </code> ou <code>ID</code> ou <code>numeric</code>(ce sont des datatypes standard, définis par
+              le W3C) </item>
             <item>En fournissant notre propre liste des valeurs avec l’élément <gi>valList</gi>
             </item>
             <item>Par référence à un <term>datatype</term> (type de donnée) interne défini par un
@@ -202,40 +233,42 @@
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
           xmlns:rng="http://relaxng.org/ns/structure/1.0">
           <classSpec ident="bookAtts" type="atts">
-            <desc>attributs applicables aux objets contenus par des <gi>book</gi></desc>
+            <desc>attributs applicables aux  <gi>book</gi></desc>
             <attList>
               <attDef ident="xml:id">
-                <desc>fournit un identifiant unique pour le composant</desc>
+                <desc>fournit un identifiant unique pour le livre</desc>
                 <datatype>
                   <dataRef name="ID"/>
                 </datatype>
               </attDef>
               <attDef ident="status">
-                <desc>indique le statut du composant </desc>
+                <desc>indique le statut du livre </desc>
                 <valList>
                   <valItem ident="red"/>
                   <valItem ident="green"/>
                   <valItem ident="unknown"/>
                 </valList>
               </attDef>
-              <attDef ident="version">
-                <desc>indique le numéro de version du composant</desc>
+              <attDef ident="cote">
+                <desc>indique la cote ou se trouve le livre (un numéro entre 1 et 9999)</desc>
                 <datatype>
-                  <dataRef key="teidata.versionNumber"/>
+                  <dataRef key="myShelfNo"/>
                 </datatype>
               </attDef>
             </attList>
           </classSpec>
         </egXML>
+        <p>(Il faut aussi fournir un <gi>dataSpec</gi> pour definir <ident>myShelfNo</ident>)</p>
       </div>
      
       <div type="slide" xml:lang="fr">
         <head>Tester votre compréhension…</head>
         <list>
-          <item>Insérez dans votre fichier <ident>oddex-2.odd</ident> la définition d’une deuxieme
-            classe d’attribut (il y en a une dans le fichier <ident>oddex-2.xml</ident>)</item>
-          <item>Ajoutez un <gi>memberOf</gi> à la spécification de l’élément <gi>para</gi> pour
-            qu’il participe à cette nouvelle classe</item>
+          <item>Insérez dans votre fichier <ident>oddex-2.odd</ident> le fichier
+            <ident>oddex-2x.xml</ident>: votre ODD inclut maintenant la declaration d'une nouvelle classe
+          et d'un nouveau datatype. </item>
+          <item>Ajoutez un <gi>classes</gi> contenant un <gi>memberOf</gi> à la spécification de l’élément <gi>book</gi> pour
+            qu’il participe à la nouvelle classe <ident>bookAtts</ident></item>
           <item>Générez un schéma et assurez-vous que le fichier <ident>oddex-1-test.xml</ident>
             reste valide avec cette version du schéma.</item>
           <item>Contrôlez que oXygen vous propose ces nouveaux attributs, et qu’il contraint
@@ -298,7 +331,7 @@
           <!-\-<item>Interleaved instances of the foregoing <gi>interleave</gi> (<hi rend="bold">Warning:
  this is not yet implemented</hi>)</item>-\->
         </list>
-        <p>We'll look at the TEI XML constructs available to express all these possibilities in more
+        <p>We’ll look at the TEI XML constructs available to express all these possibilities in more
           detail later</p>
       </div>
   -->    <div xml:lang="fr" type="slide">
@@ -308,8 +341,8 @@
         <list>
           <item>Rien de tout: <gi>empty</gi>, ou ... </item>
           <item>Que du texte sans balise : <gi>textNode</gi></item>
-          <item>Référence(s) à d'autres éléments : <gi>elementRef</gi></item>
-          <item>Référence(s) à des classes d'éléments : <gi>classRef</gi></item>
+          <item>Référence(s) à d’autres éléments : <gi>elementRef</gi></item>
+          <item>Référence(s) à des classes d’éléments : <gi>classRef</gi></item>
           <item>Alternation(s) des précedents : <gi>alternate</gi></item>
           <item>Séquence(s) des précedents : <gi>sequence</gi></item>
           <item>Et tous ces composants sont répétables ... <att>minOccurs</att> et
@@ -327,7 +360,7 @@
             "nul". </item>
           <item>Supposons que nous souhaitions ajouter un nouvel élément <gi>para</gi> avec un
             modèle de contenu moins restreint. Ce <gi>para</gi> contiendra un mélange de texte et
-            des images, mais nous souhaitons l'appeler un <gi>para</gi> quand même. Pour le
+            des images, mais nous souhaitons l’appeler un <gi>para</gi> quand même. Pour le
             distinguer du <gi>para</gi> existant, il faut donc l’associer à un autre espace de
             noms.</item>
           <item>L’attribut <att>ns</att> est disponible sur <gi>elementSpec</gi> pour préciser un
@@ -358,17 +391,17 @@
       <div xml:lang="fr" type="slide">
         <head>Tester votre compréhension...</head>
         <list>
-          <item>Chargez le fichier <ident>oddex-3.odd</ident> et générez un schéma comme d'habitude </item>
+          <item>Chargez le fichier <ident>oddex-3.odd</ident> et générez un schéma comme d’habitude </item>
           <item>Est-ce que le fichier <ident>oddex-1-test.xml</ident> reste valide avec cette
             version du schéma ?</item>
           <item>Et le fichier <ident>oddex-3-test.xml</ident> ?</item>
           <item>Ajoutez des traductions dans d’autres langues (allemand, russe, italien, anglais...)
-            des descriptions d'éléments</item>
+            des descriptions d’éléments</item>
           <item>Modifiez l’élément <gi>my:para</gi> pour lui donner les attributs <att>xml:id</att>
             et <att>status</att></item>
           <item>Modifiez la définition de l’attribut <att>status</att> pour lui permettre de prendre
             la valeur <code>orange</code>.</item>
-          <item>Ajoutez un exemple d'usage pour quelques-uns des éléments spécifiés par votre
+          <item>Ajoutez un exemple d’usage pour quelques-uns des éléments spécifiés par votre
             ODD</item>
         </list>
       </div>
