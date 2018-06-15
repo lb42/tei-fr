@@ -81,8 +81,9 @@
           </list>
         </p>
         <p>Un <hi>schéma</hi> peut intégrer :<list>
-            <item>des objets choisies dans la liste ci-dessus</item><item>des références à un de ces
-              objets</item><item>des collections de références predefinies moduleRef</item>
+            <item>des objets choisies dans la liste ci-dessus</item>
+          <item>des références à un de ces   objets</item>
+          <item>des collections de références prédéfinies <gi>moduleRef</gi></item>
           </list></p>
       </div>
       <div type="slide" xml:lang="fr">
@@ -92,12 +93,37 @@
                 <title>Guidelines</title></item>
             <item>une (ou plusieurs) supplémentaires, modifiées en partie ou totalement</item>
             <item>ces versions partielles peuvent être explicitées dans l’ODD ou bien héritées d'un
-              autre ODD</item><item>le statut de chaque spécification est explicite sur son attribut
-                <att>status</att>, par defaut <code>add</code></item>
+              autre ODD</item>
+          <item>le statut de chaque spécification supplémentaire est explicité par son attribut
+                <att>mode</att>, par defaut <code>add</code></item>
           </list></p>
-        <!--    <p>Les règles de combinaison sont explicites, mais un peu complexes… </p>
-   -->
+       
       </div>
+     
+    
+      <div type="slide" xml:lang="fr">
+        <head>Spec et Ref</head>
+        <p rend="bo">Éléments fournissant une specification</p>
+        <list>
+          <item><gi>elementSpec</gi> fournit la définition d’un élément</item>
+          <item><gi>classSpec</gi> fournit la définition d’une classe d’éléments</item>
+          <item><gi>macroSpec</gi> fournit la définition d’un patron</item>
+          <item><gi>dataSpec</gi> fournit la définition d’un type de données</item>
+          <item><gi>specGrp</gi> regroupe plusieurs declarations</item>
+          <item><gi>schemaSpec</gi> définit et identifie un schéma</item>
+        </list>
+        <cb/>
+        <p rend="bo">Éléments faisant reference a une specification existante</p>
+        <list>
+          <item><gi>elementRef</gi> réutilise la définition d’un élément existant</item>
+          <item><gi>classRef</gi> réutilise la définition d’une classe existante</item>
+          <item><gi>macroRef</gi> réutilise la définition d’un patron existant</item>
+          <item><gi>dataRef</gi> réutilise la définition d’un type de données existant</item>
+          <item><gi>specGrpRef</gi>utilise un regroupement de définitions existant</item>
+          <item><gi>moduleRef</gi>utilise un regroupement de définitions existant </item>
+        </list>
+      </div>
+      
       <div type="slide" xml:lang="fr">
         <head><soCalled>Modes</soCalled> d'une spécification</head>
         <p rend="box">L'attribut <att>mode</att> controle l'effet d'une specification
@@ -112,18 +138,18 @@
             <cell>delete</cell>
             <cell>toute declaration pour cet identifiant est supprimee</cell>
           </row>
-         
+          
           <row>
             <cell>add</cell>
             <cell>cette declaration est ajoutée entièrement; qu'une seule n’est permise pour un meme
-            identifiant</cell>
+              identifiant</cell>
           </row>
           <row>
             <cell>replace</cell>
             <cell>cette declaration remplace entièrement toute autre declaration pour le meme
               identifiant</cell>
           </row>
-         
+          
           <row>
             <cell>change</cell>
             <cell>cette declaration est a fusionner avec toute autre declaration pour le meme
@@ -133,92 +159,148 @@
           </row>
         </table>
       </div>
-     <!-- <div xml:lang="en">
-        <head>Basic ODD components for schema definition</head>
-        <list type="gloss">
-          <label>
-            <gi>schemaSpec</gi>
-          </label>
-          <item>Defines and identifies a schema</item>
-          <label>
-            <gi>elementSpec</gi>
-          </label>
-          <item>Provides some or all of an element specification</item>
-          <label>
-            <gi>elementRef</gi>
-          </label>
-          <item>References an existing element specification</item>
-          <label><gi>classSpec</gi>, <gi>classRef</gi></label>
-          <item>Likewise, for classes</item>
-          <label><gi>attDef</gi>, <gi>attRef</gi></label>
-          <item>Likewise, for attributes</item>
-          <label>
-            <gi>moduleRef</gi>
-          </label>
-          <item>References an existing <soCalled>module</soCalled> i.e. a group of predefined
-            elements and attributes, entirely or partially</item>
-        </list>
-        <p rend="box">(We discuss documentary components of an ODD later)</p>
-      </div>-->
-      <div type="slide" xml:lang="fr">
-        <head>Spec et Ref</head>
-        <p rend="bo">Éléments de specification</p>
+      
+      <div xml:lang="fr" rend="slide">
+        <head>ODD est aussi un langage de personnalisation </head>
+        <p>On se sert du même système pour spécifier ses choix dans le grand bazar de la TEI et pour
+          spécifier le bazar lui-même.</p>
+        <p>Un ODD de personnalisation est spécifié par rapport à un autre ODD ; typiquement mais pas forcément celui qui définit la version actuelle des <title>Guidelines</title><list>
+          <item>en sélectionnant des modules</item>
+          <item>en sélectionnant parmi les objets (éléments, classes, datatypes, macros) fournis par ces modules</item>
+          <item>en supprimant ou modifiant quelques uns des attributs fournis par ces objets</item>
+          <item>en modifiant ou remplaçant quelques parties de ces spécifications (par ex. les valList)</item>
+          <item>éventuellement en ajoutant des spécifications d’objets nouveaux</item>
+        </list></p>
+      </div>
+      
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Comment créer un ODD</head>
+        <p>Un ODD, vous le savez déjà, c’est un document TEI comme les autres. Vous pouvez le
+          construire et modifier avec oXygen ou n’importe quel autre éditeur XML </p>
+        <p>Rappel ! il existe des outils pour faciliter une construction initiale :</p>
         <list>
-          <item><gi>elementSpec</gi> fournit la définition d’un élément</item>
-          <item><gi>classSpec</gi> fournit la définition d’une classe d’éléments</item>
-          <item><gi>macroSpec</gi> fournit la définition d’un patron</item>
-          <item><gi>dataSpec</gi> fournit la définition d’un type de données</item>
-          <item><gi>specGrp</gi> regroupe plusieurs declarations</item>
-          <item><gi>schemaSpec</gi> définit et identifie un schéma</item>
+          <item><ref target="http://www.tei-c.org/Roma"> http://www.tei-c.org/Roma</ref></item>
+          <item><ref target="http://teic.github.io/TCW/howtogenerate.html">ODD By Example stylesheet</ref></item>
         </list>
-        <cb/>
-        <p rend="bo">Éléments de reference</p>
+        
+      </div>
+      
+      
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Création d’une personnalisation</head>
+        <p>Comme vous le savez déjà, on utilise l’élément <gi>schemaSpec</gi> pour spécifier un
+          schéma </p>
         <list>
-          <item><gi>elementRef</gi> réutilise la définition d’un élément existant</item>
-          <item><gi>classRef</gi> réutilise la définition d’une classe existante</item>
-          <item><gi>macroRef</gi> réutilise la définition d’un patron existant</item>
-          <item><gi>dataRef</gi> réutilise la définition d’un type de données existant</item>
-          <item><gi>specGrpRef</gi>utilise un regroupement de définitions existant</item>
-          <item><gi>moduleRef</gi>utilise un regroupement de définitions existant </item>
+          <item>L’attribut <att>ident</att> obligatoire fournit un nom pour le schéma</item>
+          <item>L’attribut <att>start</att> indique le ou les noms des élément(s) racine(s) du
+            schéma </item>
+          <item>L’attribut <att>source</att> indique l’emplacement des déclarations référencées par le schéma (par ex une version spécifique de TEI P5) </item>
+          <item>Les attributs <att>docLang</att> et <att>targetLang</att> permettent la sélection
+            des langues à utiliser pour les descriptions d’éléments et pour les noms d’élément
+            respectivement, en supposant la présence dans cette source des traductions
+            requises</item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <schemaSpec start="TEI" ident="testschema" source="tei:1.5.0" docLang="fr">
+            <!-- declarations -->
+          </schemaSpec>
+        </egXML>
+      </div>
+      <div xml:lang="fr" rend="slide">
+        <head>Composants d’un <gi>schemaSpec</gi></head>
+        <list>
+          <item><gi>moduleRef</gi> : un ensemble d’objets fournis par un module</item>
+          <item><gi>elementSpec</gi>, <gi>classSpec</gi>, <gi>dataSpec</gi>, <gi>macroSpec</gi> (etc.) : des objets nouveaux </item>
+          <item><gi>elementRef</gi>, <gi>classRef</gi>, <gi>dataRef</gi>, <gi>macroRef</gi>(etc.) : des objets déjà existants quelque part</item>
+        </list>
+        <p>La location des objets référencés est specifiée par un attribut <att>source</att> : par défaut il s’agit de la version la plus récente de TEI P5</p>
+        
+      </div>
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Sélection par exclusion</head>
+        <p> Vous pouvez spécifier les éléments que vous souhaitez supprimer parmi ceux proposés par un module : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema">
+          <moduleRef key="core" except="mentioned said"/> 
+          <moduleRef key="header"/> 
+          <moduleRef key="textstructure"/> 
+        </schemaSpec> </egXML> </p>
+        <p>ou également : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema"> 
+          <moduleRef key="core"/> 
+          <moduleRef key="header"/> 
+          <moduleRef key="textstructure"/> 
+          <elementSpec ident="mentioned" mode="delete"/> 
+          <elementSpec ident="said" mode="delete"/> 
+        </schemaSpec>
+        </egXML> </p>
+        <p>(L’attribut <att>mode</att> contrôle la résolution de déclarations multiples)</p>
+      </div>
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Sélection par inclusion</head>
+        <p>Vous pouvez spécifier les éléments que vous souhaitez inclure parmi ceux qui sont proposés par un module : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema">
+          <moduleRef key="core"/> 
+          <moduleRef key="header"/> 
+          <moduleRef key="textstructure" include="body div"/> 
+        </schemaSpec> </egXML> </p>
+        <p>ou également : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema"> 
+          <moduleRef key="core"/> 
+          <moduleRef key="header"/> 
+          <elementRef key="div"/> 
+          <elementRef key="body"/> 
+        </schemaSpec></egXML> </p>
+        <p rend="box">Attention ! un module peut définir d’autres choses que des éléments. Les attributs <att>include</att> et <att>except</att> ne s’appliquent qu’aux éléments</p>
+      </div>
+      
+      <div xml:lang="fr" rend="slide"><head>Usage des module</head>
+        <list>
+          <item>Vous n’êtes pas obligé de préciser son module si vous souhaitez préciser l’inclusion d'un élément !</item>
+          <item>Un <gi>elementRef</gi> suffit – pourvu que l’élément concerné soit déclaré par la source invoquée</item>
+          <item>Mais il faut préciser son module si vous souhaitez inclure/utiliser une classe de modèle ou une classe d’attribut. </item>
+          <item>La plupart des classes TEI étant définies par le module <ident>tei</ident>, ce dernier est à peu près essentiel pour tout ODD TEI.</item></list>
+      </div>
+      <div xml:lang="fr" rend="slide">
+        <head>Spécifications multiples</head>
+        <p>Le traitement d’un ODD implique la résolution de spécifications multiples pour un même
+          objet</p>
+        <p>Supposons deux <gi>elementSpec</gi> pour un même élément, la résolution est déterminée par la valeur de l’attribut <att>mode</att></p>
+        <list>
+          <item><code>mode='add'</code> (défaut) : effectuer une nouvelle déclaration </item>
+          <item><code>mode='delete'</code> : aucune déclaration n'est valide, l’élément est supprimé</item>
+          <item><code>mode='replace'</code> : cette déclaration remplace entièrement toute autre déclaration</item>
+          <item><code>mode='change'</code> : les parties de cette déclaration remplacent les parties correspondantes dans une autre déclaration ; le reste ne change pas. </item>
         </list>
       </div>
-      <!--  <div type="slide" xml:lang="fr">
-        <head>Éléments essentiel d’un ODD</head>
-        <p>Une histoire de <hi>Spec</hi> et <hi>Ref</hi>... </p>
-        <list type="label">
-          <label>
-            <gi>schemaSpec</gi>
-          </label>
-          <item>définit et identifie un schéma</item>
-          <label>
-            <gi>elementSpec</gi>
-          </label>
-          <item>fournit la définition d’élément, entièrement ou en partie</item>
-          <label>
-            <gi>elementRef</gi>
-          </label>
-          <item>utilise une définition d’un élément existant</item>
-          <label>
-            <gi>classSpec</gi>
-          </label>
-          <item>fournit la définition d’une classe</item>
-          <label>
-            <gi>classRef</gi>
-          </label>
-          <item>utilise une définition de classe existante</item>
-          <label>
-            <gi>moduleRef</gi>
-          </label>
-          <item>fournit un ensemble de spécifications d’éléments en faisant référence à un
-              <soCalled>module</soCalled>
-          </item>
+      <div xml:lang="fr" rend="slide"><head>Par exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><schemaSpec start="TEI" ident="testschema">
+          <moduleRef key="core" include="p hi"/>        
+          <elementSpec key="p" mode="delete"/>
+        </schemaSpec>     </egXML>
+        <p>L’élément <gi>p</gi> est supprimé</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><schemaSpec start="TEI" ident="testschema"> 
+          <moduleRef key="core" include="p hi"/>
+          <elementSpec key="p" mode="change">
+            <desc>Pour nous, un <gi>p</gi> ne peut contenir que du texte</desc>
+            <content><textNode/></content> 
+          </elementSpec> </schemaSpec></egXML>
+        <p>Le contenu et la description de l’élément <gi>p</gi> sont changés ; ses autres propriétés ne changent pas</p>  
+      </div>
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Traitement d’un ODD</head>
+        <list>
+          <item>Toutes les déclarations (*Spec et *Ref) sont d’abord réunies et canonicalisées</item>
+          <item>Les déclarations multiples sont résolues</item>
+          <item>La sortie de cette procédure est ensuite transformée en schéma, et/ou en documentation</item>
         </list>
-        <p> Un ODD peut combiner plusieurs spécifications pour un même objet </p>
-        <p rend="box">(Nous reviendrons plus loin sur ce point, et sur les composants documentaire
-          d’un ODD)</p>
-      </div>-->
+        <p>La feuille de style <ident>odd2odd</ident> nous permet d’effectuer les deux étapes initiales et d’en conserver le résultat :
+          nous appelons cela un <term>compiled ODD</term></p>
+        <p>Un tel fichier est réutilisable comme la <att>source</att> d’un autre ODD</p>
+      </div>
+      
       <div type="slide">
-        <head>Regardons un exemple fictif (1) </head>
+        <head>Regardons un premier exemple fictif </head>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <body>
@@ -256,7 +338,7 @@
         </list>
       </div>
       <div type="slide">
-        <head>Exemple fictif (2) </head>
+        <head>Exemple fictif cont </head>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <body>
@@ -288,7 +370,7 @@
         </list>
       </div>
       <div type="slide">
-        <head>Exemple fictif (3) </head>
+        <head>Exemple fictif cont </head>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <body>
@@ -324,7 +406,347 @@
           </item>
         </list>
       </div>
+      
+      
       <div type="slide" xml:lang="fr">
+        <head>Structuration d’un ODD</head>
+        <p>Mis à part le <gi>schemaSpec</gi> qui définit le schéma, on peut organiser le document
+          comme tout autre document TEI, utilisant <gi>div</gi>, <gi>list</gi>, etc. </p>
+        <p>Au sein de ce document, des éléments supplémentaires sont prévus pour le regroupement des
+          déclarations à l’extérieur du <gi>schemaSpec</gi> : </p>
+        <list>
+          <item>
+            <gi>specGrp</gi> : un regroupement de déclarations identifiable
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <p>Nous n’utilisons que ces éléments du module <ident>linking</ident> : <specGrp
+                xml:id="linkingElts">
+                <!-- quelques elementSpec etc -->
+              </specGrp>
+              </p></egXML>
+          </item>
+          <item><gi>specGrpRef</gi> : indique où on souhaite intégrer les déclarations précisées par
+            un <gi>specGrp</gi>   
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <specGrpRef target="#linkingElts"/></egXML>
+          </item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" rend="slide">
+        <head>Contraintes de données avec Schematron </head>
+        <list>
+          <item>Une spécification d’élément peut proposer des contraintes supplémentaires sur son
+            contenu en utilisant un ou plusieurs éléments <gi>constraintSpec</gi>
+          </item>
+          <item>Ces règles sont exprimées en utilisant le langage <ref
+            target="http://schematron.com/">ISO Schematron </ref></item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
+          <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div"
+            module="teistructure" mode="change">
+            <constraintSpec ident="div" scheme="isoschematron">
+              <constraint>
+                <s:assert test="@type='prose' and .//tei:p">une division prosaïque doit contenir au moins un paragraphe</s:assert>
+              </constraint>
+            </constraintSpec>
+          </elementSpec></egXML>
+      </div>
+      <div xml:lang="fr" rend="slide">
+        <head>L’élément <gi>constraintSpec</gi>
+        </head>
+        <p>Il définit une contrainte qui s’applique au sein de l’élément dans lequel il est
+          déclaré</p>
+        <list>
+          <item>L’attribut <att>ident</att> est obligatoire : il fournit un identifiant
+            unique</item>
+          <item>Il rassemble un ou plusieurs <gi>constraint</gi></item>
+          <item>L’élément <gi>constraint</gi> contient (typiquement) un <gi>assert</gi> ou un
+            <gi>report</gi>, éléments de l’espace de nommage
+            <code>http://purl.oclc.org/dsdl/schematron</code></item>
+        </list>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Fonctionnement des règles Schematron </head>
+        <list>
+          <item>Le contenu de l’élément <gi>assert</gi> est affiché si le test est
+            <hi>false</hi></item>
+          <item>Le contenu de l’élément <gi>report</gi> est affiché si le test est
+            <hi>true</hi></item>
+          <item>Astuce : plusieurs éléments schematron sont disponibles pour enrichir le texte du
+            message affiché, notamment <gi>name</gi> (context) et <gi>value-of</gi> (valeur) </item>
+          <!--  <item>Voir <ptr target="http://www.schematron.com/"/> pour une description plus
+   détaillée</item>-->
+        </list>
+        <p rend="box">Un schéma RNG intégrant ces règles sera auto-généré si l’on utilise le
+          logiciel oXygen pour traiter son ODD </p>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Applications typiques des règles Schematron</head>
+        <list>
+          <item>Contraintes de co-occurrence : <q>si l’attribut X a la valeur A, l’élément qui le
+            porte doit contenir un Y</q></item>
+          <item>Contraintes arithmétique contextuelles : <q>au sein d’un <gi>titleStmt</gi>, on ne
+            permet qu’un seul <gi>title</gi></q></item>
+          <item>Contraintes textuelles : <q>Les caractères ' et “ ne sont pas permis au sein d’un
+            <gi>p</gi> apparaissant dans le <gi>body</gi></q>
+          </item>
+          <item>Contraintes contextuelles : <q>mots en français (<att>xml:lang</att>='fr') ne sont
+            pas permis au sein d’un élément latin (<att>xml:lang</att>='la')</q></item>
+          <item>Intégrité référentielle : <q>un pointer exprimé sous la forme d’une URL et
+            commençant par # doit correspondre à un élément ayant un <att>xml:id</att> identique
+            quelque part dans le document</q>
+          </item>
+        </list>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Par exemple…</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <constraintSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="isoconstraint">
+            <constraint>
+              <s:assert test="tei:fileDesc/tei:titleStmt/tei:title[@type='main']"> 
+                il faut fournir un titre principal </s:assert>
+            </constraint>
+          </constraintSpec></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec ident="figure">
+            <!-- ... -->
+            <constraintSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="demo-c2">
+              <constraint>
+                <s:report test="not(tei:figDesc or tei:head)"> Votre figure ne contient ni un
+                  figDesc ni un head : aucun attribut <att>alt</att> n'est générable</s:report>
+              </constraint>
+            </constraintSpec>
+          </elementSpec></egXML>
+      </div>
+      
+      
+     <!-- <div type="slide" xml:lang="fr">
+        <head>Chaining and combining ODDs</head>
+        <p><figure>
+          <graphic url="../../Graphics/oddity.png"/>
+        </figure>
+        </p>
+      </div>-->
+      <div type="slide" xml:lang="fr">
+        <head>Usage de l’attribut <att>source</att></head>
+        <p>L’attribut <att>source</att> sert à spécifier la source des déclarations qu’on souhaite
+          intégrer : par défaut dans la version la plus récente de TEI P5.</p>
+        <p>Ou bien… </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec ident="test2" prefix="tei_" start="TEI" source="tei:1.5.0">
+            <!-- dans la version 1.5.0 -->
+          </schemaSpec></egXML>
+        <!--<egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec ident="test3" prefix="tei_" start="TEI"
+            source="http://www.tei-c.org/Vault/P5/1.5.0/xml/tei/odd/p5subset.xml">
+            <!-\- version plus verbose du même -\->
+          </schemaSpec></egXML>-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec ident="test4" source="myCompiled.odd">
+            <!-- ensemble de déclarations maison -->
+          </schemaSpec></egXML>
+        <p rend="box">
+          <att>source</att> peut être utilisé sur <gi>classRef</gi>, <gi>elementRef</gi>,
+          <gi>macroRef</gi>, et <gi>moduleRef</gi> : il doit pointer vers un ODD compilé</p>
+      </div>
+      
+      <div type="slide" xml:lang="fr">
+        <head>Addition des composants d’une schéma nonTEI</head>
+        <p>On souhaite utiliser l’élément TEI <gi>formula</gi> et y insérer du contenu exprimé en
+          MathML</p>
+        <p>Il nous faut donc :<list type="ordered">
+          <item>inclure les composants du schéma MathML </item>
+          <item>modifier le modèle de contenu de l’élément <gi>formula</gi></item>
+          <item>générer un schéma qui résout les conflits de nommage </item>
+        </list>
+        </p>
+        <p rend="block"> ATTENTION : il y a un élément <gi>list</gi> dans TEI mais également dans
+          MathML !</p>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>TEI + MathML : le ODD</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <schemaSpec ident="tei_math" prefix="tei_" start="TEI teiCorpus">
+            <moduleRef
+              url="http://www.tei-c.org/release/xml/tei/
+              custom/schema/relaxng/mathml2-main.rng"/>
+            <moduleRef key="header"/>
+            <moduleRef key="core"/>
+            <moduleRef key="tei"/>
+            <moduleRef key="textstructure"/>
+            <moduleRef key="figures"/>
+            <elementSpec module="figures" ident="formula" mode="change">
+              <content>
+                <elementRef key="mathml.math"/>
+              </content>
+            </elementSpec>
+          </schemaSpec>
+        </egXML>
+        <p rend="box">L’attribut <att>prefix</att> nous permet de désambiguïser les identifiants
+          ressortant des schémas différentes</p>
+      </div>
+    <!--  <div xml:lang="fr" rend="slide">
+        <head>TEI + MathML : le document</head>
+        <p><figure>
+          <graphic url="../../Graphics/vavilov.png"/>
+        </figure></p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <p>The relevant inequalities and distributions are <formula notation="MathML">
+            <math xmlns="http://www.w3.org/1998/Math/MathML" overflow="scroll">
+              <mn>0</mn>
+              <mo>.</mo>
+              <mn>0</mn>
+              <mn>1</mn>
+              <mo>&lt;</mo>
+              <mi>κ</mi>
+              <mo>&lt;</mo>
+              <mn>1</mn>
+              <mn>0</mn>
+            </math>
+          </formula>, Vavilov distribution, and ... </p>
+        </egXML>
+      </div>-->
+      <div type="slide" xml:lang="fr">
+        <head>Ajout d’un <soCalled>processing model</soCalled> (modèle de traitement)</head>
+        <p>Vous pouvez également enrichir votre documentation avec des déclarations plus précises
+          sur la manière dont des éléments particuliers devraient être mis en forme.</p>
+        <p>Cela est complémentaire aux fonctionnalités offertes avec <att>rend</att> et
+          <att>style</att> qui décrivent la manière dont la source originale (non-digitale) a été
+          formattée.</p>
+        <!--  <p>Les nouveaux éléments <gi>model</gi>, <gi>modelGrp</gi>, <gi>param</gi>,
+            <gi>outputRendition</gi></p>
+        <p>Le concept de <ident>behaviour</ident> est introduit pour définir des concepts de
+          formattage employés communément, par exemple, <q>block</q>, <q>inline</q>, <q>pointer</q>,
+          etc.</p>-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <elementSpec mode="change" ident="quote">
+            <model predicate="ancestor::p" behaviour="inline"/>
+            <model predicate="not(ancestor::p)" behaviour="block"/>
+          </elementSpec></egXML>
+        <q>Process a <gi>quote</gi> inside a <gi>p</gi> as an inline; elsewhere as a block</q>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Un <gi>model</gi> precise le/s <soCalled>behaviour/s</soCalled> attendu/s </head>
+        <list>
+          <item>Un <ident>behaviour</ident> peut correspondre à un des concepts de formattage
+            employés communément, par exemple, <q>block</q>, <q>inline</q>, <q>pointer</q></item>
+          <item> ou à une traîtement de niveau plus haut, par exemple, <q>alternate</q></item>
+        </list>
+        <table>
+          <row role="label">
+            <cell>behaviour</cell>
+            <cell>params</cell>
+            <cell>function</cell>
+          </row>
+          <row>
+            <cell>alternate</cell>
+            <cell>(default, alternate)</cell>
+            <cell>Supporte la présentation de visualisations alternatives, par exemple en rendant le
+              contenu préféré, en le présentant en parallèle, ou en bien en permettant de passer de
+              l’un à l’autre.</cell>
+          </row>
+          <row>
+            <cell>graphic</cell>
+            <cell>(url, width, height, scale, title)</cell>
+            <cell>si url est présent, l’utiliser pour rendre l’élément graphic, sinon rendre une
+              image placeholder.</cell>
+          </row>
+          <row>
+            <cell>omit</cell>
+            <cell/>
+            <cell>ne rien faire, ne pas traiter les enfants</cell>
+          </row>
+          <row>
+            <cell>inline</cell>
+            <cell>(content, label</cell>
+            <cell>créer un élément inline</cell>
+            <cell/>
+            <cell/>
+          </row>
+        </table>
+        <p rend="box">Voir implementation plus ou moins complète : <ref target="teipublisher.com"
+          >TEI Publisher</ref></p>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Variétés de ODD</head>
+        <p>
+          <figure>
+            <graphic url="../Graphics/oddFlavours.png" height="50%"/>
+          </figure></p>
+        <p>Chacune de ces formes représente : </p>
+        <list>
+          <item>un ODD</item>
+          <item>le schéma généré à partir de cet ODD</item>
+          <item>l'ensemble de documents considérés comme valide par ce schéma</item>
+        </list>
+      </div>
+      <div rend="slide">
+        <head>Variétés de ODD</head>
+        <p>
+          <figure>
+            <graphic url="../Graphics/oddFlavours.png"/>
+          </figure></p>
+        <cb/>
+        <list>
+          <item>un <q>TEI subset</q> fournit un sous-ensemble des composants constituant TEI All </item>
+          <!-- <item>un <q>customised subset</q> est également un sous-ensemble avec des
+            personnalisations supplémentaires</item>-->
+          <item>un <q>TEI extension</q> contient des composants qui ne font pas partie de TEI All
+          </item>
+        </list>
+        <p rend="box">La question $1000k : comment savoir si votre extension serait conforme à la
+          TEI ?</p>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Le plus simple</head>
+        <list>
+          <item>Pour un TEI subset : vos modifications génèrent un schéma réduit plus précis, plus
+            adapté à votre projet et une documentation plus exacte et correcte pour votre communauté
+            d'utilisateurs</item>
+          <item>Vos documents restent toujours valides par rapport à TEI All et vous respectez
+            toujours le modèle sémantique de la TEI.</item>
+          <item>Pour un TEI extension : les extensions éventuelles sont signalées clairement, en
+            utilisant une autre espace de nommage, et sont d’ailleurs expliquées dans votre ODD, par
+            exemple en employant les classes TEI, l'element <gi>equiv</gi>, la documentation, etc.
+          </item>
+        </list>
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Qu’est-ce signifie « être conforme à la TEI » ?</head>
+        <list>
+          <item><hi>être honnête</hi> : Les éléments XML qui sont déclarés comme appartenant au
+            namespace TEI doivent respecter les définitions TEI de ces éléments</item>
+          <item><hi>être explicite</hi> : Pour valider un document TEI, un ODD est fortement
+            conseillé, parce que cela mettra en évidence toutes les modifications effectuées.</item>
+        </list>
+        <p>Validation d'un document par rapport à un schéma TEI (TEI All, subset, ou extension) est
+          un bon signe, mais ne garantit pas son conformance</p>
+        <p>Le <q>respect des definitions TEI</q> implique un control semantique pas automisable</p>
+        <!-- <p>Plus formellement, pour un document TEI conforme :<list>
+            <item>il doit être un document XML bien-formé</item>
+            <item>si la construction de son schéma ne prend en compte que les éléments appartenant à
+              l’espace de nommage TEI, l'ensemble de documents considéré comme valide par ce schéma
+              devrait être un sous-ensemble de l'ensemble de documents considéré valide par le
+              schéma TEI-ALL.</item>
+            <item>Tout autre élément présent doit appartenir à un autre namespace</item>
+          </list></p>-->
+        
+      </div>
+      <div type="slide" xml:lang="fr">
+        <head>Les limites de la modification</head>
+        <list>
+          <item>Est-ce que l’on peut supprimer n’importe quoi ? par ex. <gi>title</gi> ?</item>
+          <item>A quoi servent les classes vides ?</item>
+          <item>Est-ce qu’on peut ajouter n’importe quoi ? par ex. elements du Dublin Core</item>
+        </list>
+        <p rend="box"><list>
+          <item>L’objet des règles de conformité est de simplifier le <q>blind interchange</q> des
+            documents ; mais elles ne le garantissent pas.</item>
+          <item>L’enjeu est de permettre à un utilisateur de comprendre votre encodage, non pas
+            forcement de le contraindre à vous suivre aveuglement</item>
+        </list></p>
+      </div>
+    <!--  <div type="slide" xml:lang="fr">
         <head>Comment faire mûrir une théorie ?</head>
         <p>Dans son TEI ODD, on peut : <list>
             <item>limiter les valeurs possibles d’un attribut plus ou moins strictement</item>
@@ -354,7 +776,7 @@
           très répandu: très intuitif</p>
       </div>
     
-     
+     -->
     </body>
   </text>
 </TEI>

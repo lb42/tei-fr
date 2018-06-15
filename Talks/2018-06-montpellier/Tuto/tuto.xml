@@ -315,26 +315,7 @@
             &lt;/egXML></code>
         </p>
       </div>
-     <!-- <div xml:lang="en">
-        <head>Defining a content model </head>
-        <p> The <gi>content</gi> of an element might be composed of</p>
-        <list>
-          <item>Nothing at all</item>
-          <item>Just text with no tagging <gi>textNode</gi></item>
-          <item>References to other elements <gi>elementRef</gi></item>
-          <item>References to classes of element <gi>classRef</gi></item>
-          <item>Alternations of the foregoing <gi>alternate</gi></item>
-          <item>Sequences of the foregoing <gi>sequence</gi></item>
-          <item>And any of these components might be repeatable ... <att>minOccurs</att> and
-              <att>maxOccurs</att>
-          </item>
-          <!-\-<item>Interleaved instances of the foregoing <gi>interleave</gi> (<hi rend="bold">Warning:
- this is not yet implemented</hi>)</item>-\->
-        </list>
-        <p>We’ll look at the TEI XML constructs available to express all these possibilities in more
-          detail later</p>
-      </div>
-  -->    <div xml:lang="fr" type="slide">
+       <div xml:lang="fr" type="slide">
         <!-- traduction a relire -->
         <head>Définition d’un modèle de contenu</head>
         <p>Un élément XML peut contenir....</p>
@@ -441,6 +422,212 @@
         </list>
         <p rend="box">Plus tard, nous verrons comment la TEI se sert du système ODD…</p>
       </div>
+        
+        
+        
+        
+        
+        <div type="slide" xml:lang="fr">
+          <head>Compilation d'un ODD</head>
+          <list>
+            <item>Transformer le fichier <ident>tei_bare.odd</ident> en <q>ODD compilé</q> avec oXygen
+              en utilisant la feuille de style
+              <ident>${frameworks}/tei/xml/tei/stylesheet/odds/odd2odd.xsl</ident></item>
+            <item>Regardez rapidement la sortie en profitant de l’affichage
+              <soCalled>Outline</soCalled></item>
+            <item>Tous ces <gi>classSpec</gi> et <gi>dataSpec</gi> sont fournis par le module
+              <ident>tei</ident> : ils sont constitutifs de l’infrastructure TEI.</item>
+            <item>Enregistrez cette version sous le nom <ident>tei_bare.compiled.odd</ident></item>
+          </list>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <head>Usage d’un ODD compilé</head>
+          <p>Nous allons réutiliser TEI_bare, mais nous souhaitons supprimer l’élément
+            <gi>head</gi></p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec ident="Bare-minus" source="tei_bare.compiled.odd" start="TEI">
+              <moduleRef key="tei"/>
+              <moduleRef key="header"/>
+              <moduleRef key="core" except="head"/>
+              <moduleRef key="textstructure"/>
+            </schemaSpec></egXML>
+          <!--<p>Et juste pour la complétude, voici une autre manière d’arriver au même effet : </p>
+ <egXML xmlns="http://www.tei-c.org/ns/Examples">
+   <schemaSpec ident="Bare-minus" source="tei_bare.compiled.odd" start="TEI">
+     <moduleRef key="tei"/>
+     <moduleRef key="header"/>
+     <moduleRef key="core"/>
+     <moduleRef key="textstructure"/>
+     <elementSpec module="core" ident="head" mode="delete"/>
+   </schemaSpec></egXML>-->
+          <p>Notez qu’on ne peut supprimer ou modifier que les choses qui sont déjà présentes dans
+            l’ODD compilé spécifié par l’attribut <att>source</att>. </p>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <head>Chaînage : super-ensemble</head>
+          <p>Nous allons réutiliser TEI_bare, mais nous souhaitons ajouter le module
+            <ident>gaiji</ident>
+          </p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec ident="Bare-plus" source="tei_bare.compiled.odd" start="TEI">
+              <moduleRef key="tei"/>
+              <moduleRef key="header"/>
+              <moduleRef key="gaiji" source="http://www.tei-c.org/release/xml/tei/odd/p5subset.xml"/>
+              <moduleRef key="textstructure"/>
+            </schemaSpec></egXML>
+          <p>Le <gi>moduleRef</gi> qui va fournir le module <ident>gaiji</ident> utilise son propre
+            attribut <att>source</att> pour spécifier où aller cherche les déclarations de ce
+            module.</p>
+        </div>
+        <div type="slide" xml:lang="fr">
+          <head>Rétablir un élément supprimé</head>
+          <p>Nous allons ramener l'élément <gi>q</gi> qui a été effacé du schéma compilé :</p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <schemaSpec ident="Bare-plus" source="tei_bare.compiled.odd" start="TEI">
+              <moduleRef key="tei"/>
+              <moduleRef key="header"/>
+              <elementRef key="q" source="tei:3.0.0"/>
+              <moduleRef key="textstructure"/>
+            </schemaSpec></egXML>
+        </div>
+        
+        
+        <div xml:lang="fr" rend="slide">
+          <head>Exercice de personnalisation </head>
+          <p>Créons un schéma <ident>featherLite</ident> très simple, pour un projet de corpus langagier. </p>
+          <list>
+            <item>L’entête TEI ne possédera que les composants essentiels à sa conformité (à savoir :
+              <gi>teiHeader</gi>, <gi>fileDesc</gi>,  <gi>titleStmt</gi>, <gi>publicationStmt</gi>
+              <gi>sourceDesc</gi> et <gi>title</gi>) </item>
+            <item>L’élément <gi>text</gi> est composé d’un seul <gi>body</gi> contenant des <gi>div</gi>s contenant un ou plus d’éléments <gi>ab</gi></item>
+            <item>Chaque <gi>ab</gi> ne permet qu’une séquence d’éléments <gi>s</gi></item>
+            <item>Chaque <gi>s</gi> est composé d’éléments <gi>w</gi><!-- et d’éléments <gi>pc</gi> --></item>
+            <item>et nous souhaitons supprimer la majorité des attributs, en gardant notamment
+              <att>xml:id</att>, <att>xml:lang</att>, <att>type</att>, <att>style</att>
+            </item>
+          </list>
+        </div>
+        
+        <div xml:lang="fr" rend="slide">
+          <head>Exercice de personnalisation</head>
+          <list>
+            <item>Ouvrez le fichier <ident>feather-1.odd</ident> avec oXygen</item>
+            <item>Testez votre compréhension de ce fichier </item>
+            <item>Utilisez oXygen pour générer un schéma dans votre langage de schéma préféré et un petit manuel en HTML</item>
+            <item>Créez un nouveau document TEI XML qui utilise ce schéma</item>
+            <item>Vérifiez les éléments et les attributs disponibles </item>
+          </list>
+          <p>Nous allons modifier un peu plus ce schéma pour :
+            <list><item>supprimer plusieurs attributs inutiles</item>
+              <item>ajouter un nouveau élément</item>
+              <item>simplifier le modèle de contenu de quelques éléments</item>
+            </list></p></div>
+        
+        
+        <div xml:lang="fr" rend="slide">
+          <head>Suppression d’attributs</head>   
+          <p>Pour supprimer un attribut il faut savoir d’où il vient : 
+            <list><item>soit il est défini avec l’élément qui le comporte (assez inhabituel)</item>
+              <item>soit il est hérité d’une classe</item>
+              <item>qui peut elle-même 
+                hériter des attributs d’une autre classe</item>
+            </list>
+          </p>
+          <p>Regardez la définition de <gi>body</gi> par exemple :
+          </p>
+          <figure> <graphic url="images/bodyshot.png"/></figure>
+          <p>On peut supprimer un attribut 
+            <list>
+              <item>en modifiant que l’élement qui le comporte</item>
+              <item>en modifiant la participation à la classe qui le fournit</item>
+              <item>en modifiant ou supprimant la classe entièrement</item>
+            </list>
+          </p>
+        </div>
+        <div xml:lang="fr" rend="slide"><head>Exemples</head><list>  
+          <item>    supprimez partout l’attribut <att>decls</att> : 
+            <code>&lt;classSpec type="atts" mode="delete" ident="att.declaring"/&gt;</code>
+          </item>
+          <item>    supprimez partout les attributs <att>rend</att> et <att>rendition</att> :  
+            <code>&lt;classRef type="att.global.rendition" except="rend rendition"/&gt;</code>
+          </item>
+          
+          <item>     supprimez partout les attributs <att>xml:base</att> et <att>xml:space</att> 
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"><classSpec type="atts" ident="att.global" mode="change">         
+              <attList>
+                <attDef ident="xml:base" mode="delete"/>
+                <attDef ident="xml:space" mode="delete"/>
+              </attList>
+            </classSpec></egXML></item>
+          <item>et pour supprimer les autres attributs fournis par <ident>att.global</ident>, nous changeons la liste des sur-classes pour cette classe:
+            <code>&lt;classes&gt;
+              &lt;memberOf key="att.global.rendition"/&gt;
+              &lt;/classes&gt;</code></item>
+        </list></div>
+        <div xml:lang="fr" rend="slide">
+          <head>Ajout d’un nouvel élément</head>
+          <p>Nous souhaitons ajouter un élément <gi>mw</gi> pour baliser les <q>multiwords</q> (concept linguistique un peu inexacte mais... )</p>
+          <list>
+            <item>il faut fournir un <gi>elementSpec</gi> complet</item>
+            <item>le nouvel élément doit être dans notre propre espace de noms</item>
+            <item>il est avantageux de le faire participer à une des classes TEI existantes 
+              pour qu’il apparaissent dans les modèles de contenu relevants</item>
+          </list>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="mw" ns="http://myNameSpace.org">
+              <desc>multiword strings which function as if they were single words</desc>
+              <classes>
+                <memberOf key="model.segLike"/>
+                <memberOf key="att.global"/>
+                <memberOf key="att.typed"/>
+              </classes>
+              <content>
+                <alternate maxOccurs="unbounded">
+                  <textNode/>
+                  <elementRef key="w"/>
+                </alternate>
+              </content>
+            </elementSpec>
+          </egXML>
+          <p>Modifier ainsi votre copie de l'ODD et voir l'effet sur le schéma généré et sa documentation.</p>
+        </div>
+        
+        <div xml:lang="fr" rend="slide">
+          <!-- no eng equiv -->
+          <head>Modification du modèle de contenu</head>
+          <p>Continuons de personnaliser le schéma feather... </p>
+          <list>
+            <item>La plupart des modèles de contenu s'exprime avec un macro, qui fait référence à des classes</item>
+            <item>Regardez par ex la spécification de l'élément <gi>s</gi> dans notre petit schéma</item>
+            <item>Le macro macro.phraseSeq définit un modèle permettant de texte ou des éléments des classes model.gLike, model.phrase et model.global </item>
+            <item>Suivez l’hiérarchie des déclarations et vous constaterez que la plupart de ces classes sont vides dans notre petit schéma</item>
+            <item>En effet, les seuls éléments disponibles sont <gi>title</gi>, <gi>s</gi>, <gi>w</gi> et (après la modification précédente) <gi>mw</gi></item> 
+          </list>
+          <p>Nous souhaitons simplifier cela : donc nous allons changer le <gi>content</gi> de <gi>s</gi>.</p> </div>
+        <div xml:lang="fr" rend="slide"><head>Changement du modèle de contenu</head>
+          <p>Ajouter dans votre ODD :
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"><elementSpec ident="s" mode="change">
+              <content>         
+                <alternate maxOccurs="unbounded">
+                  <elementRef key="w"/>
+                  <elementRef key="mw"/>
+                </alternate>
+              </content>
+            </elementSpec></egXML></p>
+          <list><item>Regénérez le schéma et la doc, et contrôlez si l’effet corresponde à vos attentes</item>
+            <item>Comment est-ce que cela marche ?</item>
+          </list>
+          <p>Attention : un changement de modèle de contenu risque de mettre en cause notre TEI-conformité</p></div>
+        
+        <div xml:lang="fr" rend="slide"><head>Exercice final</head>
+          <p>S’il vous reste du temps, vous êtes invité à considérer 
+            <list>
+              <item>comment ajouter <gi>pc</gi> pour les séquences de ponctuation</item>
+              <item>comment modifier le ODD pour supprimer <gi>title</gi>, sauf dans le <gi>titleStmt</gi> où il est obligatoire</item>
+            </list></p>
+          <p>Vous trouverez ma proposition dans <ident>feather-final.odd</ident>. N’hésitez pas à l’améliorer !</p></div>
+        
+        
       </body>
   </text>
 </TEI>
