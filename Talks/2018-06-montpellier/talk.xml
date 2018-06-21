@@ -82,7 +82,7 @@
         </p>
         <p>Un <hi>schéma</hi> peut intégrer :<list>
             <item>des objets choisies dans la liste ci-dessus</item>
-          <item>des références à un de ces   objets</item>
+          <item>des références à un de ces objets</item>
           <item>des collections de références prédéfinies <gi>moduleRef</gi></item>
           </list></p>
       </div>
@@ -124,7 +124,7 @@
         </list>
       </div>
       
-      <div type="slide" xml:lang="fr">
+      <!--<div type="slide" xml:lang="fr">
         <head><soCalled>Modes</soCalled> d'une spécification</head>
         <p rend="box">L'attribut <att>mode</att> controle l'effet d'une specification
           supplementaire. Ces règles s'appliquent aux elements dits <term>identifiable</term>, portant tous  un attribut
@@ -158,8 +158,45 @@
             </cell>
           </row>
         </table>
-      </div>
+      </div>-->
       
+      <div rend="slide">
+        <head>ODD est donc un langage de declaration</head>
+        <p>Il est utilise par la TEI pour declarar les elements, leurs attributs, les classes, les
+          types de donnees, et les patrons utilisables par tout systeme d'encodage TEI.</p>
+        <p>par exemple
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <elementSpec ident="machin" module="nouveau-module">
+              <desc xml:lang="fr">partie fait-tout d'un paragraphe</desc>
+              <desc xml:lang="en">all purpose paragraph component</desc>
+              <classes>
+                <memberOf key="model.pPart"/>
+                <memberOf key="att.global"/>
+              </classes>            
+            </elementSpec>
+          </egXML>
+        </p>
+      </div>
+      <div xml:lang="fr" rend="slide">
+        <head>ODD est surtout un langage de specification</head>
+        <p>La TEI s’exprime en langage ODD. Ce fut d’ailleurs la raison principale pour laquelle le langage fut inventé </p>
+        <p>La source TEI P5 (disponible ici <ptr
+          target="http://www.tei-c.org/release/xml/tei/odd/Source/"/>) rassemble : <list>
+            <item>39 fichiers en TEI-XML, dont 25 contiennent un chapitre de documentation en XML-TEI, la plupart définissant un module, par exemple <ident>PH-PrimarySources.xml</ident></item>
+            <item>832 fichiers en TEI-XML, chacun définissant un élément, une classe, un type de
+              donnée, ou une macro <list>
+              <item>33 types de donnees (teidata.xxxx) par ex. <ident>teidata.percentage</ident></item>
+              <item>118 classes de type modèle (code>model.xxxx) par ex.
+                <ident>model.biblLike.xml</ident></item>
+              <item>73 classes de type attribut (<code>att.xxxx</code>) par ex.
+                <ident>att.divLike.xml</ident></item>
+              <item>36 macros (macro.xxxx) par ex. <ident>macro.phraseSeq.xml</ident></item>
+              <item>567 spécifications d’éléments,  de <ident>ab.xml</ident> jusqu'à
+                <ident>zone.xml</ident></item>
+            </list></item>
+          </list>
+        </p>
+        </div>
       <div xml:lang="fr" rend="slide">
         <head>ODD est aussi un langage de personnalisation </head>
         <p>On se sert du même système pour spécifier ses choix dans le grand bazar de la TEI et pour
@@ -178,10 +215,10 @@
         <head>Comment créer un ODD</head>
         <p>Un ODD, vous le savez déjà, c’est un document TEI comme les autres. Vous pouvez le
           construire et modifier avec oXygen ou n’importe quel autre éditeur XML </p>
-        <p>Rappel ! il existe des outils pour faciliter une construction initiale :</p>
+        <p>Il existe des outils pour faciliter une construction initiale :</p>
         <list>
           <item><ref target="http://www.tei-c.org/Roma"> http://www.tei-c.org/Roma</ref></item>
-          <item><ref target="http://teic.github.io/TCW/howtogenerate.html">ODD By Example stylesheet</ref></item>
+          <item><ref target="http://teic.github.io/TCW/howtogenerate-fr.html">ODD By Example</ref></item>
         </list>
         
       </div>
@@ -211,16 +248,17 @@
       <div xml:lang="fr" rend="slide">
         <head>Composants d’un <gi>schemaSpec</gi></head>
         <list>
-          <item><gi>moduleRef</gi> : un ensemble d’objets fournis par un module</item>
           <item><gi>elementSpec</gi>, <gi>classSpec</gi>, <gi>dataSpec</gi>, <gi>macroSpec</gi> (etc.) : des objets nouveaux </item>
           <item><gi>elementRef</gi>, <gi>classRef</gi>, <gi>dataRef</gi>, <gi>macroRef</gi>(etc.) : des objets déjà existants quelque part</item>
+          <item><gi>moduleRef</gi> : un ensemble d’objets fournis par un module TEI</item>
         </list>
+        <p>L'element moduleRef est tres utile pour la selection d'un ensemble d'objets TEI</p>
         <p>La location des objets référencés est specifiée par un attribut <att>source</att> : par défaut il s’agit de la version la plus récente de TEI P5</p>
-        
+       
       </div>
       
       <div xml:lang="fr" rend="slide">
-        <head>Sélection par exclusion</head>
+        <head>moduleRef: sélection par exclusion</head>
         <p> Vous pouvez spécifier les éléments que vous souhaitez supprimer parmi ceux proposés par un module : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema">
           <moduleRef key="core" except="mentioned said"/> 
           <moduleRef key="header"/> 
@@ -238,7 +276,7 @@
       </div>
       
       <div xml:lang="fr" rend="slide">
-        <head>Sélection par inclusion</head>
+        <head>moduleRef : sélection par inclusion</head>
         <p>Vous pouvez spécifier les éléments que vous souhaitez inclure parmi ceux qui sont proposés par un module : <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec start="TEI" ident="testschema">
           <moduleRef key="core"/> 
           <moduleRef key="header"/> 
@@ -300,7 +338,7 @@
       </div>
       
       <div type="slide">
-        <head>Regardons un premier exemple fictif </head>
+        <head>Regardons un exemple </head>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <body>
@@ -338,39 +376,7 @@
         </list>
       </div>
       <div type="slide">
-        <head>Exemple fictif cont </head>
-        <p>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-            <body>
-              <head>Une personalisation TEI pour la transcription collaborative</head>
-              <p>Cette personalisation propose un schéma minimal pour la transcription collaborative
-                des documents archivals. </p>
-              <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
-                <!-- ... -->
-                <elementSpec ident="hi" mode="change">
-                  <attList>
-                    <attDef ident="rend" mode="replace">
-                      <valList type="closed">
-                        <valItem ident="underline"/>
-                        <valItem ident="superscript"/>
-                      </valList>
-                    </attDef>
-                  </attList>
-                </elementSpec>
-                <!-- ... -->
-              </schemaSpec>
-            </body>
-          </egXML>
-        </p>
-        <cb/>
-        <list>
-          <item>la spécification existante pour <gi>hi</gi> est modifiée</item>
-          <item>la spécification de son attribut <att>rend</att> est remplacée</item>
-          <item>la liste des valeurs possibles pour cet attribut est fermée</item>
-        </list>
-      </div>
-      <div type="slide">
-        <head>Exemple fictif cont </head>
+        <head>Exemple  cont </head>
         <p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <body>
@@ -380,7 +386,8 @@
               <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
                 <!-- ... -->
                 <elementSpec ident="botName" ns="http://monexcellentprojet.com">
-                  <desc>nom botanique</desc>
+                  <desc xml:lang="fr">nom botanique</desc>
+                  <desc xml:lang="en">botanical name</desc>                 
                   <classes>
                     <memberOf key="model.phrase"/>
                     <memberOf key="att.global"/>
@@ -399,14 +406,49 @@
           <item>nous ajoutons une spécification pour un élément non-TEI, appartenant à une autre
             espace de nommage </item>
           <item>cette spécification comporte <list>
-              <item>une description</item>
-              <item>une indication des classes TEI auxquelles l'élément appartiendrait</item>
-              <item>une indication de son contenu possible</item>
-            </list>
+            <item>une description</item>
+            <item>une indication des classes TEI auxquelles l'élément appartiendrait</item>
+            <item>une indication de son contenu possible</item>
+          </list>
           </item>
         </list>
       </div>
-      
+      <div type="slide">
+        <head>Exemple fictif cont </head>
+        <p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+            <body>
+              <head>Une personalisation TEI pour la transcription collaborative</head>
+              <p>Cette personalisation propose un schéma minimal pour la transcription collaborative
+                des documents archivals. </p>
+              <schemaSpec ident="transMin" start="TEI text div" docLang="fr">
+                <!-- ... -->
+                <elementSpec ident="hi" mode="change">
+                  <attList>
+                    <attDef ident="rend" mode="replace">
+                      <datatype><dataRef key="teidata.enumerated"/></datatype>
+                      <valList type="closed">
+                        <valItem ident="underline"/>
+                        <valItem ident="superscript"/>
+                      </valList>
+                    </attDef>
+                  </attList>
+                </elementSpec>
+                <!-- ... -->
+              </schemaSpec>
+            </body>
+          </egXML>
+        </p>
+        <cb/>
+        <list>
+          <item>la spécification existante pour <gi>hi</gi> est modifiée</item>
+          <item>la spécification de son attribut <att>rend</att> est remplacée:
+            <list><item>son type
+              de données devient une enumeration</item>
+              <item>la liste des valeurs possibles est explicitée</item></list></item>       
+        </list>
+      </div>
+     
       
       <div type="slide" xml:lang="fr">
         <head>Structuration d’un ODD</head>
@@ -444,9 +486,9 @@
         <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
           <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div"
             module="teistructure" mode="change">
-            <constraintSpec ident="div" scheme="isoschematron">
+            <constraintSpec ident="div">
               <constraint>
-                <s:assert test="@type='prose' and .//tei:p">une division prosaïque doit contenir au moins un paragraphe</s:assert>
+                <s:assert test=".//tei:p">une division doit contenir au moins un paragraphe</s:assert>
               </constraint>
             </constraintSpec>
           </elementSpec></egXML>
