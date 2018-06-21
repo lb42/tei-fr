@@ -211,10 +211,10 @@
             <item>Par référence à un <term>datatype</term> (type de donnée) interne défini par un
                 <gi>dataSpec</gi> interne à notre ODD</item>
           </list></p>
-      </div>
+    <!--  </div>
       <div type="slide" xml:lang="fr">
-        <head>Exemple </head>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
+        <head>Exemple </head>-->
+        <p>Par exemple: <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"
           xmlns:rng="http://relaxng.org/ns/structure/1.0">
           <classSpec ident="bookAtts" type="atts">
             <desc>attributs applicables aux <gi>book</gi></desc>
@@ -241,7 +241,7 @@
               </attDef>
             </attList>
           </classSpec>
-        </egXML>
+        </egXML></p>
         <p>(Il faut aussi fournir un <gi>dataSpec</gi> pour definir <ident>myShelfNo</ident>)</p>
       </div>
       <div type="slide" xml:lang="fr">
@@ -278,7 +278,7 @@
           documentation s’exprime également en XML, il faut être astucieux… Il y a trois approches possibles :<list>
             <item>tout cacher avec un "CDATA marked section" (magique hérité de SGML)
               <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                &lt;![CDATA[&lt;p>un paragraphe&lt;/p> &#93;]> </egXML>
+&lt;![CDATA[&lt;p>un paragraphe&lt;/p> &#93;]> </egXML>
            </item>
             <item>tout échapper en utilisent des "références" (<code>&amp;amp;lt;</code> etc)</item>
             <item>utiliser un autre espace de nommage <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -405,13 +405,13 @@
           <item>L’entête TEI ne possédera que les composants essentiels à sa conformité (à savoir :
               <gi>teiHeader</gi>, <gi>fileDesc</gi>, <gi>titleStmt</gi>, <gi>publicationStmt</gi>
             <gi>sourceDesc</gi> et <gi>title</gi>) </item>
-          <item>L’élément <gi>text</gi> est composé d’un seul <gi>body</gi> contenant des
+          <item>L’élément <gi>text</gi> sera composé d’un seul <gi>body</gi> contenant des
               <gi>div</gi>s contenant un ou plus d’éléments <gi>ab</gi></item>
-          <item>Chaque <gi>ab</gi> ne permet qu’une séquence d’éléments <gi>s</gi></item>
+          <item>Chaque <gi>ab</gi> ne permettra qu’une séquence d’éléments <gi>s</gi></item>
           <item>Chaque <gi>s</gi> est composé d’éléments
             <gi>w</gi><!-- et d’éléments <gi>pc</gi> --></item>
           <item>Nous souhaitons supprimer la majorité des attributs, en gardant notamment
-              <att>xml:id</att>, <att>xml:lang</att>, <att>type</att>, <att>style</att>
+              <att>xml:id</att>, <att>xml:lang</att>, <att>type</att>, <att>rend</att>
           </item>
         </list>
     <!--  </div>
@@ -425,14 +425,14 @@
           <item>Créez un nouveau document TEI XML qui utilise ce schéma</item>
           <item>Vérifiez les éléments et les attributs disponibles </item>
         </list>
-        <p>Nous allons modifier un peu plus ce schéma pour : <list>
+        <p>Nous allons modifier un peu plus ce schéma pour : <list rend="numbered">
             <item>supprimer plusieurs attributs inutiles</item>
             <item>ajouter un nouveau élément</item>
             <item>simplifier le modèle de contenu de quelques éléments</item>
           </list></p>
       </div>
       <div xml:lang="fr" type="slide">
-        <head>Suppression d’attributs</head>
+        <head>(1) Suppression d’attributs</head>
         <p>Pour supprimer un attribut il faut savoir d’où il vient : <list>
             <item>soit il est défini avec l’élément qui le comporte (assez inhabituel)</item>
             <item>soit il est hérité d’une classe</item>
@@ -482,7 +482,7 @@
         ciblés par <att>key</att></p>
       </div>
       <div xml:lang="fr" type="slide">
-        <head>Ajout d’un nouvel élément</head>
+        <head>(2) Ajout d’un nouvel élément</head>
         <p>Nous souhaitons ajouter un élément <gi>mw</gi> pour baliser les <q>multiwords</q>
           (concept linguistique un peu inexacte mais... )</p>
         <list>
@@ -511,7 +511,7 @@
           documentation.</p>
       </div>
       <div xml:lang="fr" type="slide">
-          <head>Modification du modèle de contenu</head>
+          <head>(3) Modification du modèle de contenu</head>
          <list>
           <item>La plupart des modèles de contenu s'exprime avec un macro, qui fait référence à des
             classes</item>
@@ -524,7 +524,7 @@
           <item>En effet, les seuls éléments disponibles sont <gi>title</gi>, <gi>s</gi>, <gi>w</gi>
             et (après la modification précédente) <gi>mw</gi></item>
         </list>
-        <p>Nous souhaitons simplifier cela : donc nous allons changer le <gi>content</gi> de
+        <p>Nous souhaitons simplifier cela : d'abord nous allons changer le <gi>content</gi> de
             <gi>s</gi>.</p>
       </div>
       <div xml:lang="fr" type="slide">
@@ -557,7 +557,7 @@
         <p rend="box">Attention : un changement de modèle de contenu risque de mettre en cause notre
           TEI-conformité</p>
       </div>
-      <div xml:lang="fr" type="slide"><head>Petit defi pour les expertes... </head>
+      <div xml:lang="fr" type="slide"><head>Une autre methode pour la modification des modeles</head>
         <p rend="box">Comment modifier notre ODD pour supprimer <gi>title</gi>, sauf dans le
           <gi>titleStmt</gi> où il est obligatoire ?</p> 
       <p>Rappelons qu'un element <gi>x</gi> devient disponible dans le contenu d'un autre element <gi>y</gi> par deux moyens:
@@ -592,8 +592,7 @@
              l'attribut <att>type</att>  de l'élément <gi>ab</gi></item>
             
           </list></p>
-        <p>Vous trouverez ma proposition dans <ident>feather-final.odd</ident>. N’hésitez pas à
-          l’améliorer !</p>
+       
       </div>
       <div type="slide" xml:lang="fr">
         <head>Compilation d'un ODD</head>
