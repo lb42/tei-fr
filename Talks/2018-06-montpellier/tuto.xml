@@ -453,14 +453,14 @@
         <head>Exemples</head>
         <p>Modifiez le fichier <ident>superLite-1.odd</ident> : <list>
             <item>supprimez partout les attributs <att>decls</att> et <att>source</att>:
-                <code>&lt;classSpec type="atts" mode="delete" ident="att.declaring"/&gt;</code>
-              <code>&lt;classSpec type="atts" mode="delete" ident="att.source"/&gt;</code>
+           <egXML xmlns="http://www.tei-c.org/ns/Examples">     
+             <classSpec type="atts" mode="delete" ident="att.declaring"/>
+              <classSpec type="atts" mode="delete" ident="att.source"/></egXML>
             </item>
             <item> la classe <ident>att.global.rendition</ident> nous fournit 3 attributs, et nous
               ne souhaitons que <att>rend</att>: supprimez les deux autres comme ceci:
-                <code>&lt;classRef type="att.global.rendition" except="style rendition"/&gt;</code>
-              ou comme ceci: <code>&lt;classRef type="att.global.rendition"
-                include="rend"/&gt;</code> (quelle est la différence?) </item>
+             <egXML xmlns="http://www.tei-c.org/ns/Examples">   <classRef type="att.global.rendition" except="style rendition"/>
+             <!-- ou comme ceci: --><classRef type="att.global.rendition" include="rend"/></egXML> (quelle est la différence?) </item>
             <item>supprimez partout les attributs <att>xml:base</att> et <att>xml:space</att>
               <egXML xmlns="http://www.tei-c.org/ns/Examples"><classSpec type="atts"
                   ident="att.global" mode="change">
@@ -470,12 +470,16 @@
                   </attList>
                 </classSpec></egXML>
             </item>
-            <item>supprimez partout les attributs <att>cert</att> et <att>resp</att>: ces attributs
+            <item>supprimez partout les attributs <att>cert</att> et <att>resp</att> : ces attributs
               sont fournis par la classe <ident>att.global.responsibility</ident> a laquelle
               participe <ident>att.global</ident>, donc nous modifions la liste des sur-classes pour
-              cette classe: <code>&lt;classes&gt; &lt;memberOf key="att.global.rendition"/&gt;
-                &lt;/classes&gt;</code></item>
+              cette classe: <egXML xmlns="http://www.tei-c.org/ns/Examples"><classes>
+                <memberOf key="att.global.rendition"/>
+               </classes></egXML></item>
           </list></p>
+        <p>Dans ce dernier cas, l'élément <gi>classes</gi> est forcément à remplacer entièrement,
+        puisque ses enfants <gi>memberOf</gi>  ne sont pas identifiables, et donc ne peuvent pas être
+        ciblés par <att>key</att></p>
       </div>
       <div xml:lang="fr" type="slide">
         <head>Ajout d’un nouvel élément</head>
@@ -503,14 +507,12 @@
             </content>
           </elementSpec>
         </egXML>
-        <p>Modifier ainsi votre copie de l'ODD et voir l'effet sur le schéma généré et sa
+        <p>Modifiez ainsi votre copie de l'ODD et voir l'effet sur le schéma généré et sa
           documentation.</p>
       </div>
       <div xml:lang="fr" type="slide">
-        <!-- no eng equiv -->
-        <head>Modification du modèle de contenu</head>
-        <p>Continuons de personnaliser le schéma feather... </p>
-        <list>
+          <head>Modification du modèle de contenu</head>
+         <list>
           <item>La plupart des modèles de contenu s'exprime avec un macro, qui fait référence à des
             classes</item>
           <item>Regardez par ex la spécification de l'élément <gi>s</gi> dans notre petit
@@ -540,17 +542,55 @@
         <list>
           <item>Regénérez le schéma et la doc, et contrôlez si l’effet corresponde à vos
             attentes</item>
-          <item>Comment est-ce que cela marche ?</item>
+          <item>Vous avez noté sans doute que l'exemple d'usage dans la doc n'est plus valide! il faut donc
+            le remplacer. Ajoutez donc un element <gi>exemplum</gi> apres le <gi>content</gi>, qui contient un <tag>egXML
+              xmlns="http://www.tei-c.org/ns/Examples"</tag> dont le contenu pourrait etre (par ex)
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <s><w>Quand</w><w>partez</w><w>-</w><w>vous</w><w> ?</w></s>
+              <s><w>Demain</w><w>.</w></s>
+            </egXML>
+           </item>
+          <item>Regénérez votre schéma et sa documentation; controllez la doc pour voir
+             si votre exemple y apparait.</item><item>Comme les <gi>memberOf</gi>, les
+               <gi>egXML</gi> ne sont pas identifiables; ajouter un sert à remplacer tous</item>
         </list>
-        <p>Attention : un changement de modèle de contenu risque de mettre en cause notre
+        <p rend="box">Attention : un changement de modèle de contenu risque de mettre en cause notre
           TEI-conformité</p>
+      </div>
+      <div xml:lang="fr" type="slide"><head>Petit defi pour les expertes... </head>
+        <p rend="box">Comment modifier notre ODD pour supprimer <gi>title</gi>, sauf dans le
+          <gi>titleStmt</gi> où il est obligatoire ?</p> 
+      <p>Rappelons qu'un element <gi>x</gi> devient disponible dans le contenu d'un autre element <gi>y</gi> par deux moyens:
+          <list>
+            <item><gi>x</gi> est referencie explicitement par le modele de contenu de <gi>y</gi></item>
+            <item><gi>x</gi> est membre d'une classe qui est
+              referenciee par le modele de contenu de <gi>y</gi></item><item>ou d'une classe qui est
+                referencie par un macro definissant le modele de contenu de <gi>y</gi></item>
+          </list>
+      </p>
+      <p>Regardez dans la doc ...
+      <list>
+        <item>comparez les modeles de contenu de <gi>titleStmt</gi> et de <gi>ab</gi>
+        </item>
+        <item>le contenu de <gi>ab</gi> est defini par un macro : suivez l'hierarchie de classes
+          pour retrouver celle a laquelle appartient <gi>title</gi>!</item>
+        <item>comment changer l'adhesion de <gi>title</gi> a
+            cette classe? </item>
+      </list></p>  
+      
+      
       </div>
       <div xml:lang="fr" type="slide">
         <head>Exercice final</head>
-        <p>S’il vous reste du temps, vous êtes invité à considérer <list>
-            <item>comment ajouter <gi>pc</gi> pour les séquences de ponctuation</item>
-            <item>comment modifier le ODD pour supprimer <gi>title</gi>, sauf dans le
-                <gi>titleStmt</gi> où il est obligatoire</item>
+        <p>S’il vous reste du temps, je vous invite à .... <list>
+            <item>ajouter un element <gi>pc</gi> pour les séquences de
+              ponctuation</item>
+         <item>ajouter encore des exemples d'usage partout</item>
+          <item>supprimer l'attribut <att>hand</att>
+           sur <gi>ab</gi> (ou partout)</item>
+          <item>prédéfinir  une liste fermée de valeurs possible pour
+             l'attribut <att>type</att>  de l'élément <gi>ab</gi></item>
+            
           </list></p>
         <p>Vous trouverez ma proposition dans <ident>feather-final.odd</ident>. N’hésitez pas à
           l’améliorer !</p>
@@ -568,7 +608,7 @@
           <item>Enregistrez cette version sous le nom <ident>tei_bare.compiled.odd</ident></item>
         </list>
       </div>
-      <div type="slide" xml:lang="fr">
+    <!--  <div type="slide" xml:lang="fr">
         <head>Usage d’un ODD compilé</head>
         <p>Nous allons réutiliser TEI_bare, mais nous souhaitons supprimer l’élément
           <gi>head</gi></p>
@@ -579,15 +619,7 @@
             <moduleRef key="core" except="head"/>
             <moduleRef key="textstructure"/>
           </schemaSpec></egXML>
-        <!--<p>Et juste pour la complétude, voici une autre manière d’arriver au même effet : </p>
- <egXML xmlns="http://www.tei-c.org/ns/Examples">
-   <schemaSpec ident="Bare-minus" source="tei_bare.compiled.odd" start="TEI">
-     <moduleRef key="tei"/>
-     <moduleRef key="header"/>
-     <moduleRef key="core"/>
-     <moduleRef key="textstructure"/>
-     <elementSpec module="core" ident="head" mode="delete"/>
-   </schemaSpec></egXML>-->
+       
         <p>Notez qu’on ne peut supprimer ou modifier que les choses qui sont déjà présentes dans
           l’ODD compilé spécifié par l’attribut <att>source</att>. </p>
       </div>
@@ -617,7 +649,7 @@
             <elementRef key="q" source="tei:3.0.0"/>
             <moduleRef key="textstructure"/>
           </schemaSpec></egXML>
-      </div>
+      </div>-->
     </body>
   </text>
 </TEI>
