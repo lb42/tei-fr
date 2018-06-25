@@ -76,7 +76,9 @@
       <div type="slide" xml:lang="fr">
         <head>So what ?</head>
         <list>
-          <item>On peut extraire les fragments documentaires, notamment les descriptions des
+          <item>On peut générer un schéma RELAX NG, W3C, ou
+            DTD à l’aide d’une transformation XSLT</item>
+          <item>On peut extraire  du meme document les fragments documentaires, notamment les descriptions des
             éléments et des attributs</item>
         </list>
         <p>TEI fournit un élément spécialisé pour cela :
@@ -95,10 +97,7 @@
               graphique</item>
           </list>
         </egXML>
-        <p>Et bien sûr .. <list>
-            <item>On peut maintenant générer à partir du meme document un schéma RELAX NG, W3C, ou
-              DTD à l’aide d’une transformation XSLT</item>
-          </list></p>
+      
       </div>
       <div type="slide" xml:lang="fr">
         <head>Essayons cela avec oXygen… </head>
@@ -346,17 +345,18 @@
       <div xml:lang="fr" type="slide">
         <head>Tester votre compréhension...</head>
         <list>
-          <item>Chargez le fichier <ident>oddex-3.odd</ident> et générez un schéma comme d’habitude </item>
+        <!--  <item>Chargez le fichier <ident>oddex-3.odd</ident> et générez un schéma comme d’habitude </item>
           <item>Est-ce que le fichier <ident>oddex-1-test.xml</ident> reste valide avec cette
             version du schéma ?</item>
-          <item>Et le fichier <ident>oddex-3-test.xml</ident> ?</item>
-          <item>Ajoutez des traductions dans d’autres langues (allemand, russe, italien, anglais...)
-            des descriptions d’éléments</item>
-          <item>Modifiez l’élément <gi>my:para</gi> pour lui donner les attributs <att>xml:id</att>
-            et <att>status</att></item>
+        <item>Et le fichier <ident>oddex-3-test.xml</ident> ?</item>-->
+          <item>Revenez au fichier <ident>oddex-2.odd</ident></item>
           <item>Modifiez la définition de l’attribut <att>status</att> pour lui permettre de prendre
             la valeur <code>orange</code>.</item>
-          <item>Ajoutez un nouvel élément <gi>chapitre</gi>,
+          <item>Ajoutez des traductions  des descriptions d’éléments dans d’autres langues (allemand, russe, italien, anglais...)
+           </item>
+          <item>Modifiez l’élément <gi>para</gi> pour lui donner les attributs <att>xml:id</att>
+            et <att>status</att></item>
+            <item>Ajoutez un nouvel élément <gi>chapitre</gi>,
              participant à la classe <ident>bookPart</ident> et contenant des membres de la meme
             classe. Quel est son effet?</item>
           <item>Ajoutez un exemple d’usage pour quelques-uns des éléments spécifiés par votre
@@ -364,7 +364,7 @@
         </list>
       </div>
       <div type="slide" xml:lang="fr">
-        <head>Et enfin, un mot de la TEI</head>
+        <head>Et finalement un mot de la TEI</head>
         <p>Admettons enfin que notre <gi>para</gi> n’est pas si loin de l’élément TEI <gi>p</gi>,
           que notre <gi>image</gi> ressemble beaucoup à l’élément TEI <gi>graphic</gi>, et que notre
             <gi>book</gi> pourrait être considéré comme un élément TEI <gi>div</gi>. Comment
@@ -378,7 +378,7 @@
             <moduleRef key="tei"/>
           </schemaSpec>
         </egXML>
-        <p>L’élément <gi>moduleRef</gi> nous fournit un ensemble de définitions infrastructurales,
+        <p>Le module <ident>tei</ident> proposé par ce <gi>moduleRef</gi> nous fournit un ensemble de définitions infrastructurales,
           notamment pour les classes utilisées partout dans le systeme TEI. À part cela, nous
           n’avons besoin que de référencer les éléments TEI souhaités avec un <gi>elementRef</gi>.
         </p><p>L'attribut <att>source</att> indique la version de la TEI que nous souhaitons
@@ -390,7 +390,7 @@
           <item>Chargez le fichier <ident>oddex-tei.odd</ident> avec oXygen et comparez le avec les
             versions précédentes </item>
           <item>Transformez ce fichier en schéma, comme d’habitude.</item>
-          <item>Le fichier <ident>oddex-3-test.xml</ident> contient une version TEI de notre fichier
+          <item>Le fichier <ident>oddex-tei.xml</ident> contient une version TEI de notre fichier
             de test initial : validez-le avec le schéma que vous venez de créer.</item>
           <item>Notez qu’un document TEI <emph>doit</emph> utiliser l’espace de nommage TEI</item>
           <item>Notez également que les concepts TEI et les nôtres ne sont pas forcément identiques
@@ -398,9 +398,9 @@
         </list>
         </div>
       <div xml:lang="fr" type="slide">
-        <head>Exercice de personnalisation TEI</head>
-        <p>Créons un schéma <ident>hyperLeger</ident> très simple, pour un projet de corpus
-          langagier. </p>
+        <head>Deuxième exercice un peu plus vraisemblable</head>
+        <p>Pour notre projet de corpus langagier, <soCalled>TEI Lite</soCalled> est trop lourd, et <soCalled>TEI simplePrint</soCalled> trop complexe.
+          Créons un schéma TEI <ident>hyperLeger</ident> très simple. </p>
         <list>
           <item>L’entête TEI ne possédera que les composants essentiels à sa conformité (à savoir :
               <gi>teiHeader</gi>, <gi>fileDesc</gi>, <gi>titleStmt</gi>, <gi>publicationStmt</gi>
@@ -458,7 +458,7 @@
               <classSpec type="atts" mode="delete" ident="att.source"/></egXML>
             </item>
             <item> la classe <ident>att.global.rendition</ident> nous fournit 3 attributs, et nous
-              ne souhaitons que <att>rend</att>: supprimez les deux autres comme ceci:
+              ne souhaitons que <att>rend</att>: il y a 2 manières de supprimer les autres :
              <egXML xmlns="http://www.tei-c.org/ns/Examples">   <classRef type="att.global.rendition" except="style rendition"/>
              <!-- ou comme ceci: --><classRef type="att.global.rendition" include="rend"/></egXML> (quelle est la différence?) </item>
             <item>supprimez partout les attributs <att>xml:base</att> et <att>xml:space</att>
@@ -471,15 +471,17 @@
                 </classSpec></egXML>
             </item>
             <item>supprimez partout les attributs <att>cert</att> et <att>resp</att> : ces attributs
-              sont fournis par la classe <ident>att.global.responsibility</ident> a laquelle
+              sont fournis par la classe <ident>att.global.responsibility</ident> à laquelle
               participe <ident>att.global</ident>, donc nous modifions la liste des sur-classes pour
-              cette classe: <egXML xmlns="http://www.tei-c.org/ns/Examples"><classes>
+              <ident>att.global</ident>: <egXML xmlns="http://www.tei-c.org/ns/Examples"><classes>
                 <memberOf key="att.global.rendition"/>
                </classes></egXML></item>
           </list></p>
         <p>Dans ce dernier cas, l'élément <gi>classes</gi> est forcément à remplacer entièrement,
         puisque ses enfants <gi>memberOf</gi>  ne sont pas identifiables, et donc ne peuvent pas être
         ciblés par <att>key</att></p>
+        <p rend="box">Effectuez ces modifications dans le fichier <ident>superLite.odd</ident> et l'enregistrez sous
+          le nom de <ident>superLite-2.odd</ident> si tout se passe bien...</p>
       </div>
       <div xml:lang="fr" type="slide">
         <head>(2) Ajout d’un nouvel élément</head>
@@ -507,7 +509,7 @@
             </content>
           </elementSpec>
         </egXML>
-        <p>Modifiez ainsi votre copie de l'ODD et voir l'effet sur le schéma généré et sa
+        <p>Modifiez ainsi votre fichier <ident>superLite-2.odd</ident> et voir l'effet sur le schéma généré et sa
           documentation.</p>
       </div>
       <div xml:lang="fr" type="slide">
@@ -592,9 +594,13 @@
              l'attribut <att>type</att>  de l'élément <gi>ab</gi></item>
             
           </list></p>
-       
       </div>
-      <div type="slide" xml:lang="fr">
+      
+      <div><head>Pour aller plus loin</head>
+      <list><item>tutoriel odd chaining</item><item>tutoriel odd generation</item><item>tutoriel pure ODD (en anglais)</item>
+        <item>le manuel: TD</item><item>n'hesitez pas de posez vos questions sur TEI-L ou tei-fr</item></list></div>
+      
+     <!-- <div type="slide" xml:lang="fr">
         <head>Compilation d'un ODD</head>
         <list>
           <item>Transformer le fichier <ident>tei_bare.odd</ident> en <q>ODD compilé</q> avec oXygen
@@ -607,7 +613,7 @@
           <item>Enregistrez cette version sous le nom <ident>tei_bare.compiled.odd</ident></item>
         </list>
       </div>
-    <!--  <div type="slide" xml:lang="fr">
+ -->   <!--  <div type="slide" xml:lang="fr">
         <head>Usage d’un ODD compilé</head>
         <p>Nous allons réutiliser TEI_bare, mais nous souhaitons supprimer l’élément
           <gi>head</gi></p>
