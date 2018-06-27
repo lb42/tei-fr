@@ -26,7 +26,11 @@
   </teiHeader>
   <text>
     <body xml:lang="fr">
-      <div xml:lang="en" type="slide">
+      <div type="slide">
+        <figure><graphic url="media/logo.jpg"/>
+        <head>Comment maitriser le tigre TEI ?</head></figure>
+      </div>
+      <div xml:lang="fr" type="slide">
         <head>À quoi ça sert, un ODD ? </head>
         <list>
           <item>ODD est le langage de définition et de maintenance du système TEI</item>
@@ -272,7 +276,7 @@
             (<soCalled>oddChaining</soCalled>)</item>
         </list>
         <figure>
-          <graphic url="../Graphics/eltec-chains.png" height="70%"/>
+          <graphic url="../Graphics/eltec-chains.png" height="80%"/>
         </figure>
       </div>
       <div type="slide">
@@ -549,6 +553,57 @@
         </list>
       </div>
       <!-- here -->
+
+      <div type="slide">
+        <head>Trois sujets avances</head>
+        <list>
+          <item><gi>constraintSpec</gi> et <gi>dataSpec</gi>: contraintes sur le contenu plus
+            complexes</item>
+          <item><gi>model</gi> : specification de traitement par defaut</item>
+          <item>Addition des composants d’une schéma non-TEI</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>L’élément <gi>dataSpec</gi></head>
+        <p>Definit un <term>type de données</term> applicable habituellement à un ou plusieurs
+          attribut. </p>
+        <list>
+          <item>la TEI ne réinvente pas les types de données (datatypes) déjà fournis par le
+            W3C</item>
+          <item> mais elle permet l'ajout de quelques modifications, notamment <list>
+              <item>des <term>facets</term> (par ex <q>valeur integral entre 4 et 42</q>) </item>
+              <item>des <term>patterns</term> (par ex <q>chaine de caracters conforme à ce
+                  regexp</q></item>
+              <item>et une surcouche sémantique (par ex, <code>teidata.sex</code> vs
+                  <code>teidata.enumerated</code>)</item>
+            </list>
+          </item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Exemples dataspec</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+          <dataSpec ident="teidata.pointer">
+             <content>
+              <dataRef name="anyURI"/>
+            </content>
+          </dataSpec></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><dataSpec ident="myAngle">
+            <content><dataRef name="decimal">
+                <dataFacet name="maxInclusive" value="360.0"/>
+                <dataFacet name="minInclusive" value="-360.0"/>
+              </dataRef></content></dataSpec>
+        </egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"  rend="tiny">
+          <dataSpec ident="data.percentage">
+            <content>
+              <dataRef name="nonNegativeInteger" restriction="[0-9][0-9]?%"/>
+            </content>
+          </dataSpec>
+        </egXML>
+      </div>
+
+
       <div type="slide">
         <head>Contraintes de données avec Schematron </head>
         <list>
@@ -568,32 +623,6 @@
               </constraint>
             </constraintSpec>
           </elementSpec></egXML>
-      </div>
-      <div type="slide">
-        <head>Trois sujets avances</head>
-        <list>
-          <item><gi>constraintSpec</gi> et <gi>dataSpec</gi>: contraintes sur le contenu plus
-            complexes</item>
-          <item><gi>model</gi> : specification de traitement par defaut</item>
-          <item>Addition des composants d’une schéma non-TEI</item>
-        </list>
-      </div>
-      <div type="slide">
-        <head>L’élément <gi>dataSpec</gi></head>
-        <p>Definit un <term>type de donnees</term> applicable habituellement a un ou plusieurs
-          attribut. </p>
-        <list>
-          <item>la TEI ne reinvente pas les types de donnees (datatypes) deja fournis par le
-            W3C</item>
-          <item> mais elle permet l'ajout de quelques modifications, notamment <list>
-              <item>des <term>facets</term> (par ex <q>valeur integral entre 4 et 42</q>) </item>
-              <item>des <term>patterns</term> (par ex <q>chaine de caracters conforme a ce
-                  regexp</q></item>
-              <item>et une surcouche semantique (par ex, <code>teidata.sex</code> vs
-                  <code>teidata.enumerated</code>)</item>
-            </list>
-          </item>
-        </list>
       </div>
       <div type="slide">
         <head>L’élément <gi>constraintSpec</gi>
@@ -864,6 +893,24 @@
               forcement de le contraindre à vous suivre aveuglement</item>
           </list></p>
       </div>
+
+      <div>
+        <head>Pour aller plus loin</head>
+        <list>
+          <item><ref target="http://teic.github.io/TCW/howtoChain-fr.html">tutoriel pratique sur
+              l'enchainement des ODD </ref></item>
+          <item><ref target="http://teic.github.io/TCW/howtoGenerate-fr.html">tutoriel pratique sur
+              la generation des ODD</ref></item>
+          <item><ref target="http://teic.github.io/TCW/pureODDtutorial.html">tutoriel pure ODD
+            </ref>(en anglais)</item>
+          <item>le manuel: <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html"
+              >TEI Guidelines, chap 22</ref></item>
+          <item><ref target="http://teibyexample.org/modules/TBED08v00.htm">tutoriel introductif sur
+              l'usage de Roma pour creer un ODD</ref> (en anglais) </item>
+          <item>n'hesitez pas de posez vos questions sur TEI-L ou tei-fr</item>
+        </list>
+      </div>
+
       <!--  <div type="slide" >
         <head>Comment faire mûrir une théorie ?</head>
         <p>Dans son TEI ODD, on peut : <list>
