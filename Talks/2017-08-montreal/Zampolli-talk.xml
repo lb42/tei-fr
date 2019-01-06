@@ -1,0 +1,1662 @@
+<!DOCTYPE TEI  [
+<!ENTITY agrave  "&#224;" ><!-- small a, grave accent -->   
+<!ENTITY auml    "&#228;" ><!-- small a, dieresis or umlaut mark -->
+<!ENTITY ccedil  "&#231;" ><!-- small c, cedilla -->
+<!ENTITY eacute  "&#233;" ><!-- small e, acute accent -->
+<!ENTITY egrave  "&#232;" ><!-- small e, grave accent -->
+<!ENTITY mdash  "&#x2014;" ><!--=em dash-->
+<!ENTITY ndash  "&#x2013;" ><!--=en dash-->
+<!ENTITY ugrave  "&#249;" ><!-- small u, grave accent -->
+<!ENTITY uuml    "&#252;" ><!-- small u, dieresis or umlaut mark -->
+]>
+<?xml-stylesheet type="text/xsl" href="local.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+	<title>The TEI: where did it come from, and why is it still here?</title>
+	<author>Nancy M. Ide.</author>
+	<author>C. M. Sperberg-McQueen</author>
+	<author>Lou Burnard</author>
+      </titleStmt>
+      <publicationStmt>
+	<p>Unpublished; intended for publication by TEI Japan user group.</p>
+      </publicationStmt>
+      <sourceDesc>
+	<p>Revised from an unpublished transcript of the Zampolli Award
+	talks given in Montreal 10 August 2017.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <titlePage>
+	<docTitle>
+	  <titlePart>
+	    The TEI: where did it come from,
+	  </titlePart>
+	  <titlePart>
+	    and why is it still here?
+	  </titlePart>
+	</docTitle>
+	<docAuthor>
+	  <name type="person">Nancy M. Ide</name>
+	  <name type="person">C. M. Sperberg-McQueen</name>
+	  <name type="person">Lou Burnard</name>
+	</docAuthor>
+      </titlePage>
+    </front>
+    <body>
+      <note place="block">
+	<p><hi>This is a revised version of the
+	remarks made by the authors on the occasion of accepting the
+	ADHO Antonio Zampolli Prize on behalf of the TEI community.</hi></p>
+      </note>
+
+      <div>
+	<head>Context and rationale</head>
+	<head>Nancy M. Ide</head>
+
+	<p>We would like, collectively, to address the questions
+	<q>Where did the TEI come, and why is it still here?</q>
+	First of all, I would like to sketch the context and rationale
+	of the project:  how was the TEI started, why was it started,
+	and what problems was it trying to solve?</p>
+	
+	<p>
+	  Let us begin by considering the state of humanities
+	  computing in the mid-1980s. As can be seen by looking at the
+	  proceedings of conferences of the period, a great deal of work in
+	  humanities computing was devoted to topics like vocabulary
+	  inventories, authorship attribution, and stylistic studies
+	  &mdash; familiar categories of work which continue today,
+	  although probably in more sophisticated forms now than
+	  then. Some software existed to help the computing humanist.
+	  There was a fair bit of concordancing software, since a lot
+	  of work depended on concordances. The Oxford Concordance
+	  Program OCP was a mainframe program, later reissued as
+	  MicroOCP for personal computers; the Waterloo Concordance
+	  package WATCON was also a mainframe batch concordance
+	  package. ARRAS (Archival retrieval and analysis system) was
+	  similarly a mainframe program but differed from the first
+	  two in being interactive. The TACT (text analysis computing
+	  tools) program developed at the University of Toronto was an
+	  interactive concordance package for microcomputers, as was
+	  the Word Cruncher package developed at Brigham Young
+	  University.
+	</p>
+	<p>
+	  Concordance packages might allow the user to specify words,
+	  word patterns, or particular word combinations as the focus
+	  of attention. There were tools to create frequency lists of
+	  letters, words, and phrases, and tools to calculate
+	  statistics related to word types and word tokens, such as
+	  the type/token ratio for the entire text, or a running
+	  calculation of the type/token ratio for the first
+	  <ident>n</ident> words of the text. Some tools ranked the
+	  collocates of a given word by the strength of their
+	  association; others provided visual displays of the
+	  distribution of a given word or set of word forms across a
+	  text, so that you could see some thematic and stylistic
+	  patterns at a glance. There were many, many sorts of
+	  statistics, generally centered on the use of words in texts.
+	</p>
+	<p>
+	  The creators of these programs, and their users, needed to
+	  find some way to represent texts in electronic form,
+	  together with information about the texts and their
+	  structure, which led naturally enough to the creation of a
+	  number of different schemes for doing so. This had been
+	  going on for at least twenty years, possibly even thirty,
+	  before the TEI was founded.
+	  The representation of texts for such software required
+	  solutions to a lot of problems:  representing special characters
+	  (recalling that for many purposes any characters other than
+	  digits, uppercase A-Z, and a few punctuation characters counted
+	  as <soCalled>special</soCalled>),
+	  representing the logical divisions of texts (chapters, paragraphs;
+	  acts, scenes, speeches; verse lines; ...),
+	  and also of course whatever analytic or interpretive information
+	  scholars might want to add to the texts they were working with.
+	  For some texts it was desirable to provide 
+	  some form or other of text-critical apparatus, but
+	  reducing such apparatus to linear form was difficult,
+	  so text-critical information was often simply omitted.
+	  And so on and so forth:  there is no clear boundary that
+	  separates information a scholar might need to encode
+	  from information that no one will ever need to encode.
+      </p>
+      <p>	
+	A couple of examples may help to give an idea of the situation.
+      </p>
+      <p>
+	We might have one piece of software that expects that a
+	citation reference will be placed at the beginning of each
+	line of text &mdash; and it is expected that the line breaks
+	in the electronic text of text must of course be the same as
+	the line breaks of the printed text used as a source,
+	so that the first line of a text might look like this:
+	<eg>
+VirAen01001arma virumque cano, Troiae qui primus ab oris	  
+	</eg>
+      </p>
+      <p>	
+	In another format called Cocoa, which was rather common
+	(named for an early concordance
+	program and widely known because of its support in the
+	Oxford Concordance Program), the beginning of a text might look
+	something like this:
+	<eg><![CDATA[
+<W Shakespeare>
+<T Merchant of Venice>
+<A 2>
+<S 6>
+<C Graziano>
+This is the penthouse under which Lorenzo ...]]></eg>
+	As can be seen, Cocoa uses XML-like brackets to enclose
+	metadata, and one-character codes to record
+	specified kinds of information; later software like Tact
+	often allowed multi-character codes.  Here, <code>W</code>
+	gives the writer (Shakespeare), <code>T</code> the title
+	of the work, <code>A</code> and <code>S</code> the
+	act and scene numbers, <code>C</code> the
+	speaker (character name), and <code>L</code> (not shown)
+	the line number, for citation purposes.
+      </p>
+      <p>
+	In general, these text representation schemes were very
+	heavily influenced by the hardware and software restrictions
+	of the time.  They often had little
+	resemblance to each other, so that it was quite a challenge to
+	take any text encoded in one of these formats and turn it into
+	another. But such conversions were essential, if you
+	wanted to work with a piece of software which was not the one
+	for which the text was originally encoded.  Sometimes
+	a complete conversion was not possible:  the COCOA example
+	just shown records information for which the other example
+	has no place:  if you converted from the COCOA representation
+	to the other one, information would be lost.
+	Nor were conversions easily automated.  Users of electronic
+	text spent a great deal of time struggling with problems of
+	conversion and manually editing their texts to make them work
+	with the next piece of software.
+      </p>
+      <p>Basically, the situation was a mess. Someone at the
+      Poughkeepsie meeting in 1987 called it <q>chaos</q>, and it was.
+      </p>
+      <p>
+	It wasn't that people did not recognize the problem as a
+	problem. In fact, very early on, at a conference organized by
+	IBM on the topic of <q>literary data processing</q>, the
+	linguist Martin Kay, now a very well known figure in
+	the computational linguistics community, argued for <q>a
+	standard code in which any text received from an outside
+	source can be assumed to be</q>.<note place="foot">
+	<p>The proceedings of the conference were published as
+	<title>Literary data processing conference : proceedings of
+	the conference</title> organized by the Department of
+	scientific and technical information, technology and
+	engeneering staff, IBM Corporation, and held at the Thomas J.
+	Watson Research Center, Yorktown Heights, New York, Sept.
+	9-11, 1964, ed. Jess B. Bessinger, Jr., and Stephen Maxfield
+	Parrish <!--* and Harry F. Arader?  co-chaired conference
+	but apparently not listed as an editor *-->
+	(White Plains:  IBM, 1965).  Kay's appeal for standards was
+	later published as
+	<!--* https://doi.org/10.1007/BF00055404 *-->
+	<title level="a">Standards for encoding
+	data in a natural language,</title> <title level="j">Computers
+	and the Humanities</title> 1.5 (1967): 170-77;
+	a scan of Kay's typescript is now on the Web at
+	<ref target="https://www.researchgate.net/publication/267793697_STANDARDS_FOR_ENCODING_LINGUISTIC_DATA">
+	  https://www.researchgate.net&#x200B;/publication<!--
+	  -->&#x200B;/267793697&#x200B;_STANDARDS<!--
+	  -->&#x200B;_FOR&#x200B;_ENCODING<!--
+	  -->&#x200B;_LINGUISTIC&#x200B;_DATA</ref>.	
+	</p>
+	</note>
+      </p>
+      <p>
+	Nothing came of his call for a standard.
+	The idea persisted, however, throughout the seventies
+	and the early eighties.  There was a meeting in San Diego,
+	in 1977,
+	there was another meeting convened by Antonio Zampolli
+	in Pisa in 1980, and 
+	people continued talking about the idea of having
+	some kind of standard.
+      </p>
+      <p>
+	But the big open question was not really what such a standard
+	should be like, but whether it was even possible to have such
+	a standard. Most people felt that it was not possible, because
+	it would be impossible to get people to agree. There was no
+	way to arrive at a standard format that would satisfy
+	everyone.
+      </p>
+      <p>
+	So in the later 1980s, twenty years after Martin Kay identified
+	the problem, there was still plenty of discussion around this topic.
+	And then came the moment.
+      </p>
+      <p>
+	In 1987,
+	the International Conference on Computers in the Humanities
+	(which was at that time the annual conference of the
+	Association for Computers and the Humanities)
+	was held at the University of South Carolina,
+	and in some mysterious way the stars aligned.
+	Michael Sperberg-McQueen and I discussed the issue of
+	standardization with Helen Ag&uuml;era,
+	who was a representative of the United States National Endowment for the Humanities,
+	and she encouraged us to apply for emergency funding
+	to hold a workshop
+	to bring together people to discuss this topic,
+	with one of the issues being whether a standard format for
+	electronic texts was even possible.
+      </p>
+      <p>
+	Of course the rest is history. Together with David Barnard
+	and Lou Burnard, that summer Michael and I wrote an application for
+	emergency funds, which were granted. The meeting was held on
+	November 12th and 13th, 1987, at Vassar College, in
+	Poughkeepsie, New York.
+	Thirty-two people from all over the world came;
+	they represented the handful of text archives that existed at the time,
+	a lot of humanities computing centers,
+	professional organizations,
+	and other people who had been deeply involved in the issues
+	surrounding the problem.
+	The Association for Computers and the Humanities
+	was formally the sponsor of the event, and
+	we naturally invited representatives from
+	the Association for Literary and Linguistic Computing.
+	But Antonio Zampolli, in true form,
+	told his friend Don Walker about the meeting;
+	Don was the long-time secretary of the Association
+	for Computational Linguistics.
+	Don called
+	me up and said <q>I have to be there.</q>
+	So,
+	despite the fact that we were worried about the capacity of the meeting room,
+	we added him to the invitation list.
+      </p>
+      <p>      
+	We had a little glitch in the plan.
+	There was a huge snowstorm on November 11th
+	in the northeastern part of the United States,
+	making road travel difficult.
+	Poughkeepsie is some ways north of New York City,
+	and getting there is not a simple matter of arriving at JFK Airport
+	in New York and taking a taxi.
+	People had a lot of trouble getting to Vassar,
+	especially those who didn't realize there was train
+	service from New York to Poughkeepsie.
+	A sizable clutch of European participants
+	were stranded at JFK Airport, 
+	but once again, in characteristic fashion,
+	Antonio Zampolli solved the problem.
+	He convinced a van driver
+	to
+	take the whole group of people and bring them to Poughkeepsie.
+	Everyone made it,
+	eventually, and
+	figure 1 shows the group, in the Vassar College Center,
+	with the speakers and Antonio Zampolli (in whose name
+	to prize we are accepting has been established) identified.
+	<figure>
+	  <graphic url="images/Poughkeepsie.png"/>
+	  <p>Attendees at the 1987 Poughkeepsie meeting</p>
+	</figure>
+	<!--* 
+	    and in case you don't recognize us, there is Antonio,
+	    and then we have Lou,
+	    and Michael,
+	    and me,
+	    and in case you're wondering, I have had several different hairstyles
+	    between now and then [laughter],
+	    despite the fact that it's the same.
+	    *-->
+      </p>
+      <p>      
+	The workshop was two days of intense &mdash; very intense &mdash;
+	discussion, which led eventually to an general agreement
+	on the need for a common practice for text encoding
+	and on a set of basic principles to guide the development of
+	what became the TEI Guidelines for Text Encoding and Interchange.
+	These were called the Poughkeepsie Principles.  (People love alliteration,
+	so they were never the Vassar Principles but the Poughkeepsie Principles.)
+      </p>
+      <p>
+	The Poughkeepsie Principles are reproduced below, but some of
+	the salient points may be summarized here. Some of the
+	motivating factors have already been mentioned. Hardware
+	constraints were of huge importance at the time. The existing
+	software was often very difficult for non-programmers to
+	install and use. Metadata and documentation of the encoding
+	were almost never available, and if one did wish to provide
+	either documentation or metadata, it was in many formats hard
+	to figure out where to put it.
+	The notion of separating appearance-oriented, procedural
+	markup (describing how a text looks) from descriptive markup
+	(describing what it is) had been developed gradually over a
+	number of years, with efforts including the Generalized
+	Markup Language (GML), LaTeX, and in 1986 the Standard
+	Generalized Markup Language.  In November 1987, the
+	month of the Poughkeepsie meeting, there was a seminal
+	article on the subject by James Coombs and others,
+	which appeared in the <title>Communications of the Association
+	for Computing Machinery</title>.<note place="foot">
+	<p>J. Coombs, A. H. Renear, and S. J. DeRose, <title
+	level="a">Markup systems and the future of scholarly text
+	processing,</title> <title level="j">Communications of the
+	Association for Computing Machinery</title> 30.11 (1987):
+	933&ndash;947.</p>
+	</note>
+	And the context of the Poughkeepsie meeting was also
+	prominently influenced by the ongoing belief
+	that
+	it would be impossible to find a single standard.
+      </p>
+      <p>
+	Not stated explicitly in the closing document but
+	essential to our work was the idea promoted by Coombs et al.
+	in the article that had just appeared:
+	we would provide descriptive and not imperative markup.
+	We also decided to provide a place for in-document metadata
+	and to focus on representing the information that was required
+	or desired for scholarly processing, putting software and hardware
+	requirements firmly to one side.
+	(At the time, in 1987, 
+	that was harder to do than it might look,
+	because machine capacities were nothing like those of today. )	
+      </p>
+      <p>
+	Another goal, perhaps self-evident but worth
+	mentioning, was that the guidelines should be simple, clear,
+	concrete, and easy for people to use without special-purpose
+	software. This was an act of faith on our part because it
+	involved writing a software-independent data format and hoping
+	that software to support that format would materialize. At the
+	same time, we wanted to allow for the rigorous definition of
+	efficient processing of text. Now, this clearly calls for a
+	balancing act between simplicity and rigor, between efficiency
+	and ease of use or software independence; it's very difficult
+	to tread a line down the middle.
+      </p>
+      <p>
+	The Poughkeepsie Principles everywhere reflect the concerns
+	of the text archives represented at the meeting.
+	They had invested enormous amounts of effort, and time,
+	in developing management systems and encoding schemes
+	and in writing software that could process documents encoded
+	in those schemes.  They were very worried that the development
+	of a new and standardized representation format would
+	promptly lead to demands that they retrospectively convert
+	all their existing holdings into the new format, and that
+	such retrospective conversion might be prohibitively expensive.
+	Their concerns had quite a big impact on the meeting,
+	and in order to reach consensus one of the major results of
+	the Poughkeepsie meeting was that the guidelines would
+	be intended to <emph>suggest</emph> principles for encoding,
+	not lay down a tightly prescriptive standard.  They are not
+	a <q>standard</q>, they are only <q>guidelines</q>.
+	That principle has now been described so often that it may
+	seem to be a natural state of affairs, but it was in fact a
+	conscious decision made in Poughkeepsie.
+      </p>
+      <p>
+	The Poughkeepsie Principle describe the Guidelines as
+	providing a standard format for data <emph>interchange</emph>.
+	Implicit in that choice of words is the idea that
+	within a given repository, an existing text archive could
+	in good conscience continue to use their existing
+	text encoding scheme:
+	There would be no requirement for local conformance.
+	In other words the TEI would serve as a pivot format or
+	interlanguage.  If your text repository used a different
+	scheme, you would write software to transduce documents
+	from your internal scheme into the TEI, and other software
+	to transduce TEI documents into your internal schema.
+	But you would <emph>not</emph> have to write
+	translators for each of the other forty or however many
+	schemes there might be, in order to use different
+	software or to exchange texts with other centers.
+      </p>
+      <p>
+	The Principles say that the Guidelines <emph>should</emph>
+	define a recommended
+	syntax for the format,
+	but a careful reader will notice that they do not offer any
+	final decision on what the exact syntax should be.
+	Many people were promoting SGML, which had become an
+	ISO standard only the year before, in 1986,
+	but SGML was not unanimously accepted at the time.
+	The TEI ended up mandating the use of SGML a little bit later,
+	after we persuaded ourselves that it met our requirements.
+      </p>
+      <p>
+	It's very interesting to note that when the Principles speak of
+	<q>a recommended syntax</q>, what is actually meant is 
+	both syntax in the strict sense &mdash; i.e. the physical format
+	of a data stream &mdash; and
+	the semantics, i.e. the meaning of the labels or the elements
+	or whatever you want to call the meaning-bearing units of
+	an encoding scheme.  (We were clear in our minds
+	that we were including this, even if the words are less clear.)
+	SGML, it is well known, prescribes only a
+	syntactic format, with syntactic roles for tags and delimiters
+	of various kinds; the same is true of XML, which was developed
+	later.  The users of SGML and XML can define
+	a context-free grammar in the form of a document type definition or DTD
+	(or, later, a schema in other notations), which specifies
+	which elements can appear where, and how many times they can appear,
+	and so on.
+	But ninety percent, or ninety-five percent, of the TEI Guidelines
+	is devoted to the semantics of the scheme:
+	the definition of labels and element names,
+	using not a formal specification language but
+	carefully crafted natural-language prose.
+      </p>
+      <p>
+      Another principle reflecting the concerns of the archivists
+      states that the Guidelines will include a minimal set of conventions
+      that people should adhere to, but that 
+      there would be no requirement to <emph>add</emph> anything.
+      Newly encoded texts &mdash;
+      though not necessarily the legacy texts that existed in archives
+      &mdash; should include descriptive and bibliographic information
+      and metadata about the encoding itself.
+      I think it's fair to say that these went beyond then-current
+      practice:  no one provided that kind of information back then,
+      especially not metadata about the encoding itself.
+      </p>
+      <p>
+	Furthermore, there should be a way to extend the scheme.
+      </p>
+      <p>
+	All of these things now sound self-evident, and everyone is
+	used to them, but they were not self-evident in 1987.
+      </p>
+      <p>
+	Another driving concern was polytheoreticity,
+	which had been a topic of conversations
+	for years before the Poughkeepsie meeting.
+	There was almost no unanimity about
+	what people should encode
+	or how to encode it, 
+	even for the same phenomenon.
+	We wanted to try to preserve the intellectual autonomy of the researcher,
+	but at the same time
+	we wanted to provide enough guidance to avoid pointless variations
+	in superficial matters.
+	Which requires another balancing act between flexibility and prescription.
+      </p>
+      <p>
+	The TEI solution to these requirements is a specific document
+	grammar, expressed as a DTD &mdash; so it's a set of concrete
+	rules for encoding &mdash; but it does also provide
+	alternative means to encode the same thing, if it's felt
+	necessary.
+      </p>
+      <p>
+	One of the Poughkeepsie Principles was never
+	fulfilled.
+	We originally intended to define a metalanguage for description of
+	encoding schemes,
+	and particularly for their semantics,
+	and we 
+	wanted to describe both the new scheme
+	and a wide variety of existing encoding schemes in this
+	metalanguage, and thereby enable some transduction.
+	This never happened.
+	One reason is that as the TEI developed
+	the anxiety among the text archivists about SGML and about the new scheme 
+	subsided.
+	SGML gained wider acceptance.
+	Another is that there was an explosion of data.
+	The archives that actually existed at the time,
+	large and important though they were,
+	held a minuscule volume of texts compared to
+	what came into being as early as the early 1990s, not
+	to speak of what has happened since.
+      </p>
+      <p>
+	A third compelling reason that such a universal
+	notation for describing text-encoding formats
+	was never developed is that no one knew then,
+	and no one knows now, how to develop such a
+	thing.  So one reason it never happened is,
+	if I may put it this way, that it hasn't happened yet.
+	No one has come up with such a scheme.
+	If you ever do, there are many who would like
+	to hear about it.
+      </p>
+      <p>
+	After the Poughkeepsie meeting, 
+	the management of the project was
+	delegated to a steering committee
+	with two representatives from each of
+	the three sponsoring organizations:
+	the Association for Computers and the Humanities (ACH),
+	the Association for Literary and Linguistic Computing (ALLC;
+	now the European Association for Digital Humanities EADH), and
+	the Assocation for Computational Linguistics (ACL).
+	Over the following years, 
+	this group raised over a million dollars in both Europe and North America
+	to support the work of the TEI.
+	The steering committee oversaw the project
+	until the TEI Consortium was founded in 2000
+	to enable self-sustenance of the project
+	and the three sponsoring organizations
+	handed responsibility for the Guidelines over
+	to the new consortium.
+      </p>
+      <p>
+	There had been a long history of discussion about
+	the need for a standard encoding format, and a number
+	of previous attempts to create one.  Why did the TEI
+	succeed, when none of those previous efforts did?
+      </p>
+      <p>
+	There are, I think, several reasons.
+	We knew more about encoding problems,
+	mostly from the headache of trying to transduce one thing into another;
+	we started to understand more deeply what was required.
+	We had a much more robust representation
+	of key organizations and researchers
+	and research centers, in Poughkeepsie, than any of the
+	earlier meetings.  
+	SGML seems to have provided the right tool at the right time.
+	As I said, the alignment of the stars was right. 
+      </p>
+      <p>
+	One other reason why it succeeded this time
+	deserves to be mentioned, especially in the context
+	of the Zampolli Prize.  The TEI succeeded in part
+	because Antonio Zampolli championed the TEI
+	and support for the TEI.
+	When Antonio wanted to make something happen,
+	he was a force to be reckoned with.
+      </p>
+      <p>
+	I'd like to close with a few personal reflections on the TEI.
+      </p>
+      <p>
+	Having been working on issues of
+      	encoding and data representation for many many years, I find it interesting,
+	even amazing
+	to see how many foundational issues were addressed
+	by the TEI:
+	<list>
+	  <item>the idea of a pivot format;</item>
+	  <item>the TEI's attempt to try to handle the problem of polytheoricity
+	  by allowing different ways of encoding texts while
+	  seeking to ensure consistency at the same time
+	  wherever possible;</item>
+	  <item>the use of existing standards like SGML;</item>
+	  <item>the inclusion of bibliographic information and
+	  description of the encoding scheme in the document itself.
+	  </item>
+	</list>
+	In work on various representation formats these days many of
+	these principles still operate.
+      </p>
+      <p>
+	A second point is that 
+	the TEI was, and probably remains,
+	the most extensive attempt ever to provide semantics for an encoding format.
+	To this day, defining a semantics and having it applied consistently across schemes
+	is still
+	a major obstacle to interoperability.  There are so many different
+	ontologies, so many different taxonomies &mdash; 
+	everybody has their own name for something and
+	their own way of thinking about what it is,
+	and interoperability is very difficult to achieve
+	without common points of reference.
+      </p>
+      <p>
+	My final reflection is that 
+	the size, the scope, and the influence of the TEI
+	have far exceeded anything
+	that any of us ever imagined
+	at the Poughkeepsie meeting.
+	We are very happy to stand here thirty years later,
+	a bit older and perhaps a bit wiser,
+	to celebrate that fact 
+	and to accept, on behalf of the entire TEI community,
+	the Antonio Zampolli 
+	Award
+	for the achievements of the TEI.
+      </p>
+      </div>
+      
+      <div>
+	<head>How did we try to solve those problems?</head>
+	<head>C. M. Sperberg-McQueen</head>
+
+<p>
+Nancy Ide's remarks have described where the TEI came from, and
+sketched the set of problems the TEI was intended to solve. My goal
+here is to describe how we attempted to solve those problems. I have
+endeavored to identify in retrospect what seem to me now to have been
+some of the core design decisions in the TEI.  They are summarized
+in the following list.<list>
+    <item>Use descriptive markup.</item>
+    <item>Provide in-document metadata.</item>
+    <item>Over-generate.</item>
+    <item>Design for extensibility.</item>
+    <item>Modularize.</item>
+    <item>Use open standards.</item>
+    <item>Exploit document structure.</item>
+    <item>Make a data format not a program.</item>
+</list></p>
+<p><label>Use descriptive markup.</label>
+First and probably most important was the decision to use descriptive
+markup. Among other things, descriptive markup entails the belief that
+documents have an important internal structure and that it is
+worthwhile to expose that structure to processing software in a
+straightforward way. Descriptive markup does not attempt to answer
+directly the question <q>What should software <emph>do</emph> with
+this bit of the document?</q> but instead to answer the question
+<q>What <emph>is</emph> this part of the document?</q> Descriptive
+markup is declarative, not imperative; it describes the text rather
+than instructing the software.
+</p>
+<p>
+In addition, descriptive markup as it was defined at the time provided
+the notion of document grammars, which allow us to constrain and
+validate our data. We had enough experience with data corruption, line
+noise, and typographic errors to know that they are not insignificant
+problems and that it is extremely helpful to be able
+to detect some percentage of those errors with a fully automatic
+process.
+</p>
+<p>
+The parse structure of a document grammar gives us a tree. If the
+document grammar also provides for pointers, it gives us a directed
+graph with a spanning tree.
+</p>
+<p>
+So, specifically, we adopted SGML.
+</p>
+<p>
+As Nancy has mentioned, some participants in the Poughkeepsie meeting
+had expressed doubts about SGML, but our study of SGML persuaded us
+that SGML could in fact meet the requirements of the encoding scheme,
+and that an SGML-based syntax was likely to be better than a syntax we
+devised ourselves ad hoc. So we made SGML the basis of the scheme.
+SGML has the advantage of being an international standard, and it
+defines a data format not tied to a specific program. This
+software-independence makes it easier to achieve application
+independence, as well as independence from individual vendors,
+allowing us to avoid lock-in to a specific vendor. It also provides a
+technical underpinning for ownership of data by the user and not by
+the software vendor. SGML confines itself to defining the syntax of a
+markup scheme; within the SGML context it is the responsibility of the
+user of SGML to define the actual set of elements and their meanings.
+</p>
+<p>
+The specific set of elements defined by the user also affects the
+syntax, of course (depending on exactly where we choose to draw the
+boundary around the concept of syntax), but at a first approximation
+SGML provides the syntax of an encoding scheme, and the user provides
+the semantics.
+</p>
+<p>
+Most document formats then and now lack at least some of these
+properties; even other formats for descriptive markup (such as LaTeX)
+lack automatic validation.
+</p>
+<p>
+So, SGML had no real competition for those who care about data
+longevity, software independence, and correctness of their data. In my
+view it still doesn't.
+</p>
+<p>
+<label>Provide in-document metadata.</label>
+The second major design decision was to provide for in-document
+metadata, in the form of the required <code>teiHeader</code> element.
+This has a very simple motivation. External metadata gets lost.
+External metadata <emph>always</emph> gets lost. (Well, almost always.
+In <emph>practice</emph>, it <emph>always</emph> gets lost.) We knew
+this, because Lou had been running the Oxford Text Archive for over a
+decade at that time; he knew how much material contributed to the
+archive arrived without documentation. And we had both sat on computer
+center help desks and had people come in with tapes, asking for help
+reading and understanding the tape but without any documentation, or
+often any notion that documentation might exist or be needed.
+</p>
+<p>
+So we decided to learn from the experience of the social science data
+archives, who had defined data formats in which any dataset, that is
+any systematic collection of data, has two parts: the data themselves
+are one part of the dataset and the codebook (the documentation
+describing the structure and content of the data) is the other part.
+In these formats, if you don't have the codebook, then you don't have
+the dataset. Publishers in Europe learned a similar lesson sometime
+between 1450 and 1500: before 1500, many many books are published
+without title pages, indeed without any front matter of any kind, but
+after 1500, in-object metadata in the form of title pages and other
+front matter become the norm in Europe.  In-object metadata
+is an important part of the TEI design.
+</p>
+<p>
+<label>Over-generate.</label>
+Third, in defining the document grammar for our schema, we made a
+conscious choice. There are two ways in which grammars can be wrong.
+They can be too restrictive, so that they fail to include things they
+ought to include (that is, they can fail to generate sentences that
+are actually in the language). Or they can be too loose, so that they
+accept or generate sentences that are not (or: should not be) in the
+language. Each kind of error weakens the grammar, but they do so in
+different ways.
+</p>
+<p>
+If the grammar overgenerates, validation against the grammar is not
+quite as useful: some errors will be accepted as legitimate encodings.
+If the grammar undergenerates, then any scholar who is studying an
+eccentric text suffers, because they have to modify the schema or
+document grammar defined by the Guidelines, in order to use their text
+with the Guidelines. It seemed to us that people who were worried
+about validation and quality assurance were more likely to be people
+who understood something about document grammars and had the skill
+necessary to modify a schema. We didn't think that was necessarily
+going to be the case with people whose only offense was studying an
+obscure text with an unusual structure. So, we did our best to shift
+the burden accordingly.
+</p>
+<p>
+<label>Design for extensibility.</label>
+Fourth, we built the notion of modification into the TEI from the
+beginning.
+</p>
+<p>
+The basic premise of SGML and XML is that no single markup language
+will suffice for all uses, all users, all applications. That's why the
+creators of SGML created a metalanguage rather than a markup language:
+they did not believe they were in a position to define a markup
+language that would suffice for all users, so instead they created a
+metalanguage to allow users to define their own markup language. SGML
+users get to define their own rules. Now, in the context of SGML, the
+TEI counts as a <emph>user</emph> of SGML (and now, somewhat later, of
+XML), and the TEI does define a specific markup language with a lot of
+specific element types. But like SGML and XML, the TEI is trying to
+support an extremely varied community, and a completely unforeseeable
+set of possible uses and applications.
+</p>
+<p>
+So from the beginning, we in the TEI both adopted the goal of
+providing a single encoding scheme that would work for everyone, for
+all texts of all kinds, in all languages, from all periods and in all
+text genres, and at the same time we accepted, from the beginning, the
+impossibility of that goal. The way to recover from the impossibility
+of the goal is to allow modifications and extensions. That way, when
+the scheme we developed proved inadequate for some text or other
+&mdash; as we knew it must &mdash; the scheme could be extended to
+handle that text.
+</p>
+<p>
+Extensibility and modifiability also have an important political
+dimension. If a user can modify the TEI, then the user can make the
+TEI fit that user's existing texts. So allowing modification was also
+a way to try to address the concerns of the existing text archives,
+some of whom had spent decades building particular collections of
+data.
+</p>
+<p>
+The result of these considerations, simplifying very slightly, is that
+in document TEI P3, published in 1994 as the first complete version of
+the Guidelines, the conformance rules were designed in such a way that
+TEI conformance guaranteed almost nothing. Under the rules of TEI P3,
+every element in the scheme can be redefined. There are a couple of
+restrictions (not, I fear, very well described in the prose of TEI
+P3): the resulting encoding is required to have some kind of header
+(so the <code>teiHeader</code> element can be redefined and renamed
+but cannot be eliminated altogether), and that header must require
+that the title of the document be given, for example in a
+<code>title</code> element. The <code>title</code> element is not
+required to have any useful content, because as Nancy mentioned there
+can be no requirement for retrospective upgrading of a text. If we
+have a text whose title we don't know, and we want to be able to
+convert it to TEI, then we should be able to do so. But the TEI
+<code>title</code> element is required, so that if we don't know the
+title of the work we must either leave the element blank or specify
+something like <mentioned>title not known</mentioned>. That is, we are
+forced to admit that we don't know the title, in order to make us feel
+just a little twinge of shame, and encourage us to do better in the
+future.
+</p>
+<p>
+Also, in the conformance rules of TEI P3, every change a user makes
+must be documented with a <term>tag set documentation</term> document,
+which is modeled loosely on the schema used for the reference
+documentation of TEI P3 itself. If these rules are followed, then
+every user of any TEI-conformant document has documentation for every
+detail of the encoding, and in particular for every SGML element that
+might be found in the document. Either the encoding uses vanilla TEI,
+in which case the documentation is in the TEI Guidelines, or else the
+encoding uses a custom element, in which case the documentation is
+provided by the modifier.
+</p>
+<p>
+In other words, by allowing unlimited modification but also requiring
+documentation, we sought to maximize the intellectual freedom and
+self-determination of the users, as Nancy described in her discussion
+of polytheoricity, and also at the same time maximize the re-usability
+of documents, or at least their comprehensibility to later users. We
+chose to try to guarantee self-determination by the users of TEI, even
+though we realized very consciously that this would make plug-and-play
+interoperability more difficult, or even impossible. This decision is,
+I realize, rather frustrating for people who want plug-and-play
+interoperability, but it was a conscious choice.
+</p>
+<p>
+It is the responsibility of any encoded representation of a text to
+tell the truth about that text. It is the responsibility of the
+encoder to make that happen. So it is the right and the responsibility
+of any text encoder to modify the TEI scheme when that modification is
+necessary to say the truth about the text &mdash; the truth as you
+understand it.
+</p>
+<p>
+The TEI is sometimes described as a secret government. If so, it's a
+secret government that does its best to require its citizens to govern
+themselves and which has gone to some lengths to ensure that they have
+the means to do so.
+</p>
+<p>
+<label>Modularize.</label>
+The fifth major design decision was not a particularly difficult or
+controversial one: we structured the guidelines with a core and a set
+of modules, which could be combined according to certain rules. There
+is a common core of tags, there are several basic text types, and
+there are a set of optional modules which can be included in any
+combination. We used the metaphor of a Chicago-style pizza, in which
+you choose the type of crust (the basic text type), you choose at will
+from a list of optional toppings (the optional modules), and unless
+you take special steps to prevent it you will always get tomato sauce
+(the common core tags and the TEI header).
+</p>
+<p>
+<label>Use open standards.</label>
+The sixth design decision that should be mentioned was that wherever
+possible we used open standards, like SGML. But we did not limit
+ourselves to existing standards, and we were not afraid to design new
+things when we needed them. We used SGML, and later XML. We use
+Unicode, we use Uniform Resource Identifiers. But we also invented a
+number of things, some of which have since been removed because they
+helped push the development of broader standards, which the TEI has
+then adopted in place of the TEI-specific features we started with.
+Some examples may be worth mentioning.
+<list>
+<item><p>In TEI P1 (1990), the TEI developed an extended pointer
+syntax for hyperlinks, which later influenced work on the W3C XPointer
+specification, and in TEI P5 the TEI extended pointer notation has
+been replaced by a TEI profile of XPointer.</p></item>
+<item><p>In another area, TEI P1 also defined a specialized document
+type for <term>writing system declarations</term>, which allowed the
+documentation of legacy character encodings and ad hoc transliteration
+schemes. The writing system declaration has now now been replaced, for
+the most part, by the simple rule specified by XML, to use Unicode.
+This is a good example of the phenomenon Nancy mentioned, in which
+issues of pressing importance in 1987 came to feel less pressing as
+time passed. It feels less important now than it did then, for the TEI
+to allow for ad hoc project-specific transliteration
+schemes; the attitude of most users today is that they do not wish to
+understand, or see, alternative transliteration schemes for alphabets well
+supported by Unicode. On a technical level, Unicode has simplified
+life a great deal for everyone. Where Unicode falls short (as it must,
+since a complete inventory of every symbol ever used in human writing
+is as difficult and impossible as a text encoding scheme that works
+for all texts encoded for all scholarly purposes), the TEI now defines
+the TEI <code>g</code> element for arbitrary graphs, which allows the
+encoding of characters that are not in Unicode.</p></item>
+<item><p>We also developed a TEI <soCalled>blind
+interchange</soCalled> format to make the parsing of TEI documents
+simpler than the parsing of full SGML. That function has been made
+unnecessary by XML, which was in turn influenced by the TEI blind
+interchange format.</p></item>
+<item><p>Another special-purpose document type defined in TEI P3
+was for reference documentation for SGML vocabularies.</p>
+<p>This has since been retired as a special-purpose vocabulary
+and the relevant elements have been integrated into the main
+TEI vocabulary.</p></item>
+</list>
+</p>
+<p>
+As well as using open standards, we worked in a
+relatively open style. Drafts were publicly available at no charge,
+there was a public discussion list, and we gave regular reports on the
+TEI's progress and plans, at conferences organized by the
+sponsoring organizations and elsewhere. The later development of the Internet and
+tools for distributed collaborative work have made it possible to
+develop even more open styles of work in the intervening years, which
+means it may be difficult to appreciate, looking back, just how
+different the TEI's style of collaborative work was compared with the
+usual.
+</p>
+<p>
+<label>Exploit document structure.</label>
+One concrete choice in the design of the specific tag set may be worth
+mentioning: we chose (in an attempt to keep the schema simple) to
+reduce the number of distinct element types by relying on the
+processing software to examine and exploit the document structure.
+Many SGML and later XML tag sets have distinct element types for
+different levels of structure: <code>chapter</code>
+<code>section</code> <code>subsec</code> (sub-section) and
+<code>subsubsec</code> (sub-sub-section), or the equivalent. And
+within those structural units, the tags for the headings of the
+sections are similarly distinct: <code>chapter-head</code>,
+<code>section-head</code>, <code>subsec-head</code>,
+<code>subsub-head</code>, etc. But the distinct names for the
+different levels of heading are, in some sense, redundant: the heading
+of a chapter is always a <code>chapter-head</code> and never a
+<code>subsub-head</code>.  Still other tag sets distinguish
+heading levels without providing container elements (as in the
+<code>h1</code>, <code>h2</code>, <code>h3</code>
+elements of versions of HTML before the introduction of the
+<code>div</code> and <code>section</code> elements).
+</p>
+<p>
+The TEI tag set does provide different levels of section, named
+generically <code>div1</code>, <code>div2</code>, <code>div3</code>,
+etc., but at each level the heading is tagged <code>head</code>. To
+know whether to process a <code>head</code> element as a first-level
+heading or a second- or third-level heading, the processing software
+must examine the context of the element: if the parent is a
+<code>div1</code>, then the heading is a first-level heading, if it's
+a <code>div2</code>, it's a second-level heading, and so forth. Not
+all document processing software available at the time made that kind
+of context information available, but we were confident that it would
+be available with SGML. The development of XSLT confirmed (and
+exceeded) our expectations in many ways. So it is easy now to process
+TEI documents, with their expectation that the processing may need to
+be context-dependent, because XSLT and other XML-oriented languages
+provide simple access to the kind of contextual information that the
+TEI was designed to require.</p>
+
+<p>
+<label>Make a data format not a program.</label> The final design
+decision has had far-reaching consequences. It was our determination
+to define a data format, not a piece of software. If the TEI had
+defined and promoted a piece of software, even with the careful
+warning that the data format was the project's primary output and the
+software was just a secondary output, a sample of what one could do
+using the TEI data format, I am still convinced today that many or
+most people outside the TEI would have said <q>Oh, the TEI &mdash;
+that's that piece of software</q>, and even if some of them added
+<q>and also the format that is used by that piece of software</q>,
+still in the minds of the intended audience the software would have
+been primary and the data format secondary, and the data format would
+not have been accepted as a general, software-independent format. Data
+lives a lot longer than software. Humanists deal with data all the
+time that's a few hundred years old, or a few thousand years old. Very
+few people deal very often with software that's a few thousand years old.
+</p>
+<p>
+The TEI's refusal to develop software as part of its work on TEI P1
+through P4 was, of course, very frustrating for those who wanted
+off-the-shelf software. It can be argued that the TEI grew larger and
+more complex than it ideally ought to be, because we could and did so
+blithely ignore the challenges of writing software to handle all the
+alternatives and special cases.<note place="foot">
+<p>In many IETF and W3C working groups,
+the development of a spec is accompanied by the development of
+multiple implementations, which does tend to have a beneficial effect
+on clarity, explicitness, and simplicity. But precisely because there
+are ideally multiple competing implementations, it is easy to avoid
+confusing the IETF or W3C technical specification being developed
+with the software that implements it. The TEI did not have
+multiple commercial software vendors participating in its work,
+so any software development would have had to be performed
+by the TEI, and there would have been just one piece of software,
+not several working with the same format.</p></note>
+But there is a tradeoff between the risk of having no useful
+software and the risk of not producing a sufficiently
+software-independent format.
+We chose the data over the software.
+</p>
+<p>
+Looking back, have the decisions made then worn well?
+</p>
+<p>
+In retrospect, given these choices to make again, in the same
+situation, I would be inclined to make all of them in the same way.
+They don't all look today like wonderful decisions, certainly not to
+every observer. But I think one of the reasons they don't all look
+good now is that we are not now in the same situation as in 1987, and
+one of the reasons is that even a partial success can change the
+situation, and consequently change the relative costs and benefits of different
+tradeoffs.  Part of the measure of the TEI's success is that it has
+changed the situation enough that some of our initial concerns
+no longer seem as urgent as they did when we started.
+</p>
+
+<p>
+But if the situation has changed dramatically since 1987, why is
+a solution that started then still around and relevant? Why <emph>is</emph>
+the TEI still here, thirty years later, in such a different world?
+That is the question that Lou Burnard gets to try to answer in his
+contribution to this talk.</p>
+</div>
+
+<div>
+<head>Why is the TEI still here?</head>
+<head>Lou Burnard</head>
+
+<p>
+As you have heard from Nancy, the TEI has a very long history. After
+TEI P3 was published, there was a period when we concentrated our
+efforts on promotion and dissemination of the Guidelines, and at this
+time the Guidelines were widely taken up; there was a curious period
+during which it simply spread like a disease across the emerging world
+of digital libraries.
+</p>
+<p>
+In the late 1990s, recognizing that it is impossible to rely
+indefinitely on grant funding alone, it was decided to set up a
+consortium with a business model that might allow the TEI to go
+forward independently of grant funding. And after an incubation
+period, the current TEI Consortium was incorporated 30 December 2000.
+In the following years, we focused initially on shifting from the SGML
+foundation of TEI P3 to an XML foundation, which entailed updating
+almost all the examples and rewriting parts of the document type
+definitions (much larger parts, in fact, than we had initially
+expected).
+</p>
+<p>
+The elected technical council then embarked on a thorough revision of
+the work, published in 2003 as TEI P5 and regularly updated ever
+since.</p>
+
+<p>
+The TEI was actually born a long time ago. It's actually older than
+the World Wide Web, the DVD, the mobile phone, cable television,
+Microsoft Word, and the tunnel under the British Channel. Technologies
+&mdash; software in particular &mdash; that last for more than a few
+years are really quite rare. So why and how has the TEI survived for
+so long? In what follows, I will try to answer that question, or at
+least offer some suggestive remarks about what I think the answer
+might be.
+</p>
+
+<p>
+The first reason is: texts are us.
+</p>
+
+<p>
+Whatever your definition of digital humanities, or humanities
+computing, or literary and linguistic computing, or whatever it is we
+do, text will be either directly at the heart of what you do or at
+least very significant for what you do. Text matters.
+</p>
+<p>
+I mean <mentioned>text</mentioned> in the fullest sense of the word.
+So I'm not talking just about page images, I'm not talking just about
+transcribed documents, I'm not even talking just about the combination
+of the two, or about transcribed documents with annotations and
+interpretations associated with them, and metadata as well. I mean
+<emph>all</emph> of those things. That's what text means.
+</p>
+<p>
+If we're going to digitize a text fully, we are going to be
+digitizing, and therefore encoding, our reading, or our readings, of
+that text.
+</p>
+<p>
+That is the core business of the TEI; that's why I think the TEI is still of
+importance to us.
+</p>
+<p>
+As we've seen, the TEI came about as a consequence of a rather unusual
+historical moment, there was a coincidence of interest and motivation
+amongst people who don't usually really mix that well together, then
+or now: literary scholars, linguists, people doing textual editing,
+historians, archivists, librarians, bibliographers, and computer
+scientists. Why did all these different specialisms converge at that
+moment in time? One reason is that this was the period when what is
+now known as the digital turn began, which included the
+conversion on a grand scale of the raw materials of scholarship (i.e.
+written and spoken texts) into digital form: that is what brought
+these people together.
+</p>
+<p>
+It is hard, now, to remember just how fragmented the pre-digital
+scholarly world was, or how acutely people felt the risk of a new
+confusion of tongues, a new Tower of Babel, that would mirror the
+existing fragmentation of scholarship across disciplinary lines. It
+was the determination to try to prevent such a confusion of tongues
+that led the disparate communities Nancy has mentioned to collaborate
+in the TEI's attempt to create a new common language &mdash; a digital
+demotic, if you like. That's why the TEI has often used images of or
+references to the Tower of Babel in our work.
+</p>
+<p>
+As Nancy observed, interdisciplinarity was an
+important characteristic of the TEI's efforts.
+The members of its working committees came from many different
+academic specialisations, and to be honest many of them had little in
+common except for that interest in the digital turn and that anxiety
+to prevent a new confusion of tongues.
+</p>
+<p>
+That variety, in turn, explains some of the more striking architectual
+characteristics of TEI, some of which Michael has already mentioned.
+I'm going to just talk about two of them: the widespread application
+of Ockham's Razor and the need for customizabilty.
+</p>
+
+<p>
+Ockham was the famous Oxford philosopher who said that <q>one ought
+not to multiply entities beyond necessity</q>. (Which would be quite
+clear, if there were any way to tell what he means by
+<mentioned>necessity</mentioned>.) TEI had to deal with that problem.
+Michael and I spent many happy hours &mdash; weeks, months sometimes
+&mdash; listening to specialists in different academic fields. On one
+side we might have, let's call them the Red Team, saying <q>We need to
+have a tag for representing redness.</q> And on the other side we
+would have the Blue Team, saying <q>It is essential that the TEI
+provide a tag for representing blueness.</q>
+</p>
+<p>
+And Michael and I would propose a tag for representing the colour of a
+thing, which could be used to record either that the thing was red, or
+that it was blue. But of course the Red Team didn't think that way,
+and didn't much want to use the same tag as the Blue Team, because
+after all red and blue are very different, and the Red and Blue teams
+came from different academic disciplines and didn't necessarily want
+to mingle too much.
+</p>
+<p>
+Where possible, though, the TEI defines generic concepts, like that of
+colour, shall we say, or <code>div</code> for any kind of text division,
+whether it's a chapter, section, subsection, act, scene, canto, part, or
+whatever it might be in a particular genre or period.  Or <code>q</code>,
+which in TEI P5 is used for any material distinguished from the surrounding
+text by quotation marks or similar methods, for whatever reason.
+These are very high-level and can be applied to almost anything.
+</p>
+<p>
+At the same time, however, perhaps paradoxically, the Guidelines often
+contain some very specific distinct variations on those generic
+elements, as with the <code>said</code>, <code>quote</code>,
+<code>mentioned</code>, and <code>soCalled</code> elements, which mark
+specific kinds of use of quotation marks.
+</p>
+
+<p>
+The second major architectural feature I'd like to discuss, the
+importance of which MIchael has already underlined, is
+customizability. The TEI does not give its users a solution on a
+plate. It gives its users a Lego kit, a framework that the user can
+use to construct a specific encoding scheme adapted to the specific
+needs of the user or project.  And over time, many users have
+added new kinds of Lego pieces for their own particular needs,
+and many of those new pieces have been integrated into the
+Guidelines.
+</p>
+
+<p>
+Despite its name, the Text Encoding Initiative has never been
+concerned only with text. It was, as I said earlier, primarily and
+essentially about text, but it has never been <emph>exclusively</emph>
+about text.  Even in the very first version of the TEI, TEI P1,
+there was markup proposed for
+bibliographic metadata,
+for abstract linguistic analyses of various kinds,
+and for the documentation of writing systems,
+as well as, of course,
+the markup for the traditional organization of books
+and their typical components.
+In TEI P2, transcribed speech and some other
+specialized forms of information were added.
+</p>
+<p>
+In the beginning, the TEI had not much to say about things like the
+Web (because it didn't exist). It didn't say much about layout and
+formatting and how to produce fancy looking printout, because there
+were existing systems that did that job perfectly adequately and we
+didn't need to reinvent them.
+</p>
+<p>
+It didn't say anything at all about digital facsimiles which combine
+digital images with digital transcriptions, because in those days
+nobody could afford to combine 50 megabytes of image data with with
+text. It didn't say anything about how to represent abstract objects
+like people, as opposed to people's names or other references to
+people, because we felt that was what databases were for.
+</p>
+<p>
+And as Michael has already said,
+it didn't say anything at all about software.
+</p>
+<p>
+Its focus was primarily on metadata, on structured text, and analyses
+of structured text, within a literary and linguistic paradigm.
+</p>
+<p>
+That may seem limited, but in fact it provided a very solid foundation
+for the development of the TEI and its expansion into what it is
+today. Today TEI modules cover
+<list>
+<item>structural and functional components of a text</item>
+<item>diplomatic transcription of historical sources, images, and their annotation</item>
+<item>all manner of links, correspondences, alignments amongst documentary components</item>
+<item>data and named entities: for example temporal expressions,
+names of people, places, and events, and the entities they references</item>
+<item>peritextual and metatextual annotation (correction, suppression, additions);
+genetic and documentary editing linguistic analyses</item>
+<item>all kinds of metadata</item>
+<item>and even formal definitions of markup schemes!</item>
+</list>
+</p>
+
+<p>
+Why should you still care about the TEI?
+Why is the TEI still important, why should it be
+on your intellectual radar?
+</p>
+<p>
+The computational linguist Henry Thompson of the University of
+Edinburgh has suggested that there are probably two main reasons why
+proposals for standardization fail.
+</p>
+<p>
+Firstly, they may be not, in a sense, ripe. they're not ready. They're
+based on a theory that's premature that's not been tested properly in
+the wild, or based on a theory that only interests a few people and
+their friends.  That's one reason.
+</p>
+<p>
+The other reason is where a standardization proposal may be based on a
+mature theory, but intended user community aren't interested by the
+proposal and don't feel motivated to use it. It's what is sometimes
+called the <soCalled>not invented here</soCalled> problem.
+</p>
+<p>
+I think that the secret of the TEI's longevity is that it addressed
+those issues.
+</p>
+<p>
+I'm going to say a little about how it addresses them. I think a
+fundamental reason the TEI avoids the two problems Henry Thompson
+describes is that the TEI is adaptable.
+</p>
+<p>
+The TEI's ability to respond and adapt to the environment within which
+it is used is perhaps as important a factor as the more obvious ones
+such as the motivations or skills of those people who have been worked
+with it and continue to work with it and believe in it, and want to
+develop it.
+</p>
+	
+<p>One important form of adaptation has been a conscious
+de-centralization of the TEI organization. The initial development of
+the TEI was overseen, as Nancy said, by a central Steering Committee
+appointed by the three sponsoring organizations, which appointed the
+editors and exercised oversight over the entire project. The editors,
+in turn, were responsible for the overall intellectual integrity of
+the Guidelines, and spent a great deal of time adjusting the
+recommendations of the individual working groups to make them fit
+more harmoniously within the whole.  There was a strong sense, in
+organization, of responsibility to the communities the TEI was
+intended to serve, but there was also a relatively strong centralization
+of that responsibility (and the accompanying authority) in the
+editors and steering committee.   I think that's the way any of us would organize a
+research project:  we identify the stakeholders and use their input,
+but responsibility for moving things forward is vested in a small
+group of people.
+</p>
+
+<p>In the current organization of the TEI consortium, there is a
+somewhat broader number of responsible people, and there is somewhat
+more direct control of the TEI by the community. The TEI Technical
+Council makes the decisions about how the Guidelines should be edited,
+changed, maintained, and so on, and the TEI Board organizes the whole
+thing. And they are each elected by the consortium membership. And the
+Council essentially responds to proposals that come either directly
+from the TEI community or from subsets of that community organized
+into special interest groups. Now, there is nothing remarkable about
+this organization &mdash; lots of open-source projects operate in the
+same way &mdash; but the shift from governance suitable to
+a centrally organized research project to governance suitable for
+community-maintained infrastructure is one of the most important
+things that has happened during the development of the TEI and
+one of the reasons I think the TEI will continue to survive.
+</p>
+
+<p>
+Another important part of the TEI's adaptability is the principle of
+customization, which we've already heard something about.
+Customization in the TEI isn't just a matter of
+choosing
+the bits that you want:
+you can add new things,
+you can even change existing things
+in various ways.
+That is how you ripen a theory.  You need to be able to test
+your ideas so as to mature them, and the TEI customization
+mechanisms help make that easier.
+</p>
+<p>
+As far as the <soCalled>not invented here</soCalled> threat is
+concerned, well the TEI has always gone a long
+way to try and accommodate multiple ways of thinking about the world.
+It's an XML environment, so it's very hospitable to other XML
+vocabularies, very easy to integrate them: SVG can be used for vector
+graphics, or MathML for mathematical formulae, without much
+difficulty, for example.
+</p>
+
+<p>A long time ago, I tried to summarize the
+essential rules of appropriate TEI usage with
+four rules:
+<list type="ordered">
+<item>
+<p><label>Thou shalt have no other
+encoding scheme beside me.</label></p>
+<p>
+That one, actually, isn't true anymore.
+
+We have lots and lots of other encoding schemes.
+So we struck that commandment.
+What we now have instead is more
+<q>you need to make it clear
+when you're using the TEI and when you're not.</q>
+</p>
+</item>
+</list>
+<list>
+<item>
+<p><label>Honor the consensus that thy
+days may be long in this land.</label></p>
+<p>I think that's still true.</p>
+</item>
+<item>
+<p><label>Thou shalt not take the GIs
+of this scheme in vain.</label></p>
+<p>A GI, of course, is a <term>generic identifier</term>,
+the name of an element.
+That's still a very very important prohibition.
+</p>
+</item>
+<item>
+<p><label>Thou shalt not commit polysemy.</label></p>
+<p>
+This is an adult audience, so I'm not going to tell you what polysemy is.
+</p>
+</item>
+</list>
+</p>
+<p>
+But seriously, what does it actually mean to be conformant
+with the TEI?
+</p>
+<p>
+If the TEI expands all the time
+and keeps getting more and more complicated,
+and if you can just change it any way you like,
+to do anything you like, if you can 
+throw things out and put new things in,
+then what on earth does it mean to say
+<q>this is a TEI document</q>?
+</p>
+<p>
+Actually it means quite a lot. It means that the tagging practice, in
+your document, follows what is documented. It means that you are
+respecting an established lexicon of ideas or concepts or theories
+about what text is; you're respecting that established consensus and
+using it. You're using the language the TEI defines to talk about
+text.
+</p>
+<p>
+But at the same time, the rules of TEI conformance exhibit a respect
+for your independence.
+You are always in a position to say,
+<q>Well, the TEI provides this or that markup
+for this kind of thing, but I'm not going to use
+that markup, I'm going to invent something different
+that better reflects my reading of the text.</q>
+</p>
+<p>
+In other words, for the TEI, standardization doesn't mean <q>Do what I
+tell you</q> or even <q>Do what I do.</q> Standardization means <q>Tell
+me what you've done using a language that we can both understand.</q>
+That's a big difference. 
+</p>
+<p>
+Today, I would say that a conforming TEI document
+<list>
+<item>
+<p>is a well-formed XML document.</p>
+<p>(It may be that one of these days
+somebody will come up with a better language than XML,
+in which case the TEI will move to use that.
+But for the moment, it's a well-formed XML document.)</p>
+</item>
+<item>
+<p>It is also valid against a schema.</p>
+<p>That schema may be a
+subset of all the elements defined by the TEI,
+or it may be an extension, 
+but that's a separate question.
+If the document uses elements from the TEI namespace,
+then it must respect the semantics
+of those elements
+as given in the Guidelines.
+</p>
+</item>
+<item>
+<p>And as Michael already mentioned, both its usage of the TEI and
+all of its extensions to the TEI must be documented, and the TEI provides
+a particular TEI vocabulary designed for the purpose of documenting
+markup schemes, which is what you should use to document your
+system.</p>
+</item>
+</list>
+</p>
+
+<p>The significance of these rules is that anybody
+can make their own modifications to the TEI, document
+them, discuss them with other members of the
+community, propose new features for the Guidelines,
+and feed their work into the future development of
+the Guidelines.  New versions of TEI P5 come out
+twice a year and incorporate work developed in this way.</p>
+<p>
+Of course, the other thing you have to do
+if you really want to help
+the maintenance of the TEI Guidelines
+
+is to join the consortium, either as an individual
+or (if you're an influential person at an institution)
+by persuading your institution to join the consortium.
+</p>
+<p>
+This brings me to my conclusion.
+</p>
+<p>
+What is the real reason why the TEI is still around?
+</p>
+<p>
+Actually, I think it's still around
+because you want it to be.
+</p>
+<p>
+As soon as you &mdash; I mean <mentioned>you</mentioned> in the
+general sense of the digital humanities community &mdash; as soon as
+you stop wanting to do the things we've been talking about, there will
+be no need for the TEI. But as long as you want to go on doing the
+kinds of things that the TEI helps you to so, I think you will
+continue to want to use it and to insure that it changes to suit your
+requirements.
+</p>
+<p>
+In other words, I think the reason that the TEI is still there is that
+it's the product of a community.
+</p>
+
+<p>
+And although it is the three of us who have been asked to accept the
+award, the real recipient of this award is the whole TEI community. We
+would like to ask the current members of the TEI Board and the Council
+to stand. And also the past members of the Board, the Council, or any
+TEI working groups or special interest groups, current or past members
+(individual or institutional) of the TEI consortium, and current or
+past users of the TEI. And finally, anybody who has ever stood up at a
+conference session like this one to say <q>Well, on this issue the TEI
+has got it all wrong</q>, please stand up: anyone who cares enough
+about markup to think the TEI got something wrong is a member of the
+TEI community, too.
+</p>
+<p>Thank you.</p>
+
+</div>
+
+</body>
+<back>
+<div>
+<head>The Preparation of Text Encoding Guidelines</head>
+<head>Closing Statement of the Vassar Planning Conference</head>
+<opener><idno>Document Number:  TEI PC P1</idno></opener>
+<opener><date>13 November 1987</date></opener>
+
+<div type='Section'>
+<opener><dateline>Poughkeepsie, New York
+13 November 1987</dateline></opener>
+<list type="ordered">
+<item>The guidelines are intended to provide a standard format for data
+interchange in humanities research.</item>
+<item>The guidelines are also intended to suggest principles for the
+encoding of texts in the same format.</item>
+<item>The guidelines should
+<list type="bullets">
+<item>define a recommended syntax for the format,</item>
+<item>define a metalanguage for the description of text-encoding
+schemes,</item>
+<item>describe the new format and representative existing schemes
+both in that metalanguage and in prose.</item>
+</list></item>
+<item>The guidelines should propose sets of coding conventions suited
+for various applications.</item>
+<item>The guidelines should include a minimal set of conventions for
+encoding new texts in the format.</item>
+<item>The guidelines are to be drafted by committees on
+<list type="bullets"> 
+<item>text documentation</item>
+<item>text representation</item>
+<item>text interpretation and analysis</item>
+<item>metalanguage definition and description of existing and proposed schemes,
+coordinated by a steering committee of representatives of the
+principal sponsoring organizations.</item>
+</list></item> 
+<item>Compatibility with existing standards will be maintained as far as
+possible.</item>
+<item>A number of large text archives have agreed in principle to support the guidelines in their function as an interchange format.  We encourage funding agencies to support development of tools to facilitate this interchange.</item>
+<item>Conversion of existing machine-readable texts to the new format
+involves the translation of their conventions into the syntax of
+the new format.  No requirements will be made for the addition of
+information not already coded in the texts.</item>
+</list></div>
+<div><head>[Version fran&ccedil;aise]</head>
+<list type="ordered">
+<item>Le but des directives est de cr&eacute;er un format standard
+pour l'&eacute;change des donn&eacute;es utilis&eacute;es pour la
+recherche dans les humanit&eacute;s.</item>
+<item>Les directives sugg&eacute;ront &eacute;galement des principes
+pour l'enregistrement des textes destin&eacute;es &agrave; utiliser ce
+format.</item>
+<item>Les directives devraient
+<list type="bullets">
+<item>d&eacute;finir une syntaxe recommand&eacute; pour exprimer le
+format,</item>
+<item>d&eacute;finir un m&eacute;talangage d&eacute;crivant les
+syst&egrave;mes de codage des textes,</item>
+<item>d&eacute;crire par le moyen de ce m&eacute;talangage, aussi bien
+qu'en prose, le nouveau syst&egrave;me de codage aussi bien qu'un
+choix repr&eacute;sentatif de syst&egrave;mes d&eacute;j&agrave; en
+vigueur.</item>
+</list></item>
+<item>Les directives devraient proposer des syst&egrave;mes de codage
+utilisables pour un large &eacute;ventail d'applications.</item>
+<item>Sera incluse dans les directives l'&eacute;nonciation d'un
+syst&egrave;me de codage minimum, pour guider l'enregistrement de
+nouveaux textes conform&eacute;ment au format propos&eacute;.</item>
+<item>Le travail d'&eacute;laboration des directives sera
+confi&eacute; &agrave; quatre comit&eacute;s centr&eacute;s sur les
+sujets suivants:
+<list type="ordered">
+<item>la documentation des textes</item>
+<item>la repr&eacute;sentation des textes</item>
+<item>l'analyse et l'interpr&eacute;tation des textes</item>
+<item>la d&eacute;finition du m&eacute;talangage et son utilisation
+pour d&eacute;crire le nouveau syst&egrave;me aussi bien que ceux qui
+existent d&eacute;j&agrave;.</item>
+</list> Ce travail sera coordonn&eacute; par un comit&eacute;
+d'organisation o&ugrave; si&egrave;geront des repr&eacute;sentants des
+principales associations qui soutiennent cet effort.</item>
+<item>Dan la mesure du possible, le nouveau syst&egrave;me sera
+compatible avec les syst&egrave;mes de codage existants.</item>
+<item>Des repr&eacute;sentants de plusieurs grandes archives de textes
+en form lisible par machine acceptent en principe d'utiliser les
+directives en tant que description des formats pour l'&eacute;change
+de leurs donn&eacute;es. Nous encourageons les organismes qui
+fournissent des fonds pour la recherche de soutenir le
+d&eacute;veloppement de ce qui est n&eacute;cessaire pour faciliter
+cela.</item>
+<item>En convertissant des textes lisibles par machine
+d&eacute;j&agrave; existants, on remplacera automatiquement leur
+codage actuel par ce qui est n&eacute;cessaire pour les rendre
+conformes au format nouveau.  Nul n'exigera l'ajout d'informations qui
+ne sont pas d&eacute;j&agrave; repr&eacute;sent&eacute;s dans ces
+textes.</item>
+</list>
+<signed>(trad. P. A. Fortier)</signed>
+</div>
+<div><head>Participants in the Conference</head>
+<!--*
+    <note>Affiliations are those held at the time of the planning conference. -Ed.</note>
+    *-->
+<list type="bullets">
+<item>Helen Aguera, National Endowment for the Humanities</item>
+<item>Robert A. Amsler, Bell Communications Research</item>
+<item>David T. Barnard, Queen's University, Kingston, Ontario</item>
+<item>Lou Burnard, Oxford University Computing Service</item>
+<item>Roy Byrd, IBM Research</item>
+<item>Nicoletta Calzolari, Istituto di Linguistica Computazionale C.N.R.</item>
+<item>David Chesnutt,
+University of South Carolina</item>
+<item>Yaacov Choueka, Bar-Ilan University, Ramat-Gan, Israel</item>
+<item>Jacques Dendien, Institut National de la Langue Fran&ccedil;aise</item>
+<item>Paul A. Fortier, University of Manitoba, Winnipeg, Manitoba</item>
+<item>Thomas Hickey, Consulting Research Scientist,
+OCLC Online Computer Library Center</item>
+<item>Susan Hockey, Oxford University Computing Service</item>
+<item>Nancy M. Ide, Vassar College</item>
+<item>Stig Johansson, University of Oslo</item>
+<item>Randall Jones, Brigham Young University</item>
+<item>Robert Kraft, University of Pennsylvania</item>
+<item>Ian Lancashire, University of Toronto</item>
+<item>D. Terence Langendoen, City University of New York</item>
+<item>Charles (Jack) Meyers, National Endowment for the Humanities</item>
+<item>Junichi Nakamura, Kyoto University, Japan</item>
+<item>Wilhelm Ott, Universit&auml;t T&uuml;bingen</item>
+<item>Eugenio Picchi, Istituto di Linguistica Computazionale C.N.R.</item>
+<item>Carol Risher, Association of American Publishers, Inc.</item>
+<item>Jane Rosenberg, National Endowment for the Humanities</item>
+<item>Jean Schumacher, CETEDOC</item>
+<item>J. Penny Small, Lexicon Iconographicum Mythologiae Classicae</item>
+<item>C. M. Sperberg-McQueen, University of Illinois at Chicago</item>
+<item>Paul Tombeur, Director, CETEDOC</item>
+<item>Frank Tompa (New OED Project, Waterloo),
+Bell Communications Research</item>
+<item>Donald E. Walker, Bell Communications Research</item>
+<item>Antonio Zampolli, Istituto di Linguistica Computazionale C.N.R.</item>
+</list></div>
+
+</div>
+</back>
+</text>
+</TEI>
+ 
