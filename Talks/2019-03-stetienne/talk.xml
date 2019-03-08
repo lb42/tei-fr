@@ -18,19 +18,7 @@
   </teiHeader>
   <text>
     <body>
-      <div type="slide">
-        <head>Balisage et indexation</head>
-        <p>On pourrait considérer que l'acte même de balisage serait une forme d'indexation... <list>
-            <item>en balisant, nous choissisons une partie d'un texte et nous l'associons avec une
-              catégorisation quelconque</item>
-            <item>ces catégories pourraient très bien correspondre avec les termes d'un index</item>
-          </list></p>
-        <p>Mais c'est habituel de distinguer <list>
-            <item>l'annotation (le surajout des catégorisations) de</item>
-            <item> l'indexation (l'indication des locations textuelles auxquelles ces
-              catégorisations s'appliquent)</item>
-          </list></p>
-      </div>
+     
       <div type="slide">
         <head>C'est quoi, l'indexation?</head>
         <p>Un index, au sens classique, fournit une maniere de flècher au sein d'un texte continu <list>
@@ -43,6 +31,22 @@
         <p><graphic url="handy.png" scale="0.3"/> Un index est une série (d'habitude organisée et
           structurée) de <emph>pointeurs</emph>, chacun contenant un label, et une déscription </p>
       </div>
+      
+      <div type="slide">
+        <head>Balisage et indexation</head>
+        <p rend="box"><quote>Markup reflects a theory of text</quote> (Sperberg-McQueen, 1991)</p>
+        <p>On pourrait considérer que l'acte même de balisage serait une forme d'indexation... <list>
+          <item>en balisant, nous choissisons une partie d'un texte et nous la 
+            catégorisons d'une maniere quelconque</item>
+          <item>ces catégories pourraient très bien correspondre avec les termes d'un index</item>
+        </list></p>
+        <p>Mais c'est habituel de distinguer <list>
+          <item>l'annotation (le surajout des catégorisations) de</item>
+          <item> l'indexation (l'indication des locations textuelles auxquelles ces
+            catégorisations s'appliquent)</item>
+        </list></p>
+      </div>
+      
       <div type="slide">
         <head>La balise <gi>index</gi></head>
         <p>La TEI propose un élément spécifique pour faciliter la création d'un index classique</p>
@@ -87,10 +91,10 @@
         <list>
           <item>Pour construire un index des phrases démotiques ou exotiques, des passages jolis,
             des paragraphes controversés etc., l'usage de <gi>index</gi> peut tres bien suffir. </item>
-          <item>Mais il n'est pas si bien adapte au cas plus typique: la construction d'un index des
+          <item>Mais il n'est pas aussi bien adapté au cas plus typique: la construction d'un index des
               <hi>expressions référentielles</hi></item>
           <item>Par <q>expression référentielle</q> nous entendons tout mot ou phrase qui fait
-            référence a une entité (une personne, un evenement, un lieu) dans le monde, par ex. un
+            référence à une entité (une personne, un evenement, un lieu) dans le monde, par ex. un
             nom propre, un titre, etc. </item>
           <item>L'identification et l'annotation des expressions référentielles servent à traverser
             une frontière importante: des mots constitutifs d'un texte jusqu'aux entités signallées par ce
@@ -98,76 +102,72 @@
         </list>
         <figure>
           <graphic url="../Graphics/txttrin.png"/>
+          
         </figure>
       </div>
       <div type="slide">
         <head>Sommaire des propositions de la TEI pour les expressions référentielle</head>
         <p>Quelques exemples des expressions qu'on pourrait souhaiter distinguer/annoter/indexer </p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <p>
-            <name>Nancy</name> est adorable... </p><p><placeName>Nancy</placeName> est ma ville
-            préférée ... </p><p><rs>Elle</rs> est jolie. </p></egXML>
+          <name>Nancy</name> est adorable...
+          <placeName>Nancy</placeName> est ma ville préférée ... 
+          <rs>Elle</rs> est jolie. 
+        </egXML>
         <list>
           <item>signaller la présence d'une référence : <gi>name</gi> et <gi>rs</gi>.</item>
           <item>distinguer plus nettement le type de référence : <gi>persName</gi>,
               <gi>placeName</gi>, <gi>orgName</gi> ... </item>
           <item>distinguer les composants de ces références (par ex <gi>surname</gi>,
               <gi>location</gi>, <gi>addName</gi> etc.)</item>
-          <item>associer un référence avec un ensemble d'information définissant son référent
+          <item>associer une référence avec un ensemble d'information concernant son référent
               (<gi>person</gi>, <gi>place</gi> etc.) <list>
-              <item>pour le désambiguiser</item>
-              <item>pour le sémanticiser</item>
+              <item>pour la désambiguiser </item>
+              <item>pour la sémanticiser</item>
             </list></item>
         </list>
+        <p rend="box">Grosse question : comment s'exprime la sémantique du balisage TEI ?</p>
       </div>
+      
       <div type="slide">
         <head>Encodage des références (1) </head>
         <p>Un élément très générique est disponible en TEI : il s’agit de <gi>rs</gi>, qui signifie
           « expression référentielle » (referencing string)</p>
-        <p>Il peut contenir un nom propre, mais aussi un pronom ou toute autre façon de référencer
+        <p>Il peut contenir un nom propre, mais aussi un pronom, une periphrase, ou toute autre façon de référencer
           un objet identifiable</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <rs>Le président de la république</rs>
+          <rs>le président de la république</rs>
           <rs>la personne que j'ai rencontrée dans la rue</rs>
           <rs>sa ville préférée</rs>
         </egXML>
         <p>Mais ceux-ci sont peut-etre plus douteux: </p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <p> D'<rs>une ville inconnue</rs> elle s'est retirée dans une <rs>thébaïde</rs></p>
+          <p> D'<rs>une ville inconnue</rs> elle s'est 
+            retirée dans une <rs>thébaïde</rs></p>
         </egXML>
       </div>
       <div type="slide">
         <head><gi>rs</gi> : une balise qui fait tout</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <p><rs type="org">La famille</rs> s'était alors retirée en banlieue, à <rs type="place"
-              >Villemomble</rs>, mais <rs type="person">Alfred</rs> aimait se rendre à <rs
-              type="place">Paris</rs> et <date>un jour de 1917</date> alors qu'il sortait de <rs
-              type="place">la musée des Arts et Métiers</rs> il était tombé inanimé dans <rs
-              type="place">la rue</rs>.</p></egXML>
+          <rs type="org">La famille</rs> s'était alors retirée en banlieue, à 
+          <rs type="place">Villemomble</rs>, mais <rs type="person">Alfred</rs> 
+          aimait se rendre à <rs type="place">Paris</rs> et 
+          <date>un jour de 1917</date> alors qu'il sortait de 
+          <rs type="place">la musée des Arts et Métiers</rs> il était tombé 
+          inanimé dans <rs type="place">la rue</rs>.... </egXML>
         <p>Attention: les valeurs de l'attribut <att>type</att> ne sont pas forcément contrôlés de
           la TEI</p>
       </div>
-      <div type="slide">
-        <head> Quel est l'interêt de ce type d'encodage (dite "sémantique")?</head>
-        <list>
-          <item>utiliser un ensemble de textes comme une base de données</item>
-          <item>mise en relation des textes </item>
-          <item>traitement type TAL, cartographie, indexation... </item>
-          <item>optimisation de recherche et moteur de recherche sémantique</item>
-          <item>production de savoir par inférence (classification de documents par exemple)</item>
-        </list>
-        <p rend="block">En perspective : le web sémantique</p>
-      </div>
+    
       <div type="slide">
         <head>Encodage des références (2) </head>
         <p>Un élément plus spécifique existe pour distinguer les noms propres des autres types de
           référence: <gi>name</gi>...</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <p><rs type="org">La famille</rs> s'était alors retirée en banlieue, à <name type="place"
-              >Villemomble</name>, mais <name type="person">Alfred</name> aimait se rendre à <name
-              type="place">Paris</name> et <date>un jour de 1917</date> alors qu'il sortait de <rs
-              type="place">la musée des Arts et Métiers</rs> il était tombé inanimé dans <rs
-              type="place">la rue</rs>.</p></egXML>
+          <rs type="org">La famille</rs> s'était alors retirée en banlieue, à 
+          <name type="place">Villemomble</name>, mais <name type="person">Alfred</name> 
+          aimait se rendre à <name type="place">Paris</name> et <date>un jour de 1917</date> 
+          alors qu'il sortait de <rs type="place">la musée des Arts et Métiers</rs> il était 
+          tombé inanimé dans <rs type="place">la rue</rs>.</egXML>
       </div>
       <div type="slide">
         <head>Des éléments plus précises...</head>
@@ -181,6 +181,17 @@
           <item><gi>orgName</gi> : nom d'organisation</item>
           <item><gi>geogName</gi> : nom d'un entite geographique </item>
         </list>
+      </div>
+      <div type="slide">
+        <head> Quel est l'interêt de ce type d'encodage (dite "sémantique")?</head>
+        <list>
+          <item>utiliser un ensemble de textes comme une base de données</item>
+          <item>mise en relation des textes </item>
+          <item>traitement type TAL, cartographie, indexation... </item>
+          <item>optimisation de recherche et moteur de recherche sémantique</item>
+          <item>production de savoir par inférence (classification de documents par exemple)</item>
+        </list>
+        <p rend="block">En perspective : le web sémantique</p>
       </div>
       <div type="slide">
         <head> Encodage des références aux personnes </head>
@@ -322,9 +333,10 @@
         <head>Un <gi>persName</gi> n'est pas un <gi>person</gi> ! </head>
         <p>Dans un texte nous trouvons souvent plusieurs références à la même personne de manières
           différentes
-          <egXML xmlns="http://www.tei-c.org/ns/Examples"> ...<persName>Clara
-            Schumann</persName>.... <persName>Clara</persName> ....<persName>Frau
-              Schumann</persName> ... </egXML>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+            ...<persName>Clara Schumann</persName>
+            ...<persName>Clara</persName> 
+            ...<persName>Frau Schumann</persName> ... </egXML>
         </p>
         <p>Nous considerons que tous ces noms réfèrent à la meme personne. Comment le signaller
           ?</p>
@@ -335,9 +347,10 @@
             <item><att>key</att> pour spécifier un code défini associé avec l'entité dénommée</item>
             <item><att>ref</att> pour pointer sur une définition de l'entité dénommée</item>
           </list></p>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples"> ...<persName ref="#CS">Clara
-            Schumann</persName>.... <persName ref="#CS">Clara</persName> .... <persName ref="#CS"
-            >Frau Schumann</persName></egXML>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+          ...<persName ref="#CS">Clara Schumann</persName>
+          ...<persName ref="#CS">Clara</persName> 
+          ...<persName ref="#CS">Frau Schumann</persName> ... </egXML>
         <p><code>#CS</code> est un URI. Il pourrait correspondre a <list>
             <item>un autre element de notre document (un entite)</item>
             <item>une ressource externe, par ex dans une ontologie ou referentiel</item>
@@ -508,12 +521,12 @@
       <div type="slide">
         <head>Datation des propositions</head>
         <list>
-          <item>La plupart des caracteristiques d'une entité peut changer dans le
+          <item>La plupart des caractéristiques d'une entité peut changer dans le
             temps</item>
           <item>par ex. occupation, adresse, mais aussi nom, affiliation religieuse, sexe,
             etc.</item>
           <item>pour cette raison, tout élément déscriptif d'une entité est membre de la classe
-            att.datable qui fournit des attributs
+           <ident> att.datable</ident> qui fournit des attributs
             proposant une forme normalisée <list>
           <item><att>when</att> : date exacte.
             <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
@@ -537,7 +550,7 @@
         <p>L'attribut <att>calendar</att> sert à indiquer le calendrier dans lequel une date est
           exprimée</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <date calendar="*cal_AH">20 Rajab, 56</date>
+          <date calendar="#cal_AH">20 Rajab, 56</date>
           <!-- nécessite une définition dans l'entête par ex -->
           <calendarDesc><calendar xml:id="cal_AH">
             <p>Anno Hegirae (Muhammedan Era)</p>
@@ -548,18 +561,21 @@
       </div>
       <div type="slide">
         <head>Epoques historiques</head>
-        <p>On peut définir un <gi>period</gi> (epoque) et référer à cela de la même manière :
+        <p>On peut définir un <gi>period</gi> (époque) et référer à cela de la même manière :
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <placeName period="#christian">Stauropolis</placeName>
+            <placeName period="#hellenistic">Stauropolis</placeName>
             <!-- nécessite une définition dans l'entête par ex  -->
-            <category xml:id="hellenistic">
+            <category xml:id="hellenistic" >
               <catDesc>
                 <ref target="http://www.wikipedia.com/wiki/Hellenistic">Hellenistic</ref>: Se dit de
                 la periode <date notBefore="-0323" notAfter="-0031">après la mort d'Alexandre
                   jusqu'au conquête romain</date>
               </catDesc></category>
           </egXML>
-        </p>
+       </p><p>ou, plus directement,
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+           <placeName period="http://www.wikipedia.com/wiki/Hellenistic">Stauropolis</placeName>
+       </egXML></p>
       </div>
       <div type="slide">
         <head>Vers le "placeography"</head>
@@ -615,8 +631,8 @@
       <div type="slide">
         <head>Les relations personnelles</head>
         <list>
-          <item><gi>relation</gi> (relationship) décrit une relation ou un lien parmi des
-            personnages, lieux, etc. spécifiques <list type="gloss">
+          <item><gi>relation</gi> (relationship) est concu pour décrire une relation parmi des
+            personnes spécifiques <list type="gloss">
               <label>
                 <att>name</att>
               </label>
@@ -624,25 +640,23 @@
               <label>
                 <att>active</att>
               </label>
-              <item>identifie les participants actifs dans une relation à sens unique, ou tous les
-                participants dans une relation réciproque</item>
+              <item>identifie les personnes actives dans une relation à sens unique,</item>
               <label>
                 <att>mutual</att>
               </label>
-              <item>fournit une liste de participants entre lesquelles la relation est
+              <item>identifie les personnes lesquelles la relation est
                 réciproque</item>
               <label>
                 <att>passive</att>
               </label>
-              <item>identifie les participants <q>passifs</q> dans une relation non mutuelle</item>
+              <item>identifie les personnes <q>passives</q> dans une relation non-mutuelle</item>
             </list>
           </item>
-          <item><gi>relationGrp</gi> (relation group) permet de regrouper des relations du même
-            type. </item>
         </list>
+      
       </div>
       <div type="slide">
-        <head>Exemple</head>
+        <head>Exemples</head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <person xml:id="jsbach">
             <persName>Johann Sebastian Bach</persName>
@@ -724,7 +738,7 @@
         </figure>
       </div>-->
       <div type="slide">
-        <head>Comment effectuer cette balisage?</head>
+        <head>Comment effectuer ce balisage ? </head>
         <p>Rappel: il nous faut des moyens ...</p>
         <list>
           <item>d'identifier automatiquement les phrases nominatives</item>
@@ -756,9 +770,9 @@
       </div>
       <div type="slide">
         <head>Comment intégrer cela avec la TEI?</head>
-        <p>La TEI partage les objectifs de LOD. Mais son sémantique est plus dispersé: elle est
+        <p>La TEI partage les objectifs federatifs et "open" de LOD. Mais son sémantique est plus dispersé: elle est
           toujours un outil d'encodage de texte, prioritairement. Elle ne simplifie pas les
-          documents : on peut la lui reprocher (voir par ex les critiques de Ciotti et al), mais 
+          documents : on peut la lui reprocher, mais 
           la sémantique d'un ensemble de documents TEI est souvent dispersée dans son balisage d'une manière peu
           cohérente.  </p>
           <p>Par contre, la sémantique d'une page web qui fournit par ex. les prix, les détails
@@ -775,11 +789,15 @@
         <p> [Melissa Terras, Opportunities, barriers, and rewards in digitally-led analysis of
           history, culture and society. Turing Lecture 2019-03-03, <ptr
             target="https://www.youtube.com/watch?v=bf6DsJ7VcLI"/>]</p>
-        <quote>Les donnees ont toujours un aspect historique elles ressortent d'un temps d'un
-          endroit ou d'un climat socio economique specifique: Si vous ne considerez pas les raisons
-          pour laquelles votre ensemble de donnees existe et dùautres ne sont pas disponible :::
+        <quote>Les donnees ont toujours un aspect historique - elles ressortent d'un temps, d'un
+          endroit, ou d'un climat socio-economique specifique.  Si vous ne mettez pas en question les raisons
+          pour lesquelles vos donnees a vous existent et d'autres ne sont pas disponibles, alors
           vous pratiquez incorrectement la science de donnees</quote>
-      </div>
+      </div><div type="slide">
+       <p> Ironie de l’histoire, alors que le Linked Open Data souhaitait mettre en relation des données hétérogènes et décentralisées chez différents fournisseurs, 
+        il aura suffi de 5 ans pour que les utilisateurs commencent à recentraliser leurs données au sein d’un espace unique.
+        9http://www.lespetitescases.net/au-dela-des-limites-que-reste-t-il-concretement-du-web-semantique
+      </p></div>
       
     </body>
   </text>
