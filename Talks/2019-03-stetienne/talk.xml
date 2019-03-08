@@ -338,21 +338,21 @@
             ...<persName>Clara</persName> 
             ...<persName>Frau Schumann</persName> ... </egXML>
         </p>
-        <p>Nous considerons que tous ces noms réfèrent à la meme personne. Comment le signaller
+        <p>Nous considerons que tous ces noms réfèrent à la même personne. Comment le signaller
           ?</p>
-        <p>De meme, il arrive que nous trouvons des noms identiques qui (a notre avis) referent a
-          des personnes differentes. Comment le signaller ?</p>
+        <p>De même, il arrive que nous trouvons des noms identiques qui (à notre avis) réfèrent à
+          des personnes différentes. Comment le signaller ?</p>
         <p>La TEI propose deux attributs, disponibles sur tous les éléments de dénomination, pour
           spécifier à quelle entité on réfère: <list>
-            <item><att>key</att> pour spécifier un code défini associé avec l'entité dénommée</item>
-            <item><att>ref</att> pour pointer sur une définition de l'entité dénommée</item>
+            <item><att>key</att> pour spécifier un code prédéfini associé avec l'entité dénommée, d'un format arbitraire</item>
+            <item><att>ref</att> pour pointer sur une définition de l'entité dénommée : forcément un URI</item>
           </list></p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
           ...<persName ref="#CS">Clara Schumann</persName>
           ...<persName ref="#CS">Clara</persName> 
           ...<persName ref="#CS">Frau Schumann</persName> ... </egXML>
-        <p><code>#CS</code> est un URI. Il pourrait correspondre a <list>
-            <item>un autre element de notre document (un entite)</item>
+        <p><code>#CS</code> est un URI. Il pourrait correspondre à <list>
+            <item>un autre élément de notre document (un entité)</item>
             <item>une ressource externe, par ex dans une ontologie ou referentiel</item>
           </list></p>
       </div>
@@ -361,25 +361,24 @@
         <p> Toutes les balises de références textuelles permettent une connexion à des ontologies
           externes </p>
         <list>
-          <item> @ref : pointeur vers une définition complète</item>
+          <item> @ref : pointeur vers une définition </item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <name ref="http://viaf.org/viaf/109557338" type="person"> Seamus Heaney</name>
+          <persName ref="http://viaf.org/viaf/44499359" type="person">Clara</persName>
         </egXML>
         <list>
           <item> @key : un code quelconque</item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <name key="Hugo, Victor (1802-1885)" ref="http://www.idref.fr/026927608">Victor
-            Hugo</name>
+          <persName key="Schumann, Clara (1819 1896)">Clara</persName>
         </egXML>
       </div>
       <div type="slide">
         <head>Les entités (1)</head>
-        <p>TEI offre des éléments spécifiques pour gerer de l'information structurée au sujet des
+        <p>TEI offre des éléments spécifiques pour réunir des informations au sujet des
           entités nommées (au delà de leur noms): <list>
             <item><gi>person</gi>, <gi>place</gi>, <gi>event</gi></item>
-            <item>elles peuvent être regroupées en <gi>listPerson</gi>, <gi>listPlace</gi>, etc. </item>
+            <item>ces éléments peuvent être regroupés en <gi>listPerson</gi>, <gi>listPlace</gi>, etc. </item>
             <item>des relations peuvent aussi aussi être modélisées, utilisant explicitement
                 <gi>relation</gi> ou implicitement grâce au contexte</item>
           </list>
@@ -395,14 +394,15 @@
               <!-- ... -->
             </person>
           </egXML>
-        </p>
+        </p><p rend='box'>L'élément <gi>person</gi> ne contient pas une transcription, mais des annotations</p>
+        
       </div>
       <div type="slide">
         <head>Traits, états et événements</head>
-        <p>La portée des éléments que l'on peut retenir pour une entité nommée est
+        <p>Le variéte des informations que l'on pourrait souhaiter retenir pour une entité nommée est
             <emph>vaste</emph> -- et donc impossible de standardiser.  La TEI fournit trois éléments génériques, et quelques-uns plus
           spécifiques. </p>
-        <p>Les elements generiques: <list>
+        <p>Les elements génériques: <list>
             <item><gi>state</gi> : des <term>traits</term> : des caractéristiques qui en gros ne
               changent pas avec le temps </item>
             <item><gi>trait</gi> : des <term>états</term> : des caractéristiques qui se maintiennent
@@ -437,7 +437,7 @@
       </div>
       <div type="slide">
         <head>Lieux</head>
-        <p>Pour les lieux, la TEI prévoit quatre types de description :</p>
+        <p>Pour les lieux, la TEI prévoit quatre types de déscription :</p>
         <list>
           <item>le plus simple: nominatif
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -447,14 +447,14 @@
                 <placeName notBefore="1400">Lyon</placeName>
               </place></egXML>
           </item>
-          <item> en termes de traits géographiques, p.e.
+         <!-- <item> en termes de traits géographiques, p.e.
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
               <place>
                 <placeName>
                   <geogFeat>mount</geogFeat>
                   <geogName>Sinai</geogName>
                 </placeName></place></egXML>
-          </item>
+          </item>-->
           <item>... ou bien en termes géopolitiques ou par rapport aux unités administratives <gi>bloc</gi>,
               <gi>country</gi>, <gi>region</gi>, <gi>settlement</gi>, <gi>district</gi> etc
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -485,9 +485,9 @@
       </div>
       
       <div type="slide">
-        <head>Regroupements et responsabilit2s</head>
+        <head>Regroupements et responsabilités</head>
        
-        <p>On peut regrouper les entités dans une liste pour construire une espece d'index :</p>
+        <p>On peut regrouper les entités dans une liste pour construire une espèce d'index :</p>
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <listPerson>
               <head>Personnes citées dans ce document</head>             
@@ -501,7 +501,7 @@
               </person>
             </listPerson>
           </egXML>
-          <p>Et pareillement on regrouper des <gi>place</gi> dans une <gi>listPlace</gi>, des
+          <p>Et pareillement on peut regrouper des <gi>place</gi> dans une <gi>listPlace</gi>, des
             <gi>event</gi> dans un <gi>listEvent</gi> etc. </p>
         <p>On peut indiquer l'agence responsable d'une annotation et sa certitude avec des attributs
          <att>resp</att> et <att>cert</att>, respectivement:
