@@ -48,7 +48,7 @@
       </div>
       
       <div type="slide">
-        <head>La balise <gi>index</gi></head>
+        <head>La balise &lt;index&gt;</head>
         <p>La TEI propose un élément spécifique pour faciliter la création d'un index classique</p>
         <list>
           <item>à chaque point de répérage ciblé par l'index on met une balise <gi>index</gi></item>
@@ -437,7 +437,7 @@
       </div>
       <div type="slide">
         <head>Lieux</head>
-        <p>Pour les lieux, la TEI prévoit quatre types de déscription :</p>
+        <p>Pour les lieux, la TEI prévoit plusieurs types de déscription :</p>
         <list>
           <item>le plus simple: nominatif
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -550,14 +550,15 @@
         <p>L'attribut <att>calendar</att> sert à indiquer le calendrier dans lequel une date est
           exprimée</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <date calendar="#cal_AH">20 Rajab, 56</date>
-          <!-- nécessite une définition dans l'entête par ex -->
+          <date calendar="#cal_AH" when="0676-06-08">20 Rajab, 56</date>
+          <!-- implique une définition dans l'entête par ex -->
           <calendarDesc><calendar xml:id="cal_AH">
             <p>Anno Hegirae (Muhammedan Era)</p>
           </calendar></calendarDesc>
         </egXML>
-        <p rend="box">Par défaut les dates sont toujours normalisées par rapport au calendrier
-          chrétien gregorien </p>
+        <p rend="box">Par défaut les dates sont normalisées par rapport au calendrier
+          chrétien gregorien; l'attribut <att>custom-when</att> permet l'indication d'une normalisation
+        par rapport au calendrier specifie. </p>
       </div>
       <div type="slide">
         <head>Epoques historiques</head>
@@ -757,10 +758,11 @@
             définition de la sémantique d'une ressource numérique </item>
           <item>RDF dispose d'une représentation tres simple (si verbose) composée de "triples" <list>
               <item>un triple comporte trois URI <list>
-                  <item>subject </item>
-                  <item>predicate </item>
-                  <item>object </item>
-                </list>:</item>
+                  <item>subject : de quoi s'agit-il? (par ex "Vilnius")</item>
+                  <item>predicate : catégorie identifie (par ex "capital-of")</item>
+                  <item>object : valeur du catégorie ("par ex "Lituanie")</item>
+                </list></item><item>Les catégories sont d'habitude sélectionnés dans une <term>ontologie</term> spécifique:
+                  </item>
             </list></item>
           <item>LOD (Linked Open Data) est un mode d'édition de ressources numériques ouvertes, qui
             disposent d'une déscription exprimée en RDF </item>
@@ -778,8 +780,13 @@
           <p>Par contre, la sémantique d'une page web qui fournit par ex. les prix, les détails
             téchniques, les couleurs disponibles, etc pour un gadget quelconque peut facilement être
             extraite, et en l'exprimant, on exprime toute la portée de ce page. </p>
-      
-     
+      <p>On peut s'imaginer plusieurs methodes pour integrer une description RDF dans un document TEI
+      <list>
+        <item>directement, en utilisant l'espace de noms RDF</item>
+        <item>en utilisant l'element relation</item><item>en utilisant les attributs RDFa</item>
+        <item>en utilisant l'element graph</item>
+      </list></p>
+        
       </div>
       <div type="slide">
         <head>Science de texte: science de donnees</head>
