@@ -4,9 +4,8 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Modelling meaning: a short history of text markup
-        </title>
-         <author>Lou Burnard</author>
+        <title>Modelling meaning: a short history of text markup </title>
+        <author>Lou Burnard</author>
       </titleStmt>
       <publicationStmt>
         <p>Unpublished draft for presentation at Paderborn</p>
@@ -15,34 +14,374 @@
         <p>Various old talks and TEI-L</p>
       </sourceDesc>
     </fileDesc>
-    <revisionDesc><change when="2019-04-01">First draft</change></revisionDesc>
+    <revisionDesc>
+      <change when="2019-04-01">First draft</change>
+    </revisionDesc>
   </teiHeader>
   <text>
     <front>
-      <div><head>Abstract</head>
-        <p>Not so long ago (about 30 years ago to be precise), it was easy to
-          decide how to process text by computer. If you wanted to store and
-          then print the text out nicely, you would use one kind of software. If
-          you wanted to analyse the text linguistically (yes, people did that 30
-          years ago too), you'd use another. And if you were really interested
-          in what the text was *about*, then you would probably throw the text
-          away and use a database. But then someone realised that actually it
-          might be more fun to combine all three kinds of process -- dealing
-          with the text as an image, as a linguistic construct, and as a body of
-          assertions about the real world -- and the need for a new kind of
-          markup was born. In this talk I'll give a biassed and unreliable
-          account of some key moments in the evolution of our current markup
-          systems: from the corporate database of the 1970s to today's world
-          wide web of documents and tomorrow's web of data, by way of SGML, TEI,
-          XML, and other acronyms. Time permitting, I'll also try to explain why
-          data and text are not so different after all.
-        </p>
+      <div type="slide">
+        <head>Abstract</head>
+        <p>Not so long ago (about 30 years ago to be precise), it was easy to decide how to process
+          text by computer. If you wanted to store and then print the text out nicely, you would use
+          one kind of software. If you wanted to analyse the text linguistically (yes, people did
+          that 30 years ago too), you'd use another. And if you were really interested in what the
+          text was *about*, then you would probably throw the text away and use a database. But then
+          someone realised that actually it might be more fun to combine all three kinds of process
+          -- dealing with the text as an image, as a linguistic construct, and as a body of
+          assertions about the real world -- and the need for a new kind of markup was born. In this
+          talk I'll give a biassed and unreliable account of some key moments in the evolution of
+          our current markup systems: from the corporate database of the 1970s to today's world wide
+          web of documents and tomorrow's web of data, by way of SGML, TEI, XML, and other acronyms.
+          Time permitting, I'll also try to explain why data and text are not so different after
+          all. </p>
       </div>
     </front>
     <body>
-    <div type="slide"><head></head>
-    <list><item></item></list></div>
+      <div type="slide"><head>Modelling matters</head>
+      <p>A naive realist's manifesto</p>
+        <figure><graphic url="media/model.png"></graphic></figure>
       
+      
+      </div><div type="slide">
+        <head>A very long time ago</head>
+        <p>Let's start in the unfamiliar world of the mid-1980s... <list rend="pause">
+            <item>the world wide web did not exist</item>
+            <item>the tunnel beneath the English Channel was still being built</item>
+            <item>a state called the Soviet Union had just launched a space station called
+              Mir</item>
+            <item>serious computing was done on mainframes </item>
+            <item>the world was managing nicely without the DVD, the mobile phone, cable tv, or
+              Microsoft Word</item>
+          </list></p>
+      </div>
+      <div type="slide">
+        <head>...but also a familiar one</head>
+        <list>
+          <item>corpus linguistics and <q>artificial intelligence</q> had created a demand for large
+            scale textual resources in academia and beyond</item>
+          <item>advances in text processing were beginning to affect lexicography and document
+            management systems (e.g. TeX, Scribe, (S)GML ...)</item>
+          <item>the Internet existed for academics and for the military; theories about how to use it
+              <q>hypertextually</q> abounded </item>
+          <item>books, articles, and even courses in something called "Computing in the Humanities"
+            were beginning to appear</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Serious computing meets text</head>
+        <figure>
+          <graphic url="media/txttrin.png"/>
+          <head>The Textual Trinity (Burnard 1987)</head>
+        </figure>
+        <quote>In interpreting text, the trained human brain operates quite successfully on three
+          distinct levels; not surprisingly, three distinct types of computer software have evolved
+          to mimic these capabilities.</quote>
+      </div>
+      <div type="slide">
+        <head>TeX</head>
+        <quote>The main idea is to consider the process as an operation on two-dimensional "boxes";
+          roughly speaking, the input is a long string of characters culled from a variety of fonts,
+          where each character may be thought of as occupying a small rectangular box, and the
+          output is obtained by gluing these boxes together either horizontally or vertically with
+          various conventions about centering and justification, finally arriving at big rectangular
+          boxes which are the desired pages. </quote>
+        <p>(Preliminary description of TEX: D Knuth, May 13, 1977)</p>
+        <list>
+          <item><hi>TeX</hi> was developed by Donald Knuth at Stanford to produce high quality
+            typeset output from annotated text </item>
+          <item>Knuth also developed the associated idea of <hi>literate programming</hi>: that
+            software and its documentation should be written and maintained as an integrated
+            whole</item>
+          <item>TeX is still widely used, particularly in the academic community: it is open source
+            and there are several implementations</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Scribe</head>
+        <p><hi>Scribe</hi> developed by Brian K Reid at Carnegie Mellon in the 1980s, was one of the
+          earliest successful document production systems to separate content and format, and to use
+          a formal document specification language. Its commercial exploitation was short-lived, but
+          its ideas were very influential. </p>
+        <figure>
+          <graphic url="media/scribe-1.png"/>
+          </figure>
+        <figure>
+          <graphic url="media/scribe-2.png"/>
+         </figure>
+        <!--  Reid, Brian K. "The Scribe Document Specification Language and its Compiler.".
+          Pages 59-62 (with 10 references) in International Conference on Research and Trends in Document Preparation Systems. 
+          Abstracts of the Presented Papers. Conference on Research and Trends in Document Preparation Systems, Lausanne, Switzerland, February 27-28, 1981. 
+          Supported and organized by the [Swiss] Conseil des Ecoles Polytechniques Fédérales. J. D. Nicoud, Program Chair. Lausanne/Zürich: Swiss Federal Institutes of Technology, 1981. v + 130 pages. Author affiliation: Computer Systems Laboratory, Stanford University, Stanford, CA USA 94305.
+-->
+   
+      </div>
+      <div type="slide">
+        <head>(S)GML</head>
+        <quote>Historically, electronic manuscripts contained control codes or macros that caused the
+          document to be formatted in a particular way ('specific coding'). In contrast, generic
+          coding, which began in the late 1960s, uses descriptive tags (for example, 'heading',
+          rather than 'format-17') ...</quote>
+        <p>(A Brief History of the Development of SGML (C)1990 SGML Users' Group )</p>
+      <p>Charles Goldfarb and others developed a "Generalized Markup Language" for IBM, which
+        subsequently became an ISO standard (ISO 8879: 1986) </p>
+        <p>SGML was designed to enable the sharing and long term preservation of
+          machine-readable documents for use in large scale projects in government, the law, and industry.
+           the military, and other industrial-scale publishing industries. </p>
+        <p rend="box">SGML is the ancestor of HTML and of XML ... it defined for a generation a whole new 
+          way of thinking about <hi>what text really is</hi></p>
+     </div><div type="slide"><head>Motivations</head>
+     <list><item>an enormous increase in the quantity of technical documentation : the aircraft carrier story</item><item>an
+       enormous increase in its complexity : the Gare du Lyon story </item><item>a
+         proliferation of mutually incompatible document formats </item><item>an almost evangelical desire for
+           centrally-defined standards</item><item>a mainframe-based, not yet distributed, world in
+             transition
+           </item></list></div>
+      <div type="slide">
+        <head>What is a text?</head>
+        <list>
+          <item>content: the components (words, images etc). which make up a document </item>
+          <item>structure: the organization and inter-relationship of those components </item>
+          <item>presentation: how a document looks and what processes are applied to it
+          </item><item>.. and possibly many readings</item>
+        </list>
+        <figure><graphic url="media/19790809_002v.jpg" height="50%"/></figure>
+        
+      </div>
+      <div type="slide">
+        <head>Separating content, structure, and presentation means : </head>
+        <list>
+          <item> the content can be re-used </item>
+          <item> the structure can be formally validated </item>
+          <item> the presentation can be customized for <list>
+              <item>different media </item>
+              <item>different audiences</item>
+            </list></item>
+          <item> in short, the information can be uncoupled from its processing</item>
+        </list>
+        <p> This is not a new idea! But it's a good one...</p>
+      </div><div type="slide">
+        <head>For example...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><carte n="0010">
+<recto url="19800726_001r.jpg">
+<desc>Vue d'un cours d'eau avec un pont en pierre et des 
+petites maisons de style mexicain. Un homme et une femme 
+navigue un pédalo en premier plan a gauche.</desc>
+<head>San Antonio River</head>
+</recto>
+<verso url="19800726_001v.jpg">
+<obliteration>
+<lieu>El Paso TX 799</lieu>
+<date>18-08-1980</date>
+</obliteration>
+<message>
+<p>26 juill 80</p>
+<p>Chère Madame , après New-York et Washington dont le 
+gigantisme m'a beaucoup séduite, nous avons commencé 
+notre conquête de l'Ouest par New Orleans, ville folle 
+en fête perpétuelle. Il fait une chaleur torride au 
+Texas mais le coca-cola  permet de résister – 
+l'Amérique m'enchante ! Bientôt, le grand Canyon, le 
+Colorado et San Francisco... </p>
+<p> En espérant que vous passez de bonnes vacances, 
+affectueusement. </p>
+<signature> Sylvie </signature>
+<signature>François </signature>
+</message>
+<destinataire>
+Madame Lefrère
+4, allée George Rouault
+75020 Paris
+France
+</destinataire>
+</verso>
+</carte></egXML>
+        <cb/>
+        <figure><graphic url="media/19800726_001r.jpg" height="40%"/></figure>
+        <figure><graphic url="media/19800726_001v.jpg" height="40%"/></figure>        
+      </div>
+      
+      <div rend="slide">
+        <head>The role of markup</head>
+        <p>The humanities are all about <emph>text</emph>
+          <list>
+            <item>(non-digital) books, manuscripts, archival papers...</item>
+            <item> ... as well as other -- increasingly digital -- cultural
+              manifestations such as sounds, images, blogs, tweets ... </item>
+          </list></p>
+        <p>The digital humanities are all about digital technologies and techniques for
+          manipulating such manifestations in an integrated and innovative way. </p>
+        <p rend="box"><hi>Markup</hi> (aka encoding or tagging) is the key
+          technology behind such integration.</p>
+      </div>
+      <div type="slide">
+        <head>A digital text may be ... </head>
+        <p rend="box">a <q>substitute</q> (surrogate) simply representing the appearence of
+          a document existant</p>
+        <figure>
+          <graphic url="media/graves-2.png" height="80%"/>
+        </figure>
+      </div>
+      <div type="slide">
+        <head> ... or it may be</head>
+        <p rend="box">a representation of its linguistic content and structure, with
+          additional annotations about its meaning and context.</p>
+        <figure>
+          <graphic url="media/graves-1.png" height="80%"/>
+        </figure>
+      </div>
+      <div type="slide">
+        <head>What does markup do?</head>
+        <list>
+          <item>It makes explicit to a processor <emph>how</emph> something should be
+            processed.</item>
+          <item>In the past, <soCalled>markup</soCalled> was what told a typesetter how
+            to deal with a manuscript</item>
+          <item>Nowadays, it is what tells a computer program how to deal with a stream of
+            <hi>textual data</hi>.</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Where is the textual data and where is the markup?</head>
+        <figure>
+          <graphic url="media/beowulf-ms.png" height="80%"/>
+          <head>BL Ms Cotton Vitelius A xv, fol. 129r</head>
+        </figure>
+      </div>
+      <div type="slide">
+        <head>Where is the textual data and where is the markup?</head>
+        <figure>
+          <graphic url="media/beowulf-wrenn.png" height="70%"/>
+          <head>Beowulf, ed. C L Wrenn (with student annotations)</head>
+        </figure>
+      </div>
+      <div type="slide">
+        <head>Which textual data matters ?</head>
+        <list rend="pause">
+          <item>the shape of the letters and their layout?</item>
+          <item>the presumed creator of the writing?</item>
+          <item>the (presumed) intentions of the creator? </item>
+          <item>the stories we read into the writing? </item>
+        </list>
+     <!--   <p rend="box">It may be helpful to distinguish documents from the texts they
+          embody...</p>
+      </div>
+      <div type="slide">
+        <head>Document and text</head>-->
+        <p rend="box">A <soCalled>document</soCalled> is something that exists in the world,
+          which we can <term>digitize</term>.</p>
+        <p rend="box">A <soCalled>text</soCalled> is an abstraction, created by or for a
+          community of readers, which we can <term>encode</term>.</p>
+      </div>
+      <div type="slide">
+        <head>The document as <q>Text-Bearing Object</q> (TBO)</head>
+        <p rend="box"><hi rend="italic">Materia appetit formam ut virum foemina</hi></p>
+        <list>
+          <item>Traditionally, we distinguish form and content</item>
+          <item>In the same way, we might think of an inscription or a manuscript as the bearer
+            or container or form instantiating an abstract notion -- a text</item>
+        </list>
+        <p rend="box">But don't forget... digital texts are also TBOs!</p>
+      </div>
+      <div type="slide">
+        <head>Markup is a scholarly activity</head>
+        <list>
+          <item>The application of markup to a document is an intellectual activity</item>
+          <item>Deciding exactly what markup to apply and why is much the same as editing
+            a text </item>
+          <item>Markup is rarely neutral, objective, or deterministic : interpretation is
+            needed</item>
+          <item>Because it obliges us to confront difficult ontological questions, markup
+            can be considered a research activity in itself</item>
+          <item>Good textual encoding is never as easy or quick as people would believe --
+            do things better, not necessarily quicker</item>
+          <item>The markup scheme used for a project should result from a detailed
+            analysis of the properties of the objects the project aims to use or
+            create</item>
+        </list>
+      </div>
+      <div type="slide">
+        <head>Compare the markup</head>
+        <p><egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <hi rend="dropcap">H</hi><g ref="#wynn">W</g>ÆT WE GARDE <lb/>na in
+          gear-dagum þeod-cyninga <lb/>þrym gefrunon, hu ða æþelingas <lb/>ellen
+          fremedon. oft scyld scefing sceaþe<add>na</add>
+          <lb/>þreatum, moneg<expan>um</expan> mægþum meodo-setl<add>a</add>
+          <lb/>of<damage>
+            <desc>blot</desc>
+          </damage>teah ...</egXML>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <lg>
+              <l>Hwæt! we Gar-dena in gear-dagum</l>
+              <l>þeod-cyninga þrym gefrunon,</l>
+              <l>hu ða æþelingas ellen fremedon,</l>
+            </lg>
+            <lg>
+              <l>Oft <persName>Scyld Scefing</persName> 
+                sceaþena þreatum,</l>
+              <l>monegum mægþum meodo-setla ofteah;</l>
+              <l>egsode <orgName>Eorle</orgName>, syððan ærest wearþ</l>
+              <l>feasceaft funden...</l>
+            </lg>
+          </egXML>
+        </p>
+      </div>
+      <div type="slide">
+        <head>... and </head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <s><w pos="interj" lemma="hwaet">Hwæt</w>
+            <w pos="pron" lemma="we">we</w>
+            <w pos="npl" lemma="gar-denum">Gar-dena</w>
+            <w pos="prep" lemma="in">in</w>
+            <w pos="npl" lemma="gear-dagum">gear-dagum</w> ...</s>
+        </egXML>
+        <p>or even</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <w pos="npl" corresp="#w2">Gar-dena</w>
+          <w pos="prep" corresp="#w3">in</w>
+          <w pos="npl" corresp="#w4">gear-dagum</w>
+          <!-- ... -->
+          <w xml:id="w2">armed danes</w>
+          <w xml:id="w3">in</w>
+          <w xml:id="w4">days of yore</w>
+        </egXML>
+        <p>.. not to mention ... </p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <!-- ... -->
+            <l>Oft <persName ref="https://en.wikipedia.org/wiki/Skj%C3%B6ldr">Scyld Scefing</persName> 
+              sceaþena þreatum,</l>
+        </egXML>
+        <p>or even</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          <l>Oft <persName ref="#skioldus">Scyld Scefing</persName> 
+            sceaþena þreatum,</l>
+          <!-- ... -->
+          <person xml:id="skioldus">
+            <persName source="#beowulf">Scyld Scefing</persName>
+            <persName xml:lang="lat">Skioldus</persName>
+            <persName xml:lang="non">Skjöld</persName>
+            <occupation>Legendary Norse King</occupation>
+            <ref target="https://en.wikipedia.org/wiki/Skj%C3%B6ldr">Wikipedia entry</ref>
+            <!-- ... -->          
+          </person>
+        </egXML>
+        
+      </div>  
+      
+      
+      <div type="slide">
+        <head>Birth of the Text Encoding Initiative</head>
+        <list>
+          <item>Spring 1987: European workshops on standardisation of historical data (J.P . Genet,
+            M. Thaller )</item>
+          <item>Autumn 1987: In the US, the NEH funds an exploratory international worksho p on the
+            feasibility of defining "text encoding guidelines"</item>
+        </list>
+        <figure>
+          <graphic height="70%" url="../Graphics/poughkeepsie.png"/>
+          <head>Vassar College, Poughkeepsie</head>
+        </figure>
+      </div>
     </body>
   </text>
 </TEI>
