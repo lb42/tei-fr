@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <!--How the TEI uses ODD-->
+        <title xml:lang="fr" type="slide">Comment la TEI utilise ODD</title>
+        <author xml:id="LB">Lou Burnard Consulting</author>
+      </titleStmt>
+      <publicationStmt>
+        <!--for presentation at TEI MM 2014 -->
+        <p xml:lang="fr" type="slide">Préparé pour ENC MasterPro 2015</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Translated from ODD MuteC 2014 which was majoritairement nouveau!</p>
+      </sourceDesc>
+    </fileDesc>
+    <revisionDesc>
+      <change when="2017-02-18">EC, Typos et correction du français</change>
+      <change who="#LB" when="2017-02-06">Updated</change>
+      <change who="#LB" when="2015-02-26">Added Fr versions back</change>
+      <change who="#LB" when="2014-10-11">Add english trans</change>
+      <change who="#LB" when="2014-02-21">1er jet</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+   
+    <body>
+      
+      <div xml:lang="fr" type="slide">
+        <head>TEI ODD sous le capot</head>
+        <p>La TEI s’exprime en langage ODD. Ce fut d’ailleurs la raison principale pour laquelle le langage fut inventé </p>
+        <p>La source TEI P5 (disponible ici <ptr target="http://www.tei-c.org/release/xml/tei/odd/Source/"/>) rassemble : <list>
+   <item>39 fichiers en TEI-XML, dont 25 contiennent un chapitre de documentation en XML-TEI, la plupart définissant un module, par exemple <ident>PH-PrimarySources.xml</ident></item>
+   <item>778 fichiers en TEI-XML, chacun définissant un élément, une classe, ou une macro <list>
+   <item>29 datatypes (<code>data.xxxx</code>) par ex.
+     <ident>tei.sex.xml</ident></item>
+   <item>116 classes de type modèle (code&gt;model.xxxx) par ex.
+       <ident>model.biblLike.xml</ident></item>
+   <item>71 classes de type attribut (<code>att.xxxx</code>) par ex.
+       <ident>att.divLike.xml</ident></item>
+   <item>8 macros (macro.xxxx) par ex. <ident>macro.phraseSeq.xml</ident></item>
+   <item>555 spécifications d’éléments de <ident>ab.xml</ident> jusqu'à
+       <ident>zone.xml</ident></item>
+ </list></item>
+ </list>
+        </p>
+        <p rend="box"> Nous allons regarder cela de plus près…</p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Organisation physique des <title>Guidelines</title></head>
+        <p>Il ne faut pas confondre l’organisation physique (en fichiers) avec l’organisation logique (en spécifications, etc.)</p>
+        <list>
+ <item>Le fichier <ident>guidelines-XX.xml</ident> est <soCalled>la</soCalled> source primaire des <title>Guidelines</title> pour la langue XX.</item>
+ <item>Mis à part quelques liminaires (une en-tête TEI, la page de titre, etc.), il contient plusieurs lignes comme ceci : <code>&lt;include xmlns="http://www.w3.org/2001/XInclude" href="Guidelines/en/HD-Header.xml"/&gt; </code> </item>
+ <item>Au sein de chaque chapitre, on trouve des <code>xInclude</code> similaires pour les
+   objets définis par ce chapitre.</item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Organisation logique des <title>Guidelines</title></head>
+        <list>
+ <item>À la fin de chaque chapitre définissant un module, il y a (par convention) un
+   élément <gi>moduleSpec</gi> qui rassemble toutes les spécifications référencées par le
+   chapitre pour définir un module</item>
+ <item>Ces spécifications sont organisées (par commodité) en <gi>specGrp</gi>, qui sont
+   ensuite référencées par un <gi>specGrpRef</gi>
+ </item>
+ <item>Chaque <gi>specGrp</gi> regroupe des spécifications d’objet, indiqué par un <code>xInclude</code></item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Par exemple…</head>
+        <!--      <desc xml:lang="zh-TW">表格、方程式與圖表</desc>
+     cannot be included unless you  have chinese font -->
+        <p>Cette partie de texte des Guidelines :</p>
+        <figure>
+ <graphic url="images/ft-1.png"/></figure>
+        <p> est généré à partir des lignes de code suivantes :
+ <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="teeny">
+   <div><head>Module for Tables, Formulæ, Notated Music, and Graphics</head>
+ <p>The module described in this chapter provides the following features: 
+   <moduleSpec xml:id="DFTFF" ident="figures">
+     <desc>Tables, formulæ, notated music, and figures</desc>
+     <desc xml:lang="fr">Tableaux, formules et graphiques</desc>
+     <!-- ... -->
+   </moduleSpec> The selection and combination of modules to form a TEI schema is
+   described in <ptr target="#STIN"/>. 
+   <specGrpRef target="#DFTTAB"/>
+   <specGrpRef target="#DFTFOR"/>
+   <specGrpRef target="#DFTNTM"/>
+   <specGrpRef target="#DFTGRA"/>
+ </p></div></egXML>
+        </p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Les pointers (#DFTTAB etc.) indiquent des <term>specGrp</term>, comme ceci …</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"> 
+<specGrp xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="DFTTAB" n="Tables"> 
+  &lt;include href="../../Specs/table.xml"/&gt; 
+  &lt;include href="../../Specs/row.xml"/&gt; 
+  &lt;include href="../../Specs/cell.xml"/&gt; 
+</specGrp>
+        </egXML>
+        <p>et le xInclude apporte la specification elle meme d’un <term>objet</term>, par ex :</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+<elementSpec module="figures" ident="cell">
+  <gloss versionDate="2007-06-12" xml:lang="fr" type="slide">cellule</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">contains one cell of à table.</desc>
+  <!-- ... -->
+</elementSpec></egXML>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>De quels types d’objet s’agit-il ?</head>
+        <list>
+ <item>types de données (<ident>datatypes</ident>)</item>
+ <item>classes de modèle (<ident>model classes</ident>)</item>
+ <item>classes d’attribut (<ident>attribute classes</ident>)</item>
+ <item><ident>macros</ident></item>
+ <item>… et éléments</item>
+        </list>
+        <p rend="box">Nous allons détailler un exemple de chacun de ces objets …</p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Une spécification ODD</head>
+        <p rend="box">Ouvrez <ident>teidata.pointer.xml</ident> avec oXygen</p>
+        <p>Comme tout autre spécification TEI…<list>
+   <item>C’est un document XML, à valider contre le schéma spécifié </item>
+   <item>Avec deux licences open source</item>
+   <item>Il y a une description (<gi>desc</gi>) répétée en plusieurs langues, chacune
+ identifiée par <att>xml:lang</att> et avec une <att>versionDate</att></item>
+   <item>La spécification est dotée d’un identifiant, fourni par l’attribut
+   <att>ident</att>), et appartient à un module (<att>module</att>)</item>
+   <item>Les remarques (<gi>remarks</gi>) sont plurilingues de la même manière que les
+   <gi>desc</gi></item>
+   <!--<item>Il y a des liens vers des parties des Guidelines où cet objet est présenté,
+ regroupés dans un élément <gi>listRef</gi></item>-->
+ </list></p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Spécification d’un datatype</head>
+        <!-- a relire -->
+        <p>La signification d'un datatype est indiquée par son <gi>content</gi> 
+          Cet élément peut contenir :
+     <list>
+       <item>soit un élément <gi>dataRef</gi> soit un element <gi>valList</gi></item>
+       <item>un <gi>dataRef</gi> peut indiquer un type de donnée en utilisant un
+         attribut <att>name</att> attribute (type défini par XSD) ou un attribut
+         <att>key</att> (type défini par un élément
+                <gi>dataSpec</gi>)</item>      
+            <item>un <gi>valList</gi> fournit une liste de <gi>valItem</gi>s,
+              chacun définissant une valeur encodée.</item>
+          </list></p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>D’autres formes de spécification de datatype</head>
+        <!-- a relire -->
+        <p rend="box">Ouvrez <ident>teidata.certainty.xml</ident> avec oXygen</p>
+        <list>
+          <item>Dans ce cas, la liste de valeurs possibles (dans <gi>content</gi> ) est fermée 
+   </item>
+          <item>Les attributs utilisant ce datatype seront limités aux valeurs indiquées</item>
+        </list>
+        <p rend="box">Ouvrez <ident>teidata.probCert.xml</ident> avec oXygen</p>
+<list>
+<item>Dans ce cas, le <gi>content</gi> propose une choix entre
+            deux éléments <gi>dataRef</gi> </item>
+          <item>Les attributs utilisant ce datatype peuvent avoir soit une des valeurs
+            proposés pour <ident>teidata.certainty</ident>, soit une valeur
+            indiquée par l'element <gi>content</gi> de  <ident>teidata.probability</ident> (à savoir, un nombre réel entre 0 et 1)</item>
+        </list>
+      </div>
+        
+  
+      
+      <div xml:lang="fr" type="slide">
+        <head>Spécification d’une classe modèle</head>
+        <p rend="box">Ouvrez <ident>model.biblLike.xml</ident> avec oXygen</p>
+        <list>
+ <item>La spécification d’une classe modèle n’existe que pour être pointée par d’autres
+   spécifications, donc pas grand chose à voir ici</item>
+ <item>Comme ailleurs, on se sert d’un élément <gi>listRef</gi> pour regrouper des
+   pointeurs sur la partie des Guidelines où cette classe est décrite. </item>
+ <item>Notez l’élément <gi>classes</gi> : cette classe est réferencée par ("member of")
+   d’autres classes modèles (<ident>model.inter</ident>, etc.). Une référence à la classe model.inter
+   implique donc une référence à cette classe.</item>
+ <item>Pour voir l’effet de cette hiérarchie de classes, regardez  <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/fr/html/ref-model.biblLike.html">la visualisation de cette
+   spécification</ref></item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Spécification d’une classe d’attribut</head>
+        <p rend="box">Ouvrez <ident>att.divLike.xml</ident> avec oXygen </p>
+        <list>
+ <item>On vous recommande d’ouvrir la vue Sommaire (Fenêtre-&gt;Afficher la vue-&gt;Sommaire) si
+   besoin est pour visualiser la structure</item>
+ <item>La liste des attributs fournis par cette classe est specifiée dans un
+ <gi>attList</gi>, qui contient deux <gi>attDef</gi> (<att>org</att> et
+ <att>uniform</att>)</item>
+ <!--<item>Comme ailleurs, chaque <gi>attDef</gi> s’identifie avec <att>ident</att> et se
+   décrit par plusieures <gi>desc</gi>, complétés par des <gi>gloss</gi> dans le cas où
+   l’identifiant n’est pas un mot complet</item>-->
+ <item>les valeurs disponibles pour un attribut sont spécifiés par un <gi>datatype</gi> et
+   éventuellement un <gi>valList</gi>, qui rassemblent chaque valeur prévue avec sa
+   définition</item>
+ <item>Cette classe est un sous-classe de deux autres (<ident>att.metrical</ident>, et
+ <ident>att.fragmentable</ident>) : si ces classes sont disponibles, les attributs qu’elles fournissent seront donc également disponibles.</item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Spécification d’un élément</head>
+        <p rend="box">Ouvrez <ident>abstract.xml</ident> avec oXygen</p>
+        <list>
+ <item>C’est un élément assez récent (révisé le 2012-12-27) donc il n’y aucune traduction
+   de sa <gi>desc</gi> etc. Les parties essentielles d’un <gi>elementSpec</gi> sont donc
+   plus évidents.</item>
+ <item>Les attributs <att>module</att> et <att>ident</att></item>
+ <item>l’élément <gi>classes</gi> qui précise les classes auxquelles cet élément
+   appartient</item>
+ <item>l’élément <gi>content</gi> qui précise le modèle de contenu de cet élément</item>
+ <item>l’élément <gi>exemplum</gi> qui contient un exemple de l’usage de l’élément </item>
+ <item>facultativement : des remarques (<gi>remarks</gi> et des renvois
+   (<gi>listRef</gi>)</item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Les classes TEI</head>
+        <p rend="att">Si on ne comprend pas le système de classes TEI, on aura du mal à comprendre
+ le fonctionnement d’un ODD </p>
+        <list>
+ <item>une classe d’attribut comme <ident>att.global</ident> fournit des attributs</item>
+ <item>une classe de modélisation comme <ident>model.profileDescPart</ident> regroupe des
+   éléments selon leur sémantique, ou leur possibilités de positionnement : <list>
+ <item>model.xxxLike : resemble à un xxx</item>
+ <item>model.xxxPart : constitue un xxx</item>
+   </list>
+ </item>
+ <item>toute classe peut hériter ses propriétés d’une autre</item>
+ <item>on se sert des classes de modélisation surtout dans les définitions de contenu, ce
+   qui permet de les gérer avec une couche d’indirection</item>
+        </list>
+      </div>
+      
+      
+      <div xml:lang="fr" type="slide">
+        <head>Par exemple</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+ <classes>
+   <memberOf key="att.global"/>
+   <memberOf key="att.responsibility"/>
+   <memberOf key="model.profileDescPart"/>
+ </classes>
+        </egXML>
+        <list>
+          <item>étant membre de <ident>model.profileDescPart</ident>, 
+            <gi>abstract</gi> peut apparaitre dans <gi>profileDesc</gi> parce que
+le contenu de <gi>profileDesc</gi> est
+   <egXML xmlns="http://www.tei-c.org/ns/Examples"> 
+     <classRef key="model.profileDescPart" maxOccurs="unbounded"/>
+</egXML>
+ </item>
+          <item> en tant que membre de <ident>att.responsibility</ident>, il hérite des attributs
+              <att>cert</att> et <att>resp</att></item>
+ <item><ident>att.responsibility</ident> lui transmet également l’attribut
+ <att>source</att>, parce qu'elle est <soCalled>memberOf</soCalled> de la classe
+ <ident>att.source</ident></item>
+        </list>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Définition du contenu d’un élément</head>
+        <p>L'element <gi>content</gi> peut contenir: </p><list><item><gi>elementRef</gi> : un element</item><item><gi>classRef</gi> une classe d'element</item><item><gi>macroRef</gi> reference a un patron</item><item><gi>textNode</gi> un morceau de texte</item><item><gi>anyElement</gi> : un element non-specifie</item></list>
+        <p>Regroupé par :</p>
+        <list><item><gi>alternate</gi> une alternation</item><item><gi>sequence</gi> une séquence</item></list>
+        <p>Tous sous contrôle des attributs <att>minOccurs</att> et <att>maxOccurs</att> en ce qui concerne leurs fréquences d'occurence</p>
+        <!-- a traduire -->
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Par exemple ...</head>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<content>
+  <alternate maxOccurs="unbounded">
+    <classRef key="model.pLike"/>
+    <classRef key="model.listLike"/>
+  </alternate></content></egXML>
+        <p><q>Un ou plusieurs éléments membres des classes <ident>model.pLike</ident> ou bien
+ <ident>model.listLike</ident></q></p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<content>
+  <sequence maxOccurs="unbounded">
+    <classRef key="model.pLike"/>
+    <classRef key="model.listLike"/>
+  </sequence>
+</content></egXML>
+        <p><q>Une ou plusieurs répétitions d'un élément de la classe <ident>model.pLike</ident> suivi d'un élément de la classe 
+          <ident>model.listLike</ident></q></p>
+      </div>
+      <!--<div xml:lang="en">
+        <head>What is a class reference?</head>
+        <p>When a <gi>classRef</gi> appears inside <gi>content</gi>, its meaning is determined by
+ the value of the <att>expand</att> attribute </p>
+        <p>If the class being referenced has 3 members x, y, z...</p>
+        <table>
+ <row role="label">
+   <cell>value of <att>expand</att></cell>
+   <cell>meaning</cell>
+ </row>
+ <row>
+   <cell>alternate (default)</cell>
+   <cell>(x | y | z)</cell>
+ </row>
+ <row>
+   <cell>sequence</cell>
+   <cell>(x, y, z)</cell>
+ </row>
+ <row>
+   <cell>sequenceOptional</cell>
+   <cell>(x?, y?, z?)</cell>
+ </row>
+ <row>
+   <cell>sequenceOptionalRepeatable</cell>
+   <cell>(x*, y*, z*)</cell>
+ </row>
+ <row>
+   <cell>sequenceRepeatable</cell>
+   <cell>(x+, y+, z+)</cell>
+ </row>
+        </table>
+        <p>The attributes <att>minOccurs</att> and <att>maxOccurs</att> are also available; they
+ control occurrence of the whole thing</p>
+        <p>You can also suppress or select some of the the members of a class, using attributes
+   <att>include</att> and <att>except</att>. </p>
+      </div>
+      <div xml:lang="fr" type="slide">
+        <head>Que signifie la référence à une classe (de modele)?</head>
+        <p>La signification d’un <gi>classRef</gi> au sein de <gi>content</gi> varie selon la valeur
+ de son attribut <att>expand</att>. </p>
+        <p>Considérons le cas d’une classe ayant trois membres x, y, z...</p>
+        <table>
+ <row role="label">
+   <cell>valeur <att>expand</att></cell>
+   <cell>signification</cell>
+ </row>
+ <row>
+   <cell>alternate (defaut)</cell>
+   <cell>(x | y | z)</cell>
+ </row>
+ <row>
+   <cell>sequence</cell>
+   <cell>(x, y, z)</cell>
+ </row>
+ <row>
+   <cell>sequenceOptional</cell>
+   <cell>(x?, y?, z?)</cell>
+ </row>
+ <row>
+   <cell>sequenceOptionalRepeatable</cell>
+   <cell>(x*, y*, z*)</cell>
+ </row>
+ <row>
+   <cell>sequenceRepeatable</cell>
+   <cell>(x+, y+, z+)</cell>
+ </row>
+        </table>
+        <p>Les attributs <att>minOccurs</att> et <att>maxOccurs</att> sont disponibles, comme
+ ailleurs</p>
+        <p>Les attributs <att>include</att> et <att>except</att> permettant la sélection ou la
+ suppression de certain membres de la classe également </p>
+      </div>-->
+      
+      <div xml:lang="fr" type="slide">
+        <head>Exemples</head>
+        <p>l'élément <gi>egXML</gi> est utilisé partout dans les <title>Guidelines</title> pour fournir
+          des exemples d'usage directement en XML-TEI. Pour permettre à une validation du contenu
+          de cet élément il est associé avec une autre espace de nommage.</p>
+<p>Par exemple :<egXML xmlns="http://www.tei-c.org/ns/Examples">
+&lt;egXML xmlns="http://www.tei-c.org/ns/Examples"&gt;
+  <p>Je ne suis pas un p comme les autres</p>
+&lt;/egXML&gt;</egXML>
+</p>
+      <p>Oui, c'est une astuce.</p>
+      </div>
+      
+      
+      <div xml:lang="fr" type="slide"><head>Contraintes schematron</head>
+        <list>
+ <item>Une spécification d’élément peut aussi contenir un élément <gi>constraintSpec</gi> (ou plusieurs), rassemblant des règles exprimées en ISO schematron</item>
+ <item>La TEI s’en sert pour exprimer des contraintes additionnelles non exprimables autrement, par exemple des contraintes contextuelles ou concurrentielles</item>
+ <item>Le traitement de ces règles nécessite une étape additionnelle dans la validation des
+   documents</item>
+ <item>La version courante d’oXygen effectue cela automatiquement, pourvu que votre schéma s'exprime en RELAXNG et vos contraintes s’expriment en ISO schematron.</item>
+        </list>
+      </div>
+      
+      
+      
+      <div xml:lang="fr" type="slide">
+        <head>Exemple de schematron</head>
+        <p rend="box">Ouvrez <ident>span.xml</ident> avec oXygen</p>
+        <list>
+ <item>cette spécification comporte plusieurs <gi>constraintSpec</gi>, chacun avec son <att>ident</att> et son <att>scheme</att></item>
+ <item>un ou plusieurs <gi>constraint</gi> sont possibles</item>
+ <item>la contrainte s’exprime en langue ISO schematron, donc dans un autre espace de noms</item>
+ <item>par ex. <code>if @to is supplied on &lt;name/&gt;, @from must be supplied as
+ well</code> (NB <code>&lt;name/&gt;</code> signifie le nom de l’élément qui activera cette
+   règle)</item>
+        </list>
+        <p>Nous reviendrons sur ce sujet plus loin…</p>
+      </div>
+      
+      <div xml:lang="fr" type="slide">
+        <head>Spécification d’une macro</head>
+        <p rend="box">Ouvrez <ident>macro.phraseSeq.xml</ident> avec oXygen</p>
+        <list>
+ <item>Une macro, comme un datatype, fournit une abréviation conventionnelle pour des
+   objets souvent utilisés ; dans ce cas, un modèle de contenu.</item>
+ <item>L’expansion d’une macro est fournie par un élément <gi>content</gi>.
+ </item>
+        </list>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples"><content>
+ <alternate minOccurs="0" maxOccurs="unbounded">
+   <textNode/>
+   <classRef key="model.gLike"/>
+   <classRef key="model.phrase"/>
+   <classRef key="model.global"/>
+ </alternate>
+</content></egXML>
+        <p><q>Rien du tout, du texte, ou n’importe combien d’éléments membres de n’importe laquelle des trois classes <ident>model.gLike</ident>, <ident>model.phrase</ident> ou
+ <ident>model.global</ident></q></p>
+      </div>
+     </body>
+    </text></TEI>

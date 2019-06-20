@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:lang="en" xmlns="http://www.tei-c.org/ns/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Featherlite TEI</title>
+      </titleStmt>
+      <publicationStmt>
+        <ab>Unpublished demonstration file for a TEI Workshop</ab>
+      </publicationStmt>
+      <sourceDesc>
+        <ab>Born digital: no pre-existing source</ab>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <head>A Minimal TEI Customization</head>
+      <p>This customization is for a feather lite schema for corpus-style analysis.</p>
+      <schemaSpec ident="feather" start="TEI">
+
+        <!-- from the header, take only the compulsory elements -->
+        <moduleRef key="header" include="teiHeader fileDesc titleStmt sourceDesc publicationStmt"/>
+
+        <!-- we need title to go in the header, but we do not want it elsewhere.
+          the easiest way is to delete the model class which introduces it into the body of a text -->
+
+        <elementRef key="title"/>
+
+        <classSpec type="model" ident="model.emphLike" mode="delete"/>
+
+
+        <!-- here are the elements we want -->
+
+        <moduleRef key="textstructure" include="TEI text body div"/>
+
+        <elementRef key="s"/>
+        <elementRef key="w"/>
+        <elementRef key="ab"/>
+        <elementRef key="pc"/>
+        
+      
+        <!-- change content model of s -->
+        <elementSpec ident="s" mode="change">
+          <content>
+            <alternate>
+              <elementRef key="mw" maxOccurs="unbounded"/>
+              <elementRef key="w" maxOccurs="unbounded"/>
+            </alternate>
+          </content>
+        </elementSpec>
+
+        <!-- add new mw element -->
+        <elementSpec ident="mw" ns="http://myNameSpace.org" >
+          <desc>multiword strings which function as if they were single words</desc>
+          <classes>
+            <memberOf key="model.segLike"/>
+            <memberOf key="att.global"/>
+            <memberOf key="att.typed"/>
+          </classes>
+          <content>
+            <alternate maxOccurs="unbounded">
+              <textNode/>
+              <elementRef key="w"/>
+            </alternate>
+          </content>
+        </elementSpec>
+
+
+        <!-- we want only a few attribute classes and datatypes -->
+
+        <moduleRef key="tei"/>
+
+        <classSpec ident="att.declaring" type="atts" mode="delete"/>
+
+        <classSpec type="atts" ident="att.global" mode="change">
+          <attList>
+            <attDef ident="xml:space" mode="delete"/>
+            <attDef ident="xml:base" mode="delete"/>
+            <attDef ident="n" mode="delete"/>
+          </attList>    
+       </classSpec>
+        
+        <classSpec type="atts" ident="att.global.rendition" mode="change">
+         <attList>
+           <attDef ident="rendition" mode="delete"/>
+            <attDef ident="rend" mode="delete"/>
+          </attList>
+        </classSpec>
+        
+       
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>

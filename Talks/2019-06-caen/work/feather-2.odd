@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:lang="en" xmlns="http://www.tei-c.org/ns/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Hyperléger TEI</title>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Written from scratch.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <head>Hyperléger: Une personnalisation TEI minimale</head>
+      <p>Cette personnalisation est conçue pour l'analyse linguistique d'un corpus. Tout text est divisé en segments (<gi>s</gi>) contenant
+      des mots (<gi>w</gi>) et regroupés en des unités plus grands (<gi>ab</gi> et <gi>div</gi>). </p>
+      <schemaSpec ident="feather" start="TEI text" docLang="fr">       
+        <moduleRef key="header" include="teiHeader fileDesc titleStmt publicationStmt sourceDesc"/>
+        <moduleRef key="textstructure" include="TEI text body div"/>
+        <moduleRef key="tei" />  
+        <elementRef key="title"/>
+        <elementRef key="s"/>
+        <elementRef key="w"/>
+        <elementRef key="ab"/>
+        <!-- suppression des attributs -->
+       <classSpec type="atts" ident="att.declaring" mode="delete"/>
+        <classRef key="att.global.rendition" except="rendition rend"/>
+        <classSpec type="atts" ident="att.global" mode="change">
+          <classes>
+            <memberOf key="att.global.rendition"/>
+          </classes>
+          <attList>
+            <attDef ident="xml:base" mode="delete"/>
+            <attDef ident="xml:space" mode="delete"/>
+          </attList>
+        </classSpec>
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
