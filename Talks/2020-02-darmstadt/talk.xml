@@ -5,9 +5,10 @@
     <fileDesc>
       <titleStmt>
         <title>Modelling meaning: the role of data in the humanities </title>
-        <author>Lou Burnard</author>
         <title type="sub">He who sees the Infinite in all things sees God. He who sees the Ratio
           only, sees himself only</title>
+        <author>Lou Burnard</author>
+
       </titleStmt>
       <publicationStmt>
         <p>Unpublished draft for presentation at Darmstadt</p>
@@ -725,9 +726,10 @@
       <div type="slide">
         <head>Some typical varieties of curated markup</head>
         <p><egXML xmlns="http://www.tei-c.org/ns/Examples">
-            <hi rend="dropcap">H</hi><g ref="#wynn">W</g>ÆT WE GARDE <lb/>na in gear-dagum
-            þeod-cyninga <lb/>þrym gefrunon, hu ða æþelingas <lb/>ellen fremedon. oft scyld scefing
-              sceaþe<add>na</add>
+            <hi rend="dropcap">H</hi><g ref="#wynn">W</g>ÆT WE GARDE
+            <lb/>na in gear-dagum þeod-cyninga
+            <lb/>þrym gefrunon, hu ða æþelingas
+            <lb/>ellen fremedon. oft scyld scefing sceaþe<add>na</add>
             <lb/>þreatum, moneg<expan>um</expan> mægþum meodo-setl<add>a</add>
             <lb/>of<damage>
               <desc>blot</desc>
@@ -1077,29 +1079,57 @@ n.p. https://bookbook.pubpub.org/pub/dgv16l22.
       </div>
 
 -->
-       <head>Quid de RDF et LOD?</head>
+   <!--   <div type="slide">
+        <head>What about RDF and LOD?</head>
         <list>
           <item>RDF (Resource Description Framework) est un standard W3C tres répandu, visant la
             définition de la sémantique d'une ressource numérique </item>
           <item>RDF dispose d'une représentation très simple (si verbose) composée de "triples" <list>
               <item>un triple comporte trois URI <list>
                   <item>sujet : de quoi s'agit-il? (par ex "Vilnius")</item>
-                <item>predicat : catégorie identifiée (par ex "capital-of")</item>
+                  <item>predicat : catégorie identifiée (par ex "capital-of")</item>
                   <item>objet : valeur du catégorie ("par ex "Lituanie")</item>
-                </list></item><item>Les catégories sont d'habitude sélectionnées dans une <term>ontologie</term> spécifique
-                  </item>
+                </list></item>
+              <item>Les catégories sont d'habitude sélectionnées dans une <term>ontologie</term>
+                spécifique </item>
             </list></item>
           <item>LOD (Linked Open Data) est un mode d'édition de ressources numériques ouvertes, qui
             disposent d'une déscription exprimée en RDF </item>
           <item>Ces deux acronymes sont au coeur de l'évolution du web actuel (le web de documents)
             vers le "semantic web" (le web de données)</item>
         </list>
-        <figure><graphic url="media/goto-rdf-1.png"/></figure>
-   <!--     <figure><graphic url="media/goto-rdf-2.png"/></figure>
-    -->  </div>
+        <figure>
+          <graphic url="media/goto-rdf-1.png"/>
+        </figure>
+        
+      </div>-->
       <div type="slide">
-        <head>Comment intégrer RDF en TEI ?</head>
-        <p>La TEI partage les objectifs fédératifs et "open" de LOD. 
+        <head> RDF and TEI </head>
+        <p>LOD and TEI share the same goals: data sharing, open resources, etc. Is RDF, the currently  
+          preferred technology for supporting LOD, usable with TEI resources? 
+     </p>
+       <list>
+         <item>The "meaning" of a set of TEI documents may be inherently complex, nuanced, internally
+          contradictory, imprecise.</item>
+         <item>The "meaning" of a web page supporting a bit of e-commerce is exhausted by its RDF
+          description</item></list>      
+        
+        <p>Nevertheless, several ways of integrating RDF descriptions into TEI documents have been
+          proposed:</p>
+        <list>
+          <item>directly, using the RDF namespace</item>
+          <item>using the element <gi>tei:relation</gi>
+          </item>
+          <item>using RDFa attributes</item>
+          <item>(ab)using the TEI elements <gi>graph</gi>, ou <gi>link</gi>, ou <gi>fs</gi></item>
+        </list>
+        <p rend="box">Under discussion since (at least) 2013... for a recent summary see <ptr
+            target="https://github.com/TEIC/TEI/issues/1860"/>
+        </p>
+      </div>
+      <!--
+          
+          a TEI partage les objectifs fédératifs et "open" de LOD. 
           Mais sa sémantique est plus dispersée. Elle ne simplifie pas les
           documents : on peut la lui reprocher, mais 
           la sémantique d'un ensemble de documents TEI est souvent dispersée dans son balisage d'une manière peu
@@ -1115,9 +1145,10 @@ n.p. https://bookbook.pubpub.org/pub/dgv16l22.
         <item>en utilisant/abusant l'élément <gi>graph</gi>, ou <gi>link</gi>, ou <gi>fs</gi></item>
       </list></p><p rend="box">Ca se discute depuis 2013... pour une synthèse récente, voir  <ptr
         target="https://github.com/TEIC/TEI/issues/1860"/></p>
-        
-      </div><div type="slide"><head>A la recherche d'une ontologie TEI</head>
-      <list>
+        -->
+      <div type="slide">
+        <head>Is the TEI really an ontology?</head>
+        <!-- <list>
         <item>Depuis longtemps, on propose de surajouter aux définitions des éléments TEI  une représentation
           de leur sémantique
         </item><item>par ex, dans l'élément <gi>equiv</gi>, ou en élargissant la système de classes actuelle
@@ -1129,26 +1160,35 @@ n.p. https://bookbook.pubpub.org/pub/dgv16l22.
         pas des ensembles de données abstraites ou objectives. </p>
         <p>Un document doit etre interprété: il faut compléter sa modélisation avec son/ses interpretation/s...
       </p>
-
-     
-     </div>
+-->
+        <list>
+          <item>The TEI was originally conceived as a way of modelling the concepts researchers
+            shared about the nature of the texts they wished to process</item>
+          <item>Modelling the semantics of that set of concepts formally remains a research project </item>
+          <item>(the TEI provides a hook in the shape of the <gi>equiv</gi> element) </item>
+          <item>Crosswalks or mappings to other "real" ontologies such as OWL are possible: one has
+            been implemented for CIDOC-CRM</item>
+        </list>
+<p rend="box">But before we can extract or model their content, documents must be interpreted... </p>
+      </div>
       <div type="slide">
-        <head>Science de texte: science de données</head>
-        <p rend="box">... et de même pour les données!</p>
-        <p>Il ne faut pas sous-estimer l'importance du contexte de production/consommation des données, non plus. </p>
-        <quote>All data is historical data: the product of a time, place, political, economic,
+        <head>Data science and textual data</head>
+        <p rend="box">.... and (maybe) the same applies to data</p>
+
+        <quote>"All data is historical data: the product of a time, place, political, economic,
           technical, &amp; social climate. If you are not considering why your data exists, and
           other data sets don’t, you are doing data science wrong” </quote>
-        <quote>Les données ont toujours un aspect historique - elles ressortent d'un temps, d'un
+        <!--  <quote>Les données ont toujours un aspect historique - elles ressortent d'un temps, d'un
           endroit, ou d'un climat socio-économique spécifique.  Si vous ne mettez pas en question les raisons
           pour lesquelles vos données à vous existent et d'autres sont disparues, alors
           vous pratiquez incorrectement la science de données</quote>
+-->
         <p> [Melissa Terras, Opportunities, barriers, and rewards in digitally-led analysis of
           history, culture and society. Turing Lecture 2019-03-03, <ptr
-            target="https://www.youtube.com/watch?v=bf6DsJ7VcLI"/>]
-       </p>
-        
-        <p rend="box"><quote>Text is not a special kind of data: data is a special kind of text</quote>
+            target="https://www.youtube.com/watch?v=bf6DsJ7VcLI"/>] </p>
+
+        <p rend="box"><quote>Text is not a special kind of data: data is a special kind of
+            text</quote>
         </p>
       </div>
     </body>
