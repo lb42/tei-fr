@@ -49,7 +49,7 @@
      <item>so you will need to define an XML schema to describe them</item>
      <item>You need to provide documentation about <list> <item>the semantics of your XML
       schema</item> <item>constraints, usage notes, examples</item> </list></item>
-     <item>You need to keep the two in step</item>
+     <item>You need to keep the schema and the documentation in step</item>
      <item>You want to share the results <list> <item>with others</item> <item>with yourself, long
       term</item> </list></item>
      <item>you don't want to reinvent the wheel</item>
@@ -100,9 +100,9 @@
     <head>A simple example</head>
     <p rend="box">Our markup uses a <gi>book</gi> element, which contains a mixture of
      <gi>para</gi>s and <gi>picture</gi>s. We have never heard of the TEI and we don't want to use
-     it. </p>
+     it. Likewise namespaces. </p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
-     <schemaSpec ns="" start="book" ident="bookSchema">
+     <schemaSpec ns="" ident="bookSchema" start="book" >
       <elementSpec ident="book">
        <desc>Root element for a very simple schema</desc>
        <content>
@@ -154,10 +154,9 @@
     <p>TEI provides a special element for the latter purpose: <egXML
      xmlns="http://www.tei-c.org/ns/Examples" rend="tiny"><specList><specDesc key="para"/><specDesc
      key="picture"/></specList></egXML> which would generate something like <list type="gloss">
-     <label><gi>para</gi></label> <item>textual element in a very simple schema (may have pictures
-     in it) </item> <label><gi>picture</gi></label> <item>Empty element to point at a picture</item>
+      <label><gi>para</gi></label> <item>paragraph of running text</item> <label><gi>picture</gi></label> <item>empty element pointing to a graphic file</item>
      </list> inside our running text</p>
-   </div>
+   </div><!--
    <div type="tp">
     <head>Let's try this out ... </head>
     <list>
@@ -174,7 +173,7 @@
      <item>Open the test file <ident>oddex-1-test.xml</ident> and associate it with the generated
       schema; validate the file. </item>
     </list>
-   </div>
+   </div>-->
    <div type="slide">
     <head>Defining a model class</head>
     <p>In the real world, the elements that can appear inside a <gi>book</gi> are likely to be many
@@ -216,7 +215,7 @@
      xmlns:rng="http://relaxng.org/ns/structure/1.0" type="anyURI"/> </datatype> </attDef>
      </attList></classSpec> </egXML></p>
    </div>
-   <div type="tp">
+   <!--<div type="tp">
     <head>Test your understanding</head>
     <list>
      <item>Open the file <ident>oddex-2.odd</ident> with oXygen and compare it with
@@ -225,11 +224,11 @@
       <ident>oddex-1-test.xml</ident> is still valid</item>
      <item>Check that you understand how the class references are being used.</item>
     </list>
-   </div>
+   </div>-->
    <div type="slide">
     <head>Controlling attribute values</head>
     <list>
-     <item>The value of an attribute can be specified just by referring to an externally defined
+     <item>Attribute values can be constrained just by referring to an externally defined
       datatype such as <code>anyURI </code> or <code>ID</code> (these are W3C defined standards) </item>
      <item>We can also supply and document our own list of required or recommended values using the
       <gi>valList</gi> element</item>
@@ -396,7 +395,7 @@
     <p>The <att>source</att> attribute indicates where the referenced specifications are to be found
     </p>
    </div>
-   <div type="tp">
+  <!-- <div type="tp">
     <head>Constructing a TEI ODD</head>
     <list>
      <item>Open the file <ident>oddex-3.odd</ident> and compare it with the previous versions</item>
@@ -408,7 +407,7 @@
     </list>
     <p rend="box">We'll look at the TEI use of ODD in more detail this afternoon</p>
    </div>
-
+-->
   <!-- <div type="slide">
     <head>The TEI uses ODD in two ways ...</head>
     <list>
@@ -448,9 +447,9 @@
      <item>In TEI we use these to express additional semantic or co-occurrence constraints that
       cannot be expressed in any schema language</item>
      <item>Not all XML processing systems take notice of these (but oXygen does).</item>
-     <item>They are also useful when implementing Pure ODD constructs that cannot be expressed in
+   <!--  <item>They are also useful when implementing Pure ODD constructs that cannot be expressed in
       the target schema language</item>
-    </list>
+-->    </list>
  
  <!--
    <div xml:lang="fr" type="slide">
@@ -463,13 +462,13 @@
       target="http://schematron.com/">ISO Schematron </ref> dans son propre espace de noms; la règle
       est emballée dans un <gi>constraint</gi></item>
     </list>-->
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
      <elementSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div" module="teistructure"
       mode="change">
       <constraintSpec ident="div" scheme="isoschematron">
        <constraint>
-        <s:assert test="@type='prose' and .//tei:p"> a prose div should contain at least one
-         paragraph</s:assert>
+        <s:assert test="@type='prose' and .//tei:p"> 
+         a prose div should contain at least one paragraph</s:assert>
        </constraint>
       </constraintSpec>
      </elementSpec>
@@ -650,23 +649,22 @@
     <p>A single ODD may contain two types of object: <list> <item>an explicit specification (e.g. an
      <gi>elementDecl</gi>), partial or complete</item> <item>a reference to such a
      specification</item> </list> </p>
-    <p>Note also that a single ODD may combine two or more partial specifications for a given
+    <p>A single ODD may combine two or more partial specifications for a given
      object. </p>
-    <p> The <att>source</att> attribute indicates an ODD in which <list> <item>all references have
-     been resolved, and replaced by the declarations concerned</item> <item>all partiel declarations
+    <p> In a <term>compiled ODD</term>,  <list> <item>all references have
+     been resolved, and replaced by the declarations concerned</item> <item>all partial declarations
      for the same object have been resolved </item> </list></p>
-    <p rend="box">We call this process "compilation" and it is carried out by the XSLT stylesheet
-     <ident>odd2odd</ident></p>
+    <p rend="box">The <att>source</att> attribute always indicates a compiled ODD
+  </p>
    </div>
 
 
-   <div type="slide" xml:lang="fr">
+<div type="slide" xml:lang="fr">
     <head>Using a compiled ODD</head>
-    <p>A compiled ODD can serve as the basis for further modifications. In this example, we start
-     from a compiled version of the TEI-bare schema.</p>
-    <p>
-     <p>In this example, we suppress the <gi>head</gi> element: </p>
-     <egXML xmlns="http://www.tei-c.org/ns/Examples">
+    <p>A compiled ODD can serve as the basis for further modifications. Starting with a compiled version of the TEI-bare schema...</p>
+   
+     <p> ...we could suppress the <gi>head</gi> element: </p>
+     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
       <schemaSpec ident="Bare-minus" source="tei_bare.compiled.odd" start="TEI">
        <moduleRef key="tei"/>
        <moduleRef key="header"/>
@@ -674,18 +672,18 @@
        <moduleRef key="textstructure"/>
       </schemaSpec>
      </egXML>
-     <p>And in this one, we add the contents of the module <ident>gaiji</ident></p>
-     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-      <schemaSpec ident="Bare-plus" source="tei_bare.compiled.odd" start="TEI">
-       <moduleRef key="tei"/>
+     <p>... or we could add the contents of the module <ident>gaiji</ident> </p>
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+      <schemaSpec ident="Bare-plus" source="tei_bare.compiled.odd" start="TEI">     
+    <moduleRef key="gaiji" source="http://www.tei-c.org/release/xml/tei/odd/p5subset.xml"/>
+    <moduleRef key="tei"/>
        <moduleRef key="header"/>
-       <moduleRef key="gaiji" source="http://www.tei-c.org/release/xml/tei/odd/p5subset.xml"/>
        <moduleRef key="textstructure"/>
       </schemaSpec>
      </egXML>
-    </p>
-    <p rend="box">Note that we can only suppress or obtain items already supplied by the compiled
-     ODD specified in the <att>source</att> attribute </p>
+  
+<p rend="box">Note that we can only suppress or add items already supplied by the compiled
+     ODD specified in the <att>source</att> attribute. </p>
    </div>
 
    <div>
@@ -702,7 +700,8 @@
                     schemas we use the facility known as ODD chaining...
                   </p>-->
     <figure>
-     <graphic height="70%" url="../Graphics/eltec-chains.png"/>
+     <graphic height="80%" url="../Graphics/eltec-chains.png"/>
+     <head>See <ptr target="https://github.com/COST-ELTeC/Schemas/tree/master/ODD"/> </head>
     </figure>
     <cb/>
     <list>
@@ -714,8 +713,11 @@
       which selects a subset from that
       library</item>
     </list>
-    <p>Source at <ptr target="https://github.com/COST-ELTeC/Schemas/tree/master/ODD"/> 
-   </p>
+</div><div type="slide"><head>Advantages of this approach</head>
+ <list>
+  <item>A single set of definitions, documented in one place, in one way, and accessible to all</item><item>At the same time, any number of specialised and tightly constrained subsets, appropriate to particular environments or applications</item>
+ </list>
+ <p>Other use cases: <list><item>crowdsourcing applications with progressive enrichment </item><item>digitized manuscript collections combining edited transcriptions with rich  metadata</item></list></p>
    </div>
    <div type="slide">
     <head>Types of ODD (1)</head>
@@ -793,7 +795,9 @@
    </div>
 
    <div type="slide">
-    <head>Useful links : Reference documentation</head>
+    <head>Useful links : Reference documentatio</head>
+    <p>For this talk (and others) visit my boasting page at  <ptr target="http://lb42.github.io"/></p>
+    <p>For authoritative reference information, consult the Guidelines!</p>
     <list>
   <item>« 22 : Documentation » in <title>TEI Guidelines</title>. <ref
         target="https://tei-c.org/release/doc/tei-p5-doc/en/html/TD.html">
