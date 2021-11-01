@@ -44,7 +44,7 @@
         </list>
         <p rend="box">Le système TEI nous propose plusieurs manières d'organiser tout cela</p>
       </div>
-      <div>
+   <!--   <div>
         <head>Pourquoi distinguer les manuscrits?</head>
         <list>
           <item>chaque manuscrit est effectivement un object unique</item>
@@ -55,7 +55,7 @@
         <p rend="box">Les memes principes s'appliquent aux inscriptions monumentales, aux
           incunables, etc </p>
       </div>
-
+-->
       <div rend="slide">
         <head>Qu'est cet objet?</head>
         <p><graphic url="../Graphics/booke.png"/></p>
@@ -112,7 +112,7 @@
             leurs sources, les méthodes d'encodage concernées etc </item>
         </list>
         <p rend="box">Une <q>numérisation</q> pourrait donc être considerée comme soit un
-            <q>text</q>, soit un <q>document</q>
+            <q>text</q>, soit un <q>document</q> -- ou tout les deux.
         </p>
       </div>
       <div>
@@ -263,7 +263,7 @@
               <ident>jeanne-2.jpg</ident> et <ident>jeanne-3.jpg</ident></item>
           <item>Ouvrez le fichier <ident>jeanne-0.xml</ident> avec oXyGen </item>
           <item> Balisez correctement : <list>
-              <item>les pages : <tag>pb/</tag></item>
+           <item>les débuts de page : <tag>pb/</tag></item>
               <item>les phrases en langue étranger (latin, grec) : <gi>foreign</gi></item>
               <item>les paragraphes : <gi>p</gi></item>
               <item>les biffures : <gi>del</gi></item>
@@ -301,7 +301,7 @@
             >J'ai donc à vous prévenir Me&#x017f;sieurs et Mesdames ... </egXML> mais on peut aussi
           representer le graphème indirectement : <egXML xmlns="http://www.tei-c.org/ns/Examples">
             ... Me<g ref="#long-s-glyph">s</g>ieurs et Mesdames...</egXML> ce qui est d'ailleurs
-          obligatoire si le graphème ne figure pas dans la police utilisée.</p>
+         nécessaire si le graphème ne figure pas dans la police utilisée.</p>
           <!--<egXML
             xmlns="http://www.tei-c.org/ns/Examples"> ... <g ref="#per-glyph">per</g> ... </egXML>
         </p>-->
@@ -379,17 +379,19 @@
         <p>Mais, en effet, <q>pour</q> a été écrit <q>po</q> suivi d'une lettre <q>r</q> suscrite;
             <q>cinquante</q> comme <q>cinqu&#x0101;te</q> avec un macron sur le <q>a</q> pour
           signaler la nasalisation. </p>
-        <p>On pourrait donc encoder ces mots de l’une ou l’autre des manières ci-après  : <egXML
-            xmlns="http://www.tei-c.org/ns/Examples">
+      <p>On pourrait encoder ces mots de plusieurs manières.</p><p>On indique la totalité du mot abrégé en utilisant <gi>abbr</gi>: <egXML
+            xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <p>
               <abbr>po&amp;#xFFFD;</abbr> .... <abbr>cinqu&#x0101;te</abbr>
             </p>
           </egXML>
         </p>
-        <p>... ou : <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <p>... ou on indique le symbole utilisé pour indiquer la suppression d’une ou plusieurs lettres en utilisant <gi>am</gi>; les lettres substituées à ce symbole lorsqu’on
+       résoud l’abréviation en utilisant <gi>ex</gi> <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <p> po<am>&amp;#xFFFD;</am> ... ou po<ex>u</ex>r </p>
-          </egXML>
-          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+          </egXML></p>
+      <p>On peut utiliser les deux niveaux conjointement: 
+          <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
             <p>
               <abbr>po<am>&amp;#xFFFD;</am></abbr> ou <expan>po<ex>u</ex>r</expan>
             </p>
@@ -560,7 +562,7 @@
           partie du texte avec certitude. Les attributs <att>agent</att> et <att>extent</att>
           précisent respectivement la cause et l’étendue des dommages. </p>
         <p><graphic url="../Graphics/psnypl_berg_979-detail.jpg" height="40%"/></p>
-        <egXML xmlns="http://www.tei-c.org/ns/Examples">IN the bosom <damage group="1"
+        <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples">IN the bosom <damage group="1"
             >o</damage>f one of those spa <lb n="2"/>cious coves wh<damage group="1"
               >ich inde</damage>nt the eastern <lb n="3"/>shore of the <damage
                 group="1">Hudson, at </damage>that broad <lb n="4"/>expansion <damage
@@ -664,15 +666,16 @@
         </figure>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <l>Flowed up the hill and down King William Street,</l>
-          <delSpan spanTo="#EPdelEnd" resp="#EP" rend="strikethrough"/>
+          <delSpan spanTo="#EPdelEnd" hand="#EP" rend="strikethrough"/>
           <l>To where Saint Mary Woolnoth kept the time,</l>
           <l>With a dead sound on the final stroke of nine.</l>
           <anchor xml:id="EPdelEnd"/>
           <l>There I saw one I knew, and stopped him, crying "Stetson!</l>... </egXML>
       </div>
-      <div>
-        <head>Usage des attributs pour capturer une séquence implicitement</head>
-        <list>
+   <div>
+        <head>Usage des attributs <att>resp</att> et <att>hand</att></head>
+    <p>L'attribut <att>resp</att> indique responsabilité de l'assertion indiqué par un balisage.</p>
+    <list>
           <item>L'auteur (WJ) a écrit <val>One must have lived... </val></item>
           <item>Il rajoute un mot <val>But</val> avant <val>One</val>
           </item>
@@ -680,12 +683,14 @@
           </item>
         </list>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <add place="supra" hand="#WJ" cert="medium"> But</add>
+          <add place="supra" resp="#WJ" cert="medium"> But</add>
           <choice>
             <sic>One</sic>
             <corr resp="#FB" cert="high">one</corr>
-          </choice> must have lived ... <!-- elsewhere -->
-          <respStmt xml:id="FB">
+          </choice> must have lived ... 
+        </egXML> 
+    <p>L'attribut <att>hand</att> indique simplement la main dans laquelle le contenu de cet élément a été écrit. Un élément vide <gi>handShift</gi> est aussi disponible.</p>
+       <!--  
             <resp>editorial changes</resp>
             <name>Fredson Bowers</name>
           </respStmt>
@@ -693,11 +698,11 @@
             <resp>authorial changes</resp>
             <name>William James</name>
           </respStmt>
-        </egXML>
+        </egXML>-->
       </div>
       <div>
-        <head>Usage des attributs pour capturer la séquence explicitement</head>
-        <p>Dans une édition génétique, l'objectif serait de distinguer les étapes d'ecriture </p>
+        <head>Capturer la séquence</head>
+       <p>Dans une édition génétique, l'objectif serait de distinguer les étapes d'écriture </p>
         <list>
           <item>Une main (M1) a écrit <val>One must have lived... </val></item>
           <item>Plus tard cette meme main rajoute le mot <val>But</val> avant <val>One</val>
@@ -714,7 +719,7 @@
           <change xml:id="S3" who="#M2">corrections d'une autre main</change>
         </egXML>
       </div>
-      <div>
+      <!--<div>
         <head>Exemple plus élaboré</head>
         <figure>
           <graphic url="../Graphics/etapes-1.png" width="200px"/>
@@ -746,7 +751,7 @@
         <egXML rend="tiny" xmlns="http://www.tei-c.org/ns/Examples"><zone xml:id="zone1"
             change="#ST-1">
             <line> 28) le court de tennis. Les tribunes sont ... Deux joueurs</line>
-            <!-- ... -->
+            <!-\- ... -\->
             <line>30) l’un des joueurs de tennis se tient ... trois</line>
             <line>fois sur le sol</line>
             <zone change="#ST-2"><line>31) </line>
@@ -755,13 +760,13 @@
               <line>la vieille dame ... dans le vestibule (contre-jour)</line></zone>
             <line>3<subst change="#ST-2"><del>1</del><add>2</add></subst>)Le groupe de cavaliers
               ...</line>
-            <!-- ... -->
+            <!-\- ... -\->
             <line>... Le mot FIN apparaît sur l’écran.</line>
           </zone>
           <zone change="#ST-3"><line>Dans ce cas...</line>
           </zone>
         </egXML>
-      </div>
+      </div>-->
       <!-- <div>
         <head>La balise <gi>restore</gi> peut indiquer un changement d'avis</head>
         <list>
@@ -791,7 +796,7 @@
         </list>
         <p rend="box">Les textes non-linéaires sont des non-textes (Daniel Ferrer)</p>
       </div>-->
-      <div>
+     <!-- <div>
         <head>Image et texte</head>
         <figure>
           <graphic url="../Graphics/royal12cxix_f38.jpg" height="80%"/>
@@ -804,10 +809,12 @@
         <p rend="box">La portée d'un document manuscrit derive autant de son iconographie que de ses
           aspects textuels. </p>
         <p>La TEI propose donc des manières d'encoder les deux, séparamment ou ensemble</p>
-      </div>
+      </div>-->
       <div>
         <head>Texte ou Image</head>
-        <p>A tout époque on trouve des documents plus ou moins <q>ludiques</q>, dont la
+       <p>La portée d'un document manuscrit peut dériver autant de son iconographie que de ses
+        aspects textuels. </p>
+       <p>A tout époque on trouve des documents plus ou moins <q>ludiques</q>, dont la
           signification dérive en partie de sa mise en forme plutôt que de ses propretés
           linguistiques, ou de la tension entre les deux </p>
         <cb/>
@@ -818,6 +825,20 @@
           <graphic url="../Graphics/EasterWings.jpg" width="5cm"/>
         </figure>
       </div>
+     <div>
+      <head>Texte et document en complément</head>
+      <list type="bulleted">
+       <item>Le <emph>processus</emph> de création du document est au moins aussi important que
+        le texte qu'il contient </item>
+       <item>Le texte n'a pas de sens indépendamment du document : que ce soit parce que <list>
+        <item>Le texte est présenté graphiquement </item>
+        <item>Le texte est non-linéaire, aléatoire, combinatoire....</item>
+       </list></item>
+      </list>
+      <p>La TEI propose donc des manières d'encoder les deux, texte et document, séparamment ou ensemble</p>
+  <!--    
+      <p rend="box">Les textes non-linéaires sont des non-textes (Daniel Ferrer)</p>
+-->     </div>
       <div>
         <head>Structures TEI pour la transcription des sources</head>
         <list>
@@ -865,7 +886,7 @@
         <p>(On se servirait de <gi>sourceDoc</gi> au lieu de <gi>text</gi> selon ses principes
           editoriaux)</p>
       </div>
-      <div xml:lang="en">
+    <!--  <div xml:lang="en">
         <head>Inconvénients</head>
         <list>
           <item>difficile de supporter des relations plus compliquées </item>
@@ -877,7 +898,7 @@
           <item>plusieurs images pour une seul page</item>
           <item>comment associer des pages, par ex pour une feuille, ou une double-page </item>
         </list>
-      </div>
+      </div>-->
       <div>
         <head>On dispose de versions alternatives d'une même image ?</head>
         <p>L'élément <gi>surface</gi> nous permet de regrouper les images équivalentes: </p>
@@ -1097,18 +1118,18 @@
           <item>Essayez d'autres transformations avec Oxygen <list>
               <item>Ouvrez le dialog <ident>Configurer les Scénario(s) de
                 Transformation</ident></item>
-              <item>Dans la liste des scénarios qui s'affiche, selectionnez TEI P5 XHTML et TEI P5
+              <item>Dans la liste des scénarios qui s'affiche, selectionnez (par ex) TEI P5 XHTML et TEI P5
                 DOCX</item>
               <item>Cliquez sur <ident>Appliquer associés (2)</ident></item>
             </list></item>
         </list>
-      </div><div><head>Pour continuer...</head>
+      </div><div><head>Pour conclure ...</head>
        <p>S'il vous reste du temps et si vous préfériez travaillez avec un document plus moderne, il y a des images du manuscrit d'un célèbre
         document du Général De Gaulle dans
-        votre dossier Travaux. Essayez de compléter et de baliser la version texte en
+        votre dossier <ident>Travaux</ident>. </p><p>Essayez de compléter et de baliser la version texte en
         <ident>deGaulle.txt</ident> en regardant les fichiers images
         <ident>degaulle-recto.jpg</ident> et <ident>degaulle-verso.jpg</ident>. 
-       </p></div>
+       </p><p>Ensuite voir sa visualisation.</p></div>
     </body>
   </text>
 </TEI>
