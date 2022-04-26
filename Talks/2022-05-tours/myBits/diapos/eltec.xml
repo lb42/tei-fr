@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/home/lou/Public/TEIslides/teislides.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TEI et la lecture à distance: le cas d'ELTeC</title>
+                <author xml:id="LB42">Lou Burnard</author>
+                <author>Christof Schöch</author>
+                <author>Carolin Odebrecht</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>unpublished draft</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>born digital</p>
+            </sourceDesc>
+        </fileDesc>
+        <revisionDesc>
+           <change when="2021-09">Translated and tweaked for Tours</change> <change when="2019-09-13">Created file fr Graz</change>
+        </revisionDesc>
+    </teiHeader>
+  
+    <text>
+        <body>
+       <div type="slide"><head>La TEI est née interdisciplinaire</head>
+       <p>La réunion qui l'a fait naître, à Poughkeepsie en 1987, attirait des scientifiques de plusieurs disciplines -- 
+           faisant se mélanger des informaticiens, des linguistes formels et computationnels, ainsi que des littéraires, des classicistes, 
+           des médiévistes etc.</p><p>Son évolution manifeste l’intérêt de tels croisements disciplinaires et géographiques
+           </p></div>
+           <!-- <div type="slide">
+                <head>The TEI was born interdisciplinary</head>
+
+                <p>This is not such a new idea...</p>
+                <p>Participants at the Poughkeepsie conference came from many disciplines, including
+                    computer science and computer services, NLP, theoretical linguistics but also
+                    literary studies, classics, historical, and medieval studies. </p>
+                <p>Its advisory board and formative working groups sought varied representation,
+                    both geographically and by discipline. </p>
+                <p>There is ample anecdotal evidence of cross disciplinary fertilisation</p>
+            </div>-->
+            <div type="slide"><head>"What is text really?"</head>
+            <list><item>le "texte" est une abstraction, construite par ou pour un communauté de lecteurs</item>
+                <item>mais il reste possible de construire un modèle abstrait rassemblant toutes les "particularités signifiantes" de
+                    tout texte</item>
+                <item>ces particularités seraient utiles à considérer et à énumérer
+                        <list><item>indépendamment de leur expression dans un document quelconque</item>
+                            <item>indépendamment de leurs usages par une discipline quelconque</item>
+                        </list></item></list>
+                        <p>La TEI a toujours essayé d'être le médiateur entre deux orthodoxies:
+                        <list>
+                            <item>le texte n'est ni moins ni plus que le document qui l'instancie</item>
+                            <item>le texte est un phénomène linguistique composé de mots :  
+                            les propriétés statistiques des mots suffisent à le décrire</item>
+                       </list></p>
+               <p rend="box">Tout comme les humanités numériques en général, la TEI cherche un équilibre entre ces deux positions</p> 
+            </div> 
+                        <!--  <div type="slide">
+                <head>What text really is... </head>
+                <list>
+                    <item>"Text" is in the mind of the reader: a construction of and for a
+                        particular community</item>
+                    <item>A generic abstract model summarizing the <term>significant
+                            properties</term> of all texts is conceivable</item>
+                    <item>Such properties may usefully be considered independently of <list>
+                            <item>their expression in a particular document</item>
+                            <item>their use in a particular discipline</item>
+                        </list></item>
+                </list>
+                <p>TEI has always had to mediate two orthodoxies <list>
+                        <item>text is no less and no more than the documents which instantiate
+                            it</item>
+                        <item>text is no less and no more than a linguistic phenomenon, a bag of
+                            words whose statistical properties suffice to describe it</item>
+                    </list></p>
+                <p rend="box">Is this model of text compatible with the model underlying the fields
+                    of stylometry, stylistics, textual analytics, aka distant reading?</p>
+            </div>-->
+            <div type="slide">
+                <head>COST Action 16204 “Distant Reading for European Literary History” </head>
+                <figure><graphic url="../media/costKickoff.jpg" height="40%"/></figure>
+                <list>
+                    <item>Voir <ptr target="https://www.distant-reading.net"/>: un réseau collaboratif
+                        de chercheurs, pour la plupart européens,
+                        rassemblant une trentaine de partenaires représentant 24 pays</item>
+                         <item>organisé en quatre groupes de travail :
+                            <list><item>WG1 Scholary Resources (Ressources scientifiques)
+                               </item><item> WG2 Methods and Tools (Méthodes et outils)
+                               </item><item> WG3 Literary Theory and History (Théorie et histoire littéraires)
+                               </item><item> WG4 Dissemination (Vulgarisation)</item></list></item>
+                    <item>Objet principal : construction et exploitation d'un grand corpus de romans du
+                        19eme siècle, sélectionnés selon des principes explicites, pour permettre des
+                        analyses comparatives de l’évolution européenne de cette forme littéraire</item>
+                    
+                </list></div>
+<!--
+                    <div type="slide">
+                        <head>COST Action 16204 “Distant Reading for European Literary History” </head>
+                        <figure><graphic url="../media/distantreading.png" height="20%"/></figure>
+                        <list>
+                            <item>See <ptr target="https://www.distant-reading.net"/>
+                            
+                            <item>European network with 35 members from 23 countries bringing together
+                        researchers from different disciplines and scientific backgrounds </item>
+                    <item>Like TEI, COST is a community initiative fostering collaboration,
+                        interoperability, and mutual understanding</item>
+                    <item>Four working groups, reporting to a management committee comprising two
+                        national representatives from each participating country </item></list></div>
+    <div type="slide"><head>COST contd.</head>
+                <list>
+                    <item>We report here on WG1 ("Scholarly resources") which is charged with design
+                        and construction of the the European Literary Text Collection (ELTeC). <list>
+                            <item>a set of comparable corpora for each of at least a dozen European
+                                languages, </item>
+                            <item>a balanced selection of 100 novels from the 19th century</item>
+                            <item> metadata situating them in their contexts of production and of
+                                reception. </item>
+                        </list></item>
+                </list>
+                <p rend="box">ELTeC is of course a TEI application... </p>
+            </div>    -->    
+            <div type="slide">
+                <head>Objectifs de l'encodage ELTeC</head>
+                <list>
+                    <item>permettre les méthodes computationelles pour l'analyse littéraire
+                        (stylométrie, textometrie, attribution d'auteur etc. )
+                        </item>
+                    <item>garantir un minimum de métadonnées, sans permettre une extension indéfinie
+    </item>
+                    <item>établir des éditions authentiques mais ne pas se préoccuper trop des questions éditoriales
+         </item>
+                    <item>limiter strictement les choix d'encodage disponibles pour l'encodeur ; ainsi
+                        réduire la complexité de l'encodage pour le développeur</item>
+                    <item>faciliter ainsi un accès uniforme et consistant à travers
+                        les corpus multiples</item>
+                </list>
+                <p rend="box">Par contre, la TEI classique aime la variété, même si cela
+                    crée des difficultés pour les travaux comparatifs</p>
+            </div>
+          <!--  
+            <div type="slide">
+                <head>ELTeC Encoding Requirements</head>
+                <list>
+                    <item>support computational approaches to literary text analysis (authorship
+                        attribution, topic modelling, stylistic analysis ...)</item>
+                    <item>enrich corpora with metadata and impose only a minimal structure</item>
+                    <item>editorial issues of lesser interest</item>
+                    <item>markup should offer the encoder very little choice, and the software
+                        developer very few surprises</item>
+                    <item>aim to facilitate uniform and consistent access across multiple
+                        corpora</item>
+                </list>
+                <p rend="box">Traditional TEI, by contrast, rejoices in variety, which makes
+                    comparative work harder</p>
+            </div>
+     -->       <div type="slide">
+                <head>Encodage(s) ELTeC </head>
+                <list>
+                    <item>niveau 0 : encodage minimal, sans trop d'intervention humaine
+                        </item>
+                    <item>niveau 1 : encodage un peu plus riche, mais automatisable à partir d'autres
+                        formats souvent rencontrés (par ex. Word, HTML, TEI...)
+                        </item>
+                    <item>niveau 2 : encodage enrichi avec des annotations linguistiques
+                       </item>
+                </list>
+                <p rend="box">métadonnées identiques à chaque niveau : un teiHeader sans flexibilité
+                    </p>
+            </div>
+            <div type="slide">
+                <head>level 0 : le minimum </head>
+                <list>
+                    <item>les pièces liminales éditoriales sont exclus</item>
+                    <item>les pages de titre sont distinguées d'autre sections liminaires mais sans balisage détaillé
+                     </item>
+                    <item>la structuration en chapitres et paragraphes est obligatoire, mais rien d'autre</item>
+                    <item>tout bloc de texte est considéré  un <gi>p</gi> ou un <gi>head</gi>
+                      </item>
+                    <item>les mots interrompus par une coupure de ligne sont rassemblés
+                       </item>
+                    <item>sont exclus: tout paratexte, illustration, note, correction</item>
+                    <item>sont distingués facultativement : coupures de page, mises en évidence
+                       </item>
+<!--                    <item>text may or may not be normalized: no indication either way</item>
+-->
+                </list>
+           </div><div type="slide"><head>level 1 : le plus pratique</head> 
+             
+                   <list>
+                       <item>indication de sous-structure des chapitres en utilisant <gi>milestone</gi> et<gi>label</gi></item>
+                       <item>possibilité d’interpréter la fonction des mots mis en évidence par ex.
+                           <gi>emph</gi>
+                           <gi>foreign</gi> ou <gi>title</gi></item>
+                       <item>notes de bas de page etc. sont inclus mais transférés au <gi>back</gi>
+                          </item>
+                       <item>présence d'images etc. indiqué par <gi>gap</gi></item>
+          <!--             <item>normalized forms are explicit but original forms are lost</item>
+                       
+          -->         </list></div> <!--<div type="slide">
+                <head>ELTeC encoding scheme/s</head>
+                <list>
+                    <item>level 0: minimal encoding scheme for texts produced manually or by OCR
+                        from print originals</item>
+                    <item>level 1 : somewhat richer format derivable automatically from texts
+                        encoded in other formats (Word, HTML TEI ...)</item>
+                    <item>level 2 : lingistically annotated and segmented</item>
+                </list>
+                <p rend="box">and a tightly constrained Header common to each level</p>
+            </div>
+            <div type="slide">
+                <head>level 0 : minimal </head>
+                <list>
+                    <item>discard non authorial front or back matter</item>
+                    <item>distinguish titlepage from other front matter</item>
+                    <item>mark chapter divisions and headings, but no substructure</item>
+                    <item>mark paragraphs (MLE blocks of text)</item>
+                    <item>reassemble words broken across lines</item>
+                    <item>discard paratext, illustrations, notes, corrections</item>
+                    <item>(optionally) mark pagebreaks and highlighting</item>
+                    <item>text may or may not be normalized: no indication either way</item>
+                    
+                </list>
+            </div>-->
+            <div type="slide">
+                <head>par exemple</head>
+                <figure>
+                    <graphic url="../media/p302-level0.png"/>
+                </figure>
+            </div>
+         <!--   <div type="slide">
+                <head>level 1 : some enrichment</head>
+                <list>
+                    <item>mark chapter substructure with <gi>milestone</gi> and <gi>label</gi>
+                        elements</item>
+                    <item>interpret highlighting, where possible, using <gi>emph</gi>
+                        <gi>foreign</gi> or <gi>title</gi></item>
+                    <item>record authorial notes (gathered together into back)</item>
+                    <item>record graphics as <gi>gap</gi></item>
+                    <item>normalized forms are explicit but original forms are lost</item>
+
+                </list>
+            </div>-->
+            <div type="slide">
+                <head>niveau 2 : annotation linguistique</head>
+                <list>
+                    <item>tokenisation avec <gi>w</gi>, utilisant les attributs de la classe att.linguistic 
+                            <att>pos</att>, <att>lemma</att>, et <att>join</att></item>
+                    <item>possibilité d'encoder les entités nommées en utilisant <gi>rs</gi></item>
+                    <item>possibilité d'ajouter une segmentation additionnelle en <gi>s</gi></item>
+                    <item>en principe un seul système d'annotation morpho-syntaxique (UDP) est déployé</item>
+                    <item>NB l'annotation est "en ligne", et non pas "déportée" -- faisable grâce à notre encodage minimal
+                        </item>
+                </list>
+                <p rend="box">... un travail toujours en cours</p>
+           </div>
+           
+            
+            <div type="slide">
+                <head>par exemple (1)</head>
+                
+                <figure>
+                    <graphic url="../media/frLevel2.png" height="80%"/>                </figure>
+            </div>
+            <div type="slide">
+                <head>par exemple (2)</head>
+                
+                <figure>
+                    <graphic url="../media/slLevel2.png" height="80%"/>                </figure>
+            </div>
+            <div type="slide">
+                <head>Métadonnées garanties</head>
+                <p>Tous les <gi>teiHeader</gi> fournissent, dans un format plus ou moins consistant
+                    : <list>
+                    <item>identification de l’œuvre et de sa langue
+                        (<att>xml:id</att> et
+                        <att>xml:lang</att> sur <gi>TEI</gi>)</item>
+                    <item>titre normalisé de l’œuvre
+                        (<gi>title</gi>)</item>
+                    <item>auteur, en format <val>Nom, Prénom/s (année de naissance-année de décès)</val>
+                        (<gi>author</gi>) avec référence VIAF si possible (sur @ref) </item>
+                    <item>indications de l'encodeur etc.
+                            (<gi>respStmt</gi>) </item>
+                    <item>information normalisée sur éditions numériqueq
+                        (générée automatiquement lors de l'archivage d'une version sur Zenodo)
+                        (<gi>publicationStmt</gi>) </item>
+                    <item>information sur toutes les sources utilisées, distinguant les versions imprimées, en
+                        page-images, et/ou transcrites(<gi>bibl</gi>)
+                        </item>
+                 <!--   <item>Encoding level : use the <att>n</att> attribute of
+                        <gi>encodingDesc</gi></item>
+             -->       <item>"Profile description", avec information sur la/les langues du texte
+                            et les critères de sélection :
+                           <list>
+                                <item>date de parution (un créneau parmi 5, entre  1840 and
+                                    1920)</item>
+                                <item>"canonicité" (high/low, nombre de ré-editions entre 1970 et 1990)</item>
+                                <item>sexe de l'auteur (M,F,X)</item>
+                                <item>taille du roman (short/medium/long)</item>
+                            </list></item>  
+                            
+                   <!-- <item>Révision description containing at least one <gi>change</gi></item>-->
+                </list></p>
+                <p>Un schéma, avec des règles schematron, contrôle toutes ces exigences 
+         .
+                    </p>
+                <p rend="box">et bien sûr, il y a un ODD derrière tout cela !
+                   </p>
+            </div>
+          <!--  <div type="slide">
+                <head>Header checklist</head>
+                <p>Nos  <list>
+                        <item>Identification of title and language (<att>xml:id</att> and
+                                <att>xml:lang</att> on <gi>TEI</gi>)</item>
+                        <item>Title of the work, followed by the phrase <val>: ELTeC edition</val>
+                                (<gi>title</gi>)</item>
+                        <item>Author, in format <val>Surname, Forename/s (birthYear-deathYear)</val>
+                                (<gi>author</gi>) </item>
+                        <item>Statements of responsibility in format <val>encoded by Name</val>
+                                (<gi>respStmt</gi>) </item>
+                        <item>Date of publication in ELTeC (<gi>publicationStmt</gi>) </item>
+                        <item>Source description containing one or more <gi>bibl</gi>
+                            elements</item>
+                        <item>Encoding level : use the <att>n</att> attribute of
+                                <gi>encodingDesc</gi></item>
+                        <item>Profile description specifying languages used and sampling criteria
+                            values (<gi>langUsage</gi>, <gi>textDesc</gi>)</item>
+                        <item>Revision description containing at least one <gi>change</gi></item>
+                    </list></p>
+                <p>Most requirements are enforced by the schema: others by schematron rules </p>
+                <p rend="box">a compromise between desire for minimal tagging and desire for
+                    precision</p>
+            </div>
+            <div type="slide">
+                <head>Metadata -1 </head>
+                <p>A novel, for us, is an original, continuous fictional text, of over 10k words,
+                    published as a single work. </p>
+                <list>
+                    <item>Non-opportunistic design, aiming for a balanced representation of
+                        pre-defined features common across european tradition</item>
+                    <item>specifically: <list>
+                            <item>date of first publication (one of five time slots between 1840 and
+                                1920)</item>
+                            <item>longevity/canonicity (high/low, as indicated by reprint
+                                count)</item>
+                            <item>author sex (one of 3 values as perceived in 19c)</item>
+                            <item>size (short/medium/long)</item>
+                        </list></item>
+                    <item>Achieving a balance of these features is NOT EASY</item>
+                    <item>These features are encoded in the header using a customized
+                            <gi>textDesc</gi> element</item>
+                </list>
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="tiny">
+                    <textDesc xmlns:e="http://distantreading.net/eltec/ns">
+                        <e:authorGender key="M"/>
+                        <e:size key="short"/>
+                        <e:canonicity key="low"/>
+                        <e:timeSlot key="T1"/>
+                    </textDesc>
+                </egXML>
+            </div>
+            <div type="slide">
+                <head>Metadata - 2</head>
+                <p>We aim to record the complete pedigree of our encoded texts in the header</p>
+                <list>
+                    <item>multiple types of <gi>bibl</gi> may be found in the <gi>sourceDesc</gi>
+                        <list>
+                            <item>printEdition: print edition from which our text was derived (e.g.
+                                by OCR)</item>
+                            <item>digitalEdition: published online edition from which our text was
+                                derived</item>
+                            <item>firstEdition: details of first edition, irrespective of whether
+                                this was our source</item>
+                        </list></item>
+                    <item>multiple <gi>respStmt</gi>s acknowledge encoders, editors, etc of previous
+                        editions</item>
+                </list>
+            </div>
+            --><!--
+            <div type="slide">
+                <head>Publication issues</head>
+                <p>Only out of copyright works are included, and all texts are published under CC-BY
+                    licence. </p>
+                <list>
+                    <item>maintenance and development in publically accessible github repositories
+                        at <ptr target="https://github.com/COST-ELTeC"/></item>
+                    <item>Releases archived under Zenodo (first one due next month)</item>
+                </list>
+                <p rend="box"> FAIR Guiding Principles: <hi>F</hi>indable on Zenodo;
+                    <hi>A</hi>ccessible on Github; using TEI makes it <hi>I</hi>nteroperable and
+                        <hi>R</hi>e-usable </p>
+
+            </div>-->
+            <div type="slide">
+                <head>Chaînage ODD</head>
+                <!--<p>Rather than maintain three independent but overlapping 
+                    schemas we use the facility known as ODD chaining...
+                  </p>-->
+                <figure>
+                    <graphic height="70%" url="../media/eltec-chains.png"/>
+                </figure>
+                <cb/>
+                <list>
+                    <item>ELTeC ODD fournit tous les éléments, pour chacun des niveaux et pour l’en-tête</item>
+                    <item>sa version compilée est utilisée comme source par eltec-0, eltec-1, et eltec-2
+                        </item>
+                    <item>chaque niveau ELTeC correspond à un sous-ensemble différent
+                        </item>
+                </list>
+                <p>Voir sur <ref target="https://github.com/COST-ELTeC/Schemas">https://github.com/COST-ELTeC/Schemas</ref></p>
+            </div>
+            <div type="slide">
+                <head>Etat actuel du projet</head>
+                <p>Voir <ref target="https://distantreading.github.io/ELTeC"                    >https://distantreading.github.io/ELTeC</ref></p>
+
+                <!--<list>
+                    <item>Building the next (and subsequent!) releases</item>
+                    <item>Improving metadata, e.g. operationalizing canonicity counts</item>
+                    <item>Testing level2 proposals</item>
+                </list>-->
+               <!-- <p rend="box">News at <ptr target="https://www.distant-reading.net/news/"/></p>
+           --> </div>
+        </body>
+    </text>
+</TEI>

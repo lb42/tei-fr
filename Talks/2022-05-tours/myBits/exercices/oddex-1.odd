@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
+	schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc>
+   <titleStmt>
+    <title>Mon premier ODD</title>
+   </titleStmt>
+   <publicationStmt>
+    <p>[informations sur l'edition]</p>
+   </publicationStmt>
+   <sourceDesc>
+    <p>[informations sur la source]</p>
+   </sourceDesc>
+  </fileDesc>
+ </teiHeader>
+ <text>
+  <body>
+   <p>Dans ce schéma simplissime, l'élément de racine s'appelle <gi>book</gi> et il peut contenir
+    les éléments suivants: <specList>
+    <specDesc key="para"/>
+    <specDesc key="image" atts="href"/>
+    </specList></p>
+
+   <schemaSpec ns="" start="book" ident="bookSchema">
+    <elementSpec ident="book">
+     <desc>Elément racine d'un schéma simplissime pour encoder les livres</desc>
+     <content>
+      <alternate minOccurs="1" maxOccurs="unbounded">
+       <elementRef key="para"/>
+       <elementRef key="image"/>
+      </alternate>
+     </content>
+     <remarks>
+      <p>wibble</p>
+     </remarks>
+    </elementSpec>
+
+    <elementSpec ident="para">
+     <desc>une paragraph de text </desc>
+     <content>
+      <textNode/>
+     </content>
+    </elementSpec>
+
+    <elementSpec ident="image">
+     <desc>un élément vide qui pointe sur un fichier graphique</desc>
+     <content>
+      <empty/>
+     </content>
+     <attList>
+      <attDef ident="href">
+       <desc>fournit l' URI de l'objet ciblé</desc>
+       <datatype>
+        <dataRef name="anyURI"/>
+       </datatype>
+      </attDef>
+     </attList>
+    </elementSpec>
+   </schemaSpec>
+
+  </body>
+ </text>
+</TEI>
