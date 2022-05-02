@@ -84,7 +84,9 @@
       xmlns="http://www.tei-c.org/ns/Examples">
       <p>Nous n’utilisons que ces éléments du module <ident>linking</ident> : <specGrp
       xml:id="linkingElts">
-      <!-- quelques elementSpec etc --> </specGrp> </p></egXML> </item>
+      <!-- quelques elementSpec etc --> 
+      </specGrp> </p></egXML> </item>
+     
      <item><gi>specGrpRef</gi> : indique où on souhaite intégrer les déclarations précisées par un
       <gi>specGrp</gi> <egXML xmlns="http://www.tei-c.org/ns/Examples"> <specGrpRef
       target="#linkingElts"/></egXML></item>
@@ -222,7 +224,8 @@
     <egXML xmlns="http://www.tei-c.org/ns/Examples" rend="full"> <elementSpec
      xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="div" module="teistructure" mode="change">
      <constraintSpec ident="div" scheme="isoschematron"> <constraint> <s:assert test="@type='prose'
-     and .//tei:p"> une division de prose doit contenir au moins un paragraphe</s:assert>
+     and .//tei:p"> une division de prose 
+     doit contenir au moins un paragraphe</s:assert>
      </constraint> </constraintSpec> </elementSpec></egXML>
    </div>
    <div xml:lang="fr" type="slide">
@@ -265,7 +268,8 @@
     <head>Par exemple…</head>
     <egXML xmlns="http://www.tei-c.org/ns/Examples"> <constraintSpec
      xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="titleConstraint"> <constraint> <s:assert
-     test="tei:fileDesc/tei:titleStmt/tei:title[@type='main']"> il faut fournir un titre principal
+     test="tei:fileDesc/tei:titleStmt/tei:title[@type='main']"> il faut fournir 
+      un titre principal
      </s:assert> </constraint> </constraintSpec></egXML>
     <egXML xmlns="http://www.tei-c.org/ns/Examples"> <elementSpec ident="figure">
      <!-- ... --> <constraintSpec xmlns:s="http://purl.oclc.org/dsdl/schematron" ident="demo-c2">
@@ -279,8 +283,9 @@
      <constraint> <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:*[@target]"> <let
      name="results" value="for $t in tokenize(normalize-space(@target),'\s+')        return
      starts-with($t,'#')        and not(id(substring($t,2)))"/> <report test="some $x in $results
-     satisfies $x"> Erreur: Chaque pointeur dans "<value-of select="@target"/>" doit cibler un ID
-     dans ce même document (<value-of select="$results"/>)</report> </rule> </constraint>
+     satisfies $x"> Erreur: Chaque pointeur dans 
+      "<value-of select="@target"/>" 
+      doit cibler un ID dans ce même document (<value-of select="$results"/>)</report> </rule> </constraint>
      </constraintSpec> </egXML>
 
     <list>
@@ -342,8 +347,10 @@
      xmlns="http://www.tei-c.org/ns/Examples"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:dc="http://purl.org/dc/elements/1.1/"> <xenoData> <rdf:RDF><rdf:Description
-     rdf:about="http://www.worldcat.org/oclc/606621663"> <dc:title>The description of a new world,
-     called the blazing-world</dc:title> <dc:creator>The Duchess of Newcastle</dc:creator>
+     rdf:about="http://www.worldcat.org/oclc/606621663"> 
+      <dc:title>  
+      The description of a new world, called the blazing-world</dc:title
+      > <dc:creator>The Duchess of Newcastle</dc:creator>
      <dc:date>1667</dc:date> <dc:identifier>British Library, 8407.h.10</dc:identifier>
      <dc:subject>utopian fiction</dc:subject></rdf:Description></rdf:RDF> </xenoData> </egXML></p>
     <p rend="box">Cette approche risque evidemment de fournir des informations redondantes voire
@@ -408,9 +415,9 @@
    </div>
 
    <div type="slide">
-    <head>Documenter les intentions : le "Processing Model"</head>
+    <head>Documenter ses intentions : le "Processing Model"</head>
     <figure>
-     <graphic url="../media/mussolini.png" width="60%"/>
+     <graphic url="../media/mussolini.png" width="50%"/>
     </figure>
    </div>
 
@@ -426,7 +433,9 @@
      employés communément, par exemple, <q>block</q>, <q>inline</q>, <q>pointer</q>, etc.</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples"> <elementSpec mode="change" ident="quote">
      <model predicate="ancestor::p" behaviour="inline"/> <model predicate="not(ancestor::p)"
-      behaviour="block"/> <desc xml:lang="fr">Traiter un <gi>quote</gi> contenu d'un<gi>p</gi> comme "inline"; ailleur, comme "block"</desc></elementSpec></egXML>
+      behaviour="block"/> <desc xml:lang="fr">Traiter un <gi>quote</gi> contenu d'un<gi>p</gi
+       > comme "inline" ; 
+ ailleur, comme "block"</desc></elementSpec></egXML>
    <p>Le fonctionnement d'un <soCalled>behaviour</soCalled> peut etre modifié selon ses paramètres</p> 
    </div>
    <div type="slide" xml:lang="fr">
@@ -502,35 +511,28 @@
     </figure>
    </div>
 
-   <div type="slide" xml:lang="fr">
+   <!--<div type="slide" xml:lang="fr">
     <head>Enchaînement et combinaison d’ODDs</head>
     <p><figure>
      <graphic url="../media/eltec-chains.png" width="60%"/>
      <head>Exemple de chaînage ODD</head>
      </figure> </p>
-   </div>
+   </div>-->
 
    <div type="slide" xml:lang="fr">
     <head>Usage de l’attribut <att>source</att></head>
-    <p>L’attribut <att>source</att> sert à spécifier la source des déclarations qu’on souhaite
+    <p>Rappel :  l’attribut <att>source</att> sert à spécifier la source des déclarations qu’on souhaite
      intégrer : par défaut celles de la version la plus récente de TEI P5.</p>
-    <p>Ou bien… </p>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec ident="test2" prefix="tei_"
-     start="TEI" source="tei:1.5.0">
-     <!-- dans la version 1.5.0 --> </schemaSpec></egXML>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec ident="test3" prefix="tei_"
-     start="TEI" source="https://www.tei-c.org/Vault/P5/1.5.0/xml/tei/odd/p5subset.xml">
-     <!-- version plus verbose du même --> </schemaSpec></egXML>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec ident="test4"
+    <p>Mais on peut également spécifier ses propres déclarations, par ex une selection ou une personnalisation deja crée et qu'on souhaite modifier. </p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec ident="test4"
      source="myCompiled.odd">
      <!-- ensemble de déclarations maison --> </schemaSpec></egXML>
-    <p rend="box"> <att>source</att> peut être utilisé sur <gi>classRef</gi>, <gi>elementRef</gi>,
-     <gi>macroRef</gi>, et <gi>moduleRef</gi> : il doit pointer vers un <term>ODD compilé</term></p>
+    <p rend="box"> dans ce cas, la valeur de <att>source</att>  doit pointer vers un <term>ODD compilé</term></p>
    </div>
 
    <div type="slide" xml:lang="fr">
     <head>"Compilation" d'un ODD</head>
-    <p>Rappel: un ODD peut rassembler deux types d’objet: <list>
+    <p>Rappel : un ODD peut rassembler deux types d’objet: <list>
      <item>des spécifications explicites, plus ou moins complétées</item>
      <item>des références à de telles spécifications</item>
      </list> </p>
@@ -555,7 +557,7 @@
 
    <div type="slide" xml:lang="fr">
     <head>Usage d’un ODD compilé</head>
-    <p>Supposons une version compilée du schéma TEI-bare. Nous allons réutiliser TEI-bare, mais nous
+    <p>Supposons une version compilée du schéma TEI-bare dans le fichier <ident>tei_bare.compiled.odd</ident>. Nous allons réutiliser ce schéma, mais nous
      souhaitons supprimer l’élément <gi>head</gi></p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples"> <schemaSpec ident="Bare-minus"
      source="tei_bare.compiled.odd" start="TEI"> <moduleRef key="tei"/> <moduleRef key="header"/>
@@ -569,7 +571,7 @@
      <moduleRef key="textstructure"/>
      <elementSpec module="core" ident="head" mode="delete"/>
    </schemaSpec></egXML>-->
-    <p>Notez qu’on ne peut supprimer ou modifier que les choses qui sont déjà présentes dans l’ODD
+    <p>Notez qu’on ne peut supprimer ou modifier <emph>que</emph> les choses qui sont déjà présentes dans l’ODD
      compilé spécifié par l’attribut <att>source</att>. </p>
    </div>
    <div type="slide" xml:lang="fr">
