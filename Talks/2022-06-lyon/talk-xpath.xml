@@ -4,7 +4,8 @@
     <fileDesc>
       <titleStmt>
         <title>Initiation à XPath et XSLT (1) </title>
-        <title><lb/>Esquisse d’une initiation aux normes de transformation XML</title>
+        <title>
+          <lb/>Esquisse d’une initiation aux normes de transformation XML</title>
         <author>Lou Burnard Consulting</author>
         <author>Alexei Lavrentiev</author>
       </titleStmt>
@@ -17,19 +18,19 @@
         <publisher>Lou Burnard Consulting</publisher>
         <availability>
           <p>Freely available for use and derivative works under a Creative Commons Attribution
-	      license.</p>
+            license.</p>
         </availability>
       </publicationStmt>
       <sourceDesc>
         <p>Original talk by Lou Burnard edited and adapted in 2017 by Alexei Lavrentiev</p>
-        <p>Translated and adapted from Rahtz 2009-07-23;  previous talks, TEI Gudeidelines, etc.</p>
+        <p>Translated and adapted from Rahtz 2009-07-23; previous talks, TEI Gudeidelines, etc.</p>
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
       <change>
         <date>$LastChangedDate: 2022-05-31</date>
-        <name>$LastChangedBy:  Lou</name>
-        <note>$LastChangedRevision:  2$</note>
+        <name>$LastChangedBy: Lou</name>
+        <note>$LastChangedRevision: 2$</note>
       </change>
     </revisionDesc>
   </teiHeader>
@@ -38,16 +39,14 @@
 
       <div rend="slide">
         <head>Objectifs</head>
-        <p rend="box">Ceci n’est pas une formation complète! son objectif est
-de ... </p>
+        <p rend="box">Ceci n’est pas une formation complète! son objectif est de ... </p>
         <list>
-          <item>vous donner un avant-goût des possibilités offertes par les
-normes XSLT et XPath</item>
-          <item>surtout dans le domaine de traitement des documents
-<q>XML-TEI</q>, principalement donc issus des sciences
-humaines</item>
-          <item>aborder les concepts fondamentaux et les usages les plus
-répandus de la norme XSLT</item>
+          <item>vous donner un avant-goût des possibilités offertes par les normes XSLT et
+            XPath</item>
+          <item>surtout dans le domaine de traitement des documents <q>XML-TEI</q>, principalement
+            donc issus des sciences humaines</item>
+          <item>aborder les concepts fondamentaux et les usages les plus répandus de la norme
+            XSLT</item>
           <!--item>vous préparer pour une formation plus approfondie </item-->
         </list>
       </div>
@@ -56,40 +55,40 @@ répandus de la norme XSLT</item>
         <head>XSL: un ensemble de normes complémentaires</head>
         <p>
           <list type="unordered">
-            <item>XPath: une syntaxe normalisée pour définir et accéder aux
-	    sous-parties d’une arborescence XML </item>
-            <item>XSLT: une norme informatique pour la transformation
-	    des arborescences XML </item>
-            <item>XSL FO: un vocabulaire XML pour la description
-	    d’affichage des pages </item>
+            <item>XPath: une syntaxe normalisée pour définir et accéder aux sous-parties d’une
+              arborescence XML </item>
+            <item>XSLT: une norme informatique pour la transformation des arborescences XML </item>
+            <item>XSL FO: un vocabulaire XML pour la description d’affichage des pages </item>
           </list>
         </p>
         <p>Tous les trois développés et maintenus par le W3C, comme la norme XML.</p>
       </div>
 
-      
-<div><head>A quoi sert XSL ?</head>
-<list>
-<item>Un document XML n’est qu’une chaîne de caractères Unicode avec
-des balises: pourquoi pas le traîter en tant que tel?</item>
-<item>Parce que les balises encodent quelque chose de 
-signifiant, a distinguer des chaines de caracteres contenus.</item>
-<item>(et aussi parce que la syntaxe XML permet de variation ...
-<!--<egXML xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
+
+      <div>
+        <head>A quoi sert XSL ?</head>
+        <list>
+          <item>Un document XML n’est qu’une chaîne de caractères Unicode avec des balises: pourquoi
+            pas le traîter en tant que tel?</item>
+          <item>Parce que les balises encodent quelque chose de signifiant, a distinguer des chaines
+            de caracteres contenus.</item>
+          <item>(et aussi parce que la syntaxe XML permet de variation ...
+            <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
 <foo       bar= "x" baz = "z"></foo>
 <foo
 baz= "z" bar = 
 "x"/>]]>
 </egXML>-->
-</item>
-</list>
-  <p><graphic width="75%" url="../Graphics/xml-as-text.png"/></p>
-  <list>
-<item>Un document XML sert a representer une structure, une arborescence. La <emph>structuration</emph> d’un document XML fait partie de sa
-signification.</item>
- </list>
-<p rend="box">Nous souhaitons traiter la signification du document, et non pas son apparence!</p>
-</div>
+          </item>
+        </list>
+        <p><graphic width="75%" url="../Graphics/xml-as-text.png"/></p>
+        <list>
+          <item>Un document XML sert a representer une structure, une arborescence. La
+              <emph>structuration</emph> d’un document XML fait partie de sa signification.</item>
+        </list>
+        <p rend="box">Nous souhaitons traiter la signification du document, et non pas son
+          apparence!</p>
+      </div>
 
 
       <div rend="slide">
@@ -99,9 +98,8 @@ signification.</item>
           <item>un ensemble de <term>nœuds</term>, organisé de manière hiérarchique</item>
           <item>chaque nœud porte un <term>identifiant générique</term> (son "type")</item>
           <item>il y a un seul <term>nœud racine</term> qui contient (ou domine) tous les
-autres</item>
-          <item>chaque nœud peut contenir (ou dominer)
-<list>
+            autres</item>
+          <item>chaque nœud peut contenir (ou dominer) <list>
               <item>une sous-arborescence</item>
               <item>ou un morceau de texte</item>
               <!--item>facultativement un ensemble d’<term>attributs</term></item-->
@@ -114,7 +112,8 @@ autres</item>
         <head>Arborescence XML</head>
         <list>
           <item>chaque nœud correspond à un élément identifié</item>
-          <item>les <term>attributs</term> d’un élément constituent une sous-arborescence associée au nœud</item>
+          <item>les <term>attributs</term> d’un élément constituent une sous-arborescence associée
+            au nœud</item>
           <item>chaque attribut comporte un <term>nom</term> et une <term>valeur</term>
           </item>
         </list>
@@ -161,13 +160,11 @@ autres</item>
 
       <div rend="slide">
         <head>XPath : une feuille de route</head>
-        <p>Pour accéder aux composants d’un document XML, on spécifie un
-<term>chemin</term>, spécifiant les  nœuds qu’il faut
-traverser pour arriver à la partie souhaitée</p>
-        <p>Par exemple, pour arriver aux <gi>head</gi>s dans cet exemple, on
- commence au <gi>body</gi>, puis passe à un <gi>div</gi> fils, et ensuite
- on arrive à un <gi>head</gi>
-        </p>
+        <p>Pour accéder aux composants d’un document XML, on spécifie un <term>chemin</term>,
+          spécifiant les nœuds qu’il faut traverser pour arriver à la partie souhaitée</p>
+        <p>Par exemple, pour arriver aux <gi>head</gi>s dans cet exemple, on commence au
+            <gi>body</gi>, puis passe à un <gi>div</gi> fils, et ensuite on arrive à un
+            <gi>head</gi> fils </p>
         <p>En XPath, on dit : <code>/body/div/head</code></p>
       </div>
 
@@ -191,9 +188,26 @@ traverser pour arriver à la partie souhaitée</p>
       </div>
 
       <div rend="slide">
+        <head>Direction de marche</head>
+        <p>On n'est pas obligé de voyager toujours de haut en bas, ou de père en fils. Plusieurs
+            <term>axes</term> sont définies, par exemple: </p>
+        <list>
+          <item><term>child::</term> on descend l'hiérarchie (defaut)</item>
+          <item><term>parent::</term> on monte une fois dans l'hiérarchie</item>
+          <item><term>ancestor::</term> on monte autant que possible dans l'hiérarchie</item>
+          <item><term>preceding-sibling::</term> on cherche un element frère (avec le même
+            parent)</item>
+          <item><term>preceding::</term> on cherche un element frère (de n'importe quel
+            parent)</item>
+          <item>et pareillement pour <term>following::</term> et
+            <term>following-sibling::</term></item>
+        </list>
+      </div>
+
+      <div rend="slide">
         <head>Les étapes</head>
         <list>
-          <item>Chaque étape sur ce chemin n’est pas forcément un élément XML...</item>
+          <item>Chaque étape sur le chemin n’est pas forcément un élément XML...</item>
           <item>on peut aussi regarder les attributs</item>
           <item>ou des morceaux de texte</item>
         </list>
@@ -216,20 +230,20 @@ traverser pour arriver à la partie souhaitée</p>
       <div rend="slide">
         <head>Les sélections</head>
         <list>
-          <item>On peut sélectionner parmi les nœuds résultants, en forme de
-restriction entre crochets [ et ] </item>
+          <item>On peut sélectionner parmi les nœuds résultants, en forme de restriction entre
+            crochets [ et ] </item>
           <item>Une restriction peut concerner la valeur d’un attribut</item>
           <item>ou la position ordinale du nœud dans l’arbre</item>
           <item>ou l’existence d’un élément du type indiqué</item>
         </list>
       </div>
 
-      <div rend="slide">
+      <!--  <div rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-12.png"/>
         </figure>
-      </div>
+      </div>-->
       <div rend="slide">
         <head/>
         <figure>
@@ -244,19 +258,6 @@ restriction entre crochets [ et ] </item>
       </div>
 
       <div rend="slide">
-        <head>Le point de départ</head>
-        <p>On peut partir de n’importe quel point dans l’arborescence: 
-<list>
-            <item><code>//</code> signifie <q>n’importe où</q></item>
-            <item><code>..</code> signifie <q>mon parent</q></item>
-          </list>
-        </p>
-        <p>On peut aussi naviguer dans la hiérarchie, en se servant des
-<term>axes</term> tels que <code>ancestor::</code>, 
-<code>following-sibling::</code>, <code>descendant::</code> ... </p>
-      </div>
-
-      <div rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-17.png"/>
@@ -268,18 +269,17 @@ restriction entre crochets [ et ] </item>
           <graphic url="../Graphics/xpath-eg-18.png"/>
         </figure>
       </div>
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-19.png"/>
-        </figure>
+
+      <div>
+        <head>Selection par position</head>
+        <list>
+          <item>Chaque noeud a une position parmi ses freres, accessible par l'expression
+              <code>position()</code>, ou simplement par une chiffre</item>
+          <item>il y a aussi une expression <code>last()</code> permettant de retrouver le
+            benjamin</item>
+        </list>
       </div>
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-20.png"/>
-        </figure>
-      </div>
+      
       <div rend="slide">
         <head/>
         <figure>
@@ -292,6 +292,33 @@ restriction entre crochets [ et ] </item>
           <graphic url="../Graphics/xpath-eg-22.png"/>
         </figure>
       </div>
+    
+      <div rend="slide">
+        <head>Le point de départ</head>
+        <p>Le point de départ d'un XPath, autrement dit son contexte, peut être n’importe quel point
+          dans l’arborescence. Ensuite, à chaque étape, on peut spécifier l'axe à suivre. </p>
+        <p>Les noms de quelques axes peuvent etre abrégés: <list>
+            <item><code>//</code> signifie <q>descendant::</q></item>
+            <item><code>..</code> signifie <q>parent::</q></item>
+            <item>et <code/> (aucune indication d'axe) signifie <q>child::</q></item>
+          </list>
+        </p>
+      </div>
+
+      <div rend="slide">
+        <head/>
+        <figure>
+          <graphic url="../Graphics/xpath-eg-19.png"/>
+        </figure>
+      </div>
+      <div rend="slide">
+        <head/>
+        <figure>
+          <graphic url="../Graphics/xpath-eg-20.png"/>
+        </figure>
+      </div>
+
+     
       <div rend="slide">
         <head/>
         <figure>
@@ -304,7 +331,7 @@ restriction entre crochets [ et ] </item>
           <graphic url="../Graphics/xpath-eg-24.png"/>
         </figure>
       </div>
-      <div rend="slide">
+      <!--<div rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-25.png"/>
@@ -315,22 +342,19 @@ restriction entre crochets [ et ] </item>
         <figure>
           <graphic url="../Graphics/xpath-eg-26.png"/>
         </figure>
-      </div>
+      </div>-->
 
       <div rend="slide">
         <head>Fonctions XPath</head>
-        <p>XPath fournit également une large librairie de fonctions 
-utiles. On signale ici seulement quelques-unes :
-<list>
-            <item><code>count(x)</code> fournit le nombre des nœuds dans
-l’arbre x</item>
-            <item><code>position()</code> fournit le nombre ordinal du nœud courant
-par rapport à son contexte</item>
-            <item><code>last()</code> fournit le nombre ordinal du dernier
-nœud courant
-par rapport à son contexte</item>
-            <item><code>contains(x,y)</code> teste l’existence de la chaîne
-<code>y</code> dans le morceau de texte <code>x</code>
+        <p>XPath fournit également une large librairie de fonctions utiles. On signale ici seulement
+          quelques-unes : <list>
+            <item><code>count(x)</code> fournit le nombre des nœuds dans l’arbre x</item>
+            <item><code>position()</code> fournit le nombre ordinal du nœud courant par rapport à
+              son contexte</item>
+            <item><code>last()</code> fournit le nombre ordinal du dernier nœud courant par rapport
+              à son contexte</item>
+            <item><code>contains(x,y)</code> teste l’existence de la chaîne <code>y</code> dans le
+              morceau de texte <code>x</code>
             </item>
           </list>
         </p>
@@ -338,7 +362,8 @@ par rapport à son contexte</item>
 
       <div rend="slide">
         <head>Premier exercice</head>
-        <p>Tester votre compréhension de XPath avec la première partie de
-l’exercice...</p>
+        <p>Tester votre compréhension de XPath avec la première partie de l’exercice...</p>
       </div>
-    </body></text></TEI>
+    </body>
+  </text>
+</TEI>
