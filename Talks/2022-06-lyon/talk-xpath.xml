@@ -11,7 +11,7 @@
       </titleStmt>
       <editionStmt>
         <edition>
-          <date>2022 revision pour ETiPAS</date>
+          <date>2022 révision pour ETiPAS</date>
         </edition>
       </editionStmt>
       <publicationStmt>
@@ -37,9 +37,9 @@
   <text>
     <body>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Objectifs</head>
-        <p rend="box">Ceci n’est pas une formation complète! son objectif est de ... </p>
+        <p type="slide" rend="box">Ceci n’est pas une formation complète! son objectif est de ... </p>
         <list>
           <item>vous donner un avant-goût des possibilités offertes par les normes XSLT et
             XPath</item>
@@ -51,7 +51,7 @@
         </list>
       </div>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>XSL: un ensemble de normes complémentaires</head>
         <p>
           <list type="unordered">
@@ -70,8 +70,8 @@
         <list>
           <item>Un document XML n’est qu’une chaîne de caractères Unicode avec des balises: pourquoi
             pas le traîter en tant que tel?</item>
-          <item>Parce que les balises encodent quelque chose de signifiant, a distinguer des chaines
-            de caracteres contenus.</item>
+          <item>Parce que les balises encodent quelque chose de signifiant, a distinguer des chaînes
+            de caractères contenus.</item>
           <item>(et aussi parce que la syntaxe XML permet de variation ...
             <!--<egXML xmlns="http://www.tei-c.org/ns/Examples"><![CDATA[
 <foo       bar= "x" baz = "z"></foo>
@@ -83,15 +83,15 @@ baz= "z" bar =
         </list>
         <p><graphic width="75%" url="../Graphics/xml-as-text.png"/></p>
         <list>
-          <item>Un document XML sert a representer une structure, une arborescence. La
+          <item>Un document XML sert a représenter une structure, une arborescence. La
               <emph>structuration</emph> d’un document XML fait partie de sa signification.</item>
         </list>
-        <p rend="box">Nous souhaitons traiter la signification du document, et non pas son
+        <p type="slide" rend="box">Nous souhaitons traiter la signification du document, et non pas son
           apparence!</p>
       </div>
 
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>C’est quoi une arborescence ?</head>
         <p><graphic height="50%" url="../Graphics/arborescence.png"/></p>
         <list>
@@ -108,7 +108,7 @@ baz= "z" bar =
         </list>
       </div>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Arborescence XML</head>
         <list>
           <item>chaque nœud correspond à un élément identifié</item>
@@ -119,7 +119,7 @@ baz= "z" bar =
         </list>
       </div>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Exemple texte XML ... </head>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <body type="anthology">
@@ -149,7 +149,7 @@ baz= "z" bar =
         </egXML>
         <!--figure><graphic url="xpath-eg-0.png"/></figure-->
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>.. ou, en forme d’arborescence: </head>
         <figure>
           <graphic url="../Graphics/xpath-eg-1.png"/>
@@ -157,210 +157,340 @@ baz= "z" bar =
       </div>
 
 
-
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>XPath : une feuille de route</head>
         <p>Pour accéder aux composants d’un document XML, on spécifie un <term>chemin</term>,
-          spécifiant les nœuds qu’il faut traverser pour arriver à la partie souhaitée</p>
+          spécifiant les nœuds de l'arborescence qu’il faut traverser pour arriver à la partie
+          souhaitée</p>
         <p>Par exemple, pour arriver aux <gi>head</gi>s dans cet exemple, on commence au
             <gi>body</gi>, puis passe à un <gi>div</gi> fils, et ensuite on arrive à un
             <gi>head</gi> fils </p>
-        <p>En XPath, on dit : <code>/body/div/head</code></p>
+        <p>En XPath, on pourrait dire : <code>/body/div/head</code></p>
       </div>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
+        <head>Astuce!</head>
+        <p>oXygen vous permet tout simplement de visualiser l'effet d'un XPath...</p>
+        <list>
+          <item>Ouvrez le fichier <ident>verlaine.xml</ident> dans oXygen</item>
+          <item>En haut a gauche il y a un champ avec le label XPath2.0</item>
+          <item>Vous pouvez taper une expression XPath ici, et en voir l'effet </item>
+        </list>
+        <figure>
+          <graphic url="images/xpathWindow.png"/>
+        </figure>
+        <p>Essayons cela! Tapez <code>/body/div/head</code> dans le champ indique, et (s'il n y a
+          pas de rouge) tapez Retour</p>
+      </div>
+      <div type="slide" rend="slide">
         <head/>
+        <figure>
+          <graphic url="images/xpath-1.png"/>
+        </figure>
+      </div>
+      <div type="slide" rend="slide">
+        <head/>
+        <p>Et si on souhaitait sélectionner les <gi>lg</gi> au lieu des <gi>head</gi> ? </p>
+        <p>Modifiez votre chemin en changeant <code>head</code> en <code>lg</code>, et ça donne ?
+        </p>
+      </div>
+      <div type="slide" rend="slide">
+        <head/>
+        <figure>
+          <graphic url="images/xpath-2.png"/>
+        </figure>
+      </div>
+      <!--  <div type="slide" rend="slide">
+        <head></head>
         <figure>
           <graphic url="../Graphics/xpath-eg-06.png"/>
         </figure>
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-07.png"/>
         </figure>
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-08.png"/>
         </figure>
-      </div>
+      </div>-->
 
-      <div rend="slide">
-        <head>Direction de marche</head>
-        <p>On n'est pas obligé de voyager toujours de haut en bas, ou de père en fils. Plusieurs
-            <term>axes</term> sont définies, par exemple: </p>
-        <list>
-          <item><term>child::</term> on descend l'hiérarchie (defaut)</item>
-          <item><term>parent::</term> on monte une fois dans l'hiérarchie</item>
-          <item><term>ancestor::</term> on monte autant que possible dans l'hiérarchie</item>
-          <item><term>preceding-sibling::</term> on cherche un element frère (avec le même
-            parent)</item>
-          <item><term>preceding::</term> on cherche un element frère (de n'importe quel
-            parent)</item>
-          <item>et pareillement pour <term>following::</term> et
-            <term>following-sibling::</term></item>
-        </list>
-      </div>
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Les étapes</head>
         <list>
-          <item>Chaque étape sur le chemin n’est pas forcément un élément XML...</item>
-          <item>on peut aussi regarder les attributs</item>
-          <item>ou des morceaux de texte</item>
+          <item>Chaque étape sur le chemin est un <term>nœud</term>, donc pas forcément un élément
+            XML</item>
+          <item>
+            <list>
+              <item>Il peut également être un attribut <code>@nom-d-attribut</code>
+              </item>
+              <item>ou un morceau de texte <code>text()</code></item>
+              <item>ou un commentaire <code>comment()</code></item>
+              <item>ou un processing instruction</item>
+            </list></item>
+        </list>
+      </div>
+      <div type="slide" rend="slide">
+        <head>Un attribut, par exemple</head>
+        <list>
+          <item>Modifiez encore votre XPath, en ajoutant <code>/@type</code> a la fin, après
+              <code>lg</code></item>
+          <item>L’arobas peut aussi être écrit a la longue comme <code>attribute::</code> si vous le
+            préfériez</item>
+        </list>
+      </div>
+      <div type="slide" rend="slide">
+        <head/>
+        <figure>
+          <graphic url="images/xpath-3.png"/>
+        </figure>
+      </div>
+
+
+      <div type="slide" rend="slide">
+        <head>Plus formellement... </head>
+        <list>
+          <item><p>Chaque étape d'un chemin XPath s'exprime ainsi :
+              <code>axe::nœud[prédicat]</code></p></item>
+          <item>
+            <p>par exemple: <code>child::div[contains(head, 'faun')] </code></p></item>
+          <item>
+            <p>Le résultat d'un parcours xPath est le dernier nœud du chemin. Dans notre exemple: un
+                <gi>div</gi> qui contient un <gi>head</gi> contenant le text <q>faun</q></p></item>
+          <item><p>Attention: un prédicat n'est pas une étape ... il faut bien distinguer
+                <code>div[head]</code> (<gi>div</gi> contenant un <gi>head</gi>) de
+                <code>div/head</code> (<gi>head</gi> contenu par un <gi>div</gi>)!</p></item>
         </list>
       </div>
 
-      <div rend="slide">
+      <!-- <div type="slide" rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-09.png"/>
         </figure>
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-10.png"/>
         </figure>
       </div>
+  -->
       <!-- text() example needed -->
 
-      <div rend="slide">
-        <head>Les sélections</head>
+      <div type="slide" rend="slide">
+        <head>Un prédicat sert a quoi?</head>
+        <p>Un prédicat exprime une sélection parmi les nœuds trouves par une étape du chemin</p>
         <list>
-          <item>On peut sélectionner parmi les nœuds résultants, en forme de restriction entre
-            crochets [ et ] </item>
-          <item>Une restriction peut concerner la valeur d’un attribut</item>
-          <item>ou la position ordinale du nœud dans l’arbre</item>
-          <item>ou l’existence d’un élément du type indiqué</item>
+          <item>On l’écrit entre crochets [ et ] </item>
+          <item>Une restriction peut concerner : <list>
+              <item>la valeur d’un attribut</item>
+              <item>ou la position ordinale du nœud dans l’arbre</item>
+              <item>ou l’existence d’un élément du type indiqué</item>
+            </list></item>
+          <item>et elle peut utiliser des <term>fonctions</term> prédéfinies</item>
         </list>
       </div>
 
-      <!--  <div rend="slide">
+      <!--  <div type="slide" rend="slide">
         <head/>
         <figure>
           <graphic url="../Graphics/xpath-eg-12.png"/>
         </figure>
       </div>-->
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-13.png"/>
-        </figure>
+      <div type="slide" rend="slide">
+        <head>Par exemple</head>
+        <p>Nous souhaitons voir que les couplet. </p>
+
+
+        <list>
+          <item>Modifiez encore votre XPath, en remplaçant <code>/@type</code> a la fin par
+              <code>[@type='couplet']</code>, après <code>lg</code></item>
+        </list>
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head/>
         <figure>
-          <graphic url="../Graphics/xpath-eg-14.png"/>
+          <graphic url="images/xpath-4.png"/>
         </figure>
       </div>
 
-      <div rend="slide">
+
+
+      <div>
+        <head>Sélection par position</head>
+        <list>
+          <item>Chaque nœud a une position parmi ses frères, accessible par l'expression
+              <code>position()</code>, ou simplement par une chiffre</item>
+          <item>Il y a aussi une expression <code>last()</code> permettant de retrouver le
+            benjamin</item>
+        </list>
+        <p>Essayons l'expression <code>/body/div/lg/l[4]</code> par exemple... </p>
+      </div>
+
+      <div type="slide" rend="slide">
         <head/>
         <figure>
-          <graphic url="../Graphics/xpath-eg-17.png"/>
+          <graphic url="images/xpath-5.png"/>
         </figure>
       </div>
-      <div rend="slide">
+      <div type="slide" rend="slide">
+        <head/>
+        <p>En effet, cet usage est une abréviation de la forme plus complète:
+            <code>/body/div/lg/l[position()=4]</code></p>
+        <p>Pour retrouver le dernier vers de chaque strophe, il faut écrire cela a la
+            longue:<code>/body/div/lg/l[position()=last()]</code>
+        </p>
+      </div>
+
+
+      <div type="slide" rend="slide">
         <head/>
         <figure>
-          <graphic url="../Graphics/xpath-eg-18.png"/>
+          <graphic url="images/xpath-6.png"/>
         </figure>
       </div>
 
       <div>
-        <head>Selection par position</head>
+        <head>Sélection par valeur d'attribut</head>
+        <p>On peut comparer la valeur d'un attribut avec une valeur quelconque en utilisant les
+          opérateurs = &lt; &gt; etc.</p>
+        <p>Pour retrouver tous les <gi>l</gi> dont l'attribut <att>n</att> a une valeur inférieure a
+          3, essayons l'XPath suivant: <code>/body/div/lg/l[@n &lt; 1]</code>
+        </p>
+      </div>
+
+      <div type="slide" rend="slide">
+        <head/>
+        <figure>
+          <graphic url="images/xpath-11.png"/>
+        </figure>
+      </div>
+
+
+      <div>
+        <head>Sélection par contenu</head>
+        <p>Si on souhaite sélectionner selon le contenu d'un élément, on peut designer le contenu
+          d'un nœud en utilisant un point (.) et ensuite faire une comparaison en utilisant une des
+          fonctions suivantes: <list>
+            <item><code>contains(x,y)</code> : est-ce que la chaîne y apparaît quelque part dans la
+              chaîne x ?</item>
+            <item><code>substring-before(x,y)</code> : retourne la sous-chaine de x précédant la
+              chaîne y (si possible)</item>
+            <item><code>substring-after(x,y)</code> : retourne la sous-chaine de x suivant la chaîne
+              y (si possible)</item>
+          </list></p>
+        <p>Par exemple: on veut tous les lignes content le mot <q>vieux</q>? Essayons l'XPath
+            <code>/body/div/lg/l[contains(., 'vieux')]</code></p>
+      </div>
+
+      <div type="slide" rend="slide">
+        <head/>
+        <figure>
+          <graphic url="images/xpath-12.png"/>
+        </figure>
+      </div>
+
+
+      <div type="slide" rend="slide">
+        <head>Direction de marche</head>
+        <p>On n'est pas obligé de voyager toujours de haut en bas, de père en fils, en utilisant une
+          seul étape. Plusieurs <term>axes</term> sont définies, par exemple: </p>
         <list>
-          <item>Chaque noeud a une position parmi ses freres, accessible par l'expression
-              <code>position()</code>, ou simplement par une chiffre</item>
-          <item>il y a aussi une expression <code>last()</code> permettant de retrouver le
-            benjamin</item>
+          <item><term>child::</term> on descend une fois dans l'hiérarchie (forme abrégé: <code/>
+            i.e. c'est l'axe a suivre par défaut de spécification au contraire)</item>
+          <item><term>descendant::</term> on descend autant que nécessaire dans l'hiérarchie (forme
+            abrégé: <code>//</code>)</item>
+          <item><term>parent::</term> on monte une fois dans l'hiérarchie (forme abrégé:
+              <code>..</code>)</item>
+          <item><term>ancestor::</term> on monte autant que nécessaire dans l'hiérarchie</item>
+          <item><term>preceding-sibling::</term> on cherche un élément frère (avec le même
+            parent)</item>
+          <item><term>preceding::</term> on cherche un élément frère (de n'importe quel
+            parent)</item>
+          <item>et pareillement pour <term>following::</term> et
+            <term>following-sibling::</term></item>
         </list>
       </div>
-      
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-21.png"/>
-        </figure>
-      </div>
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-22.png"/>
-        </figure>
-      </div>
-    
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Le point de départ</head>
         <p>Le point de départ d'un XPath, autrement dit son contexte, peut être n’importe quel point
-          dans l’arborescence. Ensuite, à chaque étape, on peut spécifier l'axe à suivre. </p>
-        <p>Les noms de quelques axes peuvent etre abrégés: <list>
+          dans l’arborescence. Ensuite, à chaque étape, on peut spécifier l'axe à suivre pour
+          continuer. </p>
+        <!--<p>Les noms de quelques axes peuvent etre abrégés: <list>
             <item><code>//</code> signifie <q>descendant::</q></item>
             <item><code>..</code> signifie <q>parent::</q></item>
             <item>et <code/> (aucune indication d'axe) signifie <q>child::</q></item>
-          </list>
-        </p>
+          </list>-->
+        <!--</p>-->
+        <p>Sont donc équivalentes les manières suivantes de retrouver tous les vers d'un poème:</p>
+        <list>
+          <item><code>/child::body/child::div</code>
+            <code>[attribute::type='poem']/descendant::l</code></item>
+          <item><code>/body/div[@type='poem']//l</code></item>
+          <item><code>//div[@type='poem']//l</code></item>
+        </list>
+        <p>Quel est la différence entre cette dernière, et la suivante: <code>//l</code> ?</p>
+      </div>
+      <div type="slide" rend="slide">
+        <head/>
+        <figure>
+          <graphic url="images/xpath-7.png"/>
+        </figure>
+        <cb/>
+        <figure>
+          <graphic url="images/xpath-8.png"/>
+        </figure>
       </div>
 
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-19.png"/>
-        </figure>
+      <div type="slide" rend="slide">
+        <head>Exemple de navigation</head>
+        <p>En partant d'un <gi>lg</gi> n'importe ou, on cherche les valeurs des attributs
+            <att>type</att> de son parent?</p>
+        <p>Essayons <code>//lg../@type</code></p>
       </div>
-      <div rend="slide">
+
+      <div type="slide" rend="slide">
         <head/>
         <figure>
-          <graphic url="../Graphics/xpath-eg-20.png"/>
+          <graphic url="images/xpath-9.png"/>
         </figure>
       </div>
 
-     
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-23.png"/>
-        </figure>
-      </div>
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-24.png"/>
-        </figure>
-      </div>
-      <!--<div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-25.png"/>
-        </figure>
-      </div>
-      <div rend="slide">
-        <head/>
-        <figure>
-          <graphic url="../Graphics/xpath-eg-26.png"/>
-        </figure>
-      </div>-->
-
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Fonctions XPath</head>
         <p>XPath fournit également une large librairie de fonctions utiles. On signale ici seulement
-          quelques-unes : <list>
+          quelques-unes pas encore rencontres: <list>
             <item><code>count(x)</code> fournit le nombre des nœuds dans l’arbre x</item>
-            <item><code>position()</code> fournit le nombre ordinal du nœud courant par rapport à
+            <!-- <item><code>position()</code> fournit le nombre ordinal du nœud courant par rapport à
               son contexte</item>
             <item><code>last()</code> fournit le nombre ordinal du dernier nœud courant par rapport
-              à son contexte</item>
+              à son contexte</item>-->
             <item><code>contains(x,y)</code> teste l’existence de la chaîne <code>y</code> dans le
               morceau de texte <code>x</code>
             </item>
+            <item><code>replace(x,r,s)</code> retourne une révision de la chaîne x, dans laquelle
+              chaque occurrence des caractères indiques par le regexp r est remplace par la chaîne s </item>
+            <item><code>tokenize(x, r)</code> retourne une séquence des sous-chaînes de s, utilisant
+              le regexp r pour les découper</item>
+            <item><code>normalise-space(x)</code>retourne une révision de la chaîne x, dans laquelle
+              chaque séquence de <term>whitespace</term> est remplace par un seul blanc</item>
+            <item><code>distinct-values(s)</code> retourne une séquence des valeurs uniques trouves
+              dans la séquence s</item>
           </list>
         </p>
+        <p>On peut enchaîner ces fonctions comme nécessaire. Par exemple, quel est l'effet de
+          l'XPath <code>count(distinct-values(tokenize(normalise-space(replace(/body,'[.,-]','
+            ')))))</code>?</p>
       </div>
+      <!-- les 52 mots distincts du document-->
 
-      <div rend="slide">
+      <div type="slide" rend="slide">
         <head>Premier exercice</head>
         <p>Tester votre compréhension de XPath avec la première partie de l’exercice...</p>
       </div>
