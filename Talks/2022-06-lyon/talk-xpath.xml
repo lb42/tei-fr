@@ -39,7 +39,7 @@
 
       <div type="slide" rend="slide">
         <head>Objectifs</head>
-        <p type="slide" rend="box">Ceci n’est pas une formation complète! son objectif est de ... </p>
+        <p rend="box">Ceci n’est pas une formation complète! son objectif est de ... </p>
         <list>
           <item>vous donner un avant-goût des possibilités offertes par les normes XSLT et
             XPath</item>
@@ -86,7 +86,7 @@ baz= "z" bar =
           <item>Un document XML sert a représenter une structure, une arborescence. La
               <emph>structuration</emph> d’un document XML fait partie de sa signification.</item>
         </list>
-        <p type="slide" rend="box">Nous souhaitons traiter la signification du document, et non pas son
+        <p rend="box">Nous souhaitons traiter la signification du document, et non pas son
           apparence!</p>
       </div>
 
@@ -223,16 +223,15 @@ baz= "z" bar =
       <div type="slide" rend="slide">
         <head>Les étapes</head>
         <list>
-          <item>Chaque étape sur le chemin est un <term>nœud</term>, donc pas forcément un élément
-            XML</item>
-          <item>
-            <list>
-              <item>Il peut également être un attribut <code>@nom-d-attribut</code>
-              </item>
-              <item>ou un morceau de texte <code>text()</code></item>
-              <item>ou un commentaire <code>comment()</code></item>
-              <item>ou un processing instruction</item>
-            </list></item>
+          <item>Chaque étape sur le chemin represente un ensemble de <term>nœuds</term> qu'il faut trouver a ce point</item><item>A la fin du chemin, le résultat du parcours sera le dernier ensemble de noeuds</item>
+          <item>Un nœud peut être : <list>
+            <item>un élément : <code>nom-d-élément</code> ou <code>*</code></item>
+            <item>un attribut : <code>@nom-d-attribut</code> ou <code>@*</code></item>
+              <item>un morceau de texte : <code>text()</code></item>
+              <item>un commentaire : <code>comment()</code></item>
+              <item>une instruction de traitement : <code>processing-instruction()</code></item>
+            </list>
+          </item>
         </list>
       </div>
       <div type="slide" rend="slide">
@@ -309,7 +308,7 @@ baz= "z" bar =
 
 
         <list>
-          <item>Modifiez encore votre XPath, en remplaçant <code>/@type</code> a la fin par
+          <item>Modifiez encore votre XPath, en remplaçant <code>/@type</code> à la fin par
               <code>[@type='couplet']</code>, après <code>lg</code></item>
         </list>
       </div>
@@ -464,8 +463,8 @@ baz= "z" bar =
 
       <div type="slide" rend="slide">
         <head>Fonctions XPath</head>
-        <p>XPath fournit également une large librairie de fonctions utiles. On signale ici seulement
-          quelques-unes pas encore rencontres: <list>
+        <p>XPath fournit  une large librairie de fonctions utiles. On signale ici seulement
+          quelques-unes pas encore rencontrés: <list>
             <item><code>count(x)</code> fournit le nombre des nœuds dans l’arbre x</item>
             <!-- <item><code>position()</code> fournit le nombre ordinal du nœud courant par rapport à
               son contexte</item>
@@ -485,14 +484,31 @@ baz= "z" bar =
           </list>
         </p>
         <p>On peut enchaîner ces fonctions comme nécessaire. Par exemple, quel est l'effet de
-          l'XPath <code>count(distinct-values(tokenize(normalise-space(replace(/body,'[.,-]','
+          l'XPath <code>count(distinct-values(tokenize(normalize-space(replace(/body,'[.,-]','
             ')))))</code>?</p>
       </div>
       <!-- les 52 mots distincts du document-->
 
       <div type="slide" rend="slide">
         <head>Premier exercice</head>
-        <p>Tester votre compréhension de XPath avec la première partie de l’exercice...</p>
+        <p>Tester votre compréhension de XPath! D'abord, ouvrez le fichier
+            <ident>duBellay.xml</ident>. Essayez ensuite de trouver une reponse XPath pour chacun de
+          cette petite liste de requêtes : <list type="ordered">
+            <item>quel est l’élément racine du document XML ?</item>
+            <item>quel est le titre donné à ce document ?</item>
+            <item>qui est le responsable de la création du fichier ?</item>
+            <item>quelle est l’origine de la version encodée ?</item>
+            <item>quelle est la date de la révision la plus récente du document ?</item>
+            <item>combien y a-t-il de strophes (<gi>lg</gi>) dans le sonnet ?</item>
+            <item>combien y a-t-il de segments de texte dont la graphie est considérée incorrecte
+                (<gi>orig</gi>) aujourd’hui ?</item>
+            <item>combien y a-t-il de vers (<gi>l</gi>) qui contiennent au moins un tel
+              segment ?</item>
+            <item>quel est le contenu textuel du premier vers de chaque strophe ? et du dernier? </item>
+            <item>quels nœuds texte contiennent la chaîne de caractères "jamais"</item>
+          </list></p>
+        <p>Vous trouverez des réponses dans le document tutoriel: mais essayew de ne pas le regarder
+          tout de suite!</p>
       </div>
     </body>
   </text>
