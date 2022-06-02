@@ -21,10 +21,12 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>Texte préparé pour le stage "XSLT pour les nuls" MUTEC le 26 mai 2011. Révisé pour l'EThap juin 2022</p>
+        <p>Texte préparé pour le stage "XSLT pour les nuls" MUTEC le 26 mai 2011. Révisé pour
+          l'EThap juin 2022</p>
       </projectDesc>
     </encodingDesc>
     <revisionDesc>
+      <change when="2022-06-01">Lots of updates for Lyon EThAP</change>
       <change when="2011-05-23">Drafted on train</change>
       <change when="2017-10-18">Updates and adapted for 2017 TEI training in Tours</change>
     </revisionDesc>
@@ -34,11 +36,12 @@
       <div>
         <head>Exercice XPath et XSLT</head>
         <figure>
-        <graphic url="../Graphics/duBellay.png" height="10cm"/>
-      </figure>
-      <p>Dans ce petit exercice et le suivant, on prend comme exemple une version numérisée d’un
-        célèbre sonnet de DuBellay. Vous trouverez une version de ce sonnet déjà balisée dans le
-        fichier <ident>duBellay.xml</ident> — ouvrez-le d’abord avec Oxygen.</p></div>
+          <graphic url="../Graphics/duBellay.png" height="10cm"/>
+        </figure>
+        <p>Dans ce petit exercice et le suivant, on prend comme exemple une version numérisée d’un
+          célèbre sonnet de DuBellay. Vous trouverez une version de ce sonnet déjà balisée dans le
+          fichier <ident>duBellay.xml</ident> — ouvrez-le d’abord avec Oxygen.</p>
+      </div>
       <div>
         <head>XPath</head>
         <div>
@@ -71,8 +74,9 @@
             </list></p>
           <p>On va faire ces exercices ensemble. Des réponses sont proposées dans la section qui
             suit : ne les regardez pas si vous préférez tester vos compétences !</p>
-  <!--        <p>Nota : on utilise ici XPath 2.0 (à cause de l’espace de noms par défaut).</p>
- -->       </div>
+          <!--        <p>Nota : on utilise ici XPath 2.0 (à cause de l’espace de noms par défaut).</p>
+ -->
+        </div>
 
         <div>
 
@@ -128,7 +132,7 @@
               <p>Réponse : 4 </p>
             </item>
             <label>Combien y a-t-il de <gi>orig</gi>, i.e. des segments de texte dont la graphie est
-              consideré incorrecte aujourd’hui ?</label>
+              considéré incorrecte aujourd’hui ?</label>
             <item>
               <p>Expression XPath à écrire : </p>
               <p>
@@ -156,16 +160,17 @@
               <p>Expression XPath à écrire :</p>
               <p>
                 <code>//lg/l[1]//text()</code></p>
-              <p>Pour le dernier, c’est un peu moins evident…
+              <p>Pour le dernier, c’est un peu moins évident…
                   <code>//lg/l[position()=last()]//text()</code>
               </p>
             </item>
-            <label>Quels nœuds texte contiennent la chaîne de caractères "jamais" ? et quels vers?</label>
+            <label>Quels nœuds texte contiennent la chaîne de caractères "jamais" ? et quels
+              vers?</label>
             <item>
               <p>Expression XPath à écrire : </p>
               <p><code>//text()[contains(., ’avare’)]</code></p>
               <p><code>//l[contains(., ’avare’)]</code></p>
-              <p>Réponse : la premiere liste de réponses contient 2 nœuds; la deuxieme qu'un.</p>
+              <p>Réponse : la première liste de réponses contient 2 nœuds; la deuxième qu'un.</p>
             </item>
           </list>
         </div>
@@ -183,18 +188,23 @@
 
           <p>L’application classique de XSLT est de transformer un document TEI XML en HTML pour le
             visualiser dans un navigateur web. On commence donc par là. </p>
-          <p>Pour faire cela, il faut mettre en place une liaison entre le fichier XML d’entrée, le fichier
-            HTML de sortie, et le fichier XSLT qui va contrôler la transformation. Il y a une méthode plus élaborée pour créer ce qu'on appelle un <term>scénario de transformation</term>, mais pour l'instant nous allons effectuer cette liaison de la manière la plus simple.
-          </p>
+          <p>Pour faire cela, il faut mettre en place une liaison entre le fichier XML d’entrée, le
+            fichier HTML de sortie, et le fichier XSLT qui va contrôler la transformation. Il y a
+            une méthode plus élaborée pour créer ce qu'on appelle un <term>scénario de
+              transformation</term>, mais pour l'instant nous allons effectuer cette liaison de la
+            manière la plus simple. </p>
           <list type="ordered">
             <item> Ouvrez Oxygen. Sélectionnez <ident>Ouvrir</ident> sur le menu
                 <ident>Fichier</ident> et ouvrez le fichier <ident>duBellay.xml</ident>.</item>
-            <item>Sur le menu <ident>Document</ident> sélectionnez <ident>XML Document</ident>, et
-              ensuite <ident>Associate XSLT/CSS Stylesheet</ident> ou cliquez le bouton avec un épingle bleu sur la barre d'outils</item>
-            <item>Dans le dialog qui s'affiche, assurez vous d'ouvrir l'onglet XSLT. Puis
-              tapez <code>duBellay.xsl</code> dans le champ <ident>XSL URL</ident>.</item><item>Votre document <ident>duBellay.xml</ident> est maintenant doté d'une <term>processing instruction</term>
-                   <code>&lt;?xml-stylesheet type="text/xsl" href="duBellay.xsl"?</code></item>
-             <!-- <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
+            <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Document XML</ident>, et
+              ensuite <ident>Associer une feuille de style XSLT/CSS</ident> ou cliquez le bouton avec un
+              épingle bleu sur la barre d'outils</item>
+            <item>Dans le dialogue qui s'affiche, assurez vous d'ouvrir l'onglet XSLT. Puis tapez
+                <code>duBellay.xsl</code> dans le champ <ident>URL</ident>.</item>
+            <item>Votre document <ident>duBellay.xml</ident> est maintenant doté d'une
+                <term>instruction de traitement</term>
+              <code>&lt;?xml-stylesheet type="text/xsl" href="duBellay.xsl"?</code></item>
+            <!-- <item>Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
               ensuite <ident>Configurer un scénario de transformation</ident> ou tapez
                 <code>ctrl-maj-C</code>, ou bien cliquez sur le bouton à droite du triangle rouge
               sur la barre d’outils.</item>
@@ -218,12 +228,12 @@
               <ident>duBellay</ident>.</p>
           <p>
            <graphic height="5cm" url="../images/scenario-4.png"/></p>
-          <list>--> 
-          <item>  Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>, et
-            ensuite <ident>Apply Transformation Scenario</ident> ou tapez
-            <code>ctrl-maj-T</code>, ou bien cliquez sur le bouton avec un grand triangle rouge
-            sur la barre d’outils.</item>
-             <item>En bas de l’écran, le message <code>Transformation réussie</code> apparaît… </item>
+          <list>-->
+            <item> Sur le menu <ident>Document</ident> sélectionnez <ident>Transformation</ident>,
+              et ensuite <ident>Appliquer le/les scénario(s) de transformation</ident> ou tapez
+                <code>ctrl-maj-T</code>, ou bien cliquez sur le bouton avec un grand triangle rouge
+              sur la barre d’outils.</item>
+            <item>En bas de l’écran, le message <code>Transformation réussie</code> apparaît… </item>
             <item>.. et après un bref délai, votre navigateur devrait s’ouvrir pour afficher le
               fichier <ident>duBellay.html</ident> que vous venez de créer.</item>
             <item>C’est joli, hein ? Peut-être y a-t-il encore un peu de travail à faire…</item>
@@ -233,34 +243,42 @@
 
         <div>
           <head>Une feuille de style XSLT</head>
-          <p>Une feuille de style XSLT est un document XML comme les autres. Il peut donc être édité avec Oxygen. <list>
+          <p>Une feuille de style XSLT est un document XML comme les autres. Il peut donc être édité
+            avec Oxygen. <list>
               <item>Allez de nouveau sur <ident>Fichier - Ouvrir</ident>. Ouvrez le fichier
                   <ident>duBellay.xsl</ident> dans votre dossier de travail.</item>
-              <item>Ce fichier XSLT contient un seul template, qui correspond à  un élément nommé
-                <gi>TEI</gi>, l’élément racine de notre document. Son effet sera de produire un nouveau document XML, dont l'element racine sera nommé
-                <gi>html</gi>, et qui contiendra deux autres elements: un 
-<gi>head</gi> et un  <gi>body</gi>. <!--Nous precisons d'ailleurs que le format de ce nouveau document sera HTML. --></item><item><hi>Attention aux espaces de noms!</hi> Nous n'avons pas explicité qu'il s'agit d'un <q>TEI</q> de l'espace de noms de la TEI -- mais nous avons précisé que ce dernier sera l'espace de noms par défaut, donc cela ne pose aucune problème.</item><item>
-               Dans le <gi>head</gi>, on met des metadonnees concernant le document HTML (cela correspond en quelque sorte au <gi>teiHeader</gi>); en l'occurrence nous fournissons par defaut un element <gi>meta</gi> pour assurer l'affichage correct des caractères Unicode. Dans le <gi>body</gi> on va mettre le contenu de notre document, en appliquant la commande 
-                  <gi>xsl:apply-templates</gi></item>
+              <item>Ce fichier XSLT contient un seul template, qui correspond à un élément nommé
+                  <gi>TEI</gi>, l’élément racine de notre document. Son effet sera de produire un
+                nouveau document XML, dont l’élément racine sera nommé <gi>html</gi>, et qui
+                contiendra deux autres éléments: un <gi>head</gi> et un <gi>body</gi>.
+                <!--Nous precisons d'ailleurs que le format de ce nouveau document sera HTML. --></item>
+              <item><hi>Attention aux espaces de noms!</hi> Nous n'avons pas explicité qu'il s'agit
+                d'un <q>TEI</q> de l'espace de noms de la TEI -- mais nous avons précisé que ce
+                dernier sera l'espace de noms par défaut, donc cela ne pose aucune problème.</item>
+              <item> Dans le <gi>head</gi>, on met des métadonnées concernant le document HTML (cela
+                correspond en quelque sorte au <gi>teiHeader</gi>); en l'occurrence nous fournissons
+                par défaut un élément <gi>meta</gi> pour assurer l'affichage correct des caractères
+                Unicode. Dans le <gi>body</gi> on va mettre le contenu de notre document, en
+                appliquant la commande <gi>xsl:apply-templates</gi></item>
               <item>Ce dernier va essayer d’appliquer tous les templates disponibles… il n’y en a
                 pas, donc il ne va produire que le texte du document. </item>
-              <item>… et en effet, si vous revenez sur votre navigateur et regardez la source HTML du
-                fichier, c’est ce qu’il a fait.</item>
+              <item>… et en effet, si vous revenez sur votre navigateur et regardez la source HTML
+                du fichier, c’est ce qu’il a fait.</item>
             </list></p>
 
           <p>Au travail ! D’abord, nous allons extraire de l’en-tête un titre pour le document HTML,
             et supprimer le reste du TEI Header.</p>
 
           <list>
-              <item>Ajoutez un element <gi>title</gi> à l’intérieur de l’élément <gi>head</gi>, juste après la fin du <gi>meta</gi>. 
-              Pour trouver le titre du document il faut naviguer de la racine du document source (l’élément TEI) jusqu’à
-              l’élément <gi>title</gi>, qui se trouve dans le <gi>titleStmt</gi>, dans le
-                <gi>fileDesc</gi>, dans le <gi>teiHeader</gi>. Cela s’effectue avec un
-                <term>XPath</term>, bien-sur ! </item>
+            <item>Ajoutez un élément <gi>title</gi> à l’intérieur de l’élément <gi>head</gi>, juste
+              après la fin du <gi>meta</gi>. Pour trouver le titre du document il faut naviguer de
+              la racine du document source (l’élément TEI) jusqu’à l’élément <gi>title</gi>, qui se
+              trouve dans le <gi>titleStmt</gi>, dans le <gi>fileDesc</gi>, dans le
+                <gi>teiHeader</gi>. Cela s’effectue avec un <term>XPath</term>, bien-sur ! </item>
             <item>Tapez <code>&lt;xsl:value-of
                 select="teiHeader/fileDesc/titleStmt/title"/&gt;</code>.</item>
-            <item>Modifiez la balise <gi>xsl:apply-templates</gi>, en ajoutant <code>
-                select="text"</code> </item>
+            <item>Modifiez la balise <gi>xsl:apply-templates</gi>, en ajoutant <code>select="text"</code>
+            </item>
             <item>Cliquez sur le bouton Indentation. Votre feuille de style maintenant devrait
               ressembler à ceci :</item>
           </list>
@@ -280,12 +298,11 @@
 
           <list>
             <item>Revenez sur la feuille de style. </item>
-            <item>Ajoutez </item>
-            <item><list>
-                <item>un template pour <gi>l</gi>, qui va ajouter une balise <code>&lt;br/></code> après
-                  chaque vers</item>
-              <item>un template pour <gi>lb</gi>, qui va ajouter une balise <code>&lt;br/></code> à chaque
-                  saut de ligne</item>
+            <item>Ajoutez <list>
+                <item>un template pour <gi>l</gi>, qui va ajouter une balise <code>&lt;br/></code>
+                  après chaque vers</item>
+                <item>un template pour <gi>lb</gi>, qui va ajouter une balise <code>&lt;br/></code>
+                  à chaque saut de ligne</item>
                 <item>un template pour <gi>head</gi>, qui va l’entourer de <gi>h2</gi>
                 </item>
                 <item>un template pour <gi>lg</gi>, qui va l’entourer de <gi>p</gi>, et en plus le
@@ -325,31 +342,56 @@
         </div>
         <div>
           <head>Pour aller plus loin…</head>
-          
-          
-             
           <list>
             <item>Créez un paramètre <ident>modernisation</ident> avec <gi>xsl:param</gi>, avec
-              comme valeur "oui" ou "non", selon votre préférence. <!--(Attention de ne pas introduire
-              des blancs autour du mot !).--> Ceci va contrôler la suppression ou bien des
-              <gi>reg</gi>, ou bien des <gi>orig</gi> selon la valeur qu’on lui donne. Par exemple,
-              s’il aura la valeur <code>oui</code> on supprimera les <gi>orig</gi>. </item>
+              comme valeur "oui" ou "non", selon votre préférence.
+              <!--(Attention de ne pas introduire
+              des blancs autour du mot !).--> Ceci
+              va contrôler la suppression ou bien des <gi>reg</gi>, ou bien des <gi>orig</gi> selon
+              la valeur qu’on lui donne. Par exemple, s’il aura la valeur <code>oui</code> on
+              supprimera les <gi>orig</gi>. </item>
             <item>Ajoutez un template pour l’élément <gi>choice</gi>, qui contiendra un
                 <gi>xsl:choose</gi> pour tester la valeur de ce paramètre </item>
-            <item>Ensuite modifiez votre feuille de style pour entourer en guillemets la partie du <gi>choice</gi> affichee, pour signaler qu'il y a eu une modification de la source:   Les experts en HTML peuvent proposer d’autre modes d'affichage éventuels pour les
+            <item>Ensuite modifiez votre feuille de style pour entourer en guillemets la partie du
+                <gi>choice</gi> affichée, pour signaler qu'il y a eu une modification de la source:
+              Les experts en HTML peuvent proposer d’autre modes d'affichage éventuels pour les
                 <gi>choice</gi>, sous contrôle d’autres valeurs du paramètre… </item>
           </list>
-          <p>Afficher l’image du facsimilé (<code>pb/@facs</code>) de l’original avant la transcription</p>
+          <p>Afficher l’image du fac-similé (<code>pb/@facs</code>) de l’original avant la
+            transcription</p>
           <p>Qu’est-ce qu’on ferait pour n’afficher qu’une partie du texte? Modifiez votre feuille
-            de style pour n’afficher que le vers initial de chaque strophe. <!--Ensuite, vous pourriez
+            de style pour n’afficher que le vers initial de chaque strophe.
+            <!--Ensuite, vous pourriez
             les trier par ordre alphabétique….--></p>
-           
-
-          <p>Vous trouverez dans le fichier <ident>duBellayCorr.xsl</ident> une version corrigée de
-            cet exercice… ne le regardez pas tout de suite !</p>
-
+          <p>Et pour les plus ambitieux/ses, comment utiliser XPath pour créer une list des mots
+            utilises dans le texte, chacun avec sa fréquence? </p>
+        
         </div>
-
+<div><head>Pour tester votre compréhension</head>
+  <p>Le projet ELTeC met à votre disposition un ensemble de romans européens du 19ème siècle, tous balises dans un format TEI-XML minimal. Allez sur le site <ref target="http://distantreading.github.io/ELTeC/fra/index.html">http://distantreading.github.io/ELTeC/fra/index.html</ref> pour voir la liste des titres français. </p>
+  <p>Choisissez un titre qui vous plaît, et cliquez sur l’icône TEI pour voir le texte en XML-TEI. Tapez <code>ctrl-a </code>pour sélectionner tout, et ensuite faire un copier-coller pour copier le document dans oXygen. </p>
+  <p>Notez plusieurs aspects du balisage: il y a un titre et un auteur; il y a une mention de la taille (en mots) du texte. Et si vous descendez un peu dans le fichier vous verrez que chaque chapitre est encodé avec un <tag>div type='chapter'</tag>, et commence avec un ou plusieurs <gi>head</gi> suivi des  paragraphes encodés avec un <gi>p</gi>. Quelques uns des textes (mais pas tous) contiennent des vers, encodés avec un <gi>l</gi>; quelques un (mais pas tous) signalent un début de page dans la source avec une balise <tag>pb/</tag>. Avec vos connaissances de XPath et XSLT, il devrait être  facile pour vous de créer un petit rapport indiquant:
+  <list>
+    <item>le titre et l'auteur</item><item>le nombre des chapitres, des paragraphes, et des mots</item><item>une liste des titres des chapitres</item><item>une indication de la location du début du chapitre (ou bien comme numéro de page, ou bien comme numéro de paragraphe)</item><item>une indication du nombre des vers, s'il y en a </item>
+  </list></p>
+  <p>Vous pouvez générez ce rapport en format texte brut, ou en HTML, comme vous voulez. J'ai fait le mien en texte brut, parce que je suis paresseux, et à partir du texte FRA00302, parce que j'aime les romans du wild west. Voici le début:
+    <eg>Rapport sur "Belle rivière"  de Aimard, Gustave (1818-1883) 
+      
+      Ce roman contient 38 chapitres, 139314 mots, et 6284 paragraphes, soit en moyen 22.17 mots par paragraphe.
+      
+      Voici une liste des chapitres, avec la location de son début, et le contenu de son dernier paragraphe:
+      I -- Le comte de Jumonville... au paragraphe 1
+      Para final: Ils ne tardèrent pas à disparaître dans les fourrés et les taillis épais qui servaient de remparts au camp des Français.
+      II -- Le major Washington... au paragraphe 264
+      Para final: Son cigare entièrement fumé, l'enseigne Ward s'enveloppa à son tour dans son manteau et s'endormit du sommeil de Ponce-Pilate.
+      III -- L'assassinat... au paragraphe 437
+      Para final: Un silence funèbre plana alors sur cette place redevenue solitaire et désormais maudite.
+    </eg></p><p>A vous de jouer!</p>
+</div>
+     <div><head>L'anti-sèche</head>   
+       <p>Vous trouverez dans le dossier <ident>Corrections</ident> nos  propositions de réponse, dans les fichiers <ident>duBellayDisplay.xsl</ident>, 
+          <ident>duBellayLexique.xsl</ident>, et <ident>eltecRapport.xsl</ident>. Ne les regardez
+          pas tout de suite !</p></div>
       </div>
 
     </body>
