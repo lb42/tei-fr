@@ -1,0 +1,77 @@
+\documentclass[,twoside]{article}
+    \usepackage[oldstyle,proportional]{libertine}
+    \usepackage{fontspec}
+    \usepackage{microtype}
+    \usepackage{polyglossia}
+    \usepackage{bookmark}
+    \hypersetup{pdftitle={Sermones ad Status},
+                pdfauthor={Guibert de Tournai},
+                pdfborder={0 0 0}}
+    
+        \usepackage[innote]{indextools}      
+      \makeindex[title={Index Nominum},name=nominum]\makeindex[title={Index locorum},name=locorum]
+      \makeindex[title={Index locorum Sacrae Scripturae},name=IndexBiblique]
+      \makeindex[title={Index interpretationum nominum},name=IndexInterp]
+    
+    \usepackage[11pt]{extsizes}
+    \usepackage{fancyhdr} 
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0pt} % remove the header 
+    \pagestyle{fancy}
+        \fancyhead[LE,RO]{\thepage}
+      \fancyhead[CE]{\textsc{Sermones ad status}} 
+      \fancyhead[CO]{\textsc{Guibertus Tornacensis}} 
+      \setmainlanguage{latin}
+      \setotherlanguage{english}
+    \usepackage[series={A,B,C},noend,noeledsec,noledgroup]{reledmac} 
+    \Xarrangement[A]{paragraph}
+    \Xarrangement[B]{paragraph}
+    \Xarrangement[C]{paragraph}
+      % set the space before each series of notes 
+      \Xbeforenotes[A]{18pt}
+      \Xbeforenotes[B]{18pt}
+      \Xbeforenotes[C]{18pt}
+      \Xlemmadisablefontselection[C] % Prevents the lemma from having the same characteristics as in the text (bold, italics, etc.)
+      \Xnotenumfont{\normalfont\bfseries} % To print the line number in bold in the apparatus...
+        \lineation{page} 
+    
+      \setlength{\stanzaindentbase}{20pt}
+      \setstanzaindents{1,1}
+      \setcounter{stanzaindentsrepetition}{1}
+         
+      \firstlinenum{0}
+      \linenumincrement{5}
+    \linenummargin{outer}
+    \Xnumberonlyfirstinline[] 
+    \Xnumberonlyfirstintwolines[]
+      \Xsymlinenum{}
+    \fnpos{critical-familiar}
+    
+      \title{}
+      \author{}
+      \date{}
+    
+    % Basic workaround for broken \section functionality in reledmac
+    \makeatletter
+    \newcommand{\TEIsection}[1]{\vspace{0.5cm}\noindent\large\textit{#1}\vspace{0.3cm}}\par\nobreak\vspace{-\parskip}\@afterheading\noindent
+    \makeatother
+      
+    \begin{document}
+      \raggedbottom
+  
+      \sidenotemargin{inner} 
+      \pagenumbering{arabic} 
+      \maketitle
+    
+      \thispagestyle{empty}
+      \beginnumbering 
+      
+    
+    \endnumbering 
+  \printindex[nominum]
+  \printindex[locorum]      
+  \printindex[fontium]
+  \printindex[IndexBiblique]
+  \printindex[IndexInterp]
+    
+\end{document}
