@@ -261,25 +261,23 @@
       jusqu'au bouton contenant le nom du module <ident>(figures)</ident> et cliquez
       la-dessus.</item>
      <item>Tous les éléments de ce module sont maintenant sélectionnés dans notre schéma.</item>
-     <item>Supposons par contre que dans notre corpus nous n'envisageons jamais de baliser ni les
-      tableaux, ni les formules de math, ni les partitions musicales: nous n'aurons donc pas besoin
-      des éléments <gi>cell</gi>, <gi>formula</gi>, <gi>notatedMusic</gi><gi>row</gi>, ou
-      <gi>table</gi>: supprimez les, en décochant la case pour chacun.</item>
+     <item>Supposons par contre que  nous n'envisageons jamais de baliser ni les tableaux, ni les
+      formules de math, ni les partitions musicales: nous n'aurons donc pas besoin des éléments
+      <gi>cell</gi>, <gi>formula</gi>, <gi>notatedMusic</gi><gi>row</gi>, ou <gi>table</gi>:
+      supprimez les, en décochant la case pour chacun.</item>
      <item>Régénérez votre schéma et revalidez votre fichier test ... si tout va bien vous aurez
-      toujours un joli carreau vert Mais vous pouvez maintenant ajouter un élément figure a certains
-      endroits dans votre document – mettez le curseur par ex après un <gi>head</gi> ou entre deux
-      <gi>div</gi> et tapez un chevron pour voir quels éléments sont permis à cette endroit.</item>
+      toujours un joli carreau vert Mais vous pouvez maintenant ajouter un élément <gi>figure</gi> à
+      certains endroits dans votre document – mettez le curseur par ex après un <gi>head</gi> ou
+      entre deux <gi>div</gi> et tapez un chevron pour voir quels éléments sont permis à cette
+      endroit.</item>
     </list>
-
    </div>
 
-
-
    <div>
-    <head>Comment limiter les valeurs de l'attribut <att>type</att> de l'élément <gi>div</gi></head>
+    <head>Contrôle des attributs</head>
     <p>Nous avons vu comment ajouter tel ou tel élément à notre schéma. Que peut-on faire pour
-     contrôler les valeurs légales de ses attributs&#xa0;? (Notez qu'en général les attributs TEI
-     sont définis d'une manière très permissive : vous pouvez taper n'importe quoi comme valeur).
+     contrôler ses attributs et leur valeurs légales ? (Notez qu'en général les attributs TEI sont
+     définis d'une manière très permissive : vous pouvez taper n'importe quoi comme valeur).
      Supposons par exemple que nous désirons limiter les valeurs possibles pour l'attribut
      <att>type</att> sur <gi>div</gi>.<list>
      <item>Revenez dans Roma</item>
@@ -287,17 +285,26 @@
       <code>div</code></item>
      <item>La page qui s'affiche vous permet de modifier plusieurs aspects de cet élément: sa
       documentation, ses attributs, les classes auxquelles il appartient, et son modèle de contenu.
-      Nous souhaitons simplement modifier l'un de ses attributs, donc cliquer sur le deuxième carré
-      bleu "Attributs". </item>
-     <item>Comme le plupart des attributs TEI, <att>type</att> est défini par une classe
-      <!--e de laquelle sa definition est heritee-->e (Pour simplifier un peu, cet attribut peut
-      figurer sur plusieurs éléments qui constituent les membres de cette classe). Mais on peut
-      modifier sa définition quand ê! scroller en bas pour voir les attributs de
-      <ident>att.typed</ident>, et cliquer sur le crayon à gauche de la mention <code>type
-      </code></item>
+      Nous souhaitons simplement contrôler ses attributs, donc cliquer sur le deuxième carré bleu
+      "Attributs". </item>
+     <item>Une liste des attributs disponibles pour cet élément s'affiche, organisée par la classe à
+      laquelle appartient l'attribut.  (Notez que le plupart des attributs TEI, sont fournis par une
+      classe: <!--e de laquelle sa definition est heritee-->pour simplifier un peu, cela permet de
+      définir une fois pour tous les attributs qui peut figurer sur plusieurs éléments, et qui
+      constituent les membres de cette classe). </item>
+     <item>Vous pouvez supprimer les attributs que vous ne souhaitez pas voir dans votre
+      personnalisation. Par exemple, la classe<ident> att.divLike</ident> fournit deux attributs
+      <att>org</att> et <att>sample</att>. Vous pouvez supprimer l'un d'eux (disons
+      <att>sample</att>) en cliquant sur le grand X à coté de son nom</item><item>De la même manière, <ident>att.global.linking</ident> fournit huit attributs spécialisés pour
+      l'expression des hyperliens. Vous pourriez en supprimer quelques uns en cliquent le X à coté
+      de son nom ; cest plus simple de supprimer tous en même temps, en cliquant le X à coté de
+      att.global.linking.</item>
+     <item>Vous pouvez aussi modifier la définition d'un attribut. Par exemple, regardons l'attribut
+      <att>type</att>  fourni par la classe att.typed : cliquez sur le crayon à gauche de la mention
+      <code>type</code></item>
      <item>Entre autres, la page qui s'affiche indique que l'utilisation de cet attribut est
       facultatif, et que la liste des valeurs acceptables est par défaut ouverte, c'est à dire :
-      n'importe quelle valeur serait acceptable, même aucune. On va modifier cela. </item>
+      n'importe quelle valeur serait acceptable, même aucune.  Nous allons modifier cela. </item>
      <item>D'abord sélectionnez <code>Obligatoire</code> du menu déroulant à coté du label
       <code>Utilisation</code>. </item>
      <item>Sélectionnez <code>Fermé</code> du menu déroulant à coté du label
@@ -312,7 +319,9 @@
       ....</tag> et <tag>/desc</tag></item>
      </list> </p>
    </div>
-
+   <!--<div><head>Comment supprimer les attributs inutiles?</head> 
+  <p>Vous avez sans doute remarque que la plupart de vos elements peuvent porter plusieurs attributs, et qu'il y en a d'un utilite discutable. Par exemple, </p> </div>
+-->
    <div>
     <head>Essayons de nouveau...</head>
     <p>Est-ce que nous avons réussi? Vous connaissez maintenant la démarche...&#xa0;: <list>
@@ -328,49 +337,40 @@
      <item>Votre document n'est plus valide&#xa0;: il y a un carré rouge en haut&#xa0;! En bas vous
       voyez le message <code>Element 'div' missing required attribute 'type'</code> </item>
      <item>Mettez le curseur à l'intérieur de la balise ouvrante de la <gi>div</gi>, juste avant le
-      &gt; et tapez un blanc. oXygen propose une liste d'attributs disponibles. Scrollez-la jusqu'à
-      <att>type</att> et notez que cet attribut est affiché en gras, pour signaler que sa présence
-      est obligatoire.</item>
+      &gt; et tapez un blanc. oXygen propose une liste d'attributs disponibles. Notez que les
+      attributs que vous avez supprimés n'y figurent plus.</item>
+     <item>Faites défiler la liste jusqu'à <att>type</att> et notez que cet attribut est affiché en
+      gras, pour signaler que sa présence est obligatoire.</item>
      <item>Sélectionnez <att>type</att> et notez que oXygen vous propose la liste des valeurs que
       nous avions prédéfinies dans notre schéma. </item>
      <item>Choisissez l'une de ces valeurs, p.ex. <code>prose</code>, et votre document devient
       valide, avec un petit carré vert.</item>
      </list> </p>
    </div>
- 
+
    <div>
-    <head>Enregistrement de la personnalisation</head>
+    <head>Enregistrement et reutilisation de la personnalisation</head>
     <p>Nous espérons que vous aurez maintenant une idée des capacités de ce système de
      personnalisation. Bien sûr, vous ne pouvez pas définir tout ce qui est le mieux pour votre
      projet en une seule session. Vous avez donc besoin d'une façon d'enregistrer la spécification,
      pour revenir dessus plus tard. </p>
-    
-    
-    
-    
-     <!-- <list><item>Revenez dans votre navigateur et cliquez sur l'onglet <ident>Enregistrer</ident>. </item>
-     <item>Votre navigateur vous envoie un fichier XML-TEI, avec le même nom que votre schéma, donc
-      <ident>teiTranscr.xml</ident>. Enregistrez ce fichier dans votre dossier
-      <ident>Travaux</ident>. </item>
-     <item>Ouvrez ce fichier XML avec oXygen et lisez-le (mais avec les balises&#xa0;: en mode
-      Auteur il y a des détails significatifs qui sont cachés&#xa0;!). </item>
-     <item>D'abord notez que votre personnalisation hérite des propositions relatives au schéma
-      minimal duquel vous l'avez dérivé. Vous pouvez bien sûr modifier ces propositions, en
-      décrivant les objets de votre projet, vos procédures éventuelles de définition de schéma, vos
-      règles maison de balisage, etc. etc. -\- juste comme un manuel d'encodage classique. </item>
-     <item>Ensuite, regardez l'élément <gi>schémaSpec</gi>. Cet élément contient l'essentiel de
-      votre personnalisation. Notez qu'il compte un élément <gi>moduleRef</gi> pour chacun des
-      modules que vous avez sélectionnés, et que le module <ident>core</ident> est complété avec une
-      liste des éléments que vous avez exclus de ce module.</item>
-     <item>Regardez la spécification pour <gi>div</gi> (dans un élément <gi>élémentSpec</gi>) pour
-      voir comment nous l'avons modifié.</item>
-     <item>Ce fichier est un document XML-TEI comme tous les autres. Vous pouvez donc faire des
-      modifications, par exemple au début, pour améliorer votre manuel d'encodage. Pour recharger
-      votre document dans Roma, il faut choisir la quatrième option <ident>Open existing
-      customisation</ident> sur la page d'accueil de Roma. S'il vous reste du temps, expérimentez
-      cela&#xa0;!</item>
-     </list> </p>-->
-  
+    <list>
+     <item>Cliquer encore une fois sur <ident>Telecharger</ident></item>
+     <item>Sélectionner <code>Personalisation en format ODD</code> pour enregistrer la version
+      actuelle de votre schéma dans le fichier <ident>tei_minimal_plus.odd</ident></item>
+     <item>Fermer votre session Roma et fermer votre navigateur; ensuite rouvrir, et sur l'écran
+      initiale cliquez <ident>Telecharger un ODD</ident>. Ensuite, cliquez le bouton
+      <ident>Browse</ident>, naviguez jusqu'à votre fichier ODD et le sélectionner. Cliquez sur
+      <ident> Commencer</ident>.</item>
+     <item>Vous pouvez maintenant continuer de personnaliser votre personnalisation... Nous n'avons
+      présenté que quelques parties fondamentales de cette interface; n'hésitez pas de l'explorer
+      plus profondement ! </item>
+    </list>
+   </div>
+
+
+
+
    <div type="slide">
     <head>Ressources</head>
     <list>
@@ -387,8 +387,8 @@
 
      <item><list>
       <item>« Module 8: Customizing TEI » in <title>TEI By Example</title> <ref
-       target="https://teibyexample.org/tutorials/TBED08v00.htm"
-       >https://teibyexample.org/tutorials/TBED08v00.htm</ref> </item>
+       target="https://teibyexample.org/exist/tutorials/TBED08v00.htm"
+       >https://teibyexample.org/exist/tutorials/TBED08v00.htm</ref> </item>
       <item>« Personnaliser la TEI » <title>Qu’est-ce que la Text Encoding Initiative ?</title>,
        <ref target="http://books.openedition.org/oep/1304"
        >http://books.openedition.org/oep/1304</ref>.</item>
@@ -396,7 +396,9 @@
        Customization</title> <ref
        target="http://www.balisage.net/Proceedings/vol24/html/Viglianti01/BalisageVol24-Viglianti01.html"
        >
-       http://www.balisage.net/Proceedings/vol24/html/Viglianti01/BalisageVol24-Viglianti01.html</ref></item>
+        http://www.balisage.net/Proceedings/vol24/html/Viglianti01/BalisageVol24-Viglianti01.html</ref></item>
+      <item>« TEI Customization » (tutoriel en anglais qui fait la comparaison entre les deux versions de Roma) 
+       <ref target="https://cmohge1.github.io/lrbs-digital-editing-advanced-2019/TEI-customization.pdf">https://cmohge1.github.io/lrbs-digital-editing-advanced-2019/TEI-customization.pdf</ref></item>
       <item>« TEI Customization Primer » (Women Writers Project) <ref
        target="https://www.wwp.neu.edu/outreach/resources/customization.html"
        >https://www.wwp.neu.edu/outreach/resources/customization.html</ref></item>
